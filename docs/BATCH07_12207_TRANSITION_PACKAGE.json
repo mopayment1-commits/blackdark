@@ -8,8 +8,8 @@
     "prerequisites_listed": true
   },
   "artifact": "BATCH07_12207_TRANSITION_PACKAGE",
-  "generated_at": "2026-09-06T01:09:18.331062+00:00",
-  "git_commit": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
+  "generated_at": "2026-09-06T11:18:26.921879+00:00",
+  "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
   "scope": "Batch07 12207 Transition Package",
   "status": "TRANSITION_PREPARED_LOCAL",
   "not_claimed": [

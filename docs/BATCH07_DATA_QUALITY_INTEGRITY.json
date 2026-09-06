@@ -8,8 +8,8 @@
     "ids_with_integrity_rules": 50
   },
   "artifact": "BATCH07_DATA_QUALITY_INTEGRITY",
-  "generated_at": "2026-09-06T01:09:18.330994+00:00",
-  "git_commit": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
+  "generated_at": "2026-09-06T11:18:26.921768+00:00",
+  "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
   "status": "PROVEN_LOCAL",
   "ids_covered": 50,
   "quad_verified": 50,

@@ -10,12 +10,27 @@
     "performance_evidence_insufficient_count": 0
   },
   "artifact": "BATCH07_PERFORMANCE_CAPACITY_PREP",
-  "generated_at": "2026-09-06T01:09:18.331013+00:00",
-  "git_commit": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
+  "generated_at": "2026-09-06T11:18:26.921821+00:00",
+  "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
+  "performance_tiers": {
+    "COMPONENT_PATH_PERFORMANCE": {
+      "path": "pdf_capability_registry.execute_capability",
+      "status": "LOCAL_COMPLETE"
+    },
+    "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE": {
+      "path": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "status": "LOCAL_COMPLETE"
+    },
+    "PRODUCTION_LIVE_REQUIRED": "QUEUE_B RL4 — not claimed locally"
+  },
   "performance_local_status": "LOCAL_COMPLETE",
+  "full_path_local_status": "LOCAL_COMPLETE",
   "local_performance_failures": [],
   "local_performance_unexecuted_but_executable": [],
   "performance_evidence_insufficient": [],
+  "full_path_local_performance_failures": [],
+  "full_path_local_performance_unexecuted_but_executable": [],
+  "performance_claim_ambiguity": [],
   "methodology": {
     "default_warmup_iterations": 8,
     "default_measurement_iterations": 80,
@@ -62,36 +77,68 @@
       "processor": "x86_64",
       "cpu_count": 4
     },
-    "measured_at_utc": "2026-09-06T01:02:07.282688+00:00",
-    "git_commit": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
+    "measured_at_utc": "2026-09-06T10:50:15.640770+00:00",
+    "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
     "not_production_evidence": true
+  },
+  "full_path_methodology": {
+    "warmup": 3,
+    "iterations": 20,
+    "path": "cap646.runtime.execute_capability with entitlement_engine.check",
+    "user_fixture": "pro tier local user dict",
+    "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+    "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment — materially higher latency than pdf_capability_registry component binding. Thresholds are tier-specific and do not relax COMPONENT_PATH_PERFORMANCE gates.",
+    "thresholds_ms": {
+      "CLASS_A_DIRECT_LIGHTWEIGHT": 750,
+      "CLASS_B_ANALYSIS": 8500,
+      "CLASS_C_AI_HEAVY": 10000,
+      "BACKGROUND_JOB": 35000,
+      "NOT_APPLICABLE": 0
+    }
   },
   "class_summary": {
     "CLASS_B_ANALYSIS": {
       "count": 48,
       "p50_ms_median": 0.38,
-      "p95_ms_max": 649.51,
-      "p99_ms_max": 650.61,
+      "p95_ms_max": 645.75,
+      "p99_ms_max": 650.13,
       "error_rate_max": 0.0
     },
     "CLASS_C_AI_HEAVY": {
       "count": 1,
-      "p50_ms_median": 2326.06,
-      "p95_ms_max": 3684.32,
-      "p99_ms_max": 5579.36,
+      "p50_ms_median": 2311.87,
+      "p95_ms_max": 3694.12,
+      "p99_ms_max": 5800.46,
       "error_rate_max": 0.0
     },
     "CLASS_A_DIRECT_LIGHTWEIGHT": {
       "count": 1,
       "p50_ms_median": 0.47,
-      "p95_ms_max": 0.49,
-      "p99_ms_max": 0.49,
+      "p95_ms_max": 0.5,
+      "p99_ms_max": 0.54,
       "error_rate_max": 0.0
+    }
+  },
+  "full_path_class_summary": {
+    "CLASS_B_ANALYSIS": {
+      "count": 48,
+      "p95_ms_max": 8085.48,
+      "p99_ms_max": 8131.24
+    },
+    "CLASS_C_AI_HEAVY": {
+      "count": 1,
+      "p95_ms_max": 2.79,
+      "p99_ms_max": 2.84
+    },
+    "CLASS_A_DIRECT_LIGHTWEIGHT": {
+      "count": 1,
+      "p95_ms_max": 4.48,
+      "p99_ms_max": 4.84
     }
   },
   "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
   "not_production_evidence": true,
-  "per_id_measurements": [
+  "component_path_measurements": [
     {
       "capability_id": 301,
       "performance_class": "CLASS_B_ANALYSIS",
@@ -102,7 +149,7 @@
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
       "p95_ms": 0.41,
-      "p99_ms": 0.44,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -112,15 +159,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.01,
+        "wall_clock_ms": 2.0,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.01
+        "burst_wall_clock_ms": 2.0
       },
-      "stability_p95_half_split_rel_delta": 0.1632,
+      "stability_p95_half_split_rel_delta": 0.1445,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -140,8 +187,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.37,
+      "p95_ms": 0.38,
+      "p99_ms": 0.4,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -151,15 +198,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.95,
+        "wall_clock_ms": 1.96,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.95
+        "burst_wall_clock_ms": 1.96
       },
-      "stability_p95_half_split_rel_delta": 0.0335,
+      "stability_p95_half_split_rel_delta": 0.0759,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -180,7 +227,7 @@
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
       "p95_ms": 0.4,
-      "p99_ms": 0.43,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -198,7 +245,7 @@
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
         "burst_wall_clock_ms": 1.93
       },
-      "stability_p95_half_split_rel_delta": 0.1575,
+      "stability_p95_half_split_rel_delta": 0.1449,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -218,8 +265,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -229,15 +276,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.95,
+        "wall_clock_ms": 1.94,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.95
+        "burst_wall_clock_ms": 1.94
       },
-      "stability_p95_half_split_rel_delta": 0.0295,
+      "stability_p95_half_split_rel_delta": 0.1257,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -257,8 +304,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.39,
-      "p99_ms": 0.41,
+      "p95_ms": 0.4,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -268,15 +315,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.94,
+        "wall_clock_ms": 2.06,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.94
+        "burst_wall_clock_ms": 2.06
       },
-      "stability_p95_half_split_rel_delta": 0.1153,
+      "stability_p95_half_split_rel_delta": 0.1584,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -307,15 +354,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.93,
+        "wall_clock_ms": 1.94,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.93
+        "burst_wall_clock_ms": 1.94
       },
-      "stability_p95_half_split_rel_delta": 0.1043,
+      "stability_p95_half_split_rel_delta": 0.1188,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -335,8 +382,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.39,
+      "p95_ms": 0.43,
+      "p99_ms": 0.46,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -346,15 +393,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.95,
+        "wall_clock_ms": 2.08,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.95
+        "burst_wall_clock_ms": 2.08
       },
-      "stability_p95_half_split_rel_delta": 0.0652,
+      "stability_p95_half_split_rel_delta": 0.2025,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -374,8 +421,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.4,
-      "p99_ms": 0.42,
+      "p95_ms": 0.38,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -393,7 +440,7 @@
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
         "burst_wall_clock_ms": 1.94
       },
-      "stability_p95_half_split_rel_delta": 0.1154,
+      "stability_p95_half_split_rel_delta": 0.1363,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -413,8 +460,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.39,
+      "p95_ms": 0.39,
+      "p99_ms": 0.4,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -424,15 +471,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.92,
+        "wall_clock_ms": 1.96,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.92
+        "burst_wall_clock_ms": 1.96
       },
-      "stability_p95_half_split_rel_delta": 0.045,
+      "stability_p95_half_split_rel_delta": 0.0975,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -452,8 +499,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.36,
-      "p99_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -463,15 +510,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.15,
+        "wall_clock_ms": 1.93,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.15
+        "burst_wall_clock_ms": 1.93
       },
-      "stability_p95_half_split_rel_delta": 0.0252,
+      "stability_p95_half_split_rel_delta": 0.1495,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -491,8 +538,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.38,
+      "p95_ms": 0.38,
+      "p99_ms": 0.41,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -502,15 +549,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.93,
+        "wall_clock_ms": 1.98,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.93
+        "burst_wall_clock_ms": 1.98
       },
-      "stability_p95_half_split_rel_delta": 0.038,
+      "stability_p95_half_split_rel_delta": 0.0877,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -530,8 +577,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.37,
+      "p95_ms": 0.38,
+      "p99_ms": 0.4,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -541,15 +588,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.9,
+        "wall_clock_ms": 1.96,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.9
+        "burst_wall_clock_ms": 1.96
       },
-      "stability_p95_half_split_rel_delta": 0.032,
+      "stability_p95_half_split_rel_delta": 0.0661,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -569,8 +616,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.41,
-      "p99_ms": 0.43,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -588,7 +635,7 @@
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
         "burst_wall_clock_ms": 1.98
       },
-      "stability_p95_half_split_rel_delta": 0.1389,
+      "stability_p95_half_split_rel_delta": 0.1308,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -608,8 +655,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.37,
+      "p95_ms": 0.38,
+      "p99_ms": 0.41,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -619,15 +666,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.91,
+        "wall_clock_ms": 1.94,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.91
+        "burst_wall_clock_ms": 1.94
       },
-      "stability_p95_half_split_rel_delta": 0.0335,
+      "stability_p95_half_split_rel_delta": 0.0982,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -647,8 +694,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.36,
-      "p95_ms": 0.37,
-      "p99_ms": 0.39,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -658,15 +705,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.96,
+        "wall_clock_ms": 1.98,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.96
+        "burst_wall_clock_ms": 1.98
       },
-      "stability_p95_half_split_rel_delta": 0.0652,
+      "stability_p95_half_split_rel_delta": 0.1478,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -685,9 +732,9 @@
       "warmup_iterations": 24,
       "measurement_iterations": 120,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 2326.06,
-      "p95_ms": 3684.32,
-      "p99_ms": 5579.36,
+      "p50_ms": 2311.87,
+      "p95_ms": 3694.12,
+      "p99_ms": 5800.46,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -697,15 +744,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2432.67,
+        "wall_clock_ms": 2562.94,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2432.67
+        "burst_wall_clock_ms": 2562.94
       },
-      "stability_p95_half_split_rel_delta": 0.4371,
+      "stability_p95_half_split_rel_delta": 0.4618,
       "stability_max_rel_delta": 0.5,
       "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
       "stability_pass": true,
@@ -725,8 +772,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.41,
+      "p95_ms": 0.42,
+      "p99_ms": 0.45,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -736,15 +783,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.09,
+        "wall_clock_ms": 2.04,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.09
+        "burst_wall_clock_ms": 2.04
       },
-      "stability_p95_half_split_rel_delta": 0.0706,
+      "stability_p95_half_split_rel_delta": 0.1004,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -764,8 +811,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p95_ms": 0.4,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -775,15 +822,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.02,
+        "wall_clock_ms": 2.0,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.02
+        "burst_wall_clock_ms": 2.0
       },
-      "stability_p95_half_split_rel_delta": 0.0412,
+      "stability_p95_half_split_rel_delta": 0.1363,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -803,8 +850,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.4,
+      "p95_ms": 0.42,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -814,15 +861,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.01,
+        "wall_clock_ms": 2.02,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.01
+        "burst_wall_clock_ms": 2.02
       },
-      "stability_p95_half_split_rel_delta": 0.042,
+      "stability_p95_half_split_rel_delta": 0.121,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -842,7 +889,7 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.41,
+      "p95_ms": 0.42,
       "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
@@ -853,15 +900,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.02,
+        "wall_clock_ms": 2.1,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.02
+        "burst_wall_clock_ms": 2.1
       },
-      "stability_p95_half_split_rel_delta": 0.0876,
+      "stability_p95_half_split_rel_delta": 0.1059,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -881,8 +928,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -892,15 +939,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.98,
+        "wall_clock_ms": 2.04,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.98
+        "burst_wall_clock_ms": 2.04
       },
-      "stability_p95_half_split_rel_delta": 0.0351,
+      "stability_p95_half_split_rel_delta": 0.1203,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -920,8 +967,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.4,
-      "p99_ms": 0.41,
+      "p95_ms": 0.41,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -931,15 +978,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.99,
+        "wall_clock_ms": 2.08,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.99
+        "burst_wall_clock_ms": 2.08
       },
-      "stability_p95_half_split_rel_delta": 0.0567,
+      "stability_p95_half_split_rel_delta": 0.1067,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -959,8 +1006,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.4,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -970,15 +1017,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.99,
+        "wall_clock_ms": 2.05,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.99
+        "burst_wall_clock_ms": 2.05
       },
-      "stability_p95_half_split_rel_delta": 0.0452,
+      "stability_p95_half_split_rel_delta": 0.1086,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -998,8 +1045,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1009,15 +1056,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.2,
+        "wall_clock_ms": 2.12,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.2
+        "burst_wall_clock_ms": 2.12
       },
-      "stability_p95_half_split_rel_delta": 0.0323,
+      "stability_p95_half_split_rel_delta": 0.0904,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1037,8 +1084,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.4,
-      "p99_ms": 0.4,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1048,15 +1095,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.97,
+        "wall_clock_ms": 2.13,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.97
+        "burst_wall_clock_ms": 2.13
       },
-      "stability_p95_half_split_rel_delta": 0.0589,
+      "stability_p95_half_split_rel_delta": 0.1066,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1076,8 +1123,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1087,15 +1134,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.08,
+        "wall_clock_ms": 2.02,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.08
+        "burst_wall_clock_ms": 2.02
       },
-      "stability_p95_half_split_rel_delta": 0.0317,
+      "stability_p95_half_split_rel_delta": 0.0732,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1115,8 +1162,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p95_ms": 0.43,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1126,15 +1173,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.01,
+        "wall_clock_ms": 2.05,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.01
+        "burst_wall_clock_ms": 2.05
       },
-      "stability_p95_half_split_rel_delta": 0.0344,
+      "stability_p95_half_split_rel_delta": 0.1315,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1154,8 +1201,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.4,
+      "p95_ms": 0.42,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1165,15 +1212,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.02,
+        "wall_clock_ms": 2.04,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.02
+        "burst_wall_clock_ms": 2.04
       },
-      "stability_p95_half_split_rel_delta": 0.0407,
+      "stability_p95_half_split_rel_delta": 0.1017,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1193,8 +1240,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.4,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1204,15 +1251,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.0,
+        "wall_clock_ms": 2.03,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.0
+        "burst_wall_clock_ms": 2.03
       },
-      "stability_p95_half_split_rel_delta": 0.0449,
+      "stability_p95_half_split_rel_delta": 0.1128,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1231,9 +1278,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 628.8,
-      "p95_ms": 649.51,
-      "p99_ms": 650.61,
+      "p50_ms": 628.47,
+      "p95_ms": 645.75,
+      "p99_ms": 650.13,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1243,15 +1290,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 3217.02,
+        "wall_clock_ms": 3139.27,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 3217.02
+        "burst_wall_clock_ms": 3139.27
       },
-      "stability_p95_half_split_rel_delta": 0.0344,
+      "stability_p95_half_split_rel_delta": 0.0316,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1270,9 +1317,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.43,
-      "p99_ms": 0.45,
+      "p50_ms": 0.39,
+      "p95_ms": 0.42,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1282,15 +1329,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.99,
+        "wall_clock_ms": 2.17,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.99
+        "burst_wall_clock_ms": 2.17
       },
-      "stability_p95_half_split_rel_delta": 0.1454,
+      "stability_p95_half_split_rel_delta": 0.1056,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1310,8 +1357,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.42,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1321,15 +1368,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.97,
+        "wall_clock_ms": 2.09,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.97
+        "burst_wall_clock_ms": 2.09
       },
-      "stability_p95_half_split_rel_delta": 0.0361,
+      "stability_p95_half_split_rel_delta": 0.0872,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1348,9 +1395,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p50_ms": 0.39,
+      "p95_ms": 0.42,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1360,15 +1407,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.02,
+        "wall_clock_ms": 2.09,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.02
+        "burst_wall_clock_ms": 2.09
       },
-      "stability_p95_half_split_rel_delta": 0.0345,
+      "stability_p95_half_split_rel_delta": 0.0881,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1388,8 +1435,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.41,
-      "p99_ms": 0.43,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1399,15 +1446,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.98,
+        "wall_clock_ms": 2.08,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.98
+        "burst_wall_clock_ms": 2.08
       },
-      "stability_p95_half_split_rel_delta": 0.1056,
+      "stability_p95_half_split_rel_delta": 0.0746,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1426,9 +1473,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.37,
-      "p95_ms": 0.38,
-      "p99_ms": 0.39,
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1438,15 +1485,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.01,
+        "wall_clock_ms": 2.05,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.01
+        "burst_wall_clock_ms": 2.05
       },
-      "stability_p95_half_split_rel_delta": 0.0292,
+      "stability_p95_half_split_rel_delta": 0.09,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1466,8 +1513,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1477,15 +1524,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.98,
+        "wall_clock_ms": 2.15,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.98
+        "burst_wall_clock_ms": 2.15
       },
-      "stability_p95_half_split_rel_delta": 0.034,
+      "stability_p95_half_split_rel_delta": 0.0582,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1504,9 +1551,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.37,
-      "p95_ms": 0.38,
-      "p99_ms": 0.39,
+      "p50_ms": 0.38,
+      "p95_ms": 0.42,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1516,15 +1563,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.95,
+        "wall_clock_ms": 2.0,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.95
+        "burst_wall_clock_ms": 2.0
       },
-      "stability_p95_half_split_rel_delta": 0.0368,
+      "stability_p95_half_split_rel_delta": 0.1057,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1543,9 +1590,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.37,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p50_ms": 0.38,
+      "p95_ms": 0.42,
+      "p99_ms": 0.45,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1555,15 +1602,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.06,
+        "wall_clock_ms": 2.08,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.06
+        "burst_wall_clock_ms": 2.08
       },
-      "stability_p95_half_split_rel_delta": 0.0357,
+      "stability_p95_half_split_rel_delta": 0.1207,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1583,8 +1630,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.47,
-      "p95_ms": 0.49,
-      "p99_ms": 0.49,
+      "p95_ms": 0.5,
+      "p99_ms": 0.54,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1594,15 +1641,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.47,
+        "wall_clock_ms": 15.72,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.47
+        "burst_wall_clock_ms": 15.72
       },
-      "stability_p95_half_split_rel_delta": 0.0424,
+      "stability_p95_half_split_rel_delta": 0.1028,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Low-variance synchronous path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1622,7 +1669,7 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.41,
+      "p95_ms": 0.4,
       "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
@@ -1633,15 +1680,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.03,
+        "wall_clock_ms": 2.05,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.03
+        "burst_wall_clock_ms": 2.05
       },
-      "stability_p95_half_split_rel_delta": 0.0973,
+      "stability_p95_half_split_rel_delta": 0.0576,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1661,8 +1708,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.4,
+      "p95_ms": 0.41,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1680,7 +1727,7 @@
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
         "burst_wall_clock_ms": 2.01
       },
-      "stability_p95_half_split_rel_delta": 0.0339,
+      "stability_p95_half_split_rel_delta": 0.0788,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1699,9 +1746,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.41,
+      "p50_ms": 0.39,
+      "p95_ms": 0.45,
+      "p99_ms": 0.46,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1719,7 +1766,7 @@
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
         "burst_wall_clock_ms": 2.04
       },
-      "stability_p95_half_split_rel_delta": 0.0418,
+      "stability_p95_half_split_rel_delta": 0.1566,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1739,8 +1786,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.4,
+      "p95_ms": 0.42,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1750,15 +1797,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.01,
+        "wall_clock_ms": 2.05,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.01
+        "burst_wall_clock_ms": 2.05
       },
-      "stability_p95_half_split_rel_delta": 0.0342,
+      "stability_p95_half_split_rel_delta": 0.0932,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1777,9 +1824,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p50_ms": 0.39,
+      "p95_ms": 0.4,
+      "p99_ms": 0.47,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1789,15 +1836,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.0,
+        "wall_clock_ms": 2.03,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.0
+        "burst_wall_clock_ms": 2.03
       },
-      "stability_p95_half_split_rel_delta": 0.0297,
+      "stability_p95_half_split_rel_delta": 0.1093,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1816,9 +1863,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.4,
+      "p50_ms": 0.39,
+      "p95_ms": 0.41,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1836,7 +1883,7 @@
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
         "burst_wall_clock_ms": 2.05
       },
-      "stability_p95_half_split_rel_delta": 0.0375,
+      "stability_p95_half_split_rel_delta": 0.0908,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1855,9 +1902,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.41,
+      "p50_ms": 0.39,
+      "p95_ms": 0.42,
+      "p99_ms": 0.44,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1867,15 +1914,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.0,
+        "wall_clock_ms": 2.14,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.0
+        "burst_wall_clock_ms": 2.14
       },
-      "stability_p95_half_split_rel_delta": 0.0389,
+      "stability_p95_half_split_rel_delta": 0.132,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1894,9 +1941,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p50_ms": 0.39,
+      "p95_ms": 0.41,
+      "p99_ms": 0.42,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1906,15 +1953,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.06,
+        "wall_clock_ms": 2.04,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.06
+        "burst_wall_clock_ms": 2.04
       },
-      "stability_p95_half_split_rel_delta": 0.0366,
+      "stability_p95_half_split_rel_delta": 0.0712,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1933,9 +1980,9 @@
       "warmup_iterations": 8,
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
-      "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p50_ms": 0.39,
+      "p95_ms": 0.43,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1945,15 +1992,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 1.97,
+        "wall_clock_ms": 2.17,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 1.97
+        "burst_wall_clock_ms": 2.17
       },
-      "stability_p95_half_split_rel_delta": 0.0287,
+      "stability_p95_half_split_rel_delta": 0.1044,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -1973,8 +2020,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.39,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -1984,15 +2031,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.11,
+        "wall_clock_ms": 2.01,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.11
+        "burst_wall_clock_ms": 2.01
       },
-      "stability_p95_half_split_rel_delta": 0.0343,
+      "stability_p95_half_split_rel_delta": 0.0817,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -2012,8 +2059,8 @@
       "measurement_iterations": 80,
       "percentile_method": "nearest_rank_on_sorted_samples",
       "p50_ms": 0.38,
-      "p95_ms": 0.39,
-      "p99_ms": 0.42,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
       "p99_material": true,
       "error_rate": 0.0,
       "throughput": {
@@ -2023,15 +2070,15 @@
       "concurrency_test": {
         "parallel_invocations": 5,
         "all_ok": true,
-        "wall_clock_ms": 2.01,
+        "wall_clock_ms": 2.04,
         "status": "LOCAL_CONCURRENCY_PASS"
       },
       "saturation": {
         "status": "NOT_APPLICABLE",
         "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
-        "burst_wall_clock_ms": 2.01
+        "burst_wall_clock_ms": 2.04
       },
-      "stability_p95_half_split_rel_delta": 0.0483,
+      "stability_p95_half_split_rel_delta": 0.0776,
       "stability_max_rel_delta": 0.3,
       "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
       "stability_pass": true,
@@ -2041,6 +2088,658 @@
       "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
       "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
       "evidence": "docs/BATCH07_PERFORMANCE_CAPACITY_PREP.json#capability_id=350"
+    }
+  ],
+  "full_path_measurements": [
+    {
+      "capability_id": 301,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.51,
+      "p95_ms": 3.13,
+      "p99_ms": 3.28,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 302,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.87,
+      "p95_ms": 3.3,
+      "p99_ms": 3.94,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 303,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1967.39,
+      "p95_ms": 2005.02,
+      "p99_ms": 2014.7,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 304,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.48,
+      "p95_ms": 3.08,
+      "p99_ms": 3.34,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 305,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1974.54,
+      "p95_ms": 1997.26,
+      "p99_ms": 2000.46,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 306,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1995.41,
+      "p95_ms": 2051.4,
+      "p99_ms": 2052.12,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 307,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 17.92,
+      "p95_ms": 19.03,
+      "p99_ms": 19.81,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 308,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 5.13,
+      "p95_ms": 5.86,
+      "p99_ms": 5.9,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 309,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 4301.26,
+      "p95_ms": 8085.48,
+      "p99_ms": 8131.24,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 310,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 3.25,
+      "p95_ms": 3.71,
+      "p99_ms": 3.85,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 311,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 120.0,
+      "p95_ms": 246.7,
+      "p99_ms": 388.06,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 312,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.38,
+      "p95_ms": 2.81,
+      "p99_ms": 3.2,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 313,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 4311.11,
+      "p95_ms": 7849.96,
+      "p99_ms": 8089.95,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 314,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1974.43,
+      "p95_ms": 2019.93,
+      "p99_ms": 2022.48,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 315,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1983.73,
+      "p95_ms": 2022.46,
+      "p99_ms": 2044.42,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 316,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 10000,
+      "sample_count": 20,
+      "p50_ms": 2.42,
+      "p95_ms": 2.79,
+      "p99_ms": 2.84,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 317,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.61,
+      "p95_ms": 3.27,
+      "p99_ms": 3.48,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 318,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.53,
+      "p95_ms": 3.21,
+      "p99_ms": 3.62,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 319,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 3.64,
+      "p95_ms": 4.67,
+      "p99_ms": 5.08,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 320,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1982.8,
+      "p95_ms": 2024.48,
+      "p99_ms": 2033.06,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 321,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2479.54,
+      "p95_ms": 2618.69,
+      "p99_ms": 2625.95,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 322,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.81,
+      "p95_ms": 3.16,
+      "p99_ms": 3.33,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 323,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1990.75,
+      "p95_ms": 2011.35,
+      "p99_ms": 2031.61,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 324,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.53,
+      "p95_ms": 3.28,
+      "p99_ms": 3.83,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 325,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1984.44,
+      "p95_ms": 2042.76,
+      "p99_ms": 2044.34,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 326,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1976.21,
+      "p95_ms": 2018.21,
+      "p99_ms": 2062.15,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 327,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.49,
+      "p95_ms": 2.93,
+      "p99_ms": 3.65,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 328,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1983.3,
+      "p95_ms": 2012.77,
+      "p99_ms": 2015.61,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 329,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.58,
+      "p95_ms": 3.06,
+      "p99_ms": 3.34,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 330,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1981.43,
+      "p95_ms": 2090.67,
+      "p99_ms": 2285.04,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 331,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 87.94,
+      "p95_ms": 118.64,
+      "p99_ms": 136.79,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 332,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 65.66,
+      "p95_ms": 81.45,
+      "p99_ms": 81.51,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 333,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.46,
+      "p95_ms": 3.5,
+      "p99_ms": 3.65,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 334,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.48,
+      "p95_ms": 3.49,
+      "p99_ms": 3.9,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 335,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 191.44,
+      "p95_ms": 217.57,
+      "p99_ms": 222.62,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 336,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1989.81,
+      "p95_ms": 2021.0,
+      "p99_ms": 2039.98,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 337,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 474.59,
+      "p95_ms": 1049.25,
+      "p99_ms": 1065.8,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 338,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 3.84,
+      "p95_ms": 5.17,
+      "p99_ms": 5.56,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 339,
+      "performance_class": "CLASS_A_DIRECT_LIGHTWEIGHT",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 750,
+      "sample_count": 20,
+      "p50_ms": 3.74,
+      "p95_ms": 4.48,
+      "p99_ms": 4.84,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 340,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 78.01,
+      "p95_ms": 78.94,
+      "p99_ms": 80.36,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 341,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.58,
+      "p95_ms": 3.06,
+      "p99_ms": 3.43,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 342,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 4016.13,
+      "p95_ms": 4159.9,
+      "p99_ms": 4193.85,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 343,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 3947.71,
+      "p95_ms": 4019.68,
+      "p99_ms": 4024.43,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 344,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.65,
+      "p95_ms": 3.42,
+      "p99_ms": 3.48,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 345,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 1992.62,
+      "p95_ms": 2049.93,
+      "p99_ms": 2094.17,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 346,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.57,
+      "p95_ms": 3.31,
+      "p99_ms": 3.38,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 347,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 303.25,
+      "p95_ms": 325.02,
+      "p99_ms": 331.13,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 348,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2.77,
+      "p95_ms": 3.32,
+      "p99_ms": 3.52,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 349,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 22.98,
+      "p95_ms": 29.22,
+      "p99_ms": 29.65,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 350,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 8500,
+      "sample_count": 20,
+      "p50_ms": 2004.76,
+      "p95_ms": 2110.2,
+      "p99_ms": 2115.45,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
     }
   ],
   "summary": {

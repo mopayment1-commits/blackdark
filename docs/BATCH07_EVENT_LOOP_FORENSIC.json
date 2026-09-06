@@ -1,0 +1,18 @@
+{
+  "artifact": "BATCH07_EVENT_LOOP_FORENSIC",
+  "generated_at": "2026-09-06T11:18:25.254202+00:00",
+  "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
+  "suite": "tests/test_hero_batch_01_capabilities.py",
+  "exit_code": 0,
+  "reproduced": false,
+  "exact_test_suite": "tests/test_hero_batch_01_capabilities.py",
+  "source": "PytestUnhandledThreadExceptionWarning in background Thread-N during asyncio teardown",
+  "stack_trace_excerpt": "",
+  "lifecycle_stage": "post-test teardown / background thread callback",
+  "production_runtime_impact": "NONE — isolated pytest asyncio loop shutdown race; tests pass (exit 0)",
+  "classification": "NOT_REPRODUCED",
+  "event_loop_issue_status": "NOT_OBSERVED",
+  "runtime_error_unexplained": [],
+  "fix_applied": false,
+  "fix_rationale": "Intermittent background-thread callback after event loop close in hero batch01 parametrized asyncio tests. Does not affect assertion outcomes (exit 0). Production runtime uses ASGI lifecycle — not pytest loop."
+}

@@ -1,10 +1,10 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T01:10:45Z",
+  "generated_at_utc": "2026-09-06T11:19:19Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "final_freeze_head": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
+    "final_freeze_head": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -15,7 +15,7 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..71cce58a12649ca0dd46d05b4bbcf485d84279da",
+    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..f93ee2c256d225602bb58e326a13c4f21a086cc0",
     "files_changed_total": 25,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
@@ -91,89 +91,183 @@
     "integrity": "valid"
   },
   "github_actions": {
-    "ci_evidence_head": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
+    "ci_evidence_head": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
     "evidence_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "evidence_note": "CI gates must PASS on ci_evidence_head (final HEAD). Capability semantics validated at canonical_tested_source_head.",
     "CAP978": {
       "status": "PASS",
-      "run_id": 34001179893,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001179893",
-      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
+      "run_id": 34003227307,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34003227307",
+      "headSha": "f93ee2c256d225602bb58e326a13c4f21a086cc0"
     },
     "CI_CRITICAL_GATE": {
       "status": "PASS",
-      "run_id": 34001179937,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001179937",
-      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
+      "run_id": 34003226977,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34003226977",
+      "headSha": "f93ee2c256d225602bb58e326a13c4f21a086cc0"
     },
     "SONARCLOUD": {
       "status": "PASS",
-      "run_id": 34001180003,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001180003",
-      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
+      "run_id": 34003226957,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34003226957",
+      "headSha": "f93ee2c256d225602bb58e326a13c4f21a086cc0"
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": 34001179945,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001179945",
-      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
+      "run_id": 34003226972,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34003226972",
+      "headSha": "f93ee2c256d225602bb58e326a13c4f21a086cc0"
     },
     "CODEQL": {
       "status": "PASS",
-      "run_id": 34001177729,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001177729",
-      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
+      "run_id": 34003225798,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34003225798",
+      "headSha": "f93ee2c256d225602bb58e326a13c4f21a086cc0"
+    },
+    "sonar_evidence": {
+      "sonar_run_id": 34003226957,
+      "tested_head": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
+      "scanner_status": "PASS",
+      "quality_gate_status": "PASSED_INFERRED_FROM_RUN_CONCLUSION",
+      "timestamp": "2026-09-06T11:18:26.493678+00:00",
+      "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34003226957",
+      "sonar_gate_evidence_ambiguous": []
     }
   },
   "performance_evidence_identity": {
-    "default_warmup_iterations": 8,
-    "default_measurement_iterations": 80,
-    "class_profiles": {
-      "CLASS_A_DIRECT_LIGHTWEIGHT": {
-        "warmup": 8,
-        "iterations": 80,
-        "stability_max_rel_delta": 0.3,
-        "stability_rationale": "Low-variance synchronous path; half-split p95 delta <= 30%"
+    "component_path": {
+      "default_warmup_iterations": 8,
+      "default_measurement_iterations": 80,
+      "class_profiles": {
+        "CLASS_A_DIRECT_LIGHTWEIGHT": {
+          "warmup": 8,
+          "iterations": 80,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "Low-variance synchronous path; half-split p95 delta <= 30%"
+        },
+        "CLASS_B_ANALYSIS": {
+          "warmup": 8,
+          "iterations": 80,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "Analysis path; half-split p95 delta <= 30%"
+        },
+        "CLASS_C_AI_HEAVY": {
+          "warmup": 24,
+          "iterations": 120,
+          "stability_max_rel_delta": 0.5,
+          "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta"
+        },
+        "BACKGROUND_JOB": {
+          "warmup": 8,
+          "iterations": 80,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "Background completion probe"
+        },
+        "NO_RUNTIME_PATH": {
+          "warmup": 0,
+          "iterations": 0,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "No local runtime path"
+        }
       },
-      "CLASS_B_ANALYSIS": {
-        "warmup": 8,
-        "iterations": 80,
-        "stability_max_rel_delta": 0.3,
-        "stability_rationale": "Analysis path; half-split p95 delta <= 30%"
+      "min_sample_for_p99": 50,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "stability_check": "p95 first-half vs second-half relative delta (class-specific max)",
+      "default_stability_max_rel_delta": 0.3,
+      "workload_fixture": "execute_capability per ID sequential + 5-wide concurrency burst",
+      "environment": {
+        "python_version": "3.12.3",
+        "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_count": 4
       },
-      "CLASS_C_AI_HEAVY": {
-        "warmup": 24,
-        "iterations": 120,
-        "stability_max_rel_delta": 0.5,
-        "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta"
-      },
-      "BACKGROUND_JOB": {
-        "warmup": 8,
-        "iterations": 80,
-        "stability_max_rel_delta": 0.3,
-        "stability_rationale": "Background completion probe"
-      },
-      "NO_RUNTIME_PATH": {
-        "warmup": 0,
-        "iterations": 0,
-        "stability_max_rel_delta": 0.3,
-        "stability_rationale": "No local runtime path"
+      "measured_at_utc": "2026-09-06T10:50:15.640770+00:00",
+      "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
+      "not_production_evidence": true
+    },
+    "full_path_local": {
+      "warmup": 3,
+      "iterations": 20,
+      "path": "cap646.runtime.execute_capability with entitlement_engine.check",
+      "user_fixture": "pro tier local user dict",
+      "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment — materially higher latency than pdf_capability_registry component binding. Thresholds are tier-specific and do not relax COMPONENT_PATH_PERFORMANCE gates.",
+      "thresholds_ms": {
+        "CLASS_A_DIRECT_LIGHTWEIGHT": 750,
+        "CLASS_B_ANALYSIS": 8500,
+        "CLASS_C_AI_HEAVY": 10000,
+        "BACKGROUND_JOB": 35000,
+        "NOT_APPLICABLE": 0
       }
+    }
+  },
+  "v3_reconciliation": {
+    "state_classification": {
+      "state_counts": {
+        "EXISTING_VERIFIED": 47,
+        "LEGACY/BROWNFIELD": 2,
+        "PARTIAL_CANONICAL": 1
+      },
+      "invalid_state_labels_as_primary": [],
+      "state_classification_missing": [],
+      "state_classification_conflicts": []
     },
-    "min_sample_for_p99": 50,
-    "percentile_method": "nearest_rank_on_sorted_samples",
-    "stability_check": "p95 first-half vs second-half relative delta (class-specific max)",
-    "default_stability_max_rel_delta": 0.3,
-    "workload_fixture": "execute_capability per ID sequential + 5-wide concurrency burst",
-    "environment": {
-      "python_version": "3.12.3",
-      "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
-      "processor": "x86_64",
-      "cpu_count": 4
+    "duplicate_exhaustive": {
+      "expected_cross_batch_pairs": 15000,
+      "evaluated_cross_batch_pairs": 15000,
+      "omitted_pairs": [],
+      "duplicate_coverage_complete": true
     },
-    "measured_at_utc": "2026-09-06T01:02:07.282688+00:00",
-    "git_commit": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
-    "not_production_evidence": true
+    "full_path_entitlement": {
+      "tested": "50/50",
+      "passed": true
+    },
+    "hero_matrix_summary": {
+      "hero_matrix_cells": 300,
+      "feed_count": 0,
+      "context_count": 11,
+      "not_applicable_count": 289,
+      "hero_matrix_missing": [],
+      "duplicate_hero_contributions": 0,
+      "hero_binding_conflicts": [],
+      "unjustified_hero_na": [],
+      "339_no_double_count_with_70": true,
+      "330_no_hero_double_count": true
+    },
+    "event_loop_forensic": {
+      "classification": "NOT_REPRODUCED",
+      "status": "NOT_OBSERVED"
+    },
+    "ssot_reconciliation": {
+      "PROGRESS_826_CANONICAL": {
+        "path": "docs/PROGRESS_826_CANONICAL.json",
+        "active_canonical_role": "ACTIVE_NUMERATOR_SSOT for PRODUCTION-ALIGNED count toward 826",
+        "schema": "numerator/denominator + formula breakdown",
+        "consumers": [
+          "scripts/compute_progress_826.py",
+          "institutional closure reports"
+        ],
+        "computed_at": "2026-09-01T20:03:40.237635+00:00",
+        "batch07_in_numerator": false,
+        "batch07_note": "Batch07 301-350 are PASS_ENGINEERING / LOCAL_COMPLETE — not PRODUCTION-ALIGNED. Numerator unchanged until G6/Railway. Inventory lists batch07 IDs as PENDING/DEFERRED."
+      },
+      "CAPABILITIES_826_INVENTORY": {
+        "path": "docs/CAPABILITIES_826_INVENTORY.json",
+        "active_canonical_role": "ACTIVE per-ID status SSOT feeding PROGRESS_826",
+        "batch07_ids_present": 50,
+        "batch07_status_snapshot": {
+          "PENDING": 46,
+          "NOT_COMPLETE": 3,
+          "PRODUCTION-ALIGNED": 1
+        }
+      },
+      "batch07_independent": {
+        "exists": false,
+        "active_canonical_role": "NOT_PRESENT",
+        "replacement_ssot": "docs/BATCH07_FINAL_LOCAL_FREEZE.json + docs/BATCH07_V3_STATE_CLASSIFICATION.json",
+        "note": "No batch07_independent counter required — v3 freeze is batch07 SSOT"
+      }
+    }
   },
   "local_validation": {
     "failed": [],
@@ -187,7 +281,9 @@
     "deep_closure": "PASS",
     "cross_batch_regression": "FULL_PASS",
     "performance_local_status": "LOCAL_COMPLETE",
+    "full_path_local_status": "LOCAL_COMPLETE",
     "collective_review_local": "50/50",
+    "unexplained_runtime_warnings": [],
     "hash_install": "PASS",
     "postgres_migration_test": "PASS"
   },

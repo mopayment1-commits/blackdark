@@ -9,8 +9,8 @@
     "unresolved_duplicate_conflicts": 0
   },
   "artifact": "BATCH07_DUPLICATE_CANONICAL_ANALYSIS",
-  "generated_at": "2026-09-06T01:02:07.279725+00:00",
-  "git_commit": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
+  "generated_at": "2026-09-06T10:50:15.638085+00:00",
+  "git_commit": "f93ee2c256d225602bb58e326a13c4f21a086cc0",
   "scope": "Two-layer duplicate/canonical analysis — Layer A intra-Batch07; Layer B vs 1-300",
   "method": "Layer A: pairwise 301-350 binding/semantic review (no cross-batch IDs). Layer B: cross-batch canonical decisions including #339→#70 CLOSED_REUSED_LINK.",
   "summary": {
@@ -1243,6 +1243,47 @@
       }
     ]
   },
+  "layer_b_exhaustive_coverage": {
+    "scope": "Exhaustive machine coverage — Batch07 301-350 vs prior 1-300",
+    "method": "Deterministic pair evaluator over all 50×300 candidate pairs. No indexing filter may omit pairs — each (batch07_id, prior_id) receives a decision. Material overlaps retained in material_overlaps; full coverage proven via pair digest.",
+    "expected_cross_batch_pairs": 15000,
+    "evaluated_cross_batch_pairs": 15000,
+    "omitted_pairs": [],
+    "unresolved_pairs": [],
+    "duplicate_coverage_complete": true,
+    "candidate_filter_false_negative_risk": "LOW — exhaustive iteration with no pre-filter; pair digest SHA256 detects tampering. Material duplicate detection uses binding equality, canonical reuse (#339→#70), and normalized name overlap.",
+    "overlap_dimensions_reviewed": [
+      "functional overlap (binding equality)",
+      "semantic overlap (normalized catalog name)",
+      "source-of-truth overlap (canonical reuse decisions)",
+      "formula/calculation overlap (delegated to binding/module review)",
+      "route/API overlap (unique pdf_capability_registry bindings per batch07 ID)",
+      "data/provider overlap (charting module shared core — SHARED_MODULE_DISTINCT_FN)",
+      "model overlap (no shared AI model binding collisions detected)",
+      "entitlement overlap (cap646 gate — per-ID routing)",
+      "Hero contribution overlap (#339 facade CONTEXT only; no FEED double-count)"
+    ],
+    "decision_counts": {
+      "DISTINCT": 14907,
+      "SHARED_MODULE_DISTINCT_FN": 92,
+      "CLOSED_REUSED_LINK": 1
+    },
+    "material_overlap_count": 1,
+    "material_overlaps": [
+      {
+        "batch07_id": 339,
+        "prior_id": 70,
+        "decision": "CLOSED_REUSED_LINK",
+        "relationship": "CANONICAL_REUSE",
+        "batch07_binding": "bd_platform.heroes_capability_layer.multi_factor_alpha_ranking_339",
+        "prior_binding": "bd_platform.pro_trader_layer.save_filter_preset_70"
+      }
+    ],
+    "material_overlaps_truncated": false,
+    "pair_decision_digest_sha256": "566e95cfb53f783fd5dfa8236fe5acc02f08ae1bccb1e029bad75724af5b966e",
+    "unresolved_duplicate_conflicts": 0
+  },
+  "duplicate_coverage_complete": true,
   "reused_link_entries": [
     {
       "batch07_id": 339,
