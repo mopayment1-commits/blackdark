@@ -135,7 +135,7 @@ def test_route_handler_option_a_branches():
     assert _route_handler("T04", "Market", 507).__name__ == "handle_market_capability"
     assert _route_handler("T04", "Data Platform", 338).__name__ == "handle_data_capability"
     assert _route_handler("T04", "Data Platform", 500).__name__ == "handle_data_capability"
-    assert _route_handler("T12", "AI Research", 401).__name__ == "handle_ai_capability"
+    assert _route_handler("T12", "AI Research", 401).__name__ == "handle_platform_capability"
 
 
 @pytest.mark.asyncio
