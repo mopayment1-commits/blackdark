@@ -1,6 +1,6 @@
 {
   "artifact": "BATCH08_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T16:34Z",
+  "generated_at_utc": "2026-09-06T16:44Z",
   "identity": {
     "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
     "regression_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
@@ -9,7 +9,7 @@
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null,
     "micro_reconciliation_head": "c175c2a153064f3b711b0778691d30049f040b40",
-    "final_micro_closure_head": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336"
+    "final_micro_closure_head": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0"
   },
   "provenance": {
     "method": "git_log_derived",
@@ -106,13 +106,13 @@
       "note": "GitHub Security Scan at current Batch08 head"
     },
     "CODEQL": {
-      "status": "PENDING",
-      "run_id": null,
-      "url": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json#codeql",
-      "headSha": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
+      "status": "PASS",
+      "run_id": 34046238644,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34046238644",
+      "headSha": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
       "branch": "cursor/batch08-351-400-ed16",
-      "evidence_mode": "PENDING_GITHUB_ACTIONS",
-      "actual_codeql_executed": false,
+      "evidence_mode": "GITHUB_ACTIONS",
+      "actual_codeql_executed": true,
       "note": "GitHub CodeQL job in security.yml — bandit remains supporting only"
     },
     "sonar_evidence": {
@@ -296,8 +296,8 @@
     "regressions_caused_by_micro_reconciliation": []
   },
   "freeze_assertions": {
-    "BATCH08_FINAL_LOCAL_FREEZE": false,
-    "LOCAL_GOVERNANCE_COMPLETE": false,
+    "BATCH08_FINAL_LOCAL_FREEZE": true,
+    "LOCAL_GOVERNANCE_COMPLETE": true,
     "PASS_ENGINEERING": true
   },
   "g6_status": "BLOCKED_EXTERNAL_RAILWAY",
@@ -321,11 +321,9 @@
     "completed_at": "2026-09-06T16:00:34.526010+00:00",
     "security_codeql": {
       "security_scan_current_batch08_evidence": true,
-      "codeql_current_batch08_evidence": false,
+      "codeql_current_batch08_evidence": true,
       "security_provenance_gap": [],
-      "codeql_provenance_gap": [
-        "CODEQL_CURRENT_BATCH08_NOT_PROVEN"
-      ],
+      "codeql_provenance_gap": [],
       "evidence_location": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json"
     },
     "a11y_interaction": {
@@ -353,28 +351,34 @@
     }
   },
   "final_micro_closure": {
-    "completed_at": "2026-09-06T16:34:14.318801+00:00",
-    "head": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
+    "completed_at": "2026-09-06T16:44:23.322245+00:00",
+    "head": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
     "codeql": {
-      "status": "PENDING"
+      "workflow_definition": ".github/workflows/security.yml#jobs.codeql",
+      "evidence_mode": "GITHUB_ACTIONS",
+      "tested_sha": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+      "branch": "cursor/batch08-351-400-ed16",
+      "result": "PASS",
+      "run_id": 34046238644,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34046238644",
+      "jobs": [
+        {
+          "name": "codeql",
+          "conclusion": "success"
+        }
+      ],
+      "actual_codeql_executed": true,
+      "actual_codeql_result": "PASS",
+      "codeql_tested_sha_proven": true,
+      "codeql_evidence_substitution": [],
+      "supporting_bandit_only": false
     },
     "batch07_regression": {
       "batch07_regression_coverage_proven": true,
       "batch07_regression_result": "PASS",
       "regression_scope_claim_contradictions": [],
       "shared_code_regression_gap": [],
-      "proof_mode": "executed_missing_suite",
-      "suite_result": {
-        "label": "batch07_hero_capabilities",
-        "script": "tests/test_hero_batch_07_capabilities.py",
-        "exit_code": 0,
-        "passed": true,
-        "warnings_detected": [],
-        "proven_non_actionable_warnings": [],
-        "unexplained_warnings": [],
-        "clean_pass": true,
-        "summary": "...................................................                      [100%]\n"
-      },
+      "proof_mode": "direct_suite_present",
       "suite_mapping": [
         {
           "batch07_scope": "301-350",

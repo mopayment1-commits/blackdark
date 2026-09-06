@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH08_CANONICAL_HTTP_ENTITLEMENT",
-  "generated_at": "2026-09-06T16:33:53.130066+00:00",
-  "git_commit": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
+  "generated_at": "2026-09-06T16:44:01.941251+00:00",
+  "git_commit": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
   "test_module": "tests/test_batch08_canonical_http_entitlement.py",
   "exit_code": 0,
   "passed": true,
