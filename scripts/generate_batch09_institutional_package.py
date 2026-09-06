@@ -1855,6 +1855,7 @@ def main() -> None:
         "BATCH09_12207_OPERATION_READINESS_PACKAGE.json": build_operation_package(baseline_head),
         "BATCH09_SRE_PRR_PACKAGE.json": build_sre_prr(baseline_head),
         "BATCH09_G7_PRE_ASSURANCE_PACKAGE.json": build_g7_package(baseline_head),
+        "BATCH09_DOMAIN_SPEC_APPLICABILITY.json": build_domain_spec_applicability(baseline_head),
     }
 
     regression = build_cross_batch_regression(tested_head)
