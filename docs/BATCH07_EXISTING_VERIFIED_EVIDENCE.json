@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH07_EXISTING_VERIFIED_EVIDENCE",
-  "generated_at": "2026-09-05T23:38:12.378842+00:00",
-  "git_commit": "67087dac2f4c89c01e48ed07c25115bb0bf11cba",
+  "generated_at": "2026-09-06T00:13:39.101629+00:00",
+  "git_commit": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
   "scope": "Per-ID EXISTING_VERIFIED / CLOSED_REUSED_LINK evidence chain — Batch07 301-350",
   "summary": {
     "existing_verified_count": 49,

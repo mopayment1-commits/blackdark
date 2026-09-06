@@ -9,8 +9,8 @@
     "col10_complete": 50
   },
   "artifact": "BATCH07_PENTAGONAL_COL10_PREPARATION",
-  "generated_at": "2026-09-05T23:38:58.533524+00:00",
-  "git_commit": "67087dac2f4c89c01e48ed07c25115bb0bf11cba",
+  "generated_at": "2026-09-06T00:20:33.178695+00:00",
+  "git_commit": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
   "scope": "Pentagonal column 10 preparation — per-ID second review slots",
   "status": "LOCAL_PREPARATION_COMPLETE",
   "summary": {

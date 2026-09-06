@@ -1,10 +1,10 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-05T23:39:45Z",
+  "generated_at_utc": "2026-09-06T00:21:24Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "final_freeze_head": "67087dac2f4c89c01e48ed07c25115bb0bf11cba",
+    "final_freeze_head": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -15,7 +15,7 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..67087dac2f4c89c01e48ed07c25115bb0bf11cba",
+    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
     "files_changed_total": 25,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
@@ -25,7 +25,7 @@
     "dependency_files": [],
     "workflow_logic_drift": 0,
     "workflow_files": [],
-    "documentation_evidence_drift": 25,
+    "documentation_evidence_drift": 22,
     "documentation_files": [
       "docs/BATCH07_12207_OPERATION_READINESS_PACKAGE.json",
       "docs/BATCH07_12207_TRANSITION_PACKAGE.json",
@@ -50,13 +50,23 @@
       "docs/BATCH07_SRE_PRR_PACKAGE.json",
       "docs/BATCH07_STATUS_QUEUES.json"
     ],
-    "institutional_script_files": [
+    "assurance_tooling_drift": 3,
+    "assurance_tooling_files": [
       "scripts/batch07_reconciliation.py",
       "scripts/generate_batch07_institutional_package.py",
       "scripts/reconcile_batch07_institutional.py"
     ],
     "frozen_source_head_is_semantically_equivalent_to_current_head": true,
-    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. documentation_evidence_drift includes institutional JSON artifacts only when docs/ changed.",
+    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. documentation_evidence_drift is docs/data evidence artifacts only. assurance_tooling_drift is executable institutional scripts (reconciliation/generators).",
+    "queue_reconciliation": {
+      "queue_semantic_overlap": [],
+      "queue_double_count": [],
+      "queue_unresolved": [],
+      "queue_c_count": 4,
+      "queue_d_count": 4,
+      "queue_b_count": 5,
+      "purity_verified": true
+    },
     "semantic_oracle_wording": "LOCAL_RUNTIME_EXECUTION + quad audit (not PASS_LIVE)"
   },
   "preserved": {
@@ -78,31 +88,92 @@
     "collective_review_local_col5": 50,
     "col10_local_preparation": 50,
     "production_aligned": 0,
-    "integrity": "valid"
+    "integrity": "blocked"
   },
   "github_actions": {
+    "ci_evidence_head": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
     "evidence_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "evidence_note": "CI validates canonical tested source; docs-only reconciliation preserves semantic equivalence",
+    "evidence_note": "CI gates must PASS on ci_evidence_head (final HEAD). Capability semantics validated at canonical_tested_source_head.",
     "CAP978": {
-      "status": "PASS",
-      "run_id": 33996954517
+      "status": "PENDING",
+      "run_id": null,
+      "url": null,
+      "headSha": null
     },
     "CI_CRITICAL_GATE": {
-      "status": "PASS",
-      "run_id": 33996954365
+      "status": "PENDING",
+      "run_id": null,
+      "url": null,
+      "headSha": null
     },
     "SONARCLOUD": {
-      "status": "PASS",
-      "run_id": 33996954434
+      "status": "PENDING",
+      "run_id": null,
+      "url": null,
+      "headSha": null
     },
     "SECURITY_SCAN": {
-      "status": "PASS",
-      "run_id": 33996954553
+      "status": "UNKNOWN",
+      "run_id": null,
+      "url": null,
+      "headSha": null
     },
     "CODEQL": {
-      "status": "PASS",
-      "run_id": 33996953537
+      "status": "UNKNOWN",
+      "run_id": null,
+      "url": null,
+      "headSha": null
     }
+  },
+  "performance_evidence_identity": {
+    "default_warmup_iterations": 8,
+    "default_measurement_iterations": 80,
+    "class_profiles": {
+      "CLASS_A_DIRECT_LIGHTWEIGHT": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "Low-variance synchronous path; half-split p95 delta <= 30%"
+      },
+      "CLASS_B_ANALYSIS": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "Analysis path; half-split p95 delta <= 30%"
+      },
+      "CLASS_C_AI_HEAVY": {
+        "warmup": 24,
+        "iterations": 120,
+        "stability_max_rel_delta": 0.5,
+        "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta"
+      },
+      "BACKGROUND_JOB": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "Background completion probe"
+      },
+      "NO_RUNTIME_PATH": {
+        "warmup": 0,
+        "iterations": 0,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "No local runtime path"
+      }
+    },
+    "min_sample_for_p99": 50,
+    "percentile_method": "nearest_rank_on_sorted_samples",
+    "stability_check": "p95 first-half vs second-half relative delta (class-specific max)",
+    "default_stability_max_rel_delta": 0.3,
+    "workload_fixture": "execute_capability per ID sequential + 5-wide concurrency burst",
+    "environment": {
+      "python_version": "3.12.3",
+      "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_count": 4
+    },
+    "measured_at_utc": "2026-09-06T00:13:39.104166+00:00",
+    "git_commit": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
+    "not_production_evidence": true
   },
   "local_validation": {
     "failed": [],
@@ -110,20 +181,26 @@
     "material_skipped": [],
     "known_flaky_unresolved": [],
     "warnings_local_solvable": [],
-    "known_local_deficiencies": [],
+    "known_local_deficiencies": [
+      "ci_cap978_not_pass",
+      "ci_ci_critical_gate_not_pass",
+      "ci_sonarcloud_not_pass",
+      "ci_security_scan_not_pass",
+      "ci_codeql_not_pass"
+    ],
     "existing_verified_without_full_evidence": [],
     "pip_audit_actionable_vulnerabilities": 0,
     "deep_closure": "PASS",
     "cross_batch_regression": "FULL_PASS",
     "performance_local_status": "LOCAL_COMPLETE",
     "collective_review_local": "50/50",
-    "hash_install": "PASS",
-    "postgres_migration_test": "PASS"
+    "hash_install": "PENDING",
+    "postgres_migration_test": "PENDING"
   },
   "freeze_assertions": {
-    "BATCH07_FINAL_LOCAL_FREEZE": true,
-    "LOCAL_GOVERNANCE_COMPLETE": true,
-    "PASS_ENGINEERING": true
+    "BATCH07_FINAL_LOCAL_FREEZE": false,
+    "LOCAL_GOVERNANCE_COMPLETE": false,
+    "PASS_ENGINEERING": false
   },
   "g6_status": "BLOCKED_EXTERNAL_RAILWAY",
   "g7_status": "G7_LOCAL_PREPARATION_COMPLETE",
