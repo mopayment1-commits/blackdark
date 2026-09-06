@@ -1,15 +1,14 @@
 {
   "artifact": "BATCH09_GOVERNANCE_SEMANTIC_CONSISTENCY",
-  "generated_at_utc": "2026-09-06T23:15:58.291171+00:00",
-  "git_commit": "674b1ed34dd2c6714bf2a1dedc22bf19984ad707",
+  "generated_at_utc": "2026-09-06T23:18:36.732227+00:00",
+  "git_commit": "4db12027ee0008ccd3bf9e15cdd7caa1b0e7ccc8",
   "scope": "401-450",
   "membership": {
     "batch09_total_ids_exact": 50,
     "shared_core_count_exact": 48,
+    "outside_shared_core_count_exact": 2,
     "parameterized_count_exact": 47,
     "custom_count_exact": 2,
-    "outside_shared_core_count_exact": 2,
-    "shared_core_48_definition": "47 VALID_PARAMETERIZED_SEMANTICS + #437 REAL_SHARED_SEMANTIC_IMPLEMENTATION",
     "A_shared_core_48_ids": [
       401,
       402,
@@ -117,17 +116,26 @@
       437,
       441
     ],
-    "outside_roles": {
-      "409": "non-shared-core module (quicktake_feed)",
-      "441": "custom oracle-risk implementation outside shared-core-48 gate set"
-    },
-    "custom_roles": {
-      "437": "REAL_SHARED inside shared-core-48",
-      "441": "REAL_SHARED outside shared-core-48"
+    "ranges": {
+      "shared_core_48": "401–408, 410–440, 442–450",
+      "outside_shared_core": "409, 441",
+      "parameterized_47": "401–408, 410–436, 438–440, 442–450",
+      "custom_2": "437, 441"
     },
     "membership_overlap_errors": [],
     "membership_missing_ids": [],
-    "shared_core_membership_unambiguous": true
+    "shared_core_membership_unambiguous": true,
+    "437_custom_inside_shared_core": true,
+    "441_custom_outside_shared_core": true,
+    "shared_core_48_definition": "batch09 IDs 401–450 minus outside {409 quicktake_feed, 441 custom oracle-risk}; equals parameterized-47 plus custom #437 inside shared-core",
+    "outside_roles": {
+      "409": "non-shared-core module (quicktake_feed)",
+      "441": "custom oracle-risk implementation outside shared-core-48"
+    },
+    "custom_roles": {
+      "437": "custom defi_risk_radar inside shared-core-48",
+      "441": "custom oracle_risk outside shared-core-48"
+    }
   },
   "parameterized_semantics": {
     "parameterized_semantics_proven": "47/47",

@@ -13,14 +13,22 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from bd_platform.batch09_semantic_engine import CAPABILITY_SEMANTIC_SPECS, shared_core_ids  # noqa: E402
+from bd_platform.batch09_membership import (  # noqa: E402
+    custom_implementation_ids,
+    membership_ranges,
+    outside_shared_core_ids,
+    parameterized_ids,
+    shared_core_48_ids,
+    verify_membership,
+)
+from bd_platform.batch09_semantic_engine import CAPABILITY_SEMANTIC_SPECS  # noqa: E402
 
 DOCS = ROOT / "docs"
 BATCH09_IDS = list(range(401, 451))
-PARAMETERIZED_IDS = shared_core_ids()
-CUSTOM_IDS = [437, 441]
-SHARED_CORE_48 = sorted(set(PARAMETERIZED_IDS) | {437})
-OUTSIDE_48 = sorted(set(BATCH09_IDS) - set(SHARED_CORE_48))
+PARAMETERIZED_IDS = parameterized_ids()
+CUSTOM_IDS = custom_implementation_ids()
+SHARED_CORE_48 = shared_core_48_ids()
+OUTSIDE_48 = outside_shared_core_ids()
 
 V6_PATH = "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md"
 V4_V2_PATH = "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md"
@@ -109,46 +117,20 @@ def run_pytest(args: list[str]) -> dict[str, Any]:
 
 
 def membership_reconciliation() -> dict[str, Any]:
-    batch = set(BATCH09_IDS)
-    param = set(PARAMETERIZED_IDS)
-    custom = set(CUSTOM_IDS)
-    shared = set(SHARED_CORE_48)
-    outside = set(OUTSIDE_48)
-    overlap_errors = []
-    if shared | outside != batch:
-        overlap_errors.append("union_not_batch")
-    if shared & outside:
-        overlap_errors.append("shared_outside_overlap")
-    if len(shared) != 48:
-        overlap_errors.append("shared_count_not_48")
-    if len(param) != 47:
-        overlap_errors.append("parameterized_count_not_47")
-    if param & custom:
-        overlap_errors.append("parameterized_custom_overlap")
-    missing = sorted(batch - shared - outside)
-    return {
-        "batch09_total_ids_exact": len(batch),
-        "shared_core_count_exact": len(shared),
-        "parameterized_count_exact": len(param),
-        "custom_count_exact": len(custom),
-        "outside_shared_core_count_exact": len(outside),
-        "shared_core_48_definition": "47 VALID_PARAMETERIZED_SEMANTICS + #437 REAL_SHARED_SEMANTIC_IMPLEMENTATION",
-        "A_shared_core_48_ids": SHARED_CORE_48,
-        "B_outside_shared_core_ids": OUTSIDE_48,
-        "C_parameterized_47_ids": PARAMETERIZED_IDS,
-        "D_custom_implementation_ids": CUSTOM_IDS,
-        "outside_roles": {
-            "409": "non-shared-core module (quicktake_feed)",
-            "441": "custom oracle-risk implementation outside shared-core-48 gate set",
-        },
-        "custom_roles": {
-            "437": "REAL_SHARED inside shared-core-48",
-            "441": "REAL_SHARED outside shared-core-48",
-        },
-        "membership_overlap_errors": overlap_errors,
-        "membership_missing_ids": missing,
-        "shared_core_membership_unambiguous": len(overlap_errors) == 0 and not missing,
+    result = dict(verify_membership())
+    result["shared_core_48_definition"] = (
+        "batch09 IDs 401–450 minus outside {409 quicktake_feed, 441 custom oracle-risk}; "
+        "equals parameterized-47 plus custom #437 inside shared-core"
+    )
+    result["outside_roles"] = {
+        "409": "non-shared-core module (quicktake_feed)",
+        "441": "custom oracle-risk implementation outside shared-core-48",
     }
+    result["custom_roles"] = {
+        "437": "custom defi_risk_radar inside shared-core-48",
+        "441": "custom oracle_risk outside shared-core-48",
+    }
+    return result
 
 
 def build_parameterized_rows() -> list[dict[str, Any]]:
