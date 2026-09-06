@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH09_SEMANTIC_CORRECTNESS_401_450",
-  "generated_at_utc": "2026-09-06T21:59:05.816338+00:00",
-  "git_commit": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
+  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
   "semantic_assessment": "50/50",
   "semantic_proof_complete": "50/50",
   "generic_ok_true_only": 0,
@@ -27,7 +27,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=401"
     },
@@ -51,7 +51,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=402"
     },
@@ -75,7 +75,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=403"
     },
@@ -99,7 +99,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=404"
     },
@@ -123,7 +123,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=405"
     },
@@ -147,7 +147,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=406"
     },
@@ -171,7 +171,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=407"
     },
@@ -195,7 +195,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=408"
     },
@@ -218,7 +218,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "THIN_FACADE_VALID",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=409"
     },
@@ -242,7 +242,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=410"
     },
@@ -266,7 +266,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=411"
     },
@@ -290,7 +290,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=412"
     },
@@ -314,7 +314,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=413"
     },
@@ -338,7 +338,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=414"
     },
@@ -362,7 +362,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=415"
     },
@@ -386,7 +386,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=416"
     },
@@ -410,7 +410,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=417"
     },
@@ -434,7 +434,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=418"
     },
@@ -458,7 +458,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=419"
     },
@@ -482,7 +482,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=420"
     },
@@ -506,7 +506,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=421"
     },
@@ -530,7 +530,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=422"
     },
@@ -554,7 +554,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=423"
     },
@@ -578,7 +578,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=424"
     },
@@ -602,7 +602,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "AI/copilot interaction + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=425"
     },
@@ -626,7 +626,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "research workspace UI + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=426"
     },
@@ -650,7 +650,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=427"
     },
@@ -674,7 +674,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "Excel/Sheets connector export path + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=428"
     },
@@ -698,7 +698,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "institutional API data platform + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=429"
     },
@@ -722,7 +722,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=430"
     },
@@ -746,7 +746,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "dashboards UI + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=431"
     },
@@ -770,7 +770,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=432"
     },
@@ -794,7 +794,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=433"
     },
@@ -818,7 +818,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=434"
     },
@@ -842,7 +842,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cross-market research copilot + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=435"
     },
@@ -866,7 +866,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=436"
     },
@@ -890,7 +890,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "REAL_IMPLEMENTATION",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=437"
     },
@@ -914,7 +914,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=438"
     },
@@ -938,7 +938,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=439"
     },
@@ -962,7 +962,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=440"
     },
@@ -986,7 +986,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "REAL_IMPLEMENTATION",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=441"
     },
@@ -1010,7 +1010,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=442"
     },
@@ -1034,7 +1034,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=443"
     },
@@ -1058,7 +1058,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=444"
     },
@@ -1082,7 +1082,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=445"
     },
@@ -1106,7 +1106,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "alert/event path + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=446"
     },
@@ -1130,7 +1130,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=447"
     },
@@ -1154,7 +1154,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "institutional risk API + cap646 API",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=448"
     },
@@ -1178,7 +1178,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=449"
     },
@@ -1202,7 +1202,7 @@
       "negative_behavior": "missing seed falls back to defaults; analysis_only/no_execution enforced",
       "degraded_behavior": "provider failure uses seed fallback where implemented",
       "consumer_path": "cap646 API GET /api/cap646/{id} + execute_capability",
-      "tested_sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "tested_sha": "40769dd2cd0a91ea8d463843c2305004192da136",
       "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
       "evidence_location": "docs/BATCH09_SEMANTIC_CORRECTNESS_401_450.json#id=450"
     }

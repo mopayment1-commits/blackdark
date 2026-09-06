@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH09_CANONICAL_DECISIONS_437_441",
-  "generated_at_utc": "2026-09-06T21:59:05.816338+00:00",
-  "git_commit": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
+  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
   "437_final_decision_proven": true,
   "441_final_decision_proven": true,
   "wrong_canonical_mapping": 0,

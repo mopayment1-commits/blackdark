@@ -1,6 +1,6 @@
 {
   "artifact": "BATCH09_REOPENING_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T21:59:05.816338+00:00",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
   "supersedes": {
     "prior_artifact": "docs/BATCH09_FINAL_LOCAL_FREEZE.json",
     "prior_freeze_sha": "255327b9a160715a28a60787ecec526a002a02ed",
@@ -8,9 +8,9 @@
     "rule": "v5 Rule AF — material contradictions after prior freeze"
   },
   "identity": {
-    "canonical_tested_source_head": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
-    "regression_head": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
-    "final_freeze_head": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+    "canonical_tested_source_head": "40769dd2cd0a91ea8d463843c2305004192da136",
+    "regression_head": "40769dd2cd0a91ea8d463843c2305004192da136",
+    "final_freeze_head": "40769dd2cd0a91ea8d463843c2305004192da136",
     "prior_freeze_head": "255327b9a160715a28a60787ecec526a002a02ed",
     "batch08_ancestry_tip": "a9c5ba50622cdb0a1224b5d7a58cc245c4be8dca"
   },
