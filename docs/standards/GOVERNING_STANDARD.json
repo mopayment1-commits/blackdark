@@ -1,6 +1,7 @@
 {
   "artifact": "GOVERNING_STANDARD",
-  "updated_at_utc": "2026-09-06T22:30:00Z",
+  "updated_at_utc": "2026-09-06T23:10:00Z",
+  "git_commit": "ee9c64a805b9f7d9c66ef835c24dc75340484d6d",
   "governing_version": "v6",
   "governing_standard": {
     "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
@@ -21,5 +22,6 @@
       "status": "HISTORICAL_PRESERVED"
     }
   ],
-  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md"
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+  "domain_spec_subordinate_to": "v6"
 }
