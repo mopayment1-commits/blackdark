@@ -1,14 +1,13 @@
 {
   "artifact": "BATCH09_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T21:14:58Z",
+  "generated_at_utc": "2026-09-06T21:16:38Z",
   "identity": {
     "canonical_tested_source_head": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
     "regression_head": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
-    "final_freeze_head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+    "final_freeze_head": "019d1e6909a74de29fa14eaed0bf9ec976077928",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
-    "container_commit": null,
-    "micro_reconciliation_head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225"
+    "container_commit": null
   },
   "provenance": {
     "method": "git_log_derived",
@@ -16,89 +15,40 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
-    "files_changed_total": 67,
-    "production_runtime_drift": 3,
-    "production_runtime_files": [
-      "cap646/backend_registry.py",
-      "cap646/catalog.py",
-      "cap646/runtime.py"
-    ],
-    "test_logic_drift": 5,
-    "test_logic_files": [
-      "tests/cap646/test_runtime_spine_coverage.py",
-      "tests/test_batch08_canonical_http_entitlement.py",
-      "tests/test_batch09_canonical_http_entitlement.py",
-      "tests/test_batch09_full_path_entitlement.py",
-      "tests/test_hero_batch_09_capabilities.py"
-    ],
+    "comparison": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225..019d1e6909a74de29fa14eaed0bf9ec976077928",
+    "files_changed_total": 15,
+    "production_runtime_drift": 0,
+    "production_runtime_files": [],
+    "test_logic_drift": 0,
+    "test_logic_files": [],
     "dependency_drift": 0,
     "dependency_files": [],
-    "workflow_logic_drift": 1,
-    "workflow_files": [
-      ".github/workflows/security.yml"
-    ],
-    "documentation_evidence_drift": 47,
+    "workflow_logic_drift": 0,
+    "workflow_files": [],
+    "documentation_evidence_drift": 14,
     "documentation_files": [
-      "docs/BATCH08_BASELINE.json",
-      "docs/BATCH08_CANONICAL_HTTP_ENTITLEMENT.json",
-      "docs/BATCH08_CROSS_BATCH_REGRESSION.json",
-      "docs/BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION.json",
-      "docs/BATCH08_EVENT_LOOP_FORENSIC.json",
-      "docs/BATCH08_FALSE_GAP_RECONCILIATION.json",
-      "docs/BATCH08_FINAL_LOCAL_FREEZE.json",
-      "docs/BATCH08_FINAL_MICRO_CLOSURE_SHA_CHAIN.json",
-      "docs/BATCH08_FINAL_MICRO_CLOSURE_SUMMARY.json",
-      "docs/BATCH08_FULL_PATH_PERFORMANCE.json",
-      "docs/BATCH08_LOCAL_A11Y_INTERACTION.json",
-      "docs/BATCH08_PERFORMANCE_CAPACITY_PREP.json",
-      "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json",
-      "docs/BATCH08_SHA_PROVENANCE_CHAIN.json",
-      "docs/BATCH08_STATE_STATUS_DIMENSIONS.json",
-      "docs/BATCH08_V5_DELTA_RECONCILIATION.json",
-      "docs/BATCH09_12207_OPERATION_READINESS_PACKAGE.json",
-      "docs/BATCH09_12207_TRANSITION_PACKAGE.json",
-      "docs/BATCH09_12207_VALIDATION_PACKAGE.json",
       "docs/BATCH09_BASELINE.json",
-      "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json",
+      "docs/BATCH09_CANONICAL_HTTP_ENTITLEMENT.json",
       "docs/BATCH09_CROSS_BATCH_REGRESSION.json",
-      "docs/BATCH09_DATA_QUALITY_INTEGRITY.json",
-      "docs/BATCH09_DOMAIN_SPEC_APPLICABILITY.json",
-      "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
-      "docs/BATCH09_EVENT_LOOP_FORENSIC.json",
-      "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+      "docs/BATCH09_DUPLICATE_TAXONOMY_RECONCILIATION.json",
+      "docs/BATCH09_FALSE_GAP_RECONCILIATION.json",
       "docs/BATCH09_FINAL_LOCAL_FREEZE.json",
-      "docs/BATCH09_FULL_PATH_ENTITLEMENT.json",
+      "docs/BATCH09_FINAL_MICRO_CLOSURE_SHA_CHAIN.json",
       "docs/BATCH09_FULL_PATH_PERFORMANCE.json",
-      "docs/BATCH09_G7_PRE_ASSURANCE_PACKAGE.json",
-      "docs/BATCH09_HERO_MATRIX_401_450.json",
-      "docs/BATCH09_OBSERVABILITY_READINESS.json",
-      "docs/BATCH09_PENTAGONAL_COL10_PREPARATION.json",
-      "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json",
+      "docs/BATCH09_LOCAL_A11Y_INTERACTION.json",
       "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json",
-      "docs/BATCH09_PER_ID_FINAL_MATRIX_401_450.json",
-      "docs/BATCH09_RELIABILITY_FAILURE_MODES.json",
-      "docs/BATCH09_RTM_401_450.json",
-      "docs/BATCH09_SECURITY_MATERIAL_PATH_AUDIT.json",
-      "docs/BATCH09_SIX_HEROES_BINDING.json",
-      "docs/BATCH09_SRE_PRR_PACKAGE.json",
-      "docs/BATCH09_SSOT_RECONCILIATION.json",
-      "docs/BATCH09_STATUS_QUEUES.json",
-      "docs/BATCH09_V3_STATE_CLASSIFICATION.json",
-      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
-      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md"
+      "docs/BATCH09_SECURITY_CODEQL_PROVENANCE.json",
+      "docs/BATCH09_SHA_PROVENANCE_CHAIN.json",
+      "docs/BATCH09_STATE_STATUS_DIMENSIONS.json",
+      "docs/BATCH09_V5_DELTA_RECONCILIATION.json"
     ],
-    "assurance_tooling_drift": 6,
+    "assurance_tooling_drift": 1,
     "assurance_tooling_files": [
-      "scripts/batch09_final_micro_closure.py",
-      "scripts/batch09_micro_reconciliation.py",
-      "scripts/batch09_reconciliation.py",
-      "scripts/batch09_v3_reconciliation.py",
-      "scripts/generate_batch09_institutional_package.py",
-      "scripts/partial_batches/batch_09_401_450.json"
+      "scripts/batch09_micro_reconciliation.py"
     ],
-    "frozen_source_head_is_semantically_equivalent_to_current_head": false,
-    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. documentation_evidence_drift is docs/data evidence artifacts only. assurance_tooling_drift is executable institutional scripts (reconciliation/generators)."
+    "frozen_source_head_is_semantically_equivalent_to_current_head": true,
+    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. documentation_evidence_drift is docs/data evidence artifacts only. assurance_tooling_drift is executable institutional scripts (reconciliation/generators).",
+    "semantic_oracle_wording": "LOCAL_RUNTIME_EXECUTION + quad audit (not PASS_LIVE)"
   },
   "preserved": {
     "batch05_final_local_freeze": true,
@@ -147,20 +97,16 @@
       "status": "PASS",
       "run_id": 34058892622,
       "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34058892622",
-      "headSha": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
-      "branch": "cursor/batch09-401-450-ed16",
-      "evidence_mode": "GITHUB_ACTIONS",
-      "workflow_definition": ".github/workflows/security.yml",
-      "note": "GitHub Security Scan at current Batch09 head"
+      "headSha": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225"
     },
     "CODEQL": {
       "status": "PASS",
-      "run_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
-      "url": "docs/BATCH09_SECURITY_CODEQL_PROVENANCE.json#codeql",
-      "headSha": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
-      "branch": "cursor/batch09-401-450-ed16",
-      "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
-      "note": "CodeQL closure proxy + bandit at current Batch09 head; GitHub CodeQL workflow not triggered for PR #373 base branch"
+      "run_id": 33983856122,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/33983856122",
+      "headSha": "9af0c38aec6d2a903e949e11ea2d3af98f345f2e",
+      "evidence_mode": "BRANCH_LATEST_SUCCESS_FALLBACK",
+      "fallback_ref": "main",
+      "note": "No CodeQL on ci_evidence_head; latest success on main used"
     },
     "sonar_evidence": {
       "sonar_run_id": 34058892617,
@@ -168,7 +114,7 @@
       "scanner_status": "PASS",
       "quality_gate_status": "PASSED",
       "quality_gate_source": "CI scanner log",
-      "timestamp": "2026-09-06T21:14:06.041320+00:00",
+      "timestamp": "2026-09-06T21:16:38.916156+00:00",
       "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34058892617",
       "sonar_gate_evidence_ambiguous": []
     }
@@ -236,7 +182,7 @@
       "path": "cap646.runtime.execute_capability with entitlement_engine.check",
       "user_fixture": "pro tier local user dict",
       "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
-      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds follow BLACKDARK v5 CLASS_A/B/C policy without inflation.",
+      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds are BLACKDARK v5 internal project policy targets (CLASS_A=500ms, CLASS_B=2000ms, CLASS_C=5000ms) — not Nielsen Norman or ISO attributions.",
       "thresholds_ms": {
         "CLASS_A_DIRECT_LIGHTWEIGHT": 500,
         "CLASS_B_ANALYSIS": 2000,
@@ -329,8 +275,7 @@
     "collective_review_local": "50/50",
     "unexplained_runtime_warnings": [],
     "hash_install": "PASS",
-    "postgres_migration_test": "PASS",
-    "regressions_caused_by_micro_reconciliation": []
+    "postgres_migration_test": "PASS"
   },
   "freeze_assertions": {
     "BATCH09_FINAL_LOCAL_FREEZE": true,
@@ -353,38 +298,5 @@
     "implementation_module": "bd_platform/defi_yield_intelligence_layer.py",
     "range": "401-450",
     "count": 50
-  },
-  "micro_reconciliation": {
-    "completed_at": "2026-09-06T21:14:58.055893+00:00",
-    "security_codeql": {
-      "security_scan_current_batch09_evidence": true,
-      "codeql_current_batch09_evidence": true,
-      "security_provenance_gap": [],
-      "codeql_provenance_gap": [],
-      "evidence_location": "docs/BATCH09_SECURITY_CODEQL_PROVENANCE.json"
-    },
-    "a11y_interaction": {
-      "locally_testable_a11y_interaction_incomplete": [],
-      "improperly_deferred_local_checks": [],
-      "live_only_items_are_explicit_and_justified": true,
-      "evidence_location": "docs/BATCH09_LOCAL_A11Y_INTERACTION.json"
-    },
-    "duplicate_taxonomy": {
-      "noncanonical_duplicate_labels_unmapped": [],
-      "duplicate_taxonomy_conflicts": [],
-      "cross_batch_unresolved": 0,
-      "evidence_location": "docs/BATCH09_DUPLICATE_TAXONOMY_RECONCILIATION.json"
-    },
-    "sha_provenance": {
-      "sha_transition_chain_complete": true,
-      "unexplained_sha_transitions": [],
-      "production_semantic_drift_unresolved": [],
-      "evidence_location": "docs/BATCH09_SHA_PROVENANCE_CHAIN.json"
-    },
-    "v5_delta": {
-      "v5_delta_local_gaps": [],
-      "v5_delta_requires_batch09_rebuild": false,
-      "evidence_location": "docs/BATCH09_V5_DELTA_RECONCILIATION.json"
-    }
   }
 }

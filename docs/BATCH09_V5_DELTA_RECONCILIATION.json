@@ -1,6 +1,6 @@
 {
   "artifact": "BATCH09_V5_DELTA_RECONCILIATION",
-  "generated_at": "2026-09-06T21:14:58.055058+00:00",
+  "generated_at": "2026-09-06T21:16:07.021561+00:00",
   "governing_standard_commit": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
   "batch09_engineering_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
   "comparison_scope": "NEW v5 delta requirements only — not full v5 re-audit",
