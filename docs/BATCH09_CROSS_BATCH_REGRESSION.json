@@ -8,8 +8,8 @@
     "full_pass": true
   },
   "artifact": "BATCH09_CROSS_BATCH_REGRESSION",
-  "generated_at": "2026-09-06T20:17:28.060813+00:00",
-  "git_commit": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
+  "generated_at": "2026-09-06T21:14:00.148729+00:00",
+  "git_commit": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
   "scope": "Batch01-08 hero suites + underlying closure + defi_yield + Six Heroes + dedup gate",
   "suites": [
     {
@@ -250,5 +250,21 @@
   "batch06_result": "PASS",
   "batch07_result": "PASS",
   "batch08_result": "PASS",
-  "batch09_result": "PASS"
+  "batch09_result": "PASS",
+  "batch08_coverage_proof": {
+    "batch08_regression_coverage_proven": true,
+    "batch08_regression_result": "PASS",
+    "regression_scope_claim_contradictions": [],
+    "shared_code_regression_gap": [],
+    "proof_mode": "direct_suite_present",
+    "suite_mapping": [
+      {
+        "batch08_scope": "351-400",
+        "suite": "batch08_hero_capabilities",
+        "script": "tests/test_hero_batch_08_capabilities.py",
+        "coverage_type": "direct_hero_execution"
+      }
+    ]
+  },
+  "regression_scope_claim_contradictions": []
 }

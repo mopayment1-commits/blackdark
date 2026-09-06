@@ -93,7 +93,7 @@
     "path": "cap646.runtime.execute_capability with entitlement_engine.check",
     "user_fixture": "pro tier local user dict",
     "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
-    "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds follow BLACKDARK v5 CLASS_A/B/C policy without inflation.",
+    "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds are BLACKDARK v5 internal project policy targets (CLASS_A=500ms, CLASS_B=2000ms, CLASS_C=5000ms) — not Nielsen Norman or ISO attributions.",
     "thresholds_ms": {
       "CLASS_A_DIRECT_LIGHTWEIGHT": 500,
       "CLASS_B_ANALYSIS": 2000,

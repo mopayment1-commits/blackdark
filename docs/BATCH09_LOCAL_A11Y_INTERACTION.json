@@ -1,0 +1,134 @@
+{
+  "artifact": "BATCH09_LOCAL_A11Y_INTERACTION",
+  "generated_at": "2026-09-06T21:14:58.032055+00:00",
+  "capability_range": "401-450",
+  "jobs": [
+    {
+      "label": "accessibility-static-audit",
+      "command": "/workspace/.venv/bin/python3 -m pytest tests/test_missing_capabilities_closure.py::test_accessibility_static_audit -q",
+      "exit_code": 0,
+      "passed": true,
+      "output_digest_sha256_prefix": "423b1d0e014eb1ea",
+      "stdout_tail": ".                                                                        [100%]\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "accessibility-api-report",
+      "command": "/workspace/.venv/bin/python3 -m pytest tests/test_missing_capabilities_closure.py::test_accessibility_api_report -q",
+      "exit_code": 0,
+      "passed": true,
+      "output_digest_sha256_prefix": "423b1d0e014eb1ea",
+      "stdout_tail": ".                                                                        [100%]\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "landing-html-a11y-hooks",
+      "command": "/workspace/.venv/bin/python3 -m pytest tests/test_lighthouse_landing.py::test_landing_html_a11y_and_perf_hooks -q",
+      "exit_code": 0,
+      "passed": true,
+      "output_digest_sha256_prefix": "4b72134abee5b561",
+      "stdout_tail": ".                                                                        [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "landing-design-tokens",
+      "command": "/workspace/.venv/bin/python3 -m pytest tests/test_lighthouse_landing.py::test_landing_assets_exist_and_design_tokens -q",
+      "exit_code": 0,
+      "passed": true,
+      "output_digest_sha256_prefix": "4b72134abee5b561",
+      "stdout_tail": ".                                                                        [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "english-ui-rule",
+      "command": "/workspace/.venv/bin/python3 -m pytest tests/test_english_ui_rule.py -q",
+      "exit_code": 0,
+      "passed": true,
+      "output_digest_sha256_prefix": "99db33d5c94c6f7d",
+      "stdout_tail": "..                                                                       [100%]\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "batch09-api-surfaces",
+      "command": "/workspace/.venv/bin/python3 -m pytest tests/test_hero_batch_09_capabilities.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "output_digest_sha256_prefix": "fbdc38bb22ab9d4d",
+      "stdout_tail": "...................................................                      [100%]\n",
+      "stderr_tail": ""
+    },
+    {
+      "label": "batch09-full-path-interaction",
+      "command": "/workspace/.venv/bin/python3 -m pytest tests/test_batch09_full_path_entitlement.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "output_digest_sha256_prefix": "f9d496c26bac98c3",
+      "stdout_tail": "........................................................................ [ 46%]\n........................................................................ [ 93%]\n..........                                                               [100%]\n",
+      "stderr_tail": ""
+    }
+  ],
+  "locally_verified": [
+    {
+      "check": "static_wcag_template_audit",
+      "method": "accessibility_audit_service.run_static_wcag_audit",
+      "scope": "platform templates (WCAG 2.2 AA hooks)",
+      "batch09_applicability": "shared platform shell consumed by capability routes",
+      "status": "LOCALLY_VERIFIED"
+    },
+    {
+      "check": "accessibility_api_report",
+      "method": "build_accessibility_audit_report",
+      "scope": "API accessibility audit payload",
+      "batch09_applicability": "platform-wide audit endpoint",
+      "status": "LOCALLY_VERIFIED"
+    },
+    {
+      "check": "semantic_markup_skip_link_main_landmarks",
+      "method": "FastAPI TestClient GET /",
+      "scope": "landing skip-link, main landmark, label-for associations",
+      "batch09_applicability": "capability discoverability entry surface",
+      "status": "LOCALLY_VERIFIED"
+    },
+    {
+      "check": "responsive_css_design_tokens",
+      "method": "static/css/trust-os.css token audit",
+      "scope": "design tokens + responsive asset presence",
+      "batch09_applicability": "shared CSS consumed by defi/yield/API UI shells",
+      "status": "LOCALLY_VERIFIED"
+    },
+    {
+      "check": "english_ui_rule",
+      "method": "tests/test_english_ui_rule.py",
+      "scope": "user-visible string language consistency",
+      "batch09_applicability": "Batch09 payload labels/surfaces",
+      "status": "LOCALLY_VERIFIED"
+    },
+    {
+      "check": "batch09_route_api_to_surface_interaction",
+      "method": "execute_capability 401-450 hero + entitlement full-path",
+      "scope": "API contract surfaces, entitlement deny/allow interaction states",
+      "batch09_applicability": "401-450 canonical path",
+      "status": "LOCALLY_VERIFIED"
+    }
+  ],
+  "truly_live_only": [
+    {
+      "check": "production_responsive_layout_breakpoints",
+      "reason": "Requires deployed Railway viewport rendering; Batch09 defi/yield surfaces are API-first",
+      "justification": "TRULY_LIVE_ONLY — no local production DOM for Batch09-specific responsive breakpoints"
+    },
+    {
+      "check": "live_keyboard_focus_in_production_chrome",
+      "reason": "Production browser focus order across authenticated app shell",
+      "justification": "TRULY_LIVE_ONLY — local FastAPI tests cover landing shell only"
+    },
+    {
+      "check": "production_a11y_lighthouse_score",
+      "reason": "Lighthouse audit against live deployed URL",
+      "justification": "TRULY_LIVE_ONLY — deferred to Railway QUEUE_B per v5 local closure boundary"
+    }
+  ],
+  "locally_testable_a11y_interaction_incomplete": [],
+  "improperly_deferred_local_checks": [],
+  "live_only_items_are_explicit_and_justified": true
+}

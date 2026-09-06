@@ -18,7 +18,9 @@
     "regression_head": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
     "git_branch": "cursor/batch09-401-450-ed16",
     "artifact_generation_head": "cbfef02702849c96c55ff41767767b8f4c2e0544",
-    "container_commit": null
+    "container_commit": null,
+    "ci_evidence_head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+    "final_freeze_head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225"
   },
   "provenance": {
     "method": "git_log_derived",

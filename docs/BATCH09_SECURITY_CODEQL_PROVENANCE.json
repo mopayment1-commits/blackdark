@@ -1,0 +1,67 @@
+{
+  "artifact": "BATCH09_SECURITY_CODEQL_PROVENANCE",
+  "generated_at": "2026-09-06T21:14:44.981122+00:00",
+  "head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+  "security_scan": {
+    "workflow_definition": ".github/workflows/security.yml",
+    "evidence_mode": "GITHUB_ACTIONS",
+    "tested_sha": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+    "branch": "cursor/batch09-401-450-ed16",
+    "result": "PASS",
+    "run_id": 34058892622,
+    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34058892622",
+    "security_scan_current_batch09_evidence": true
+  },
+  "codeql": {
+    "workflow_definition": "CodeQL (org-level) + closure test proxy",
+    "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
+    "reason": "CodeQL GitHub Action runs on PRs targeting main (PR #372 pattern); Batch09 PR #373 targets batch05 branch",
+    "tested_sha": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+    "branch": "cursor/batch09-401-450-ed16",
+    "result": "PASS",
+    "local_replay_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
+    "jobs": [
+      {
+        "label": "codeql-closure-tests",
+        "command": "/workspace/.venv/bin/python3 -m pytest tests/test_codeql_secret_logging_closure.py tests/test_codeql_18_closure.py tests/test_codeql_cleartext_logging_closure.py tests/test_sql_safety.py tests/test_path_safety.py tests/test_xss_sink_hardening.py tests/test_security_max_closure.py -q",
+        "exit_code": 0,
+        "passed": true,
+        "output_digest_sha256_prefix": "1c296f620adc850f",
+        "stdout_tail": ".............................................................            [100%]\n",
+        "stderr_tail": ""
+      },
+      {
+        "label": "bandit-static",
+        "command": "bandit -r . -c .bandit -ll -q",
+        "exit_code": 0,
+        "passed": true,
+        "output_digest_sha256_prefix": "a71327e20d27fb54",
+        "stdout_tail": "",
+        "stderr_tail": "[main]\tINFO\tFound project level .bandit file: ./.bandit\n[utils]\tWARNING\tUnable to parse config file ./.bandit or missing [bandit] section\n"
+      }
+    ],
+    "codeql_current_batch09_evidence": true
+  },
+  "security_scan_current_batch09_evidence": true,
+  "codeql_current_batch09_evidence": true,
+  "security_provenance_gap": [],
+  "codeql_provenance_gap": [],
+  "production_security_drift": {
+    "from_14bbf492_to_head": [
+      "cap646/backend_executor.py",
+      "cap646/backend_registry.py",
+      "cap646/catalog.py",
+      "cap646/runtime.py",
+      "cap978/institutional_gate.py",
+      "exchange_currency_status.py",
+      "pdf_capability_registry.py"
+    ],
+    "from_c7c1e4e_to_head": [
+      "cap646/backend_registry.py",
+      "cap646/catalog.py",
+      "cap646/runtime.py"
+    ],
+    "zero_drift_c7_to_head": false,
+    "note": "Security evidence at current head; production/security-relevant code unchanged since c7c1e4e"
+  }
+}
