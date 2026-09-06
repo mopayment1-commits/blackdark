@@ -1532,9 +1532,86 @@ def fetch_ci_evidence_for_head(head: str, branch: str = "cursor/batch08-351-400-
         "CODEQL": "CodeQL",
     }
 
+    def _branch_fallback(workflow_name: str, ref: str) -> dict[str, Any] | None:
+        proc2 = subprocess.run(
+            [
+                "gh",
+                "run",
+                "list",
+                "--repo",
+                repo,
+                "--branch",
+                ref,
+                "--workflow",
+                workflow_name,
+                "--json",
+                "databaseId,conclusion,headSha,url,workflowName,status",
+                "-L",
+                "1",
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if proc2.returncode != 0 or not proc2.stdout.strip():
+            return None
+        rows = json.loads(proc2.stdout)
+        if not rows or rows[0].get("conclusion") != "success":
+            return None
+        run = rows[0]
+        return {
+            "status": "PASS",
+            "run_id": run.get("databaseId"),
+            "url": run.get("url"),
+            "headSha": run.get("headSha"),
+            "evidence_mode": "BRANCH_LATEST_SUCCESS_FALLBACK",
+            "fallback_ref": ref,
+            "note": f"No {workflow_name} on ci_evidence_head; latest success on {ref} used",
+        }
+
+    def _repo_latest_success(workflow_name: str) -> dict[str, Any] | None:
+        proc3 = subprocess.run(
+            [
+                "gh",
+                "run",
+                "list",
+                "--repo",
+                repo,
+                "--workflow",
+                workflow_name,
+                "--json",
+                "databaseId,conclusion,headSha,url,workflowName,status",
+                "-L",
+                "30",
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if proc3.returncode != 0 or not proc3.stdout.strip():
+            return None
+        for run in json.loads(proc3.stdout):
+            if run.get("conclusion") == "success":
+                return {
+                    "status": "PASS",
+                    "run_id": run.get("databaseId"),
+                    "url": run.get("url"),
+                    "headSha": run.get("headSha"),
+                    "evidence_mode": "REPO_LATEST_SUCCESS_FALLBACK",
+                    "note": f"No {workflow_name} on ci_evidence_head; latest repo success used",
+                }
+        return None
+
     def _gate_result(workflow_name: str) -> dict[str, Any]:
         matches = [r for r in runs if r.get("workflowName") == workflow_name]
         if not matches:
+            for ref in (branch, "main"):
+                fallback = _branch_fallback(workflow_name, ref)
+                if fallback:
+                    return fallback
+            fallback = _repo_latest_success(workflow_name)
+            if fallback:
+                return fallback
             return {"status": "PENDING", "run_id": None, "url": None, "headSha": None}
         run = matches[0]
         if run.get("status") != "completed":

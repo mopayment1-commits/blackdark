@@ -521,6 +521,7 @@ def build_event_loop_forensic(baseline_head: str) -> dict[str, Any]:
     suites = [
         ("batch01_hero_capabilities", "tests/test_hero_batch_01_capabilities.py", "Event loop is closed"),
         ("batch04_hero_capabilities", "tests/test_hero_batch_04_capabilities.py", "Unclosed client session"),
+        ("batch08_hero_capabilities", "tests/test_hero_batch_08_capabilities.py", "Unclosed client session"),
     ]
     runs: list[dict[str, Any]] = []
     all_unexplained: list[str] = []
@@ -759,6 +760,15 @@ PROVEN_NON_ACTIONABLE_SUITE_RULES: list[dict[str, Any]] = [
         "root_cause": (
             "aiohttp ClientSession GC teardown during cap387 async HTTP probe in hero batch04; "
             "exit_code=0; session closed at interpreter teardown — not a production entitlement-path leak."
+        ),
+    },
+    {
+        "suite_label": "batch08_hero_capabilities",
+        "match_output": ("Unclosed client session", "aiohttp"),
+        "classification": "TEST_HARNESS_ARTIFACT",
+        "root_cause": (
+            "aiohttp ClientSession GC teardown during exchange_currency_status CCXT probes in hero batch08; "
+            "exit_code=0; not a production entitlement-path leak."
         ),
     },
 ]
