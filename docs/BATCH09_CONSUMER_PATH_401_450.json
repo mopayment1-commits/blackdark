@@ -1,0 +1,710 @@
+{
+  "artifact": "BATCH09_CONSUMER_PATH_401_450",
+  "generated_at_utc": "2026-09-06T21:58:41.819196+00:00",
+  "git_commit": "f0e5e0b74cddba0be7f96a2539fe083e46ddf765",
+  "actual_consumer_path_identified": "50/50",
+  "material_locally_testable_consumer_paths_tested": "100%",
+  "generic_gateway_as_sole_evidence": 0,
+  "rows": [
+    {
+      "capability_id": 401,
+      "official_name": "Bridges Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/401",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 402,
+      "official_name": "Yields Screener",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/402",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 403,
+      "official_name": "Yield History",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/403",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 404,
+      "official_name": "Borrowing Rates",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/404",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 405,
+      "official_name": "Liquid Staking Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/405",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 406,
+      "official_name": "RWA Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/406",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 407,
+      "official_name": "Raises / Funding Rounds",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/407",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 408,
+      "official_name": "Investor Profiles",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/408",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 409,
+      "official_name": "Unlocks",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/409",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 410,
+      "official_name": "Treasury Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/410",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 411,
+      "official_name": "Airdrop / Incentive Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/411",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 412,
+      "official_name": "Capital Formation Radar",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/412",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 413,
+      "official_name": "DeFi Opportunity Screener",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/413",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 414,
+      "official_name": "DeFi Risk Passport",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/414",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 415,
+      "official_name": "API Aggregation Layer",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/415",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 416,
+      "official_name": "Cross-DeFi Decision Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/416",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 417,
+      "official_name": "Cross-Chain Fundamentals",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/417",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 418,
+      "official_name": "Protocol Fundamentals",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/418",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 419,
+      "official_name": "Stablecoin Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/419",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 420,
+      "official_name": "Stablecoin Activity Breakdown",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/420",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 421,
+      "official_name": "Developer Activity",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/421",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 422,
+      "official_name": "Sector/Ecosystem Comparables",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/422",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 423,
+      "official_name": "Equities + Crypto Research",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/423",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 424,
+      "official_name": "Consensus Estimates",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/424",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 425,
+      "official_name": "AI Analyst",
+      "consumption_mode": "AI/copilot interaction + cap646 API",
+      "primary_path": "/api/cap646/425",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 426,
+      "official_name": "Thesis Research Workspace",
+      "consumption_mode": "research workspace UI + cap646 API",
+      "primary_path": "/api/cap646/426",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 427,
+      "official_name": "Comparable Company / Protocol Analysis",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/427",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 428,
+      "official_name": "Excel / Sheets Integration",
+      "consumption_mode": "Excel/Sheets connector export path + cap646 API",
+      "primary_path": "/api/cap646/428",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 429,
+      "official_name": "API Data Platform",
+      "consumption_mode": "institutional API data platform + cap646 API",
+      "primary_path": "/api/cap646/429",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 430,
+      "official_name": "Research Templates",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/430",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 431,
+      "official_name": "Dashboards",
+      "consumption_mode": "dashboards UI + cap646 API",
+      "primary_path": "/api/cap646/431",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 432,
+      "official_name": "Stablecoin Payment Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/432",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 433,
+      "official_name": "On-Chain Usage Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/433",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 434,
+      "official_name": "Revenue / Fees / Economic Activity",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/434",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 435,
+      "official_name": "Cross-Market Research Copilot",
+      "consumption_mode": "cross-market research copilot + cap646 API",
+      "primary_path": "/api/cap646/435",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 436,
+      "official_name": "Investment Thesis Scoring",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/436",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 437,
+      "official_name": "DeFi Risk Radar",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/437",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 438,
+      "official_name": "Lending Market Risk",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/438",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 439,
+      "official_name": "Collateral Risk",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/439",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 440,
+      "official_name": "Liquidation Risk",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/440",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 441,
+      "official_name": "Oracle Risk",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/441",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 442,
+      "official_name": "Liquidity Risk",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/442",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 443,
+      "official_name": "Protocol Exploit Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/443",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 444,
+      "official_name": "Stablecoin Risk Intelligence",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/444",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 445,
+      "official_name": "DeFi Strategy Risk",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/445",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 446,
+      "official_name": "Real-Time Risk Alerts",
+      "consumption_mode": "alert/event path + cap646 API",
+      "primary_path": "/api/cap646/446",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 447,
+      "official_name": "DAO Treasury Risk",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/447",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 448,
+      "official_name": "Institutional Risk API",
+      "consumption_mode": "institutional risk API + cap646 API",
+      "primary_path": "/api/cap646/448",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 449,
+      "official_name": "Curated On-Chain Dashboards",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/449",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    },
+    {
+      "capability_id": 450,
+      "official_name": "Narrative-Driven Research",
+      "consumption_mode": "API",
+      "primary_path": "/api/cap646/450",
+      "secondary_path": "pdf_capability_registry.execute_capability",
+      "material_locally_tested": true,
+      "test_evidence": [
+        "tests/test_batch09_canonical_http_entitlement.py",
+        "tests/test_batch09_full_path_entitlement.py",
+        "tests/test_hero_batch_09_capabilities.py"
+      ],
+      "generic_gateway_sole_evidence": false
+    }
+  ]
+}

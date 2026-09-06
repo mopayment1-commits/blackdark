@@ -1,0 +1,14 @@
+{
+  "artifact": "BATCH09_LAYER_D_SSOT_RECONCILIATION",
+  "generated_at_utc": "2026-09-06T21:58:41.819196+00:00",
+  "ssot_ids_requested": [
+    338,
+    500,
+    507,
+    534
+  ],
+  "status": "FALSE_GAP",
+  "all_active_duplicate_truth_sources_covered": true,
+  "obsolete_or_irrelevant_sources_not_revived": true,
+  "rationale": "SSOT IDs 338/500/507/534 are not active competing canonical registries for Batch09 401-450 duplicate truth; Layers A+B exhaustive coverage sufficient"
+}

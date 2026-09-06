@@ -1,0 +1,22 @@
+{
+  "artifact": "BATCH09_BATCH06_RANGE_RESOLUTION",
+  "generated_at_utc": "2026-09-06T21:58:41.819196+00:00",
+  "git_commit": "f0e5e0b74cddba0be7f96a2539fe083e46ddf765",
+  "batch06_251_300_closure_evidence_status": "REAL_GOVERNANCE_DEBT",
+  "closure_reconstructable_from_repo": true,
+  "source_sha": "batch03 closure branch cursor/batch-03-201-300-e85e (see HERO_BATCH_03_COMPLETION_REPORT.md)",
+  "evidence": [
+    "docs/HERO_BATCH_03_COMPLETION_REPORT.md (201-300 includes 251-300)",
+    "tests/test_derivatives_onchain_intelligence_batch262_300.py",
+    "tests/test_batch03_underlying_closure.py",
+    "tests/test_hero_batch_03_capabilities.py"
+  ],
+  "batch_identifier_range_ambiguity": 0,
+  "regression_scope_attribution_unambiguous": true,
+  "canonical_range_aliases": {
+    "internal_batch06": "251-300 (docs/BATCH_INTERNAL_ID_MAPPING.md)",
+    "hero_batch06_manifest": "501-600 (scripts/partial_batches/batch_06_501_600.json)",
+    "institutional_delivery_batch06": "501-600 (NOT 251-300)",
+    "resolution": "Never attribute 501-600 hero regression evidence to internal 251-300 range"
+  }
+}

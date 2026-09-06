@@ -1,37 +1,15 @@
 {
   "artifact": "BATCH09_SSOT_RECONCILIATION",
-  "generated_at": "2026-09-06T20:16:36.938299+00:00",
-  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
-  "trackers": {
-    "PROGRESS_826_CANONICAL": {
-      "path": "docs/PROGRESS_826_CANONICAL.json",
-      "active_canonical_role": "ACTIVE_NUMERATOR_SSOT for PRODUCTION-ALIGNED count toward 826",
-      "schema": "numerator/denominator + formula breakdown",
-      "consumers": [
-        "scripts/compute_progress_826.py",
-        "institutional closure reports"
-      ],
-      "computed_at": "2026-09-01T20:03:40.237635+00:00",
-      "batch09_in_numerator": false,
-      "batch09_note": "Batch09 401-450 are PASS_ENGINEERING / LOCAL_COMPLETE — not PRODUCTION-ALIGNED. Numerator unchanged until G6/Railway. Inventory lists batch09 IDs as PENDING/DEFERRED."
-    },
-    "CAPABILITIES_826_INVENTORY": {
-      "path": "docs/CAPABILITIES_826_INVENTORY.json",
-      "active_canonical_role": "ACTIVE per-ID status SSOT feeding PROGRESS_826",
-      "batch09_ids_present": 50,
-      "batch09_status_snapshot": {
-        "PENDING": 47,
-        "NOT_COMPLETE": 3
-      }
-    },
-    "batch09_independent": {
-      "exists": false,
-      "active_canonical_role": "NOT_PRESENT",
-      "replacement_ssot": "docs/BATCH09_FINAL_LOCAL_FREEZE.json + docs/BATCH09_V3_STATE_CLASSIFICATION.json",
-      "note": "No batch09_independent counter required — v3 freeze is batch09 SSOT"
-    }
+  "generated_at_utc": "2026-09-06T21:58:41.819196+00:00",
+  "git_commit": "f0e5e0b74cddba0be7f96a2539fe083e46ddf765",
+  "active_SSOT_conflicts": 0,
+  "stale_active_truths": 0,
+  "unexplained_parallel_status_dimensions": 0,
+  "reconciled": "50/50",
+  "inventory_update": {
+    "updated_ids": 50,
+    "stale_active_truths_remaining": 0
   },
-  "stale_active_ssot": [],
-  "unreconciled_project_trackers": [],
-  "legacy_tracker_ambiguity": []
+  "progress_826_numerator_unchanged": true,
+  "note": "PENDING/NOT_COMPLETE preserved for live/production dimensions; factual backend fields corrected"
 }
