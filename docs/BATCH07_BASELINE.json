@@ -12,12 +12,12 @@
   "artifact": "BATCH07_BASELINE",
   "phase": 0,
   "phase_label": "forensics",
-  "generated_at": "2026-09-06T00:20:33.174714+00:00",
+  "generated_at": "2026-09-06T01:09:18.326612+00:00",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "git_branch": "cursor/batch07-301-350-ed16",
-    "artifact_generation_head": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
+    "artifact_generation_head": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
     "container_commit": null
   },
   "provenance": {

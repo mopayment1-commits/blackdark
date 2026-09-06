@@ -1,10 +1,10 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T00:21:24Z",
+  "generated_at_utc": "2026-09-06T01:10:45Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "final_freeze_head": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
+    "final_freeze_head": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -15,7 +15,7 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
+    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..71cce58a12649ca0dd46d05b4bbcf485d84279da",
     "files_changed_total": 25,
     "production_runtime_drift": 0,
     "production_runtime_files": [],
@@ -88,41 +88,41 @@
     "collective_review_local_col5": 50,
     "col10_local_preparation": 50,
     "production_aligned": 0,
-    "integrity": "blocked"
+    "integrity": "valid"
   },
   "github_actions": {
-    "ci_evidence_head": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
+    "ci_evidence_head": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
     "evidence_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "evidence_note": "CI gates must PASS on ci_evidence_head (final HEAD). Capability semantics validated at canonical_tested_source_head.",
     "CAP978": {
-      "status": "PENDING",
-      "run_id": null,
-      "url": null,
-      "headSha": null
+      "status": "PASS",
+      "run_id": 34001179893,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001179893",
+      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
     },
     "CI_CRITICAL_GATE": {
-      "status": "PENDING",
-      "run_id": null,
-      "url": null,
-      "headSha": null
+      "status": "PASS",
+      "run_id": 34001179937,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001179937",
+      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
     },
     "SONARCLOUD": {
-      "status": "PENDING",
-      "run_id": null,
-      "url": null,
-      "headSha": null
+      "status": "PASS",
+      "run_id": 34001180003,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001180003",
+      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
     },
     "SECURITY_SCAN": {
-      "status": "UNKNOWN",
-      "run_id": null,
-      "url": null,
-      "headSha": null
+      "status": "PASS",
+      "run_id": 34001179945,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001179945",
+      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
     },
     "CODEQL": {
-      "status": "UNKNOWN",
-      "run_id": null,
-      "url": null,
-      "headSha": null
+      "status": "PASS",
+      "run_id": 34001177729,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34001177729",
+      "headSha": "71cce58a12649ca0dd46d05b4bbcf485d84279da"
     }
   },
   "performance_evidence_identity": {
@@ -171,8 +171,8 @@
       "processor": "x86_64",
       "cpu_count": 4
     },
-    "measured_at_utc": "2026-09-06T00:13:39.104166+00:00",
-    "git_commit": "7b6f97830f45fa8d45ee5e56a5049f11d8782ccf",
+    "measured_at_utc": "2026-09-06T01:02:07.282688+00:00",
+    "git_commit": "71cce58a12649ca0dd46d05b4bbcf485d84279da",
     "not_production_evidence": true
   },
   "local_validation": {
@@ -181,26 +181,20 @@
     "material_skipped": [],
     "known_flaky_unresolved": [],
     "warnings_local_solvable": [],
-    "known_local_deficiencies": [
-      "ci_cap978_not_pass",
-      "ci_ci_critical_gate_not_pass",
-      "ci_sonarcloud_not_pass",
-      "ci_security_scan_not_pass",
-      "ci_codeql_not_pass"
-    ],
+    "known_local_deficiencies": [],
     "existing_verified_without_full_evidence": [],
     "pip_audit_actionable_vulnerabilities": 0,
     "deep_closure": "PASS",
     "cross_batch_regression": "FULL_PASS",
     "performance_local_status": "LOCAL_COMPLETE",
     "collective_review_local": "50/50",
-    "hash_install": "PENDING",
-    "postgres_migration_test": "PENDING"
+    "hash_install": "PASS",
+    "postgres_migration_test": "PASS"
   },
   "freeze_assertions": {
-    "BATCH07_FINAL_LOCAL_FREEZE": false,
-    "LOCAL_GOVERNANCE_COMPLETE": false,
-    "PASS_ENGINEERING": false
+    "BATCH07_FINAL_LOCAL_FREEZE": true,
+    "LOCAL_GOVERNANCE_COMPLETE": true,
+    "PASS_ENGINEERING": true
   },
   "g6_status": "BLOCKED_EXTERNAL_RAILWAY",
   "g7_status": "G7_LOCAL_PREPARATION_COMPLETE",
