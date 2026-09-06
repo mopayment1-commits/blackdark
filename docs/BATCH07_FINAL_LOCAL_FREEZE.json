@@ -1,10 +1,10 @@
 {
   "artifact": "BATCH07_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T11:50:24Z",
+  "generated_at_utc": "2026-09-06T13:29:27Z",
   "identity": {
     "canonical_tested_source_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "regression_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
-    "final_freeze_head": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1",
+    "final_freeze_head": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f",
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null
@@ -15,10 +15,14 @@
     "self_referential_head_embedding": "prohibited"
   },
   "semantic_equivalence": {
-    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..1d06a5a040d7d0e4480c1ac50e96353f894a8ae1",
-    "files_changed_total": 33,
-    "production_runtime_drift": 0,
-    "production_runtime_files": [],
+    "comparison": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b..c6fa559b5c883b20be6d40b4bdacdeefaac3b47f",
+    "files_changed_total": 36,
+    "production_runtime_drift": 3,
+    "production_runtime_files": [
+      "cap646/backend_registry.py",
+      "cap646/domain_enrichment.py",
+      "cap646/runtime.py"
+    ],
     "test_logic_drift": 1,
     "test_logic_files": [
       "tests/test_batch07_full_path_entitlement.py"
@@ -91,46 +95,47 @@
     "integrity": "valid"
   },
   "github_actions": {
-    "ci_evidence_head": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1",
+    "ci_evidence_head": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f",
     "evidence_head": "3d4c9633b906e9a14096a54edd6f4c5ae9464d3b",
     "evidence_note": "CI gates must PASS on ci_evidence_head (final HEAD). Capability semantics validated at canonical_tested_source_head.",
     "CAP978": {
       "status": "PASS",
-      "run_id": 34029980353,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34029980353",
-      "headSha": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1"
+      "run_id": 34034420658,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34034420658",
+      "headSha": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f"
     },
     "CI_CRITICAL_GATE": {
       "status": "PASS",
-      "run_id": 34029980379,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34029980379",
-      "headSha": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1"
+      "run_id": 34034420663,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34034420663",
+      "headSha": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f"
     },
     "SONARCLOUD": {
       "status": "PASS",
-      "run_id": 34029980310,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34029980310",
-      "headSha": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1"
+      "run_id": 34034420648,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34034420648",
+      "headSha": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f"
     },
     "SECURITY_SCAN": {
       "status": "PASS",
-      "run_id": 34029980383,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34029980383",
-      "headSha": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1"
+      "run_id": 34034420661,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34034420661",
+      "headSha": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f"
     },
     "CODEQL": {
       "status": "PASS",
-      "run_id": 34029978704,
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34029978704",
-      "headSha": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1"
+      "run_id": 34034417571,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34034417571",
+      "headSha": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f"
     },
     "sonar_evidence": {
-      "sonar_run_id": 34029980310,
-      "tested_head": "1d06a5a040d7d0e4480c1ac50e96353f894a8ae1",
+      "sonar_run_id": 34034420648,
+      "tested_head": "c6fa559b5c883b20be6d40b4bdacdeefaac3b47f",
       "scanner_status": "PASS",
-      "quality_gate_status": "PASSED_INFERRED_FROM_RUN_CONCLUSION",
-      "timestamp": "2026-09-06T11:50:24.678383+00:00",
-      "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34029980310",
+      "quality_gate_status": "PASSED",
+      "quality_gate_source": "CI scanner log",
+      "timestamp": "2026-09-06T13:29:27.362265+00:00",
+      "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34034420648",
       "sonar_gate_evidence_ambiguous": []
     }
   },
@@ -191,12 +196,12 @@
       "path": "cap646.runtime.execute_capability with entitlement_engine.check",
       "user_fixture": "pro tier local user dict",
       "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
-      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment — materially higher latency than pdf_capability_registry component binding. Thresholds are tier-specific and do not relax COMPONENT_PATH_PERFORMANCE gates.",
+      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds follow BLACKDARK v5 CLASS_A/B/C policy without inflation.",
       "thresholds_ms": {
-        "CLASS_A_DIRECT_LIGHTWEIGHT": 750,
-        "CLASS_B_ANALYSIS": 8500,
-        "CLASS_C_AI_HEAVY": 10000,
-        "BACKGROUND_JOB": 35000,
+        "CLASS_A_DIRECT_LIGHTWEIGHT": 500,
+        "CLASS_B_ANALYSIS": 2000,
+        "CLASS_C_AI_HEAVY": 5000,
+        "BACKGROUND_JOB": 30000,
         "NOT_APPLICABLE": 0
       }
     }
@@ -235,8 +240,8 @@
       "330_no_hero_double_count": true
     },
     "event_loop_forensic": {
-      "classification": "NOT_REPRODUCED",
-      "status": "NOT_OBSERVED"
+      "classification": null,
+      "status": "RESOLVED_OR_PROVEN_NON_ACTIONABLE"
     },
     "ssot_reconciliation": {
       "PROGRESS_826_CANONICAL": {

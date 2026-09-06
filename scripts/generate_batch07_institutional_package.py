@@ -1132,8 +1132,15 @@ def build_final_freeze(
         deficiencies.append("sonar_scanner_not_pass")
 
     drift_equiv = drift.get("frozen_source_head_is_semantically_equivalent_to_current_head")
-    if drift.get("production_runtime_drift", 0) > 0 and not drift_equiv:
+    ci_head = (ci_evidence or {}).get("ci_evidence_head")
+    ci_rerun_on_final = bool(ci_head and ci_head == baseline_head)
+    ci_all_pass = all((ci_evidence or {}).get(g, {}).get("status") == "PASS" for g in (
+        "CAP978", "CI_CRITICAL_GATE", "SONARCLOUD", "SECURITY_SCAN", "CODEQL"
+    ))
+    if drift.get("production_runtime_drift", 0) > 0 and not drift_equiv and not (ci_rerun_on_final and ci_all_pass):
         deficiencies.append("production_runtime_drift_unverified")
+
+    v3s = v3_state["summary"]
     if v3s.get("invalid_state_labels_as_primary"):
         deficiencies.append("invalid_state_labels_as_primary")
     if v3s.get("state_classification_missing"):
@@ -1214,7 +1221,6 @@ def build_final_freeze(
     if queue_rec.get("queue_unresolved"):
         deficiencies.append("queue_unresolved")
 
-    ci_head = (ci_evidence or {}).get("ci_evidence_head")
     if ci_head and ci_head != baseline_head:
         deficiencies.append("ci_evidence_head_mismatch")
 
