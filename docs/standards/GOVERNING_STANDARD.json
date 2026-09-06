@@ -1,7 +1,7 @@
 {
   "artifact": "GOVERNING_STANDARD",
-  "updated_at_utc": "2026-09-06T23:15:00Z",
-  "git_commit": "328f38f2e868c1a7367a170a4b5ba956d4ffa514",
+  "updated_at_utc": "2026-09-06T23:45:00Z",
+  "git_commit": "PENDING_COMMIT",
   "governing_version": "v6",
   "governing_standard": {
     "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
@@ -55,10 +55,43 @@
       "note": "Superseded by v4_v2; retained non-destructively for audit lineage"
     }
   ],
+  "temporal_intelligence_addendum": {
+    "path": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "title": "BLACKDARK Temporal Intelligence & Evidence Acceleration System",
+    "role": "IMPLEMENTATION_DESIGN_ADDENDUM",
+    "status": "ACTIVE_REGISTERED",
+    "sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+    "subordinate_to": ["v6", "v4_v2"],
+    "applicability_after": ["v6", "v4_v2"],
+    "applicability_domains": [
+      "historical data",
+      "replay",
+      "point-in-time reconstruction",
+      "signals",
+      "predictions",
+      "decisions",
+      "outcomes",
+      "evidence",
+      "forward shadow",
+      "learning",
+      "calibration",
+      "failure corpus",
+      "model lineage",
+      "dataset lineage",
+      "drift",
+      "data quality",
+      "rights",
+      "retention",
+      "Market Time Machine"
+    ],
+    "registration_not_implementation_proof": true,
+    "note": "Subordinate implementation/design addendum; does not supersede v6 or v4_v2 and does not create a parallel SSOT"
+  },
   "execution_policy": {
-    "order": ["v6", "v4_v2"],
-    "conflict_resolution": "v6 is supreme; report material conflicts before substantive change",
+    "order": ["v6", "v4_v2", "temporal_intelligence_addendum"],
+    "conflict_resolution": "v6 is supreme; then v4_v2; then temporal_intelligence_addendum; report material conflicts before substantive change",
     "no_parallel_ssot": true,
-    "strategic_classification_not_implementation_proof": true
+    "strategic_classification_not_implementation_proof": true,
+    "registration_not_implementation_proof": true
   }
 }

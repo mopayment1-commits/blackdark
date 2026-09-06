@@ -18,3 +18,11 @@ Canonical pointer: [`GOVERNING_STANDARD.json`](./GOVERNING_STANDARD.json)
 **Active (v4_v2):** [`domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md`](./domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md)
 
 **Historical (v4):** [`domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md`](./domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md) — superseded by v4_v2; not deleted.
+
+## Temporal intelligence addendum (subordinate to v6 and v4_v2)
+
+**Active (registered):** [`domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md`](./domain/BLACKDARK%20Temporal%20Intelligence%20%26%20Evidence%20Acceleration%20System.md)
+
+- **Role:** implementation/design addendum for historical data, replay, point-in-time reconstruction, signals/predictions/decisions/outcomes, evidence, forward shadow, learning/calibration, failure corpus, model/dataset lineage, drift, data quality, rights/retention, and Market Time Machine.
+- **Hierarchy:** applies after v6, then v4_v2; does not supersede either and does not create a parallel SSOT.
+- **Registration ≠ implementation proof:** presence in this index is not evidence of IMPLEMENTED / PASS_ENGINEERING / PASS_LIVE.
