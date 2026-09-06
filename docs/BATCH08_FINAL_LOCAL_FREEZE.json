@@ -1,6 +1,6 @@
 {
   "artifact": "BATCH08_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-06T16:00:34Z",
+  "generated_at_utc": "2026-09-06T16:34Z",
   "identity": {
     "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
     "regression_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
@@ -8,7 +8,8 @@
     "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
     "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
     "container_commit": null,
-    "micro_reconciliation_head": "c175c2a153064f3b711b0778691d30049f040b40"
+    "micro_reconciliation_head": "c175c2a153064f3b711b0778691d30049f040b40",
+    "final_micro_closure_head": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336"
   },
   "provenance": {
     "method": "git_log_derived",
@@ -105,13 +106,14 @@
       "note": "GitHub Security Scan at current Batch08 head"
     },
     "CODEQL": {
-      "status": "PASS",
-      "run_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
+      "status": "PENDING",
+      "run_id": null,
       "url": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json#codeql",
-      "headSha": "c175c2a153064f3b711b0778691d30049f040b40",
+      "headSha": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
       "branch": "cursor/batch08-351-400-ed16",
-      "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
-      "note": "CodeQL closure proxy + bandit at current Batch08 head; GitHub CodeQL workflow not triggered for PR #373 base branch"
+      "evidence_mode": "PENDING_GITHUB_ACTIONS",
+      "actual_codeql_executed": false,
+      "note": "GitHub CodeQL job in security.yml — bandit remains supporting only"
     },
     "sonar_evidence": {
       "sonar_run_id": 34040947266,
@@ -187,7 +189,7 @@
       "path": "cap646.runtime.execute_capability with entitlement_engine.check",
       "user_fixture": "pro tier local user dict",
       "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
-      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds follow BLACKDARK v5 CLASS_A/B/C policy without inflation.",
+      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds are BLACKDARK v5 internal project policy targets (CLASS_A=500ms, CLASS_B=2000ms, CLASS_C=5000ms) — not Nielsen Norman or ISO attributions.",
       "thresholds_ms": {
         "CLASS_A_DIRECT_LIGHTWEIGHT": 500,
         "CLASS_B_ANALYSIS": 2000,
@@ -262,6 +264,16 @@
         "replacement_ssot": "docs/BATCH08_FINAL_LOCAL_FREEZE.json + docs/BATCH08_V3_STATE_CLASSIFICATION.json",
         "note": "No batch08_independent counter required — v3 freeze is batch08 SSOT"
       }
+    },
+    "canonical_http_entitlement": {
+      "tested": "50/50",
+      "passed": true,
+      "evidence": "docs/BATCH08_CANONICAL_HTTP_ENTITLEMENT.json"
+    },
+    "state_status_dimensions": {
+      "explicit": true,
+      "active_ssot_contradictions": [],
+      "evidence": "docs/BATCH08_STATE_STATUS_DIMENSIONS.json"
     }
   },
   "local_validation": {
@@ -284,8 +296,8 @@
     "regressions_caused_by_micro_reconciliation": []
   },
   "freeze_assertions": {
-    "BATCH08_FINAL_LOCAL_FREEZE": true,
-    "LOCAL_GOVERNANCE_COMPLETE": true,
+    "BATCH08_FINAL_LOCAL_FREEZE": false,
+    "LOCAL_GOVERNANCE_COMPLETE": false,
     "PASS_ENGINEERING": true
   },
   "g6_status": "BLOCKED_EXTERNAL_RAILWAY",
@@ -309,9 +321,11 @@
     "completed_at": "2026-09-06T16:00:34.526010+00:00",
     "security_codeql": {
       "security_scan_current_batch08_evidence": true,
-      "codeql_current_batch08_evidence": true,
+      "codeql_current_batch08_evidence": false,
       "security_provenance_gap": [],
-      "codeql_provenance_gap": [],
+      "codeql_provenance_gap": [
+        "CODEQL_CURRENT_BATCH08_NOT_PROVEN"
+      ],
       "evidence_location": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json"
     },
     "a11y_interaction": {
@@ -337,5 +351,42 @@
       "v5_delta_requires_batch08_rebuild": false,
       "evidence_location": "docs/BATCH08_V5_DELTA_RECONCILIATION.json"
     }
+  },
+  "final_micro_closure": {
+    "completed_at": "2026-09-06T16:34:14.318801+00:00",
+    "head": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
+    "codeql": {
+      "status": "PENDING"
+    },
+    "batch07_regression": {
+      "batch07_regression_coverage_proven": true,
+      "batch07_regression_result": "PASS",
+      "regression_scope_claim_contradictions": [],
+      "shared_code_regression_gap": [],
+      "proof_mode": "executed_missing_suite",
+      "suite_result": {
+        "label": "batch07_hero_capabilities",
+        "script": "tests/test_hero_batch_07_capabilities.py",
+        "exit_code": 0,
+        "passed": true,
+        "warnings_detected": [],
+        "proven_non_actionable_warnings": [],
+        "unexplained_warnings": [],
+        "clean_pass": true,
+        "summary": "...................................................                      [100%]\n"
+      },
+      "suite_mapping": [
+        {
+          "batch07_scope": "301-350",
+          "suite": "batch07_hero_capabilities",
+          "script": "tests/test_hero_batch_07_capabilities.py",
+          "coverage_type": "direct_hero_execution"
+        }
+      ]
+    },
+    "http_entitlement": "docs/BATCH08_CANONICAL_HTTP_ENTITLEMENT.json",
+    "state_status_dimensions": "docs/BATCH08_STATE_STATUS_DIMENSIONS.json",
+    "false_gap_reconciliation": "docs/BATCH08_FALSE_GAP_RECONCILIATION.json",
+    "sha_chain": "docs/BATCH08_FINAL_MICRO_CLOSURE_SHA_CHAIN.json"
   }
 }

@@ -173,6 +173,7 @@ CROSS_BATCH_SUITES: list[tuple[str, str]] = [
     ("batch04_hero_capabilities", "tests/test_hero_batch_04_capabilities.py"),
     ("batch05_hero_capabilities", "tests/test_hero_batch_05_capabilities.py"),
     ("batch06_hero_capabilities", "tests/test_hero_batch_06_capabilities.py"),
+    ("batch07_hero_capabilities", "tests/test_hero_batch_07_capabilities.py"),
     ("batch08_hero_capabilities", "tests/test_hero_batch_08_capabilities.py"),
     ("batch01_underlying_closure", "tests/test_hero_batch01_underlying_closure.py"),
     ("batch03_underlying_closure", "tests/test_batch03_underlying_closure.py"),
@@ -1026,6 +1027,7 @@ def build_cross_batch_regression(baseline_head: str) -> dict[str, Any]:
         "batch04_hero_capabilities": "batch04",
         "batch05_hero_capabilities": "batch05",
         "batch06_hero_capabilities": "batch06",
+        "batch07_hero_capabilities": "batch07",
         "batch08_hero_capabilities": "batch08",
     }
     for label, script in CROSS_BATCH_SUITES:
@@ -1141,7 +1143,7 @@ def build_final_freeze(
     ci_all_pass = all((ci_evidence or {}).get(g, {}).get("status") == "PASS" for g in (
         "CAP978", "CI_CRITICAL_GATE", "SONARCLOUD", "SECURITY_SCAN", "CODEQL"
     ))
-    if drift.get("production_runtime_drift", 0) > 0 and not drift_equiv and not (ci_rerun_on_final and ci_all_pass):
+    if drift.get("production_runtime_drift", 0) > 0 and not drift_equiv and not ci_all_pass:
         deficiencies.append("production_runtime_drift_unverified")
 
     v3s = v3_state["summary"]
@@ -1757,7 +1759,7 @@ if __name__ == "__main__":
         evidence_doc = docs["BATCH08_EXISTING_VERIFIED_EVIDENCE.json"]
         collective_doc = docs["BATCH08_COLLECTIVE_REVIEW_LOCAL.json"]
         duplicate_doc = docs["BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json"]
-        drift = recon.compute_drift_metrics(tested_head, artifact_head)
+        drift = recon.compute_drift_metrics(ci_evidence_head, artifact_head)
         ci_evidence = fetch_ci_evidence_for_head(ci_evidence_head)
         perf_benchmark_raw = docs["BATCH08_PERFORMANCE_CAPACITY_PREP.json"]
         perf_benchmark = {

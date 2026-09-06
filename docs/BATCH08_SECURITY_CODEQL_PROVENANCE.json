@@ -1,51 +1,34 @@
 {
   "artifact": "BATCH08_SECURITY_CODEQL_PROVENANCE",
-  "generated_at": "2026-09-06T16:00:13.595783+00:00",
-  "head": "c175c2a153064f3b711b0778691d30049f040b40",
+  "generated_at": "2026-09-06T16:34:05.764816+00:00",
+  "head": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
   "security_scan": {
     "workflow_definition": ".github/workflows/security.yml",
     "evidence_mode": "GITHUB_ACTIONS",
-    "tested_sha": "c175c2a153064f3b711b0778691d30049f040b40",
+    "tested_sha": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
     "branch": "cursor/batch08-351-400-ed16",
     "result": "PASS",
-    "run_id": 34043926926,
-    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34043926926",
+    "run_id": 34044077432,
+    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34044077432",
     "security_scan_current_batch08_evidence": true
   },
   "codeql": {
-    "workflow_definition": "CodeQL (org-level) + closure test proxy",
-    "evidence_mode": "LOCAL_CODEQL_PROXY_REPLAY",
-    "reason": "CodeQL GitHub Action runs on PRs targeting main (PR #372 pattern); Batch08 PR #373 targets batch05 branch",
-    "tested_sha": "c175c2a153064f3b711b0778691d30049f040b40",
-    "branch": "cursor/batch08-351-400-ed16",
-    "result": "PASS",
-    "local_replay_id": "d36bb0ce20f1d521ea627a447a281ad6bfacb6402f5e494345f18dd9c7cfbb2d",
-    "jobs": [
-      {
-        "label": "codeql-closure-tests",
-        "command": "/workspace/.venv/bin/python3 -m pytest tests/test_codeql_secret_logging_closure.py tests/test_codeql_18_closure.py tests/test_codeql_cleartext_logging_closure.py tests/test_sql_safety.py tests/test_path_safety.py tests/test_xss_sink_hardening.py tests/test_security_max_closure.py -q",
-        "exit_code": 0,
-        "passed": true,
-        "output_digest_sha256_prefix": "1c296f620adc850f",
-        "stdout_tail": ".............................................................            [100%]\n",
-        "stderr_tail": ""
-      },
-      {
-        "label": "bandit-static",
-        "command": "bandit -r . -c .bandit -ll -q",
-        "exit_code": 0,
-        "passed": true,
-        "output_digest_sha256_prefix": "a71327e20d27fb54",
-        "stdout_tail": "",
-        "stderr_tail": "[main]\tINFO\tFound project level .bandit file: ./.bandit\n[utils]\tWARNING\tUnable to parse config file ./.bandit or missing [bandit] section\n"
-      }
-    ],
-    "codeql_current_batch08_evidence": true
+    "workflow_definition": ".github/workflows/security.yml#jobs.codeql",
+    "evidence_mode": "PENDING_GITHUB_ACTIONS",
+    "tested_sha": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
+    "actual_codeql_executed": false,
+    "actual_codeql_result": "PENDING",
+    "codeql_tested_sha_proven": false,
+    "codeql_evidence_substitution": [
+      "awaiting GitHub CodeQL job on pushed HEAD"
+    ]
   },
   "security_scan_current_batch08_evidence": true,
-  "codeql_current_batch08_evidence": true,
+  "codeql_current_batch08_evidence": false,
   "security_provenance_gap": [],
-  "codeql_provenance_gap": [],
+  "codeql_provenance_gap": [
+    "CODEQL_CURRENT_BATCH08_NOT_PROVEN"
+  ],
   "production_security_drift": {
     "from_14bbf492_to_head": [
       "cap646/backend_executor.py",
