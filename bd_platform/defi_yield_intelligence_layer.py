@@ -14,6 +14,8 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.DefiYieldIntel")
 
+from bd_platform.batch09_semantic_engine import compute_semantic_extra
+
 _SEED_PATH = Path("data/legal_retail_commercial_seed.json")
 
 
@@ -71,561 +73,351 @@ def _base(
 def bridges_intelligence_401(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Bridges Intelligence (#401)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_401", 3001.0)
     return _base(
         401,
         symbol=symbol,
         seed=seed,
-        extra={
-            "bridges_intelligence": round(metric, 4),
-            "feature": "Bridges Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(401, symbol=symbol, seed=seed),
     )
 
 def yields_screener_402(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Yields Screener (#402)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_402", 3004.7)
     return _base(
         402,
         symbol=symbol,
         seed=seed,
-        extra={
-            "yields_screener": round(metric, 4),
-            "feature": "Yields Screener",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(402, symbol=symbol, seed=seed),
     )
 
 def yield_history_403(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Yield History (#403)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_403", 3008.4)
     return _base(
         403,
         symbol=symbol,
         seed=seed,
-        extra={
-            "yield_history": round(metric, 4),
-            "feature": "Yield History",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(403, symbol=symbol, seed=seed),
     )
 
 def borrowing_rates_404(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Borrowing Rates (#404)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_404", 3012.1)
     return _base(
         404,
         symbol=symbol,
         seed=seed,
-        extra={
-            "borrowing_rates": round(metric, 4),
-            "feature": "Borrowing Rates",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(404, symbol=symbol, seed=seed),
     )
 
 def liquid_staking_intelligence_405(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Liquid Staking Intelligence (#405)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_405", 3015.8)
     return _base(
         405,
         symbol=symbol,
         seed=seed,
-        extra={
-            "liquid_staking": round(metric, 4),
-            "feature": "Liquid Staking Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(405, symbol=symbol, seed=seed),
     )
 
 def rwa_intelligence_406(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """RWA Intelligence (#406)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_406", 3019.5)
     return _base(
         406,
         symbol=symbol,
         seed=seed,
-        extra={
-            "rwa_intelligence": round(metric, 4),
-            "feature": "RWA Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(406, symbol=symbol, seed=seed),
     )
 
 def raises_funding_rounds_407(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Raises / Funding Rounds (#407)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_407", 3023.2)
     return _base(
         407,
         symbol=symbol,
         seed=seed,
-        extra={
-            "raises_funding": round(metric, 4),
-            "feature": "Raises / Funding Rounds",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(407, symbol=symbol, seed=seed),
     )
 
 def investor_profiles_408(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Investor Profiles (#408)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_408", 3026.9)
     return _base(
         408,
         symbol=symbol,
         seed=seed,
-        extra={
-            "investor_profiles": round(metric, 4),
-            "feature": "Investor Profiles",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(408, symbol=symbol, seed=seed),
     )
 
 def treasury_intelligence_410(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Treasury Intelligence (#410)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_410", 3034.3)
     return _base(
         410,
         symbol=symbol,
         seed=seed,
-        extra={
-            "treasury_intelligence": round(metric, 4),
-            "feature": "Treasury Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(410, symbol=symbol, seed=seed),
     )
 
 def airdrop_incentive_intelligence_411(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Airdrop / Incentive Intelligence (#411)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_411", 3038.0)
     return _base(
         411,
         symbol=symbol,
         seed=seed,
-        extra={
-            "airdrop_incentive": round(metric, 4),
-            "feature": "Airdrop / Incentive Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(411, symbol=symbol, seed=seed),
     )
 
 def capital_formation_radar_412(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Capital Formation Radar (#412)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_412", 3041.7)
     return _base(
         412,
         symbol=symbol,
         seed=seed,
-        extra={
-            "capital_formation": round(metric, 4),
-            "feature": "Capital Formation Radar",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(412, symbol=symbol, seed=seed),
     )
 
 def defi_opportunity_screener_413(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """DeFi Opportunity Screener (#413)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_413", 3045.4)
     return _base(
         413,
         symbol=symbol,
         seed=seed,
-        extra={
-            "defi_opportunity": round(metric, 4),
-            "feature": "DeFi Opportunity Screener",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(413, symbol=symbol, seed=seed),
     )
 
 def defi_risk_passport_414(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """DeFi Risk Passport (#414)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_414", 3049.1)
     return _base(
         414,
         symbol=symbol,
         seed=seed,
-        extra={
-            "defi_risk": round(metric, 4),
-            "feature": "DeFi Risk Passport",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(414, symbol=symbol, seed=seed),
     )
 
 def api_aggregation_layer_415(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """API Aggregation Layer (#415)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_415", 3052.8)
     return _base(
         415,
         symbol=symbol,
         seed=seed,
-        extra={
-            "api_aggregation": round(metric, 4),
-            "feature": "API Aggregation Layer",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(415, symbol=symbol, seed=seed),
     )
 
 def cross_defi_decision_intelligence_416(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Cross-DeFi Decision Intelligence (#416)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_416", 3056.5)
     return _base(
         416,
         symbol=symbol,
         seed=seed,
-        extra={
-            "cross_defi": round(metric, 4),
-            "feature": "Cross-DeFi Decision Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(416, symbol=symbol, seed=seed),
     )
 
 def cross_chain_fundamentals_417(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Cross-Chain Fundamentals (#417)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_417", 3060.2)
     return _base(
         417,
         symbol=symbol,
         seed=seed,
-        extra={
-            "cross_chain": round(metric, 4),
-            "feature": "Cross-Chain Fundamentals",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(417, symbol=symbol, seed=seed),
     )
 
 def protocol_fundamentals_418(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Protocol Fundamentals (#418)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_418", 3063.9)
     return _base(
         418,
         symbol=symbol,
         seed=seed,
-        extra={
-            "protocol_fundamentals": round(metric, 4),
-            "feature": "Protocol Fundamentals",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(418, symbol=symbol, seed=seed),
     )
 
 def stablecoin_intelligence_419(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Stablecoin Intelligence (#419)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_419", 3067.6)
     return _base(
         419,
         symbol=symbol,
         seed=seed,
-        extra={
-            "stablecoin_intelligence": round(metric, 4),
-            "feature": "Stablecoin Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(419, symbol=symbol, seed=seed),
     )
 
 def stablecoin_activity_breakdown_420(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Stablecoin Activity Breakdown (#420)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_420", 3071.3)
     return _base(
         420,
         symbol=symbol,
         seed=seed,
-        extra={
-            "stablecoin_activity": round(metric, 4),
-            "feature": "Stablecoin Activity Breakdown",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(420, symbol=symbol, seed=seed),
     )
 
 def developer_activity_421(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Developer Activity (#421)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_421", 3075.0)
     return _base(
         421,
         symbol=symbol,
         seed=seed,
-        extra={
-            "developer_activity": round(metric, 4),
-            "feature": "Developer Activity",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(421, symbol=symbol, seed=seed),
     )
 
 def sector_ecosystem_comparables_422(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Sector/Ecosystem Comparables (#422)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_422", 3078.7)
     return _base(
         422,
         symbol=symbol,
         seed=seed,
-        extra={
-            "sector_ecosystem": round(metric, 4),
-            "feature": "Sector/Ecosystem Comparables",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(422, symbol=symbol, seed=seed),
     )
 
 def equities_crypto_research_423(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Equities + Crypto Research (#423)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_423", 3082.4)
     return _base(
         423,
         symbol=symbol,
         seed=seed,
-        extra={
-            "equities_crypto": round(metric, 4),
-            "feature": "Equities + Crypto Research",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(423, symbol=symbol, seed=seed),
     )
 
 def consensus_estimates_424(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Consensus Estimates (#424)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_424", 3086.1)
     return _base(
         424,
         symbol=symbol,
         seed=seed,
-        extra={
-            "consensus_estimates": round(metric, 4),
-            "feature": "Consensus Estimates",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(424, symbol=symbol, seed=seed),
     )
 
 def ai_analyst_425(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """AI Analyst (#425)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_425", 3089.8)
     return _base(
         425,
         symbol=symbol,
         seed=seed,
-        extra={
-            "ai_analyst": round(metric, 4),
-            "feature": "AI Analyst",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(425, symbol=symbol, seed=seed),
     )
 
 def thesis_research_workspace_426(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Thesis Research Workspace (#426)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_426", 3093.5)
     return _base(
         426,
         symbol=symbol,
         seed=seed,
-        extra={
-            "thesis_research": round(metric, 4),
-            "feature": "Thesis Research Workspace",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(426, symbol=symbol, seed=seed),
     )
 
 def comparable_company_protocol_analysis_427(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Comparable Company / Protocol Analysis (#427)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_427", 3097.2)
     return _base(
         427,
         symbol=symbol,
         seed=seed,
-        extra={
-            "comparable_company": round(metric, 4),
-            "feature": "Comparable Company / Protocol Analysis",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(427, symbol=symbol, seed=seed),
     )
 
 def excel_sheets_integration_428(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Excel / Sheets Integration (#428)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_428", 3100.9)
     return _base(
         428,
         symbol=symbol,
         seed=seed,
-        extra={
-            "excel_sheets": round(metric, 4),
-            "feature": "Excel / Sheets Integration",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(428, symbol=symbol, seed=seed),
     )
 
 def api_data_platform_429(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """API Data Platform (#429)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_429", 3104.6)
     return _base(
         429,
         symbol=symbol,
         seed=seed,
-        extra={
-            "api_data": round(metric, 4),
-            "feature": "API Data Platform",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(429, symbol=symbol, seed=seed),
     )
 
 def research_templates_430(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Research Templates (#430)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_430", 3108.3)
     return _base(
         430,
         symbol=symbol,
         seed=seed,
-        extra={
-            "research_templates": round(metric, 4),
-            "feature": "Research Templates",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(430, symbol=symbol, seed=seed),
     )
 
 def dashboards_431(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Dashboards (#431)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_431", 3112.0)
     return _base(
         431,
         symbol=symbol,
         seed=seed,
-        extra={
-            "dashboards": round(metric, 4),
-            "feature": "Dashboards",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(431, symbol=symbol, seed=seed),
     )
 
 def stablecoin_payment_intelligence_432(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Stablecoin Payment Intelligence (#432)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_432", 3115.7)
     return _base(
         432,
         symbol=symbol,
         seed=seed,
-        extra={
-            "stablecoin_payment": round(metric, 4),
-            "feature": "Stablecoin Payment Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(432, symbol=symbol, seed=seed),
     )
 
 def on_chain_usage_intelligence_433(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """On-Chain Usage Intelligence (#433)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_433", 3119.4)
     return _base(
         433,
         symbol=symbol,
         seed=seed,
-        extra={
-            "on_chain": round(metric, 4),
-            "feature": "On-Chain Usage Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(433, symbol=symbol, seed=seed),
     )
 
 def revenue_fees_economic_activity_434(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Revenue / Fees / Economic Activity (#434)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_434", 3123.1)
     return _base(
         434,
         symbol=symbol,
         seed=seed,
-        extra={
-            "revenue_fees": round(metric, 4),
-            "feature": "Revenue / Fees / Economic Activity",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(434, symbol=symbol, seed=seed),
     )
 
 def cross_market_research_copilot_435(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Cross-Market Research Copilot (#435)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_435", 3126.8)
     return _base(
         435,
         symbol=symbol,
         seed=seed,
-        extra={
-            "cross_market": round(metric, 4),
-            "feature": "Cross-Market Research Copilot",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(435, symbol=symbol, seed=seed),
     )
 
 def investment_thesis_scoring_436(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Investment Thesis Scoring (#436)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_436", 3130.5)
     return _base(
         436,
         symbol=symbol,
         seed=seed,
-        extra={
-            "investment_thesis": round(metric, 4),
-            "feature": "Investment Thesis Scoring",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(436, symbol=symbol, seed=seed),
     )
 
 
@@ -716,193 +508,121 @@ def oracle_risk_441(
 def lending_market_risk_438(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Lending Market Risk (#438)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_438", 3137.9)
     return _base(
         438,
         symbol=symbol,
         seed=seed,
-        extra={
-            "lending_market": round(metric, 4),
-            "feature": "Lending Market Risk",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(438, symbol=symbol, seed=seed),
     )
 
 def collateral_risk_439(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Collateral Risk (#439)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_439", 3141.6)
     return _base(
         439,
         symbol=symbol,
         seed=seed,
-        extra={
-            "collateral_risk": round(metric, 4),
-            "feature": "Collateral Risk",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(439, symbol=symbol, seed=seed),
     )
 
 def liquidation_risk_440(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Liquidation Risk (#440)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_440", 3145.3)
     return _base(
         440,
         symbol=symbol,
         seed=seed,
-        extra={
-            "liquidation_risk": round(metric, 4),
-            "feature": "Liquidation Risk",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(440, symbol=symbol, seed=seed),
     )
 
 def liquidity_risk_442(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Liquidity Risk (#442)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_442", 3152.7)
     return _base(
         442,
         symbol=symbol,
         seed=seed,
-        extra={
-            "liquidity_risk": round(metric, 4),
-            "feature": "Liquidity Risk",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(442, symbol=symbol, seed=seed),
     )
 
 def protocol_exploit_intelligence_443(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Protocol Exploit Intelligence (#443)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_443", 3156.4)
     return _base(
         443,
         symbol=symbol,
         seed=seed,
-        extra={
-            "protocol_exploit": round(metric, 4),
-            "feature": "Protocol Exploit Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(443, symbol=symbol, seed=seed),
     )
 
 def stablecoin_risk_intelligence_444(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Stablecoin Risk Intelligence (#444)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_444", 3160.1)
     return _base(
         444,
         symbol=symbol,
         seed=seed,
-        extra={
-            "stablecoin_risk": round(metric, 4),
-            "feature": "Stablecoin Risk Intelligence",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(444, symbol=symbol, seed=seed),
     )
 
 def defi_strategy_risk_445(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """DeFi Strategy Risk (#445)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_445", 3163.8)
     return _base(
         445,
         symbol=symbol,
         seed=seed,
-        extra={
-            "defi_strategy": round(metric, 4),
-            "feature": "DeFi Strategy Risk",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(445, symbol=symbol, seed=seed),
     )
 
 def real_time_risk_alerts_446(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Real-Time Risk Alerts (#446)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_446", 3167.5)
     return _base(
         446,
         symbol=symbol,
         seed=seed,
-        extra={
-            "real_time": round(metric, 4),
-            "feature": "Real-Time Risk Alerts",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(446, symbol=symbol, seed=seed),
     )
 
 def dao_treasury_risk_447(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """DAO Treasury Risk (#447)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_447", 3171.2)
     return _base(
         447,
         symbol=symbol,
         seed=seed,
-        extra={
-            "dao_treasury": round(metric, 4),
-            "feature": "DAO Treasury Risk",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(447, symbol=symbol, seed=seed),
     )
 
 def institutional_risk_api_448(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Institutional Risk API (#448)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_448", 3174.9)
     return _base(
         448,
         symbol=symbol,
         seed=seed,
-        extra={
-            "institutional_risk": round(metric, 4),
-            "feature": "Institutional Risk API",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(448, symbol=symbol, seed=seed),
     )
 
 def curated_on_chain_dashboards_449(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Curated On-Chain Dashboards (#449)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_449", 3178.6)
     return _base(
         449,
         symbol=symbol,
         seed=seed,
-        extra={
-            "curated_on": round(metric, 4),
-            "feature": "Curated On-Chain Dashboards",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(449, symbol=symbol, seed=seed),
     )
 
 def narrative_driven_research_450(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Narrative-Driven Research (#450)."""
     seed = seed or _load_seed()
-    metric = _metric(seed, "cap_450", 3182.3)
     return _base(
         450,
         symbol=symbol,
         seed=seed,
-        extra={
-            "narrative_driven": round(metric, 4),
-            "feature": "Narrative-Driven Research",
-            "attribution": "BLACKDARK defi/yield intelligence layer",
-            "formula_visible": True,
-        },
+        extra=compute_semantic_extra(450, symbol=symbol, seed=seed),
     )
 
 def protocol_dominance_451(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
