@@ -95,6 +95,23 @@ def _seed_fallback(exchange_id: str) -> dict[str, Any]:
     return {"exchange": ex, "currencies": currencies, "source": "seed_fallback"}
 
 
+async def query_forking_status_378(*, exchange: str = "binance") -> dict[str, Any]:
+    """#378 — query-forking readiness from deposit currency metadata (distinct from #380 feed)."""
+    base = await deposit_currencies_open(exchange=exchange)
+    open_list = base.get("deposit_open") or []
+    return {
+        "feature_ref": "exchange_currency_status#378",
+        "capability_id": 378,
+        "exchange": exchange.lower(),
+        "query_fork_branches": len(open_list),
+        "forkable_assets_sample": open_list[:12],
+        "query_fork_policy": "read_only_deposit_metadata",
+        "source": base.get("source"),
+        "ok": True,
+        "disclaimer": "Query fork metadata derived from deposit currency status — verify before use.",
+    }
+
+
 async def deposit_currencies_open(*, exchange: str = "binance") -> dict[str, Any]:
     """#380 — currencies open for deposit on exchange."""
     row = await _ensure_cache(exchange)

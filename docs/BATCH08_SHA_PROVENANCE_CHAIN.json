@@ -1,0 +1,202 @@
+{
+  "artifact": "BATCH08_SHA_PROVENANCE_CHAIN",
+  "generated_at": "2026-09-06T16:00:34.521874+00:00",
+  "starting_head": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
+  "ci_evidence_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+  "artifact_head": "6d002422c84f3a711846e6f1cb4d061becacae8f",
+  "prior_final_freeze_head": "4cc2fc4a683b820e584620e6a77b9f32e385db71",
+  "governing_v5_delta_head": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+  "current_head": "c175c2a153064f3b711b0778691d30049f040b40",
+  "transitions": [
+    {
+      "from": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+      "to": "1bd0f0e",
+      "message": "Batch08 routing/registry/executor wiring",
+      "files_changed": 8,
+      "classification": {
+        "production_runtime": 6,
+        "documentation_evidence": 1,
+        "test_logic": 1
+      },
+      "production_runtime_files": [
+        "cap646/backend_executor.py",
+        "cap646/backend_registry.py",
+        "cap646/catalog.py",
+        "cap646/runtime.py",
+        "exchange_currency_status.py",
+        "pdf_capability_registry.py"
+      ],
+      "production_semantic_drift": true
+    },
+    {
+      "from": "1bd0f0e",
+      "to": "b37e809",
+      "message": "Initial Batch08 docs package",
+      "files_changed": 29,
+      "classification": {
+        "documentation_evidence": 29
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "b37e809",
+      "to": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
+      "message": "Batch08 scripts/tests — canonical tested source",
+      "files_changed": 6,
+      "classification": {
+        "assurance_tooling": 3,
+        "other": 1,
+        "test_logic": 2
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
+      "to": "d1c4dcc",
+      "message": "CAP978 count rebaseline part 1",
+      "files_changed": 1,
+      "classification": {
+        "production_runtime": 1
+      },
+      "production_runtime_files": [
+        "cap978/institutional_gate.py"
+      ],
+      "production_semantic_drift": true
+    },
+    {
+      "from": "d1c4dcc",
+      "to": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+      "message": "CAP978 rebaseline + evidence snapshot — CI evidence head",
+      "files_changed": 1,
+      "classification": {
+        "documentation_evidence": 1
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+      "to": "491dcff",
+      "message": "Warning hygiene + freeze gate logic",
+      "files_changed": 4,
+      "classification": {
+        "documentation_evidence": 2,
+        "assurance_tooling": 2
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "491dcff",
+      "to": "6d002422c84f3a711846e6f1cb4d061becacae8f",
+      "message": "Split CI/artifact head freeze logic",
+      "files_changed": 1,
+      "classification": {
+        "assurance_tooling": 1
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "6d002422c84f3a711846e6f1cb4d061becacae8f",
+      "to": "4cc2fc4a683b820e584620e6a77b9f32e385db71",
+      "message": "Freeze flags true on CI evidence",
+      "files_changed": 2,
+      "classification": {
+        "documentation_evidence": 2
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "4cc2fc4a683b820e584620e6a77b9f32e385db71",
+      "to": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+      "message": "Post-freeze v5 governing standard delta",
+      "files_changed": 2,
+      "classification": {
+        "governing_standard_only": 2
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "cd0b3f9027b0f945809c859ba8dd61599aad01e8",
+      "to": "ce26651",
+      "message": "Micro-reconciliation artifacts (4 governance gaps)",
+      "files_changed": 7,
+      "classification": {
+        "documentation_evidence": 6,
+        "assurance_tooling": 1
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    },
+    {
+      "from": "ce26651",
+      "to": "c175c2a153064f3b711b0778691d30049f040b40",
+      "message": "Security Scan workflow trigger for PR evidence",
+      "files_changed": 1,
+      "classification": {
+        "workflow_logic": 1
+      },
+      "production_runtime_files": [],
+      "production_semantic_drift": false
+    }
+  ],
+  "explicit_reconciliation_1b2a7b7_to_c7c1e4e": {
+    "from": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
+    "to": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+    "message": "CAP978 institutional gate count rebaseline only",
+    "files_changed": 2,
+    "classification": {
+      "production_runtime": 1,
+      "documentation_evidence": 1
+    },
+    "production_runtime_files": [
+      "cap978/institutional_gate.py"
+    ],
+    "production_semantic_drift": true
+  },
+  "sha_transition_chain_complete": true,
+  "unexplained_sha_transitions": [],
+  "production_semantic_drift_unresolved": [],
+  "semantic_equivalence_current": {
+    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..c175c2a153064f3b711b0778691d30049f040b40",
+    "files_changed_total": 15,
+    "production_runtime_drift": 0,
+    "production_runtime_files": [],
+    "test_logic_drift": 0,
+    "test_logic_files": [],
+    "dependency_drift": 0,
+    "dependency_files": [],
+    "workflow_logic_drift": 1,
+    "workflow_files": [
+      ".github/workflows/security.yml"
+    ],
+    "documentation_evidence_drift": 11,
+    "documentation_files": [
+      "docs/BATCH08_BASELINE.json",
+      "docs/BATCH08_CROSS_BATCH_REGRESSION.json",
+      "docs/BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION.json",
+      "docs/BATCH08_EVENT_LOOP_FORENSIC.json",
+      "docs/BATCH08_FINAL_LOCAL_FREEZE.json",
+      "docs/BATCH08_LOCAL_A11Y_INTERACTION.json",
+      "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json",
+      "docs/BATCH08_SHA_PROVENANCE_CHAIN.json",
+      "docs/BATCH08_V5_DELTA_RECONCILIATION.json",
+      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
+      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md"
+    ],
+    "assurance_tooling_drift": 3,
+    "assurance_tooling_files": [
+      "scripts/batch08_micro_reconciliation.py",
+      "scripts/batch08_v3_reconciliation.py",
+      "scripts/generate_batch08_institutional_package.py"
+    ],
+    "frozen_source_head_is_semantically_equivalent_to_current_head": true,
+    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. documentation_evidence_drift is docs/data evidence artifacts only. assurance_tooling_drift is executable institutional scripts (reconciliation/generators)."
+  }
+}

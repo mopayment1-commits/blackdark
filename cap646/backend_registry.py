@@ -305,6 +305,13 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
     return None
 
 
+@lru_cache(maxsize=1)
+def _pdf_registry_bindings() -> dict[int, tuple[str, str]]:
+    from pdf_capability_registry import discover_bindings
+
+    return discover_bindings()
+
+
 @lru_cache(maxsize=646)
 def resolve_binding(capability_id: int) -> BackendBinding:
     explicit = _EXPLICIT_BINDINGS.get(capability_id)
@@ -316,6 +323,12 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     name = row["capability"]
     track = row["track"]
     surface = _slug(name)
+
+    if 301 <= capability_id <= 400:
+        pdf = _pdf_registry_bindings().get(capability_id)
+        if pdf is not None:
+            mod, entrypoint = pdf
+            return BackendBinding(capability_id, mod, entrypoint, surface, "symbol", "pdf_capability_registry")
 
     comp = _component_binding(matrix.get("existing_code_components") or [])
     if comp:

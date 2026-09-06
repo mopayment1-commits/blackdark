@@ -26,8 +26,17 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         return fn() if not inspect.iscoroutinefunction(fn) else await fn()
     if style == "symbol":
         sig = inspect.signature(fn)
+        if len(sig.parameters) == 0:
+            return fn() if not inspect.iscoroutinefunction(fn) else await fn()
         if "symbol" in sig.parameters:
             return fn(symbol=symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol=symbol)
+        if "exchange" in sig.parameters:
+            exchange = str(params.get("exchange") or "binance")
+            return (
+                fn(exchange=exchange)
+                if not inspect.iscoroutinefunction(fn)
+                else await fn(exchange=exchange)
+            )
         if "limit" in sig.parameters:
             return fn(limit=int(params.get("limit") or 5)) if not inspect.iscoroutinefunction(fn) else await fn(limit=int(params.get("limit") or 5))
         return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)

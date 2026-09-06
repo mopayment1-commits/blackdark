@@ -1,0 +1,1967 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "pentagonal_rows": 50,
+    "columns": "1-5"
+  },
+  "artifact": "BATCH08_PENTAGONAL_TEMPLATE_351_400",
+  "generated_at": "2026-09-06T14:34:24.745766+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "scope": "Pentagonal template cols 1-5 per ID — Batch08 351-400",
+  "rows": [
+    {
+      "capability_id": 351,
+      "capability_name": "Active Users",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Active Users' served via surface 'active_users'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:active_users_351"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=351; surface=active_users",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/351",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=351",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 352,
+      "capability_name": "Core Developers",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Core Developers' served via surface 'core_developers'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:core_developers_352"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=352; surface=core_developers",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/352",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=352",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 353,
+      "capability_name": "Code Commits",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Code Commits' served via surface 'code_commits'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:code_commits_353"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=353; surface=code_commits",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/353",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=353",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 354,
+      "capability_name": "TVL Intelligence",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'TVL Intelligence' served via surface 'tvl_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:tvl_intelligence_354"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=354; surface=tvl_intelligence",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/354",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=354",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 355,
+      "capability_name": "Borrowed / Loans Outstanding",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Borrowed / Loans Outstanding' served via surface 'borrowed_loans_outstanding'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:borrowed_loans_outstanding_355"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=355; surface=borrowed_loans_outstanding",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/355",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=355",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 356,
+      "capability_name": "DEX Volume",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DEX Volume' served via surface 'marketwatch_rss_feeds'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/heroes_capability_layer.py:marketwatch_rss_feeds_356"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=356; surface=marketwatch_rss_feeds",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/356",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=356",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 357,
+      "capability_name": "Stablecoin Supply",
+      "track": "T04",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Stablecoin Supply' served via surface 'stablecoin_supply'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:stablecoin_supply_357"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=357; surface=stablecoin_supply",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/357",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=357",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 358,
+      "capability_name": "Valuation Multiples",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Valuation Multiples' served via surface 'valuation_multiples'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:valuation_multiples_358"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=358; surface=valuation_multiples",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/358",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=358",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 359,
+      "capability_name": "Growth Metrics",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Growth Metrics' served via surface 'growth_metrics'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:growth_metrics_359"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=359; surface=growth_metrics",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/359",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=359",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 360,
+      "capability_name": "Margins / Take Rate",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Margins / Take Rate' served via surface 'margins_take_rate'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:margins_take_rate_360"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=360; surface=margins_take_rate",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/360",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=360",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 361,
+      "capability_name": "Project Comparables",
+      "track": "T05",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Project Comparables' served via surface 'project_comparables'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:project_comparables_361"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=361; surface=project_comparables",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/361",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=361",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 362,
+      "capability_name": "Sector Comparables",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Sector Comparables' served via surface 'sector_comparables'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:sector_comparables_362"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=362; surface=sector_comparables",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/362",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=362",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 363,
+      "capability_name": "Tokenized Asset Coverage",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Tokenized Asset Coverage' served via surface 'tokenized_asset_coverage'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:tokenized_asset_coverage_363"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=363; surface=tokenized_asset_coverage",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/363",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=363",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 364,
+      "capability_name": "Fundamental Screener",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Fundamental Screener' served via surface 'fundamental_screener'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:fundamental_screener_364"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=364; surface=fundamental_screener",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/364",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=364",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 365,
+      "capability_name": "Financial Statement View",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Financial Statement View' served via surface 'financial_statement_view'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:financial_statement_view_365"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=365; surface=financial_statement_view",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/365",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=365",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 366,
+      "capability_name": "Data Methodology Registry",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Data Methodology Registry' served via surface 'data_methodology_registry'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:data_methodology_registry_366"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=366; surface=data_methodology_registry",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/366",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=366",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 367,
+      "capability_name": "Source Data Provenance",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Source Data Provenance' served via surface 'source_data_provenance'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:source_data_provenance_367"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=367; surface=source_data_provenance",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/367",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=367",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 368,
+      "capability_name": "API / Data Export",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'API / Data Export' served via surface 'api_data_export'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:api_data_export_368"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=368; surface=api_data_export",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/368",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=368",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 369,
+      "capability_name": "Cross-Fundamental Decision Intelligence",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-Fundamental Decision Intelligence' served via surface 'cross_fundamental_decision_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:cross_fundamental_decision_intelligence_369"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=369; surface=cross_fundamental_decision_intelligence",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/369",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=369",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 370,
+      "capability_name": "SQL On-Chain Query Workspace",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'SQL On-Chain Query Workspace' served via surface 'sql_on_chain_query_workspace'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:sql_on_chain_query_workspace_370"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=370; surface=sql_on_chain_query_workspace",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/370",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=370",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 371,
+      "capability_name": "Curated Data Models",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Curated Data Models' served via surface 'curated_data_models'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:curated_data_models_371"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=371; surface=curated_data_models",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/371",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=371",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 372,
+      "capability_name": "Decoded Smart Contract Tables",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Decoded Smart Contract Tables' served via surface 'decoded_smart_contract_tables'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:decoded_smart_contract_tables_372"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=372; surface=decoded_smart_contract_tables",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/372",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=372",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 373,
+      "capability_name": "Cross-Chain Data Warehouse",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-Chain Data Warehouse' served via surface 'cross_chain_data_warehouse'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:cross_chain_data_warehouse_373"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=373; surface=cross_chain_data_warehouse",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/373",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=373",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 374,
+      "capability_name": "Visualization Builder",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Visualization Builder' served via surface 'visualization_builder'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:visualization_builder_374"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=374; surface=visualization_builder",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/374",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=374",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 375,
+      "capability_name": "Dashboard Builder",
+      "track": "T14",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Dashboard Builder' served via surface 'dashboard_builder'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:dashboard_builder_375"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=375; surface=dashboard_builder",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/375",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=375",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 376,
+      "capability_name": "Public Dashboard Sharing",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Public Dashboard Sharing' served via surface 'public_dashboard_sharing'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:public_dashboard_sharing_376"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=376; surface=public_dashboard_sharing",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/376",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=376",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 377,
+      "capability_name": "Community Discovery",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Community Discovery' served via surface 'community_discovery'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:community_discovery_377"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=377; surface=community_discovery",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/377",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=377",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 378,
+      "capability_name": "Query Forking",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Query Forking' served via surface 'query_forking_status'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via exchange_currency_status.py:query_forking_status_378"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=378; surface=query_forking_status",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/378",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=378",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 379,
+      "capability_name": "Data API",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Data API' served via surface 'analyze_liquidity_capacity_189'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/arbitrage_portfolio_ux_layer.py:analyze_liquidity_capacity_189"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=379; surface=analyze_liquidity_capacity_189",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/379",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=379",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 380,
+      "capability_name": "Real-Time Feed",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Real-Time Feed' served via surface 'deposit_currencies_open'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via exchange_currency_status.py:deposit_currencies_open"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=380; surface=deposit_currencies_open",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/380",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=380",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 381,
+      "capability_name": "Datashare",
+      "track": "T03",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Datashare' served via surface 'withdrawal_currencies_closed'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via exchange_currency_status.py:withdrawal_currencies_closed"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=381; surface=withdrawal_currencies_closed",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/381",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=381",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 382,
+      "capability_name": "dbt Connector",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'dbt Connector' served via surface 'single_sentence_financial_button'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/heroes_capability_layer.py:single_sentence_financial_button_382"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=382; surface=single_sentence_financial_button",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/382",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=382",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 383,
+      "capability_name": "BI Connectors",
+      "track": "T03",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'BI Connectors' served via surface 'bi_connectors'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:bi_connectors_383"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=383; surface=bi_connectors",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/383",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=383",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 384,
+      "capability_name": "MCP for AI Agents",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'MCP for AI Agents' served via surface 'mcp_for_ai_agents'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:mcp_for_ai_agents_384"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=384; surface=mcp_for_ai_agents",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/384",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=384",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 385,
+      "capability_name": "Prompt-to-SQL Agent",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Prompt-to-SQL Agent' served via surface 'prompt_to_sql_agent'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:prompt_to_sql_agent_385"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=385; surface=prompt_to_sql_agent",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/385",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=385",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 386,
+      "capability_name": "Dashboard-from-Prompt",
+      "track": "T06",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Dashboard-from-Prompt' served via surface 'dashboard_from_prompt'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:dashboard_from_prompt_386"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=386; surface=dashboard_from_prompt",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/386",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=386",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 387,
+      "capability_name": "Scheduled Queries",
+      "track": "T14",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Scheduled Queries' served via surface 'scheduled_queries'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:scheduled_queries_387"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=387; surface=scheduled_queries",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/387",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=387",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 388,
+      "capability_name": "Alerts from Query Results",
+      "track": "T14",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Alerts from Query Results' served via surface 'alerts_from_query_results'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:alerts_from_query_results_388"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=388; surface=alerts_from_query_results",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/388",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=388",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 389,
+      "capability_name": "Data Lineage",
+      "track": "T13",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Data Lineage' served via surface 'data_lineage'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:data_lineage_389"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=389; surface=data_lineage",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/389",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=389",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 390,
+      "capability_name": "Query Performance Governance",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Query Performance Governance' served via surface 'build_exchange_health_80'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/whales_institutional_layer.py:build_exchange_health_80"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=390; surface=build_exchange_health_80",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/390",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=390",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 391,
+      "capability_name": "White-Label Embedded Analytics",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'White-Label Embedded Analytics' served via surface 'white_label_embedded_analytics'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:white_label_embedded_analytics_391"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=391; surface=white_label_embedded_analytics",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/391",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=391",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 392,
+      "capability_name": "Cross-Domain Decision Layer",
+      "track": "T16",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-Domain Decision Layer' served via surface 'cross_domain_decision_layer'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:cross_domain_decision_layer_392"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=392; surface=cross_domain_decision_layer",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/392",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=392",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 393,
+      "capability_name": "TVL Intelligence",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'TVL Intelligence' served via surface 'registry_summary'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via data_sources_registry.py:registry_summary"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=393; surface=registry_summary",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/393",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=393",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 394,
+      "capability_name": "Chain TVL Comparison",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Chain TVL Comparison' served via surface 'chain_tvl_comparison'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:chain_tvl_comparison_394"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=394; surface=chain_tvl_comparison",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/394",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=394",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 395,
+      "capability_name": "Protocol Directory",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Protocol Directory' served via surface 'protocol_directory'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:protocol_directory_395"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=395; surface=protocol_directory",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/395",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=395",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 396,
+      "capability_name": "Fees & Revenue",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Fees & Revenue' served via surface 'coindesk_feed'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/news_classifier.py:coindesk_feed"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=396; surface=coindesk_feed",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/396",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=396",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 397,
+      "capability_name": "DEX Volume",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DEX Volume' served via surface 'dex_volume'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:dex_volume_397"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=397; surface=dex_volume",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/397",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=397",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 398,
+      "capability_name": "Perps Volume",
+      "track": "T04",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Perps Volume' served via surface 'perps_volume'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:perps_volume_398"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=398; surface=perps_volume",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/398",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=398",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 399,
+      "capability_name": "Options Volume",
+      "track": "T05",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Options Volume' served via surface 'options_volume'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:options_volume_399"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=399; surface=options_volume",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/399",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=399",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 400,
+      "capability_name": "Stablecoins Intelligence",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Stablecoins Intelligence' served via surface 'stablecoins_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/charting_market_intelligence_layer.py:stablecoins_intelligence_400"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=400; surface=stablecoins_intelligence",
+          "verification": "tests/test_hero_batch_08_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/400",
+          "local_tests": [
+            "tests/test_hero_batch_08_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH08_PENTAGONAL_TEMPLATE_351_400.json#capability_id=400",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    }
+  ]
+}
