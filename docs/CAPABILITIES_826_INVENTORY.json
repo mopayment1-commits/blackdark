@@ -5675,11 +5675,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.bridges_intelligence_401",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "402": {
       "id": 402,
@@ -5689,11 +5692,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.yields_screener_402",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "403": {
       "id": 403,
@@ -5703,11 +5709,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.whale_story.whale_narrative",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.yield_history_403",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "404": {
       "id": 404,
@@ -5717,11 +5726,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.borrowing_rates_404",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "405": {
       "id": 405,
@@ -5731,11 +5743,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "scale_readiness.scale_readiness_report",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.liquid_staking_intelligence_405",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "406": {
       "id": 406,
@@ -5745,11 +5760,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.rwa_intelligence_406",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "407": {
       "id": 407,
@@ -5759,11 +5777,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.raises_funding_rounds_407",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "408": {
       "id": 408,
@@ -5773,11 +5794,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.derivatives_hub.derivatives_overview",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.investor_profiles_408",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "409": {
       "id": 409,
@@ -5787,11 +5811,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.token_unlocks.unlock_calendar",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.quicktake_feed.quicktake_feed_status_409",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "410": {
       "id": 410,
@@ -5801,11 +5828,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.treasury_intelligence_410",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "411": {
       "id": 411,
@@ -5815,11 +5845,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "onchain_tracker.build_onchain_context_safe",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.airdrop_incentive_intelligence_411",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "412": {
       "id": 412,
@@ -5829,11 +5862,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.capital_formation_radar_412",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "413": {
       "id": 413,
@@ -5843,11 +5879,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.defi_opportunity_screener_413",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "414": {
       "id": 414,
@@ -5857,11 +5896,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.defi_risk_passport_414",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "415": {
       "id": 415,
@@ -5871,11 +5913,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.api_aggregation_layer_415",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "416": {
       "id": 416,
@@ -5885,11 +5930,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.cross_defi_decision_intelligence_416",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "417": {
       "id": 417,
@@ -5899,11 +5947,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.cross_chain_fundamentals_417",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "418": {
       "id": 418,
@@ -5913,11 +5964,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.protocol_fundamentals_418",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "419": {
       "id": 419,
@@ -5927,11 +5981,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.stablecoin_intelligence_419",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "420": {
       "id": 420,
@@ -5941,11 +5998,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.stablecoin_activity_breakdown_420",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "421": {
       "id": 421,
@@ -5955,11 +6015,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.developer_activity_421",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "422": {
       "id": 422,
@@ -5969,11 +6032,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "product_honesty_api.build_public_readiness",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.sector_ecosystem_comparables_422",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "423": {
       "id": 423,
@@ -5983,11 +6049,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.equities_crypto_research_423",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "424": {
       "id": 424,
@@ -5997,11 +6066,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "product_honesty_api.build_public_readiness",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.consensus_estimates_424",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "425": {
       "id": 425,
@@ -6011,11 +6083,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "data_provenance_score.compute_data_provenance_score",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.ai_analyst_425",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "426": {
       "id": 426,
@@ -6025,11 +6100,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.thesis_research_workspace_426",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "427": {
       "id": 427,
@@ -6039,11 +6117,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.comparable_company_protocol_analysis_427",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "428": {
       "id": 428,
@@ -6053,11 +6134,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "oracle_track_record.public_track_record",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.excel_sheets_integration_428",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "429": {
       "id": 429,
@@ -6067,11 +6151,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "gap_matrix_component",
-      "backend": "hot_storage.get_hot_storage_stats",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.api_data_platform_429",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "430": {
       "id": 430,
@@ -6081,11 +6168,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "blackdark.canonical.layer.get_canonical_layer",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.research_templates_430",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "431": {
       "id": 431,
@@ -6095,11 +6185,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.dashboards_431",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "432": {
       "id": 432,
@@ -6109,11 +6202,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.stablecoin_payment_intelligence_432",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "433": {
       "id": 433,
@@ -6123,11 +6219,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.on_chain_usage_intelligence_433",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "434": {
       "id": 434,
@@ -6137,11 +6236,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "cap646.fallbacks.resolve_gas_usd",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.revenue_fees_economic_activity_434",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "435": {
       "id": 435,
@@ -6151,11 +6253,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.cross_market_research_copilot_435",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "436": {
       "id": 436,
@@ -6165,11 +6270,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "trust_pulse.build_trust_pulse",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.investment_thesis_scoring_436",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "437": {
       "id": 437,
@@ -6179,11 +6287,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.defi_risk_radar_437",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "438": {
       "id": 438,
@@ -6193,11 +6304,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "risk_manager.risk_status",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.lending_market_risk_438",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "439": {
       "id": 439,
@@ -6207,11 +6321,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "risk_manager.risk_status",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.collateral_risk_439",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "440": {
       "id": 440,
@@ -6221,11 +6338,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.liquidation_radar.liquidation_radar",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.liquidation_risk_440",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "441": {
       "id": 441,
@@ -6235,11 +6355,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "trust_pulse.build_trust_pulse",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.oracle_risk_441",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "442": {
       "id": 442,
@@ -6249,11 +6372,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "risk_manager.risk_status",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.liquidity_risk_442",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "443": {
       "id": 443,
@@ -6263,11 +6389,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.protocol_exploit_intelligence_443",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "444": {
       "id": 444,
@@ -6277,11 +6406,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.stablecoin_risk_intelligence_444",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "445": {
       "id": 445,
@@ -6291,11 +6423,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.onchain_hub.defillama_raises",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.defi_strategy_risk_445",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "446": {
       "id": 446,
@@ -6305,11 +6440,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "instant_alert_engine.engine_stats",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.real_time_risk_alerts_446",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "447": {
       "id": 447,
@@ -6319,11 +6457,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "risk_manager.risk_status",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.dao_treasury_risk_447",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "448": {
       "id": 448,
@@ -6333,11 +6474,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "risk_manager.risk_status",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.institutional_risk_api_448",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "449": {
       "id": 449,
@@ -6347,11 +6491,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "track_default",
-      "backend": "product_honesty_api.build_public_readiness",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.curated_on_chain_dashboards_449",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "450": {
       "id": 450,
@@ -6361,11 +6508,14 @@
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "DEFERRED/TEMPLATE-STUB",
+      "hero_classification": "PASS_ENGINEERING_LOCAL",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.whale_story.whale_narrative",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.narrative_driven_research_450",
+      "notes": "Reopening delta remediation — factual backend/binding reconciled; status dimensions preserved (PENDING/NOT_COMPLETE until G6/G7)",
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "PENDING_G6",
+      "assurance_status": "PENDING_G7"
     },
     "451": {
       "id": 451,

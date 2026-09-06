@@ -44,12 +44,14 @@ def _pdf_dedicated_platform_ids() -> frozenset[int]:
 
     bindings = discover_bindings()
     dedicated: set[int] = set()
-    for cid in range(301, 401):
+    for cid in range(301, 451):
         pdf = bindings.get(cid)
         if pdf and pdf[0].startswith(
             (
                 "bd_platform.charting_market_intelligence_layer",
                 "bd_platform.heroes_capability_layer",
+                "bd_platform.defi_yield_intelligence_layer",
+                "bd_platform.quicktake_feed",
             )
         ):
             dedicated.add(cid)

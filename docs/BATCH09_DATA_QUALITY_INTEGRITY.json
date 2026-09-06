@@ -1,0 +1,24 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "ids_with_integrity_rules": 50
+  },
+  "artifact": "BATCH09_DATA_QUALITY_INTEGRITY",
+  "generated_at": "2026-09-06T20:16:44.215587+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "status": "PROVEN_LOCAL",
+  "ids_covered": 50,
+  "quad_verified": 100,
+  "policies": [
+    "capability_id matches catalog ID in payload",
+    "analysis_only / no_execution flags on defi/yield surfaces",
+    "symbol normalization uppercase",
+    "timestamp present on insight payloads",
+    "disclaimer on defi_yield_intelligence_layer outputs"
+  ],
+  "live_reconciliation": "NOT_RUN"
+}

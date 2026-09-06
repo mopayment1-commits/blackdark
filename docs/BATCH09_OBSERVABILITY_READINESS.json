@@ -1,0 +1,25 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "health_endpoints": 3
+  },
+  "artifact": "BATCH09_OBSERVABILITY_READINESS",
+  "generated_at": "2026-09-06T20:16:44.215603+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "status": "LOCAL_IMPLEMENTATION_READY",
+  "health_endpoints": [
+    "/health",
+    "/health/ready",
+    "/health/live"
+  ],
+  "structured_logs": "cap646 payload envelope + latency_ms",
+  "metrics_design": [
+    "cap646_execute_latency_ms",
+    "cap646_execute_success"
+  ],
+  "live_dashboards": "NOT_DEPLOYED"
+}

@@ -1,3 +1,13 @@
+# BLACKDARK Domain Governing Reference — v4_v2
+
+> **سلطة الحوكمة الحالية:** `BLACKDARK Institutional Standard v6` هو المرجع المؤسسي الأعلى للمشروع. هذه الوثيقة `v4_v2` هي المرجع التخصصي الحاكم للبيانات والتخزين والتراك، وتبقى subordinate لـ v6.
+>
+> **قاعدة سلامة المصدر:** النص الأصلي لـ `v4` محفوظ أدناه دون حذف أو إعادة صياغة. أي إشارة تاريخية داخله إلى `v5` تُعامل كسجل سياقي للإصدار الذي كُتبت تحته، ولا تمنح v5 سلطة حاكمة حالية. عند التطبيق المستقبلي، v6 هو الحاكم للمنهج والبوابات والحالات والأدلة.
+>
+> **قاعدة التعارض:** عند تعارض حقيقي: v6 يحكم المتطلبات المؤسسية العامة؛ وv4_v2 يحكم المتطلبات التخصصية للبيانات/التخزين/التراك ما لم تخالف v6؛ والملاحق المصدرية المحفوظة داخل v4 تحكم نية المصدر داخل النطاق التخصصي فقط، ولا تتجاوز v6.
+
+---
+
 BLACKDARK
 MASTER COMPOUNDING VALUE, PLATFORM & PRE-LAUNCH ASSET SPECIFICATION
 وثيقة استشارية موحّدة للبرمجة والتصميم والهندسة المؤسسية وتعظيم القيمة
@@ -2639,13 +2649,13 @@ V7 → 76%
 تمام النقطة الى بعها الى عاوز ابعت لكورسر واتاكد من التنفيذ والجاهزية  باعلى المعاير المؤسسية العالمية وكل الى قولتلك علية قبلكدا محتاج اتاكد منة حبعت اطلب منة اية ملاحظة مهمة الطلب يكون محدد جدا لتوفير اقصى مساحة من استهلاك كورسر مع تحقيق الهدف المطلوب
 
 # 18. ملحق التطوير المؤسسي الحاكم — Institutional Committee Hardening Addendum v4
-حالة هذا الملحق: DOMAIN-SPECIFIC GOVERNING OVERLAY — تابع للمرجع المؤسسي BLACKDARK v6 الحاكم (`docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md`)، ولا ينشئ مصدر حقيقة موازياً له. عند التعارض: v6 يحكم المنهج والبوابات والحالات والأدلة؛ والملاحق الخمسة الأصلية داخل هذه الوثيقة تحكم نية المصدر والمحتوى التخصصي الذي لا يتعارض مع v6.
+حالة هذا الملحق: DOMAIN-SPECIFIC GOVERNING OVERLAY — تابع للمرجع المؤسسي BLACKDARK v5 المحدث، ولا ينشئ مصدر حقيقة موازياً له. عند التعارض: v5 يحكم المنهج والبوابات والحالات والأدلة؛ والملاحق الخمسة الأصلية داخل هذه الوثيقة تحكم نية المصدر والمحتوى التخصصي الذي لا يتعارض مع v5.
 منهج التطوير: Source-Preserved / Append-Only. لم يتم حذف أو استبدال أي نص من الوثيقة الأصلية؛ التطوير يضيف فقط متطلبات تخصصية لازمة لجعل منظومة البيانات والتخزين والتراك قابلة للفحص وإعادة الأداء أمام لجنة تصميم/فحص/استحواذ.
 مرجع التقييم: ISO/IEC 25010:2023، ISO/IEC 25012:2008، ISO/IEC/IEEE 29148:2018، NIST CSF 2.0، NIST SSDF 1.1، NIST AI RMF 1.0، وممارسات Google SRE عند SLI/SLO/Error Budget. استخدام هذه المراجع هنا هو مواءمة معيارية/إرشادية؛ وليس ادعاء شهادة أو امتثال قانوني.
 # 19. نتيجة المراجعة المعيارية السباعية
 # 20. سجل العيوب والفجوات والحلول المؤسسية
 # 21. المتطلبات التخصصية الإلزامية الجديدة — Domain-Specific Requirements Register
-هذه المتطلبات لا تعيد كتابة v6. أي Security/AI/UX/CI/G0–G7 requirement عام يظل في v6؛ البنود التالية تضيف فقط ما يلزم لهذه الوثيقة التخصصية في البيانات والتخزين والتراك.
+هذه المتطلبات لا تعيد كتابة v5. أي Security/AI/UX/CI/G0–G7 requirement عام يظل في v5؛ البنود التالية تضيف فقط ما يلزم لهذه الوثيقة التخصصية في البيانات والتخزين والتراك.
 # 22. Data Asset Contract — النموذج الحاكم لكل أصل بيانات مادي
 # 23. Point-in-Time / Replay / Track-Record Integrity Framework
 كل replay يستخدم فقط المعلومات التي كانت متاحة فعليًا عند decision timestamp، مع فصل event time عن ingest/availability time.
@@ -2674,7 +2684,7 @@ Requirement → Asset/Claim ID → Owner → Data Rights → Canonical Source �
 لا يوجد claim يخلط Backtested/Simulated/Forward Shadow/Verified Production/Independent Assurance.
 لا يوجد unresolved material conflict في truth/entity/data lineage.
 لا توجد locally-solvable material deficiencies معروفة؛ وما يتطلب Live/G6 أو Independent/G7 يظل مصنفًا خارجيًا ولا يتحول إلى PASS محلي.
-الحالات المسموح بها لهذه البوابة: READY_NOT_PROVEN / PASS_ENGINEERING / PASS_LIVE / ASSURANCE_READY، وفق تعريفات v6. لا تستخدم COMPLETE VERIFIED كبديل غامض عن طبقة الدليل الفعلية.
+الحالات المسموح بها لهذه البوابة: READY_NOT_PROVEN / PASS_ENGINEERING / PASS_LIVE / ASSURANCE_READY، وفق تعريفات v5. لا تستخدم COMPLETE VERIFIED كبديل غامض عن طبقة الدليل الفعلية.
 # 27. Red Flags — NO-GO تخصصية
 Unknown/ambiguous material data storage or derived-use rights.
 Point-in-time leakage أو future/revision information مستخدمة دون disclosure.
@@ -2687,8 +2697,8 @@ Critical ledger/registry backup exists but restore has never been proven where l
 Rights/retention policy says “do not use” but technical path still allows export/training/API resale.
 Living Data Room contains stale/expired claims presented as current.
 # 28. ترتيب التنفيذ بعد اعتماد هذا التطوير
-1) لا تُبنى كل البنود دفعة واحدة. Audit المشروع الحالي أولًا ضد DSR-001…DSR-024 وv6.
-2) أنشئ Gap Matrix: EXISTING_VERIFIED / PARTIAL_CANONICAL / GREENFIELD / EXTERNAL_BLOCKED وغيرها حسب v6.
+1) لا تُبنى كل البنود دفعة واحدة. Audit المشروع الحالي أولًا ضد DSR-001…DSR-024 وv5.
+2) أنشئ Gap Matrix: EXISTING_VERIFIED / PARTIAL_CANONICAL / GREENFIELD / EXTERNAL_BLOCKED وغيرها حسب v5.
 3) أغلق محليًا أولًا: contracts, lineage, rights, registries, evidence, replay integrity, versioning, restore design/tests الممكنة، بدون Railway إذا لم يكن مطلوبًا تقنيًا.
 4) شغّل Live Shadow/Forward Record فقط عندما البيئة الحية متاحة وآمنة؛ لا تزعم PASS_LIVE قبل G6.
 5) ما يحتاج real users/institutions/time يظل في فئته ولا يتم اصطناعه أو backfill زائفًا.
@@ -2696,7 +2706,7 @@ Living Data Room contains stale/expired claims presented as current.
 # 29. سجل المراجع العلمية/المعيارية المستخدمة في التطوير
 # 30. الحكم المؤسسي النهائي للوثيقة بعد التطوير
 الحكم على النسخة الأصلية: STRONG DOMAIN SPECIFICATION / NOT FULLY COMMITTEE-CLOSED — قوية جدًا استراتيجيًا ومعماريًا، لكن كانت تحتاج عقودًا تخصصية قابلة لإعادة الأداء للبيانات، الحقوق، PIT replay، schema/history corrections، storage lifecycle، evidence integrity، recovery، وasset-value governance.
-الحكم على النسخة المطورة: COMMITTEE-HARDENED DOMAIN GOVERNING SPECIFICATION — قابلة للاستخدام كمرجع تخصصي تحت v6 لإجراء Audit/Gap Matrix وتنفيذ Delta فقط. هذا الحكم يخص جودة المواصفة نفسها؛ ولا يعني أن مشروع BLACKDARK نفذ كل المتطلبات، ولا يعني PASS_LIVE أو G7 أو شهادة ISO/NIST.
+الحكم على النسخة المطورة: COMMITTEE-HARDENED DOMAIN GOVERNING SPECIFICATION — قابلة للاستخدام كمرجع تخصصي تحت v5 لإجراء Audit/Gap Matrix وتنفيذ Delta فقط. هذا الحكم يخص جودة المواصفة نفسها؛ ولا يعني أن مشروع BLACKDARK نفذ كل المتطلبات، ولا يعني PASS_LIVE أو G7 أو شهادة ISO/NIST.
 قاعدة الإغلاق: NO KNOWN MATERIAL DOCUMENT-SPECIFICATION DEFICIENCY within this review scope. Implementation assurance remains evidence-dependent and must be proven against the actual repository/environment.
 
 ## Table 1
@@ -2884,11 +2894,11 @@ Living Data Room contains stale/expired claims presented as current.
 ## Table 13
 | # | مستوى الفحص | الحكم | العيب المؤسسي | الإغلاق المضاف |
 | --- | --- | --- | --- | --- |
-| 1 | سلامة المصدر والسلطة | قوي جدًا | المصدر محفوظ، لكن كان يلزم تثبيت هرم السلطة مع v6 ومنع إنشاء SSOT موازٍ. | تمت إضافة Authority & Scope صريحة. |
+| 1 | سلامة المصدر والسلطة | قوي جدًا | المصدر محفوظ، لكن كان يلزم تثبيت هرم السلطة مع v5 ومنع إنشاء SSOT موازٍ. | تمت إضافة Authority & Scope صريحة. |
 | 2 | المتطلبات والحوكمة | قوي مفاهيميًا / ناقص إجرائيًا | المتطلبات كثيرة لكن ليست كلها بصيغة Normative IDs قابلة للتتبع. | إضافة DSR-001…DSR-024 وربطها ببوابة الإغلاق. |
 | 3 | جودة البيانات والحقوق والتخزين | قوي جدًا / يحتاج عقودًا تنفيذية | حقوق، lineage وprivacy موجودة؛ ينقص Data Contract/Retention/Schema evolution/quality SLO التفصيلي. | إضافة Data Asset Contract وStorage Lifecycle. |
 | 4 | النزاهة الكمية والـReplay/Track Record | قوي جدًا | الفصل بين Backtest/Shadow/Production ممتاز؛ ينقص إثبات PIT completeness ومنع survivorship/revision leakage. | إضافة PIT Evidence Contract وReplay Reperformance. |
-| 5 | AI/Models/Derived Intelligence | قوي | Genealogy/Drift/Champion موجودة؛ promotion/rollback ومعيار المخاطر غير مغلق داخل الوثيقة التخصصية. | الإحالة إلى v6 + Domain Model Asset Contract. |
+| 5 | AI/Models/Derived Intelligence | قوي | Genealogy/Drift/Champion موجودة؛ promotion/rollback ومعيار المخاطر غير مغلق داخل الوثيقة التخصصية. | الإحالة إلى v5 + Domain Model Asset Contract. |
 | 6 | الأمن/الاعتمادية/التشغيل | جيد جدًا | Security/Reliability histories موجودة؛ ينقص ربطها بتخزين الأدلة، recovery، integrity وretention. | إضافة Evidence Storage, restore, tamper-evidence, SLO/RPO/RTO bindings. |
 | 7 | المنتج/الاستحواذ/القيمة المتراكمة | ممتاز استراتيجيًا | القيمة موصوفة، لكن يلزم proof-of-value وasset valuation/rights/readiness state قابل لإعادة الأداء. | إضافة Asset Value Ledger + Acquisition Reperformance Pack. |
 
@@ -2933,7 +2943,7 @@ Living Data Room contains stale/expired claims presented as current.
 | DSR-012 | Evidence origin label BACKTESTED/SIMULATED/FORWARD_SHADOW/VERIFIED_PRODUCTION/INDEPENDENT يبقى متوارثًا عبر المشتقات. |
 | DSR-013 | SIMULATED أو BACKTESTED لا يمكن ترقيتهما دلاليًا إلى VERIFIED_PRODUCTION بسبب aggregation أو transformation. |
 | DSR-014 | كل dataset/ledger مادي له retention class وstorage tier وdeletion/anonymization behavior. |
-| DSR-015 | كل stateful critical registry/ledger له RTO/RPO وrestore evidence وفق v6. |
+| DSR-015 | كل stateful critical registry/ledger له RTO/RPO وrestore evidence وفق v5. |
 | DSR-016 | Evidence Ledger المادي يجب أن يكون tamper-evident وقابلًا للتحقق بخطوات موثقة. |
 | DSR-017 | Data-quality failure يجب أن يؤثر صراحة في availability/confidence/degradation؛ لا silent stale data. |
 | DSR-018 | Champion/Challenger promotion لأي model/algorithm ذي أثر مادي يخضع pre-defined promotion gate وrollback trigger. |
@@ -2976,3 +2986,1067 @@ Living Data Room contains stale/expired claims presented as current.
 | NIST SP 800-218 SSDF v1.1 | Secure software development practices and root-cause prevention. | https://csrc.nist.gov/pubs/sp/800/218/final |
 | NIST AI RMF 1.0 | Voluntary, non-sector-specific framework for managing AI risks. | https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10 |
 | Google SRE — SLO practice | Industry practice for SLI/SLO/error-budget operational discipline; not an ISO standard. | https://sre.google/sre-book/service-level-objectives/ |
+
+
+---
+
+# الملحق التنفيذي والاستراتيجي المدمج — Data Extra v3 Corrected
+
+> **حالة الحوكمة:** المحتوى التالي مدمج كمكوّن استراتيجي/منتجي/تنفيذي مكمل داخل المرجع التخصصي. لا ينشئ SSOT موازيًا، ولا يثبت التنفيذ في الكود. أي mapping إلى 1–826 أو PASS/Live/Assurance يظل تابعًا للـSSOT التقني والأدلة الفعلية.
+
+# ملف البيانات الإضافي — النسخة المؤسسية المصححة والقابلة للتنفيذ
+
+**الحالة:** CORRECTED / SOURCE-VERIFIED / EXECUTION-READY-AS-STRATEGIC-REGISTER
+
+> هذا الملف **ليس دليلًا على أن عناصره منفذة في الكود**. هو سجل استراتيجي/منتجي/حوكمي مصحح يحدد ما يجب بناؤه أو قياسه أو حوكمته، وما الدليل المطلوب قبل أي claim. أي ادعاء تنفيذ أو PASS يجب أن يأتي من SSOT التقني الحالي للمشروع، والـRTM، ومسار التنفيذ/المستهلك، والاختبارات، والـSHA/evidence؛ لا من هذا الملف وحده.
+
+## 0. قواعد الحقيقة وعدم الادعاء
+
+- **[FACT — SOURCE]** المصدر الفعلي الذي تمت مراجعته هو `ملف البيانات الاضافى.md`، ويحتوي بنيويًا على: **20 نقطة أصلية + 40 ميزة/قدرة من الفكرة رقم 1 + 7 إضافات استراتيجية + 8 تصنيفات عوامل + 5 أولويات**. هذه الفئات تتداخل دلاليًا؛ لذلك **لا تُجمع كعدد قدرات فريدة**.
+- **[FACT — SOURCE]** الادعاء السابق `20/20 + 68/68 + 42/42 + 40/40` لا يطابق بنية المصدر الحالي، ولذلك أُلغي نهائيًا.
+- **[FACT — REVIEW]** السجل المشتق يحتوي 73 سجلًا Canonical، لكنه **ليس 73 قدرة**: التصنيف المصحح هو **40 Capability + 17 Control/Governance + 9 Asset + 4 Metric + 3 Operating Model/Strategy = 73**.
+- **[RULE]** لا يُستخدم أي Record غير Capability لزيادة عداد القدرات.
+- **[RULE]** لا يُستخدم `NOW` أو `KEEP` كدليل تنفيذ. التنفيذ الفعلي يحتاج binding/consumer path/oracle/tests/source SHA/evidence.
+- **[RULE]** لا تُخترع خريطة IDs 1–826. أي mapping غير مثبت من الـ826 SSOT الحالي يبقى `UNVERIFIED_PENDING_826_SSOT_RECONCILIATION`.
+- **[RULE]** أي اعتماد خارجي أو vendor أو حقوق بيانات أو ترخيص: لا شراء ولا اشتراك تلقائي، ولا claim availability/rights قبل التحقق.
+
+### بصمات مواد العمل
+
+- Working source snapshot SHA-256: `b39ae5276789b891591a9d7e061356fcc0c2475757f6d1bac1e00bf682adb66f`
+- Previous institutional file snapshot SHA-256: `4025726fca3b69879c00e5c99cb1bcb2abb42e30c5ea27f449a2ff23d47e6341`
+
+## 1. المراجعة الخماسية المنفذة
+
+| طبقة المراجعة | ما تم فحصه | قاعدة القبول | النتيجة |
+|---|---|---|---|
+| 1 — Source Integrity | بنية المصدر، العدّ، العناوين، الفئات | لا claim coverage يخالف المصدر | PASS بعد تصحيح العدّ وإلغاء 170/170 القديم |
+| 2 — Taxonomy & Counting | Capability/Asset/Control/Metric/Strategy | كل نوع في عداد مستقل | PASS: 40/17/9/4/3 |
+| 3 — Evidence & Standards | كل claim، بوابة دليل، attribution | لا template evidence؛ لا نسبة معيارية زائفة | PASS بعد استبدال البوابات العامة بمتطلبات فردية |
+| 4 — Product/Execution/Market | Daily pull، user outcome، ترتيب التنفيذ، dependencies، competitive reality | الاستراتيجية لا تساوي قيمة مستخدم؛ البناء لا يساوي proof | PASS بعد إضافة W0/W1 وفصل evidence-later |
+| 5 — Reverse Reconciliation | المصدر→Canonical، التكرار، 826 mapping، claims | كل مصدر له disposition؛ لا mapping مختلق | PASS داخل هذا المصدر؛ 826 mapping يبقى صريحًا غير مثبت حتى repo reconciliation |
+
+## 2. الإطار المؤسسي المستخدم
+
+يُفصل بوضوح بين **[STD] معيار رسمي** و**[FRAMEWORK] إطار مهني** و**[POLICY] قرار BLACKDARK**:
+
+| المرجع | الاستخدام الصحيح هنا | ما لا يدعيه الملف |
+|---|---|---|
+| **[STD] ISO/IEC 25010:2023** | Product quality model؛ تحديد/قياس/تقييم خصائص جودة المنتج | لا يعني certification ولا يفرض أرقام أداء خاصة بـBLACKDARK |
+| **[STD] ISO/IEC 25019:2023** | Quality-in-use؛ ربط الجودة بسياق الاستخدام ونتيجة stakeholder | لا يعرّف "wow" كرقم معياري؛ مؤشرات الانبهار/الاعتماد أدناه [POLICY/METRIC] |
+| **[STD] ISO/IEC/IEEE 29148:2018** | requirements engineering وtraceability/information items | لا يفرض أسماء ملفات أو أعمدة RTM بعينها |
+| **[STD] ISO/IEC/IEEE 12207:2026** | life-cycle processes عبر التطوير/التشغيل/الصيانة | لا يفرض sequence خطيًا واحدًا ولا methodology بعينها |
+| **[STD] ISO/IEC/IEEE 29119-2:2021** | test processes عبر نماذج دورة الحياة | لا يفرض test suite موحدة لكل Record بلا مراعاة المخاطر |
+| **[STD] ISO/IEC 25012:2008** | data quality requirements/measures/evaluation | لا يثبت جودة dataset بعينه دون قياس فعلي |
+| **[STD] ISO/IEC 27001:2022** | ISMS risk-management requirements | لا يعني أن BLACKDARK حاصل على ISO certification |
+| **[STD] ISO/IEC 27017:2026 / 27018:2025** | cloud-security guidance / PII protection حيث ينطبق | لا تنطبق تلقائيًا على كل Record |
+| **[FRAMEWORK] NIST AI RMF 1.0** | AI risk management والثقة والمراقبة حسب السياق | voluntary framework؛ لا يساوي certification |
+| **[FRAMEWORK] NIST Privacy Framework** | enterprise privacy-risk management | لا يحل محل المتطلبات القانونية حسب الولاية |
+| **[FRAMEWORK] OWASP ASVS 5 / API Security Top 10:2023** | verification/security-risk reference للتطبيقات والـAPIs | لا يساوي compliance claim مستقل |
+| **[FRAMEWORK] AICPA Trust Services Criteria** | control criteria للأمن/التوافر/سلامة المعالجة/السرية/الخصوصية | لا يعني SOC 2 بدون attestation |
+
+## 3. فصل الأنواع والعدّ الصحيح
+
+| Record Class | العدد | يدخل عداد القدرات؟ | الاستخدام |
+|---|---:|---|---|
+| CAPABILITY | 40 | نعم | سلوك/وظيفة مستخدم أو نظام قابلة للبناء والاختبار |
+| CONTROL_OR_GOVERNANCE | 17 | لا | ضابط/حوكمة/assurance |
+| ASSET | 9 | لا | أصل بيانات/IP/تشغيل/قيمة متراكم |
+| METRIC | 4 | لا | قياس فقط؛ لا يبنى كميزة مستقلة |
+| OPERATING_MODEL_OR_STRATEGY | 3 | لا | سياسة تشغيل/تموضع/حوكمة استراتيجية |
+| **الإجمالي** | **73** | **40 فقط** | 73 سجلًا Canonical متعدد الأنواع |
+
+> **P0/P1/P2 في النسخة السابقة أصبح "Strategic Criticality" فقط، وليس Queue تنفيذ.** ترتيب التنفيذ الفعلي موجود في `Execution Lane` أدناه حتى لا يتحول P0 العريض إلى محاولة بناء كل شيء دفعة واحدة.
+
+## 4. الـ20 Strategic Value Drivers — محفوظة كدوافع لا كقدرات
+
+| # | Driver | العربي | النوع | Strategic Criticality | Evidence State | Canonical Link |
+|---:|---|---|---|---|---|---|
+| 1 | Proven Track Record | سجل أداء موثق وقابل للتدقيق | CORE_STRATEGIC_ASSET | P0 | INFRA_NOW; FORWARD_EVIDENCE_NEEDS_TIME | A01–A08 |
+| 2 | Proprietary IP / Intelligence | الذكاء والملكية الفكرية الخاصة | CORE_STRATEGIC_ASSET | P0 | NOW | B01–B09 + G01–G03 + J03 |
+| 3 | Workflow Lock-in | الارتباط القيمي بسير العمل | CORE_STRATEGIC_ASSET | P0 | NOW; USER_VALUE_EVIDENCE_LATER | C02–C09 + E02/E03 |
+| 4 | Institutional Trust Layer | طبقة الثقة المؤسسية | CORE_STRATEGIC_ASSET | P0 | NOW_LOCAL; LIVE/INDEPENDENT_EVIDENCE_LATER | A02/A07/A08/B09/H08/J09 |
+| 5 | Distribution Moat | حاجز/ميزة التوزيع | STRATEGIC_OUTCOME/INFRA | P1 | INFRA_NOW; ADOPTION_PROOF_LATER | J07 + E01–E03 |
+| 6 | Network Effects | تأثيرات الشبكة | STRATEGIC_OUTCOME/INFRA | P1 | INFRA_NOW; EFFECT_NEEDS_USERS | D01–D06 |
+| 7 | Unique Data Coverage | تغطية بيانات فريدة | CORE_DATA_ASSET | P0 | NOW | J01 |
+| 8 | Cross-Domain Intelligence | ذكاء عابر للمجالات | CORE_INTELLIGENCE_ASSET | P0 | NOW | B02 + G01–G03 |
+| 9 | Personalization Engine | محرك التخصيص | CORE_PRODUCT_CAPABILITY | P0 | INFRA_NOW; PERSONAL_LEARNING_NEEDS_USERS | C01–C04 + B10 |
+| 10 | Outcome Feedback Loop | حلقة النتائج والتعلم | CORE_LEARNING_ASSET | P0 | NOW_INFRA; OUTCOMES_ACCUMULATE | A03–A06 + J11 |
+| 11 | Retention + Willingness to Pay | الاحتفاظ والاستعداد للدفع | MARKET_OUTCOME | P0 | NEEDS_USERS | MARKET_OUTCOME_ONLY |
+| 12 | Recurring Revenue Quality | جودة الإيراد المتكرر | MARKET_OUTCOME | P0 | NEEDS_CUSTOMERS/REVENUE | MARKET_OUTCOME_ONLY |
+| 13 | API / Embedded Platform Value | قيمة المنصة المدمجة | PLATFORM_ASSET | P0 | NOW_INFRA; ADOPTION_LATER | E01–E05 |
+| 14 | Data Rights / Licensing Position | حقوق البيانات والترخيص | GOVERNANCE/DATA_ASSET | P0 | NOW | J02 |
+| 15 | Vendor Independence | استقلالية الموردين | ARCHITECTURE_ASSET | P0 | NOW_LOCAL; LIVE_EVIDENCE_LATER | J04 |
+| 16 | Operational Reliability | الاعتمادية التشغيلية | OPERATIONAL_ASSET | P0 | NOW_LOCAL; LIVE_G6_LATER | J05 |
+| 17 | Brand + Trust Reputation | العلامة والسمعة | MARKET_OUTCOME | P1 | NEEDS_MARKET/TIME | MARKET_OUTCOME_ONLY |
+| 18 | Developer Ecosystem | منظومة المطورين | PLATFORM/GROWTH_ASSET | P1 | NOW_INFRA; ECOSYSTEM_ADOPTION_LATER | J06 |
+| 19 | Acquisition Readiness | جاهزية الاستحواذ | ENTERPRISE_VALUE_ASSET | P0 | NOW; EXTERNAL_ITEMS_AS_APPLICABLE | J09 + J03/J02/J05/J10 |
+| 20 | Speed of Learning | سرعة التعلم | LEARNING_ASSET | P0 | NOW_INFRA; PERFORMANCE_HISTORY_LATER | J11 |
+
+**الفصل الحاكم:** Retention/WTP، Recurring Revenue Quality، Brand/Trust Reputation هي **MARKET OUTCOMES** وليست Features؛ لا تدخل عداد القدرات ولا يُعلن اكتمالها قبل وجود evidence فعلي.
+
+## 5. السجل Canonical المصحح — 73 سجلًا مع فصل النوع والتنفيذ
+
+| ID | Record | العربي | Record Class | Strategic Criticality | Execution Lane | Dependency/Evidence Class | 826 Mapping |
+|---|---|---|---|---|---|---|---|
+| A01 | Verified Forward/Public Track Record | سجل أداء Forward/Public موثّق | CAPABILITY | P0 | W0_0_90D_CORE | LIVE/TIME | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| A02 | Pre-Outcome Timestamp & Anti-Backfill Integrity | ختم زمني قبل النتيجة ومنع الإضافة بأثر رجعي | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| A03 | Prediction–Decision–Outcome Evidence Chain | سلسلة إثبات التوقع–القرار–النتيجة | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| A04 | Automated Multi-Horizon Outcome Evaluator | مقيّم نتائج آلي متعدد الآفاق | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| A05 | Accuracy, Calibration & Regime Analytics | تحليلات الدقة والمعايرة حسب السوق/النظام | CAPABILITY | P0 | W0_0_90D_CORE | LIVE/TIME | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| A06 | Error, Correction, Abstention & Low-Confidence Ledger | سجل الأخطاء والتصحيحات والامتناع والثقة المنخفضة | CAPABILITY | P0 | W0_0_90D_CORE | LIVE/TIME | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| A07 | Public Verification Interface & Methodology | واجهة تحقق عامة ومنهجية السجل | CAPABILITY | P1 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| A08 | Independent Reperformance Readiness | جاهزية إعادة الأداء/التحقق المستقل | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | INDEPENDENT | N/A_NON_CAPABILITY |
+| B01 | Proprietary Decision Frameworks | أطر قرار خاصة بـBLACKDARK | ASSET | P0 | FOUNDATION_OR_ACCUMULATE_NOW | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| B02 | Cross-Domain Intelligence Fusion | دمج الذكاء عبر المجالات | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| B03 | Signal Quality & Noise Suppression | جودة الإشارة وفصل الضجيج | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| B04 | Canonical Signal / Oracle Semantics | دلالات حاكمة ثابتة للإشارة/Oracle | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| B05 | Explainable Decision Engine | محرك قرار قابل للتفسير | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| B06 | Contribution / Rule Attribution | نسب مساهمة القواعد والإشارات | CAPABILITY | P0 | W1_3_6M | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| B07 | Confidence & Reason Codes | الثقة وأكواد الأسباب | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| B08 | Why / Why-Not & Conflicting-Evidence Explanation | شرح لماذا/لماذا لا والأدلة المتعارضة | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| B09 | Explanation Fidelity & Provenance | أمانة التفسير ومصدره | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| B10 | Human–AI Trust Calibration | معايرة ثقة المستخدم في الذكاء الآلي | CAPABILITY | P1 | W1_3_6M | USER_DATA/EVIDENCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C01 | Consent-Controlled User Interaction & Decision Ledger | سجل تفاعل وقرار المستخدم بإذن واضح | CAPABILITY | P0 | W1_3_6M | USER_DATA/EVIDENCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C02 | Behavioral Adaptation & Context Graph | سجل التكيف والسياق السلوكي | CAPABILITY | P1 | W1_3_6M | USER_DATA/EVIDENCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C03 | Personalized Workspace, Watchlists & Saved Intelligence | مساحة عمل وقوائم وذكاء محفوظ | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C04 | Watchlist & Workspace Evolution History | تاريخ تطور القوائم ومساحات العمل | CAPABILITY | P1 | W1_3_6M | USER_DATA/EVIDENCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C05 | Decision-Linked Alerts | تنبيهات مرتبطة بالقرار | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C06 | Versioned Decision Playbooks | Playbooks قرار قابلة للإصدار | CAPABILITY | P0 | W1_3_6M | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C07 | Cognitive Switching-Cost Evidence | دليل تكلفة التبديل المعرفية | METRIC | P2 | MEASURE_NOT_BUILD_AS_FEATURE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| C08 | Workflow Dependency & Migration-Cost Map | خريطة اعتماديات وتكلفة هجرة سير العمل | CAPABILITY | P1 | W2_AFTER_CORE_DEPENDENCIES | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| C09 | Institutional Team Shared Reference Workspace | مساحة مرجعية مشتركة للفرق المؤسسية | CAPABILITY | P0 | W1_3_6M | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| D01 | Collective Outcome Intelligence | ذكاء جماعي من النتائج | CAPABILITY | P1 | W1_3_6M | USER_DATA/EVIDENCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| D02 | Population Benchmark & Calibration Dataset | مجموعة بيانات benchmark ومعايرة جماعية | ASSET | P1 | ACCUMULATE_WITH_USE | USER_DATA/EVIDENCE | N/A_NON_CAPABILITY |
+| D03 | Sample Quality & Statistical Confidence Engine | محرك جودة العينة والثقة الإحصائية | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| D04 | Expert Feedback Quality, Bias & Sybil Controls | جودة تغذية الخبراء وضبط التحيز وSybil | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | USER_DATA/EVIDENCE | N/A_NON_CAPABILITY |
+| D05 | Privacy-Safe Collective Learning | تعلم جماعي محافظ على الخصوصية | CAPABILITY | P0 | W1_3_6M | USER_DATA/EVIDENCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| D06 | Network-Effect Measurement Framework | إطار قياس تأثير الشبكة | METRIC | P1 | MEASURE_NOT_BUILD_AS_FEATURE | USER_DATA/EVIDENCE | N/A_NON_CAPABILITY |
+| E01 | API / SDK Platform Layer | طبقة API/SDK | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| E02 | Enterprise Connector Hub (Excel, Telegram, Webhooks) | مركز تكاملات Excel وTelegram وWebhooks | CAPABILITY | P1 | W1_3_6M | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| E03 | Embedded Analytics & White-Label | تحليلات مدمجة وWhite-Label | CAPABILITY | P1 | W1_3_6M | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| E04 | Connector Compatibility & Version Governance | حوكمة توافق وإصدارات التكاملات | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| E05 | Integration Footprint Registry | سجل بصمة التكاملات الفعلية | ASSET | P1 | ACCUMULATE_WITH_USE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| E06 | User-Confirmed Execution Handoff + Context Pack | تسليم تنفيذ مؤكد من المستخدم مع حزمة سياق | CAPABILITY | P0 | W2_LOCAL_NOW_LIVE_LATER | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| F01 | Decision Latency & Time-to-Insight Engineering | هندسة زمن القرار والوصول للمعلومة | CAPABILITY | P0 | W0_0_90D_CORE | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| F02 | User-Facing Freshness & Performance Evidence | دليل freshness/performance للمستخدم | CAPABILITY | P1 | W1_3_6M | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| G01 | Crypto-Native Ontology / Knowledge Model | أنطولوجيا معرفة أصيلة للكريبتو | CAPABILITY | P0 | W2_AFTER_CORE_DEPENDENCIES | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| G02 | Domain-Specific Models & Rules | نماذج وقواعد متخصصة في الكريبتو | ASSET | P0 | FOUNDATION_OR_ACCUMULATE_NOW | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| G03 | Vertical Benchmarks & Domain Language | Benchmarks ولغة مجال متخصصة | ASSET | P1 | ACCUMULATE_WITH_USE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| G04 | Segment-Specific Workflows | سير عمل خاص بكل شريحة | CAPABILITY | P0 | W1_3_6M | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| G05 | Role-Specific Intelligence & Entitlements | ذكاء وصلاحيات حسب الدور | CAPABILITY | P0 | W1_3_6M | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| G06 | Shared-Core Multi-Segment Adaptation & Fit Matrix | تكييف محرك واحد لشرائح متعددة مع مصفوفة Fit | CAPABILITY | P1 | W2_BUILD_OR_ACCUMULATE_AFTER_W1 | USER_DATA/EVIDENCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| H01 | Regulatory Readiness Layer | طبقة الجاهزية التنظيمية | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| H02 | Jurisdiction & Policy Awareness | وعي الولايات والسياسات | CONTROL_OR_GOVERNANCE | P1 | LIGHTWEIGHT_RISK_BASED | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| H03 | Machine-Readable Compliance Controls | ضوابط امتثال قابلة للقراءة/التنفيذ آليًا | CONTROL_OR_GOVERNANCE | P1 | LIGHTWEIGHT_RISK_BASED | LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| H04 | Market-Access / Permission Matrix | مصفوفة الوصول والصلاحيات السوقية | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| H05 | License / Certification Asset Registry | سجل التراخيص والاعتمادات | CONTROL_OR_GOVERNANCE | P1 | LIGHTWEIGHT_RISK_BASED | INDEPENDENT; LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| H06 | Regulatory Barrier & Replicability Assessment | تقييم الحاجز التنظيمي وصعوبة تقليده | METRIC | P2 | MEASURE_NOT_BUILD_AS_FEATURE | LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| H07 | Regulatory Change Monitoring | مراقبة التغير التنظيمي | CONTROL_OR_GOVERNANCE | P1 | LIGHTWEIGHT_RISK_BASED | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| H08 | Audit-Ready Compliance Evidence & Trust Surface | أدلة امتثال وصفحة ثقة قابلة للتدقيق | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | INDEPENDENT; LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| I01 | Multi-Moat Compounding Operating Model | نموذج تشغيل لتراكم عدة Moats | OPERATING_MODEL_OR_STRATEGY | P0 | LIGHTWEIGHT_STRATEGY_GOVERNANCE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| I02 | Moat Ownership, Routing & Time-Dependency Classification | ملكية الـMoat ومسار التنفيذ وتصنيف الاعتماد على الزمن | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| I03 | Counter-Positioning & Six-Hero Surface Governance | حوكمة التموضع المضاد وسطح الأبطال الستة | OPERATING_MODEL_OR_STRATEGY | P0 | LIGHTWEIGHT_STRATEGY_GOVERNANCE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| I04 | Vertical Positioning & Priority-Segment Portfolio | تموضع عمودي ومحفظة شرائح أولوية | OPERATING_MODEL_OR_STRATEGY | P0 | LIGHTWEIGHT_STRATEGY_GOVERNANCE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| I05 | Moat Strength, Durability & Time-to-Copy Measurement | قياس قوة واستدامة وزمن تقليد الـMoat | METRIC | P1 | MEASURE_NOT_BUILD_AS_FEATURE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| I06 | Moat Evidence Ledger & Dependency Map | سجل أدلة الـMoat وخريطة الترابط | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| I07 | Day-One Accumulation Scheduler & Continuity Evidence | جدولة التراكم من اليوم الأول ودليل الاستمرارية | CAPABILITY | P0 | W2_AFTER_CORE_DEPENDENCIES | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| J01 | Unique Data Coverage, Quality & Provenance | تغطية وجودة ومصدر البيانات | ASSET | P0 | FOUNDATION_OR_ACCUMULATE_NOW | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS | N/A_NON_CAPABILITY |
+| J02 | Data Rights & Licensing Registry | سجل حقوق وترخيص البيانات | CONTROL_OR_GOVERNANCE | P0 | FOUNDATION_AS_NEEDED_FOR_W0_W1 | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW | N/A_NON_CAPABILITY |
+| J03 | Proprietary Intelligence & IP Registry | سجل الذكاء والملكية الفكرية الخاصة | ASSET | P0 | FOUNDATION_OR_ACCUMULATE_NOW | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| J04 | Vendor Independence & Portability | استقلالية الموردين وقابلية النقل | CAPABILITY | P0 | W2_LOCAL_NOW_LIVE_LATER | LIVE/TIME; EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| J05 | Operational Reliability & Recovery | الاعتمادية التشغيلية والتعافي | CAPABILITY | P0 | W2_LOCAL_NOW_LIVE_LATER | LIVE/TIME | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| J06 | Developer Ecosystem Infrastructure | بنية منظومة المطورين | CAPABILITY | P1 | W2_BUILD_OR_ACCUMULATE_AFTER_W1 | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| J07 | Distribution Infrastructure | بنية التوزيع | CAPABILITY | P1 | W2_AFTER_CORE_DEPENDENCIES | EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| J08 | Research & Content Compounding Engine | محرك تراكم الأبحاث والمحتوى | ASSET | P1 | ACCUMULATE_WITH_USE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| J09 | Acquisition Readiness & Living Evidence Room | جاهزية الاستحواذ وغرفة الأدلة الحية | CAPABILITY | P0 | W2_AFTER_CORE_DEPENDENCIES | NONE_KNOWN_FROM_SOURCE | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+| J10 | Rare-Skills Knowledge Continuity | استمرارية معرفة المهارات النادرة | ASSET | P1 | ACCUMULATE_WITH_USE | NONE_KNOWN_FROM_SOURCE | N/A_NON_CAPABILITY |
+| J11 | Learning Velocity & Outcome Feedback Loop | سرعة التعلم وحلقة النتائج | CAPABILITY | P0 | W1_3_6M | USER_DATA/EVIDENCE; LIVE/TIME | UNVERIFIED_PENDING_CURRENT_826_SSOT |
+
+## 6. Reconciliation فعلي من المصدر إلى السجل Canonical
+
+### 6.1 الأربعون Feature/Capability في المصدر
+
+| Source # | Source Feature/Capability | Canonical disposition |
+|---:|---|---|
+| 1 | Immutable Public Track Record | A01 |
+| 2 | Pre-Outcome Timestamping | A02 |
+| 3 | Independent Track-Record Verification | A07/A08 |
+| 4 | Prediction-to-Outcome Proof Chain | A03/A04 |
+| 5 | Historical Accuracy by Market/Regime/Asset | A05 |
+| 6 | User Workflow Persistence | C03/C04 |
+| 7 | Personalized Workspace / Watchlists / Saved Intelligence | C03 |
+| 8 | User Learning Lock-in | C02/C07 |
+| 9 | Consistent Signal/Oracle Semantics | B04 |
+| 10 | Behavioral Adaptation History | C02 |
+| 11 | Collective Outcome Intelligence | D01 |
+| 12 | Population-Level Accuracy Benchmarking | D02/D03 |
+| 13 | Community/Population Calibration Dataset | D02 |
+| 14 | Network-Effect Measurement Engine | D06 |
+| 15 | Deep Excel Integration | E02 |
+| 16 | Telegram Integration | E02 |
+| 17 | API / SDK Integration Layer | E01 |
+| 18 | Embedded Analytics / White-Label Integration | E03 |
+| 19 | Persistent External Workflow Connections | E02/E05 |
+| 20 | Integration Migration Cost Mapping | C08/E05 |
+| 21 | Rapid Intelligence / Low-Latency Delivery | F01 |
+| 22 | Time-to-Insight Optimization | F01/F02 |
+| 23 | First-Mover Compounding Mechanism | I07 |
+| 24 | Explainable Decision Engine | B05 |
+| 25 | Decomposable Intelligence | B06/B08 |
+| 26 | Signal Contribution Breakdown | B06 |
+| 27 | Confidence + Reason Codes | B07 |
+| 28 | Why / Why Not Decision Explanation | B08 |
+| 29 | Crypto-Native Vertical Intelligence | G01/G02/G03 |
+| 30 | Deep Segment-Specific Workflows | G04 |
+| 31 | Role-Specific Intelligence | G05 |
+| 32 | Domain-Specific Models and Rules | G02 |
+| 33 | Regulatory Readiness Layer | H01 |
+| 34 | Machine-Readable Compliance Controls | H03 |
+| 35 | Jurisdiction/Policy Awareness | H02/H04 |
+| 36 | Audit-Ready Compliance Evidence | H08 |
+| 37 | License / Certification Asset Registry | H05 |
+| 38 | Regulatory Barrier Classification | H06 |
+| 39 | Compliance ≠ Moat Classification | H06/I05 |
+| 40 | Moat Strength Measurement Framework | I05/I06 |
+
+### 6.2 الإضافات الاستراتيجية السبع
+
+| # | Strategic construct | Canonical coverage |
+|---:|---|---|
+| 1 | Verifiable Reputation Moat | A01–A08 |
+| 2 | Cognitive Switching Cost | C02–C08 |
+| 3 | Data Network Effect | D01–D06 |
+| 4 | Integration Lock-in | E01–E05 + C08 |
+| 5 | Explainability Moat | B05–B10 |
+| 6 | Vertical Intelligence Moat | G01–G06 |
+| 7 | Regulatory Asset Moat | H01–H08 + I05 |
+
+### 6.3 تصنيف العوامل الثمانية
+
+| Source factor | Canonical coverage |
+|---|---|
+| Track Record | A01–A08 |
+| Switching Costs | C02–C08 |
+| Network Effects | D01–D06 |
+| Integration Depth | E01–E05 |
+| Speed | F01–F02 |
+| Explainability | B05–B10 |
+| Vertical Specialization | G01–G06 |
+| Regulatory Compliance | H01–H08 |
+
+### 6.4 أهم خمس أولويات في المصدر
+
+| # | Source priority | Canonical coverage |
+|---:|---|---|
+| 1 | Immutable Verified Track Record | A01/A02/A03/A04/A05/A06/A07/A08 |
+| 2 | Cognitive + Workflow Switching Costs | C02/C03/C04/C07/C08 |
+| 3 | Data Network Effect / Collective Outcome Intelligence | D01/D02/D03/D04/D05/D06 |
+| 4 | Deep API/Workflow Integration Lock-in | E01/E02/E03/E04/E05 |
+| 5 | Explainable Decision Intelligence | B05/B06/B07/B08/B09/B10 |
+
+> هذا الـreconciliation يثبت تغطية **بنية المصدر المتاحة فعليًا**. لا يثبت تنفيذ هذه السجلات في repo ولا mapping إلى IDs 1–826.
+
+## 7. بوابة الربط بالكتالوج التقني 1–826
+
+النسخة السابقة كانت تضع سجلًا استراتيجيًا موازيًا بلا ربط تقني. التصحيح المؤسسي هنا هو **عدم اختلاق IDs**:
+
+- كل Record من نوع `CAPABILITY` = `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` حتى يُقارن بالـ826 canonical inventory الحالي.
+- المطلوب عند التنفيذ داخل repo: `Strategic Record → 826 ID(s) → canonical requirement → implementation → actual consumer path → oracle → tests → tested SHA → evidence`.
+- نتائج المطابقة المسموح بها: `EXISTING_CANONICAL_MATCH | PARTIAL_MATCH | NEW_GAP | DUPLICATE_ALIAS | NOT_A_826_CAPABILITY`.
+- لا يُسمح بتحويل التشابه الاسمي إلى mapping. المطابقة دلالية على requirement/input/logic/output/user outcome/canonical role.
+
+### سجل الـ40 Capability المطلوب Reconcile لها
+
+| ID | Capability | 826 reconciliation state |
+|---|---|---|
+| A01 | Verified Forward/Public Track Record | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| A03 | Prediction–Decision–Outcome Evidence Chain | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| A04 | Automated Multi-Horizon Outcome Evaluator | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| A05 | Accuracy, Calibration & Regime Analytics | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| A06 | Error, Correction, Abstention & Low-Confidence Ledger | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| A07 | Public Verification Interface & Methodology | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| B02 | Cross-Domain Intelligence Fusion | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| B03 | Signal Quality & Noise Suppression | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| B05 | Explainable Decision Engine | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| B06 | Contribution / Rule Attribution | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| B07 | Confidence & Reason Codes | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| B08 | Why / Why-Not & Conflicting-Evidence Explanation | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| B10 | Human–AI Trust Calibration | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C01 | Consent-Controlled User Interaction & Decision Ledger | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C02 | Behavioral Adaptation & Context Graph | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C03 | Personalized Workspace, Watchlists & Saved Intelligence | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C04 | Watchlist & Workspace Evolution History | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C05 | Decision-Linked Alerts | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C06 | Versioned Decision Playbooks | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C08 | Workflow Dependency & Migration-Cost Map | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| C09 | Institutional Team Shared Reference Workspace | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| D01 | Collective Outcome Intelligence | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| D05 | Privacy-Safe Collective Learning | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| E01 | API / SDK Platform Layer | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| E02 | Enterprise Connector Hub (Excel, Telegram, Webhooks) | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| E03 | Embedded Analytics & White-Label | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| E06 | User-Confirmed Execution Handoff + Context Pack | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| F01 | Decision Latency & Time-to-Insight Engineering | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| F02 | User-Facing Freshness & Performance Evidence | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| G01 | Crypto-Native Ontology / Knowledge Model | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| G04 | Segment-Specific Workflows | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| G05 | Role-Specific Intelligence & Entitlements | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| G06 | Shared-Core Multi-Segment Adaptation & Fit Matrix | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| I07 | Day-One Accumulation Scheduler & Continuity Evidence | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| J04 | Vendor Independence & Portability | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| J05 | Operational Reliability & Recovery | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| J06 | Developer Ecosystem Infrastructure | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| J07 | Distribution Infrastructure | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| J09 | Acquisition Readiness & Living Evidence Room | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+| J11 | Learning Velocity & Outcome Feedback Loop | UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION |
+
+## 8. بوابات الإثبات الفردية — لا نص قالبي موحد
+
+> كل بوابة أدناه مرتبطة بمعنى السجل نفسه. لا يوجد `E2/E3 + canonical-path` كنص بديل عن الإثبات. مستوى الدليل النهائي يُحدد حسب claim والمخاطر، مع الفصل بين local/CI وlive وindependent.
+
+### A01 — Verified Forward/Public Track Record
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** سجل زمني حقيقي قابل لإعادة التحقق، يفصل backtest/simulation/shadow/live ويمنع خلط فئات الدليل.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `LIVE/TIME`
+- **بوابة الإثبات المحددة:** ثبت timestamp قبل النتيجة، append-only/tamper-evident lineage، فصل BACKTESTED/SIMULATED/FORWARD_SHADOW/VERIFIED_PRODUCTION، وعينة forward قابلة لإعادة الحساب؛ لا claim حي قبل تراكم E4 فعلي.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### A02 — Pre-Outcome Timestamp & Anti-Backfill Integrity
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** يثبت أن التوقع سُجل قبل معرفة النتيجة، مع tamper-evident lineage.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** اختبار يمنع إنشاء/تعديل توقع بعد outcome cutoff؛ تحقق monotonic timestamps، audit lineage، وحالات clock skew/replay/tampering.
+
+### A03 — Prediction–Decision–Outcome Evidence Chain
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** ربط كل signal/prediction/decision بالمدخلات والإصدار والنتيجة والدليل.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** إعادة أداء سلسلة signal→prediction→decision→outcome من inputs/versioned rules إلى النتيجة، مع referential integrity وعدم وجود orphan links.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### A04 — Automated Multi-Horizon Outcome Evaluator
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** يقيم النتيجة تلقائيًا على horizons معرفة مسبقًا مع evaluator/version lineage.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Golden cases متعددة horizons تثبت تعريف outcome مسبقًا، evaluator versioning، الحدود الزمنية، وتصحيح late/missing outcomes بدون إعادة كتابة التاريخ.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### A05 — Accuracy, Calibration & Regime Analytics
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** دقة ومعايرة حسب asset/regime/horizon مع denominator واضح وعدم cherry-picking.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `LIVE/TIME`
+- **بوابة الإثبات المحددة:** حساب accuracy/calibration حسب asset/regime/horizon على dataset مؤرشف مع denominator ثابت، confidence intervals/coverage، ومنع cherry-picking أو future leakage.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### A06 — Error, Correction, Abstention & Low-Confidence Ledger
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** إظهار الفشل وI-don't-know والتصحيحات بجانب النجاحات لثقة قابلة للدفاع.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `LIVE/TIME`
+- **بوابة الإثبات المحددة:** حالات فشل/abstain/low-confidence/correction تُسجل alongside successes؛ اختبار أن correction لا تمحو النسخة الأصلية وأن معدلات الامتناع/الخطأ قابلة للحساب.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### A07 — Public Verification Interface & Methodology
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** واجهة/API توضح المنهج والعينة والإصدارات والأدلة القابلة للفحص.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** مستخدم مستقل يستطيع من الواجهة/API الوصول إلى methodology، sample definition، version، timestamps، وevidence links وإعادة حساب مثال منشور.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### A08 — Independent Reperformance Readiness
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** حزمة تسمح لمراجع مستقل بإعادة التحقق دون ادعاء assurance قبل حدوثه.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `INDEPENDENT`
+- **بوابة الإثبات المحددة:** حزمة reperformance مستقلة تحتوي requirement، code/model/rule/config versions، inputs/snapshot، oracle، expected/actual، SHA/build، exceptions؛ E5 لا يُعلن إلا بتحدٍ مستقل فعلي.
+
+### B01 — Proprietary Decision Frameworks
+- **Record Class:** ASSET
+- **القيمة/الغرض:** قواعد تجميع، gates/vetoes، risk caps، scoring ومنطق القرار كـIP قابل للإصدار.
+- **Execution Lane:** `FOUNDATION_OR_ACCUMULATE_NOW`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Versioned decision rules/gates/vetoes/risk caps لها owner/provenance واختبارات decision-table تُظهر أن تغيير rule يغير outcome كما هو مصمم.
+
+### B02 — Cross-Domain Intelligence Fusion
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** دمج market/derivatives/on-chain/macro/sentiment وغيرها في قرار واحد مع معالجة التعارض.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** سيناريوهات cross-domain تثبت دمج market/derivatives/on-chain/macro/sentiment ومعالجة conflict/missing domain؛ output يختلف منطقيًا عند تغير evidence.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### B03 — Signal Quality & Noise Suppression
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** فلترة/ranking تقاس بـprecision/recall/calibration بدل وصف تسويقي.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Benchmark معلن يقيس precision/recall أو metric مناسب قبل/بعد suppression على labeled sample، مع false-positive/false-negative analysis وعدم استخدام نفس function كـoracle.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### B04 — Canonical Signal / Oracle Semantics
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** تعريف مركزي للمعنى والقواعد والإصدار يمنع اختلاف معنى نفس الإشارة بين الأسطح.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Contract tests تثبت أن signal/oracle semantics موحدة عبر كل consumers والأسطح وأن version change لا يحدث silently أو يخلق split-brain.
+
+### B05 — Explainable Decision Engine
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** تفسير ناتج القرار من نفس المنطق الفعلي لا post-hoc marketing explanation.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** اختبار fidelity يربط explanation بنفس rules/evidence التي أنتجت القرار؛ perturbation/ablation تكشف explanation لا يتبع قرارًا لم ينتجه.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### B06 — Contribution / Rule Attribution
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** عرض contributions/rules/weights فقط عندما تكون authoritative فعليًا.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Contribution values/rules المعروضة تطابق authoritative computation؛ لا تعرض weights تقريبية كحقائق؛ اختبارات sum/ordering/invariance حسب التصميم.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### B07 — Confidence & Reason Codes
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** ثقة معايرة وأسباب قابلة للتتبع مع حدود وعدم يقين.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Confidence calibration على holdout/forward evidence مع reason codes traceable إلى causal/decision evidence؛ اختبار حدود low-confidence وabstain.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### B08 — Why / Why-Not & Conflicting-Evidence Explanation
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** يوضح سبب القرار وما الذي كان سيغيّره وكيف عولجت الإشارات المتعارضة.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Golden scenarios لكل why/why-not/conflict تثبت شروط القرار والـcounterfactual material؛ تغيير decisive input ينعكس في explanation والقرار المتوقع.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### B09 — Explanation Fidelity & Provenance
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** اختبار fidelity وربط التفسير بالبيانات والقواعد والإصدارات.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Automated fidelity/provenance checks تربط explanation→decision→rule/data/model versions وتكشف stale/mismatched explanation.
+
+### B10 — Human–AI Trust Calibration
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** تصميم الثقة بحيث لا يفرط المستخدم في الاعتماد ولا يرفض النظام بلا سبب.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** User study/behavioral evidence يقيس over-reliance/under-reliance، comprehension، override/abstain behavior حسب context؛ لا claim قبل بيانات مستخدم فعلية.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C01 — Consent-Controlled User Interaction & Decision Ledger
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** يسجل signal seen/action confirmed/decision context بصورة purpose-limited وprivacy-controlled.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Consent/purpose tests تثبت أن interaction/decision events تُجمع فقط عند الإذن المناسب، مع minimization، deletion/export، purpose tags، وtenant isolation.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C02 — Behavioral Adaptation & Context Graph
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** سياق تراكمي للأهداف/المخاطر/السلوك/التفضيلات دون جمع زائد.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** اختبارات personalization تثبت أن context history يغيّر recommendation/presentation المسموح به بطريقة قابلة للتفسير، مع opt-out/reset وعدم تسرب بين المستخدمين.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C03 — Personalized Workspace, Watchlists & Saved Intelligence
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** يجعل المنتج مكان عمل متكرر ويحتفظ بسياق المستخدم القابل للتصدير.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** E2E يحفظ/يسترجع workspace/watchlist/intelligence عبر sessions والأجهزة المسموح بها، مع export/delete وconflict/version handling.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C04 — Watchlist & Workspace Evolution History
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** نسخ تاريخية مفيدة للمراجعة والرجوع، وليست مجرد snapshot.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Version-history tests تثبت snapshots/diffs/restore وعدم فقد chronology، مع retention policy وuser-scoped access.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C05 — Decision-Linked Alerts
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** تنبيه مرتبط بالthesis/state/outcome لا threshold منفصل فقط.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** E2E يربط alert بـthesis/state/outcome؛ dedupe/rate-limit/staleness/acknowledgement tested، وتصل القناة المقصودة في sandbox أو live حسب claim.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C06 — Versioned Decision Playbooks
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** workflow متكرر له trigger/inputs/decision/evidence/outcome/version.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Playbook contract يثبت trigger→inputs→decision→evidence→outcome→version؛ replay على نسخة سابقة يعطي نفس النتيجة ضمن نفس inputs.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C07 — Cognitive Switching-Cost Evidence
+- **Record Class:** METRIC
+- **القيمة/الغرض:** يقيس قيمة التعلم المتراكم دون تصميم حبس تعسفي للمستخدم.
+- **Execution Lane:** `MEASURE_NOT_BUILD_AS_FEATURE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Metric specification يعرّف switching-cost construct بدون dark patterns؛ يقاس من user learning/dependency evidence مع portability guardrails؛ لا يُعامل كـfeature.
+
+### C08 — Workflow Dependency & Migration-Cost Map
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** يعرف ماذا يعتمد على BLACKDARK وما يلزم لنقل workflow مع الحفاظ على portability.
+- **Execution Lane:** `W2_AFTER_CORE_DEPENDENCIES`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Dependency graph ومخرجات migration estimate قابلة لإعادة الحساب من integrations/workflows الفعلية؛ لا تضخيم متعمد لتكلفة الخروج.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### C09 — Institutional Team Shared Reference Workspace
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** سياق ولوحات وقرارات مشتركة مع RBAC/audit/provenance.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Multi-user E2E يثبت shared references، RBAC، audit trail، tenant boundaries، concurrent updates، وprovenance للقرارات المشتركة.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### D01 — Collective Outcome Intelligence
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** استخدام outcomes المسموح بها لتحسين calibration والbenchmarks بصورة مجمعة.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Pipeline من consented outcomes إلى aggregate intelligence يثبت aggregation rules، cohort definitions، minimum sample/confidence، وعدم leakage لهوية فردية.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### D02 — Population Benchmark & Calibration Dataset
+- **Record Class:** ASSET
+- **القيمة/الغرض:** مقارنات إحصائية مع تعريف population/selection bias/coverage.
+- **Execution Lane:** `ACCUMULATE_WITH_USE`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Dataset contract يثبت population definition، selection/coverage bias، versioning، consent/rights، cohort lineage، وstatistical representativeness limits.
+
+### D03 — Sample Quality & Statistical Confidence Engine
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** يفصل حجم العينة عن جودتها ويقيس uncertainty/coverage/independence.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Synthetic/golden samples تختبر sample size، independence، missingness، confidence interval/uncertainty، وتمنع تحويل n الكبير إلى ثقة زائفة.
+
+### D04 — Expert Feedback Quality, Bias & Sybil Controls
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** لا يعامل كل feedback بالتساوي؛ يضبط abuse/bias/identity-quality حيث ينطبق.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Adversarial tests لSybil/duplicate/low-quality feedback، weighting rules، identity-quality signals، bias monitoring، وabuse response.
+
+### D05 — Privacy-Safe Collective Learning
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** aggregation/minimization/permissions تمنع تحويل data network effect إلى مخاطرة خصوصية.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Privacy threat model + aggregation/minimization/access tests؛ منع reconstruction/linkage قدر الإمكان حسب التصميم، مع retention/deletion وconsent enforcement.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### D06 — Network-Effect Measurement Framework
+- **Record Class:** METRIC
+- **القيمة/الغرض:** يفصل direct/indirect effects ويمنع claim قبل إثبات أن زيادة المشاركين تحسن قيمة الآخرين.
+- **Execution Lane:** `MEASURE_NOT_BUILD_AS_FEATURE`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Metric framework يعرّف direct/indirect network effect، unit of analysis، counterfactual أو baseline، ويمنع claim causal قبل evidence سوقي كافٍ.
+
+### E01 — API / SDK Platform Layer
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** contracts/versioning/auth/entitlements/metering/observability للمستهلكين الخارجيين.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Contract tests للAPI/SDK تشمل versioning، authn/authz، entitlement، rate limits/metering، idempotency حيث يلزم، error semantics، docs examples وbackward compatibility.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### E02 — Enterprise Connector Hub (Excel, Telegram, Webhooks)
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** موصلات ذات قيمة workflow بدل اعتبار كل connector moat منفصلًا.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS`
+- **بوابة الإثبات المحددة:** لكل connector contract مستقل للauth/scopes/data mapping/retries/idempotency/version drift؛ dependency/cost/license check قبل اعتماد أي vendor؛ Excel/Telegram/Webhook لا تُعد moat منفصلة.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### E03 — Embedded Analytics & White-Label
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** توزيع intelligence داخل منتجات العملاء مع rights/entitlements/versioning.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Tenant-isolated embedded/white-label E2E يثبت branding config، entitlements، data rights/redistribution، version compatibility، ومخرجات متطابقة مع canonical intelligence.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### E04 — Connector Compatibility & Version Governance
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** إدارة breaking changes/deprecation/contracts وتجنب lock-in هش.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Compatibility matrix + contract tests على supported versions، deprecation window، breaking-change detection، migration path، وrollback.
+
+### E05 — Integration Footprint Registry
+- **Record Class:** ASSET
+- **القيمة/الغرض:** يعرف consumers/dependencies/usage/criticality بدون تحويله إلى vanity metric.
+- **Execution Lane:** `ACCUMULATE_WITH_USE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Registry reconciled against actual consumers/dependencies/usage telemetry؛ orphan/stale integrations flagged؛ لا vanity counts.
+
+### E06 — User-Confirmed Execution Handoff + Context Pack
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** ينقل القرار إلى venue/external workflow بإقرار صريح وبدون تنفيذ خفي أو commission incentive غير معلن.
+- **Execution Lane:** `W2_LOCAL_NOW_LIVE_LATER`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Explicit user confirmation before handoff، immutable context pack، destination/amount/action preview، cancellation/audit، legal/venue boundary state؛ لا hidden execution.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### F01 — Decision Latency & Time-to-Insight Engineering
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** قياس event→decision/time-to-insight مع p95/p99/SLO حسب نوع المسار.
+- **Execution Lane:** `W0_0_90D_CORE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Performance benchmark لكل workload يعرّف event→decision وtime-to-insight، p50/p95/p99/SLO، load profile، resource envelope، وdegradation behavior.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### F02 — User-Facing Freshness & Performance Evidence
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** يعرض last update/freshness/generation time حيث يهم بدل عداد ms تسويقي دائم.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Displayed freshness/generation time reconciles with authoritative timestamps; stale/degraded states visible; UX test verifies users can interpret recency correctly.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### G01 — Crypto-Native Ontology / Knowledge Model
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** لغة وعلاقات entities/events/assets/venues/protocols كطبقة معرفة حاكمة.
+- **Execution Lane:** `W2_AFTER_CORE_DEPENDENCIES`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Ontology tests validate entity/event/asset/venue/protocol relationships، uniqueness/aliases/version migration، provenance، وcompetency questions representative of crypto workflows.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### G02 — Domain-Specific Models & Rules
+- **Record Class:** ASSET
+- **القيمة/الغرض:** منطق لا يكتفي بنماذج عامة ويخضع للversioning/benchmarking.
+- **Execution Lane:** `FOUNDATION_OR_ACCUMULATE_NOW`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Model/rule cards تشمل purpose/data/version/benchmark/limitations؛ holdout/replay tests ومقارنة baseline؛ no generic model claim دون domain evidence.
+
+### G03 — Vertical Benchmarks & Domain Language
+- **Record Class:** ASSET
+- **القيمة/الغرض:** benchmarks وحالات سوق/domain semantics قابلة لإعادة الاختبار.
+- **Execution Lane:** `ACCUMULATE_WITH_USE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Benchmark set versioned وممثل لحالات المجال، domain terminology definitions canonical، scoring rubric reproducible، leakage controls documented.
+
+### G04 — Segment-Specific Workflows
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** Retail/Pro/Fund/Institutional flows مختلفة حسب الحاجة لا مجرد UI skin.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Per-segment E2E proves materially different tasks/decisions for Retail/Pro/Fund/Institutional based on needs—not UI skin—while reusing canonical core.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### G05 — Role-Specific Intelligence & Entitlements
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** مخرجات وعمق وpermissions مناسبة للدور مع canonical core واحد.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Role matrix + entitlement E2E proves authorized depth/output/permissions، negative denial paths، tenant isolation، and no role-to-role leakage.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### G06 — Shared-Core Multi-Segment Adaptation & Fit Matrix
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** يمنع fork لكل شريحة ويربط claims بـsegment fit/WTP/retention لاحقًا.
+- **Execution Lane:** `W2_BUILD_OR_ACCUMULATE_AFTER_W1`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE`
+- **بوابة الإثبات المحددة:** Fit matrix links segment→job→workflow→evidence→WTP/retention hypothesis; shared-core adaptations validated per segment; market claims remain pending until measured.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### H01 — Regulatory Readiness Layer
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** متطلبات/controls/owners/evidence دون ادعاء ترخيص أو امتثال غير موجود.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Requirements/control/evidence register per applicable jurisdiction with owner/status; legal assertions tagged source/date; readiness never labeled certification/compliance without external basis.
+
+### H02 — Jurisdiction & Policy Awareness
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** يربط feature/data/action بالولاية والسياسات المطبقة وتاريخها.
+- **Execution Lane:** `LIGHTWEIGHT_RISK_BASED`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Policy/jurisdiction data has authoritative source/date/version/effective period; tests map feature/data/action to applicable rules and handle unknown/conflict states.
+
+### H03 — Machine-Readable Compliance Controls
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** policy-as-data حيث يكون قابلًا للتحديد والاختبار، دون تضخيم claims.
+- **Execution Lane:** `LIGHTWEIGHT_RISK_BASED`
+- **Dependency/Evidence:** `LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Machine-readable policy rules have schema/version/owner/test vectors and fail-safe behavior; human/legal review path for ambiguous rules.
+
+### H04 — Market-Access / Permission Matrix
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** ماذا يجوز وأين وتحت أي شرط/دليل/ترخيص.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Permission matrix tested on allow/deny/unknown across jurisdiction/product/action; default behavior and evidence source explicit.
+
+### H05 — License / Certification Asset Registry
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** يسجل scope/version/issuer/validity/evidence؛ لا يحول readiness إلى certification.
+- **Execution Lane:** `LIGHTWEIGHT_RISK_BASED`
+- **Dependency/Evidence:** `INDEPENDENT; LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Registry records issuer/scope/version/validity/evidence/expiry; only verified external certification/license can be marked active; reminders do not imply compliance.
+
+### H06 — Regulatory Barrier & Replicability Assessment
+- **Record Class:** METRIC
+- **القيمة/الغرض:** يفصل ticket-to-entry عن barrier/cornered-resource الفعلي.
+- **Execution Lane:** `MEASURE_NOT_BUILD_AS_FEATURE`
+- **Dependency/Evidence:** `LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Metric distinguishes ticket-to-entry from scarce/exclusive barrier; inputs sourced and dated; output presented as assessment/hypothesis unless market evidence validates defensibility.
+
+### H07 — Regulatory Change Monitoring
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** يربط التغير بالfeatures/data/markets المتأثرة ومسؤول المتابعة.
+- **Execution Lane:** `LIGHTWEIGHT_RISK_BASED`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Change-monitoring source inventory, freshness SLA, diff detection, impact mapping، owner/acknowledgement، false-positive handling، and no legal certainty claim from automation alone.
+
+### H08 — Audit-Ready Compliance Evidence & Trust Surface
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** evidence translation + B2B summary + public trust page مع منع false certification.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `INDEPENDENT; LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Evidence package maps control→evidence→period→owner→exceptions and public/B2B trust surface reflects only verified state; SOC2/ISO claims blocked absent attestation/certificate.
+
+### I01 — Multi-Moat Compounding Operating Model
+- **Record Class:** OPERATING_MODEL_OR_STRATEGY
+- **القيمة/الغرض:** يدير مجموعة moats مترابطة بدل claim واحد منفصل.
+- **Execution Lane:** `LIGHTWEIGHT_STRATEGY_GOVERNANCE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Operating model has explicit moat definitions، dependencies، hypotheses، evidence owners، review cadence، kill/continue criteria; not counted as user capability.
+
+### I02 — Moat Ownership, Routing & Time-Dependency Classification
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** يفصل NOW/USER/LIVE/INDEPENDENT ويحدد owner بلا تضخيم bureaucracy.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Every moat record carries owner، build path، dependency class NOW/USER/LIVE/INDEPENDENT، evidence state and next action; governance overhead measured and minimized.
+
+### I03 — Counter-Positioning & Six-Hero Surface Governance
+- **Record Class:** OPERATING_MODEL_OR_STRATEGY
+- **القيمة/الغرض:** يحمي بساطة تجربة المنتج مع controlled exceptions؛ لا قرار أبدي غير قابل للمراجعة.
+- **Execution Lane:** `LIGHTWEIGHT_STRATEGY_GOVERNANCE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Six-Hero mapping has FEED/CONTEXT/NA rationale، exception process، user-surface coherence tests; strategy remains revisable with evidence.
+
+### I04 — Vertical Positioning & Priority-Segment Portfolio
+- **Record Class:** OPERATING_MODEL_OR_STRATEGY
+- **القيمة/الغرض:** 2-3 شرائح أولوية قابلة للمراجعة مع value proposition واضح ودليل لاحق.
+- **Execution Lane:** `LIGHTWEIGHT_STRATEGY_GOVERNANCE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Each priority segment has JTBD/problem، measurable value hypothesis، evidence threshold، acquisition channel hypothesis and review gate; portfolio limited by capacity.
+
+### I05 — Moat Strength, Durability & Time-to-Copy Measurement
+- **Record Class:** METRIC
+- **القيمة/الغرض:** يقيس defensibility بدل استخدام كلمة moat كادعاء تسويقي.
+- **Execution Lane:** `MEASURE_NOT_BUILD_AS_FEATURE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Metric defines strength/durability/time-to-copy dimensions with evidence levels; no 'moat' claim from architecture alone; repeated measurement over time.
+
+### I06 — Moat Evidence Ledger & Dependency Map
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** يربط claim→asset→evidence→version→validity ويبين كيف تتراكم المزايا.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Ledger maps claim→asset→evidence→version→validity→dependency; stale/expired evidence automatically visible; duplicate claims reconciled.
+
+### I07 — Day-One Accumulation Scheduler & Continuity Evidence
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** start date/age/gaps/continuity لكل أصل زمني بمجرد جاهزيته.
+- **Execution Lane:** `W2_AFTER_CORE_DEPENDENCIES`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Scheduler proves start date/age/gaps/continuity for each time-dependent asset and flags interruption; cannot backfill live age.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### J01 — Unique Data Coverage, Quality & Provenance
+- **Record Class:** ASSET
+- **القيمة/الغرض:** تغطية متعددة المصادر مع freshness/quality/reconciliation/provenance، لا مجرد عدد مصادر.
+- **Execution Lane:** `FOUNDATION_OR_ACCUMULATE_NOW`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS`
+- **بوابة الإثبات المحددة:** Data Asset Contracts cover source/schema/event/ingest time/freshness/completeness/validity/uniqueness/reconciliation/provenance/rights/fallback; data-quality monitors tested.
+
+### J02 — Data Rights & Licensing Registry
+- **Record Class:** CONTROL_OR_GOVERNANCE
+- **القيمة/الغرض:** storage/use/derivation/training/API/redistribution/resale/retention rights قابلة للفرض.
+- **Execution Lane:** `FOUNDATION_AS_NEEDED_FOR_W0_W1`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS; LEGAL/RIGHTS_REVIEW`
+- **بوابة الإثبات المحددة:** Rights registry records storage/use/derivation/training/API/redistribution/resale/retention by source and jurisdiction; unknown rights fail closed for external redistribution.
+
+### J03 — Proprietary Intelligence & IP Registry
+- **Record Class:** ASSET
+- **القيمة/الغرض:** خوارزميات/indices/features/decision logic مع owner/version/provenance/rights/value.
+- **Execution Lane:** `FOUNDATION_OR_ACCUMULATE_NOW`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** IP registry records owner/version/provenance/license/dependencies/value classification and links code/model/rule artifacts; unresolved ownership blocks acquisition-ready claim.
+
+### J04 — Vendor Independence & Portability
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** abstraction/fallback/replacement tests/concentration risk/exit path.
+- **Execution Lane:** `W2_LOCAL_NOW_LIVE_LATER`
+- **Dependency/Evidence:** `LIVE/TIME; EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS`
+- **بوابة الإثبات المحددة:** Adapter/fallback/replacement tests prove portability for material vendors؛ concentration and exit-time measured؛ live failover only claimed after production evidence.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### J05 — Operational Reliability & Recovery
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** SLI/SLO/error budget/degradation/observability/capacity/RTO/RPO/restore/failover.
+- **Execution Lane:** `W2_LOCAL_NOW_LIVE_LATER`
+- **Dependency/Evidence:** `LIVE/TIME`
+- **بوابة الإثبات المحددة:** SLI/SLO/error-budget/degradation/observability/capacity/RTO/RPO/restore/failover tests bound to environment and run; restore proof required for stateful components.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### J06 — Developer Ecosystem Infrastructure
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** docs/sandbox/SDK/templates/plugins/integrations مع governance وsupport model.
+- **Execution Lane:** `W2_BUILD_OR_ACCUMULATE_AFTER_W1`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS`
+- **بوابة الإثبات المحددة:** Docs/sandbox/SDK/templates/plugins have contract/version tests، onboarding completion evidence، support model؛ ecosystem/adoption claim requires external developer usage.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### J07 — Distribution Infrastructure
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** widgets/embeds/shareable intelligence/referrals/partners/content attribution دون claim moat قبل adoption.
+- **Execution Lane:** `W2_AFTER_CORE_DEPENDENCIES`
+- **Dependency/Evidence:** `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS`
+- **بوابة الإثبات المحددة:** Distribution mechanics (widgets/embeds/share/referral/partners) have attribution and abuse controls; adoption/viral/moat claims require measured acquisition/retention contribution.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### J08 — Research & Content Compounding Engine
+- **Record Class:** ASSET
+- **القيمة/الغرض:** يحوّل البحث الموثق إلى assets قابلة لإعادة الاستخدام والتوزيع والقياس مع provenance/rights.
+- **Execution Lane:** `ACCUMULATE_WITH_USE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Research/content assets carry source provenance، rights، version، reuse links، performance attribution؛ generated content not counted as proprietary value without quality/use evidence.
+
+### J09 — Acquisition Readiness & Living Evidence Room
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** clean IP/repo/data rights/security/evidence/contracts/risks/reproducibility مع freshness/completeness.
+- **Execution Lane:** `W2_AFTER_CORE_DEPENDENCIES`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Living evidence room has inventory/freshness/owner/completeness/exceptions/residual-risk and reperformability checks؛ stale artifacts flagged before diligence use.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+### J10 — Rare-Skills Knowledge Continuity
+- **Record Class:** ASSET
+- **القيمة/الغرض:** توثيق/knowledge transfer/bus-factor لتجنب تحويل talent إلى key-person risk.
+- **Execution Lane:** `ACCUMULATE_WITH_USE`
+- **Dependency/Evidence:** `NONE_KNOWN_FROM_SOURCE`
+- **بوابة الإثبات المحددة:** Critical-knowledge map، runbooks، ownership redundancy، handoff drill، bus-factor evidence؛ documentation existence alone does not prove continuity.
+
+### J11 — Learning Velocity & Outcome Feedback Loop
+- **Record Class:** CAPABILITY
+- **القيمة/الغرض:** Signal→Prediction→Decision→Outcome→Error→Learning→Version مع قياس time-to-evaluate/improvement.
+- **Execution Lane:** `W1_3_6M`
+- **Dependency/Evidence:** `USER_DATA/EVIDENCE; LIVE/TIME`
+- **بوابة الإثبات المحددة:** Versioned loop signal→prediction→decision→outcome→error→learning→new version; measure time-to-evaluate/time-to-improve and prove improvement versus frozen baseline.
+- **826 mapping:** `UNVERIFIED_PENDING_CURRENT_826_SSOT_RECONCILIATION` — لا claim تنفيذ حتى المطابقة مع SSOT التقني.
+
+## 9. بوابة الاعتماد الخارجي والمدفوع
+
+لا يُفترض أن أي dependency خارجي مجاني أو مدفوع بدون تحقق. التصنيف الصحيح هو dependency-first:
+
+| الحالة | المعنى | الإجراء |
+|---|---|---|
+| NONE_KNOWN_FROM_SOURCE | لا يذكر المصدر اعتمادًا خارجيًا ماديًا | لا نفترض غياب dependency من repo؛ يتحقق عند mapping |
+| EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS | connector/data/vendor خارجي محتمل | تحقق API/terms/cost/limits/redistribution قبل build claim |
+| USER_DATA/EVIDENCE | القيمة تحتاج مستخدمين/عينة/feedback | تبنى البنية فقط؛ outcome claim مؤجل |
+| LIVE/TIME | الدليل يحتاج تشغيلًا وزمنًا حقيقيًا | local engineering منفصل عن live proof |
+| INDEPENDENT | يحتاج auditor/attestation/challenge خارجي | لا self-attestation |
+| LEGAL/RIGHTS_REVIEW | claim يعتمد حقوق/ولاية/ترخيص | fail-closed للـredistribution/market-access عند عدم اليقين |
+
+**قاعدة `PAID_VENDOR_DESIGNED`:** تُستخدم فقط بعد أن يثبت الـrepo/vendor review أن القدرة تعتمد فعليًا على خدمة مدفوعة غير متاحة. لا نضعها بالاسم على D02 أو E02 أو غيرهما بالتخمين؛ بل نضع `EXTERNAL_DEPENDENCY_VERIFY_COST/RIGHTS` إلى أن يُحسم الواقع. عند ثبوت الدفع وعدم وجود بديل معتمد: `PAID_VENDOR_DESIGNED / EXTERNAL_BLOCKED` ولا شراء تلقائي.
+
+## 10. التسلسل التنفيذي القاسي — [POLICY] مشتق من أولويات المصدر والاعتماديات
+
+### W0 — أول 90 يومًا: 15 Capability فقط
+
+هذه هي القدرات التي تتحول مباشرة إلى **قيمة مستخدم + قرار + سجل نتيجة + وضوح + سرعة**. الضوابط والأصول اللازمة لها تُبنى كdependencies ولا تُحسب ضمن الـ15.
+
+| ID | Capability | User-visible outcome | Daily-pull mechanism | Evidence to watch |
+|---|---|---|---|---|
+| A01 | Verified Forward/Public Track Record | يرى المستخدم سجلًا زمنيًا يمكن فحصه بدل وعود تسويقية. | الثقة المتكررة قبل اتخاذ القرار. | نسبة sessions التي تفتح سجل الدليل + إعادة التحقق الناجح. |
+| A03 | Prediction–Decision–Outcome Evidence Chain | يرى كيف انتقل النظام من الإشارة إلى القرار ثم النتيجة. | يعود لمراجعة قراراته ونتائجها بدل فقد السياق. | نسبة القرارات المرتبطة بنتيجة قابلة للتقييم. |
+| A04 | Automated Multi-Horizon Outcome Evaluator | يعرف ماذا حدث بعد 1h/4h/1d/… تلقائيًا. | كل قرار يعود بنتيجة لاحقة بدون عمل يدوي. | زمن اكتمال outcome + نسبة outcomes المقيمة. |
+| A05 | Accuracy, Calibration & Regime Analytics | يعرف متى النظام دقيق ومتى يضعف حسب regime/asset/horizon. | يفتح المنصة لمعرفة هل البيئة الحالية تناسب إشاراته. | calibration error/coverage + breakdown usage. |
+| A06 | Error, Correction, Abstention & Low-Confidence Ledger | يرى الأخطاء والامتناع والتصحيحات بجانب النجاحات. | الثقة تنشأ من الصراحة واستمرار التعلم. | abstention/error/correction visibility + revisit rate. |
+| A07 | Public Verification Interface & Methodology | يفحص المنهج والعينة والدليل بنفسه. | التحقق السريع بدل البحث خارج المنصة. | verification completion rate + time-to-verify. |
+| B02 | Cross-Domain Intelligence Fusion | يحصل على قرار واحد من market/derivatives/on-chain/macro/sentiment. | يوفر وقت جمع لوحات متعددة. | time-to-decision + reduction in tool switching. |
+| B03 | Signal Quality & Noise Suppression | يرى الإشارات المهمة بدل الضجيج. | يفتح المنصة لمعرفة ما تغيّر فعلاً. | precision/recall + alert dismissal rate. |
+| B05 | Explainable Decision Engine | يفهم لماذا خرج القرار بهذه النتيجة. | القرار يصبح قابلًا للفهم والدفاع. | explanation fidelity + comprehension success. |
+| B07 | Confidence & Reason Codes | يرى الثقة وأسبابها وحدودها. | يعرف متى يعتمد ومتى ينتظر. | calibration + appropriate override/abstain behavior. |
+| B08 | Why / Why-Not & Conflicting-Evidence Explanation | يعرف لماذا/لماذا لا وما الأدلة المتعارضة. | يستخدم المنصة لاختبار thesis بدل قراءة نتيجة فقط. | why/why-not interaction + decision-change traceability. |
+| C03 | Personalized Workspace, Watchlists & Saved Intelligence | يحفظ سياقه وقوائمه وأبحاثه ويعود لها فورًا. | كل فتح للمنصة يبدأ من مكانه الحقيقي. | return-to-workspace rate + saved-context reuse. |
+| C05 | Decision-Linked Alerts | يتلقى تنبيهًا مرتبطًا بقرار وث thesis لا threshold أعمى. | المنصة تستدعيه عند تغير شيء مهم. | actionable-alert rate + false-alert dismissal. |
+| E01 | API / SDK Platform Layer | يستطيع إدخال BLACKDARK في workflow أو أداة أخرى. | القيمة تمتد خارج الواجهة. | API activation + successful consumer calls. |
+| F01 | Decision Latency & Time-to-Insight Engineering | يحصل على insight بسرعة قابلة للقياس. | تقليل زمن الانتظار في سوق 24/7. | event→decision p95/p99 + time-to-insight. |
+
+### W0 Foundational controls/assets — تُبنى فقط بقدر ما تحمي/تمكّن W0
+
+`A02`, `A08`, `B01`, `B04`, `B09`, `D03`, `D04`, `E04`, `G02`, `H01`, `H04`, `H08`, `I02`, `I06`, `J01`, `J02`, `J03`
+
+لا تُحوّل هذه العناصر إلى برنامج governance منفصل يسبق المنتج؛ كل control/asset يجب أن يكون له consumer/claim/risk واضح.
+
+### W1 — الأشهر 3–6
+
+- **B06 — Contribution / Rule Attribution:** عرض contributions/rules/weights فقط عندما تكون authoritative فعليًا.
+- **B10 — Human–AI Trust Calibration:** تصميم الثقة بحيث لا يفرط المستخدم في الاعتماد ولا يرفض النظام بلا سبب.
+- **C01 — Consent-Controlled User Interaction & Decision Ledger:** يسجل signal seen/action confirmed/decision context بصورة purpose-limited وprivacy-controlled.
+- **C02 — Behavioral Adaptation & Context Graph:** سياق تراكمي للأهداف/المخاطر/السلوك/التفضيلات دون جمع زائد.
+- **C04 — Watchlist & Workspace Evolution History:** نسخ تاريخية مفيدة للمراجعة والرجوع، وليست مجرد snapshot.
+- **C06 — Versioned Decision Playbooks:** workflow متكرر له trigger/inputs/decision/evidence/outcome/version.
+- **C09 — Institutional Team Shared Reference Workspace:** سياق ولوحات وقرارات مشتركة مع RBAC/audit/provenance.
+- **D01 — Collective Outcome Intelligence:** استخدام outcomes المسموح بها لتحسين calibration والbenchmarks بصورة مجمعة.
+- **D05 — Privacy-Safe Collective Learning:** aggregation/minimization/permissions تمنع تحويل data network effect إلى مخاطرة خصوصية.
+- **E02 — Enterprise Connector Hub (Excel, Telegram, Webhooks):** موصلات ذات قيمة workflow بدل اعتبار كل connector moat منفصلًا.
+- **E03 — Embedded Analytics & White-Label:** توزيع intelligence داخل منتجات العملاء مع rights/entitlements/versioning.
+- **F02 — User-Facing Freshness & Performance Evidence:** يعرض last update/freshness/generation time حيث يهم بدل عداد ms تسويقي دائم.
+- **G04 — Segment-Specific Workflows:** Retail/Pro/Fund/Institutional flows مختلفة حسب الحاجة لا مجرد UI skin.
+- **G05 — Role-Specific Intelligence & Entitlements:** مخرجات وعمق وpermissions مناسبة للدور مع canonical core واحد.
+- **J11 — Learning Velocity & Outcome Feedback Loop:** Signal→Prediction→Decision→Outcome→Error→Learning→Version مع قياس time-to-evaluate/improvement.
+
+### W2 / Evidence-Later
+
+- القدرات المتبقية تُبنى بعد تثبيت W0/W1 أو عند ظهور dependency حقيقي.
+- `USER_DATA/EVIDENCE` و`LIVE/TIME` و`INDEPENDENT` لا تُغلق بادعاء مبكر؛ تُبنى البنية الآن فقط إذا كانت dependency حقيقية لمسار W0/W1.
+- Metrics/Strategy records تبقى خفيفة: تقيس القرار ولا تصبح مشروعًا برمجيًا موازيًا.
+
+## 11. تجربة المستخدم والانبهار — من assurance إلى outcome
+
+لا يُعرّف هذا الملف "الانبهار" كصفة تسويقية. يُحوّل إلى hypotheses قابلة للقياس بعد وجود مستخدمين:
+
+| Product outcome | القياس المقترح [POLICY/METRIC] | شرط عدم الادعاء |
+|---|---|---|
+| Time-to-First-Useful-Decision | زمن من فتح المنتج إلى insight/decision مفيد | لا claim قبل telemetry حقيقي |
+| Daily Decision Utility | نسبة sessions التي تنتهي بقرار/حفظ/alert/action مفيد | يحتاج event semantics موثوقة |
+| Explanation Comprehension | هل يفهم المستخدم لماذا/لماذا لا والثقة؟ | user testing؛ لا proxy من click فقط |
+| Evidence Trust | استخدام verification/track-record وإعادة الفحص | لا يساوي ثقة تلقائيًا؛ يقاس مع qualitative feedback |
+| Return-to-Context | العودة إلى workspace/watchlist/playbook محفوظ | يقيس workflow value لا dark-pattern lock-in |
+| Actionable Alert Quality | alerts المؤدية لإجراء/مراجعة مقابل dismiss/mute | يجب ضبط false positives وsignal fatigue |
+| Tool-Switch Reduction | انخفاض الحاجة للجمع اليدوي بين منصات متعددة | يقاس task study/telemetry، لا claim ذاتي |
+| Appropriate Reliance | اعتماد/override/abstain المناسب لثقة النموذج | يحتاج user study + calibration evidence |
+
+## 12. Competitive Reality — external research snapshot، لا ادعاء تفوق
+
+**Snapshot date: 2026-09-07.** استخدمت الصفحات الرسمية للمنافسين فقط كأساس factual للـbaseline:
+
+- **Glassnode:** يعرض on-chain + spot + derivatives في Studio، تنبيهات، API، downloads، Excel Add-In، وميزات مؤسسية/Point-in-Time في الخطط المناسبة.
+- **Nansen:** يركز على Smart Money/wallet labels، AI conversational workflow، Smart Alerts، وفي 2026 يروج أيضًا لتنفيذ spot/perps داخل التجربة.
+- **CryptoQuant:** يقدم on-chain/off-chain data، dashboards، no-code analytics، real-time alerts، API، institutional solutions، وAI-assisted workflows.
+
+**النتيجة الحاكمة:** لا يجوز لـBLACKDARK أن يعتبر API/alerts/dashboard/AI/Excel وحدها تميّزًا؛ هذه قدرات موجودة فعليًا لدى منافسين كبار. هدف التمايز القابل للاختبار هو **decision-first synthesis + faithful why/why-not + explicit uncertainty/abstention + forward public evidence + outcome-linked learning + cross-domain conflict handling**. هذا **هدف Differentiation يجب إثباته** وليس claim أن المنافسين لا يملكون أي جزء منه.
+
+### Anti-copy strategy
+
+- لا نعتمد على شكل Six Heroes وحده؛ الواجهة قابلة للتقليد.
+- الدفاعية المقصودة تأتي من assets/loops التي تتراكم: forward evidence، outcome-linked data، canonical semantics، domain models، user context المصرح به، integration footprint، rights/provenance، وreperformable evidence.
+- كل moat claim يبقى `HYPOTHESIS` حتى توجد evidence على durability/time-to-copy/value، ويقاس في I05/I06 بدل استخدامه كشعار.
+
+## 13. قواعد البناء — Risk-Based وليست بيروقراطية موحدة
+
+تُطبق على **Capabilities** وعلى الضوابط/الأصول فقط بقدر materiality:
+
+1. Requirement وuser/system outcome واضحان وقابلان للتحقق.
+2. Canonical identity/relationship محسومة؛ لا parallel truth غير معروف.
+3. Functional completeness/correctness/appropriateness حسب ISO/IEC 25010 كمفاهيم جودة وظيفية، مع بقية خصائص الجودة حسب الانطباق.
+4. Quality-in-use تُقاس في context of use عند وجود مستخدمين؛ لا تستبدلها local unit tests.
+5. Data contracts/provenance/freshness/rights/PIT controls حسب طبيعة البيانات.
+6. اختبار مناسب للمخاطر: unit/contract/integration/negative/boundary/E2E أو subset مبرر؛ لا checklist ميكانيكي لكل Record.
+7. Security/privacy controls حسب attack surface والبيانات، مع OWASP/NIST/ISO references حيث تنطبق.
+8. Reliability/performance/observability على المسارات المادية؛ SLOs أرقام مشروع وليست أرقام ISO.
+9. AI/model: versioning، benchmark، limitations، calibration/uncertainty، abuse/failure handling، drift/outcome monitoring حسب المخاطر.
+10. Evidence مربوط بالـtested source/build/commit والـactual consumer path؛ HTTP200 أو `ok=true` لا يكفي.
+11. `PASS_ENGINEERING != PASS_LIVE != ASSURANCE_READY`.
+12. لا certification/compliance/market/moat claim من وجود design/control فقط.
+
+## 14. فصل Build عن Evidence
+
+| البعد | معنى الإغلاق | أمثلة |
+|---|---|---|
+| BUILD_NOW | كل ما يمكن هندسيًا/محليًا مع evidence reproducible | core logic, contracts, local path, data schemas |
+| START_ACCUMULATING_NOW | البنية تُشغّل مبكرًا لأن القيمة تعتمد على الزمن | forward track record, outcomes, corrections, learning history |
+| USER_EVIDENCE_LATER | لا claim قبل مستخدمين/عينة حقيقية | trust calibration, retention, WTP, network effect |
+| LIVE_PROOF_LATER | لا PASS_LIVE قبل production evidence | failover, live SLO, vendor behavior, real freshness |
+| INDEPENDENT_ASSURANCE_LATER | لا self-signoff | attestation/certification/independent reperformance |
+
+## 15. ما لا يجوز أن يقوله هذا الملف
+
+- لا يقول إن 73 Record منفذة.
+- لا يقول إن 40 Capability mapped بالفعل إلى 1–826.
+- لا يقول إن W0/W1 تحقق retention/WTP أو moat قبل القياس.
+- لا يقول إن BLACKDARK يتفوق حاليًا على Glassnode/Nansen/CryptoQuant دون comparative evidence.
+- لا يقول إن أي vendor مجاني/مدفوع قبل التحقق.
+- لا يقول ISO/SOC2/compliance/certification من مجرد readiness أو control existence.
+- لا يحول metrics/governance/strategy إلى capabilities لزيادة العدد.
+
+## 16. المراجع المعتمدة المستخدمة
+
+### Standards / frameworks
+
+1. ISO/IEC 25010:2023 — Product quality model.
+2. ISO/IEC 25019:2023 — Quality-in-use model.
+3. ISO/IEC/IEEE 29148:2018 — Requirements engineering (confirmed current by ISO in 2024; a later DIS does not supersede the published IS).
+4. ISO/IEC/IEEE 12207:2026 — Software life cycle processes.
+5. ISO/IEC/IEEE 29119-2:2021 — Software testing — Test processes.
+6. ISO/IEC 25012:2008 — Data quality model.
+7. ISO/IEC 27001:2022 — Information security management systems — Requirements.
+8. ISO/IEC 27017:2026 — Cloud-service information security controls.
+9. ISO/IEC 27018:2025 — Protection of PII in public clouds acting as PII processors.
+10. NIST AI RMF 1.0 / NIST AI 100-1 (2023).
+11. NIST Privacy Framework 1.0; newer NIST work is tracked separately and is not silently substituted.
+12. OWASP ASVS 5.0.0; OWASP API Security Top 10:2023.
+13. AICPA Trust Services Criteria (2017; revised points of focus 2022).
+
+### Strategic / academic references retained with limited attribution
+
+- Klemperer (1995) — switching-cost economics.
+- Rochet & Tirole (2006) — two-sided/platform markets.
+- Katz & Shapiro (1985) — network externalities/compatibility.
+- Porter (1980) — competitive strategy/positioning.
+- Hamilton Helmer, *7 Powers* — practical strategy reference; **ليس معيارًا هندسيًا**.
+
+### Competitive factual sources — official product pages, snapshot 2026-09-07
+
+- Glassnode Studio / pricing / alerts pages.
+- Nansen product, Smart Money, Smart Alerts, and Nansen AI pages.
+- CryptoQuant product, institutional, and pricing pages.
+
+## 17. نتيجة المراجعة الخماسية النهائية
+
+| Assertion | Result |
+|---|---|
+| Source structure matches current source | TRUE — 20 + 40 + 7 + 8 + 5 |
+| False `20/20+68/68+42/42+40/40` claim retained | FALSE |
+| 73 incorrectly counted as capabilities | FALSE |
+| Correct record-class count | 40 Capability + 17 Control/Governance + 9 Asset + 4 Metric + 3 Strategy/Operating Model |
+| Generic repeated evidence sentence retained | FALSE |
+| Per-record evidence requirement present | 73/73 |
+| Product/user-value execution layer present | TRUE |
+| Hard W0 capability set | 15 |
+| W1 capability set | 15 |
+| Live/user/independent evidence separated | TRUE |
+| Paid/external dependency handled without guessing | TRUE |
+| 826 mapping fabricated | FALSE |
+| 826 mapping status transparent | TRUE — pending repo SSOT reconciliation |
+| Competitive baseline based on current official pages | TRUE |
+| Competitor inferiority claimed without evidence | FALSE |
+| Non-capabilities inflate capability count | FALSE |
+
+**Final status:** `STRATEGIC_REGISTER_CORRECTED_AND_SOURCE_VERIFIED=true`
+
+**Implementation status:** `NOT_CLAIMED` — requires current BLACKDARK repo/826 SSOT reconciliation and engineering evidence.
+
+**No-known-omission statement:** ضمن المصدر الفعلي المحدد أعلاه، تمت مراجعة الأقسام الخمسة وعمل source→canonical reconciliation للمحتوى الفريد المعروف. هذا لا يدعي اكتمال repo أو صحة mapping 1–826 حتى يتم التحقق من SSOT التقني الحالي.

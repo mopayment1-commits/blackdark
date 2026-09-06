@@ -1,0 +1,97 @@
+{
+  "artifact": "GOVERNING_STANDARD",
+  "updated_at_utc": "2026-09-06T23:45:00Z",
+  "git_commit": "545d961463622f44005f2078e6c83c4f28b94db4",
+  "governing_version": "v6",
+  "governing_standard": {
+    "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
+    "english_alias": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md",
+    "title": "المعيار المؤسسي الشامل لبناء القدرات والمميزات حتى الاستخدام الحي — v6",
+    "status": "ACTIVE_GOVERNING"
+  },
+  "historical_standards": [
+    {
+      "version": "v5",
+      "path": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
+      "status": "HISTORICAL_PRESERVED",
+      "note": "Superseded by v6; retained non-destructively for audit lineage"
+    },
+    {
+      "version": "v5_backup",
+      "path": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
+      "status": "HISTORICAL_PRESERVED"
+    }
+  ],
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+  "domain_spec_version": "v4_v2",
+  "domain_spec_sha256": "5a554be33a6a9c814ffd64dc21f76d74b400dfe850f02a74c8b3030a83d5622a",
+  "domain_spec_subordinate_to": "v6",
+  "domain_spec_applicability": [
+    "data",
+    "storage",
+    "provenance",
+    "track record",
+    "replay",
+    "signals",
+    "predictions",
+    "decisions",
+    "outcomes",
+    "failures",
+    "learning",
+    "model/rule/config lineage",
+    "data rights",
+    "retention",
+    "recovery",
+    "evidence",
+    "derived intelligence",
+    "strategic data assets",
+    "execution sequencing"
+  ],
+  "historical_domain_specs": [
+    {
+      "version": "v4",
+      "path": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "status": "HISTORICAL_PRESERVED",
+      "note": "Superseded by v4_v2; retained non-destructively for audit lineage"
+    }
+  ],
+  "temporal_intelligence_addendum": {
+    "path": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "title": "BLACKDARK Temporal Intelligence & Evidence Acceleration System",
+    "role": "IMPLEMENTATION_DESIGN_ADDENDUM",
+    "status": "ACTIVE_REGISTERED",
+    "sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+    "subordinate_to": ["v6", "v4_v2"],
+    "applicability_after": ["v6", "v4_v2"],
+    "applicability_domains": [
+      "historical data",
+      "replay",
+      "point-in-time reconstruction",
+      "signals",
+      "predictions",
+      "decisions",
+      "outcomes",
+      "evidence",
+      "forward shadow",
+      "learning",
+      "calibration",
+      "failure corpus",
+      "model lineage",
+      "dataset lineage",
+      "drift",
+      "data quality",
+      "rights",
+      "retention",
+      "Market Time Machine"
+    ],
+    "registration_not_implementation_proof": true,
+    "note": "Subordinate implementation/design addendum; does not supersede v6 or v4_v2 and does not create a parallel SSOT"
+  },
+  "execution_policy": {
+    "order": ["v6", "v4_v2", "temporal_intelligence_addendum"],
+    "conflict_resolution": "v6 is supreme; then v4_v2; then temporal_intelligence_addendum; report material conflicts before substantive change",
+    "no_parallel_ssot": true,
+    "strategic_classification_not_implementation_proof": true,
+    "registration_not_implementation_proof": true
+  }
+}

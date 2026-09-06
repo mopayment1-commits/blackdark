@@ -1,0 +1,25 @@
+{
+  "artifact": "BATCH09_BATCH06_RANGE_RESOLUTION",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "batch06_251_300_dedicated_freeze_filename": "NON_MATERIAL_RECORD_NAMING_GAP",
+  "batch06_251_300_closure_evidence_status": "FALSE_GAP",
+  "control_objective_assessment": "Prior-batch SHA-bound closure evidence reconstructable from Batch03 201-300 chain",
+  "closure_reconstructable_from_repo": true,
+  "missing_dedicated_filename_blocks_freeze": false,
+  "source_sha": "batch03 closure branch cursor/batch-03-201-300-e85e (see HERO_BATCH_03_COMPLETION_REPORT.md)",
+  "evidence": [
+    "docs/HERO_BATCH_03_COMPLETION_REPORT.md (201-300 includes 251-300)",
+    "tests/test_derivatives_onchain_intelligence_batch262_300.py",
+    "tests/test_batch03_underlying_closure.py",
+    "tests/test_hero_batch_03_capabilities.py"
+  ],
+  "batch_identifier_range_ambiguity": 0,
+  "regression_scope_attribution_unambiguous": true,
+  "canonical_range_aliases": {
+    "internal_batch06": "251-300 (docs/BATCH_INTERNAL_ID_MAPPING.md)",
+    "hero_batch06_manifest": "501-600 (scripts/partial_batches/batch_06_501_600.json)",
+    "institutional_delivery_batch06": "501-600 (NOT 251-300)",
+    "resolution": "Never attribute 501-600 hero regression evidence to internal 251-300 range"
+  }
+}

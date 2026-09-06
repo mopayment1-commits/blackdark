@@ -1,0 +1,4148 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "capability_type": "defi_yield_analytics",
+    "delta_not_applicable_items": 5
+  },
+  "artifact": "BATCH09_DOMAIN_SPEC_APPLICABILITY",
+  "generated_at": "2026-09-06T20:16:44.216732+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+  "scope": "Delta-only NOT_APPLICABLE / PARTIALLY_APPLICABLE mapping — defi_yield_analytics 401-450",
+  "capability_type": "defi_yield_analytics",
+  "method": "Per BLACKDARK domain spec §8.1 Minimum Pre-Launch Accumulation Core — defi/yield analytics: PARTIALLY_APPLICABLE for provenance/freshness/rights; NOT_APPLICABLE for prediction/decision/outcome ledgers and replay engine.",
+  "accumulation_core_delta": {
+    "live_shadow_collection": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+    },
+    "historical_backfill": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+    },
+    "signal_registry": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+    },
+    "prediction_ledger": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+    },
+    "decision_ledger": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Analytics-only capabilities — no user decision ledger write path"
+    },
+    "automated_outcome_evaluator": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+    },
+    "data_provenance": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+    },
+    "algorithm_model_versioning": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+    },
+    "historical_replay_engine": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+    },
+    "market_event_library": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+    },
+    "failure_registry": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+    },
+    "evidence_store": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+    },
+    "data_freshness": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+    },
+    "data_rights_registry": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+    }
+  },
+  "per_id": [
+    {
+      "capability_id": 401,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 402,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 403,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 404,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 405,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 406,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 407,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 408,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 409,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 410,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 411,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 412,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 413,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 414,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 415,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 416,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 417,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 418,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 419,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 420,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 421,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 422,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 423,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 424,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 425,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 426,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 427,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 428,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 429,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 430,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 431,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 432,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 433,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 434,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 435,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 436,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 437,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 438,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 439,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 440,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 441,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 442,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 443,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 444,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 445,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 446,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 447,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 448,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 449,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    },
+    {
+      "capability_id": 450,
+      "capability_type": "defi_yield_analytics",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "DeFi/yield surfaces can feed shadow forward records for protocol metrics — not full market shadow spine"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/protocol history backfill applies; not full cross-asset PIT replay scope per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch09 defi/yield analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for yield screener/risk/passport surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only DeFi intelligence payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for yield and protocol metrics — module-level provenance, not full receipt per ID"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/risk heuristics versioned at layer level; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static yield analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Protocol/fundraising/RWA events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented, not per-ID failure corpus"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Yield/rate surfaces require freshness semantics — enforced at defi_yield_intelligence_layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party DeFi data providers require rights tagging — layer policy, delta-only mapping"
+        }
+      },
+      "delta_only_not_applicable": [
+        "signal_registry",
+        "prediction_ledger",
+        "decision_ledger",
+        "automated_outcome_evaluator",
+        "historical_replay_engine"
+      ],
+      "partially_applicable_focus": [
+        "live_shadow_collection",
+        "historical_backfill",
+        "data_provenance",
+        "algorithm_model_versioning",
+        "market_event_library",
+        "failure_registry",
+        "evidence_store",
+        "data_freshness",
+        "data_rights_registry"
+      ]
+    }
+  ],
+  "summary": {
+    "not_applicable_items": [
+      "signal_registry",
+      "prediction_ledger",
+      "decision_ledger",
+      "automated_outcome_evaluator",
+      "historical_replay_engine"
+    ],
+    "partially_applicable_items": [
+      "live_shadow_collection",
+      "historical_backfill",
+      "data_provenance",
+      "algorithm_model_versioning",
+      "market_event_library",
+      "failure_registry",
+      "evidence_store",
+      "data_freshness",
+      "data_rights_registry"
+    ]
+  }
+}

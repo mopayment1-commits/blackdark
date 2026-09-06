@@ -1,0 +1,66 @@
+{
+  "artifact": "BATCH09_FALSE_GAP_RECONCILIATION",
+  "generated_at": "2026-09-06T21:14:00.151614+00:00",
+  "rows": [
+    {
+      "verification_claim": "INVEST per capability required",
+      "v5_rule": "§113.1 — goal must be proven, not a fixed dossier shape",
+      "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+      "reason": "Batch09 closure uses runtime/RTM evidence; no v5 mandate for per-ID INVEST files"
+    },
+    {
+      "verification_claim": "Fixed filename BATCH09_ACCEPTANCE_401_450.json",
+      "v5_rule": "§113.1 Anti-Bureaucracy",
+      "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+      "reason": "Acceptance criteria satisfied via BATCH09_RTM + pentagonal + hero matrix artifacts"
+    },
+    {
+      "verification_claim": "Exact triple-match guard acceptance=results=rules_total",
+      "v5_rule": "§113.1 — optional example only in v5",
+      "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+      "reason": "Machine assertions in existing Batch09 JSON artifacts provide equivalent checks"
+    },
+    {
+      "verification_claim": "ADR per duplicate pair",
+      "v5_rule": "§105.4 / §113.3 risk-based",
+      "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+      "reason": "1225+20000 pairs resolved; material decisions documented for #437/#441 only"
+    },
+    {
+      "verification_claim": "TIME decision per every distinct pair",
+      "v5_rule": "§113.3 risk-based duplicate governance",
+      "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+      "reason": "Canonical actions KEEP_DISTINCT/REUSE_EXISTING_CANONICAL cover pair outcomes"
+    },
+    {
+      "verification_claim": "Mandatory PRODUCTION-ALIGNED before FINAL_LOCAL_FREEZE",
+      "v5_rule": "§16.8 local freeze vs G6 live gate separation",
+      "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+      "reason": "PASS_ENGINEERING local freeze explicitly defers PRODUCTION-ALIGNED until G6"
+    },
+    {
+      "verification_claim": "Extra duplicate layers C/D without demonstrated risk",
+      "v5_rule": "§113.3 — layers required only when semantic risk exists",
+      "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+      "reason": "Layers A+B exhaustive; hero matrix covers hero scope; pre-batch SSOT IDs not in Batch09 range"
+    },
+    {
+      "verification_claim": "LOCAL_CODEQL_PROXY_REPLAY represented as CodeQL",
+      "v5_rule": "§113.2 — evidence must match tool identity",
+      "final_disposition": "REAL_GAP",
+      "reason": "Proxy pytest/bandit is not CodeQL — requires GitHub CodeQL job evidence"
+    },
+    {
+      "verification_claim": "Batch08 hero regression absent from cross-batch artifact",
+      "v5_rule": "Regression scope claim must match executed suites",
+      "final_disposition": "REAL_GAP",
+      "reason": "Scope claimed Batch01-07 but batch08_hero suite missing"
+    },
+    {
+      "verification_claim": "Mock-only entitlement evidence for Batch09",
+      "v5_rule": "OWASP ASVS entitlement-before-execution on canonical route",
+      "final_disposition": "REAL_GAP",
+      "reason": "Requires real HTTP TestClient path evidence for canonical /api/cap646/{id}"
+    }
+  ]
+}

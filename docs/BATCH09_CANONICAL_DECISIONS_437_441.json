@@ -1,0 +1,31 @@
+{
+  "artifact": "BATCH09_CANONICAL_DECISIONS_437_441",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
+  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
+  "437_final_decision_proven": true,
+  "441_final_decision_proven": true,
+  "wrong_canonical_mapping": 0,
+  "unresolved_canonical_conflict": 0,
+  "decisions": {
+    "437": {
+      "decision": "KEEP_DISTINCT",
+      "prior_wrong_decision": "REUSE_EXISTING_CANONICAL #288",
+      "canonical_capability_id": null,
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "defi_risk_radar_437",
+      "facade_binding": "bd_platform.defi_yield_intelligence_layer.defi_risk_radar_437",
+      "evidence": "Reopening Phase 8 — DeFi Risk Radar semantics require hack/TVL risk radar, not mindshare correlation",
+      "mece_action": "Distinct DeFi risk radar surface; #288 remains separate mindshare correlation capability"
+    },
+    "441": {
+      "decision": "KEEP_DISTINCT",
+      "prior_wrong_decision": "REUSE_EXISTING_CANONICAL #155",
+      "canonical_capability_id": null,
+      "underlying_module": "bd_platform.defi_yield_intelligence_layer",
+      "underlying_function": "oracle_risk_441",
+      "facade_binding": "bd_platform.defi_yield_intelligence_layer.oracle_risk_441",
+      "evidence": "Reopening Phase 8 — Oracle Risk requires freshness/staleness validation, not stat-arb insight",
+      "mece_action": "Distinct oracle risk surface composing validate_oracle_freshness_101; #155 remains stat-arb"
+    }
+  }
+}

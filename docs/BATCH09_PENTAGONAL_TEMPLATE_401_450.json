@@ -1,0 +1,1967 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "pentagonal_rows": 50,
+    "columns": "1-5"
+  },
+  "artifact": "BATCH09_PENTAGONAL_TEMPLATE_401_450",
+  "generated_at": "2026-09-06T20:16:44.215536+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "scope": "Pentagonal template cols 1-5 per ID — Batch09 401-450",
+  "rows": [
+    {
+      "capability_id": 401,
+      "capability_name": "Bridges Intelligence",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Bridges Intelligence' served via surface 'bridges_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:bridges_intelligence_401"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=401; surface=bridges_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/401",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=401",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 402,
+      "capability_name": "Yields Screener",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Yields Screener' served via surface 'yields_screener'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:yields_screener_402"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=402; surface=yields_screener",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/402",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=402",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 403,
+      "capability_name": "Yield History",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Yield History' served via surface 'yield_history'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:yield_history_403"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=403; surface=yield_history",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/403",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=403",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 404,
+      "capability_name": "Borrowing Rates",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Borrowing Rates' served via surface 'borrowing_rates'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:borrowing_rates_404"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=404; surface=borrowing_rates",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/404",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=404",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 405,
+      "capability_name": "Liquid Staking Intelligence",
+      "track": "T01",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Liquid Staking Intelligence' served via surface 'liquid_staking_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:liquid_staking_intelligence_405"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=405; surface=liquid_staking_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/405",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=405",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 406,
+      "capability_name": "RWA Intelligence",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'RWA Intelligence' served via surface 'rwa_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:rwa_intelligence_406"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=406; surface=rwa_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/406",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=406",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 407,
+      "capability_name": "Raises / Funding Rounds",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Raises / Funding Rounds' served via surface 'raises_funding_rounds'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:raises_funding_rounds_407"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=407; surface=raises_funding_rounds",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/407",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=407",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 408,
+      "capability_name": "Investor Profiles",
+      "track": "T05",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Investor Profiles' served via surface 'investor_profiles'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:investor_profiles_408"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=408; surface=investor_profiles",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/408",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=408",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 409,
+      "capability_name": "Unlocks",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Unlocks' served via surface 'quicktake_feed_status'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/quicktake_feed.py:quicktake_feed_status_409"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=409; surface=quicktake_feed_status",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/409",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=409",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 410,
+      "capability_name": "Treasury Intelligence",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Treasury Intelligence' served via surface 'treasury_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:treasury_intelligence_410"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=410; surface=treasury_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/410",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=410",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 411,
+      "capability_name": "Airdrop / Incentive Intelligence",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Airdrop / Incentive Intelligence' served via surface 'airdrop_incentive_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:airdrop_incentive_intelligence_411"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=411; surface=airdrop_incentive_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/411",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=411",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 412,
+      "capability_name": "Capital Formation Radar",
+      "track": "T03",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Capital Formation Radar' served via surface 'capital_formation_radar'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:capital_formation_radar_412"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=412; surface=capital_formation_radar",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/412",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=412",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 413,
+      "capability_name": "DeFi Opportunity Screener",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DeFi Opportunity Screener' served via surface 'defi_opportunity_screener'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:defi_opportunity_screener_413"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=413; surface=defi_opportunity_screener",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/413",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=413",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 414,
+      "capability_name": "DeFi Risk Passport",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DeFi Risk Passport' served via surface 'defi_risk_passport'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:defi_risk_passport_414"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=414; surface=defi_risk_passport",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/414",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=414",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 415,
+      "capability_name": "API Aggregation Layer",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'API Aggregation Layer' served via surface 'api_aggregation_layer'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:api_aggregation_layer_415"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=415; surface=api_aggregation_layer",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/415",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=415",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 416,
+      "capability_name": "Cross-DeFi Decision Intelligence",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-DeFi Decision Intelligence' served via surface 'cross_defi_decision_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:cross_defi_decision_intelligence_416"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=416; surface=cross_defi_decision_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/416",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=416",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 417,
+      "capability_name": "Cross-Chain Fundamentals",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-Chain Fundamentals' served via surface 'cross_chain_fundamentals'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:cross_chain_fundamentals_417"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=417; surface=cross_chain_fundamentals",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/417",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=417",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 418,
+      "capability_name": "Protocol Fundamentals",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Protocol Fundamentals' served via surface 'protocol_fundamentals'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:protocol_fundamentals_418"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=418; surface=protocol_fundamentals",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/418",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=418",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 419,
+      "capability_name": "Stablecoin Intelligence",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Stablecoin Intelligence' served via surface 'stablecoin_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:stablecoin_intelligence_419"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=419; surface=stablecoin_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/419",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=419",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 420,
+      "capability_name": "Stablecoin Activity Breakdown",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Stablecoin Activity Breakdown' served via surface 'stablecoin_activity_breakdown'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:stablecoin_activity_breakdown_420"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=420; surface=stablecoin_activity_breakdown",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/420",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=420",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 421,
+      "capability_name": "Developer Activity",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Developer Activity' served via surface 'developer_activity'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:developer_activity_421"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=421; surface=developer_activity",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/421",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=421",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 422,
+      "capability_name": "Sector/Ecosystem Comparables",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Sector/Ecosystem Comparables' served via surface 'sector_ecosystem_comparables'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:sector_ecosystem_comparables_422"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=422; surface=sector_ecosystem_comparables",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/422",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=422",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 423,
+      "capability_name": "Equities + Crypto Research",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Equities + Crypto Research' served via surface 'equities_crypto_research'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:equities_crypto_research_423"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=423; surface=equities_crypto_research",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/423",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=423",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 424,
+      "capability_name": "Consensus Estimates",
+      "track": "T14",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Consensus Estimates' served via surface 'consensus_estimates'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:consensus_estimates_424"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=424; surface=consensus_estimates",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/424",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=424",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 425,
+      "capability_name": "AI Analyst",
+      "track": "T03",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'AI Analyst' served via surface 'ai_analyst'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:ai_analyst_425"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=425; surface=ai_analyst",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/425",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=425",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 426,
+      "capability_name": "Thesis Research Workspace",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Thesis Research Workspace' served via surface 'thesis_research_workspace'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:thesis_research_workspace_426"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=426; surface=thesis_research_workspace",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/426",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=426",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 427,
+      "capability_name": "Comparable Company / Protocol Analysis",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Comparable Company / Protocol Analysis' served via surface 'comparable_company_protocol_analysis'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:comparable_company_protocol_analysis_427"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=427; surface=comparable_company_protocol_analysis",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/427",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=427",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 428,
+      "capability_name": "Excel / Sheets Integration",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Excel / Sheets Integration' served via surface 'excel_sheets_integration'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:excel_sheets_integration_428"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=428; surface=excel_sheets_integration",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/428",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=428",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 429,
+      "capability_name": "API Data Platform",
+      "track": "T02",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'API Data Platform' served via surface 'api_data_platform'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:api_data_platform_429"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=429; surface=api_data_platform",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/429",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=429",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 430,
+      "capability_name": "Research Templates",
+      "track": "T11",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Research Templates' served via surface 'research_templates'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:research_templates_430"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=430; surface=research_templates",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/430",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=430",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 431,
+      "capability_name": "Dashboards",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Dashboards' served via surface 'dashboards'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:dashboards_431"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=431; surface=dashboards",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/431",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=431",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 432,
+      "capability_name": "Stablecoin Payment Intelligence",
+      "track": "T14",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Stablecoin Payment Intelligence' served via surface 'stablecoin_payment_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:stablecoin_payment_intelligence_432"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=432; surface=stablecoin_payment_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/432",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=432",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 433,
+      "capability_name": "On-Chain Usage Intelligence",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'On-Chain Usage Intelligence' served via surface 'on_chain_usage_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:on_chain_usage_intelligence_433"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=433; surface=on_chain_usage_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/433",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=433",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 434,
+      "capability_name": "Revenue / Fees / Economic Activity",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Revenue / Fees / Economic Activity' served via surface 'revenue_fees_economic_activity'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:revenue_fees_economic_activity_434"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=434; surface=revenue_fees_economic_activity",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/434",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=434",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 435,
+      "capability_name": "Cross-Market Research Copilot",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Cross-Market Research Copilot' served via surface 'cross_market_research_copilot'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:cross_market_research_copilot_435"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=435; surface=cross_market_research_copilot",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/435",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=435",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 436,
+      "capability_name": "Investment Thesis Scoring",
+      "track": "T12",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Investment Thesis Scoring' served via surface 'investment_thesis_scoring'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:investment_thesis_scoring_436"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=436; surface=investment_thesis_scoring",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/436",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=436",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 437,
+      "capability_name": "DeFi Risk Radar",
+      "track": "T08",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DeFi Risk Radar' served via surface 'correlation_contagion_risk'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/heroes_capability_layer.py:correlation_contagion_risk_437"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=437; surface=correlation_contagion_risk",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/437",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=437",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 438,
+      "capability_name": "Lending Market Risk",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Lending Market Risk' served via surface 'lending_market_risk'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:lending_market_risk_438"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=438; surface=lending_market_risk",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/438",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=438",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 439,
+      "capability_name": "Collateral Risk",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Collateral Risk' served via surface 'collateral_risk'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:collateral_risk_439"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=439; surface=collateral_risk",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/439",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=439",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 440,
+      "capability_name": "Liquidation Risk",
+      "track": "T08",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Liquidation Risk' served via surface 'liquidation_risk'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:liquidation_risk_440"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=440; surface=liquidation_risk",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/440",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=440",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 441,
+      "capability_name": "Oracle Risk",
+      "track": "T05",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Oracle Risk' served via surface 'strategy_vetting_algorithm'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/heroes_capability_layer.py:strategy_vetting_algorithm_441"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=441; surface=strategy_vetting_algorithm",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/441",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=441",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 442,
+      "capability_name": "Liquidity Risk",
+      "track": "T08",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Liquidity Risk' served via surface 'liquidity_risk'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:liquidity_risk_442"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=442; surface=liquidity_risk",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/442",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=442",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 443,
+      "capability_name": "Protocol Exploit Intelligence",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Protocol Exploit Intelligence' served via surface 'protocol_exploit_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:protocol_exploit_intelligence_443"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=443; surface=protocol_exploit_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/443",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=443",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 444,
+      "capability_name": "Stablecoin Risk Intelligence",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Stablecoin Risk Intelligence' served via surface 'stablecoin_risk_intelligence'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:stablecoin_risk_intelligence_444"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=444; surface=stablecoin_risk_intelligence",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/444",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=444",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 445,
+      "capability_name": "DeFi Strategy Risk",
+      "track": "T10",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DeFi Strategy Risk' served via surface 'defi_strategy_risk'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:defi_strategy_risk_445"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=445; surface=defi_strategy_risk",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/445",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=445",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 446,
+      "capability_name": "Real-Time Risk Alerts",
+      "track": "T17",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Real-Time Risk Alerts' served via surface 'real_time_risk_alerts'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:real_time_risk_alerts_446"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=446; surface=real_time_risk_alerts",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/446",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=446",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 447,
+      "capability_name": "DAO Treasury Risk",
+      "track": "T08",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'DAO Treasury Risk' served via surface 'dao_treasury_risk'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:dao_treasury_risk_447"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=447; surface=dao_treasury_risk",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/447",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=447",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 448,
+      "capability_name": "Institutional Risk API",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Institutional Risk API' served via surface 'institutional_risk_api'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:institutional_risk_api_448"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=448; surface=institutional_risk_api",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/448",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=448",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 449,
+      "capability_name": "Curated On-Chain Dashboards",
+      "track": "T15",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Curated On-Chain Dashboards' served via surface 'curated_on_chain_dashboards'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:curated_on_chain_dashboards_449"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=449; surface=curated_on_chain_dashboards",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/449",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=449",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    },
+    {
+      "capability_id": 450,
+      "capability_name": "Narrative-Driven Research",
+      "track": "T09",
+      "pentagonal": {
+        "col1_internal_goal_iso25010": {
+          "completeness": "Catalog goal 'Narrative-Driven Research' served via surface 'narrative_driven_research'",
+          "correctness": "execute_capability ok=true with catalog-aligned payload",
+          "appropriateness": "Goal-specific payload via bd_platform/defi_yield_intelligence_layer.py:narrative_driven_research_450"
+        },
+        "col2_external_result_iso29148": {
+          "expected_output": "ok=true; capability_id=450; surface=narrative_driven_research",
+          "verification": "tests/test_hero_batch_09_capabilities.py",
+          "match": true
+        },
+        "col3_interface_iso29119": {
+          "api_path": "/api/cap646/450",
+          "local_tests": [
+            "tests/test_hero_batch_09_capabilities.py"
+          ],
+          "live_status": "AWAITING_DEPLOY — Railway live smoke in QUEUE_B"
+        },
+        "col4_security_owasp_asvs": {
+          "entitlement_before_execution": "cap646 runtime gate",
+          "fail_closed": true,
+          "test_only_skip": "skip_entitlement in local tests only"
+        },
+        "col5_readiness_evidence": {
+          "status": "COMPLETE_LOCAL",
+          "evidence": "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+          "evidence_location": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json#capability_id=450",
+          "verification_method": "LOCAL_RUNTIME_EXECUTION + RTM trace",
+          "environment": "LOCAL",
+          "deployment_status": "NOT_DEPLOYED — Railway deferred (QUEUE_B)",
+          "blocker_if_any": "PASS_LIVE requires RL5",
+          "note": "Pentagonal Column 5 Readiness & Evidence — NOT project governance collective_review_local"
+        }
+      }
+    }
+  ]
+}

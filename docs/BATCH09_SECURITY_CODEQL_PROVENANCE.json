@@ -1,0 +1,58 @@
+{
+  "artifact": "BATCH09_SECURITY_CODEQL_PROVENANCE",
+  "generated_at": "2026-09-06T21:19:24.151009+00:00",
+  "head": "255327b9a160715a28a60787ecec526a002a02ed",
+  "security_scan": {
+    "workflow_definition": ".github/workflows/security.yml",
+    "evidence_mode": "GITHUB_ACTIONS",
+    "tested_sha": "255327b9a160715a28a60787ecec526a002a02ed",
+    "branch": "cursor/batch09-401-450-ed16",
+    "result": "PASS",
+    "run_id": 34060598014,
+    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34060598014",
+    "security_scan_current_batch09_evidence": true
+  },
+  "codeql": {
+    "workflow_definition": ".github/workflows/security.yml#jobs.codeql",
+    "evidence_mode": "GITHUB_ACTIONS",
+    "tested_sha": "255327b9a160715a28a60787ecec526a002a02ed",
+    "branch": "cursor/batch09-401-450-ed16",
+    "result": "PASS",
+    "run_id": 34060598014,
+    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34060598014",
+    "jobs": [
+      {
+        "name": "codeql",
+        "conclusion": "success"
+      }
+    ],
+    "actual_codeql_executed": true,
+    "actual_codeql_result": "PASS",
+    "codeql_tested_sha_proven": true,
+    "codeql_evidence_substitution": [],
+    "supporting_bandit_only": false,
+    "codeql_current_batch09_evidence": true
+  },
+  "security_scan_current_batch09_evidence": true,
+  "codeql_current_batch09_evidence": true,
+  "security_provenance_gap": [],
+  "codeql_provenance_gap": [],
+  "production_security_drift": {
+    "from_14bbf492_to_head": [
+      "cap646/backend_executor.py",
+      "cap646/backend_registry.py",
+      "cap646/catalog.py",
+      "cap646/runtime.py",
+      "cap978/institutional_gate.py",
+      "exchange_currency_status.py",
+      "pdf_capability_registry.py"
+    ],
+    "from_c7c1e4e_to_head": [
+      "cap646/backend_registry.py",
+      "cap646/catalog.py",
+      "cap646/runtime.py"
+    ],
+    "zero_drift_c7_to_head": false,
+    "note": "Security evidence at current head; production/security-relevant code unchanged since c7c1e4e"
+  }
+}
