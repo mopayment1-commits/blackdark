@@ -41,6 +41,9 @@ def client() -> TestClient:
     def _elite_user():
         return {"id": 3, "email": "batch12-elite@blackdark.local", "tier": "elite", "role": "user"}
 
+    async def _passthrough_middleware(request, call_next):
+        return await call_next(request)
+
     app.dependency_overrides[optional_user_from_request] = _elite_user
     with patch(
         "cap646.runtime.entitlement_engine.check",
@@ -48,7 +51,7 @@ def client() -> TestClient:
     ), patch(
         "cap646.institutional_gateway.entitlement_engine.check",
         new=AsyncMock(return_value={"allowed": True, "tier": "elite"}),
-    ):
+    ), patch("viral_capacity.viral_protection_middleware", side_effect=_passthrough_middleware):
         yield TestClient(app)
     app.dependency_overrides.pop(optional_user_from_request, None)
 
