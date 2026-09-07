@@ -14,9 +14,9 @@ def test_backend_binding_701_facade_distinct_from_canonical_module() -> None:
 
 
 def test_facade_701_preserves_canonical_marker() -> None:
-    from bd_platform.batch15_defi_risk_data_facade_layer import revenue_fees_economic_activity_701
+    from bd_platform.batch15_defi_risk_data_facade_layer import execute_batch15_facade
 
-    facade = revenue_fees_economic_activity_701(symbol="ETH")
+    facade = execute_batch15_facade(capability_id=701, symbol="ETH")
     assert facade.get("canonical_reuse_of") == 434
     assert facade.get("capability_id") == 701
 
@@ -24,4 +24,4 @@ def test_facade_701_preserves_canonical_marker() -> None:
 def test_pdf_registry_facade_binding_present() -> None:
     mod, fn = discover_bindings()[701]
     assert mod == "bd_platform.batch15_defi_risk_data_facade_layer"
-    assert fn == "revenue_fees_economic_activity_701"
+    assert fn == "execute_batch15_facade"

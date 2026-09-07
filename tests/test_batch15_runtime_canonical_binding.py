@@ -23,10 +23,10 @@ def test_batch15_facade_bindings_use_batch15_layer() -> None:
     for cid in BATCH15_IDS:
         mod, fn = bindings[cid]
         assert mod == "bd_platform.batch15_defi_risk_data_facade_layer"
-        assert fn.endswith(f"_{cid}")
+        assert fn == "execute_batch15_facade"
 
 
 def test_backend_registry_resolves_batch15_layer() -> None:
     binding = resolve_binding(701)
     assert binding.module == "bd_platform.batch15_defi_risk_data_facade_layer"
-    assert binding.entrypoint == "revenue_fees_economic_activity_701"
+    assert binding.entrypoint == "execute_batch15_facade"

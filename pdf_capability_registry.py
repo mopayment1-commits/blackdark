@@ -417,6 +417,8 @@ def _default_kwargs(fn: Callable[..., Any], capability_id: int | None = None) ->
         kwargs.setdefault("source_a_ts_ms", now - 500)
         kwargs.setdefault("source_b_ts_ms", now - 800)
         kwargs.setdefault("server_ts_ms", now)
+    if capability_id is not None and 701 <= capability_id <= 750:
+        kwargs["capability_id"] = capability_id
     return kwargs
 
 

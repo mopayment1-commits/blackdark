@@ -1,4 +1,4 @@
-"""Canonical Batch15 (701–750) membership — all CAP978 extension facades."""
+"""Canonical Batch15 (701–750) membership — dispatcher facades."""
 
 from __future__ import annotations
 
@@ -60,24 +60,16 @@ CANONICAL_DUPLICATE_TARGETS: dict[int, int] = {
     750: 483,
 }
 SHARED_LAYER_MODULE = "bd_platform.batch15_defi_risk_data_facade_layer"
-
-
-def canonical_duplicate_ids() -> list[int]:
-    return sorted(set(CANONICAL_DUPLICATE_IDS))
+SHARED_ENTRYPOINT = "execute_batch15_facade"
 
 
 def verify_membership() -> dict[str, object]:
-    batch = set(BATCH15_IDS)
-    errors: list[str] = []
-    if len(batch) != 50:
-        errors.append("batch_not_50")
     bindings = discover_bindings()
+    errors: list[str] = []
+    if len(BATCH15_IDS) != 50:
+        errors.append("batch_not_50")
     for cid in BATCH15_IDS:
         mod, fn = bindings.get(cid, ("", ""))
-        if mod != SHARED_LAYER_MODULE:
-            errors.append(f"binding_750_not_batch15_layer")
-    return {
-        "ok": not errors,
-        "errors": errors,
-        "canonical_reuse_count": len(CANONICAL_DUPLICATE_TARGETS),
-    }
+        if mod != SHARED_LAYER_MODULE or fn != SHARED_ENTRYPOINT:
+            errors.append(f"binding_{cid}")
+    return {"ok": not errors, "errors": errors, "canonical_reuse_count": len(CANONICAL_DUPLICATE_TARGETS)}
