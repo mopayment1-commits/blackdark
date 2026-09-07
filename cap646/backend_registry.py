@@ -32,22 +32,6 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "none",
         "explicit_option_a",
     ),
-    507: BackendBinding(
-        507,
-        "cap646.fallbacks",
-        "resolve_ohlcv_closes",
-        "ohlcv",
-        "symbol",
-        "explicit_option_a",
-    ),
-    534: BackendBinding(
-        534,
-        "cap646.data_spine",
-        "bucketed_cvd_report",
-        "bucketed_cvd",
-        "symbol",
-        "explicit_option_a",
-    ),
     69: BackendBinding(
         69,
         "cap646.batch02_production",
@@ -334,7 +318,7 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     track = row["track"]
     surface = _slug(name)
 
-    if 301 <= capability_id <= 500:
+    if 301 <= capability_id <= 550:
         pdf = _pdf_registry_bindings().get(capability_id)
         if pdf is not None:
             mod, entrypoint = pdf
