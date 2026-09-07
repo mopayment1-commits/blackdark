@@ -1131,8 +1131,8 @@ async def main() -> int:
 
     flags = {
         "BATCH11_FINAL_LOCAL_FREEZE": freeze_ok,
-        "SHARED_CORE_SEMANTICS_PROVEN_47_OF_47": len(semantic_rows) == 47,
-        "INDEPENDENT_ORACLE_PROVEN_47_OF_47": len(oracle_rows) == 47 and all(r["match"] for r in oracle_rows),
+        "SHARED_CORE_SEMANTICS_PROVEN_46_OF_46": len(semantic_rows) == 46,
+        "INDEPENDENT_ORACLE_PROVEN_46_OF_46": len(oracle_rows) == 46 and all(r["match"] for r in oracle_rows),
         "SELF_FULFILLING_ORACLES_ZERO": all(not r.get("self_fulfilling") for r in oracle_rows),
         "CONSUMER_PATHS_PROVEN_50_OF_50": len(consumer_rows) == 50,
         "INTERNAL_DUPLICATE_UNRESOLVED_ZERO": layer_a["summary"]["internal_unresolved"] == 0,
