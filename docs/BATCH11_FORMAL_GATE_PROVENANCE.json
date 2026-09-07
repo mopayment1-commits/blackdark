@@ -48,6 +48,7 @@
   ],
   "acceptance": {
     "code_delta_zero": true,
+    "docs_only_head_after_gates": "a02526c",
     "all_applicable_formal_gates_pass": true
   }
 }
