@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_INTERNAL_DUPLICATE_ANALYSIS",
-  "generated_at_utc": "2026-09-07T16:27:34.017341+00:00",
-  "git_commit": "92daf154e65735ca4b3c3df3af311583e92e70fe",
+  "generated_at_utc": "2026-09-07T16:28:26.006675+00:00",
+  "git_commit": "cf539c1070c55dc253c93d682dd031b215a2f56a",
   "layer_a_internal": {
     "scope": "Layer A — Batch12 IDs 551-600 vs 551-600 ONLY",
     "method": "Pairwise binding uniqueness + shared-module semantic review (no cross-batch IDs)",
