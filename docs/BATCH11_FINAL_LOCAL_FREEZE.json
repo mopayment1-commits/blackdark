@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH11_FINAL_LOCAL_FREEZE",
   "generated_at_utc": "2026-09-07T11:27:23.114089+00:00",
-  "final_head": "a02526c",
+  "final_head": "d36aa5a5153333e7a2360846d7009d6fa34fdc2b",
   "final_material_tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
   "branch": "cursor/batch11-501-550-ed16",
   "capability_range": "501-550",
