@@ -53,7 +53,7 @@ _MANUAL: dict[int, tuple[str, str]] = {
     409: ("bd_platform.quicktake_feed", "quicktake_feed_status_409"),
     437: ("bd_platform.defi_yield_intelligence_layer", "defi_risk_radar_437"),
     441: ("bd_platform.defi_yield_intelligence_layer", "oracle_risk_441"),
-    517: ("comparison_engine", "run_comparison_engine"),
+    517: ("bd_platform.institutional_delivery_intelligence_layer", "fix_connectivity_517"),
     528: ("bd_platform.market_rankings", "market_rankings"),
     627: ("comparison_engine", "run_comparison_engine"),
     630: ("bd_platform.intelligence_ux_extensions_layer", "scan_market_opportunities_238"),

@@ -132,9 +132,20 @@ async def test_free_tier_non_batch_capabilities():
 
 
 def test_route_handler_option_a_branches():
-    assert _route_handler("T04", "Market", 507).__name__ == "handle_market_capability"
+    assert _route_handler("T04", "Market", 507).__name__ == "handle_platform_capability"
     assert _route_handler("T04", "Data Platform", 338).__name__ == "handle_data_capability"
     assert _route_handler("T12", "AI Research", 401).__name__ == "handle_platform_capability"
+
+
+def test_cap507_canonical_runtime_route_not_option_a():
+    """#507 canonical runtime: pdf registry platform handler, not superseded Option-A market spine."""
+    from cap646.backend_registry import resolve_binding
+
+    row = catalog_by_id()[507]
+    assert _route_handler(row["track"], row["capability"], 507).__name__ == "handle_platform_capability"
+    binding = resolve_binding(507)
+    assert binding.module == "bd_platform.institutional_delivery_intelligence_layer"
+    assert binding.source == "pdf_capability_registry"
 
 
 def test_cap500_canonical_runtime_route_not_option_a():
