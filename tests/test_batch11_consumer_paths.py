@@ -25,7 +25,8 @@ def test_consumer_path_execute_capability(capability_id: int):
     out = asyncio.run(execute_capability(capability_id))
     assert out.get("ok") is True, out
     assert out.get("capability_id") == capability_id
-    assert mod and fn
+    assert mod
+    assert fn
 
 
 @pytest.mark.parametrize("capability_id", _batch_ids())

@@ -74,7 +74,8 @@ async def test_cap646_runtime_binding_and_output(capability_id: int, seed: dict)
     if capability_id == HERO_DELEGATE_ID:
         facade = strategy_backtesting_525(symbol="ETH")
         canonical = run_backtest_74(asset="ETH")
-        assert facade.get("ok") is True and canonical.get("ok") is True
+        assert facade.get("ok") is True
+        assert canonical.get("ok") is True
         assert facade.get("performance") == canonical.get("performance")
         return
 
