@@ -67,12 +67,15 @@ def test_458_hero_facade_delegates_to_canonical_86():
 
 
 @pytest.mark.asyncio
-async def test_500_explicit_data_spine_production_binding():
+async def test_500_pdf_registry_defi_yield_production_binding():
     from cap646.backend_registry import resolve_binding
-    from cap646.data_spine import normalization_report
+    from cap646.runtime import execute_capability
 
     binding = resolve_binding(500)
-    assert binding.module == "cap646.data_spine"
-    assert binding.entrypoint == "normalization_report"
-    out = await normalization_report(symbol="BTC")
-    assert out.get("success") is True or out.get("ok") is True, out
+    assert binding.module == "bd_platform.defi_yield_intelligence_layer"
+    assert binding.entrypoint == "data_quality_normalization_500"
+    assert binding.source == "pdf_capability_registry"
+    result = await execute_capability(500, skip_entitlement=True, params={"symbol": "BTC"})
+    assert result.get("success") is True, result
+    payload = result.get("result") or result
+    assert payload.get("semantic_rule") == "data_quality_normalization"
