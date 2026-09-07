@@ -69,17 +69,20 @@ async def test_batch01_642_ai_provenance():
 
 
 @pytest.mark.asyncio
-async def test_batch01_584_pdf_registry_heroes_authoritative():
+async def test_batch01_584_canonical_risk_shield_binding():
     from cap646.backend_registry import binding_for
     from cap646.runtime import execute_capability
 
     binding = binding_for(584)
-    assert binding["binding_source"] == "pdf_capability_registry"
-    assert binding["backend_module"] == "bd_platform.heroes_capability_layer"
-    assert binding["backend_entrypoint"] == "coindesk_rss_feed_584"
+    assert binding["binding_source"] == "canonical_catalog_semantics"
+    assert binding["backend_module"] == "bd_platform.institutional_delivery_intelligence_layer"
+    assert binding["backend_entrypoint"] == "risk_management_shield_584"
 
     result = await execute_capability(584, skip_entitlement=True, params={"symbol": "BTC"})
     assert result["success"] is True, result
-    assert result["backend_module"] == "bd_platform.heroes_capability_layer"
-    assert result["backend_entrypoint"] == "coindesk_rss_feed_584"
-    assert result.get("ok") is True or result.get("success") is True
+    assert result["backend_module"] == "bd_platform.institutional_delivery_intelligence_layer"
+    assert result["backend_entrypoint"] == "risk_management_shield_584"
+    payload = result.get("result") or result
+    assert payload.get("surface") == "risk_management_shield"
+    risk = payload.get("risk_shield") or payload.get("risk") or {}
+    assert "trading_frozen" in risk

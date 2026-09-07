@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_INTERNAL_DUPLICATE_ANALYSIS",
-  "generated_at_utc": "2026-09-07T13:57:59.140708+00:00",
-  "git_commit": "5d0320a058347d0b6a014de458738a605bf381e3",
+  "generated_at_utc": "2026-09-07T16:27:34.017341+00:00",
+  "git_commit": "92daf154e65735ca4b3c3df3af311583e92e70fe",
   "layer_a_internal": {
     "scope": "Layer A — Batch12 IDs 551-600 vs 551-600 ONLY",
     "method": "Pairwise binding uniqueness + shared-module semantic review (no cross-batch IDs)",
@@ -25,7 +25,7 @@
         "internal_decision": "CANONICAL_DUPLICATE_REUSE",
         "relationship_type": "HERO_FACADE_CANONICAL_REUSE",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "CANONICAL_DUPLICATE_REUSE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -37,7 +37,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -49,7 +49,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -61,7 +61,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -73,7 +73,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -85,7 +85,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -97,7 +97,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -109,7 +109,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -121,7 +121,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -133,7 +133,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -145,7 +145,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -157,7 +157,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -169,7 +169,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -181,7 +181,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -193,7 +193,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -205,7 +205,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -217,7 +217,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -229,7 +229,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -241,7 +241,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -253,7 +253,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -265,7 +265,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -277,7 +277,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -289,7 +289,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -301,7 +301,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -313,7 +313,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -325,7 +325,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -337,19 +337,19 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
       {
         "capability_id": 578,
         "capability_name": "Unified_Portfolio_Dashboard",
-        "binding_module": "bd_platform.heroes_capability_layer",
-        "binding_function": "shadow_fork_pre_execution_578",
+        "binding_module": "bd_platform.institutional_delivery_intelligence_layer",
+        "binding_function": "unified_portfolio_dashboard_578",
         "internal_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
         "relationship_type": "DISTINCT",
         "binding_collision_peers": [],
-        "same_module_peer_count": 1,
+        "same_module_peer_count": 49,
         "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -361,7 +361,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -373,7 +373,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -385,7 +385,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -397,7 +397,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -409,19 +409,19 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
       {
         "capability_id": 584,
         "capability_name": "Risk_Management_Shield",
-        "binding_module": "bd_platform.heroes_capability_layer",
-        "binding_function": "coindesk_rss_feed_584",
+        "binding_module": "bd_platform.institutional_delivery_intelligence_layer",
+        "binding_function": "risk_management_shield_584",
         "internal_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
         "relationship_type": "DISTINCT",
         "binding_collision_peers": [],
-        "same_module_peer_count": 1,
+        "same_module_peer_count": 49,
         "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -433,7 +433,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -445,7 +445,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -457,7 +457,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -469,7 +469,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -481,7 +481,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -493,7 +493,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -505,7 +505,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -517,7 +517,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -529,7 +529,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -541,7 +541,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -553,7 +553,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -565,7 +565,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -577,7 +577,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -589,7 +589,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -601,7 +601,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       },
@@ -613,7 +613,7 @@
         "internal_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "relationship_type": "SHARED_CORE_ONLY",
         "binding_collision_peers": [],
-        "same_module_peer_count": 47,
+        "same_module_peer_count": 49,
         "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
         "note": "Layer A scope is intra-Batch12 only; #551 canonical duplicate is outside shared core"
       }
@@ -650,11 +650,13 @@
           575,
           576,
           577,
+          578,
           579,
           580,
           581,
           582,
           583,
+          584,
           585,
           586,
           587,

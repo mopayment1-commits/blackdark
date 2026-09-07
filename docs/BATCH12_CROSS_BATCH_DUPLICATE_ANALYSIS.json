@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_CROSS_BATCH_DUPLICATE_ANALYSIS",
-  "generated_at_utc": "2026-09-07T13:57:59.140708+00:00",
-  "git_commit": "5d0320a058347d0b6a014de458738a605bf381e3",
+  "generated_at_utc": "2026-09-07T16:27:34.017341+00:00",
+  "git_commit": "92daf154e65735ca4b3c3df3af311583e92e70fe",
   "layer_b_cross_batch": {
     "scope": "Layer B — Batch12 IDs 551-600 vs prior capabilities 1-500",
     "summary": {
@@ -313,8 +313,8 @@
         "capability_name": "Unified_Portfolio_Dashboard",
         "prior_id": null,
         "relationship": "OUTSIDE_SHARED_CORE",
-        "canonical_implementation": "bd_platform.heroes_capability_layer.shadow_fork_pre_execution_578",
-        "evidence": "Shadow Fork Pre-Execution (#578) routes to heroes capability layer — outside institutional_delivery shared core",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.unified_portfolio_dashboard_578",
+        "evidence": "CAP646_CATALOG + RVM CAP-578 require Unified_Portfolio_Dashboard; hero shadow-fork binding was incorrect",
         "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
         "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
       },
@@ -378,8 +378,8 @@
         "capability_name": "Risk_Management_Shield",
         "prior_id": null,
         "relationship": "OUTSIDE_SHARED_CORE",
-        "canonical_implementation": "bd_platform.heroes_capability_layer.coindesk_rss_feed_584",
-        "evidence": "CoinDesk RSS Feed (#584) routes to heroes capability layer — outside institutional_delivery shared core",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.risk_management_shield_584",
+        "evidence": "CAP646_CATALOG + RVM CAP-584 + gap_matrix risk_manager; CoinDesk hero binding was incorrect",
         "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
         "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
       },
@@ -584,10 +584,10 @@
     "unresolved_pairs": [],
     "duplicate_coverage_complete": true,
     "decision_counts": {
-      "DISTINCT": 25087,
+      "DISTINCT": 25093,
       "CANONICAL_DUPLICATE_REUSE": 1,
       "SEMANTIC_NAME_OVERLAP": 6,
-      "SHARED_MODULE_DISTINCT_FN": 2406
+      "SHARED_MODULE_DISTINCT_FN": 2400
     },
     "material_overlap_count": 7,
     "material_overlaps": [
@@ -649,7 +649,7 @@
       }
     ],
     "material_overlaps_truncated": false,
-    "pair_decision_digest_sha256": "b4d81fd5f4a24279ebecadbeaa28eb7bf1d1299e97f5aeb77d0cbd2c179d6291",
+    "pair_decision_digest_sha256": "63f23166ab9fee507482844a1c280d9f5d066581c5652af016f483d985970aa1",
     "unresolved_duplicate_conflicts": 0
   },
   "summary": {

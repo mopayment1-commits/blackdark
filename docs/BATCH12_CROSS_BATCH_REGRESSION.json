@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_CROSS_BATCH_REGRESSION",
-  "generated_at_utc": "2026-09-07T13:57:59.140708+00:00",
-  "git_commit": "5d0320a058347d0b6a014de458738a605bf381e3",
+  "generated_at_utc": "2026-09-07T16:27:34.017341+00:00",
+  "git_commit": "92daf154e65735ca4b3c3df3af311583e92e70fe",
   "suites": [
     {
       "label": "batch12_shared_core_semantics",
@@ -44,6 +44,13 @@
       "exit_code": 0,
       "passed": true,
       "tail": "......                                                                   [100%]\n"
+    },
+    {
+      "label": "batch12_cap578_cap584_canonical",
+      "command": "pytest tests/test_batch12_cap578_cap584_canonical.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".......                                                                  [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
     },
     {
       "label": "batch12_membership",

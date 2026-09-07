@@ -824,6 +824,32 @@ def pro_developer_sandbox_577(*, symbol: str = "BTC", seed: dict[str, Any] | Non
         extra=compute_semantic_extra(577, symbol=symbol, seed=seed),
     )
 
+
+def unified_portfolio_dashboard_578(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Unified Portfolio Dashboard (#578) — catalog-aligned portfolio holdings surface."""
+    from bd_platform.portfolio_rebalancer import portfolio_snapshot
+
+    seed = seed or _load_seed()
+    portfolio = portfolio_snapshot(symbol)
+    holdings = portfolio.get("holdings") or portfolio.get("portfolio") or {}
+    return _base(
+        578,
+        symbol=symbol,
+        seed=seed,
+        extra={
+            "portfolio_dashboard": portfolio,
+            "holdings": holdings,
+            "portfolio_total_usd": portfolio.get("portfolio_total_usd"),
+            "trades": portfolio.get("trades", []),
+            "balance_history": portfolio.get("balance_history", []),
+            "surface": "unified_portfolio_dashboard",
+            "feature": "Unified Portfolio Dashboard",
+            "attribution": "bd_platform.portfolio_rebalancer.portfolio_snapshot",
+            "formula_visible": True,
+        },
+    )
+
+
 def global_asset_tracker_579(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Global_Asset_Tracker (#579)."""
     seed = seed or _load_seed()
@@ -873,6 +899,29 @@ def margin_risk_calculator_583(*, symbol: str = "BTC", seed: dict[str, Any] | No
         seed=seed,
         extra=compute_semantic_extra(583, symbol=symbol, seed=seed),
     )
+
+
+def risk_management_shield_584(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Risk Management Shield (#584) — catalog-aligned execution safety shield."""
+    from risk_manager import risk_status
+
+    seed = seed or _load_seed()
+    risk = risk_status()
+    return _base(
+        584,
+        symbol=symbol,
+        seed=seed,
+        extra={
+            "risk_shield": risk,
+            "risk": risk,
+            "surface": "risk_management_shield",
+            "feature": "Risk Management Shield",
+            "attribution": "risk_manager.risk_status",
+            "formula_visible": True,
+            "trading_frozen": risk.get("trading_frozen"),
+        },
+    )
+
 
 def volatility_scoring_system_585(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Volatility_Scoring_System (#585)."""

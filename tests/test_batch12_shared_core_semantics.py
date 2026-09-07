@@ -58,10 +58,10 @@ def test_shared_core_count_batch12():
     assert len(shared_core_ids()) == 47
 
 
-def test_outside_shared_core_hero_bindings():
+def test_outside_shared_core_canonical_bindings():
     mod578, fn578 = discover_bindings()[578]
     mod584, fn584 = discover_bindings()[584]
-    assert mod578 == "bd_platform.heroes_capability_layer"
-    assert fn578 == "shadow_fork_pre_execution_578"
-    assert mod584 == "bd_platform.heroes_capability_layer"
-    assert fn584 == "coindesk_rss_feed_584"
+    assert mod578 == "bd_platform.institutional_delivery_intelligence_layer"
+    assert fn578 == "unified_portfolio_dashboard_578"
+    assert mod584 == "bd_platform.institutional_delivery_intelligence_layer"
+    assert fn584 == "risk_management_shield_584"

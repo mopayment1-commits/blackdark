@@ -8568,13 +8568,17 @@
       "track_name": "Institutional, B2B, API & Developer Platform",
       "capability": "Unified_Portfolio_Dashboard",
       "name_source": "pdf_detail_p34_66",
-      "current_status": "NOT_IMPLEMENTED",
-      "existing_code_components": [],
-      "tests_evidence": [],
-      "missing_parts": "No module matching addition spec name",
+      "current_status": "PARTIALLY_IMPLEMENTED",
+      "existing_code_components": [
+        "bd_platform/portfolio_rebalancer.py"
+      ],
+      "tests_evidence": [
+        "tests/test_batch12_cap578_cap584_canonical.py"
+      ],
+      "missing_parts": "Full multi-account portfolio product scope unproven; catalog-aligned dashboard surface implemented",
       "dependencies": "T15",
-      "final_classification": "NOT_IMPLEMENTED",
-      "reason": "Addition spec not implemented as native module"
+      "final_classification": "PARTIALLY_IMPLEMENTED",
+      "reason": "Portfolio snapshot dashboard via portfolio_rebalancer; not full unified portfolio product"
     },
     {
       "id": 579,

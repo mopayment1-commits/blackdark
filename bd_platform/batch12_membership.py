@@ -10,6 +10,7 @@ BATCH12_IDS = list(range(551, 601))
 CUSTOM_IMPLEMENTATION_IDS: list[int] = []
 OUTSIDE_SHARED_CORE_IDS = [551, 578, 584]
 CANONICAL_DUPLICATE_REUSE_ID = 551
+CANONICAL_CATALOG_SEMANTICS_IDS = frozenset({578, 584})
 
 
 def parameterized_ids() -> list[int]:
@@ -68,10 +69,14 @@ def verify_membership() -> dict[str, object]:
         errors.append("551_binding_wrong")
     if bindings[551][1] != "liquidation_intelligence_551":
         errors.append("551_entrypoint_wrong")
-    if bindings[578][0] != "bd_platform.heroes_capability_layer":
+    if bindings[578][0] != "bd_platform.institutional_delivery_intelligence_layer":
         errors.append("578_binding_wrong")
-    if bindings[584][0] != "bd_platform.heroes_capability_layer":
+    if bindings[578][1] != "unified_portfolio_dashboard_578":
+        errors.append("578_entrypoint_wrong")
+    if bindings[584][0] != "bd_platform.institutional_delivery_intelligence_layer":
         errors.append("584_binding_wrong")
+    if bindings[584][1] != "risk_management_shield_584":
+        errors.append("584_entrypoint_wrong")
     missing = sorted(batch - shared - outside)
     return {
         "batch12_total_ids_exact": len(batch),

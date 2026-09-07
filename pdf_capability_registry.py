@@ -55,6 +55,14 @@ _MANUAL: dict[int, tuple[str, str]] = {
     441: ("bd_platform.defi_yield_intelligence_layer", "oracle_risk_441"),
     517: ("bd_platform.institutional_delivery_intelligence_layer", "fix_connectivity_517"),
     528: ("bd_platform.market_rankings", "market_rankings"),
+    578: (
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "unified_portfolio_dashboard_578",
+    ),
+    584: (
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "risk_management_shield_584",
+    ),
     627: ("comparison_engine", "run_comparison_engine"),
     630: ("bd_platform.intelligence_ux_extensions_layer", "scan_market_opportunities_238"),
     702: ("graphql_schema", "graphql_health"),

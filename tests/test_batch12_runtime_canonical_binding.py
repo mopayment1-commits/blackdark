@@ -8,7 +8,12 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from bd_platform.batch12_membership import CANONICAL_DUPLICATE_REUSE_ID, outside_shared_core_ids, shared_core_47_ids
+from bd_platform.batch12_membership import (
+    CANONICAL_CATALOG_SEMANTICS_IDS,
+    CANONICAL_DUPLICATE_REUSE_ID,
+    outside_shared_core_ids,
+    shared_core_47_ids,
+)
 from bd_platform.batch12_semantic_engine import CAPABILITY_SEMANTIC_SPECS
 from cap646.backend_registry import binding_for, resolve_binding
 from cap646.handlers.platform import handle_platform_capability
@@ -65,6 +70,13 @@ def test_pdf_registry_matches_backend_registry(capability_id: int):
         assert binding.module == canonical.module
         assert binding.entrypoint == canonical.entrypoint
         return
+    if capability_id in CANONICAL_CATALOG_SEMANTICS_IDS:
+        mod, entry = discover_bindings()[capability_id]
+        binding = resolve_binding(capability_id)
+        assert binding.module == mod, binding
+        assert binding.entrypoint == entry, binding
+        assert binding.source == "canonical_catalog_semantics"
+        return
     mod, entry = discover_bindings()[capability_id]
     binding = resolve_binding(capability_id)
     assert binding.module == mod, binding
@@ -101,7 +113,10 @@ async def test_cap646_runtime_binding_and_output(capability_id: int, seed: dict)
 
     assert result.get("backend_module") == mod
     assert result.get("backend_entrypoint") == entry
-    assert result.get("binding_source") == "pdf_capability_registry"
+    if capability_id in CANONICAL_CATALOG_SEMANTICS_IDS:
+        assert result.get("binding_source") == "canonical_catalog_semantics"
+    else:
+        assert result.get("binding_source") == "pdf_capability_registry"
 
     if capability_id in OUTSIDE - {CANONICAL_DUPLICATE_REUSE_ID}:
         assert payload.get("ok") is True or result.get("success") is True
@@ -169,6 +184,10 @@ def test_runtime_binding_summary_flags():
         if cap_id == CANONICAL_DUPLICATE_REUSE_ID:
             binding = binding_for(cap_id)
             assert binding["binding_source"] == "canonical_duplicate_reuse_88"
+            continue
+        if cap_id in CANONICAL_CATALOG_SEMANTICS_IDS:
+            binding = binding_for(cap_id)
+            assert binding["binding_source"] == "canonical_catalog_semantics"
             continue
         mod, entry = discover_bindings()[cap_id]
         binding = binding_for(cap_id)

@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_CANONICAL_DECISIONS",
-  "generated_at_utc": "2026-09-07T13:57:59.140708+00:00",
-  "git_commit": "5d0320a058347d0b6a014de458738a605bf381e3",
+  "generated_at_utc": "2026-09-07T16:27:34.017341+00:00",
+  "git_commit": "92daf154e65735ca4b3c3df3af311583e92e70fe",
   "decisions": {
     "551": {
       "decision": "CANONICAL_DUPLICATE_REUSE",
@@ -15,17 +15,23 @@
     },
     "578": {
       "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "binding_module": "bd_platform.heroes_capability_layer",
-      "binding_function": "shadow_fork_pre_execution_578",
-      "evidence": "Shadow Fork Pre-Execution (#578) routes to heroes capability layer — outside institutional_delivery shared core",
-      "mece_action": "Count as distinct outside-shared-core Hero surface"
+      "binding_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "binding_function": "unified_portfolio_dashboard_578",
+      "canonical_requirement": "Unified_Portfolio_Dashboard",
+      "underlying_semantics": "bd_platform.portfolio_rebalancer.portfolio_snapshot",
+      "evidence": "CAP646_CATALOG + RVM CAP-578 require Unified_Portfolio_Dashboard; hero shadow-fork binding was incorrect",
+      "mece_action": "Outside shared core; catalog-aligned portfolio dashboard semantics",
+      "hero_relation": "bd_platform.heroes_capability_layer.shadow_fork_pre_execution_578 is integration-only — does not define #578 identity"
     },
     "584": {
       "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "binding_module": "bd_platform.heroes_capability_layer",
-      "binding_function": "coindesk_rss_feed_584",
-      "evidence": "CoinDesk RSS Feed (#584) routes to heroes capability layer — outside institutional_delivery shared core",
-      "mece_action": "Count as distinct outside-shared-core Hero surface"
+      "binding_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "binding_function": "risk_management_shield_584",
+      "canonical_requirement": "Risk_Management_Shield",
+      "underlying_semantics": "risk_manager.risk_status",
+      "evidence": "CAP646_CATALOG + RVM CAP-584 + gap_matrix risk_manager; CoinDesk hero binding was incorrect",
+      "mece_action": "Outside shared core; catalog-aligned risk shield semantics",
+      "hero_relation": "bd_platform.heroes_capability_layer.coindesk_rss_feed_584 is integration-only — does not define #584 identity"
     }
   },
   "summary": {

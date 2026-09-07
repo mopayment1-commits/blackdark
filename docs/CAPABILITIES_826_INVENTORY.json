@@ -8301,13 +8301,14 @@
       "capability": "Unified_Portfolio_Dashboard",
       "status": "NOT_COMPLETE",
       "production_spine": null,
-      "expected_surface": null,
+      "expected_surface": "unified_portfolio_dashboard",
       "in_hero_evidence": true,
-      "hero_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_classification": "HERO_CONTEXT_ONLY",
       "user_facing": false,
-      "binding_source": "capability_keyword",
-      "backend": "bd_platform.portfolio_rebalancer.portfolio_snapshot",
-      "notes": "Hero audit SPLIT-BRAIN — not convertible to PRODUCTION-ALIGNED without live spine proof"
+      "binding_source": "canonical_catalog_semantics",
+      "backend": "bd_platform.institutional_delivery_intelligence_layer.unified_portfolio_dashboard_578",
+      "engineering_status": "PASS_ENGINEERING",
+      "notes": "Batch12 canonical remediation: catalog Unified_Portfolio_Dashboard via portfolio_rebalancer.portfolio_snapshot; hero shadow_fork is integration-only"
     },
     "579": {
       "id": 579,
@@ -8383,15 +8384,16 @@
       "id": 584,
       "official_batch": "batch12",
       "capability": "Risk_Management_Shield",
-      "status": "PRODUCTION-ALIGNED",
-      "production_spine": "batch01",
+      "status": "NOT_COMPLETE",
+      "production_spine": null,
       "expected_surface": "risk_management_shield",
       "in_hero_evidence": true,
-      "hero_classification": "SPLIT-BRAIN-UNVERIFIED",
+      "hero_classification": "HERO_CONTEXT_ONLY",
       "user_facing": true,
-      "binding_source": "explicit_option_a",
-      "backend": "cap646.batch01_production.cap_584",
-      "notes": "legacy_batch01_extension; official_batch=batch12"
+      "binding_source": "canonical_catalog_semantics",
+      "backend": "bd_platform.institutional_delivery_intelligence_layer.risk_management_shield_584",
+      "engineering_status": "PASS_ENGINEERING",
+      "notes": "Batch12 canonical remediation: catalog Risk_Management_Shield via risk_manager.risk_status; hero coindesk RSS is integration-only; PASS_LIVE not claimed"
     },
     "585": {
       "id": 585,

@@ -1,18 +1,18 @@
 {
   "artifact": "BATCH12_FORMAL_GATE_PROVENANCE",
-  "generated_at_utc": "2026-09-07T13:57:59.140708+00:00",
-  "final_code_sha": "5d0320a058347d0b6a014de458738a605bf381e3",
-  "gate_tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3",
+  "generated_at_utc": "2026-09-07T16:27:34.017341+00:00",
+  "final_code_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe",
+  "gate_tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe",
   "branch": "cursor/batch12-551-600-ed16",
   "formal_gates_on_final_code": "PASS",
   "gates": [
     {
       "workflow": "Security Scan",
       "workflow_file": "security.yml",
-      "run_id": 34128542777,
-      "gate_tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3",
+      "run_id": 34130375301,
+      "gate_tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe",
       "result": "PASS",
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34128542777",
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34130375301",
       "codeql_jobs": [
         {
           "name": "codeql",
@@ -24,26 +24,26 @@
     {
       "workflow": "SonarCloud Analysis",
       "workflow_file": "sonarcloud.yml",
-      "run_id": 34128542737,
-      "gate_tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3",
+      "run_id": 34130375257,
+      "gate_tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe",
       "result": "PASS",
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34128542737"
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34130375257"
     },
     {
       "workflow": "CI Critical Gate Suite",
       "workflow_file": "ci-critical.yml",
-      "run_id": 34128542931,
-      "gate_tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3",
+      "run_id": 34130375273,
+      "gate_tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe",
       "result": "PASS",
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34128542931"
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34130375273"
     },
     {
       "workflow": "CAP978 Institutional Gate",
       "workflow_file": "cap978-institutional-gate.yml",
-      "run_id": 34128542833,
-      "gate_tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3",
+      "run_id": 34130375344,
+      "gate_tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe",
       "result": "PASS",
-      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34128542833"
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34130375344"
     }
   ],
   "acceptance": {

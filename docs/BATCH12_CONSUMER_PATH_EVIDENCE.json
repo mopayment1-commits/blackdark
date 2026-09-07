@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_CONSUMER_PATH_EVIDENCE",
-  "generated_at_utc": "2026-09-07T13:57:59.140708+00:00",
-  "git_commit": "5d0320a058347d0b6a014de458738a605bf381e3",
+  "generated_at_utc": "2026-09-07T16:27:34.017341+00:00",
+  "git_commit": "92daf154e65735ca4b3c3df3af311583e92e70fe",
   "consumer_paths_accounted": "50/50",
   "generic_gateway_as_sole_evidence": 0,
   "unresolved_consumer_path_gap": 0,
@@ -22,7 +22,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "CANONICAL_DUPLICATE_REUSE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 552,
@@ -40,7 +40,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 553,
@@ -58,7 +58,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 554,
@@ -76,7 +76,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 555,
@@ -94,7 +94,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 556,
@@ -112,7 +112,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 557,
@@ -130,7 +130,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 558,
@@ -148,7 +148,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 559,
@@ -166,7 +166,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 560,
@@ -184,7 +184,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 561,
@@ -202,7 +202,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 562,
@@ -220,7 +220,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 563,
@@ -238,7 +238,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 564,
@@ -256,7 +256,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 565,
@@ -274,7 +274,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 566,
@@ -292,7 +292,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 567,
@@ -310,7 +310,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 568,
@@ -328,7 +328,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 569,
@@ -346,7 +346,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 570,
@@ -364,7 +364,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 571,
@@ -382,7 +382,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 572,
@@ -400,7 +400,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 573,
@@ -418,7 +418,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 574,
@@ -436,7 +436,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 575,
@@ -454,7 +454,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 576,
@@ -472,7 +472,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 577,
@@ -490,7 +490,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 578,
@@ -498,7 +498,7 @@
       "required_consumer_mode": "API",
       "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
       "entrypoint": "/api/cap646/578",
-      "downstream_implementation": "bd_platform.heroes_capability_layer.shadow_fork_pre_execution_578",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.unified_portfolio_dashboard_578",
       "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
         "tests/test_batch12_consumer_paths.py",
@@ -508,7 +508,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 579,
@@ -526,7 +526,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 580,
@@ -544,7 +544,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 581,
@@ -562,7 +562,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 582,
@@ -580,7 +580,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 583,
@@ -598,7 +598,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 584,
@@ -606,7 +606,7 @@
       "required_consumer_mode": "API",
       "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
       "entrypoint": "/api/cap646/584",
-      "downstream_implementation": "bd_platform.heroes_capability_layer.coindesk_rss_feed_584",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.risk_management_shield_584",
       "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
         "tests/test_batch12_consumer_paths.py",
@@ -616,7 +616,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 585,
@@ -634,7 +634,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 586,
@@ -652,7 +652,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 587,
@@ -670,7 +670,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 588,
@@ -688,7 +688,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 589,
@@ -706,7 +706,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 590,
@@ -724,7 +724,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 591,
@@ -742,7 +742,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 592,
@@ -760,7 +760,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 593,
@@ -778,7 +778,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 594,
@@ -796,7 +796,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 595,
@@ -814,7 +814,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 596,
@@ -832,7 +832,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 597,
@@ -850,7 +850,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 598,
@@ -868,7 +868,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 599,
@@ -886,7 +886,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     },
     {
       "capability_id": 600,
@@ -904,7 +904,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "5d0320a058347d0b6a014de458738a605bf381e3"
+      "tested_sha": "92daf154e65735ca4b3c3df3af311583e92e70fe"
     }
   ]
 }

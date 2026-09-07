@@ -56,6 +56,22 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "symbol",
         "canonical_duplicate_reuse_88",
     ),
+    578: BackendBinding(
+        578,
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "unified_portfolio_dashboard_578",
+        "unified_portfolio_dashboard",
+        "symbol",
+        "canonical_catalog_semantics",
+    ),
+    584: BackendBinding(
+        584,
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "risk_management_shield_584",
+        "risk_management_shield",
+        "symbol",
+        "canonical_catalog_semantics",
+    ),
 }
 
 
