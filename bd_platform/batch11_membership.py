@@ -64,8 +64,10 @@ def verify_membership() -> dict[str, object]:
         errors.append("525_not_outside")
     if 528 not in outside:
         errors.append("528_not_outside")
-    if bindings[517][0] != "comparison_engine":
+    if bindings[517][0] != "bd_platform.institutional_delivery_intelligence_layer":
         errors.append("517_binding_wrong")
+    if bindings[517][1] != "fix_connectivity_517":
+        errors.append("517_entrypoint_wrong")
     if bindings[525][0] != "bd_platform.heroes_capability_layer":
         errors.append("525_binding_wrong")
     if bindings[528][0] != "bd_platform.market_rankings":

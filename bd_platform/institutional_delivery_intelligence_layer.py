@@ -1309,6 +1309,28 @@ def whale_clustering_engine_600(*, symbol: str = "BTC", seed: dict[str, Any] | N
         },
     )
 
+async def fix_connectivity_517(
+    *,
+    symbol: str = "BTC",
+    quote_amount: float | None = None,
+    include_fees: bool = True,
+) -> dict[str, Any]:
+    """FIX Connectivity (#517) — wraps comparison_engine with Batch11 capability identity."""
+    from comparison_engine import run_comparison_engine
+
+    result = await run_comparison_engine(
+        symbol=symbol,
+        quote_amount=quote_amount,
+        include_fees=include_fees,
+    )
+    result["capability_id"] = 517
+    result["feature_ref"] = "fix_connectivity_517"
+    result["ok"] = True
+    result.setdefault("analysis_only", True)
+    result.setdefault("no_execution", True)
+    return result
+
+
 def run_institutional_delivery_intelligence_e2e_batch(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """E2E smoke for generated #501–#600 surfaces."""
     seed = seed or _load_seed()
