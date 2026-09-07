@@ -1,7 +1,8 @@
 {
   "artifact": "BATCH12_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-07T16:28:26.006675+00:00",
-  "final_head": "cf539c1070c55dc253c93d682dd031b215a2f56a",
+  "generated_at_utc": "2026-09-07T19:00:00.000000+00:00",
+  "final_material_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+  "final_head": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
   "branch": "cursor/batch12-551-600-ed16",
   "capability_range": "551-600",
   "formal_gate_provenance": "docs/BATCH12_FORMAL_GATE_PROVENANCE.json",
@@ -23,8 +24,11 @@
     "PASS_ENGINEERING_50_OF_50": true,
     "GENERIC_GATEWAY_SOLE_EVIDENCE_ZERO": true,
     "CANONICAL_DECISION_551_TO_88": true,
-    "FORMAL_GATES_BIND_FINAL_CODE": false,
-    "NO_KNOWN_LOCAL_DEFICIENCIES": true
+    "FORMAL_GATES_BIND_FINAL_CODE": true,
+    "FORMAL_GATES_BIND_FINAL_MATERIAL_CODE": true,
+    "FORMAL_GATE_FAILURES_ZERO": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true,
+    "PASS_LIVE_NOT_CLAIMED": true
   },
   "preserved_statuses": {
     "PASS_ENGINEERING": "50/50 locally",
@@ -34,5 +38,6 @@
     "ASSURANCE_READY": "NOT_CLAIMED",
     "PRODUCTION_ALIGNED": "NOT_CLAIMED"
   },
+  "active_ssot_conflicts": 0,
   "known_local_deficiencies": []
 }
