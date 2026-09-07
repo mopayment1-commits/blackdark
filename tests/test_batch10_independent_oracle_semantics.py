@@ -37,3 +37,13 @@ def test_independent_oracle_matches_production(capability_id: int, seed: dict):
 
 def test_self_fulfilling_oracles_zero():
     assert len(shared_core_ids()) == 49
+
+
+def test_degraded_missing_seed_uses_defaults_not_crash():
+    empty: dict = {}
+    cap_id = shared_core_ids()[0]
+    spec = CAPABILITY_SEMANTIC_SPECS[cap_id]
+    out = compute_semantic_extra(cap_id, symbol="ETH", seed=empty)
+    field = PRIMARY_FIELD[spec["rule"]]
+    expected = independent_primary(spec["rule"], spec["defaults"], symbol="ETH")
+    assert out[field] == expected
