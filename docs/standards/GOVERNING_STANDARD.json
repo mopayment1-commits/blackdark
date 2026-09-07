@@ -1,0 +1,176 @@
+{
+  "artifact": "GOVERNING_STANDARD",
+  "updated_at_utc": "2026-09-07T14:00:00Z",
+  "git_commit": "d0dd92b",
+  "governing_version": "v6",
+  "governing_standard": {
+    "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
+    "english_alias": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md",
+    "title": "المعيار المؤسسي الشامل لبناء القدرات والمميزات حتى الاستخدام الحي — v6",
+    "status": "ACTIVE_GOVERNING"
+  },
+  "historical_standards": [
+    {
+      "version": "v5",
+      "path": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
+      "status": "HISTORICAL_PRESERVED",
+      "note": "Superseded by v6; retained non-destructively for audit lineage"
+    },
+    {
+      "version": "v5_backup",
+      "path": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
+      "status": "HISTORICAL_PRESERVED"
+    }
+  ],
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+  "domain_spec_version": "v4_v2",
+  "domain_spec_sha256": "5a554be33a6a9c814ffd64dc21f76d74b400dfe850f02a74c8b3030a83d5622a",
+  "domain_spec_subordinate_to": "v6",
+  "domain_spec_applicability": [
+    "data",
+    "storage",
+    "provenance",
+    "track record",
+    "replay",
+    "signals",
+    "predictions",
+    "decisions",
+    "outcomes",
+    "failures",
+    "learning",
+    "model/rule/config lineage",
+    "data rights",
+    "retention",
+    "recovery",
+    "evidence",
+    "derived intelligence",
+    "strategic data assets",
+    "execution sequencing"
+  ],
+  "historical_domain_specs": [
+    {
+      "version": "v4",
+      "path": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md",
+      "status": "HISTORICAL_PRESERVED",
+      "note": "Superseded by v4_v2; retained non-destructively for audit lineage"
+    }
+  ],
+  "temporal_intelligence_addendum": {
+    "path": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "title": "BLACKDARK Temporal Intelligence & Evidence Acceleration System",
+    "role": "IMPLEMENTATION_DESIGN_ADDENDUM",
+    "status": "ACTIVE_REGISTERED",
+    "sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+    "subordinate_to": ["v6", "v4_v2"],
+    "applicability_after": ["v6", "v4_v2"],
+    "applicability_domains": [
+      "historical data",
+      "replay",
+      "point-in-time reconstruction",
+      "signals",
+      "predictions",
+      "decisions",
+      "outcomes",
+      "evidence",
+      "forward shadow",
+      "learning",
+      "calibration",
+      "failure corpus",
+      "model lineage",
+      "dataset lineage",
+      "drift",
+      "data quality",
+      "rights",
+      "retention",
+      "Market Time Machine"
+    ],
+    "registration_not_implementation_proof": true,
+    "note": "Subordinate implementation/design addendum; does not supersede v6 or v4_v2 and does not create a parallel SSOT"
+  },
+  "adaptive_intelligence_experience_spec": {
+    "path": "docs/standards/domain/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4.md",
+    "title": "BLACKDARK Adaptive Intelligence Experience",
+    "version": "v4",
+    "role": "IMPLEMENTATION_DESIGN_AND_EXPERIENCE_SPEC",
+    "status": "ACTIVE_REGISTERED",
+    "sha256": "11f04b994190266c3d28cf366e53faf96a8d5e1041f0ce7ee58b511d8c8cc8f2",
+    "subordinate_to": ["v6", "v4_v2", "temporal_intelligence_addendum"],
+    "applicability_after": ["v6", "v4_v2", "temporal_intelligence_addendum"],
+    "execution_doctrine": {
+      "sequence": [
+        "deterministic_first",
+        "evidence_first",
+        "shadow_first",
+        "calibration_later",
+        "live_promotion_last"
+      ],
+      "mandatory": true,
+      "applies_to": [
+        "Intelligence Router",
+        "Decision Contract",
+        "Decision Boundary",
+        "Confidence and Uncertainty",
+        "adaptive learning promotion"
+      ]
+    },
+    "future_batch_applicability": {
+      "required": true,
+      "enforce_from_next_active_batch": true,
+      "do_not_retrofit_frozen_batches_unless": [
+        "material_defect",
+        "shared_component_regression",
+        "higher_governing_standard_reconciliation"
+      ],
+      "required_flags_per_batch": [
+        "ADAPTIVE_INTELLIGENCE_APPLICABILITY_RESOLVED",
+        "ADAPTIVE_INTELLIGENCE_LOCAL_GAPS",
+        "ADAPTIVE_INTELLIGENCE_REUSED_COMPONENTS",
+        "ADAPTIVE_INTELLIGENCE_EXTENDED_COMPONENTS",
+        "ADAPTIVE_INTELLIGENCE_DEFERRED_REQUIREMENTS",
+        "ADAPTIVE_INTELLIGENCE_FALSE_CLAIMS_ZERO"
+      ]
+    },
+    "applicability_domains": [
+      "Calm Surface",
+      "Six Heroes",
+      "Intent Search",
+      "Workspaces and Missions",
+      "Playbooks",
+      "Capability Explorer",
+      "multi-dimensional taxonomy",
+      "Discovery Engine",
+      "My Stack",
+      "role-based experience",
+      "Progressive Disclosure safety floor",
+      "Trust dimensions",
+      "contextual capabilities",
+      "Institutional Data Room views",
+      "Typed Capability Graph",
+      "subscription discovery",
+      "accessibility",
+      "Intelligence Router",
+      "Router Selection Contract",
+      "Decision Contract",
+      "Decision Boundary",
+      "Confidence and Uncertainty Contract",
+      "signal dependence and independence",
+      "conflict handling",
+      "abstention",
+      "validity windows",
+      "recomputation triggers",
+      "Human Validation loop",
+      "runtime cost and performance budgets",
+      "privacy and behavior-learning controls"
+    ],
+    "registration_not_implementation_proof": true,
+    "no_mass_build": true,
+    "note": "Subordinate implementation/design and experience specification; does not supersede v6, v4_v2, or Temporal Intelligence and does not create a parallel SSOT"
+  },
+  "execution_policy": {
+    "order": ["v6", "v4_v2", "temporal_intelligence_addendum", "adaptive_intelligence_experience_spec"],
+    "conflict_resolution": "v6 is supreme; then v4_v2; then temporal_intelligence_addendum; then adaptive_intelligence_experience_spec; report material conflicts before substantive change",
+    "no_parallel_ssot": true,
+    "strategic_classification_not_implementation_proof": true,
+    "registration_not_implementation_proof": true
+  }
+}
