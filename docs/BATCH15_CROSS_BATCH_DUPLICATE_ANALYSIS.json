@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH15_CROSS_BATCH_DUPLICATE_ANALYSIS",
-  "generated_at_utc": "2026-09-07T23:26:08.932222+00:00",
-  "git_commit": "4939ae5c5f01363e20839d8a916bda8134ffc546",
+  "generated_at_utc": "2026-09-07T23:50:18.332442+00:00",
+  "git_commit": "4f998527f2a781a4c6d3cce0072bb49f7d05524f",
   "layer_b_cross_batch": {
     "scope": "Layer B — Batch15 IDs 701-750 vs prior capabilities 1-700",
     "summary": {
