@@ -1,0 +1,15 @@
+{
+  "artifact": "BATCH10_MATERIAL_PERFORMANCE_RELIABILITY",
+  "generated_at_utc": "2026-09-07T08:38:56.715187+00:00",
+  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "nielsen_mandated": false,
+  "v6_note": "Nielsen thresholds not imposed as Batch10 performance engineering standard",
+  "material_requirements": {
+    "deterministic_degradation": "Empty/missing seed uses documented defaults — test_degraded_missing_seed_uses_defaults_not_crash",
+    "timeout_behavior": "Synchronous local builders — no unbounded external calls in Batch10 test path",
+    "stale_data": "Seed contract local; live freshness deferred EXTERNAL_ONLY",
+    "false_confidence_under_degraded_data": "analysis_only disclaimer enforced in defi_yield _base payloads"
+  },
+  "material_performance_requirements_resolved": true,
+  "material_reliability_requirements_resolved": true
+}

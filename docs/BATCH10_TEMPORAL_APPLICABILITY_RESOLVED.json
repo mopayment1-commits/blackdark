@@ -1,0 +1,69 @@
+{
+  "artifact": "BATCH10_TEMPORAL_APPLICABILITY_RESOLVED",
+  "generated_at_utc": "2026-09-07T08:38:57.854084+00:00",
+  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "resolved": true,
+  "local_applicability_gaps": [],
+  "rows": [
+    {
+      "control": "point_in_time_reconstruction",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Historical archive/search surfaces align with PIT reconstruction; not full replay per ID locally"
+    },
+    {
+      "control": "temporal_leakage_firewall",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Layer-level timestamp semantics; institutional replay firewall deferred to Temporal Intelligence program"
+    },
+    {
+      "control": "canonical_historical_event_store",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network data feeds into canonical store design — read-only analytics do not own store writes"
+    },
+    {
+      "control": "deterministic_mass_replay_engine",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Batch10 surfaces are analytics payloads — no mass replay engine obligation per ID"
+    },
+    {
+      "control": "walk_forward_evaluation",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No walk-forward evaluation loop for read-only market data intelligence"
+    },
+    {
+      "control": "automated_outcome_factory",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Analytics-only — no outcome factory per capability"
+    },
+    {
+      "control": "forward_shadow_evidence_receipts",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Forward-shadow receipts are program-level — not per market-data ID locally"
+    },
+    {
+      "control": "evidence_provenance_ledger",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Institutional JSON closure artifacts provide local provenance; not production ledger per ID"
+    },
+    {
+      "control": "forward_shadow_reality_anchor",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Requires live deployment evidence — PASS_LIVE NOT_CLAIMED"
+    },
+    {
+      "control": "failure_surprise_abstention_corpus",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Degraded/fallback paths documented at layer level"
+    },
+    {
+      "control": "source_rights_governance",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market data provider rights enforced at layer policy"
+    },
+    {
+      "control": "reproducibility_manifest",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
+    }
+  ]
+}

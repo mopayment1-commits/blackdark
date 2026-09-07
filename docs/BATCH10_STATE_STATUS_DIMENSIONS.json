@@ -1,0 +1,54 @@
+{
+  "artifact": "BATCH10_STATE_STATUS_DIMENSIONS",
+  "generated_at_utc": "2026-09-07T08:38:56.711592+00:00",
+  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md",
+  "governing_hierarchy": [
+    "v6",
+    "v4_v2",
+    "Temporal Intelligence addendum"
+  ],
+  "v5_status": "HISTORICAL_SUPERSEDED — not current governing authority",
+  "dimensions": {
+    "CAPABILITIES_826_INVENTORY.status": {
+      "semantics": "Live/production PRODUCTION-ALIGNED SSOT — requires G6 spine proof",
+      "batch10_counts": {
+        "PENDING": 48,
+        "NOT_COMPLETE": 1,
+        "PRODUCTION-ALIGNED": 1
+      },
+      "batch10_451_499": "PENDING — correct pre-G6; not same dimension as PASS_ENGINEERING",
+      "batch10_458": "NOT_COMPLETE — hero audit dimension; engineering reuse proven separately",
+      "batch10_500": "PRODUCTION-ALIGNED — explicit cap646.data_spine binding pre-Batch10"
+    },
+    "PASS_ENGINEERING": {
+      "semantics": "Local engineering closure per v6 §PASS_ENGINEERING",
+      "batch10_value": "50/50 when regression+semantic+consumer evidence pass"
+    },
+    "PRE_BUILD_v6_classification": {
+      "semantics": "Forensic pre-build truth — BATCH10_PREBUILD_CLASSIFICATION_RECONCILIATION.json"
+    }
+  },
+  "reconciliation_dispositions": [
+    {
+      "apparent_contradiction": "SSOT claim updated_ids=50 vs inventory PENDING",
+      "disposition": "E_FALSE_GAP",
+      "resolution": "Orthogonal dimensions — inventory PENDING is live/production; PASS_ENGINEERING is engineering closure"
+    },
+    {
+      "apparent_contradiction": "progress_826 104/826 unchanged after Batch10",
+      "disposition": "B_ORTHOGONAL_STATUS_DIMENSIONS",
+      "resolution": "Numerator counts PRODUCTION-ALIGNED with batch01/02 proof only; Batch10 not in numerator until PRODUCTION-ALIGNED"
+    },
+    {
+      "apparent_contradiction": "#500 PRODUCTION-ALIGNED vs defi_yield generic pre-build",
+      "disposition": "B_ORTHOGONAL_STATUS_DIMENSIONS",
+      "resolution": "Dual spine: cap646.data_spine canonical vs defi_yield registry path remediated separately"
+    }
+  ],
+  "active_ssot_conflicts": [],
+  "same_dimension_conflicts": [],
+  "stale_active_ssot": [],
+  "progress_826_semantics_reconciled": true,
+  "status_dimensions_reconciled": true
+}

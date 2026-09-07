@@ -1,0 +1,24 @@
+{
+  "artifact": "BATCH10_V6_APPLICABILITY_RESOLVED",
+  "generated_at_utc": "2026-09-07T08:38:57.854064+00:00",
+  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "resolved": true,
+  "local_applicability_gaps": [],
+  "rows": [
+    {
+      "control": "PASS_ENGINEERING_evidence",
+      "applicability": "ALREADY_SATISFIED_WITH_EVIDENCE",
+      "rationale": "Semantic, consumer, entitlement, regression evidence complete"
+    },
+    {
+      "control": "PASS_LIVE",
+      "applicability": "EXTERNAL_ONLY",
+      "rationale": "Railway/G6 deferred — not claimed"
+    },
+    {
+      "control": "pre_build_classification_truth",
+      "applicability": "ALREADY_SATISFIED_WITH_EVIDENCE",
+      "rationale": "BATCH10_PREBUILD_CLASSIFICATION_RECONCILIATION.json"
+    }
+  ]
+}

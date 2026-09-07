@@ -1,0 +1,34 @@
+{
+  "artifact": "BATCH10_SOURCE_DEPENDENCY_APPLICABILITY",
+  "generated_at_utc": "2026-09-07T08:38:56.715181+00:00",
+  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "source_dependency_applicability_resolved": true,
+  "rights_provenance_gaps": [],
+  "false_live_readiness_claims": 0,
+  "sources": [
+    {
+      "source_id": "legal_retail_commercial_seed",
+      "path": "data/legal_retail_commercial_seed.json",
+      "runtime_use": "Primary local deterministic input for batch10 semantic engine",
+      "live_dependency": false,
+      "live_probe_necessary_for_pass_engineering": false,
+      "classification": "ALREADY_SATISFIED_WITH_EVIDENCE"
+    },
+    {
+      "source_id": "defillama_api",
+      "endpoint": "https://api.llama.fi/protocols",
+      "runtime_use": "Catalog/backend reference for onchain modules — not sole Batch10 test path",
+      "local_seed_fallback": true,
+      "live_dependency": "EXTERNAL_ONLY for G6",
+      "classification": "EXTERNAL_ONLY"
+    },
+    {
+      "source_id": "dexscreener_api",
+      "endpoint": "https://api.dexscreener.com/latest/dex/search",
+      "runtime_use": "Referenced by slippage/onchain modules — Batch10 tests use seed",
+      "local_seed_fallback": true,
+      "live_dependency": "EXTERNAL_ONLY for G6",
+      "classification": "EXTERNAL_ONLY"
+    }
+  ]
+}
