@@ -1,0 +1,797 @@
+{
+  "artifact": "BATCH11_CROSS_BATCH_DUPLICATE_ANALYSIS",
+  "generated_at_utc": "2026-09-07T10:16:07.011548+00:00",
+  "git_commit": "180ae2a2f85e2af5029dd131795d02f676276b67",
+  "layer_b_cross_batch": {
+    "scope": "Layer B — Batch11 IDs 501-550 vs prior capabilities 1-500",
+    "summary": {
+      "cross_batch_canonical_reuse": 1,
+      "cross_batch_keep_distinct_but_reuse_shared_core": 49,
+      "cross_batch_unresolved": 0
+    },
+    "per_id": [
+      {
+        "batch11_id": 501,
+        "capability_name": "Institutional Delivery",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.institutional_delivery_501",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #501",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 502,
+        "capability_name": "Benchmark Administration Metadata",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.benchmark_administration_metadata_502",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #502",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 503,
+        "capability_name": "Cross-Market Data Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.cross_market_data_intelligence_503",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #503",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 504,
+        "capability_name": "Unified Exchange Connector Layer",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.unified_exchange_connector_layer_504",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #504",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 505,
+        "capability_name": "Tick Trade Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.tick_trade_data_505",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #505",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 506,
+        "capability_name": "Quote Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.quote_data_506",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #506",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 507,
+        "capability_name": "OHLCV",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.ohlcv_507",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #507",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 508,
+        "capability_name": "L1 Order Book",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.l1_order_book_508",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #508",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 509,
+        "capability_name": "L2 Order Book",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.l2_order_book_509",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #509",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 510,
+        "capability_name": "L3 Order Book",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.l3_order_book_510",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #510",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 511,
+        "capability_name": "Options Market Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.options_market_data_511",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #511",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 512,
+        "capability_name": "Funding / OI / Liquidation Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_oi_liquidation_metrics_512",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #512",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 513,
+        "capability_name": "Asset & Symbol Metadata",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.asset_symbol_metadata_513",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #513",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 514,
+        "capability_name": "Historical Flat Files",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.historical_flat_files_514",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #514",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 515,
+        "capability_name": "REST API",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.rest_api_515",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #515",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 516,
+        "capability_name": "WebSocket Streaming",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.websocket_streaming_516",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #516",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 517,
+        "capability_name": "FIX Connectivity",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.fix_connectivity_517",
+        "evidence": "FIX Connectivity (#517) wraps comparison_engine with Batch11 capability identity — outside institutional_delivery shared core",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch11_id": 518,
+        "capability_name": "MCP for AI",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.mcp_for_ai_518",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #518",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 519,
+        "capability_name": "Exchange Rates / VWAP",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.exchange_rates_vwap_519",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #519",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 520,
+        "capability_name": "Indexes",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.indexes_520",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #520",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 521,
+        "capability_name": "Volatility Index",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.volatility_index_521",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #521",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 522,
+        "capability_name": "EMS Integration Boundary",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.ems_integration_boundary_522",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #522",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 523,
+        "capability_name": "Data Health / SLA Monitoring",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.data_health_sla_monitoring_523",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #523",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 524,
+        "capability_name": "Symbol Mapping Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.symbol_mapping_engine_524",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #524",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 525,
+        "capability_name": "Cross-Venue Data Quality Score",
+        "prior_id": 74,
+        "relationship": "CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.pro_trader_layer.run_backtest_74",
+        "facade_binding": "bd_platform.heroes_capability_layer.strategy_backtesting_525",
+        "evidence": "Hero facade delegates to canonical #74 backtest — not a distinct semantic surface",
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch11_id": 526,
+        "capability_name": "AI Market Data Grounding Layer",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.ai_market_data_grounding_layer_526",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #526",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 527,
+        "capability_name": "Liquidation Heatmap",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_heatmap_527",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #527",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 528,
+        "capability_name": "Liquidation Levels",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.market_rankings.market_rankings",
+        "evidence": "Liquidation Levels (#528) routes to market_rankings — outside institutional_delivery shared core",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch11_id": 529,
+        "capability_name": "Liquidation Cascade Model",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_cascade_model_529",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #529",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 530,
+        "capability_name": "Global Liquidation Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.global_liquidation_metrics_530",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #530",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 531,
+        "capability_name": "Open Interest",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #531",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 532,
+        "capability_name": "Funding Rates",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_rates_532",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #532",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 533,
+        "capability_name": "Order Flow Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.order_flow_intelligence_533",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #533",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 534,
+        "capability_name": "Bucketed CVD",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.bucketed_cvd_534",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #534",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 535,
+        "capability_name": "Whale vs Retail Flow",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.whale_vs_retail_flow_535",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #535",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 536,
+        "capability_name": "Slippage Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.slippage_intelligence_536",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #536",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 537,
+        "capability_name": "Global Order Book Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.global_order_book_metrics_537",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #537",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 538,
+        "capability_name": "Order Book Imbalance",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.order_book_imbalance_538",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #538",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 539,
+        "capability_name": "Liquidity Zones",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidity_zones_539",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #539",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 540,
+        "capability_name": "Bot Activity Detection",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.bot_activity_detection_540",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #540",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 541,
+        "capability_name": "Market Positioning",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.market_positioning_541",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #541",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 542,
+        "capability_name": "Liquidation Pressure Score",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_pressure_score_542",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #542",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 543,
+        "capability_name": "Orderflow Anomaly Detection",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.orderflow_anomaly_detection_543",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #543",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 544,
+        "capability_name": "API Indicator Platform",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.api_indicator_platform_544",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #544",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 545,
+        "capability_name": "Trader Cohort Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.trader_cohort_intelligence_545",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #545",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 546,
+        "capability_name": "Cross-Derivatives Decision Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.cross_derivatives_decision_intelligence_546",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #546",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 547,
+        "capability_name": "High-Resolution Multi-Pane Charts",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.high_resolution_multi_pane_charts_547",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #547",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 548,
+        "capability_name": "Derivatives Dashboard",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.derivatives_dashboard_548",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #548",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 549,
+        "capability_name": "Funding Rate Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #549",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch11_id": 550,
+        "capability_name": "Open Interest Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch11 #550",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      }
+    ],
+    "canonical_reuse_entries": [
+      {
+        "batch11_id": 525,
+        "capability_name": "Cross-Venue Data Quality Score",
+        "prior_id": 74,
+        "relationship": "CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.pro_trader_layer.run_backtest_74",
+        "facade_binding": "bd_platform.heroes_capability_layer.strategy_backtesting_525",
+        "evidence": "Hero facade delegates to canonical #74 backtest — not a distinct semantic surface",
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      }
+    ]
+  },
+  "layer_b_exhaustive_coverage": {
+    "scope": "Exhaustive machine coverage — Batch11 501-550 vs prior 1-500",
+    "method": "Deterministic pair evaluator over all 50×500 candidate pairs. No indexing filter may omit pairs — each (batch11_id, prior_id) receives a decision.",
+    "expected_cross_batch_pairs": 25000,
+    "evaluated_cross_batch_pairs": 25000,
+    "omitted_pairs": [],
+    "unresolved_pairs": [],
+    "duplicate_coverage_complete": true,
+    "decision_counts": {
+      "DISTINCT": 24926,
+      "SEMANTIC_NAME_OVERLAP": 23,
+      "SHARED_MODULE_DISTINCT_FN": 50,
+      "CANONICAL_DUPLICATE_REUSE": 1
+    },
+    "material_overlap_count": 24,
+    "material_overlaps": [
+      {
+        "batch11_id": 501,
+        "prior_id": 68,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.institutional_delivery_501",
+        "prior_binding": "bd_platform.pro_trader_layer.build_share_card_68"
+      },
+      {
+        "batch11_id": 507,
+        "prior_id": 484,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.ohlcv_507",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.ohlcv_data_484"
+      },
+      {
+        "batch11_id": 515,
+        "prior_id": 247,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.rest_api_515",
+        "prior_binding": "bd_platform.security_trust_data_layer.generate_weekly_digest_247"
+      },
+      {
+        "batch11_id": 518,
+        "prior_id": 384,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.mcp_for_ai_518",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.mcp_for_ai_agents_384"
+      },
+      {
+        "batch11_id": 520,
+        "prior_id": 469,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.indexes_520",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.indexes_469"
+      },
+      {
+        "batch11_id": 525,
+        "prior_id": 74,
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "relationship": "CANONICAL_REUSE",
+        "batch11_binding": "bd_platform.heroes_capability_layer.strategy_backtesting_525",
+        "prior_binding": "bd_platform.pro_trader_layer.run_backtest_74"
+      },
+      {
+        "batch11_id": 527,
+        "prior_id": 252,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.liquidation_heatmap_527",
+        "prior_binding": "bd_platform.security_trust_data_layer.ingest_google_trends_252"
+      },
+      {
+        "batch11_id": 531,
+        "prior_id": 85,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding": "bd_platform.whales_institutional_layer.enrich_openapi_with_fee_metadata_85"
+      },
+      {
+        "batch11_id": 531,
+        "prior_id": 125,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding": "bd_platform.advanced_ta_risk_layer.custody_tracking_status_125"
+      },
+      {
+        "batch11_id": 531,
+        "prior_id": 205,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding": "bd_platform.onchain_defi_sources_layer.ingest_glassnode_metrics_205"
+      },
+      {
+        "batch11_id": 531,
+        "prior_id": 232,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding": "bd_platform.intelligence_ux_extensions_layer.attach_arbitrage_comparison_230_232"
+      },
+      {
+        "batch11_id": 531,
+        "prior_id": 255,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding": "bd_platform.security_trust_data_layer.committee_one_pager_status_255"
+      },
+      {
+        "batch11_id": 531,
+        "prior_id": 262,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding": "bd_platform.derivatives_onchain_intelligence_layer.options_open_interest_262"
+      },
+      {
+        "batch11_id": 531,
+        "prior_id": 486,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.open_interest_data_486"
+      },
+      {
+        "batch11_id": 549,
+        "prior_id": 86,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+        "prior_binding": "bd_platform.whales_institutional_layer.run_whales_institutional_e2e_77_86"
+      },
+      {
+        "batch11_id": 549,
+        "prior_id": 124,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+        "prior_binding": "bd_platform.advanced_ta_risk_layer.detect_fair_value_gaps_124"
+      },
+      {
+        "batch11_id": 549,
+        "prior_id": 206,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+        "prior_binding": "bd_platform.onchain_defi_sources_layer.ingest_uniswap_subgraph_206"
+      },
+      {
+        "batch11_id": 549,
+        "prior_id": 228,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+        "prior_binding": "bd_platform.intelligence_ux_extensions_layer.simulate_drawdown_hedge_228"
+      },
+      {
+        "batch11_id": 549,
+        "prior_id": 256,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+        "prior_binding": "bd_platform.security_trust_data_layer.compute_half_life_clock_256"
+      },
+      {
+        "batch11_id": 550,
+        "prior_id": 85,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+        "prior_binding": "bd_platform.whales_institutional_layer.enrich_openapi_with_fee_metadata_85"
+      },
+      {
+        "batch11_id": 550,
+        "prior_id": 125,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+        "prior_binding": "bd_platform.advanced_ta_risk_layer.custody_tracking_status_125"
+      },
+      {
+        "batch11_id": 550,
+        "prior_id": 205,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+        "prior_binding": "bd_platform.onchain_defi_sources_layer.ingest_glassnode_metrics_205"
+      },
+      {
+        "batch11_id": 550,
+        "prior_id": 232,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+        "prior_binding": "bd_platform.intelligence_ux_extensions_layer.attach_arbitrage_comparison_230_232"
+      },
+      {
+        "batch11_id": 550,
+        "prior_id": 255,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch11_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+        "prior_binding": "bd_platform.security_trust_data_layer.committee_one_pager_status_255"
+      }
+    ],
+    "material_overlaps_truncated": false,
+    "pair_decision_digest_sha256": "d8e1570510b3e7341d6f34c28f0d77ae654a860077da7ed4eafa661e31fc232f",
+    "unresolved_duplicate_conflicts": 0
+  },
+  "summary": {
+    "expected_cross_batch_pairs": 25000,
+    "evaluated_cross_batch_pairs": 25000,
+    "cross_batch_unresolved": 0,
+    "unresolved_duplicate_conflicts": 0
+  }
+}

@@ -62,10 +62,11 @@ CANONICAL_DECISIONS: dict[int, dict[str, Any]] = {
     },
     517: {
         "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-        "binding_module": "comparison_engine",
-        "binding_function": "run_comparison_engine",
-        "evidence": "FIX Connectivity (#517) routes to comparison_engine — outside institutional_delivery shared core",
-        "mece_action": "Count as distinct outside-shared-core surface bound to comparison_engine",
+        "binding_module": "bd_platform.institutional_delivery_intelligence_layer",
+        "binding_function": "fix_connectivity_517",
+        "wraps": "comparison_engine.run_comparison_engine",
+        "evidence": "FIX Connectivity (#517) wraps comparison_engine with Batch11 capability identity — outside institutional_delivery shared core",
+        "mece_action": "Count as distinct outside-shared-core surface; not generic template",
     },
     528: {
         "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
@@ -209,7 +210,13 @@ PYTEST_SUITES = [
     ("batch11_shared_core_semantics", ["tests/test_batch11_shared_core_semantics.py"]),
     ("batch11_independent_oracle_semantics", ["tests/test_batch11_independent_oracle_semantics.py"]),
     ("batch11_consumer_paths", ["tests/test_batch11_consumer_paths.py"]),
-    ("institutional_delivery_batch501_550", ["tests/test_institutional_delivery_intelligence_batch501_550.py", "-q"]),
+    ("batch11_runtime_canonical_binding", ["tests/test_batch11_runtime_canonical_binding.py"]),
+    ("batch11_full_path_entitlement", ["tests/test_batch11_full_path_entitlement.py"]),
+    ("batch11_cap525_reuse", ["tests/test_batch11_cap525_canonical_reuse.py"]),
+    ("batch11_membership", ["tests/test_batch11_membership_and_profile.py"]),
+    ("institutional_delivery_501_600", ["tests/test_institutional_delivery_intelligence_batch501_600.py", "-q"]),
+    ("batch10_shared_core_blast", ["tests/test_batch10_shared_core_semantics.py"]),
+    ("cap646_option_a", ["tests/cap646/test_option_a_production.py"]),
 ]
 
 
@@ -345,7 +352,7 @@ def _pair_decision(
     b_name: str,
     p_name: str | None,
 ) -> dict[str, Any]:
-    if batch11_id in CANONICAL_DECISIONS and prior_id == CANONICAL_DECISIONS[batch11_id]["canonical_capability_id"]:
+    if batch11_id in CANONICAL_DECISIONS and CANONICAL_DECISIONS[batch11_id].get("canonical_capability_id") == prior_id:
         return {
             "decision": "CANONICAL_DUPLICATE_REUSE",
             "relationship": "CANONICAL_REUSE",
@@ -436,20 +443,34 @@ def build_layer_b_cross_batch(
         mod, fn = bindings[cid]
         if cid in CANONICAL_DECISIONS:
             dec = CANONICAL_DECISIONS[cid]
-            rows.append(
-                {
-                    "batch11_id": cid,
-                    "capability_name": catalog[cid]["capability"],
-                    "prior_id": dec["canonical_capability_id"],
-                    "relationship": "CANONICAL_DUPLICATE_REUSE",
-                    "canonical_implementation": dec["canonical_implementation"],
-                    "facade_binding": dec["facade_binding"],
-                    "evidence": dec["evidence"],
-                    "decision": dec["decision"],
-                    "cross_batch_decision": dec["decision"],
-                    "hero_double_count_risk": False,
-                }
-            )
+            if dec.get("decision") == "CANONICAL_DUPLICATE_REUSE":
+                rows.append(
+                    {
+                        "batch11_id": cid,
+                        "capability_name": catalog[cid]["capability"],
+                        "prior_id": dec["canonical_capability_id"],
+                        "relationship": "CANONICAL_DUPLICATE_REUSE",
+                        "canonical_implementation": dec["canonical_implementation"],
+                        "facade_binding": dec["facade_binding"],
+                        "evidence": dec["evidence"],
+                        "decision": dec["decision"],
+                        "cross_batch_decision": dec["decision"],
+                        "hero_double_count_risk": False,
+                    }
+                )
+            else:
+                rows.append(
+                    {
+                        "batch11_id": cid,
+                        "capability_name": catalog[cid]["capability"],
+                        "prior_id": None,
+                        "relationship": "OUTSIDE_SHARED_CORE",
+                        "canonical_implementation": f"{dec.get('binding_module')}.{dec.get('binding_function')}",
+                        "evidence": dec["evidence"],
+                        "decision": dec["decision"],
+                        "cross_batch_decision": dec["decision"],
+                    }
+                )
             continue
 
         target = (mod, fn)
@@ -705,7 +726,7 @@ def build_capability_inventory(
             }
         )
     return {
-        "artifact": "BATCH11_CAPABILITY_INVENTORY_451_500",
+        "artifact": "BATCH11_CAPABILITY_INVENTORY_501_550",
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "git_commit": head,
         "branch": BRANCH,
@@ -752,7 +773,7 @@ def build_rtm(
             }
         )
     return {
-        "artifact": "BATCH11_RTM_451_500",
+        "artifact": "BATCH11_RTM_501_550",
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "git_commit": head,
         "scope": "Requirements traceability matrix — Batch11 501-550",
@@ -931,7 +952,7 @@ async def main() -> int:
 
     created.append(
         write_json(
-            "BATCH11_CAPABILITY_INVENTORY_451_500.json",
+            "BATCH11_CAPABILITY_INVENTORY_501_550.json",
             build_capability_inventory(bindings, catalog, head),
         ).name
     )
@@ -995,7 +1016,7 @@ async def main() -> int:
         ).name
     )
 
-    created.append(write_json("BATCH11_RTM_451_500.json", build_rtm(bindings, catalog, head)).name)
+    created.append(write_json("BATCH11_RTM_501_550.json", build_rtm(bindings, catalog, head)).name)
 
     created.append(
         write_json(

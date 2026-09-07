@@ -1,0 +1,38 @@
+{
+  "artifact": "BATCH11_FORMAL_GATE_PROVENANCE",
+  "generated_at_utc": "2026-09-07T10:16:07.011548+00:00",
+  "final_code_sha": "180ae2a2f85e2af5029dd131795d02f676276b67",
+  "gate_tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67",
+  "branch": "cursor/batch11-501-550-ed16",
+  "formal_gates_on_final_code": "PENDING",
+  "gates": [
+    {
+      "workflow": "Security Scan",
+      "result": "MISSING",
+      "run_id": null,
+      "gate_tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+    },
+    {
+      "workflow": "SonarCloud Analysis",
+      "result": "MISSING",
+      "run_id": null,
+      "gate_tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+    },
+    {
+      "workflow": "CI Critical Gate Suite",
+      "result": "MISSING",
+      "run_id": null,
+      "gate_tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+    },
+    {
+      "workflow": "CAP978 Institutional Gate",
+      "result": "MISSING",
+      "run_id": null,
+      "gate_tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+    }
+  ],
+  "acceptance": {
+    "code_delta_zero": true,
+    "all_applicable_formal_gates_pass": false
+  }
+}
