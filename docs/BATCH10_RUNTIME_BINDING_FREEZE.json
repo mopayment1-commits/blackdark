@@ -1,0 +1,66 @@
+{
+  "batch": "batch10",
+  "scope": "451-500",
+  "final_material_sha": "bc15dddc1c97bd550afacc6fbed8453104661c76",
+  "production_material_sha": "cc92917c8f0a8b0e8b6d8e6f6a6e6f6a6e6f6a6e",
+  "ssot_artifact": "docs/BATCH10_RUNTIME_CANONICAL_BINDING_FINAL.json",
+  "classification_counts": {
+    "A_CANONICAL_RUNTIME_MATCH": 49,
+    "B_PROVEN_SEMANTICALLY_EQUIVALENT_BINDING": 1,
+    "C_ROUTING_DIVERGENCE_MATERIAL_DEFECT": 0
+  },
+  "wrong_backend_bindings": [],
+  "orphan_semantic_implementations": [],
+  "shadow_parallel_implementations": [],
+  "ids_requiring_routing_code_changes": [],
+  "runtime_canonical_binding_proven": "50/50",
+  "runtime_semantic_output_proven": "50/50",
+  "cap458_runtime_canonical_reuse_proven": true,
+  "runtime_registry_conflicts": 0,
+  "canonical_runtime_conflicts": 0,
+  "active_ssot_conflicts": 0,
+  "local_regression": {
+    "result": "PASS",
+    "suites": [
+      "tests/test_batch10_runtime_canonical_binding.py",
+      "tests/test_batch10_shared_core_semantics.py",
+      "tests/test_batch10_independent_oracle_semantics.py",
+      "tests/test_batch10_consumer_paths.py",
+      "tests/test_batch10_material_consumer_paths.py",
+      "tests/test_batch10_full_path_entitlement.py",
+      "tests/test_batch10_cap458_canonical_reuse.py",
+      "tests/test_batch10_membership_and_profile.py",
+      "tests/test_defi_yield_intelligence_batch401_500.py",
+      "tests/test_batch09_shared_core_semantics.py",
+      "tests/test_batch09_independent_oracle_semantics.py",
+      "tests/cap646/test_option_a_production.py"
+    ]
+  },
+  "formal_gates": {
+    "status": "PENDING_ON_MATERIAL_SHA",
+    "gate_tested_sha": "bc15dddc1c97bd550afacc6fbed8453104661c76",
+    "completed": {
+      "Security Scan": "PASS"
+    },
+    "pending": [
+      "CI Critical Gate Suite",
+      "SonarCloud Analysis",
+      "CAP978 Institutional Gate"
+    ]
+  },
+  "flags": {
+    "RUNTIME_CANONICAL_BINDING_PROVEN_50_OF_50": true,
+    "RUNTIME_SEMANTIC_OUTPUT_PROVEN_50_OF_50": true,
+    "WRONG_BACKEND_BINDINGS_ZERO": true,
+    "ORPHAN_SEMANTIC_IMPLEMENTATIONS_ZERO": true,
+    "CAP458_RUNTIME_CANONICAL_REUSE_PROVEN": true,
+    "CANONICAL_RUNTIME_CONFLICTS_ZERO": true,
+    "ACTIVE_SSOT_CONFLICTS_ZERO": true,
+    "FORMAL_GATES_BIND_FINAL_MATERIAL_CODE": false,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true,
+    "BATCH10_FINAL_LOCAL_FREEZE": false
+  },
+  "known_local_deficiencies": [
+    "formal_ci_gates_pending_on_bc15ddd"
+  ]
+}
