@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH14_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-07T22:24:59.413271+00:00",
-  "final_head": "69f1ebd40114f57947811c20d9a176ee85563d92",
+  "generated_at_utc": "2026-09-07T23:04:11.091401+00:00",
+  "final_head": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
   "branch": "cursor/batch14-651-700-ed16",
   "capability_range": "651-700",
   "formal_gate_provenance": "docs/BATCH14_FORMAL_GATE_PROVENANCE.json",
@@ -18,8 +18,8 @@
     "CANONICAL_DECISION_660_TO_354": true,
     "CANONICAL_DECISION_661_TO_394": true,
     "CANONICAL_DECISION_676_TO_604": true,
-    "FORMAL_GATES_BIND_FINAL_CODE": false,
-    "NO_KNOWN_LOCAL_DEFICIENCIES": false
+    "FORMAL_GATES_BIND_FINAL_CODE": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true
   },
   "preserved_statuses": {
     "PASS_ENGINEERING": "50/50 locally",
@@ -29,7 +29,5 @@
     "ASSURANCE_READY": "NOT_CLAIMED",
     "PRODUCTION_ALIGNED": "NOT_CLAIMED"
   },
-  "known_local_deficiencies": [
-    "formal_gates_pending_on_head"
-  ]
+  "known_local_deficiencies": []
 }

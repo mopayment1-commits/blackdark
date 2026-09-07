@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH14_INTERNAL_DUPLICATE_ANALYSIS",
-  "generated_at_utc": "2026-09-07T22:24:59.413271+00:00",
-  "git_commit": "69f1ebd40114f57947811c20d9a176ee85563d92",
+  "generated_at_utc": "2026-09-07T23:04:11.091401+00:00",
+  "git_commit": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
   "layer_a_internal": {
     "scope": "Layer A — Batch14 IDs 651-700 vs 651-700 ONLY",
     "method": "Pairwise binding uniqueness + shared-module semantic review (no cross-batch IDs)",
