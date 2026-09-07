@@ -69,7 +69,7 @@ def test_pdf_registry_matches_backend_registry(capability_id: int):
     binding = resolve_binding(capability_id)
     assert binding.module == mod, binding
     assert binding.entrypoint == entry, binding
-    assert binding.source in {"pdf_capability_registry", "pdf_capability_registry_hero"}
+    assert binding.source == "pdf_capability_registry"
 
 
 @pytest.mark.parametrize("capability_id", _batch_ids())
@@ -101,7 +101,7 @@ async def test_cap646_runtime_binding_and_output(capability_id: int, seed: dict)
 
     assert result.get("backend_module") == mod
     assert result.get("backend_entrypoint") == entry
-    assert result.get("binding_source") in {"pdf_capability_registry", "pdf_capability_registry_hero"}
+    assert result.get("binding_source") == "pdf_capability_registry"
 
     if capability_id in OUTSIDE - {CANONICAL_DUPLICATE_REUSE_ID}:
         assert payload.get("ok") is True or result.get("success") is True

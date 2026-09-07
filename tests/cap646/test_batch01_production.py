@@ -8,8 +8,11 @@ from cap646.batch01_production import BATCH01_IDS, batch01_entrypoint
 from cap646.ui_pages import user_surface_for
 from cap646.waves import USER_FACING
 
+PDF_REGISTRY_BATCH01_OVERRIDE_IDS = frozenset({584})
+BATCH01_SPINE_IDS = sorted(BATCH01_IDS - PDF_REGISTRY_BATCH01_OVERRIDE_IDS)
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH01_IDS))
+
+@pytest.mark.parametrize("capability_id", BATCH01_SPINE_IDS)
 @pytest.mark.asyncio
 async def test_batch01_runtime_production_path(capability_id: int):
     from cap646.runtime import execute_capability
@@ -28,7 +31,7 @@ async def test_batch01_runtime_production_path(capability_id: int):
     assert result.get("compliance_footer")
 
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH01_IDS))
+@pytest.mark.parametrize("capability_id", BATCH01_SPINE_IDS)
 def test_batch01_backend_registry_binding(capability_id: int):
     from cap646.backend_registry import binding_for
 
@@ -63,3 +66,20 @@ async def test_batch01_642_ai_provenance():
     assert result["success"] is True
     assert result.get("certificate") or result.get("provenance")
     assert result["surface"] == "ai_output_provenance_compliance_footer"
+
+
+@pytest.mark.asyncio
+async def test_batch01_584_pdf_registry_heroes_authoritative():
+    from cap646.backend_registry import binding_for
+    from cap646.runtime import execute_capability
+
+    binding = binding_for(584)
+    assert binding["binding_source"] == "pdf_capability_registry"
+    assert binding["backend_module"] == "bd_platform.heroes_capability_layer"
+    assert binding["backend_entrypoint"] == "coindesk_rss_feed_584"
+
+    result = await execute_capability(584, skip_entitlement=True, params={"symbol": "BTC"})
+    assert result["success"] is True, result
+    assert result["backend_module"] == "bd_platform.heroes_capability_layer"
+    assert result["backend_entrypoint"] == "coindesk_rss_feed_584"
+    assert result.get("ok") is True or result.get("success") is True

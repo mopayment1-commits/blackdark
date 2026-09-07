@@ -6,8 +6,10 @@ import pytest
 
 from cap646.batch01_dedicated import BATCH01_DEDICATED_IDS, EXPECTED_SURFACE, GENERIC_SURFACES
 
+BATCH01_DEDICATED_SPINE_IDS = sorted(BATCH01_DEDICATED_IDS - {584})
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH01_DEDICATED_IDS))
+
+@pytest.mark.parametrize("capability_id", BATCH01_DEDICATED_SPINE_IDS)
 @pytest.mark.asyncio
 async def test_batch01_dedicated_surface_and_success(capability_id: int):
     from cap646.runtime import execute_capability
@@ -27,7 +29,7 @@ async def test_batch01_dedicated_surface_and_success(capability_id: int):
     assert result["backend_module"] == "cap646.batch01_production"
 
 
-@pytest.mark.parametrize("capability_id", sorted(BATCH01_DEDICATED_IDS))
+@pytest.mark.parametrize("capability_id", BATCH01_DEDICATED_SPINE_IDS)
 @pytest.mark.asyncio
 async def test_batch01_dedicated_direct_execute(capability_id: int):
     from cap646.batch01_dedicated import execute

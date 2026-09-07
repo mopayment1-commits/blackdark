@@ -63,10 +63,10 @@ def _pdf_dedicated_platform_ids() -> frozenset[int]:
 
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
-    if capability_id in _pdf_dedicated_platform_ids():
-        return handle_platform_capability
     if capability_id in OPTION_A_IDS:
         if capability_id in BATCH01_IDS:
+            if capability_id in _pdf_dedicated_platform_ids():
+                return handle_platform_capability
             return handle_batch01_capability
         if capability_id in BATCH02_IDS:
             return handle_batch02_capability

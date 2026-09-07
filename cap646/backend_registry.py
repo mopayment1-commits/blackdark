@@ -88,6 +88,8 @@ def _register_batch01_bindings() -> None:
     for cid in BATCH01_IDS:
         if cid in _EXPLICIT_BINDINGS:
             continue
+        if 551 <= cid <= 600:
+            continue
         row = catalog_by_id().get(cid, {})
         surface = _slug(row.get("capability", f"cap_{cid}"))
         _EXPLICIT_BINDINGS[cid] = BackendBinding(
@@ -143,25 +145,6 @@ def _register_batch03_bindings() -> None:
 
 
 _register_batch03_bindings()
-
-
-# PDF-registry hero overrides — must win over legacy batch01 extension IDs (e.g. #584).
-_EXPLICIT_BINDINGS[578] = BackendBinding(
-    578,
-    "bd_platform.heroes_capability_layer",
-    "shadow_fork_pre_execution_578",
-    "shadow_fork_pre_execution",
-    "symbol",
-    "pdf_capability_registry_hero",
-)
-_EXPLICIT_BINDINGS[584] = BackendBinding(
-    584,
-    "bd_platform.heroes_capability_layer",
-    "coindesk_rss_feed_584",
-    "coindesk_rss_feed",
-    "none",
-    "pdf_capability_registry_hero",
-)
 
 
 # Map gap-matrix component stems → canonical import path + entrypoint
@@ -347,13 +330,29 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     if explicit is not None:
         return explicit
 
+    if 551 <= capability_id <= 600:
+        pdf = _pdf_registry_bindings().get(capability_id)
+        if pdf is not None:
+            mod, entrypoint = pdf
+            row = catalog_by_id()[capability_id]
+            surface = _slug(row["capability"])
+            param_style = _infer_param_style(mod, entrypoint)
+            return BackendBinding(
+                capability_id,
+                mod,
+                entrypoint,
+                surface,
+                param_style,
+                "pdf_capability_registry",
+            )
+
     row = catalog_by_id()[capability_id]
     matrix = matrix_by_id().get(capability_id, {})
     name = row["capability"]
     track = row["track"]
     surface = _slug(name)
 
-    if 301 <= capability_id <= 600:
+    if 301 <= capability_id <= 550:
         pdf = _pdf_registry_bindings().get(capability_id)
         if pdf is not None:
             mod, entrypoint = pdf
