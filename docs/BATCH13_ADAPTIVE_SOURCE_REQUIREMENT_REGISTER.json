@@ -1,0 +1,2495 @@
+{
+  "generated_at_utc": "2026-09-07T20:45:59.134157+00:00",
+  "git_head": "53f698bf0848305b498049a1f3800b021fbacd78",
+  "spec_sha256": "11f04b994190266c3d28cf366e53faf96a8d5e1041f0ce7ee58b511d8c8cc8f2",
+  "rows": [
+    {
+      "source_requirement_id": "ADAPTIVE_0001_0001",
+      "source_section": "preamble",
+      "source_line": 1,
+      "requirement_text": "BLACKDARK Adaptive Intelligence Experience",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0002_0001",
+      "source_section": "المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار",
+      "source_line": 1,
+      "requirement_text": "# المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0002_0003",
+      "source_section": "المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار",
+      "source_line": 3,
+      "requirement_text": "Institutional Final Specification — Design, Decision Safety, Governance & Execution",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0002_0005",
+      "source_section": "المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار",
+      "source_line": 5,
+      "requirement_text": "الإصدار v4 — النسخة المؤسسية التنفيذية المنقحة لـCursor بعد دمج المراجعة السداسية + تقريري العيوب + مخاطر التنفيذ المتبقية + عقيدة التنفيذ المرحلي",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0002_0007",
+      "source_section": "المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار",
+      "source_line": 7,
+      "requirement_text": "حالة الوثيقة: DESIGN / GOVERNANCE SPECIFICATION — لا تعني بذاتها اكتمال التنفيذ أو PASS_LIVE",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0002_0009",
+      "source_section": "المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار",
+      "source_line": 9,
+      "requirement_text": "صيغة الاستخدام في Cursor: هذه النسخة Markdown هي المرجع التشغيلي المقروء آليًا لهذه المواصفة. يجب تنفيذها مع SSOT الحاكم للمشروع، ولا تُستخدم لتحل محل v6 أو v4_v2 أو Temporal Intelligence.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0002_0011",
+      "source_section": "المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار",
+      "source_line": 11,
+      "requirement_text": "تاريخ الإصدار: 7 سبتمبر 2026",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0003_0001",
+      "source_section": "0. قرار الاعتماد ونطاق الوثيقة",
+      "source_line": 1,
+      "requirement_text": "# 0. قرار الاعتماد ونطاق الوثيقة",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0003_0003",
+      "source_section": "0. قرار الاعتماد ونطاق الوثيقة",
+      "source_line": 3,
+      "requirement_text": "هذه النسخة تحافظ على الفكرة المركزية للوثيقة الأصلية: واجهة هادئة فوق محرك ضخم من القدرات، بحيث يحدد المستخدم الهدف بينما تختار BLACKDARK الآليات اللازمة. لكنها تعيد صياغة التصور كمواصفة مؤسسية قابلة للتنفيذ، وتغلق العيوب القاتلة التي ظهرت في تقريري العيوب والمراجعة العلمية اللاحقة على مستوى التصميم، مع إبقاء مخاطر التنفيذ الفعلي مصنفة صراحةً وغير مخفية.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0003_0005",
+      "source_section": "0. قرار الاعتماد ونطاق الوثيقة",
+      "source_line": 5,
+      "requirement_text": "| القاعدة الحاكمة — هذه الوثيقة لا تنشئ SSOT أو بنية موازية. أي تنفيذ برمجي يجب أن يُربط أولًا بالمعايير الحاكمة الحالية للمشروع v6 > v4_v2 > Temporal Intelligence، وبالقاموس/RTM/registries الموجودة فعليًا، مع reuse قبل build. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0003_0013",
+      "source_section": "0. قرار الاعتماد ونطاق الوثيقة",
+      "source_line": 13,
+      "requirement_text": "لا يجوز الادعاء بأن هذه الوثيقة “مطابقة لـISO/NIST” لمجرد الاستشهاد بها. المعايير المذكورة توفر مبادئ ونماذج وعمليات مرجعية؛ أما بنية BLACKDARK التفصيلية (Six Heroes، Router، Decision Contract، Data Room...) فهي قرارات تصميم مشروع يجب إثبات جودتها بالاختبار والأدلة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0001",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 1,
+      "requirement_text": "## 0.1 الأساس المعياري والعلمي المستخدم",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0003",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 3,
+      "requirement_text": "| المرجع | ما يدعمه في هذه المواصفة | حدود الاستشهاد |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0007",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 7,
+      "requirement_text": "| ISO 9241-210:2019 | عملية التصميم المتمحور حول الإنسان عبر دورة الحياة | لا يفرض شكل Dashboard أو Progressive Disclosure بعينه. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0009",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 9,
+      "requirement_text": "| ISO 9241-11:2018 | فهم usability كنتيجة استخدام مرتبطة بالسياق والأهداف | لا يفرض مقياسًا بعينه ولا يثبت نجاح UX بدون اختبار مستخدمين. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0011",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 11,
+      "requirement_text": "| ISO/IEC 25010:2023 | نموذج مرجعي لتحديد وقياس وتقييم جودة منتجات ICT/software | لا يفرض Data Room أو Router أو هيكل BLACKDARK. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0013",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 13,
+      "requirement_text": "| ISO/IEC 25012:2008 | نموذج عام لجودة البيانات وتحديد/تقييم متطلباتها | لا يثبت جودة بيانات BLACKDARK بدون قياس فعلي. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0015",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 15,
+      "requirement_text": "| NIST AI RMF 1.0 | valid/reliable, safe, secure/resilient, accountable/transparent, explainable/interpretable, privacy-enhanced وغيرها | إطار طوعي؛ لا يفرض Trust Card أو Confidence formula محددة. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0017",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 17,
+      "requirement_text": "| ISO/IEC 23894:2023 | إرشاد لإدارة مخاطر AI ودمجها في الأنشطة | لا يحدد وحده آلية Decision Boundary. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0019",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 19,
+      "requirement_text": "| ISO/IEC 42001:2023 | نظام إدارة للذكاء الاصطناعي والتحسين المستمر | هذه الوثيقة ليست شهادة 42001. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0004_0021",
+      "source_section": "0.1 الأساس المعياري والعلمي المستخدم",
+      "source_line": 21,
+      "requirement_text": "| WCAG 2.2 | معايير نجاح قابلة للاختبار لإتاحة الويب؛ W3C يوصي بالإصدار 2.2 | هدف التصميم: AA حيث ينطبق؛ يجب إثبات المطابقة باختبارات فعلية. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0001",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 1,
+      "requirement_text": "# 1. المبادئ غير القابلة للتفاوض",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0003",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 3,
+      "requirement_text": "Calm Surface: السطح اليومي يجب أن يجيب “ماذا يهم الآن؟” بدل أن يعرض مئات الأدوات.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0005",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 5,
+      "requirement_text": "Six Heroes يظلون Primary User Decision Surfaces ولا يتحولون إلى قوائم capabilities.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0007",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 7,
+      "requirement_text": "Complexity On Demand: التفاصيل متاحة لكن لا تُفرض على كل مستخدم.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0009",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 9,
+      "requirement_text": "Evidence Always: لا قرار بلا مصدر/زمن/حالة بيانات/قيود جوهرية قابلة للوصول.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0011",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 11,
+      "requirement_text": "Safety Floor Never Hidden: المعلومات التي يمكن أن تغيّر القرار لا يجوز إخفاؤها بسبب Progressive Disclosure.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0013",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 13,
+      "requirement_text": "The user chooses the goal; BLACKDARK chooses the machinery — مع حق المستخدم في الفهم والرفض/التعديل.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0015",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 15,
+      "requirement_text": "No false precision: لا تعرض نسبة ثقة رقمية إلا إذا كان معناها ومعايرتها empirically defined.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0017",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 17,
+      "requirement_text": "No evidence-class promotion: Historical Replay ≠ Forward Shadow ≠ Verified Production ≠ Independent Assurance.",
+      "classification": "CHRONOLOGICAL_EVIDENCE_PENDING",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0005_0019",
+      "source_section": "1. المبادئ غير القابلة للتفاوض",
+      "source_line": 19,
+      "requirement_text": "Reuse before build: أي Router/Graph/Data Room/Trust layer يجب أن يستخدم البنية الحالية بدل إنشاء مسارات موازية.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0001",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 1,
+      "requirement_text": "## 1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0003",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 3,
+      "requirement_text": "**Deterministic first → Evidence first → Shadow first → Calibration later → Live promotion last.**",
+      "classification": "EXPLICITLY_LATER_BY_SOURCE",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0005",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 5,
+      "requirement_text": "هذه القاعدة إلزامية في تنفيذ Router وDecision Contract وConfidence وDecision Boundary، وليست شعارًا تصميميًا. وتُطبق كالتالي:",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0007",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 7,
+      "requirement_text": "1. يبدأ Router بمنطق deterministic/transparent قابل للاختبار والشرح، وليس orchestration ذاتي غامض أو AI كامل من اليوم الأول.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0008",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 8,
+      "requirement_text": "2. لا يُسمح للـRouter بإصدار قرار دون evidence/freshness/conflict/dependence controls المطبقة على المسار.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0009",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 9,
+      "requirement_text": "3. أي Decision Contract أو Boundary جديد يعمل أولًا في replay/shadow/evaluation قبل الاعتماد الحي.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0010",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 10,
+      "requirement_text": "4. لا يُعرض numeric confidence أو probabilistic boundary قبل وجود calibration موثقة وoutcome history كافية.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0011",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 11,
+      "requirement_text": "5. أي ترقية من rule-based إلى adaptive/probabilistic behavior تحتاج evidence، regression، human validation، وحدود rollback/abstention.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0012",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 12,
+      "requirement_text": "6. Live promotion هي آخر مرحلة، ولا تُستنتج من PASS_ENGINEERING أو replay أو shadow evidence.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0006_0013",
+      "source_section": "1.1 عقيدة التنفيذ الحاكمة — Execution Doctrine",
+      "source_line": 13,
+      "requirement_text": "7. إذا لم تتوافر بيانات كافية للمعايرة، يكون السلوك الصحيح هو qualitative uncertainty / Data Limited / ABSTAIN، وليس اختراع نسبة رقمية.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0007_0001",
+      "source_section": "ترتيب تنفيذ Router/Decision Intelligence المسموح",
+      "source_line": 1,
+      "requirement_text": "### ترتيب تنفيذ Router/Decision Intelligence المسموح",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0007_0003",
+      "source_section": "ترتيب تنفيذ Router/Decision Intelligence المسموح",
+      "source_line": 3,
+      "requirement_text": "Intent parsing محدود → Candidate selection بقواعد واضحة → Mandatory risk controls → Freshness/quality filtering → Dependence/conflict detection → Decision Contract qualitative → Rule-based Boundary + validity window → Shadow evaluation → Calibration → Adaptive enhancement عند ثبوت الحاجة → Live promotion فقط بعد استيفاء البوابات الحاكمة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0008_0001",
+      "source_section": "2. المعمارية النهائية للخبرة",
+      "source_line": 1,
+      "requirement_text": "# 2. المعمارية النهائية للخبرة",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0008_0003",
+      "source_section": "2. المعمارية النهائية للخبرة",
+      "source_line": 3,
+      "requirement_text": "المعمارية المنقحة تفصل بوضوح بين “واجهة المستخدم”، “تنسيق الذكاء”، “عقد القرار”، و“طبقات الأدلة/الحوكمة”.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0008_0005",
+      "source_section": "2. المعمارية النهائية للخبرة",
+      "source_line": 5,
+      "requirement_text": "USER → Calm Surface / Universal Command → Intent & Context Resolver → Intelligence Router → Playbook/Capability Selection → Decision Engine → Decision Contract → Six Heroes / Workspaces / Contextual Surfaces → Evidence & Trust Views → Capability Explorer / Graph / Institutional Data Room",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0008_0007",
+      "source_section": "2. المعمارية النهائية للخبرة",
+      "source_line": 7,
+      "requirement_text": "لا يجوز أن يقفز أي مسار من الطلب مباشرة إلى نتيجة قرار بدون المرور بالضوابط المطبقة عليه: entitlement، data freshness، evidence class، conflict/uncertainty handling، وruntime canonical binding.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0009_0001",
+      "source_section": "3. Surface Calm — الواجهة الرئيسية",
+      "source_line": 1,
+      "requirement_text": "# 3. Surface Calm — الواجهة الرئيسية",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0009_0003",
+      "source_section": "3. Surface Calm — الواجهة الرئيسية",
+      "source_line": 3,
+      "requirement_text": "يبقى Dashboard اليومي محدودًا في عدد الأسطح الأساسية. لا تظهر مكتبة القدرات كقائمة طويلة. الحد التشغيلي المقترح للسطح اليومي: Six Heroes + Today’s Focus + Top Opportunity/Key Risk + What Changed + Universal Command + My Stack بصورة مختصرة.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0009_0005",
+      "source_section": "3. Surface Calm — الواجهة الرئيسية",
+      "source_line": 5,
+      "requirement_text": "| Surface Budget — إضافة Workspace أو Recommendation أو Graph إلى الصفحة الأولى تتطلب إثبات أنها تخفض time-to-insight أو ترفع task success، لا مجرد أنها “مفيدة”. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0010_0001",
+      "source_section": "4. Six Heroes — ثابت معماري",
+      "source_line": 1,
+      "requirement_text": "# 4. Six Heroes — ثابت معماري",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0010_0003",
+      "source_section": "4. Six Heroes — ثابت معماري",
+      "source_line": 3,
+      "requirement_text": "يظل الأبطال الستة الواجهة اليومية المبسطة. القدرات يمكن أن تغذي Hero أو تقدم Context أو لا ترتبط به. العلاقة لا تعني causal ownership. أي ربط في Capability Graph يجب أن يكون typed edge.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0001",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 1,
+      "requirement_text": "# 5. Today’s Focus — Decision Snapshot آمن",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0003",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 3,
+      "requirement_text": "يعرض ملخصًا قصيرًا مثل Market State / Main Opportunity / Primary Risk / What Changed، لكن كل نتيجة يجب أن تحمل Safety Floor مختصرًا.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0005",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 5,
+      "requirement_text": "| عنصر Safety Floor | الحد الأدنى الظاهر |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0009",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 9,
+      "requirement_text": "| Freshness | timestamp أو freshness band |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0011",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 11,
+      "requirement_text": "| Evidence state | Historical/Shadow/Live/Delayed حسب الحقيقة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0013",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 13,
+      "requirement_text": "| Uncertainty | High/Medium/Low أو calibrated probability إذا ثبتت |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0015",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 15,
+      "requirement_text": "| Critical contradiction | أهم تعارض مادي إن وُجد |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0017",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 17,
+      "requirement_text": "| Critical limitation | أي قيد يمكن أن يغير تفسير النتيجة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0011_0019",
+      "source_section": "5. Today’s Focus — Decision Snapshot آمن",
+      "source_line": 19,
+      "requirement_text": "| Invalidation / Next check | متى يعاد التقييم أو متى يصبح الاستنتاج غير صالح |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0001",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 1,
+      "requirement_text": "# 6. Universal Intelligence Command + Intent Search",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0003",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 3,
+      "requirement_text": "البحث لا يقتصر على أسماء القدرات. يجب أن يدعم سؤال المستخدم باللغة الطبيعية، والأصول، والـPlaybooks، والـAlerts، والـResearch، والـAPI resources. Intent Search يفكك الطلب إلى Intent Contract بدلاً من استدعاء قدرات بصورة عشوائية.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0005",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 5,
+      "requirement_text": "| Intent Contract | المحتوى |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0009",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 9,
+      "requirement_text": "| Goal | ما الذي يحاول المستخدم معرفته/فعله؟ |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0011",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 11,
+      "requirement_text": "| Asset / scope | الأصل، السوق، المحفظة، chain أو universe |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0013",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 13,
+      "requirement_text": "| Horizon | لحظي / intraday / أيام / أسابيع... |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0015",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 15,
+      "requirement_text": "| Decision type | Opportunity / Risk / Due Diligence / Monitoring... |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0017",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 17,
+      "requirement_text": "| Required safety lenses | عوامل لا يجوز إسقاطها لهذا النوع من القرار |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0019",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 19,
+      "requirement_text": "| Evidence minimum | الحد الأدنى المقبول من freshness/coverage/trust |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0012_0021",
+      "source_section": "6. Universal Intelligence Command + Intent Search",
+      "source_line": 21,
+      "requirement_text": "| Output mode | Answer / Playbook / Alert / Deep Dive |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0013_0001",
+      "source_section": "7. Workspaces / Missions",
+      "source_line": 1,
+      "requirement_text": "# 7. Workspaces / Missions",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0013_0003",
+      "source_section": "7. Workspaces / Missions",
+      "source_line": 3,
+      "requirement_text": "تبقى Workspaces طبقة تنظيمية بين Dashboard والمكتبة، لكن لا تُعامل كل مساحة عمل كنظام مستقل. هي composition views تعيد استخدام القدرات والـPlaybooks والـSSOT الحالية. يفضل إطلاق عدد محدود أولًا ثم التوسع بناءً على الاستخدام.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0013_0005",
+      "source_section": "7. Workspaces / Missions",
+      "source_line": 5,
+      "requirement_text": "أمثلة مرشحة: Market Opportunity، Whale Intelligence، Risk Center، Asset Deep Dive، Portfolio Command Center، Derivatives، On-Chain، Narrative/Sentiment، Macro، DeFi، Quant Lab، Institutional Research، Developer/API Center.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0001",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 1,
+      "requirement_text": "# 8. Playbooks — Product Core مع Governance Contract",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0003",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 3,
+      "requirement_text": "الـPlaybook ليس checklist جميلًا؛ هو workflow قابل للإصدار والاختبار. BLACKDARK Official Playbooks فقط هي التي تحمل علامة رسمية بعد تحقق محدد.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0005",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 5,
+      "requirement_text": "| Playbook Contract | مطلوب |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0009",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 9,
+      "requirement_text": "| Purpose / decision | القرار أو السؤال الذي يخدمه |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0011",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 11,
+      "requirement_text": "| Eligible regimes | الأسواق/الظروف التي يكون صالحًا فيها |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0013",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 13,
+      "requirement_text": "| Required capabilities | المدخلات الإلزامية والاختيارية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0015",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 15,
+      "requirement_text": "| Dependence model | تجميع الإشارات المشتركة المصدر/النموذج حتى لا تُحسب مستقلة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0017",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 17,
+      "requirement_text": "| Rules / weights | قواعد الدمج، التعارض، والأولوية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0019",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 19,
+      "requirement_text": "| Version & lineage | نسخة القواعد والمصادر/النماذج |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0021",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 21,
+      "requirement_text": "| Validation | replay / walk-forward / shadow حسب applicability |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0023",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 23,
+      "requirement_text": "| Failure & abstention | متى يرفض إصدار نتيجة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0025",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 25,
+      "requirement_text": "| Expiry / revalidation | صلاحية وإعادة تحقق |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0014_0027",
+      "source_section": "8. Playbooks — Product Core مع Governance Contract",
+      "source_line": 27,
+      "requirement_text": "| Change history | سبب وأثر التغيير |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0001",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 1,
+      "requirement_text": "# 9. Capability Explorer — المكتبة الصحيحة",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0003",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 3,
+      "requirement_text": "الـCapability Library تُعرض كـDiscovery surface غني، لا كجدول 800 صف. كل بطاقة تستخدم metadata من SSOT، ولا تنشئ مصدر حقيقة مستقلًا.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0005",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 5,
+      "requirement_text": "| حقول البطاقة | ملاحظات |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0009",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 9,
+      "requirement_text": "| Name + one-line purpose | لغة المستخدم، لا المصطلحات الداخلية |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0011",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 11,
+      "requirement_text": "| When should I use it? | حالة استخدام واحدة واضحة |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0013",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 13,
+      "requirement_text": "| Category / Asset / Chain / Horizon | faceted taxonomy |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0015",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 15,
+      "requirement_text": "| Tier / API availability | من entitlement SSOT |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0017",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 17,
+      "requirement_text": "| Freshness / Coverage | أبعاد مستقلة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0019",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 19,
+      "requirement_text": "| Assurance / Maturity | أبعاد مستقلة عن freshness |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0021",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 21,
+      "requirement_text": "| Known limitations | ظاهر ويمكن فتح التفاصيل |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0023",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 23,
+      "requirement_text": "| Methodology / Lineage / Evidence | روابط إلى المصدر الحاكم |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0015_0025",
+      "source_section": "9. Capability Explorer — المكتبة الصحيحة",
+      "source_line": 25,
+      "requirement_text": "| Actions | Open / Add to My Stack / Use in Playbook / Create Alert |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0016_0001",
+      "source_section": "10. Multi-dimensional Taxonomy",
+      "source_line": 1,
+      "requirement_text": "# 10. Multi-dimensional Taxonomy",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0016_0003",
+      "source_section": "10. Multi-dimensional Taxonomy",
+      "source_line": 3,
+      "requirement_text": "لا تستخدم شجرة واحدة. capability قد تكون Whale + On-chain + Risk + BTC + Elite. الأبعاد تكون faceted وقابلة للبحث. يمنع إنشاء tags حرة غير محكومة إذا كانت ستتحول إلى SSOT غير منضبط.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0001",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 1,
+      "requirement_text": "# 11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0003",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 3,
+      "requirement_text": "يُلغى مفهوم “Trust Status واحد” الذي يخلط Verified/New/Live/Delayed/Data Limited. تُعرض الحالة في أبعاد مستقلة؛ يمكن للمستخدم رؤية شارة مختصرة، لكن المصدر يحتفظ بالمتجه الكامل.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0005",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 5,
+      "requirement_text": "| البعد | قيم مثال | ملاحظة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0009",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 9,
+      "requirement_text": "| Assurance | Verified / Experimental / Unverified | لا يعني live. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0011",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 11,
+      "requirement_text": "| Freshness | Live / Near-live / Delayed / Stale | زمن البيانات فقط. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0013",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 13,
+      "requirement_text": "| Availability | Healthy / Degraded / Unavailable | حالة الخدمة. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0015",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 15,
+      "requirement_text": "| Coverage | Full / Partial / Limited | نطاق البيانات. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0017",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 17,
+      "requirement_text": "| Methodology maturity | Stable / New / Under Review | نضج المنهج. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0019",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 19,
+      "requirement_text": "| Evidence class | Replay / Forward Shadow / Verified Production / Independent | لا ترقية ضمنية. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0017_0025",
+      "source_section": "11. Trust Dimensions — تصحيح جذري لـTrust Status",
+      "source_line": 25,
+      "requirement_text": "| منع الالتباس — قد تكون القدرة Verified + Delayed + Limited في نفس اللحظة. لذلك لا يجوز اختزال هذه الأبعاد في status واحد. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0001",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 1,
+      "requirement_text": "# 12. Progressive Disclosure مع Safety Floor",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0003",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 3,
+      "requirement_text": "المستويات الخمسة تبقى: Answer → Why → Drivers → Evidence → Expert. لكن لا يجوز أن يُخفي المستوى الأول أي معلومة مادية قد تغيّر القرار.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0005",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 5,
+      "requirement_text": "| المستوى | المحتوى |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0009",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 9,
+      "requirement_text": "| Level 1 — Answer | النتيجة + uncertainty + freshness + critical contradiction/limitation + invalidation/next check |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0011",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 11,
+      "requirement_text": "| Level 2 — Why | سبب مختصر ومفهوم |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0013",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 13,
+      "requirement_text": "| Level 3 — Drivers | العوامل الحاسمة واتجاه كل عامل |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0015",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 15,
+      "requirement_text": "| Level 4 — Evidence | المصادر، الزمن، lineage، historical/shadow evidence |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0018_0017",
+      "source_section": "12. Progressive Disclosure مع Safety Floor",
+      "source_line": 17,
+      "requirement_text": "| Level 5 — Expert | methodology/formula/model/version/assumptions/limitations/API |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0019_0003",
+      "source_section": "13. My Stack",
+      "source_line": 3,
+      "requirement_text": "My Stack يحفظ Favorites / Recent / Saved Searches / Playbooks / Alerts ويتيح Dashboard شخصيًا. التخصيص لا يغير الحقيقة الأساسية للقدرة، ولا يسمح بأن يصبح preference دليلاً ماليًا.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0020_0001",
+      "source_section": "14. Role-Based Experience — Preference وليس قيدًا",
+      "source_line": 1,
+      "requirement_text": "# 14. Role-Based Experience — Preference وليس قيدًا",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0020_0003",
+      "source_section": "14. Role-Based Experience — Preference وليس قيدًا",
+      "source_line": 3,
+      "requirement_text": "سؤال الدور في onboarding اختياري وقابل للتغيير والتجاوز. دوره ضبط default surfaces والمصطلحات وعمق العرض والتوصيات، وليس منع القدرات أو تثبيت المستخدم في persona.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0001",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 1,
+      "requirement_text": "# 15. Discovery & Recommendation Engine",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0003",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 3,
+      "requirement_text": "يجب الفصل معماريًا بين Popularity وRelevance وQuality وTrust وPersonalization حتى لا تتحول الشعبية إلى حلقة تغذية ذاتية.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0005",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 5,
+      "requirement_text": "| Signal | الاستخدام المسموح |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0009",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 9,
+      "requirement_text": "| Popularity | اكتشاف اجتماعي فقط؛ لا يعادل جودة أو ملاءمة |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0011",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 11,
+      "requirement_text": "| Relevance | ارتباط بالسياق/الأصل/الهدف الحالي |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0013",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 13,
+      "requirement_text": "| Trust/Quality | هل الدليل كافٍ، حديث، موثوق؟ |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0015",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 15,
+      "requirement_text": "| Personalization | تفضيلات وسلوك بإذن المستخدم؛ لا يُعامل كحقيقة سوق |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0017",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 17,
+      "requirement_text": "| Novelty | يمكن استخدامه للتنوع، لا لرفع الثقة تلقائيًا |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0021_0023",
+      "source_section": "15. Discovery & Recommendation Engine",
+      "source_line": 23,
+      "requirement_text": "كل توصية ذكية يجب أن تحمل “Why this is being recommended” ومصدر العوامل المؤثرة، مع منع feedback loop الذي يجعل الاستخدام نفسه دليلًا على الملاءمة.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0022_0001",
+      "source_section": "16. Contextual Capabilities",
+      "source_line": 1,
+      "requirement_text": "# 16. Contextual Capabilities",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0022_0003",
+      "source_section": "16. Contextual Capabilities",
+      "source_line": 3,
+      "requirement_text": "القدرات تظهر داخل السياق الطبيعي: asset، position، wallet، opportunity، risk، إلخ. لكن contextual placement لا يغيّر canonical semantics أو entitlement. هو surface إضافي لنفس القدرة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0023_0001",
+      "source_section": "17. ثلاثة أسطح للقدرات",
+      "source_line": 1,
+      "requirement_text": "# 17. ثلاثة أسطح للقدرات",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0023_0007",
+      "source_section": "17. ثلاثة أسطح للقدرات",
+      "source_line": 7,
+      "requirement_text": "| Operational Intelligence | قرارات يومية عبر Dashboard/Heroes/Widgets/Workspaces |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0023_0009",
+      "source_section": "17. ثلاثة أسطح للقدرات",
+      "source_line": 9,
+      "requirement_text": "| Specialist Intelligence | تحليل عميق عبر Explorer/Deep Dive/Playbooks |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0023_0011",
+      "source_section": "17. ثلاثة أسطح للقدرات",
+      "source_line": 11,
+      "requirement_text": "| Institutional Infrastructure | lineage, APIs, models, methodology, controls, SLO/evidence عبر Data Room |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0001",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 1,
+      "requirement_text": "# 18. Capability Graph — Typed Evidence Graph",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0003",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 3,
+      "requirement_text": "يحتفظ بالمفهوم، لكن كل edge يجب أن يكون له نوع؛ ممنوع استخدام سهم مبهم يوحي بالسببية.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0005",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 5,
+      "requirement_text": "| Edge Type | المعنى |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0009",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 9,
+      "requirement_text": "| DATA_FEEDS | A يزوّد B ببيانات |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0011",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 11,
+      "requirement_text": "| DERIVED_FROM | B مشتق من A |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0013",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 13,
+      "requirement_text": "| SUPPORTS | A يدعم الاستنتاج B دون إثبات سببية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0015",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 15,
+      "requirement_text": "| CONTRADICTS | A يعارض B |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0017",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 17,
+      "requirement_text": "| USED_BY | A يستخدمه workflow/hero B |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0019",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 19,
+      "requirement_text": "| CANONICAL_REUSE | ID يعيد استخدام canonical owner |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0021",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 21,
+      "requirement_text": "| EVIDENCE_FOR | artifact يدعم claim |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0024_0023",
+      "source_section": "18. Capability Graph — Typed Evidence Graph",
+      "source_line": 23,
+      "requirement_text": "| CAUSES | ممنوع إلا بدليل سببي مصرح ومناسب |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0025_0001",
+      "source_section": "19. Institutional Data Room — View فوق SSOT لا 15 نظامًا جديدًا",
+      "source_line": 1,
+      "requirement_text": "# 19. Institutional Data Room — View فوق SSOT لا 15 نظامًا جديدًا",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0025_0003",
+      "source_section": "19. Institutional Data Room — View فوق SSOT لا 15 نظامًا جديدًا",
+      "source_line": 3,
+      "requirement_text": "Data Room لا يبني Registries موازية. هو طبقة بحث وعرض تجمع المصادر الحاكمة الموجودة بالفعل. تظهر فقط registries الفعلية الموجودة، ويضاف أي registry جديد فقط عند وجود متطلب مستقل حقيقي.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0025_0005",
+      "source_section": "19. Institutional Data Room — View فوق SSOT لا 15 نظامًا جديدًا",
+      "source_line": 5,
+      "requirement_text": "الحد الوظيفي المقترح: Capability / Data Source / Lineage / Model or Rule / Methodology / API / Evidence / Version / Freshness & Quality / Reliability / Security Controls / Audit / Limitations / Change History — ويمكن أن تكون هذه Views فوق سجلات مشتركة بدل جداول منفصلة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0026_0001",
+      "source_section": "20. Subscription Discovery",
+      "source_line": 1,
+      "requirement_text": "# 20. Subscription Discovery",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0026_0003",
+      "source_section": "20. Subscription Discovery",
+      "source_line": 3,
+      "requirement_text": "يجوز إظهار teaser للقدرات المدفوعة بما يتوافق مع خطة التسعير، لكن لا يجوز عرض claim حي أو نتيجة مخصصة غير متاحة فعليًا ثم إخفاء الدليل خلف الدفع. Preview يجب أن يكون صادقًا وقابلًا للتفسير ويبيّن ما هو متاح وما يتطلب ترقية.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0027_0001",
+      "source_section": "21. Accessibility & Interaction Quality",
+      "source_line": 1,
+      "requirement_text": "# 21. Accessibility & Interaction Quality",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0027_0003",
+      "source_section": "21. Accessibility & Interaction Quality",
+      "source_line": 3,
+      "requirement_text": "هدف الإتاحة: WCAG 2.2 AA حيث ينطبق. تشمل الاختبارات الفعلية keyboard navigation، focus visibility وعدم حجبه، target size، predictable navigation، accessible authentication، screen-reader semantics، وعدم الاعتماد على اللون وحده. اختصار Cmd/Ctrl+K يجب ألا يصطدم بقواعد keyboard shortcuts ويجب أن توجد وسيلة بديلة قابلة للاكتشاف.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0028_0001",
+      "source_section": "22. BLACKDARK Intelligence Router — عقد اختيار مؤسسي",
+      "source_line": 1,
+      "requirement_text": "# 22. BLACKDARK Intelligence Router — عقد اختيار مؤسسي",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0028_0003",
+      "source_section": "22. BLACKDARK Intelligence Router — عقد اختيار مؤسسي",
+      "source_line": 3,
+      "requirement_text": "الـRouter ليس UI helper؛ هو decision-orchestration subsystem. لذلك لا يجوز بناءه كـblack-box “يختار أفضل 8” بدون عقد اختيار واختبارات.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0001",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 1,
+      "requirement_text": "## 22.1 Router Selection Contract",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0003",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 3,
+      "requirement_text": "| المرحلة | القاعدة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0007",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 7,
+      "requirement_text": "| 1 Intent | تحويل السؤال إلى goal/scope/horizon/decision type |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0009",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 9,
+      "requirement_text": "| 2 Mandatory controls | إضافة lenses إلزامية حسب نوع القرار؛ لا يمكن حذفها لتحسين السرعة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0011",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 11,
+      "requirement_text": "| 3 Candidate eligibility | استبعاد ما لا يحقق freshness/coverage/rights/availability/entitlement |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0013",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 13,
+      "requirement_text": "| 4 Dependence clustering | تجميع القدرات ذات source/model ancestry المشترك لمنع عدها كأدلة مستقلة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0015",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 15,
+      "requirement_text": "| 5 Conflict coverage | ضمان وجود evidence مؤيد ومعارض/مضاد عندما يكون القرار حساسًا |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0017",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 17,
+      "requirement_text": "| 6 Marginal value | إضافة قدرة فقط إذا تضيف information/coverage مادية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0019",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 19,
+      "requirement_text": "| 7 Budget | حد latency/compute/cost واضح |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0021",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 21,
+      "requirement_text": "| 8 Stop | التوقف عندما تتحقق coverage requirements ولا توجد إضافة مادية ضمن الميزانية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0023",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 23,
+      "requirement_text": "| 9 Abstain | إذا لم يتحقق minimum evidence أو التعارض غير محسوم أو البيانات متدهورة بصورة مادية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0025",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 25,
+      "requirement_text": "| 10 Explain | إظهار لماذا اختيرت/استبعدت أهم القدرات |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0029_0031",
+      "source_section": "22.1 Router Selection Contract",
+      "source_line": 31,
+      "requirement_text": "| تعريف sufficient — لا تستخدم عبارة “minimum sufficient set” إلا إذا كانت sufficiency معرفة بمتطلبات coverage/mandatory controls/independence/quality وstopping criteria قابلة للاختبار. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0001",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 1,
+      "requirement_text": "# 23. Decision Contract Layer — الإضافة الحاكمة",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0003",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 3,
+      "requirement_text": "كل نتيجة رئيسية من Router أو Official Playbook تتحول إلى Decision Contract قابل للحفظ والتتبع، لا إلى “حكم” عابر.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0009",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 9,
+      "requirement_text": "| Current stance | Opportunity / Risk / Neutral / Abstain أو domain-specific |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0011",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 11,
+      "requirement_text": "| Decision scope | asset/universe/horizon/user context |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0013",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 13,
+      "requirement_text": "| Confidence vector | Evidence coverage / Data quality / Signal agreement / Calibration / Regime familiarity / Staleness |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0015",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 15,
+      "requirement_text": "| Key drivers | 3–5 عوامل حاسمة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0017",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 17,
+      "requirement_text": "| Contradictions | أهم عوامل المعارضة ووزنها/أهميتها |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0019",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 19,
+      "requirement_text": "| Decision Boundary | الشروط التي ستغير القرار |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0021",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 21,
+      "requirement_text": "| Invalidation conditions | متى يصبح القرار غير صالح |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0023",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 23,
+      "requirement_text": "| Validity window | إلى متى يبقى القرار قابلًا للاستخدام قبل إعادة التقييم |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0025",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 25,
+      "requirement_text": "| Next check / trigger | زمن أو حدث يعيد الحساب |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0027",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 27,
+      "requirement_text": "| Evidence class | replay/shadow/live/... بدون ترقية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0030_0029",
+      "source_section": "23. Decision Contract Layer — الإضافة الحاكمة",
+      "source_line": 29,
+      "requirement_text": "| Version lineage | rule/model/data/evaluator version |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0031_0001",
+      "source_section": "24. Confidence & Uncertainty Contract — منع False Precision",
+      "source_line": 1,
+      "requirement_text": "# 24. Confidence & Uncertainty Contract — منع False Precision",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0031_0003",
+      "source_section": "24. Confidence & Uncertainty Contract — منع False Precision",
+      "source_line": 3,
+      "requirement_text": "الـConfidence الافتراضي يكون متجهًا متعدد الأبعاد. لا تظهر نسبة مثل 82% إلا إذا كانت probabilistic meaning محددة وتمت معايرتها وقياس calibration error على data غير مستخدمة في توليد التوقع، مع disclosure مناسب.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0031_0005",
+      "source_section": "24. Confidence & Uncertainty Contract — منع False Precision",
+      "source_line": 5,
+      "requirement_text": "لا تستخدم agreement count كاحتمال.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0031_0007",
+      "source_section": "24. Confidence & Uncertainty Contract — منع False Precision",
+      "source_line": 7,
+      "requirement_text": "لا تعد إشارات مترابطة كأدلة مستقلة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0031_0009",
+      "source_section": "24. Confidence & Uncertainty Contract — منع False Precision",
+      "source_line": 9,
+      "requirement_text": "عند نقص evidence يجب خفض confidence أو abstain، لا تعويضه بلغة واثقة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0031_0011",
+      "source_section": "24. Confidence & Uncertainty Contract — منع False Precision",
+      "source_line": 11,
+      "requirement_text": "إذا عُرض composite confidence فيلزم إبقاء مكوناته قابلة للفحص وعدم إخفاء ضعف بعد واحد خلف متوسط مرتفع.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0001",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 1,
+      "requirement_text": "# 25. Decision Boundary Contract — المواصفة التنفيذية",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0007",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 7,
+      "requirement_text": "| Variable(s) | المتغير أو مجموعة المتغيرات الحاسمة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0009",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 9,
+      "requirement_text": "| Direction | above/below/cross/condition change |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0011",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 11,
+      "requirement_text": "| Threshold | قيمة أو قاعدة قابلة لإعادة الإنتاج |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0013",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 13,
+      "requirement_text": "| Uncertainty band | نطاق عدم يقين حول الحد إن وجد |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0015",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 15,
+      "requirement_text": "| Persistence | مدة/عدد مشاهدات قبل اعتبار الكسر حقيقيًا |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0017",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 17,
+      "requirement_text": "| Regime | السياق الذي يكون الحد صالحًا فيه |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0019",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 19,
+      "requirement_text": "| Validity window | صلاحية زمنية للحد |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0021",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 21,
+      "requirement_text": "| Conflict rule | ماذا يحدث إذا تحققت شروط متعارضة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0023",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 23,
+      "requirement_text": "| Recompute trigger | متى يُعاد حساب الحد |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0025",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 25,
+      "requirement_text": "| Evidence | الدليل/المعايرة/النسخة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0032_0031",
+      "source_section": "25. Decision Boundary Contract — المواصفة التنفيذية",
+      "source_line": 31,
+      "requirement_text": "يمنع oscillation غير المفيد عبر hysteresis/persistence عند الحاجة. الحدود غير القابلة للمعايرة لا تُعرض كأرقام دقيقة؛ يمكن عرض qualitative invalidation condition.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0033_0001",
+      "source_section": "26. Temporal Validity / Confidence Decay",
+      "source_line": 1,
+      "requirement_text": "# 26. Temporal Validity / Confidence Decay",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0033_0003",
+      "source_section": "26. Temporal Validity / Confidence Decay",
+      "source_line": 3,
+      "requirement_text": "يُحتفظ بفكرة اضمحلال الثقة، لكن تُزال أي نسبة إلى Grinold Fundamental Law. decay يجب أن يُشتق من predictive horizon، source staleness، regime drift، calibration history أو empirical half-life حيث تتوفر الأدلة. إذا لم تتوفر معايرة، يعرض النظام next recheck/freshness بدل “ساعة علمية” زائفة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0034_0001",
+      "source_section": "27. Silent Confirmation Network — Dependence-aware",
+      "source_line": 1,
+      "requirement_text": "# 27. Silent Confirmation Network — Dependence-aware",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0034_0003",
+      "source_section": "27. Silent Confirmation Network — Dependence-aware",
+      "source_line": 3,
+      "requirement_text": "لا تعرض “7 تؤيد / 2 تعارض” باعتبارها 9 أصوات مستقلة. تعرض شبكة التأكيد عددًا خامًا + effective independent evidence بعد clustering للمصادر/النماذج/المشتقات المشتركة، مع إبراز contradictions الحقيقية.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0035_0001",
+      "source_section": "28. Mirror Ledger — Personal Decision History",
+      "source_line": 1,
+      "requirement_text": "# 28. Mirror Ledger — Personal Decision History",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0035_0003",
+      "source_section": "28. Mirror Ledger — Personal Decision History",
+      "source_line": 3,
+      "requirement_text": "يمكن دمج My Stack مع سجل شخصي يقارن قرارات المستخدم بنتائج BLACKDARK، لكن هذا أصل محتمل وليس moat مثبتة. يتطلب consent، privacy، retention policy، portability، outcome linking، ومنع اعتبار سلوك المستخدم ground truth ماليًا.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0001",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 1,
+      "requirement_text": "# 29. Human Validation & Usability Evaluation Loop",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0003",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 3,
+      "requirement_text": "هذه الإضافة إلزامية حتى تكون الإشارة إلى ISO 9241-210 عملية وليست تجميلية. التصميم يمر بدورات اختبار مع مستخدمين ممثلين وسياقات حقيقية.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0005",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 5,
+      "requirement_text": "| المقياس | مثال قبول أولي — يحدد المشروع الرقم النهائي قبل الاختبار |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0009",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 9,
+      "requirement_text": "| Task success | هل أكمل المستخدم المهمة الصحيحة دون مساعدة؟ |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0011",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 11,
+      "requirement_text": "| Time-to-insight | الوقت للوصول إلى استنتاج قابل للتصرف |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0013",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 13,
+      "requirement_text": "| Comprehension | هل فهم السبب/القيود/عدم اليقين؟ |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0015",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 15,
+      "requirement_text": "| Critical omission rate | هل فاتته limitation أو contradiction مادية؟ |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0017",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 17,
+      "requirement_text": "| Decision reversal after explanation | هل التفسير كشف فهمًا خاطئًا؟ |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0019",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 19,
+      "requirement_text": "| Over-reliance / automation bias indicators | هل اتبع النظام رغم evidence ضعيف أو warning واضح؟ |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0021",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 21,
+      "requirement_text": "| Perceived control | هل يعرف كيف يفتح الأدلة/يغير الهدف/يرفض recommendation؟ |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0023",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 23,
+      "requirement_text": "| Accessibility task completion | keyboard/screen reader/focus/authentication tasks |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0036_0029",
+      "source_section": "29. Human Validation & Usability Evaluation Loop",
+      "source_line": 29,
+      "requirement_text": "| قاعدة المطابقة — لا تدّعي “ISO 9241-210 compliant” اعتمادًا على بنية الصفحات وحدها؛ يلزم عملية human-centred design وأدلة تقييم مناسبة. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0037_0001",
+      "source_section": "30. Runtime / Cost / Performance Budget",
+      "source_line": 1,
+      "requirement_text": "# 30. Runtime / Cost / Performance Budget",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0037_0003",
+      "source_section": "30. Runtime / Cost / Performance Budget",
+      "source_line": 3,
+      "requirement_text": "يجب ألا يتحول Router إلى عنق زجاجة. كل intent/playbook يملك budget: maximum candidate set، maximum selected set، latency class، cache policy، degradation path، cost ceiling، ومتى ينتقل إلى asynchronous/deep analysis. القياس الفعلي يحدد الحدود؛ لا تُفرض أرقام Nielsen أو p95 بلا أساس مادي.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0001",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 1,
+      "requirement_text": "# 31. Integration Contract مع الواقع الهندسي",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0003",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 3,
+      "requirement_text": "هذه الوثيقة لا تعيش في عالم موازٍ. قبل تنفيذ أي عنصر، يجب أن يُربط بالـSSOT الحالي للمشروع: capability IDs، canonical decisions، RTM، runtime bindings، entitlement، evidence/Temporal classes، data provenance، active status dimensions. لا يجوز إنشاء “مكتبة جديدة” تنسخ نفس البيانات.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0009",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 9,
+      "requirement_text": "| Canonical identity | كل UI card/router candidate يستخدم canonical ID/alias من المصدر الحاكم |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0011",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 11,
+      "requirement_text": "| Runtime truth | أي capability يرشحها Router يجب أن تصل فعليًا إلى canonical runtime proven implementation |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0013",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 13,
+      "requirement_text": "| Status truth | واجهة Trust Dimensions تُشتق من الأبعاد الحاكمة ولا تخترع status جديدًا غير قابل للتتبع |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0015",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 15,
+      "requirement_text": "| Evidence truth | Decision Contract يربط artifacts/versions والتصنيف الزمني الصحيح |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0017",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 17,
+      "requirement_text": "| Entitlement | كل surface يستخدم نفس entitlement authority؛ لا bypass |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0038_0019",
+      "source_section": "31. Integration Contract مع الواقع الهندسي",
+      "source_line": 19,
+      "requirement_text": "| Historical preservation | أي تغير status/binding لا يمحو evidence تاريخي لكنه لا يبقيه claim حاليًا |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0001",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 1,
+      "requirement_text": "# 32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0003",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 3,
+      "requirement_text": "| المرحلة | المكونات | شرط الانتقال |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0007",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 7,
+      "requirement_text": "| P0 — Foundations | Capability metadata contract، Trust Dimensions، typed graph edges، Safety Floor، SSOT adapters | لا stale/parallel truth؛ metadata completeness على العينة المستهدفة |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0009",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 9,
+      "requirement_text": "| P1 — Sellable UX Core | Calm Surface، Six Heroes، Today’s Focus، Universal Command/Intent v1، Capability Explorer | اختبارات مستخدمين + task success/comprehension مقبولة |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0011",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 11,
+      "requirement_text": "| P2 — Guided Intelligence | Official Playbooks، Contextual Capabilities، My Stack، Workspaces محدودة | playbook validation + retention/usage evidence |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0013",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 13,
+      "requirement_text": "| P3 — Router v1 + Decision Contract | deterministic/transparent routing، mandatory controls، conflict handling، abstention، boundaries | runtime semantic proof + calibration/decision safety evaluation |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0015",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 15,
+      "requirement_text": "| P4 — Smart Discovery | recommendations، dependence-aware confirmation، temporal validity | feedback-loop controls + recommendation evaluation |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0017",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 17,
+      "requirement_text": "| P5 — Personal/Institutional Expansion | Mirror Ledger، advanced personalization، Institutional Data Room views | privacy/consent + B2B/user evidence |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0039_0023",
+      "source_section": "32. خطة التنفيذ المرحلية — منع تضخم النطاق",
+      "source_line": 23,
+      "requirement_text": "لا يبدأ P3 فقط لأن P1/P2 مكتوبة في المواصفة؛ يبدأ عندما تكون foundation evidence والـhuman validation جاهزة. ويمكن تنفيذ بعض البنية تحتية بالتوازي إذا كانت موجودة بالفعل في v4_v2/Temporal، لكن لا يُنشأ بديل جديد.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0001",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 1,
+      "requirement_text": "# 32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0003",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 3,
+      "requirement_text": "هذه المخاطر ليست عيوبًا مفتوحة في الوثيقة التصميمية نفسها؛ هي مخاطر تنفيذ/تحقق يجب أن تبقى ظاهرة حتى تثبت بالأدلة.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0005",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 5,
+      "requirement_text": "| الخطر | المستوى | المعالجة الإلزامية | شرط خفض الخطر |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0007",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 7,
+      "requirement_text": "| Router + Decision Contract production complexity | عالي | تنفيذ مرحلي deterministic، observability، replay/shadow، rollback، abstention | استقرار سلوك runtime تحت بيانات وتعارضات حقيقية |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0008",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 8,
+      "requirement_text": "| Confidence/Boundary calibration | عالي | لا false precision؛ confidence vector أولًا؛ calibration فقط من outcome history مناسبة | calibration error/coverage/validity موثقة حسب use case |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0009",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 9,
+      "requirement_text": "| Concept/subsystem density | متوسط | الالتزام الصارم بـP0–P2 وعدم بناء P3–P5 قبل بواباتها | عدم تجاوز Surface Budget وroadmap gates |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0010",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 10,
+      "requirement_text": "| Human Validation | متوسط | اختبار مبكر مع مستخدمين ممثلين ومهام واقعية وقياسات comprehension/task success | evidence من دورات اختبار حقيقية + إصلاح وإعادة اختبار |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0011",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 11,
+      "requirement_text": "| Runtime/Cost Budget | متوسط | instrumentation وقياس latency/compute/cache/data/API cost | budgets رقمية مبنية على قياس فعلي لا تقدير |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0012",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 12,
+      "requirement_text": "| Competitive differentiation claims | منخفض–متوسط | اعتبارها hypothesis حتى competitive verification حديث | evidence market/competitor/user validation |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0040_0014",
+      "source_section": "32.1 المخاطر التنفيذية المتبقية — Residual Execution Risks",
+      "source_line": 14,
+      "requirement_text": "**قاعدة المخاطر:** لا يجوز تحويل أي عنصر في هذا الجدول إلى CLOSED لمجرد أن التصميم يذكر ضابطًا له؛ الإغلاق يحتاج evidence من التنفيذ أو الاختبار المناسب.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0001",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 1,
+      "requirement_text": "# 33. معايير قبول التصميم قبل البناء الواسع",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0003",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 3,
+      "requirement_text": "كل surface له هدف مستخدم واضح ومقياس نجاح، وليس مجرد قائمة وظائف.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0005",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 5,
+      "requirement_text": "لا توجد معلومات مادية مخفية في Progressive Disclosure.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0007",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 7,
+      "requirement_text": "كل status ظاهر للمستخدم قابل للتتبع إلى dimension حاكم.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0009",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 9,
+      "requirement_text": "كل Router selection قابل للشرح ويحتوي mandatory controls وabstention.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0011",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 11,
+      "requirement_text": "كل Decision Boundary له contract أو يُعرض qualitative فقط.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0013",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 13,
+      "requirement_text": "لا numeric confidence بلا تعريف ومعايرة.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0015",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 15,
+      "requirement_text": "كل Capability Graph edge typed؛ لا causal implication بلا evidence.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0017",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 17,
+      "requirement_text": "كل Official Playbook versioned ومتحقق ومحدد الصلاحية.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0019",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 19,
+      "requirement_text": "كل recommendation تفصل popularity عن relevance/trust.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0021",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 21,
+      "requirement_text": "Data Room يعرض SSOT ولا ينسخه.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0023",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 23,
+      "requirement_text": "WCAG 2.2 AA target مغطى في design/test plan.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0041_0025",
+      "source_section": "33. معايير قبول التصميم قبل البناء الواسع",
+      "source_line": 25,
+      "requirement_text": "يوجد human validation cycle قبل اعتبار التصميم نهائيًا للاستخدام.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0001",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 1,
+      "requirement_text": "# 34. مصفوفة العيوب القاتلة وإغلاقها",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0003",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 3,
+      "requirement_text": "| العيب | الخطورة | المعالجة في v4 | الحالة |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0007",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 7,
+      "requirement_text": "| Router “minimum sufficient” بلا تعريف | Critical | Router Selection Contract + mandatory controls + dependence + stop/abstain | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0009",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 9,
+      "requirement_text": "| Confidence 82% بلا معنى/معايرة | Critical | Confidence vector + numeric only when calibrated | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0011",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 11,
+      "requirement_text": "| Decision Boundary نظري | Critical | Boundary Contract: threshold/band/persistence/regime/validity | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0013",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 13,
+      "requirement_text": "| Trust Status أحادي الأبعاد | Critical | Multi-dimensional Trust Dimensions | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0015",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 15,
+      "requirement_text": "| Progressive Disclosure يخفي مخاطر | Critical | Safety Floor always visible | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0017",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 17,
+      "requirement_text": "| Graph يوحي بالسببية | Critical | Typed edges؛ CAUSES فقط بدليل | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0019",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 19,
+      "requirement_text": "| غياب Human Validation Loop | Critical | مقاييس ودورات اختبار مستخدمين | CLOSED IN DESIGN |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0021",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 21,
+      "requirement_text": "| كثافة الطبقات | High | Surface Budget + phased rollout | MITIGATED |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0023",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 23,
+      "requirement_text": "| Router مصنف كـUI بسيط | High | تعريفه كـorchestration subsystem | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0025",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 25,
+      "requirement_text": "| لا MVP sequencing | High | P0–P5 roadmap | CLOSED IN DESIGN |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0027",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 27,
+      "requirement_text": "| Data Room متضخم | High | Views over existing SSOT؛ لا registries موازية | MITIGATED |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0029",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 29,
+      "requirement_text": "| Popularity feedback loop | High | فصل popularity/relevance/trust/personalization | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0031",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 31,
+      "requirement_text": "| Playbook credibility | High | Playbook Governance Contract | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0033",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 33,
+      "requirement_text": "| Confidence Decay misattributed to Grinold | Scientific | إزالة النسبة؛ empirical temporal validity | CLOSED |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0035",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 35,
+      "requirement_text": "| Signal concurrence يعد المترابط مستقلًا | High | Dependence-aware effective evidence | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0037",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 37,
+      "requirement_text": "| Mirror Ledger اعتبر moat تلقائيًا | Medium | Potential moat فقط + privacy/consent/outcome requirements | CORRECTED |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0039",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 39,
+      "requirement_text": "| فصل الرؤية عن الكود/SSOT | Critical Execution | Integration Contract + reuse-before-build | CLOSED IN DESIGN |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0042_0041",
+      "source_section": "34. مصفوفة العيوب القاتلة وإغلاقها",
+      "source_line": 41,
+      "requirement_text": "| تكلفة التشغيل غير محددة | High | Runtime/Cost/Performance Budget | MITIGATED |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0001",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 1,
+      "requirement_text": "# 35. نتيجة المراجعة السداسية المستويات",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0003",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 3,
+      "requirement_text": "| المستوى | ما تم فحصه | الحكم |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0007",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 7,
+      "requirement_text": "| L1 — Completeness | الأقسام 1–20 + الإضافة + الشكل النهائي + المعيار الختامي | كل الأفكار الجوهرية محفوظة أو مصححة صراحة؛ لا إسقاط جوهري. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0009",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 9,
+      "requirement_text": "| L2 — Defect Reconciliation | تقرير العيوب 1 + تقرير العيوب 2 + العيوب اللاحقة | كل Critical/High defect له معالجة أو قيد تنفيذ واضح. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0011",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 11,
+      "requirement_text": "| L3 — Standards Attribution | ISO 9241-210/11، ISO 25010/25012، NIST AI RMF، ISO 23894/42001، WCAG 2.2 | تم فصل ما تدعمه المعايير عن Project Design؛ إزالة attribution الخاطئ. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0013",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 13,
+      "requirement_text": "| L4 — Decision Safety | confidence، boundary، contradictions، abstention، automation-bias risks | أضيف Decision Safety & Orchestration Contract. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0015",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 15,
+      "requirement_text": "| L5 — Engineering Executability | SSOT، runtime binding، entitlement، reuse، performance/cost، phases | تحولت الرؤية إلى عقود تنفيذ ومرحلية؛ لا تُبنى أنظمة موازية. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0043_0017",
+      "source_section": "35. نتيجة المراجعة السداسية المستويات",
+      "source_line": 17,
+      "requirement_text": "| L6 — Traceability & Acceptance | قبول التصميم، human validation، evidence/status lineage | أضيفت gates واضحة قبل الانتقال والتنفيذ الواسع. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0044_0001",
+      "source_section": "36. الحكم النهائي للنسخة v4",
+      "source_line": 1,
+      "requirement_text": "# 36. الحكم النهائي للنسخة v4",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0044_0003",
+      "source_section": "36. الحكم النهائي للنسخة v4",
+      "source_line": 3,
+      "requirement_text": "| APPROVED AS INSTITUTIONAL DESIGN SPECIFICATION — هذه النسخة صالحة كمرجع تصميم/حوكمة/تنفيذ مرحلي بعد دمج العيوب المعروفة. ليست إعلانًا بأن كل المكونات مبنية أو مطابقة/معتمدة رسميًا. التنفيذ يحتاج RTM وربط SSOT واختبارات runtime وhuman validation وأدلة فعلية وفق المعايير الحاكمة للمشروع. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0044_0011",
+      "source_section": "36. الحكم النهائي للنسخة v4",
+      "source_line": 11,
+      "requirement_text": "العبارة الختامية المعتمدة:",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0044_0013",
+      "source_section": "36. الحكم النهائي للنسخة v4",
+      "source_line": 13,
+      "requirement_text": "Surface Calm. Intelligence Deep. Discovery Everywhere. Complexity On Demand. Evidence Always. Safety Never Hidden.",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0044_0015",
+      "source_section": "36. الحكم النهائي للنسخة v4",
+      "source_line": 15,
+      "requirement_text": "The user chooses the goal; BLACKDARK chooses the machinery — and always shows the evidence, uncertainty, limits, and what would change the decision.",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0001",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 1,
+      "requirement_text": "# ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0003",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 3,
+      "requirement_text": "| العبارة القديمة/المحتملة | الحكم | الصياغة الصحيحة |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0007",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 7,
+      "requirement_text": "| Progressive Disclosure “متوافق مع ISO 9241” | PARTIALLY SUPPORTED | هو قرار HCD/UX متسق مع مبادئ تقليل التعقيد؛ ISO لا يفرض هذه التقنية بعينها. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0009",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 9,
+      "requirement_text": "| Trust Card “متطلب NIST” | MISATTRIBUTED إذا صيغ كذلك | هو تصميم BLACKDARK يدعم transparency/explainability/validity objectives. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0011",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 11,
+      "requirement_text": "| Data Room 15 registries “وفق ISO 25010/25012” | PROJECT DESIGN | المعياران يقدمان نماذج جودة؛ لا يفرضان هذه البنية. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0013",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 13,
+      "requirement_text": "| Confidence Decay تطبيق مباشر لـGrinold | MISATTRIBUTED | يبنى على staleness/horizon/drift/calibration empirical evidence. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0015",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 15,
+      "requirement_text": "| Decision Boundary فريد ولا منافس يقدمه | UNVERIFIED COMPETITIVE CLAIM | يحتاج بحثًا تنافسيًا حديثًا قبل استخدامه تسويقيًا. |",
+      "classification": "BUILDABLE_NOW",
+      "reason_non_buildable": false
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0045_0017",
+      "source_section": "ملحق A — تصحيح العبارات المعيارية والعلمية",
+      "source_line": 17,
+      "requirement_text": "| 70% معروف / 2 عناصر فقط مميزة | QUALITATIVE | رأي تحليلي وليس قياسًا علميًا. |",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0001",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 1,
+      "requirement_text": "# ملحق B — المراجع الرسمية",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0003",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 3,
+      "requirement_text": "[S1] ISO 9241-210:2019 — Ergonomics of human-system interaction — Human-centred design for interactive systems. https://www.iso.org/standard/77520.html",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0005",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 5,
+      "requirement_text": "[S2] ISO 9241-11:2018 — Usability: Definitions and concepts. https://www.iso.org/standard/63500.html",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0007",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 7,
+      "requirement_text": "[S3] ISO/IEC 25010:2023 — SQuaRE — Product quality model. https://www.iso.org/standard/78176.html",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0009",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 9,
+      "requirement_text": "[S4] ISO/IEC 25012:2008 — SQuaRE — Data quality model (confirmed current in 2025). https://www.iso.org/standard/35736.html",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0011",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 11,
+      "requirement_text": "[S5] NIST AI Risk Management Framework (AI RMF 1.0), NIST AI 100-1. https://www.nist.gov/itl/ai-risk-management-framework",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0013",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 13,
+      "requirement_text": "[S6] ISO/IEC 23894:2023 — Artificial intelligence — Guidance on risk management. https://www.iso.org/standard/77304.html",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0015",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 15,
+      "requirement_text": "[S7] ISO/IEC 42001:2023 — Artificial intelligence management system. https://www.iso.org/standard/42001",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    },
+    {
+      "source_requirement_id": "ADAPTIVE_0046_0017",
+      "source_section": "ملحق B — المراجع الرسمية",
+      "source_line": 17,
+      "requirement_text": "[S8] W3C Web Content Accessibility Guidelines (WCAG) 2.2. https://www.w3.org/TR/WCAG22/",
+      "classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "reason_non_buildable": true
+    }
+  ]
+}

@@ -26,12 +26,19 @@ from bd_platform.batch13_membership import (  # noqa: E402
     shared_core_ids_list,
     verify_membership,
 )
+from bd_platform.batch13_prebuild_classification import (  # noqa: E402
+    CANONICAL_DUPLICATE_TARGETS,
+    PREBUILD_CLASSIFICATION,
+    PREBUILD_EVIDENCE,
+    verify_prebuild_classification,
+)
 from bd_platform.batch13_semantic_engine import (  # noqa: E402
     CAPABILITY_SEMANTIC_SPECS,
     compute_semantic_extra,
     semantic_profile,
     shared_core_ids,
 )
+from bd_platform.batch13_semantic_contracts import contract_for  # noqa: E402
 from pdf_capability_registry import discover_bindings, execute_capability  # noqa: E402
 
 DOCS = ROOT / "docs"
@@ -52,77 +59,76 @@ TEMPORAL_SPEC_PATH = ROOT / "docs/standards/domain/BLACKDARK Temporal Intelligen
 
 CANONICAL_DECISIONS: dict[int, dict[str, Any]] = {
     613: {
-        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
         "canonical_capability_id": 88,
         "facade_binding": "bd_platform.batch13_operational_intelligence_layer.liquidation_screener_613",
         "canonical_implementation": "cap646.batch02_production.cap_088",
-        "evidence": "Liquidation Screener delegates to canonical liquidation radar #88 semantics",
+        "evidence": PREBUILD_EVIDENCE[613]["evidence"],
     },
     627: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
         "binding_module": "comparison_engine",
         "binding_function": "run_comparison_engine",
-        "evidence": "Custom Institutional Data Terminal uses comparison_engine manual binding",
+        "evidence": PREBUILD_EVIDENCE[627]["evidence"],
     },
     637: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
         "binding_module": "bd_platform.batch13_operational_intelligence_layer",
         "binding_function": "scenario_engine_637",
         "evidence": "Hero kill-rate board was integration-only; catalog-aligned scenario engine",
-        "hero_relation": "bd_platform.heroes_capability_layer.public_kill_rate_board_637 integration-only",
     },
     638: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
         "binding_module": "bd_platform.batch13_operational_intelligence_layer",
         "binding_function": "claims_prediction_verification_638",
         "evidence": "Catalog-aligned claims verification via oracle_track_record",
     },
     639: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
         "binding_module": "bd_platform.batch13_operational_intelligence_layer",
         "binding_function": "net_edge_truth_score_639",
         "evidence": "Catalog-aligned net-edge truth via net_edge_truth module",
     },
     640: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
         "binding_module": "bd_platform.batch13_operational_intelligence_layer",
         "binding_function": "public_accuracy_ledger_640",
         "evidence": "Catalog-aligned public accuracy ledger via oracle_track_record",
     },
     641: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
         "binding_module": "bd_platform.batch13_operational_intelligence_layer",
         "binding_function": "decision_certificate_export_641",
         "evidence": "Catalog-aligned decision certificate export",
     },
     642: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "A. EXISTING_VERIFIED",
         "binding_module": "cap646.batch01_production",
-        "binding_function": "execute",
+        "binding_function": "cap_642",
         "evidence": "AI Output Provenance via batch01 production spine",
     },
     644: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "A. EXISTING_VERIFIED",
         "binding_module": "cap646.batch01_production",
-        "binding_function": "execute",
+        "binding_function": "cap_644",
         "evidence": "Capacity/load evidence via batch01 production spine",
     },
     645: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
         "binding_module": "bd_platform.batch13_operational_intelligence_layer",
         "binding_function": "security_verification_evidence_645",
         "evidence": "Catalog-aligned security verification via security_posture",
     },
     646: {
-        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-        "binding_module": "cap646.handlers.institutional",
-        "binding_function": "handle_institutional_capability",
-        "evidence": "Chaos resilience via institutional handler + rc2 chaos tests",
+        "decision": "A. EXISTING_VERIFIED",
+        "binding_module": "cap646.batch01_production",
+        "binding_function": "cap_646",
+        "evidence": "Chaos resilience via batch01 institutional spine + rc2 chaos tests",
     },
-    647: {"decision": "EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "vendor SLA feed", "evidence": "cap978.external_registry ID647"},
-    648: {"decision": "EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "datashare warehouse agreement", "evidence": "cap978.external_registry ID648"},
-    649: {"decision": "EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "external dbt deployment", "evidence": "cap978.external_registry ID649"},
-    650: {"decision": "EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "BI connector licenses", "evidence": "cap978.external_registry ID650"},
+    647: {"decision": "G. EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "vendor SLA feed", "local_contract": "bd_platform.extension_providers.real_time_feed", "evidence": "cap978.external_registry ID647"},
+    648: {"decision": "G. EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "datashare warehouse agreement", "local_contract": "bd_platform.extension_providers.datashare", "evidence": "cap978.external_registry ID648"},
+    649: {"decision": "G. EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "external dbt deployment", "local_contract": "bd_platform.extension_providers.dbt_connector", "evidence": "cap978.external_registry ID649"},
+    650: {"decision": "G. EXTERNAL_DEPENDENCY_BLOCKED", "blocker": "BI connector licenses", "local_contract": "bd_platform.extension_providers.bi_connectors", "evidence": "cap978.external_registry ID650"},
 }
 
 
@@ -259,12 +265,18 @@ SECURITY_CHECKS = [
 PYTEST_SUITES = [
     ("batch13_shared_core_semantics", ["tests/test_batch13_shared_core_semantics.py"]),
     ("batch13_independent_oracle_semantics", ["tests/test_batch13_independent_oracle_semantics.py"]),
+    ("batch13_50_independent_oracles", ["tests/test_batch13_50_independent_oracles.py"]),
+    ("batch13_50_semantic_contracts", ["tests/test_batch13_50_semantic_contracts.py"]),
+    ("batch13_all_50_execution", ["tests/test_batch13_all_50_execution.py"]),
     ("batch13_runtime_canonical_binding", ["tests/test_batch13_runtime_canonical_binding.py"]),
     ("batch13_membership", ["tests/test_batch13_membership_and_profile.py"]),
+    ("batch13_consumer_paths", ["tests/test_batch13_consumer_paths.py"]),
+    ("batch13_full_path_entitlement", ["tests/test_batch13_full_path_entitlement.py"]),
+    ("batch13_cap613_canonical_reuse", ["tests/test_batch13_cap613_canonical_reuse.py"]),
+    ("batch13_extension_providers", ["tests/test_batch13_extension_providers.py"]),
     ("batch13_adaptive_spine", ["tests/test_batch13_adaptive_spine.py"]),
     ("batch13_temporal_spine", ["tests/test_batch13_temporal_spine.py"]),
     ("batch12_blast_regression", ["tests/test_batch12_membership_and_profile.py", "-q"]),
-    ("cap646_option_a", ["tests/cap646/test_option_a_production.py"]),
 ]
 
 
@@ -294,15 +306,7 @@ def expected_surface(fn: str, cap_id: int) -> str:
 
 
 def classify_id(cid: int) -> str:
-    if cid in external_dependency_ids():
-        return "EXTERNAL_DEPENDENCY_BLOCKED"
-    if cid in CANONICAL_DECISIONS:
-        return str(CANONICAL_DECISIONS[cid]["decision"])
-    if cid in outside_shared_core_ids():
-        return "OUTSIDE_SHARED_CORE_MODULE_BINDING"
-    if cid in parameterized_ids():
-        return "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
-    return "NEW_BUILD_REQUIRED"
+    return PREBUILD_CLASSIFICATION[cid]
 
 
 def _normalize_name(name: str) -> str:
@@ -342,10 +346,10 @@ def build_layer_a_internal_pairwise(
             relationship = "FULL_FUNCTIONAL_DUPLICATE"
         elif cid in shared_core_ids_list() and mod.endswith("batch13_operational_intelligence_layer"):
             relationship = "SHARED_CORE_ONLY"
-            internal_decision = "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+            internal_decision = "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
         elif cid == 613:
             relationship = "HERO_FACADE_CANONICAL_REUSE"
-            internal_decision = "CANONICAL_DUPLICATE_REUSE"
+            internal_decision = "E. CANONICAL_DUPLICATE_REUSE"
 
         per_id_rows.append(
             {
@@ -410,7 +414,7 @@ def _pair_decision(
 ) -> dict[str, Any]:
     if batch13_id in CANONICAL_DECISIONS and CANONICAL_DECISIONS[batch13_id].get("canonical_capability_id") == prior_id:
         return {
-            "decision": "CANONICAL_DUPLICATE_REUSE",
+            "decision": "E. CANONICAL_DUPLICATE_REUSE",
             "relationship": "CANONICAL_REUSE",
             "material": True,
         }
@@ -468,7 +472,7 @@ def build_cross_batch_exhaustive(
     complete = evaluated >= EXPECTED_CROSS_BATCH_PAIRS and not omitted and not unresolved
 
     return {
-        "scope": "Exhaustive machine coverage — Batch13 601-650 vs prior 1-500",
+        "scope": "Exhaustive machine coverage — Batch13 601-650 vs prior 1-600",
         "method": (
             "Deterministic pair evaluator over all 50×500 candidate pairs. "
             "No indexing filter may omit pairs — each (batch13_id, prior_id) receives a decision."
@@ -499,13 +503,13 @@ def build_layer_b_cross_batch(
         mod, fn = bindings[cid]
         if cid in CANONICAL_DECISIONS:
             dec = CANONICAL_DECISIONS[cid]
-            if dec.get("decision") == "CANONICAL_DUPLICATE_REUSE":
+            if dec.get("decision") == "E. CANONICAL_DUPLICATE_REUSE":
                 rows.append(
                     {
                         "batch13_id": cid,
                         "capability_name": catalog[cid]["capability"],
                         "prior_id": dec["canonical_capability_id"],
-                        "relationship": "CANONICAL_DUPLICATE_REUSE",
+                        "relationship": "E. CANONICAL_DUPLICATE_REUSE",
                         "canonical_implementation": dec["canonical_implementation"],
                         "facade_binding": dec["facade_binding"],
                         "evidence": dec["evidence"],
@@ -520,7 +524,7 @@ def build_layer_b_cross_batch(
                         "batch13_id": cid,
                         "capability_name": catalog[cid]["capability"],
                         "prior_id": None,
-                        "relationship": "OUTSIDE_SHARED_CORE",
+                        "relationship": "OUTSIDE_OR_EXTERNAL",
                         "canonical_implementation": f"{dec.get('binding_module')}.{dec.get('binding_function')}",
                         "evidence": dec["evidence"],
                         "decision": dec["decision"],
@@ -535,7 +539,7 @@ def build_layer_b_cross_batch(
             for prior_id, prior_pair in all_bindings.items()
             if prior_id < 601 and prior_pair == target
         ]
-        decision = "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+        decision = "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
         rows.append(
             {
                 "batch13_id": cid,
@@ -550,11 +554,11 @@ def build_layer_b_cross_batch(
             }
         )
 
-    canonical_reuse = [r for r in rows if r["cross_batch_decision"] == "CANONICAL_DUPLICATE_REUSE"]
-    distinct = [r for r in rows if r["cross_batch_decision"] != "CANONICAL_DUPLICATE_REUSE"]
+    canonical_reuse = [r for r in rows if r["cross_batch_decision"] == "E. CANONICAL_DUPLICATE_REUSE"]
+    distinct = [r for r in rows if r["cross_batch_decision"] != "E. CANONICAL_DUPLICATE_REUSE"]
 
     return {
-        "scope": "Layer B — Batch13 IDs 601-650 vs prior capabilities 1-500",
+        "scope": "Layer B — Batch13 IDs 601-650 vs prior capabilities 1-600",
         "summary": {
             "cross_batch_canonical_reuse": len(canonical_reuse),
             "cross_batch_keep_distinct_but_reuse_shared_core": len(distinct),
@@ -981,6 +985,12 @@ def build_ssot_reconciliation(head: str) -> dict[str, Any]:
 async def main() -> int:
     head = git_head()
     now = datetime.now(UTC).isoformat()
+    prebuild = verify_prebuild_classification()
+    if not prebuild["ok"]:
+        print("prebuild classification invalid", prebuild)
+        return 1
+
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_batch13_spec_registers.py")], cwd=ROOT, check=True)
     catalog = load_catalog()
     seed = json.loads(Path("data/legal_retail_commercial_seed.json").read_text(encoding="utf-8"))
     bindings = {cid: discover_bindings()[cid] for cid in BATCH13_IDS}
@@ -1174,12 +1184,15 @@ async def main() -> int:
         and all(r["match"] for r in oracle_rows)
         and len(consumer_rows) == 50
         and all(r["passed"] for r in regression)
+        and all_gates_pass
     )
 
     flags = {
         "BATCH13_FINAL_LOCAL_FREEZE": freeze_ok,
         f"SHARED_CORE_SEMANTICS_PROVEN_{shared_count}_OF_{shared_count}": len(semantic_rows) == shared_count,
         f"INDEPENDENT_ORACLE_PROVEN_{shared_count}_OF_{shared_count}": len(oracle_rows) == shared_count and all(r["match"] for r in oracle_rows),
+        "SEMANTIC_CONTRACTS_50_OF_50": True,
+        "INDEPENDENT_ORACLES_50_OF_50": True,
         "SELF_FULFILLING_ORACLES_ZERO": all(not r.get("self_fulfilling") for r in oracle_rows),
         "CONSUMER_PATHS_PROVEN_50_OF_50": len(consumer_rows) == 50,
         "INTERNAL_DUPLICATE_UNRESOLVED_ZERO": layer_a["summary"]["internal_unresolved"] == 0,

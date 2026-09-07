@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_CONSUMER_PATH_EVIDENCE",
-  "generated_at_utc": "2026-09-07T19:31:56.637132+00:00",
-  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "generated_at_utc": "2026-09-07T20:45:59.065756+00:00",
+  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
   "consumer_paths_accounted": "50/50",
   "generic_gateway_as_sole_evidence": 0,
   "unresolved_consumer_path_gap": 0,
@@ -21,8 +21,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 602,
@@ -39,8 +39,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 603,
@@ -57,8 +57,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 604,
@@ -75,8 +75,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 605,
@@ -93,8 +93,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 606,
@@ -111,8 +111,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 607,
@@ -129,8 +129,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 608,
@@ -147,8 +147,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 609,
@@ -165,8 +165,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 610,
@@ -183,8 +183,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 611,
@@ -201,8 +201,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 612,
@@ -219,8 +219,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 613,
@@ -237,8 +237,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "CANONICAL_DUPLICATE_REUSE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 614,
@@ -255,8 +255,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 615,
@@ -273,8 +273,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 616,
@@ -291,8 +291,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 617,
@@ -309,8 +309,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 618,
@@ -327,8 +327,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 619,
@@ -345,8 +345,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 620,
@@ -363,8 +363,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 621,
@@ -381,8 +381,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 622,
@@ -399,8 +399,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 623,
@@ -417,8 +417,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 624,
@@ -435,8 +435,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 625,
@@ -453,8 +453,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 626,
@@ -471,8 +471,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 627,
@@ -489,8 +489,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 628,
@@ -507,8 +507,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 629,
@@ -525,8 +525,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "A. EXISTING_VERIFIED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 630,
@@ -543,8 +543,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 631,
@@ -561,8 +561,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "A. EXISTING_VERIFIED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 632,
@@ -579,8 +579,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 633,
@@ -597,8 +597,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 634,
@@ -615,8 +615,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 635,
@@ -624,7 +624,7 @@
       "required_consumer_mode": "API",
       "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
       "entrypoint": "/api/cap646/635",
-      "downstream_implementation": "bd_platform.heroes_capability_layer.trad_simulator_635",
+      "downstream_implementation": "bd_platform.batch13_operational_intelligence_layer.unified_arbitrage_opportunity_engine_635",
       "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
         "tests/test_batch13_consumer_paths.py",
@@ -633,8 +633,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 636,
@@ -651,8 +651,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 637,
@@ -669,8 +669,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 638,
@@ -687,8 +687,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 639,
@@ -705,8 +705,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 640,
@@ -723,8 +723,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 641,
@@ -741,8 +741,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 642,
@@ -750,7 +750,7 @@
       "required_consumer_mode": "API",
       "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
       "entrypoint": "/api/cap646/642",
-      "downstream_implementation": "cap646.batch01_production.execute",
+      "downstream_implementation": "cap646.batch01_production.cap_642",
       "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
         "tests/test_batch13_consumer_paths.py",
@@ -759,8 +759,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "A. EXISTING_VERIFIED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 643,
@@ -777,8 +777,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 644,
@@ -786,7 +786,7 @@
       "required_consumer_mode": "API",
       "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
       "entrypoint": "/api/cap646/644",
-      "downstream_implementation": "cap646.batch01_production.execute",
+      "downstream_implementation": "cap646.batch01_production.cap_644",
       "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
         "tests/test_batch13_consumer_paths.py",
@@ -795,8 +795,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "A. EXISTING_VERIFIED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 645,
@@ -813,8 +813,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 646,
@@ -822,7 +822,7 @@
       "required_consumer_mode": "API",
       "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
       "entrypoint": "/api/cap646/646",
-      "downstream_implementation": "cap646.handlers.institutional.handle_institutional_capability",
+      "downstream_implementation": "cap646.batch01_production.cap_646",
       "final_consumer_output": "JSON insight payload via dashboard API",
       "test_evidence": [
         "tests/test_batch13_consumer_paths.py",
@@ -831,8 +831,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "A. EXISTING_VERIFIED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 647,
@@ -849,8 +849,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 648,
@@ -867,8 +867,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 649,
@@ -885,8 +885,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     },
     {
       "capability_id": 650,
@@ -903,8 +903,8 @@
       "locally_testable": true,
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
+      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
     }
   ]
 }

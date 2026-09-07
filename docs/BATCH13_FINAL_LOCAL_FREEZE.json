@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-07T19:31:56.637132+00:00",
-  "final_head": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "generated_at_utc": "2026-09-07T20:45:59.065756+00:00",
+  "final_head": "53f698bf0848305b498049a1f3800b021fbacd78",
   "branch": "cursor/batch13-601-650-ed16",
   "capability_range": "601-650",
   "formal_gate_provenance": "docs/BATCH13_FORMAL_GATE_PROVENANCE.json",
@@ -10,8 +10,8 @@
   "consumer_paths": "docs/BATCH13_CONSUMER_PATH_EVIDENCE.json",
   "regression": "docs/BATCH13_CROSS_BATCH_REGRESSION.json",
   "ssot_reconciliation": "docs/BATCH13_SSOT_RECONCILIATION.json",
-  "flags": {
-    "BATCH13_FINAL_LOCAL_FREEZE": true,
+    "flags": {
+    "BATCH13_FINAL_LOCAL_FREEZE": false,
     "SHARED_CORE_SEMANTICS_PROVEN_33_OF_33": true,
     "INDEPENDENT_ORACLE_PROVEN_33_OF_33": true,
     "SELF_FULFILLING_ORACLES_ZERO": true,

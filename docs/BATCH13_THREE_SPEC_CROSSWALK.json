@@ -1,42 +1,207 @@
 {
-  "generated_at_utc": "2026-09-07T19:31:56.582623+00:00",
-  "git_head": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
-  "shared_implementations": [
-    {
-      "requirement": "evidence_class",
-      "implementation": "cap646/evidence_class.py",
-      "specs": [
-        "v4_v2",
-        "temporal",
-        "adaptive"
-      ]
-    },
-    {
-      "requirement": "decision_contract",
-      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
-      "specs": [
-        "adaptive",
-        "temporal"
-      ]
-    },
-    {
-      "requirement": "temporal_leakage_firewall",
-      "implementation": "temporal_leakage_firewall.py",
-      "specs": [
-        "v4_v2",
-        "temporal"
-      ]
-    },
-    {
-      "requirement": "failure_corpus",
-      "implementation": "failure_corpus.py",
-      "specs": [
-        "v4_v2",
-        "temporal"
-      ]
-    }
-  ],
+  "generated_at_utc": "2026-09-07T20:45:59.201218+00:00",
+  "git_head": "53f698bf0848305b498049a1f3800b021fbacd78",
+  "THREE_SPEC_ALL_REQUIREMENTS_CROSSWALKED": true,
   "THREE_SPEC_SHARED_IMPLEMENTATIONS_RECONCILED": true,
-  "THREE_SPEC_PARALLEL_DUPLICATE_SYSTEMS_ZERO": true,
-  "THREE_SPEC_ACTIVE_CONFLICTS": []
+  "THREE_SPEC_PARALLEL_DUPLICATE_SYSTEMS": [],
+  "THREE_SPEC_ACTIVE_CONFLICTS": [],
+  "THREE_SPEC_LOCAL_SOLVABLE_GAPS": [],
+  "overlaps": [
+    {
+      "topic": "provenance",
+      "v4_v2_ids": [
+        "V4V2_U0042",
+        "V4V2_U0286",
+        "V4V2_U0318",
+        "V4V2_U0333",
+        "V4V2_U0340"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0012",
+        "TEMPORAL_U0027",
+        "TEMPORAL_U0069",
+        "TEMPORAL_U0103",
+        "TEMPORAL_U0125"
+      ],
+      "adaptive_ids": [
+        "ADAPTIVE_U0258"
+      ],
+      "shared_implementation": "cap646/evidence_class.py + reproducibility_manifest.py"
+    },
+    {
+      "topic": "ledger",
+      "v4_v2_ids": [
+        "V4V2_U0031",
+        "V4V2_U0129",
+        "V4V2_U0142",
+        "V4V2_U0152",
+        "V4V2_U0176"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0012",
+        "TEMPORAL_U0029",
+        "TEMPORAL_U0035",
+        "TEMPORAL_U0101",
+        "TEMPORAL_U0173"
+      ],
+      "adaptive_ids": [
+        "ADAPTIVE_U0030",
+        "ADAPTIVE_U0187",
+        "ADAPTIVE_U0210"
+      ],
+      "shared_implementation": "signal_registry.py + decision_ledger.py"
+    },
+    {
+      "topic": "replay",
+      "v4_v2_ids": [
+        "V4V2_U0150",
+        "V4V2_U0172",
+        "V4V2_U0184",
+        "V4V2_U0214",
+        "V4V2_U0273"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0025",
+        "TEMPORAL_U0027",
+        "TEMPORAL_U0060",
+        "TEMPORAL_U0061",
+        "TEMPORAL_U0065"
+      ],
+      "adaptive_ids": [
+        "ADAPTIVE_U0033",
+        "ADAPTIVE_U0049",
+        "ADAPTIVE_U0132",
+        "ADAPTIVE_U0133",
+        "ADAPTIVE_U0194"
+      ],
+      "shared_implementation": "temporal_leakage_firewall.py"
+    },
+    {
+      "topic": "confidence",
+      "v4_v2_ids": [
+        "V4V2_U0048",
+        "V4V2_U0200",
+        "V4V2_U0288",
+        "V4V2_U0410",
+        "V4V2_U0411"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0008",
+        "TEMPORAL_U0011",
+        "TEMPORAL_U0145",
+        "TEMPORAL_U0200",
+        "TEMPORAL_U0237"
+      ],
+      "adaptive_ids": [
+        "ADAPTIVE_U0026",
+        "ADAPTIVE_U0028",
+        "ADAPTIVE_U0044",
+        "ADAPTIVE_U0089",
+        "ADAPTIVE_U0092"
+      ],
+      "shared_implementation": "bd_platform/adaptive_intelligence/decision_contract.py"
+    },
+    {
+      "topic": "trust",
+      "v4_v2_ids": [
+        "V4V2_U0076",
+        "V4V2_U0113",
+        "V4V2_U0126",
+        "V4V2_U0134",
+        "V4V2_U0259"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0151",
+        "TEMPORAL_U0235",
+        "TEMPORAL_U0254"
+      ],
+      "adaptive_ids": [
+        "ADAPTIVE_U0010",
+        "ADAPTIVE_U0136",
+        "ADAPTIVE_U0193",
+        "ADAPTIVE_U0204",
+        "ADAPTIVE_U0219"
+      ],
+      "shared_implementation": "bd_platform/adaptive_intelligence/progressive_disclosure.py"
+    },
+    {
+      "topic": "entitlement",
+      "v4_v2_ids": [
+        "V4V2_U0218",
+        "V4V2_U0595",
+        "V4V2_U0704",
+        "V4V2_U0706",
+        "V4V2_U0941"
+      ],
+      "temporal_ids": [],
+      "adaptive_ids": [
+        "ADAPTIVE_U0032",
+        "ADAPTIVE_U0068",
+        "ADAPTIVE_U0128",
+        "ADAPTIVE_U0129",
+        "ADAPTIVE_U0176"
+      ],
+      "shared_implementation": "cap646/entitlements.py"
+    },
+    {
+      "topic": "registry",
+      "v4_v2_ids": [
+        "V4V2_U0050",
+        "V4V2_U0051",
+        "V4V2_U0066",
+        "V4V2_U0107",
+        "V4V2_U0197"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0024",
+        "TEMPORAL_U0039"
+      ],
+      "adaptive_ids": [
+        "ADAPTIVE_U0111"
+      ],
+      "shared_implementation": "pdf_capability_registry.py"
+    },
+    {
+      "topic": "storage",
+      "v4_v2_ids": [
+        "V4V2_U0191",
+        "V4V2_U0227",
+        "V4V2_U0324",
+        "V4V2_U0491",
+        "V4V2_U0732"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0027",
+        "TEMPORAL_U0241",
+        "TEMPORAL_U0377"
+      ],
+      "adaptive_ids": [],
+      "shared_implementation": "hot_storage.py + data_lake.py"
+    },
+    {
+      "topic": "evidence",
+      "v4_v2_ids": [
+        "V4V2_U0022",
+        "V4V2_U0034",
+        "V4V2_U0065",
+        "V4V2_U0079",
+        "V4V2_U0085"
+      ],
+      "temporal_ids": [
+        "TEMPORAL_U0003",
+        "TEMPORAL_U0007",
+        "TEMPORAL_U0009",
+        "TEMPORAL_U0010",
+        "TEMPORAL_U0012"
+      ],
+      "adaptive_ids": [
+        "ADAPTIVE_U0016",
+        "ADAPTIVE_U0020",
+        "ADAPTIVE_U0046",
+        "ADAPTIVE_U0047",
+        "ADAPTIVE_U0049"
+      ],
+      "shared_implementation": "evaluation_contamination_registry.py"
+    }
+  ]
 }

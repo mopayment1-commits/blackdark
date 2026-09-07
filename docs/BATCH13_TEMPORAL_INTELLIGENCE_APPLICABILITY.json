@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_TEMPORAL_INTELLIGENCE_APPLICABILITY",
-  "generated_at_utc": "2026-09-07T19:32:04.301704+00:00",
-  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "generated_at_utc": "2026-09-07T20:46:54.588562+00:00",
+  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
   "temporal_spec_authority": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
   "scope": "Temporal Intelligence control delta mapping — Batch13 601-650",
   "controls_delta": {
@@ -108,7 +108,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 602,
@@ -163,7 +163,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 603,
@@ -218,7 +218,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 604,
@@ -273,7 +273,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 605,
@@ -328,7 +328,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 606,
@@ -383,7 +383,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 607,
@@ -438,7 +438,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 608,
@@ -493,7 +493,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 609,
@@ -548,7 +548,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 610,
@@ -603,7 +603,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 611,
@@ -658,7 +658,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 612,
@@ -713,7 +713,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 613,
@@ -768,7 +768,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "CANONICAL_DUPLICATE_REUSE"
+      "classification": "E. CANONICAL_DUPLICATE_REUSE"
     },
     {
       "capability_id": 614,
@@ -823,7 +823,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 615,
@@ -878,7 +878,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 616,
@@ -933,7 +933,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 617,
@@ -988,7 +988,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 618,
@@ -1043,7 +1043,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 619,
@@ -1098,7 +1098,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 620,
@@ -1153,7 +1153,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 621,
@@ -1208,7 +1208,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 622,
@@ -1263,7 +1263,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 623,
@@ -1318,7 +1318,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 624,
@@ -1373,7 +1373,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 625,
@@ -1428,7 +1428,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 626,
@@ -1483,7 +1483,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 627,
@@ -1538,7 +1538,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 628,
@@ -1593,7 +1593,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 629,
@@ -1648,7 +1648,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "A. EXISTING_VERIFIED"
     },
     {
       "capability_id": 630,
@@ -1703,7 +1703,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 631,
@@ -1758,7 +1758,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "A. EXISTING_VERIFIED"
     },
     {
       "capability_id": 632,
@@ -1813,7 +1813,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 633,
@@ -1868,7 +1868,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 634,
@@ -1923,7 +1923,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 635,
@@ -1978,7 +1978,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 636,
@@ -2033,7 +2033,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 637,
@@ -2088,7 +2088,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 638,
@@ -2143,7 +2143,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 639,
@@ -2198,7 +2198,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 640,
@@ -2253,7 +2253,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 641,
@@ -2308,7 +2308,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 642,
@@ -2363,7 +2363,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "A. EXISTING_VERIFIED"
     },
     {
       "capability_id": 643,
@@ -2418,7 +2418,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
     },
     {
       "capability_id": 644,
@@ -2473,7 +2473,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "A. EXISTING_VERIFIED"
     },
     {
       "capability_id": 645,
@@ -2528,7 +2528,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "B. EXISTING_NEEDS_EXTENSION"
     },
     {
       "capability_id": 646,
@@ -2583,7 +2583,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      "classification": "A. EXISTING_VERIFIED"
     },
     {
       "capability_id": 647,
@@ -2638,7 +2638,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED"
     },
     {
       "capability_id": 648,
@@ -2693,7 +2693,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED"
     },
     {
       "capability_id": 649,
@@ -2748,7 +2748,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED"
     },
     {
       "capability_id": 650,
@@ -2803,7 +2803,7 @@
           "rationale": "Semantic engine + independent oracles provide deterministic local reproduction"
         }
       },
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED"
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED"
     }
   ]
 }

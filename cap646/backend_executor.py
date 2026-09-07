@@ -122,7 +122,7 @@ def _success_from_result(result: Any) -> bool:
     if result is None:
         return False
     if isinstance(result, dict):
-        if result.get("success") is False:
+        if result.get("success") is False or result.get("ok") is False:
             return False
         # Rankings / list-shaped payloads executed even when vendor empty
         if "coins" in result and isinstance(result["coins"], list):

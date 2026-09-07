@@ -56,6 +56,14 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "symbol",
         "canonical_duplicate_reuse_88",
     ),
+    613: BackendBinding(
+        613,
+        "cap646.batch02_production",
+        "cap_088",
+        "liquidation_screener",
+        "symbol",
+        "canonical_duplicate_reuse_88",
+    ),
     578: BackendBinding(
         578,
         "bd_platform.institutional_delivery_intelligence_layer",
@@ -395,6 +403,22 @@ def resolve_binding(capability_id: int) -> BackendBinding:
         return explicit
 
     if 551 <= capability_id <= 600:
+        pdf = _pdf_registry_bindings().get(capability_id)
+        if pdf is not None:
+            mod, entrypoint = pdf
+            row = catalog_by_id()[capability_id]
+            surface = _slug(row["capability"])
+            param_style = _infer_param_style(mod, entrypoint)
+            return BackendBinding(
+                capability_id,
+                mod,
+                entrypoint,
+                surface,
+                param_style,
+                "pdf_capability_registry",
+            )
+
+    if 601 <= capability_id <= 650:
         pdf = _pdf_registry_bindings().get(capability_id)
         if pdf is not None:
             mod, entrypoint = pdf

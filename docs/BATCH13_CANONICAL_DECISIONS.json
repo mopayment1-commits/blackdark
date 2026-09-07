@@ -1,94 +1,97 @@
 {
   "artifact": "BATCH13_CANONICAL_DECISIONS",
-  "generated_at_utc": "2026-09-07T19:31:56.637132+00:00",
-  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "generated_at_utc": "2026-09-07T20:45:59.065756+00:00",
+  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
   "decisions": {
     "613": {
-      "decision": "CANONICAL_DUPLICATE_REUSE",
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
       "canonical_capability_id": 88,
       "facade_binding": "bd_platform.batch13_operational_intelligence_layer.liquidation_screener_613",
       "canonical_implementation": "cap646.batch02_production.cap_088",
       "evidence": "Liquidation Screener delegates to canonical liquidation radar #88 semantics"
     },
     "627": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "B. EXISTING_NEEDS_EXTENSION",
       "binding_module": "comparison_engine",
       "binding_function": "run_comparison_engine",
       "evidence": "Custom Institutional Data Terminal uses comparison_engine manual binding"
     },
     "637": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "B. EXISTING_NEEDS_EXTENSION",
       "binding_module": "bd_platform.batch13_operational_intelligence_layer",
       "binding_function": "scenario_engine_637",
-      "evidence": "Hero kill-rate board was integration-only; catalog-aligned scenario engine",
-      "hero_relation": "bd_platform.heroes_capability_layer.public_kill_rate_board_637 integration-only"
+      "evidence": "Hero kill-rate board was integration-only; catalog-aligned scenario engine"
     },
     "638": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "B. EXISTING_NEEDS_EXTENSION",
       "binding_module": "bd_platform.batch13_operational_intelligence_layer",
       "binding_function": "claims_prediction_verification_638",
       "evidence": "Catalog-aligned claims verification via oracle_track_record"
     },
     "639": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "B. EXISTING_NEEDS_EXTENSION",
       "binding_module": "bd_platform.batch13_operational_intelligence_layer",
       "binding_function": "net_edge_truth_score_639",
       "evidence": "Catalog-aligned net-edge truth via net_edge_truth module"
     },
     "640": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "B. EXISTING_NEEDS_EXTENSION",
       "binding_module": "bd_platform.batch13_operational_intelligence_layer",
       "binding_function": "public_accuracy_ledger_640",
       "evidence": "Catalog-aligned public accuracy ledger via oracle_track_record"
     },
     "641": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "B. EXISTING_NEEDS_EXTENSION",
       "binding_module": "bd_platform.batch13_operational_intelligence_layer",
       "binding_function": "decision_certificate_export_641",
       "evidence": "Catalog-aligned decision certificate export"
     },
     "642": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "A. EXISTING_VERIFIED",
       "binding_module": "cap646.batch01_production",
-      "binding_function": "execute",
+      "binding_function": "cap_642",
       "evidence": "AI Output Provenance via batch01 production spine"
     },
     "644": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "A. EXISTING_VERIFIED",
       "binding_module": "cap646.batch01_production",
-      "binding_function": "execute",
+      "binding_function": "cap_644",
       "evidence": "Capacity/load evidence via batch01 production spine"
     },
     "645": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "decision": "B. EXISTING_NEEDS_EXTENSION",
       "binding_module": "bd_platform.batch13_operational_intelligence_layer",
       "binding_function": "security_verification_evidence_645",
       "evidence": "Catalog-aligned security verification via security_posture"
     },
     "646": {
-      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
-      "binding_module": "cap646.handlers.institutional",
-      "binding_function": "handle_institutional_capability",
-      "evidence": "Chaos resilience via institutional handler + rc2 chaos tests"
+      "decision": "A. EXISTING_VERIFIED",
+      "binding_module": "cap646.batch01_production",
+      "binding_function": "cap_646",
+      "evidence": "Chaos resilience via batch01 institutional spine + rc2 chaos tests"
     },
     "647": {
-      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "decision": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "blocker": "vendor SLA feed",
+      "local_contract": "bd_platform.extension_providers.real_time_feed",
       "evidence": "cap978.external_registry ID647"
     },
     "648": {
-      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "decision": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "blocker": "datashare warehouse agreement",
+      "local_contract": "bd_platform.extension_providers.datashare",
       "evidence": "cap978.external_registry ID648"
     },
     "649": {
-      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "decision": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "blocker": "external dbt deployment",
+      "local_contract": "bd_platform.extension_providers.dbt_connector",
       "evidence": "cap978.external_registry ID649"
     },
     "650": {
-      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "decision": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "blocker": "BI connector licenses",
+      "local_contract": "bd_platform.extension_providers.bi_connectors",
       "evidence": "cap978.external_registry ID650"
     }
   },

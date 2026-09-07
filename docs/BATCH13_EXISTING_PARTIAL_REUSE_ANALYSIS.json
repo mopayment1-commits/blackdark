@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_EXISTING_PARTIAL_REUSE_ANALYSIS",
-  "generated_at_utc": "2026-09-07T19:32:04.289247+00:00",
-  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "generated_at_utc": "2026-09-07T20:46:54.574431+00:00",
+  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
   "scope": "v4_v2 domain spec + Temporal Intelligence controls — Batch13 601-650",
   "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
   "temporal_spec_authority": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
@@ -16,7 +16,7 @@
     {
       "capability_id": 601,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -132,7 +132,7 @@
     {
       "capability_id": 602,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -248,7 +248,7 @@
     {
       "capability_id": 603,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -364,7 +364,7 @@
     {
       "capability_id": 604,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -480,7 +480,7 @@
     {
       "capability_id": 605,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -596,7 +596,7 @@
     {
       "capability_id": 606,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -712,7 +712,7 @@
     {
       "capability_id": 607,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -828,7 +828,7 @@
     {
       "capability_id": 608,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -944,7 +944,7 @@
     {
       "capability_id": 609,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1060,7 +1060,7 @@
     {
       "capability_id": 610,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1176,7 +1176,7 @@
     {
       "capability_id": 611,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1292,7 +1292,7 @@
     {
       "capability_id": 612,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1408,7 +1408,7 @@
     {
       "capability_id": 613,
       "capability_type": "operational_market_intelligence",
-      "classification": "CANONICAL_DUPLICATE_REUSE",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1524,7 +1524,7 @@
     {
       "capability_id": 614,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1640,7 +1640,7 @@
     {
       "capability_id": 615,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1756,7 +1756,7 @@
     {
       "capability_id": 616,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1872,7 +1872,7 @@
     {
       "capability_id": 617,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -1988,7 +1988,7 @@
     {
       "capability_id": 618,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2104,7 +2104,7 @@
     {
       "capability_id": 619,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2220,7 +2220,7 @@
     {
       "capability_id": 620,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2336,7 +2336,7 @@
     {
       "capability_id": 621,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2452,7 +2452,7 @@
     {
       "capability_id": 622,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2568,7 +2568,7 @@
     {
       "capability_id": 623,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2684,7 +2684,7 @@
     {
       "capability_id": 624,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2800,7 +2800,7 @@
     {
       "capability_id": 625,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -2916,7 +2916,7 @@
     {
       "capability_id": 626,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3032,7 +3032,7 @@
     {
       "capability_id": 627,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3148,7 +3148,7 @@
     {
       "capability_id": 628,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3264,7 +3264,7 @@
     {
       "capability_id": 629,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "A. EXISTING_VERIFIED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3380,7 +3380,7 @@
     {
       "capability_id": 630,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3496,7 +3496,7 @@
     {
       "capability_id": 631,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "A. EXISTING_VERIFIED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3612,7 +3612,7 @@
     {
       "capability_id": 632,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3728,7 +3728,7 @@
     {
       "capability_id": 633,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3844,7 +3844,7 @@
     {
       "capability_id": 634,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -3960,7 +3960,7 @@
     {
       "capability_id": 635,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4076,7 +4076,7 @@
     {
       "capability_id": 636,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4192,7 +4192,7 @@
     {
       "capability_id": 637,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4308,7 +4308,7 @@
     {
       "capability_id": 638,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4424,7 +4424,7 @@
     {
       "capability_id": 639,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4540,7 +4540,7 @@
     {
       "capability_id": 640,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4656,7 +4656,7 @@
     {
       "capability_id": 641,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4772,7 +4772,7 @@
     {
       "capability_id": 642,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "A. EXISTING_VERIFIED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -4888,7 +4888,7 @@
     {
       "capability_id": 643,
       "capability_type": "operational_market_intelligence",
-      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -5004,7 +5004,7 @@
     {
       "capability_id": 644,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "A. EXISTING_VERIFIED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -5120,7 +5120,7 @@
     {
       "capability_id": 645,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "B. EXISTING_NEEDS_EXTENSION",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -5236,7 +5236,7 @@
     {
       "capability_id": 646,
       "capability_type": "operational_market_intelligence",
-      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "classification": "A. EXISTING_VERIFIED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -5352,7 +5352,7 @@
     {
       "capability_id": 647,
       "capability_type": "operational_market_intelligence",
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -5468,7 +5468,7 @@
     {
       "capability_id": 648,
       "capability_type": "operational_market_intelligence",
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -5584,7 +5584,7 @@
     {
       "capability_id": 649,
       "capability_type": "operational_market_intelligence",
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {
@@ -5700,7 +5700,7 @@
     {
       "capability_id": 650,
       "capability_type": "operational_market_intelligence",
-      "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
       "domain_spec_v4_v2": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
       "temporal_intelligence_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
       "domain_spec_accumulation_core": {

@@ -188,14 +188,25 @@ def spread_calculation_engine_612(*, symbol: str = "BTC", seed: dict[str, Any] |
         extra=compute_semantic_extra(612, symbol=symbol, seed=seed),
     )
 
-def liquidation_screener_613(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Liquidation_Screener (#613)."""
+async def liquidation_screener_613(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Liquidation_Screener (#613) — facade delegating to canonical #88 semantics."""
+    from cap646.batch02_production import cap_088
+
     seed = seed or _load_seed()
+    canonical = await cap_088(symbol=symbol, params={"symbol": symbol})
+    semantic = compute_semantic_extra(613, symbol=symbol, seed=seed)
     return _base(
         613,
         symbol=symbol,
         seed=seed,
-        extra=compute_semantic_extra(613, symbol=symbol, seed=seed),
+        extra={
+            "canonical_reuse_of": 88,
+            "surface": canonical.get("surface"),
+            "liquidation": canonical.get("liquidation"),
+            "underlying": canonical,
+            "screener_semantic": semantic,
+            **semantic,
+        },
     )
 
 def dex_liquidity_listener_614(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -398,12 +409,12 @@ def end_to_end_decision_traceability_643(*, symbol: str = "BTC", seed: dict[str,
         extra=compute_semantic_extra(643, symbol=symbol, seed=seed),
     )
 
-def scenario_engine_637(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
+async def scenario_engine_637(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Scenario Engine (#637) — catalog-aligned semantics."""
     from trust_pulse import build_trust_pulse
+
     seed = seed or _load_seed()
-    import asyncio
-    underlying = asyncio.run(build_trust_pulse(symbol=symbol))
+    underlying = await build_trust_pulse(symbol=symbol)
     return _base(
         637,
         symbol=symbol,
@@ -513,78 +524,50 @@ def security_verification_evidence_645(*, symbol: str = "BTC", seed: dict[str, A
         },
     )
 
-def real_time_feed_647(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Real-Time Feed (#647) — external dependency blocked locally."""
+def _external_provider_contract(
+    cap_id: int,
+    *,
+    symbol: str = "BTC",
+    seed: dict[str, Any] | None = None,
+    contract_fn: Any,
+) -> dict[str, Any]:
     from cap978.external_registry import external_registry_rows
+
     seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 647), _EXTERNAL_DEPENDENCY_DEFAULT)
-    return _base(
-        647,
-        symbol=symbol,
-        seed=seed,
-        extra={
-            "ok": False,
-            "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-            "blocker_type": "vendor_license_or_infra",
-            "reason": reason,
-            "internal_action": _EXTERNAL_INTERNAL_ACTION,
-            "analysis_only": True,
-        },
+    reason = next(
+        (r["reason"] for r in external_registry_rows() if r.get("id") == cap_id),
+        _EXTERNAL_DEPENDENCY_DEFAULT,
     )
+    contract = contract_fn(symbol=symbol, external_reason=reason)
+    payload = _base(cap_id, symbol=symbol, seed=seed, extra=contract)
+    if not contract.get("ok"):
+        payload["ok"] = False
+    return payload
+
+
+def real_time_feed_647(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Real-Time Feed (#647) — local provider contract; live vendor blocked."""
+    from bd_platform.extension_providers.real_time_feed import execute_local_contract
+
+    return _external_provider_contract(647, symbol=symbol, seed=seed, contract_fn=execute_local_contract)
+
 
 def datashare_648(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Datashare (#648) — external dependency blocked locally."""
-    from cap978.external_registry import external_registry_rows
-    seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 648), _EXTERNAL_DEPENDENCY_DEFAULT)
-    return _base(
-        648,
-        symbol=symbol,
-        seed=seed,
-        extra={
-            "ok": False,
-            "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-            "blocker_type": "vendor_license_or_infra",
-            "reason": reason,
-            "internal_action": _EXTERNAL_INTERNAL_ACTION,
-            "analysis_only": True,
-        },
-    )
+    """Datashare (#648) — local provider contract; warehouse agreement blocked."""
+    from bd_platform.extension_providers.datashare import execute_local_contract
+
+    return _external_provider_contract(648, symbol=symbol, seed=seed, contract_fn=execute_local_contract)
+
 
 def dbt_connector_649(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """dbt Connector (#649) — external dependency blocked locally."""
-    from cap978.external_registry import external_registry_rows
-    seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 649), _EXTERNAL_DEPENDENCY_DEFAULT)
-    return _base(
-        649,
-        symbol=symbol,
-        seed=seed,
-        extra={
-            "ok": False,
-            "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-            "blocker_type": "vendor_license_or_infra",
-            "reason": reason,
-            "internal_action": _EXTERNAL_INTERNAL_ACTION,
-            "analysis_only": True,
-        },
-    )
+    """dbt Connector (#649) — local provider contract; external deployment blocked."""
+    from bd_platform.extension_providers.dbt_connector import execute_local_contract
+
+    return _external_provider_contract(649, symbol=symbol, seed=seed, contract_fn=execute_local_contract)
+
 
 def bi_connectors_650(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """BI Connectors (#650) — external dependency blocked locally."""
-    from cap978.external_registry import external_registry_rows
-    seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 650), _EXTERNAL_DEPENDENCY_DEFAULT)
-    return _base(
-        650,
-        symbol=symbol,
-        seed=seed,
-        extra={
-            "ok": False,
-            "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
-            "blocker_type": "vendor_license_or_infra",
-            "reason": reason,
-            "internal_action": _EXTERNAL_INTERNAL_ACTION,
-            "analysis_only": True,
-        },
-    )
+    """BI Connectors (#650) — local provider contract; connector licenses blocked."""
+    from bd_platform.extension_providers.bi_connectors import execute_local_contract
+
+    return _external_provider_contract(650, symbol=symbol, seed=seed, contract_fn=execute_local_contract)

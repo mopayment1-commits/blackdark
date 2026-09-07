@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_CROSS_BATCH_REGRESSION",
-  "generated_at_utc": "2026-09-07T19:31:56.637132+00:00",
-  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "generated_at_utc": "2026-09-07T20:45:59.065756+00:00",
+  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
   "suites": [
     {
       "label": "batch13_shared_core_semantics",
@@ -18,6 +18,27 @@
       "tail": ".................................                                        [100%]\n"
     },
     {
+      "label": "batch13_50_independent_oracles",
+      "command": "pytest tests/test_batch13_50_independent_oracles.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "batch13_50_semantic_contracts",
+      "command": "pytest tests/test_batch13_50_semantic_contracts.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "batch13_all_50_execution",
+      "command": "pytest tests/test_batch13_all_50_execution.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
+    {
       "label": "batch13_runtime_canonical_binding",
       "command": "pytest tests/test_batch13_runtime_canonical_binding.py",
       "exit_code": 0,
@@ -30,6 +51,34 @@
       "exit_code": 0,
       "passed": true,
       "tail": "..                                                                       [100%]\n"
+    },
+    {
+      "label": "batch13_consumer_paths",
+      "command": "pytest tests/test_batch13_consumer_paths.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 72%]\n............................                                             [100%]\n"
+    },
+    {
+      "label": "batch13_full_path_entitlement",
+      "command": "pytest tests/test_batch13_full_path_entitlement.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 72%]\n............................                                             [100%]\n"
+    },
+    {
+      "label": "batch13_cap613_canonical_reuse",
+      "command": "pytest tests/test_batch13_cap613_canonical_reuse.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...                                                                      [100%]\n"
+    },
+    {
+      "label": "batch13_extension_providers",
+      "command": "pytest tests/test_batch13_extension_providers.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".........                                                                [100%]\n"
     },
     {
       "label": "batch13_adaptive_spine",
@@ -48,13 +97,6 @@
     {
       "label": "batch12_blast_regression",
       "command": "pytest tests/test_batch12_membership_and_profile.py -q",
-      "exit_code": 0,
-      "passed": true,
-      "tail": "..                                                                       [100%]\n"
-    },
-    {
-      "label": "cap646_option_a",
-      "command": "pytest tests/cap646/test_option_a_production.py",
       "exit_code": 0,
       "passed": true,
       "tail": "..                                                                       [100%]\n"

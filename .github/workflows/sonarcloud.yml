@@ -117,8 +117,15 @@ jobs:
             tests/test_batch12_cap551_canonical_reuse.py \
             tests/test_batch13_shared_core_semantics.py \
             tests/test_batch13_independent_oracle_semantics.py \
+            tests/test_batch13_50_independent_oracles.py \
+            tests/test_batch13_50_semantic_contracts.py \
+            tests/test_batch13_all_50_execution.py \
             tests/test_batch13_runtime_canonical_binding.py \
             tests/test_batch13_membership_and_profile.py \
+            tests/test_batch13_consumer_paths.py \
+            tests/test_batch13_full_path_entitlement.py \
+            tests/test_batch13_cap613_canonical_reuse.py \
+            tests/test_batch13_extension_providers.py \
             tests/test_batch13_adaptive_spine.py \
             tests/test_batch13_temporal_spine.py \
             tests/test_defi_yield_intelligence_batch401_500.py \
