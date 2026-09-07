@@ -1,0 +1,35 @@
+{
+  "artifact": "BATCH12_CANONICAL_DECISIONS",
+  "generated_at_utc": "2026-09-07T12:55:14.447820+00:00",
+  "git_commit": "35ab4a26017c31d149b4e74ec4b9e4c6433c8ed5",
+  "decisions": {
+    "551": {
+      "decision": "CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 88,
+      "facade_binding": "bd_platform.institutional_delivery_intelligence_layer.liquidation_intelligence_551",
+      "canonical_implementation": "cap646.handlers.batch02.handle_batch02_capability → cap_088(88)",
+      "underlying_module": "cap646.batch02_production",
+      "underlying_function": "cap_088",
+      "evidence": "Catalog duplicate Liquidation Intelligence — runtime delegates to canonical #88 batch02 liquidation_radar semantics; no parallel Batch12 semantic engine",
+      "mece_action": "Count via canonical #88; #551 facade/pdf path must not add independent semantics"
+    },
+    "578": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.heroes_capability_layer",
+      "binding_function": "shadow_fork_pre_execution_578",
+      "evidence": "Shadow Fork Pre-Execution (#578) routes to heroes capability layer — outside institutional_delivery shared core",
+      "mece_action": "Count as distinct outside-shared-core Hero surface"
+    },
+    "584": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.heroes_capability_layer",
+      "binding_function": "coindesk_rss_feed_584",
+      "evidence": "CoinDesk RSS Feed (#584) routes to heroes capability layer — outside institutional_delivery shared core",
+      "mece_action": "Count as distinct outside-shared-core Hero surface"
+    }
+  },
+  "summary": {
+    "canonical_duplicate_reuse_count": 3,
+    "keep_distinct_but_reuse_shared_core_count": 47
+  }
+}

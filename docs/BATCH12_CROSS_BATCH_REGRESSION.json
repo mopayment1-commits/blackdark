@@ -1,0 +1,86 @@
+{
+  "artifact": "BATCH12_CROSS_BATCH_REGRESSION",
+  "generated_at_utc": "2026-09-07T12:55:14.447820+00:00",
+  "git_commit": "35ab4a26017c31d149b4e74ec4b9e4c6433c8ed5",
+  "suites": [
+    {
+      "label": "batch12_shared_core_semantics",
+      "command": "pytest tests/test_batch12_shared_core_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 49%]\n........................................................................ [ 98%]\n..                                                                       [100%]\n"
+    },
+    {
+      "label": "batch12_independent_oracle_semantics",
+      "command": "pytest tests/test_batch12_independent_oracle_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".................................................                        [100%]\n"
+    },
+    {
+      "label": "batch12_consumer_paths",
+      "command": "pytest tests/test_batch12_consumer_paths.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 72%]\n............................                                             [100%]\n"
+    },
+    {
+      "label": "batch12_runtime_canonical_binding",
+      "command": "pytest tests/test_batch12_runtime_canonical_binding.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 28%]\n........................................................................ [ 57%]\n........................................................................ [ 86%]\n...................................                                      [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    },
+    {
+      "label": "batch12_full_path_entitlement",
+      "command": "pytest tests/test_batch12_full_path_entitlement.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 69%]\n...............................                                          [100%]\n"
+    },
+    {
+      "label": "batch12_cap551_reuse",
+      "command": "pytest tests/test_batch12_cap551_canonical_reuse.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "......                                                                   [100%]\n"
+    },
+    {
+      "label": "batch12_membership",
+      "command": "pytest tests/test_batch12_membership_and_profile.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..                                                                       [100%]\n"
+    },
+    {
+      "label": "institutional_delivery_501_600",
+      "command": "pytest tests/test_institutional_delivery_intelligence_batch501_600.py -q",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
+    {
+      "label": "batch11_cap550_blast_regression",
+      "command": "pytest tests/test_batch11_cap550_canonical_reuse.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "......                                                                   [100%]\n"
+    },
+    {
+      "label": "batch10_shared_core_blast",
+      "command": "pytest tests/test_batch10_shared_core_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 48%]\n........................................................................ [ 96%]\n......                                                                   [100%]\n"
+    },
+    {
+      "label": "cap646_option_a",
+      "command": "pytest tests/cap646/test_option_a_production.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..                                                                       [100%]\n"
+    }
+  ],
+  "affected_regression_gap": [],
+  "blast_radius_regression_pass": true
+}
