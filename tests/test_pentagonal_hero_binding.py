@@ -196,10 +196,11 @@ def test_directional_oracle_does_not_pollute_truth_stats() -> None:
 
 
 @pytest.mark.asyncio
-async def test_b2b_feed_empty_state_block() -> None:
+async def test_b2b_feed_empty_state_block(monkeypatch) -> None:
     from whale_tracker import InstitutionalDataExporter
     import config
 
+    monkeypatch.setattr(config, "B2B_DEMO_API_KEY", "test-b2b-demo-key-local")
     exporter = InstitutionalDataExporter()
     feed = await exporter.export_institutional_feed(provided_key=config.B2B_DEMO_API_KEY, limit=5)
     if feed.get("record_count") == 0:

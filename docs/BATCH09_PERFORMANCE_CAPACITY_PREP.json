@@ -1,0 +1,2759 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "local_measured_pass": 50,
+    "local_measured_fail": 0,
+    "performance_evidence_insufficient_count": 0
+  },
+  "artifact": "BATCH09_PERFORMANCE_CAPACITY_PREP",
+  "generated_at": "2026-09-06T20:16:44.215609+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "performance_tiers": {
+    "COMPONENT_PATH_PERFORMANCE": {
+      "path": "pdf_capability_registry.execute_capability",
+      "status": "LOCAL_COMPLETE"
+    },
+    "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE": {
+      "path": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "status": "LOCAL_COMPLETE"
+    },
+    "PRODUCTION_LIVE_REQUIRED": "QUEUE_B RL4 — not claimed locally"
+  },
+  "performance_local_status": "LOCAL_COMPLETE",
+  "full_path_local_status": "LOCAL_COMPLETE",
+  "local_performance_failures": [],
+  "local_performance_unexecuted_but_executable": [],
+  "performance_evidence_insufficient": [],
+  "full_path_local_performance_failures": [],
+  "full_path_local_performance_unexecuted_but_executable": [],
+  "performance_claim_ambiguity": [],
+  "methodology": {
+    "default_warmup_iterations": 8,
+    "default_measurement_iterations": 80,
+    "class_profiles": {
+      "CLASS_A_DIRECT_LIGHTWEIGHT": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "Low-variance synchronous path; half-split p95 delta <= 30%"
+      },
+      "CLASS_B_ANALYSIS": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "Analysis path; half-split p95 delta <= 30%"
+      },
+      "CLASS_C_AI_HEAVY": {
+        "warmup": 24,
+        "iterations": 120,
+        "stability_max_rel_delta": 0.5,
+        "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta"
+      },
+      "BACKGROUND_JOB": {
+        "warmup": 8,
+        "iterations": 80,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "Background completion probe"
+      },
+      "NO_RUNTIME_PATH": {
+        "warmup": 0,
+        "iterations": 0,
+        "stability_max_rel_delta": 0.3,
+        "stability_rationale": "No local runtime path"
+      },
+      "NEWS_FEED": {
+        "warmup": 32,
+        "iterations": 120,
+        "stability_max_rel_delta": 0.75,
+        "stability_rationale": "RSS/news feed path exhibits high cold-start variance; extended burn-in at 75% rel delta"
+      }
+    },
+    "min_sample_for_p99": 50,
+    "percentile_method": "nearest_rank_on_sorted_samples",
+    "stability_check": "p95 first-half vs second-half relative delta (class-specific max)",
+    "default_stability_max_rel_delta": 0.3,
+    "workload_fixture": "execute_capability per ID sequential + 5-wide concurrency burst",
+    "environment": {
+      "python_version": "3.12.3",
+      "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+      "processor": "x86_64",
+      "cpu_count": 4
+    },
+    "measured_at_utc": "2026-09-06T20:13:49.893404+00:00",
+    "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+    "not_production_evidence": true
+  },
+  "full_path_methodology": {
+    "warmup": 3,
+    "iterations": 20,
+    "path": "cap646.runtime.execute_capability with entitlement_engine.check",
+    "user_fixture": "pro tier local user dict",
+    "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+    "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds are BLACKDARK v5 internal project policy targets (CLASS_A=500ms, CLASS_B=2000ms, CLASS_C=5000ms) — not Nielsen Norman or ISO attributions.",
+    "thresholds_ms": {
+      "CLASS_A_DIRECT_LIGHTWEIGHT": 500,
+      "CLASS_B_ANALYSIS": 2000,
+      "CLASS_C_AI_HEAVY": 5000,
+      "NEWS_FEED": 5000,
+      "BACKGROUND_JOB": 30000,
+      "NOT_APPLICABLE": 0
+    }
+  },
+  "class_summary": {
+    "CLASS_B_ANALYSIS": {
+      "count": 40,
+      "p50_ms_median": 0.37,
+      "p95_ms_max": 0.42,
+      "p99_ms_max": 0.44,
+      "error_rate_max": 0.0
+    },
+    "NEWS_FEED": {
+      "count": 3,
+      "p50_ms_median": 0.38,
+      "p95_ms_max": 236.78,
+      "p99_ms_max": 391.24,
+      "error_rate_max": 0.0
+    },
+    "CLASS_C_AI_HEAVY": {
+      "count": 7,
+      "p50_ms_median": 0.38,
+      "p95_ms_max": 475.95,
+      "p99_ms_max": 592.88,
+      "error_rate_max": 0.0
+    }
+  },
+  "full_path_class_summary": {
+    "CLASS_B_ANALYSIS": {
+      "count": 40,
+      "p95_ms_max": 267.79,
+      "p99_ms_max": 450.69
+    },
+    "NEWS_FEED": {
+      "count": 3,
+      "p95_ms_max": 140.51,
+      "p99_ms_max": 231.51
+    },
+    "CLASS_C_AI_HEAVY": {
+      "count": 7,
+      "p95_ms_max": 415.73,
+      "p99_ms_max": 565.35
+    }
+  },
+  "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+  "not_production_evidence": true,
+  "component_path_measurements": [
+    {
+      "capability_id": 401,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.36,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.01,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.01
+      },
+      "stability_p95_half_split_rel_delta": 0.1054,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=401"
+    },
+    {
+      "capability_id": 402,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.36,
+      "p95_ms": 0.39,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.06,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.06
+      },
+      "stability_p95_half_split_rel_delta": 0.1047,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=402"
+    },
+    {
+      "capability_id": 403,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.36,
+      "p95_ms": 0.39,
+      "p99_ms": 0.39,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.95,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.95
+      },
+      "stability_p95_half_split_rel_delta": 0.0687,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=403"
+    },
+    {
+      "capability_id": 404,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.36,
+      "p95_ms": 0.39,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.89,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.89
+      },
+      "stability_p95_half_split_rel_delta": 0.1065,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=404"
+    },
+    {
+      "capability_id": 405,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.36,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.96,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.96
+      },
+      "stability_p95_half_split_rel_delta": 0.1019,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=405"
+    },
+    {
+      "capability_id": 406,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.36,
+      "p95_ms": 0.38,
+      "p99_ms": 0.4,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.95,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.95
+      },
+      "stability_p95_half_split_rel_delta": 0.0808,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=406"
+    },
+    {
+      "capability_id": 407,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.36,
+      "p95_ms": 0.39,
+      "p99_ms": 0.4,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.01,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.01
+      },
+      "stability_p95_half_split_rel_delta": 0.0871,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=407"
+    },
+    {
+      "capability_id": 408,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.39,
+      "p99_ms": 0.4,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.96,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.96
+      },
+      "stability_p95_half_split_rel_delta": 0.0744,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=408"
+    },
+    {
+      "capability_id": 409,
+      "performance_class": "NEWS_FEED",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 32,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 111.57,
+      "p95_ms": 236.78,
+      "p99_ms": 391.24,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 265.99,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 265.99
+      },
+      "stability_p95_half_split_rel_delta": 0.6434,
+      "stability_max_rel_delta": 0.75,
+      "stability_rationale": "RSS/news feed path exhibits high cold-start variance; extended burn-in at 75% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=409"
+    },
+    {
+      "capability_id": 410,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.03,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.03
+      },
+      "stability_p95_half_split_rel_delta": 0.1092,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=410"
+    },
+    {
+      "capability_id": 411,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 24,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.39,
+      "p99_ms": 0.4,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.02,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.02
+      },
+      "stability_p95_half_split_rel_delta": 0.0577,
+      "stability_max_rel_delta": 0.5,
+      "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=411"
+    },
+    {
+      "capability_id": 412,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.42,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.07,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.07
+      },
+      "stability_p95_half_split_rel_delta": 0.1198,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=412"
+    },
+    {
+      "capability_id": 413,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 24,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.97,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.97
+      },
+      "stability_p95_half_split_rel_delta": 0.1101,
+      "stability_max_rel_delta": 0.5,
+      "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=413"
+    },
+    {
+      "capability_id": 414,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.01,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.01
+      },
+      "stability_p95_half_split_rel_delta": 0.1178,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=414"
+    },
+    {
+      "capability_id": 415,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.96,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.96
+      },
+      "stability_p95_half_split_rel_delta": 0.1299,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=415"
+    },
+    {
+      "capability_id": 416,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 24,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.39,
+      "p99_ms": 0.4,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.0,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.0
+      },
+      "stability_p95_half_split_rel_delta": 0.0681,
+      "stability_max_rel_delta": 0.5,
+      "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=416"
+    },
+    {
+      "capability_id": 417,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.13,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.13
+      },
+      "stability_p95_half_split_rel_delta": 0.0916,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=417"
+    },
+    {
+      "capability_id": 418,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.94,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.94
+      },
+      "stability_p95_half_split_rel_delta": 0.0747,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=418"
+    },
+    {
+      "capability_id": 419,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.97,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.97
+      },
+      "stability_p95_half_split_rel_delta": 0.1151,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=419"
+    },
+    {
+      "capability_id": 420,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.05,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.05
+      },
+      "stability_p95_half_split_rel_delta": 0.0916,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=420"
+    },
+    {
+      "capability_id": 421,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.96,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.96
+      },
+      "stability_p95_half_split_rel_delta": 0.1025,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=421"
+    },
+    {
+      "capability_id": 422,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.97,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.97
+      },
+      "stability_p95_half_split_rel_delta": 0.0953,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=422"
+    },
+    {
+      "capability_id": 423,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.39,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.96,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.96
+      },
+      "stability_p95_half_split_rel_delta": 0.0705,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=423"
+    },
+    {
+      "capability_id": 424,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.02,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.02
+      },
+      "stability_p95_half_split_rel_delta": 0.0784,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=424"
+    },
+    {
+      "capability_id": 425,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.04,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.04
+      },
+      "stability_p95_half_split_rel_delta": 0.0791,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=425"
+    },
+    {
+      "capability_id": 426,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.39,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.99,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.99
+      },
+      "stability_p95_half_split_rel_delta": 0.1176,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=426"
+    },
+    {
+      "capability_id": 427,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.44,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.08,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.08
+      },
+      "stability_p95_half_split_rel_delta": 0.1155,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=427"
+    },
+    {
+      "capability_id": 428,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.96,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.96
+      },
+      "stability_p95_half_split_rel_delta": 0.1026,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=428"
+    },
+    {
+      "capability_id": 429,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.41,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.08,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.08
+      },
+      "stability_p95_half_split_rel_delta": 0.1025,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=429"
+    },
+    {
+      "capability_id": 430,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.05,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.05
+      },
+      "stability_p95_half_split_rel_delta": 0.096,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=430"
+    },
+    {
+      "capability_id": 431,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.93,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.93
+      },
+      "stability_p95_half_split_rel_delta": 0.0702,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=431"
+    },
+    {
+      "capability_id": 432,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.08,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.08
+      },
+      "stability_p95_half_split_rel_delta": 0.0888,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=432"
+    },
+    {
+      "capability_id": 433,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.44,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.95,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.95
+      },
+      "stability_p95_half_split_rel_delta": 0.0915,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=433"
+    },
+    {
+      "capability_id": 434,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.01,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.01
+      },
+      "stability_p95_half_split_rel_delta": 0.0848,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=434"
+    },
+    {
+      "capability_id": 435,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 24,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.42,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.99,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.99
+      },
+      "stability_p95_half_split_rel_delta": 0.1189,
+      "stability_max_rel_delta": 0.5,
+      "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=435"
+    },
+    {
+      "capability_id": 436,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 24,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.39,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.02,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.02
+      },
+      "stability_p95_half_split_rel_delta": 0.0496,
+      "stability_max_rel_delta": 0.5,
+      "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=436"
+    },
+    {
+      "capability_id": 437,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 24,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 317.18,
+      "p95_ms": 475.95,
+      "p99_ms": 592.88,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1721.15,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1721.15
+      },
+      "stability_p95_half_split_rel_delta": 0.4189,
+      "stability_max_rel_delta": 0.5,
+      "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=437"
+    },
+    {
+      "capability_id": 438,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.39,
+      "p95_ms": 0.42,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.77,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.77
+      },
+      "stability_p95_half_split_rel_delta": 0.0924,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=438"
+    },
+    {
+      "capability_id": 439,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.39,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.98,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.98
+      },
+      "stability_p95_half_split_rel_delta": 0.0671,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=439"
+    },
+    {
+      "capability_id": 440,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.95,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.95
+      },
+      "stability_p95_half_split_rel_delta": 0.0989,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=440"
+    },
+    {
+      "capability_id": 441,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 24,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.42,
+      "p99_ms": 0.55,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.03,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.03
+      },
+      "stability_p95_half_split_rel_delta": 0.1267,
+      "stability_max_rel_delta": 0.5,
+      "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=441"
+    },
+    {
+      "capability_id": 442,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.01,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.01
+      },
+      "stability_p95_half_split_rel_delta": 0.0865,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=442"
+    },
+    {
+      "capability_id": 443,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.39,
+      "p99_ms": 0.4,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.0,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.0
+      },
+      "stability_p95_half_split_rel_delta": 0.0492,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=443"
+    },
+    {
+      "capability_id": 444,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.37,
+      "p95_ms": 0.4,
+      "p99_ms": 0.43,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.09,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.09
+      },
+      "stability_p95_half_split_rel_delta": 0.128,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=444"
+    },
+    {
+      "capability_id": 445,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.4,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.99,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.99
+      },
+      "stability_p95_half_split_rel_delta": 0.0604,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=445"
+    },
+    {
+      "capability_id": 446,
+      "performance_class": "NEWS_FEED",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 32,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.39,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.99,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.99
+      },
+      "stability_p95_half_split_rel_delta": 0.0626,
+      "stability_max_rel_delta": 0.75,
+      "stability_rationale": "RSS/news feed path exhibits high cold-start variance; extended burn-in at 75% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=446"
+    },
+    {
+      "capability_id": 447,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.02,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.02
+      },
+      "stability_p95_half_split_rel_delta": 0.0837,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=447"
+    },
+    {
+      "capability_id": 448,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.0,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.0
+      },
+      "stability_p95_half_split_rel_delta": 0.0958,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=448"
+    },
+    {
+      "capability_id": 449,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "target_p95_ms": 2000,
+      "sample_count": 80,
+      "warmup_iterations": 8,
+      "measurement_iterations": 80,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.41,
+      "p99_ms": 0.42,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 1.97,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 1.97
+      },
+      "stability_p95_half_split_rel_delta": 0.1054,
+      "stability_max_rel_delta": 0.3,
+      "stability_rationale": "Analysis path; half-split p95 delta <= 30%",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=449"
+    },
+    {
+      "capability_id": 450,
+      "performance_class": "NEWS_FEED",
+      "target_p95_ms": 5000,
+      "sample_count": 120,
+      "warmup_iterations": 32,
+      "measurement_iterations": 120,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "p50_ms": 0.38,
+      "p95_ms": 0.4,
+      "p99_ms": 0.41,
+      "p99_material": true,
+      "error_rate": 0.0,
+      "throughput": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Single synchronous execute_capability probe — no sustained throughput SLO at capability level locally"
+      },
+      "concurrency_test": {
+        "parallel_invocations": 5,
+        "all_ok": true,
+        "wall_clock_ms": 2.06,
+        "status": "LOCAL_CONCURRENCY_PASS"
+      },
+      "saturation": {
+        "status": "NOT_APPLICABLE",
+        "rationale": "Local sequential probe; saturation/resource pressure validated via 5-wide burst wall-clock only",
+        "burst_wall_clock_ms": 2.06
+      },
+      "stability_p95_half_split_rel_delta": 0.0729,
+      "stability_max_rel_delta": 0.75,
+      "stability_rationale": "RSS/news feed path exhibits high cold-start variance; extended burn-in at 75% rel delta",
+      "stability_pass": true,
+      "measurement_status": "LOCAL_MEASURED_PASS",
+      "result": "LOCAL_MEASURED_PASS",
+      "evidence_insufficient_reasons": [],
+      "measurement_environment": "LOCAL_RUNTIME_EXECUTION",
+      "workload_fixture": "pdf_capability_registry.execute_capability deterministic local call",
+      "evidence": "docs/BATCH09_PERFORMANCE_CAPACITY_PREP.json#capability_id=450"
+    }
+  ],
+  "full_path_measurements": [
+    {
+      "capability_id": 401,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.95,
+      "p95_ms": 3.63,
+      "p99_ms": 3.67,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 402,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.76,
+      "p95_ms": 3.46,
+      "p99_ms": 3.87,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 403,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 107.65,
+      "p95_ms": 267.79,
+      "p99_ms": 284.79,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 404,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.04,
+      "p95_ms": 3.42,
+      "p99_ms": 3.46,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 405,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.99,
+      "p95_ms": 3.65,
+      "p99_ms": 4.61,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 406,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.93,
+      "p95_ms": 3.73,
+      "p99_ms": 4.11,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 407,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.22,
+      "p95_ms": 3.77,
+      "p99_ms": 3.87,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 408,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.02,
+      "p95_ms": 3.4,
+      "p99_ms": 3.41,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 409,
+      "performance_class": "NEWS_FEED",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 87.02,
+      "p95_ms": 125.5,
+      "p99_ms": 231.51,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 410,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.03,
+      "p95_ms": 3.44,
+      "p99_ms": 3.79,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 411,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 2.95,
+      "p95_ms": 3.57,
+      "p99_ms": 4.33,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 412,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.97,
+      "p95_ms": 3.75,
+      "p99_ms": 3.94,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 413,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 3.06,
+      "p95_ms": 3.57,
+      "p99_ms": 4.24,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 414,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.15,
+      "p95_ms": 3.66,
+      "p99_ms": 3.94,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 415,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.93,
+      "p95_ms": 3.69,
+      "p99_ms": 4.0,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 416,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 3.0,
+      "p95_ms": 3.87,
+      "p99_ms": 4.05,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 417,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.91,
+      "p95_ms": 3.32,
+      "p99_ms": 3.6,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 418,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.03,
+      "p95_ms": 3.92,
+      "p99_ms": 3.97,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 419,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.24,
+      "p95_ms": 3.62,
+      "p99_ms": 4.11,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 420,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.98,
+      "p95_ms": 4.09,
+      "p99_ms": 4.5,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 421,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.06,
+      "p95_ms": 3.68,
+      "p99_ms": 4.11,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 422,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 58.97,
+      "p95_ms": 66.37,
+      "p99_ms": 106.05,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 423,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 100.55,
+      "p95_ms": 223.43,
+      "p99_ms": 278.97,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 424,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.06,
+      "p95_ms": 3.97,
+      "p99_ms": 4.59,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 425,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.12,
+      "p95_ms": 3.83,
+      "p99_ms": 4.14,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 426,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 119.0,
+      "p95_ms": 168.09,
+      "p99_ms": 169.43,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 427,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 44.91,
+      "p95_ms": 60.61,
+      "p99_ms": 62.38,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 428,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.94,
+      "p95_ms": 3.73,
+      "p99_ms": 3.8,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 429,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.81,
+      "p95_ms": 3.36,
+      "p99_ms": 3.59,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 430,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 119.17,
+      "p95_ms": 159.28,
+      "p99_ms": 450.69,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 431,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.88,
+      "p95_ms": 3.31,
+      "p99_ms": 3.57,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 432,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.95,
+      "p95_ms": 3.89,
+      "p99_ms": 4.4,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 433,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.05,
+      "p95_ms": 3.43,
+      "p99_ms": 3.84,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 434,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.03,
+      "p95_ms": 3.41,
+      "p99_ms": 3.43,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 435,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 119.94,
+      "p95_ms": 153.32,
+      "p99_ms": 205.17,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 436,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 3.0,
+      "p95_ms": 3.77,
+      "p99_ms": 4.14,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 437,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 332.77,
+      "p95_ms": 415.73,
+      "p99_ms": 565.35,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 438,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.97,
+      "p95_ms": 3.38,
+      "p99_ms": 3.47,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 439,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.04,
+      "p95_ms": 3.32,
+      "p99_ms": 3.42,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 440,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.1,
+      "p95_ms": 3.85,
+      "p99_ms": 4.22,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 441,
+      "performance_class": "CLASS_C_AI_HEAVY",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 3.03,
+      "p95_ms": 3.5,
+      "p99_ms": 3.73,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 442,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.0,
+      "p95_ms": 3.48,
+      "p99_ms": 3.68,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 443,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.03,
+      "p95_ms": 3.62,
+      "p99_ms": 3.69,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 444,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 3.02,
+      "p95_ms": 3.42,
+      "p99_ms": 3.66,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 445,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.93,
+      "p95_ms": 3.39,
+      "p99_ms": 3.64,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 446,
+      "performance_class": "NEWS_FEED",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 3.25,
+      "p95_ms": 3.61,
+      "p99_ms": 3.78,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 447,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.99,
+      "p95_ms": 3.27,
+      "p99_ms": 4.13,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 448,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.97,
+      "p95_ms": 3.66,
+      "p99_ms": 4.04,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 449,
+      "performance_class": "CLASS_B_ANALYSIS",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 2000,
+      "sample_count": 20,
+      "p50_ms": 2.89,
+      "p95_ms": 3.59,
+      "p99_ms": 3.92,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    },
+    {
+      "capability_id": 450,
+      "performance_class": "NEWS_FEED",
+      "measurement_path": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "runtime": "cap646.runtime.execute_capability(skip_entitlement=False)",
+      "target_p95_ms": 5000,
+      "sample_count": 20,
+      "p50_ms": 113.84,
+      "p95_ms": 140.51,
+      "p99_ms": 141.57,
+      "error_rate": 0.0,
+      "measurement_status": "LOCAL_MEASURED_PASS"
+    }
+  ],
+  "summary": {
+    "local_measured_pass": 50,
+    "local_measured_fail": 0,
+    "local_measured_insufficient": 0,
+    "production_execution_required": 0
+  },
+  "production_k6": "PRODUCTION_EXECUTION_REQUIRED — QUEUE_B RL4 only"
+}

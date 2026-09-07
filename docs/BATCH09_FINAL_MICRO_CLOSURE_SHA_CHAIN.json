@@ -1,0 +1,65 @@
+{
+  "artifact": "BATCH09_FINAL_MICRO_CLOSURE_SHA_CHAIN",
+  "generated_at": "2026-09-06T21:14:21.223563+00:00",
+  "baseline_head": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+  "final_head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+  "commits_since_baseline": [
+    {
+      "sha": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+      "subject": "test(cap646): expect platform handler for Batch09 ID 401 routing",
+      "bucket": "test_logic"
+    },
+    {
+      "sha": "a350825ac397b99175b90ba040266857518c3bd7",
+      "subject": "docs(batch09): institutional closure artifacts for IDs 401-450",
+      "bucket": "documentation_evidence"
+    },
+    {
+      "sha": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+      "subject": "fix(batch09): classify batch08 harness warnings and align tested source head",
+      "bucket": "assurance_tooling"
+    },
+    {
+      "sha": "d89c85d8cbcb0fec8cd984a87c2e8eeb5681f8b7",
+      "subject": "fix(batch09): tune perf class map for 411/441/450 stability",
+      "bucket": "assurance_tooling"
+    },
+    {
+      "sha": "27d900f452e5deffc0a68aeb1c5abbd7134d1720",
+      "subject": "fix(batch09): include DOMAIN_SPEC_APPLICABILITY in artifact generation",
+      "bucket": "assurance_tooling"
+    },
+    {
+      "sha": "7191621aabc26af44585b539bfa331f43401b2f3",
+      "subject": "fix(batch09): perf class profiles for feed/reuse caps and emit domain spec artifact",
+      "bucket": "assurance_tooling"
+    },
+    {
+      "sha": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
+      "subject": "fix(batch09): route 401-450 via pdf registry bindings and add canonical-path tests",
+      "bucket": "test_logic"
+    },
+    {
+      "sha": "6c35a487c36b26d31c0b8e4378bf3be0d612817b",
+      "subject": "Add Batch09 (401-450) institutional closure infrastructure",
+      "bucket": "test_logic"
+    },
+    {
+      "sha": "9e6dfad3da3dcb674614f73eae95213cc2afa932",
+      "subject": "docs(standards): register domain governing spec for data/storage/trace (v4)",
+      "bucket": "documentation_evidence"
+    },
+    {
+      "sha": "a9c5ba50622cdb0a1224b5d7a58cc245c4be8dca",
+      "subject": "docs(batch08): finalize micro-closure evidence with GitHub CodeQL run 34046238644",
+      "bucket": "documentation_evidence"
+    }
+  ],
+  "production_runtime_drift": 0,
+  "production_runtime_commits": [],
+  "final_sha_chain_complete": true,
+  "unexplained_sha_transitions": [],
+  "material_evidence_vs_source_drift": [],
+  "performance_threshold_false_attribution": [],
+  "performance_evidence_unchanged_unless_real_drift": true
+}

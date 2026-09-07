@@ -1,0 +1,292 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "not_hero_relevant": 49,
+    "hero_context_only": 1,
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": 0
+  },
+  "artifact": "BATCH08_SIX_HEROES_BINDING",
+  "generated_at": "2026-09-06T14:34:24.745865+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "scope": "Six Heroes binding classification — Batch08 351-400 (post duplicate reconciliation)",
+  "summary": {
+    "NOT_HERO_RELEVANT": 49,
+    "HERO_CONTEXT_ONLY": 1,
+    "HERO_DIRECT_FEED": 0,
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": 0
+  },
+  "reconfirmation": {
+    "379_no_double_count_with_189": true,
+    "382_facade_distinct_no_double_count": true,
+    "regression_suite": "tests/test_heroes_quality_polish.py + cross-batch regression"
+  },
+  "per_id": [
+    {
+      "capability_id": 351,
+      "capability_name": "Active Users",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 352,
+      "capability_name": "Core Developers",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 353,
+      "capability_name": "Code Commits",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 354,
+      "capability_name": "TVL Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 355,
+      "capability_name": "Borrowed / Loans Outstanding",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 356,
+      "capability_name": "DEX Volume",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 357,
+      "capability_name": "Stablecoin Supply",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 358,
+      "capability_name": "Valuation Multiples",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 359,
+      "capability_name": "Growth Metrics",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 360,
+      "capability_name": "Margins / Take Rate",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 361,
+      "capability_name": "Project Comparables",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 362,
+      "capability_name": "Sector Comparables",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 363,
+      "capability_name": "Tokenized Asset Coverage",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 364,
+      "capability_name": "Fundamental Screener",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 365,
+      "capability_name": "Financial Statement View",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 366,
+      "capability_name": "Data Methodology Registry",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 367,
+      "capability_name": "Source Data Provenance",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 368,
+      "capability_name": "API / Data Export",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 369,
+      "capability_name": "Cross-Fundamental Decision Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 370,
+      "capability_name": "SQL On-Chain Query Workspace",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 371,
+      "capability_name": "Curated Data Models",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 372,
+      "capability_name": "Decoded Smart Contract Tables",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 373,
+      "capability_name": "Cross-Chain Data Warehouse",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 374,
+      "capability_name": "Visualization Builder",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 375,
+      "capability_name": "Dashboard Builder",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 376,
+      "capability_name": "Public Dashboard Sharing",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 377,
+      "capability_name": "Community Discovery",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 378,
+      "capability_name": "Query Forking",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 379,
+      "capability_name": "Data API",
+      "classification": "HERO_CONTEXT_ONLY",
+      "hero_context": {
+        "canonical_capability_id": 70,
+        "contribution": "context_only_via_canonical_70",
+        "duplicate_hero_contribution": false,
+        "note": "Facade does not add second Hero score beyond canonical #70"
+      }
+    },
+    {
+      "capability_id": 380,
+      "capability_name": "Real-Time Feed",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 381,
+      "capability_name": "Datashare",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 382,
+      "capability_name": "dbt Connector",
+      "classification": "NOT_HERO_RELEVANT",
+      "hero_facade": {
+        "decision": "KEEP_DISTINCT",
+        "duplicate_hero_contribution": false,
+        "note": "NO_HERO_FEED — UI CTA facade; does not double-count Hero inputs"
+      }
+    },
+    {
+      "capability_id": 383,
+      "capability_name": "BI Connectors",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 384,
+      "capability_name": "MCP for AI Agents",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 385,
+      "capability_name": "Prompt-to-SQL Agent",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 386,
+      "capability_name": "Dashboard-from-Prompt",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 387,
+      "capability_name": "Scheduled Queries",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 388,
+      "capability_name": "Alerts from Query Results",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 389,
+      "capability_name": "Data Lineage",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 390,
+      "capability_name": "Query Performance Governance",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 391,
+      "capability_name": "White-Label Embedded Analytics",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 392,
+      "capability_name": "Cross-Domain Decision Layer",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 393,
+      "capability_name": "TVL Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 394,
+      "capability_name": "Chain TVL Comparison",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 395,
+      "capability_name": "Protocol Directory",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 396,
+      "capability_name": "Fees & Revenue",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 397,
+      "capability_name": "DEX Volume",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 398,
+      "capability_name": "Perps Volume",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 399,
+      "capability_name": "Options Volume",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 400,
+      "capability_name": "Stablecoins Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "artifact": "BATCH09_CANONICAL_HTTP_ENTITLEMENT",
+  "generated_at": "2026-09-06T21:14:00.151728+00:00",
+  "git_commit": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+  "test_module": "tests/test_batch09_canonical_http_entitlement.py",
+  "exit_code": 0,
+  "passed": true,
+  "canonical_route": "/api/cap646/{capability_id}",
+  "mock_only_entitlement_evidence": [],
+  "auth_entitlement_bypass_gap": [],
+  "locally_testable_entitlement_incomplete": [],
+  "tier_denial_not_applicable": {
+    "scope": "401-450",
+    "reason": "cap646.entitlements default min_tier=free; no Batch09 ID in _TIER_REQUIREMENTS",
+    "restricted_ids": []
+  },
+  "summary_tail": "n3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+  "canonical_entitlement_paths_identified": true,
+  "material_entitlement_paths_locally_executed": true
+}

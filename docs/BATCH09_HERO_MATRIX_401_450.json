@@ -1,0 +1,2446 @@
+{
+  "artifact": "BATCH09_HERO_MATRIX_401_450",
+  "generated_at": "2026-09-06T20:15:41.212803+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "scope": "50 capabilities × 6 canonical Heroes — FEED/CONTEXT/NOT_APPLICABLE",
+  "heroes": [
+    {
+      "hero_id": "H1",
+      "name": "Opportunity Score + Explainability"
+    },
+    {
+      "hero_id": "H2",
+      "name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "hero_id": "H3",
+      "name": "Public Accuracy Ledger"
+    },
+    {
+      "hero_id": "H4",
+      "name": "Portfolio AI"
+    },
+    {
+      "hero_id": "H5",
+      "name": "Single-Sentence Oracle"
+    },
+    {
+      "hero_id": "H6",
+      "name": "Decision Certificate"
+    }
+  ],
+  "summary": {
+    "hero_matrix_cells": 300,
+    "feed_count": 0,
+    "context_count": 13,
+    "not_applicable_count": 287,
+    "hero_matrix_missing": [],
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": [],
+    "unjustified_hero_na": [],
+    "437_no_double_count_with_288": true,
+    "441_no_hero_double_count": true
+  },
+  "cells": [
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=401#H1",
+      "capability_id": 401,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=401#H2",
+      "capability_id": 401,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=401#H3",
+      "capability_id": 401,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=401#H4",
+      "capability_id": 401,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=401#H5",
+      "capability_id": 401,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=401#H6",
+      "capability_id": 401,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=402#H1",
+      "capability_id": 402,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=402#H2",
+      "capability_id": 402,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=402#H3",
+      "capability_id": 402,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Yield/portfolio intelligence informs Portfolio AI context — not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=402#H4",
+      "capability_id": 402,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=402#H5",
+      "capability_id": 402,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=402#H6",
+      "capability_id": 402,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=403#H1",
+      "capability_id": 403,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=403#H2",
+      "capability_id": 403,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=403#H3",
+      "capability_id": 403,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Yield/portfolio intelligence informs Portfolio AI context — not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=403#H4",
+      "capability_id": 403,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=403#H5",
+      "capability_id": 403,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=403#H6",
+      "capability_id": 403,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=404#H1",
+      "capability_id": 404,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=404#H2",
+      "capability_id": 404,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=404#H3",
+      "capability_id": 404,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=404#H4",
+      "capability_id": 404,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=404#H5",
+      "capability_id": 404,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=404#H6",
+      "capability_id": 404,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=405#H1",
+      "capability_id": 405,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=405#H2",
+      "capability_id": 405,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=405#H3",
+      "capability_id": 405,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=405#H4",
+      "capability_id": 405,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=405#H5",
+      "capability_id": 405,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=405#H6",
+      "capability_id": 405,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=406#H1",
+      "capability_id": 406,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=406#H2",
+      "capability_id": 406,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=406#H3",
+      "capability_id": 406,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=406#H4",
+      "capability_id": 406,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=406#H5",
+      "capability_id": 406,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=406#H6",
+      "capability_id": 406,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=407#H1",
+      "capability_id": 407,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=407#H2",
+      "capability_id": 407,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=407#H3",
+      "capability_id": 407,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=407#H4",
+      "capability_id": 407,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=407#H5",
+      "capability_id": 407,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=407#H6",
+      "capability_id": 407,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=408#H1",
+      "capability_id": 408,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=408#H2",
+      "capability_id": 408,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=408#H3",
+      "capability_id": 408,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=408#H4",
+      "capability_id": 408,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=408#H5",
+      "capability_id": 408,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=408#H6",
+      "capability_id": 408,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=409#H1",
+      "capability_id": 409,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=409#H2",
+      "capability_id": 409,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=409#H3",
+      "capability_id": 409,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=409#H4",
+      "capability_id": 409,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=409#H5",
+      "capability_id": 409,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=409#H6",
+      "capability_id": 409,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=410#H1",
+      "capability_id": 410,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=410#H2",
+      "capability_id": 410,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=410#H3",
+      "capability_id": 410,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=410#H4",
+      "capability_id": 410,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=410#H5",
+      "capability_id": 410,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=410#H6",
+      "capability_id": 410,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=411#H1",
+      "capability_id": 411,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=411#H2",
+      "capability_id": 411,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=411#H3",
+      "capability_id": 411,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=411#H4",
+      "capability_id": 411,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=411#H5",
+      "capability_id": 411,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=411#H6",
+      "capability_id": 411,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=412#H1",
+      "capability_id": 412,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=412#H2",
+      "capability_id": 412,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=412#H3",
+      "capability_id": 412,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=412#H4",
+      "capability_id": 412,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=412#H5",
+      "capability_id": 412,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=412#H6",
+      "capability_id": 412,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "DeFi opportunity screener/risk surfaces — opportunity framing context, not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=413#H1",
+      "capability_id": 413,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=413#H2",
+      "capability_id": 413,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=413#H3",
+      "capability_id": 413,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Yield/portfolio intelligence informs Portfolio AI context — not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=413#H4",
+      "capability_id": 413,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=413#H5",
+      "capability_id": 413,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=413#H6",
+      "capability_id": 413,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=414#H1",
+      "capability_id": 414,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=414#H2",
+      "capability_id": 414,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=414#H3",
+      "capability_id": 414,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Yield/portfolio intelligence informs Portfolio AI context — not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=414#H4",
+      "capability_id": 414,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=414#H5",
+      "capability_id": 414,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=414#H6",
+      "capability_id": 414,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=415#H1",
+      "capability_id": 415,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=415#H2",
+      "capability_id": 415,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=415#H3",
+      "capability_id": 415,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=415#H4",
+      "capability_id": 415,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=415#H5",
+      "capability_id": 415,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=415#H6",
+      "capability_id": 415,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "DeFi opportunity screener/risk surfaces — opportunity framing context, not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=416#H1",
+      "capability_id": 416,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=416#H2",
+      "capability_id": 416,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=416#H3",
+      "capability_id": 416,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Yield/portfolio intelligence informs Portfolio AI context — not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=416#H4",
+      "capability_id": 416,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=416#H5",
+      "capability_id": 416,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=416#H6",
+      "capability_id": 416,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=417#H1",
+      "capability_id": 417,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=417#H2",
+      "capability_id": 417,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=417#H3",
+      "capability_id": 417,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=417#H4",
+      "capability_id": 417,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=417#H5",
+      "capability_id": 417,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=417#H6",
+      "capability_id": 417,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=418#H1",
+      "capability_id": 418,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=418#H2",
+      "capability_id": 418,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=418#H3",
+      "capability_id": 418,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=418#H4",
+      "capability_id": 418,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=418#H5",
+      "capability_id": 418,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=418#H6",
+      "capability_id": 418,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=419#H1",
+      "capability_id": 419,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=419#H2",
+      "capability_id": 419,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=419#H3",
+      "capability_id": 419,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=419#H4",
+      "capability_id": 419,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=419#H5",
+      "capability_id": 419,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=419#H6",
+      "capability_id": 419,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=420#H1",
+      "capability_id": 420,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=420#H2",
+      "capability_id": 420,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=420#H3",
+      "capability_id": 420,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=420#H4",
+      "capability_id": 420,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=420#H5",
+      "capability_id": 420,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=420#H6",
+      "capability_id": 420,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=421#H1",
+      "capability_id": 421,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=421#H2",
+      "capability_id": 421,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=421#H3",
+      "capability_id": 421,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=421#H4",
+      "capability_id": 421,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=421#H5",
+      "capability_id": 421,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=421#H6",
+      "capability_id": 421,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=422#H1",
+      "capability_id": 422,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=422#H2",
+      "capability_id": 422,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=422#H3",
+      "capability_id": 422,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=422#H4",
+      "capability_id": 422,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=422#H5",
+      "capability_id": 422,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=422#H6",
+      "capability_id": 422,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=423#H1",
+      "capability_id": 423,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=423#H2",
+      "capability_id": 423,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=423#H3",
+      "capability_id": 423,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=423#H4",
+      "capability_id": 423,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=423#H5",
+      "capability_id": 423,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=423#H6",
+      "capability_id": 423,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=424#H1",
+      "capability_id": 424,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=424#H2",
+      "capability_id": 424,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=424#H3",
+      "capability_id": 424,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=424#H4",
+      "capability_id": 424,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=424#H5",
+      "capability_id": 424,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=424#H6",
+      "capability_id": 424,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=425#H1",
+      "capability_id": 425,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=425#H2",
+      "capability_id": 425,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=425#H3",
+      "capability_id": 425,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=425#H4",
+      "capability_id": 425,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=425#H5",
+      "capability_id": 425,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=425#H6",
+      "capability_id": 425,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=426#H1",
+      "capability_id": 426,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=426#H2",
+      "capability_id": 426,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=426#H3",
+      "capability_id": 426,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=426#H4",
+      "capability_id": 426,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=426#H5",
+      "capability_id": 426,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=426#H6",
+      "capability_id": 426,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=427#H1",
+      "capability_id": 427,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=427#H2",
+      "capability_id": 427,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=427#H3",
+      "capability_id": 427,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=427#H4",
+      "capability_id": 427,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=427#H5",
+      "capability_id": 427,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=427#H6",
+      "capability_id": 427,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=428#H1",
+      "capability_id": 428,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=428#H2",
+      "capability_id": 428,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=428#H3",
+      "capability_id": 428,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=428#H4",
+      "capability_id": 428,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=428#H5",
+      "capability_id": 428,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=428#H6",
+      "capability_id": 428,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=429#H1",
+      "capability_id": 429,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=429#H2",
+      "capability_id": 429,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=429#H3",
+      "capability_id": 429,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=429#H4",
+      "capability_id": 429,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=429#H5",
+      "capability_id": 429,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=429#H6",
+      "capability_id": 429,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=430#H1",
+      "capability_id": 430,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=430#H2",
+      "capability_id": 430,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=430#H3",
+      "capability_id": 430,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=430#H4",
+      "capability_id": 430,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=430#H5",
+      "capability_id": 430,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=430#H6",
+      "capability_id": 430,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=431#H1",
+      "capability_id": 431,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=431#H2",
+      "capability_id": 431,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=431#H3",
+      "capability_id": 431,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=431#H4",
+      "capability_id": 431,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=431#H5",
+      "capability_id": 431,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=431#H6",
+      "capability_id": 431,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=432#H1",
+      "capability_id": 432,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=432#H2",
+      "capability_id": 432,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=432#H3",
+      "capability_id": 432,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=432#H4",
+      "capability_id": 432,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=432#H5",
+      "capability_id": 432,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=432#H6",
+      "capability_id": 432,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=433#H1",
+      "capability_id": 433,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=433#H2",
+      "capability_id": 433,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=433#H3",
+      "capability_id": 433,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=433#H4",
+      "capability_id": 433,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=433#H5",
+      "capability_id": 433,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=433#H6",
+      "capability_id": 433,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=434#H1",
+      "capability_id": 434,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=434#H2",
+      "capability_id": 434,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=434#H3",
+      "capability_id": 434,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=434#H4",
+      "capability_id": 434,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=434#H5",
+      "capability_id": 434,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=434#H6",
+      "capability_id": 434,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "DeFi opportunity screener/risk surfaces — opportunity framing context, not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=435#H1",
+      "capability_id": 435,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=435#H2",
+      "capability_id": 435,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=435#H3",
+      "capability_id": 435,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=435#H4",
+      "capability_id": 435,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=435#H5",
+      "capability_id": 435,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=435#H6",
+      "capability_id": 435,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "DeFi opportunity screener/risk surfaces — opportunity framing context, not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=436#H1",
+      "capability_id": 436,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=436#H2",
+      "capability_id": 436,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=436#H3",
+      "capability_id": 436,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=436#H4",
+      "capability_id": 436,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=436#H5",
+      "capability_id": 436,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=436#H6",
+      "capability_id": 436,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=437#H1",
+      "capability_id": 437,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Facade delegates to canonical #288 mindshare correlation — contextual reuse, not additive Hero FEED",
+      "evidence_location": "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json#437_to_288",
+      "capability_id": 437,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=437#H3",
+      "capability_id": 437,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Yield/portfolio intelligence informs Portfolio AI context — not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=437#H4",
+      "capability_id": 437,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=437#H5",
+      "capability_id": 437,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=437#H6",
+      "capability_id": 437,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=438#H1",
+      "capability_id": 438,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=438#H2",
+      "capability_id": 438,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=438#H3",
+      "capability_id": 438,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=438#H4",
+      "capability_id": 438,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=438#H5",
+      "capability_id": 438,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=438#H6",
+      "capability_id": 438,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=439#H1",
+      "capability_id": 439,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=439#H2",
+      "capability_id": 439,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=439#H3",
+      "capability_id": 439,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=439#H4",
+      "capability_id": 439,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=439#H5",
+      "capability_id": 439,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=439#H6",
+      "capability_id": 439,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=440#H1",
+      "capability_id": 440,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=440#H2",
+      "capability_id": 440,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=440#H3",
+      "capability_id": 440,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=440#H4",
+      "capability_id": 440,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=440#H5",
+      "capability_id": 440,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=440#H6",
+      "capability_id": 440,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Strategy vetting facade delegates to canonical #155 stat-arb — opportunity framing context only",
+      "evidence_location": "docs/BATCH09_SIX_HEROES_BINDING.json#capability_id=441",
+      "capability_id": 441,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=441#H2",
+      "capability_id": 441,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=441#H3",
+      "capability_id": 441,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=441#H4",
+      "capability_id": 441,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=441#H5",
+      "capability_id": 441,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=441#H6",
+      "capability_id": 441,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=442#H1",
+      "capability_id": 442,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=442#H2",
+      "capability_id": 442,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=442#H3",
+      "capability_id": 442,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=442#H4",
+      "capability_id": 442,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=442#H5",
+      "capability_id": 442,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=442#H6",
+      "capability_id": 442,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=443#H1",
+      "capability_id": 443,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=443#H2",
+      "capability_id": 443,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=443#H3",
+      "capability_id": 443,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=443#H4",
+      "capability_id": 443,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=443#H5",
+      "capability_id": 443,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=443#H6",
+      "capability_id": 443,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=444#H1",
+      "capability_id": 444,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=444#H2",
+      "capability_id": 444,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=444#H3",
+      "capability_id": 444,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=444#H4",
+      "capability_id": 444,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=444#H5",
+      "capability_id": 444,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=444#H6",
+      "capability_id": 444,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=445#H1",
+      "capability_id": 445,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=445#H2",
+      "capability_id": 445,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=445#H3",
+      "capability_id": 445,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "CONTEXT",
+      "reason": "Yield/portfolio intelligence informs Portfolio AI context — not direct FEED",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=445#H4",
+      "capability_id": 445,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=445#H5",
+      "capability_id": 445,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=445#H6",
+      "capability_id": 445,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=446#H1",
+      "capability_id": 446,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=446#H2",
+      "capability_id": 446,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=446#H3",
+      "capability_id": 446,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=446#H4",
+      "capability_id": 446,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=446#H5",
+      "capability_id": 446,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=446#H6",
+      "capability_id": 446,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=447#H1",
+      "capability_id": 447,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=447#H2",
+      "capability_id": 447,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=447#H3",
+      "capability_id": 447,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=447#H4",
+      "capability_id": 447,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=447#H5",
+      "capability_id": 447,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=447#H6",
+      "capability_id": 447,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=448#H1",
+      "capability_id": 448,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=448#H2",
+      "capability_id": 448,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=448#H3",
+      "capability_id": 448,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=448#H4",
+      "capability_id": 448,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=448#H5",
+      "capability_id": 448,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=448#H6",
+      "capability_id": 448,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=449#H1",
+      "capability_id": 449,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=449#H2",
+      "capability_id": 449,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=449#H3",
+      "capability_id": 449,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=449#H4",
+      "capability_id": 449,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=449#H5",
+      "capability_id": 449,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=449#H6",
+      "capability_id": 449,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=450#H1",
+      "capability_id": 450,
+      "hero_id": "H1",
+      "hero_name": "Opportunity Score + Explainability"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=450#H2",
+      "capability_id": 450,
+      "hero_id": "H2",
+      "hero_name": "Whale Intelligence + Market Radar"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=450#H3",
+      "capability_id": 450,
+      "hero_id": "H3",
+      "hero_name": "Public Accuracy Ledger"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=450#H4",
+      "capability_id": 450,
+      "hero_id": "H4",
+      "hero_name": "Portfolio AI"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=450#H5",
+      "capability_id": 450,
+      "hero_id": "H5",
+      "hero_name": "Single-Sentence Oracle"
+    },
+    {
+      "relationship": "NOT_APPLICABLE",
+      "reason": "DeFi/yield intelligence surface — quiet engine; no direct Six Hero FEED per HEROES_STRATEGY_BINDING",
+      "evidence_location": "docs/BATCH09_HERO_MATRIX_401_450.json#capability_id=450#H6",
+      "capability_id": 450,
+      "hero_id": "H6",
+      "hero_name": "Decision Certificate"
+    }
+  ]
+}

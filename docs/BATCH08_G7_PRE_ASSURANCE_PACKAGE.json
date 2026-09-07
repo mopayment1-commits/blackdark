@@ -1,0 +1,27 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "reviewer_checklist_items": 4
+  },
+  "artifact": "BATCH08_G7_PRE_ASSURANCE_PACKAGE",
+  "generated_at": "2026-09-06T14:34:24.745904+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "scope": "Batch08 G7 Pre-Assurance Package",
+  "status": "G7_LOCAL_PREPARATION_COMPLETE",
+  "remaining": "G7_INDEPENDENT_SIGNOFF_PENDING",
+  "not_claimed": [
+    "G7 PASS",
+    "ASSURANCE_READY"
+  ],
+  "traceability": "RTM 351-400 → per-ID matrix → duplicate analysis",
+  "reviewer_checklist": [
+    "Verify 50/50 G0-G5 PASS_ENGINEERING",
+    "Confirm 0 unresolved duplicate conflicts",
+    "Review Railway queue purity (QUEUE_B only live items)",
+    "Confirm independent queue separation"
+  ]
+}

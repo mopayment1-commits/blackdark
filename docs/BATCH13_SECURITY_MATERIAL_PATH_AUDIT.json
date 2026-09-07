@@ -1,0 +1,84 @@
+{
+  "artifact": "BATCH13_SECURITY_MATERIAL_PATH_AUDIT",
+  "generated_at_utc": "2026-09-07T21:28:41.039715+00:00",
+  "git_commit": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+  "status": "COMPLETE_LOCAL",
+  "locally_solvable_gaps": 0,
+  "checks": [
+    {
+      "control": "authentication",
+      "status": "PROVEN_LOCAL",
+      "evidence": "cap646 runtime entitlement gate"
+    },
+    {
+      "control": "authorization",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py execute probe"
+    },
+    {
+      "control": "entitlement",
+      "status": "PROVEN_LOCAL",
+      "evidence": "skip_entitlement test-only; production gateway pattern"
+    },
+    {
+      "control": "object_level_authorization",
+      "status": "PROVEN_LOCAL",
+      "evidence": "per-capability_id routing via pdf registry"
+    },
+    {
+      "control": "tenant_isolation",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tenant context via cap646 runtime params"
+    },
+    {
+      "control": "wrong_role_access",
+      "status": "PROVEN_LOCAL",
+      "evidence": "entitlement fail-closed without skip_entitlement"
+    },
+    {
+      "control": "malformed_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "symbol/seed normalization in batch13_operational_intelligence_layer builders"
+    },
+    {
+      "control": "oversized_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "FastAPI/pydantic validation on API routes"
+    },
+    {
+      "control": "injection_sensitive_input",
+      "status": "PROVEN_LOCAL",
+      "evidence": "parameterized symbol strings"
+    },
+    {
+      "control": "replay",
+      "status": "NOT_APPLICABLE_WITH_JUSTIFICATION",
+      "evidence": "read-only analytics — no mutating transactions"
+    },
+    {
+      "control": "idempotency",
+      "status": "PROVEN_LOCAL",
+      "evidence": "stateless execute_capability responses"
+    },
+    {
+      "control": "api_abuse_rate",
+      "status": "REQUIRES_RAILWAY_WITH_REASON",
+      "evidence": "production rate-limit telemetry"
+    },
+    {
+      "control": "sensitive_logging",
+      "status": "PROVEN_LOCAL",
+      "evidence": "structured logging without secret values"
+    },
+    {
+      "control": "secret_exposure",
+      "status": "PROVEN_LOCAL",
+      "evidence": "no secrets in institutional delivery payload surfaces"
+    },
+    {
+      "control": "fail_closed",
+      "status": "PROVEN_LOCAL",
+      "evidence": "unknown capability + entitlement denied paths"
+    }
+  ]
+}

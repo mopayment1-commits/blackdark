@@ -1,0 +1,26 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "runbook_prepared": true
+  },
+  "artifact": "BATCH09_12207_OPERATION_READINESS_PACKAGE",
+  "generated_at": "2026-09-06T20:16:44.215661+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "scope": "Batch09 12207 Operation Readiness",
+  "status": "OPERATION_PREPARED_LOCAL",
+  "not_claimed": [
+    "OPERATION_PROVEN_LIVE"
+  ],
+  "operational_ownership": "batch09-institutional-owner",
+  "health_signals": [
+    "/health",
+    "/ready",
+    "cap646 latency_ms"
+  ],
+  "degraded_mode": "Documented per reliability modes",
+  "post_release_observation": "72h SLO watch after PASS_LIVE"
+}

@@ -26,8 +26,17 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         return fn() if not inspect.iscoroutinefunction(fn) else await fn()
     if style == "symbol":
         sig = inspect.signature(fn)
+        if len(sig.parameters) == 0:
+            return fn() if not inspect.iscoroutinefunction(fn) else await fn()
         if "symbol" in sig.parameters:
             return fn(symbol=symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol=symbol)
+        if "exchange" in sig.parameters:
+            exchange = str(params.get("exchange") or "binance")
+            return (
+                fn(exchange=exchange)
+                if not inspect.iscoroutinefunction(fn)
+                else await fn(exchange=exchange)
+            )
         if "limit" in sig.parameters:
             return fn(limit=int(params.get("limit") or 5)) if not inspect.iscoroutinefunction(fn) else await fn(limit=int(params.get("limit") or 5))
         return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
@@ -113,7 +122,7 @@ def _success_from_result(result: Any) -> bool:
     if result is None:
         return False
     if isinstance(result, dict):
-        if result.get("success") is False:
+        if result.get("success") is False or result.get("ok") is False:
             return False
         # Rankings / list-shaped payloads executed even when vendor empty
         if "coins" in result and isinstance(result["coins"], list):

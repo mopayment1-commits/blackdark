@@ -1,0 +1,460 @@
+{
+  "artifact": "BATCH09_SHARED_CORE_DISTINCTNESS",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
+  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
+  "accounted": "50/50",
+  "unproven_name_only_capabilities": 0,
+  "shared_core_semantic_conflicts": 0,
+  "rows": [
+    {
+      "capability_id": 401,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Bridges Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_401 seed key + symbol",
+      "algorithm_difference": "bridges_intelligence_401",
+      "output_surface": "ok=true capability_id=401 feature-specific fields",
+      "oracle": "execute_capability(401) ok=true; distinct surface 'bridges_intelligence' in payload; seed cap_401 metric"
+    },
+    {
+      "capability_id": 402,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Yields Screener — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_402 seed key + symbol",
+      "algorithm_difference": "yields_screener_402",
+      "output_surface": "ok=true capability_id=402 feature-specific fields",
+      "oracle": "execute_capability(402) ok=true; distinct surface 'yields_screener' in payload; seed cap_402 metric"
+    },
+    {
+      "capability_id": 403,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Yield History — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_403 seed key + symbol",
+      "algorithm_difference": "yield_history_403",
+      "output_surface": "ok=true capability_id=403 feature-specific fields",
+      "oracle": "execute_capability(403) ok=true; distinct surface 'yield_history' in payload; seed cap_403 metric"
+    },
+    {
+      "capability_id": 404,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Borrowing Rates — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_404 seed key + symbol",
+      "algorithm_difference": "borrowing_rates_404",
+      "output_surface": "ok=true capability_id=404 feature-specific fields",
+      "oracle": "execute_capability(404) ok=true; distinct surface 'borrowing_rates' in payload; seed cap_404 metric"
+    },
+    {
+      "capability_id": 405,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Liquid Staking Intelligence — Foundation, Architecture & Reliability",
+      "input_difference": "cap_405 seed key + symbol",
+      "algorithm_difference": "liquid_staking_intelligence_405",
+      "output_surface": "ok=true capability_id=405 feature-specific fields",
+      "oracle": "execute_capability(405) ok=true; distinct surface 'liquid_staking_intelligence' in payload; seed cap_405 metric"
+    },
+    {
+      "capability_id": 406,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "RWA Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_406 seed key + symbol",
+      "algorithm_difference": "rwa_intelligence_406",
+      "output_surface": "ok=true capability_id=406 feature-specific fields",
+      "oracle": "execute_capability(406) ok=true; distinct surface 'rwa_intelligence' in payload; seed cap_406 metric"
+    },
+    {
+      "capability_id": 407,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Raises / Funding Rounds — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_407 seed key + symbol",
+      "algorithm_difference": "raises_funding_rounds_407",
+      "output_surface": "ok=true capability_id=407 feature-specific fields",
+      "oracle": "execute_capability(407) ok=true; distinct surface 'raises_funding_rounds' in payload; seed cap_407 metric"
+    },
+    {
+      "capability_id": 408,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Investor Profiles — Derivatives, Funding & Liquidations",
+      "input_difference": "cap_408 seed key + symbol",
+      "algorithm_difference": "investor_profiles_408",
+      "output_surface": "ok=true capability_id=408 feature-specific fields",
+      "oracle": "execute_capability(408) ok=true; distinct surface 'investor_profiles' in payload; seed cap_408 metric"
+    },
+    {
+      "capability_id": 409,
+      "classification": "THIN_FACADE_VALID",
+      "canonical_requirement": "Unlocks — On-Chain, Wallet, Whale & Entity Intelligence",
+      "input_difference": "cap_409 seed key + symbol",
+      "algorithm_difference": "quicktake_feed_status_409",
+      "output_surface": "ok=true capability_id=409 feature-specific fields",
+      "oracle": "QuickTake feed status distinct facade"
+    },
+    {
+      "capability_id": 410,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Treasury Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_410 seed key + symbol",
+      "algorithm_difference": "treasury_intelligence_410",
+      "output_surface": "ok=true capability_id=410 feature-specific fields",
+      "oracle": "execute_capability(410) ok=true; distinct surface 'treasury_intelligence' in payload; seed cap_410 metric"
+    },
+    {
+      "capability_id": 411,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Airdrop / Incentive Intelligence — On-Chain, Wallet, Whale & Entity Intelligence",
+      "input_difference": "cap_411 seed key + symbol",
+      "algorithm_difference": "airdrop_incentive_intelligence_411",
+      "output_surface": "ok=true capability_id=411 feature-specific fields",
+      "oracle": "execute_capability(411) ok=true; distinct surface 'airdrop_incentive_intelligence' in payload; seed cap_411 metric"
+    },
+    {
+      "capability_id": 412,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Capital Formation Radar — Data Platform, Quality & Connectors",
+      "input_difference": "cap_412 seed key + symbol",
+      "algorithm_difference": "capital_formation_radar_412",
+      "output_surface": "ok=true capability_id=412 feature-specific fields",
+      "oracle": "execute_capability(412) ok=true; distinct surface 'capital_formation_radar' in payload; seed cap_412 metric"
+    },
+    {
+      "capability_id": 413,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "DeFi Opportunity Screener — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_413 seed key + symbol",
+      "algorithm_difference": "defi_opportunity_screener_413",
+      "output_surface": "ok=true capability_id=413 feature-specific fields",
+      "oracle": "execute_capability(413) ok=true; distinct surface 'defi_opportunity_screener' in payload; seed cap_413 metric"
+    },
+    {
+      "capability_id": 414,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "DeFi Risk Passport — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_414 seed key + symbol",
+      "algorithm_difference": "defi_risk_passport_414",
+      "output_surface": "ok=true capability_id=414 feature-specific fields",
+      "oracle": "execute_capability(414) ok=true; distinct surface 'defi_risk_passport' in payload; seed cap_414 metric"
+    },
+    {
+      "capability_id": 415,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "API Aggregation Layer — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_415 seed key + symbol",
+      "algorithm_difference": "api_aggregation_layer_415",
+      "output_surface": "ok=true capability_id=415 feature-specific fields",
+      "oracle": "execute_capability(415) ok=true; distinct surface 'api_aggregation_layer' in payload; seed cap_415 metric"
+    },
+    {
+      "capability_id": 416,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Cross-DeFi Decision Intelligence — Institutional, B2B, API & Developer Platform",
+      "input_difference": "cap_416 seed key + symbol",
+      "algorithm_difference": "cross_defi_decision_intelligence_416",
+      "output_surface": "ok=true capability_id=416 feature-specific fields",
+      "oracle": "execute_capability(416) ok=true; distinct surface 'cross_defi_decision_intelligence' in payload; seed cap_416 metric"
+    },
+    {
+      "capability_id": 417,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Cross-Chain Fundamentals — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_417 seed key + symbol",
+      "algorithm_difference": "cross_chain_fundamentals_417",
+      "output_surface": "ok=true capability_id=417 feature-specific fields",
+      "oracle": "execute_capability(417) ok=true; distinct surface 'cross_chain_fundamentals' in payload; seed cap_417 metric"
+    },
+    {
+      "capability_id": 418,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Protocol Fundamentals — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_418 seed key + symbol",
+      "algorithm_difference": "protocol_fundamentals_418",
+      "output_surface": "ok=true capability_id=418 feature-specific fields",
+      "oracle": "execute_capability(418) ok=true; distinct surface 'protocol_fundamentals' in payload; seed cap_418 metric"
+    },
+    {
+      "capability_id": 419,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Stablecoin Intelligence — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_419 seed key + symbol",
+      "algorithm_difference": "stablecoin_intelligence_419",
+      "output_surface": "ok=true capability_id=419 feature-specific fields",
+      "oracle": "execute_capability(419) ok=true; distinct surface 'stablecoin_intelligence' in payload; seed cap_419 metric"
+    },
+    {
+      "capability_id": 420,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Stablecoin Activity Breakdown — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_420 seed key + symbol",
+      "algorithm_difference": "stablecoin_activity_breakdown_420",
+      "output_surface": "ok=true capability_id=420 feature-specific fields",
+      "oracle": "execute_capability(420) ok=true; distinct surface 'stablecoin_activity_breakdown' in payload; seed cap_420 metric"
+    },
+    {
+      "capability_id": 421,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Developer Activity — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_421 seed key + symbol",
+      "algorithm_difference": "developer_activity_421",
+      "output_surface": "ok=true capability_id=421 feature-specific fields",
+      "oracle": "execute_capability(421) ok=true; distinct surface 'developer_activity' in payload; seed cap_421 metric"
+    },
+    {
+      "capability_id": 422,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Sector/Ecosystem Comparables — Institutional, B2B, API & Developer Platform",
+      "input_difference": "cap_422 seed key + symbol",
+      "algorithm_difference": "sector_ecosystem_comparables_422",
+      "output_surface": "ok=true capability_id=422 feature-specific fields",
+      "oracle": "execute_capability(422) ok=true; distinct surface 'sector_ecosystem_comparables' in payload; seed cap_422 metric"
+    },
+    {
+      "capability_id": 423,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Equities + Crypto Research — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_423 seed key + symbol",
+      "algorithm_difference": "equities_crypto_research_423",
+      "output_surface": "ok=true capability_id=423 feature-specific fields",
+      "oracle": "execute_capability(423) ok=true; distinct surface 'equities_crypto_research' in payload; seed cap_423 metric"
+    },
+    {
+      "capability_id": 424,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Consensus Estimates — UX, Dashboards, Visualization & Beginner Experience",
+      "input_difference": "cap_424 seed key + symbol",
+      "algorithm_difference": "consensus_estimates_424",
+      "output_surface": "ok=true capability_id=424 feature-specific fields",
+      "oracle": "execute_capability(424) ok=true; distinct surface 'consensus_estimates' in payload; seed cap_424 metric"
+    },
+    {
+      "capability_id": 425,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "AI Analyst — Data Platform, Quality & Connectors",
+      "input_difference": "cap_425 seed key + symbol",
+      "algorithm_difference": "ai_analyst_425",
+      "output_surface": "ok=true capability_id=425 feature-specific fields",
+      "oracle": "execute_capability(425) ok=true; distinct surface 'ai_analyst' in payload; seed cap_425 metric"
+    },
+    {
+      "capability_id": 426,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Thesis Research Workspace — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_426 seed key + symbol",
+      "algorithm_difference": "thesis_research_workspace_426",
+      "output_surface": "ok=true capability_id=426 feature-specific fields",
+      "oracle": "execute_capability(426) ok=true; distinct surface 'thesis_research_workspace' in payload; seed cap_426 metric"
+    },
+    {
+      "capability_id": 427,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Comparable Company / Protocol Analysis — Technical, Quant & Predictive Analytics",
+      "input_difference": "cap_427 seed key + symbol",
+      "algorithm_difference": "comparable_company_protocol_analysis_427",
+      "output_surface": "ok=true capability_id=427 feature-specific fields",
+      "oracle": "execute_capability(427) ok=true; distinct surface 'comparable_company_protocol_analysis' in payload; seed cap_427 metric"
+    },
+    {
+      "capability_id": 428,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Excel / Sheets Integration — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_428 seed key + symbol",
+      "algorithm_difference": "excel_sheets_integration_428",
+      "output_surface": "ok=true capability_id=428 feature-specific fields",
+      "oracle": "execute_capability(428) ok=true; distinct surface 'excel_sheets_integration' in payload; seed cap_428 metric"
+    },
+    {
+      "capability_id": 429,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "API Data Platform — Security, Privacy, Identity & Compliance",
+      "input_difference": "cap_429 seed key + symbol",
+      "algorithm_difference": "api_data_platform_429",
+      "output_surface": "ok=true capability_id=429 feature-specific fields",
+      "oracle": "execute_capability(429) ok=true; distinct surface 'api_data_platform' in payload; seed cap_429 metric"
+    },
+    {
+      "capability_id": 430,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Research Templates — Technical, Quant & Predictive Analytics",
+      "input_difference": "cap_430 seed key + symbol",
+      "algorithm_difference": "research_templates_430",
+      "output_surface": "ok=true capability_id=430 feature-specific fields",
+      "oracle": "execute_capability(430) ok=true; distinct surface 'research_templates' in payload; seed cap_430 metric"
+    },
+    {
+      "capability_id": 431,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Dashboards — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_431 seed key + symbol",
+      "algorithm_difference": "dashboards_431",
+      "output_surface": "ok=true capability_id=431 feature-specific fields",
+      "oracle": "execute_capability(431) ok=true; distinct surface 'dashboards' in payload; seed cap_431 metric"
+    },
+    {
+      "capability_id": 432,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Stablecoin Payment Intelligence — UX, Dashboards, Visualization & Beginner Experience",
+      "input_difference": "cap_432 seed key + symbol",
+      "algorithm_difference": "stablecoin_payment_intelligence_432",
+      "output_surface": "ok=true capability_id=432 feature-specific fields",
+      "oracle": "execute_capability(432) ok=true; distinct surface 'stablecoin_payment_intelligence' in payload; seed cap_432 metric"
+    },
+    {
+      "capability_id": 433,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "On-Chain Usage Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_433 seed key + symbol",
+      "algorithm_difference": "on_chain_usage_intelligence_433",
+      "output_surface": "ok=true capability_id=433 feature-specific fields",
+      "oracle": "execute_capability(433) ok=true; distinct surface 'on_chain_usage_intelligence' in payload; seed cap_433 metric"
+    },
+    {
+      "capability_id": 434,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Revenue / Fees / Economic Activity — On-Chain, Wallet, Whale & Entity Intelligence",
+      "input_difference": "cap_434 seed key + symbol",
+      "algorithm_difference": "revenue_fees_economic_activity_434",
+      "output_surface": "ok=true capability_id=434 feature-specific fields",
+      "oracle": "execute_capability(434) ok=true; distinct surface 'revenue_fees_economic_activity' in payload; seed cap_434 metric"
+    },
+    {
+      "capability_id": 435,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Cross-Market Research Copilot — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_435 seed key + symbol",
+      "algorithm_difference": "cross_market_research_copilot_435",
+      "output_surface": "ok=true capability_id=435 feature-specific fields",
+      "oracle": "execute_capability(435) ok=true; distinct surface 'cross_market_research_copilot' in payload; seed cap_435 metric"
+    },
+    {
+      "capability_id": 436,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Investment Thesis Scoring — AI, Sentiment, News & Decision Intelligence",
+      "input_difference": "cap_436 seed key + symbol",
+      "algorithm_difference": "investment_thesis_scoring_436",
+      "output_surface": "ok=true capability_id=436 feature-specific fields",
+      "oracle": "execute_capability(436) ok=true; distinct surface 'investment_thesis_scoring' in payload; seed cap_436 metric"
+    },
+    {
+      "capability_id": 437,
+      "classification": "REAL_IMPLEMENTATION",
+      "canonical_requirement": "DeFi Risk Radar — Risk, Hedging & Stress Analytics",
+      "input_difference": "cap_437 seed key + symbol",
+      "algorithm_difference": "defi_risk_radar_437",
+      "output_surface": "ok=true capability_id=437 feature-specific fields",
+      "oracle": "Reopening Phase 8 — DeFi Risk Radar semantics require hack/TVL risk radar, not mindshare correlation"
+    },
+    {
+      "capability_id": 438,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Lending Market Risk — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_438 seed key + symbol",
+      "algorithm_difference": "lending_market_risk_438",
+      "output_surface": "ok=true capability_id=438 feature-specific fields",
+      "oracle": "execute_capability(438) ok=true; distinct surface 'lending_market_risk' in payload; seed cap_438 metric"
+    },
+    {
+      "capability_id": 439,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Collateral Risk — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_439 seed key + symbol",
+      "algorithm_difference": "collateral_risk_439",
+      "output_surface": "ok=true capability_id=439 feature-specific fields",
+      "oracle": "execute_capability(439) ok=true; distinct surface 'collateral_risk' in payload; seed cap_439 metric"
+    },
+    {
+      "capability_id": 440,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Liquidation Risk — Risk, Hedging & Stress Analytics",
+      "input_difference": "cap_440 seed key + symbol",
+      "algorithm_difference": "liquidation_risk_440",
+      "output_surface": "ok=true capability_id=440 feature-specific fields",
+      "oracle": "execute_capability(440) ok=true; distinct surface 'liquidation_risk' in payload; seed cap_440 metric"
+    },
+    {
+      "capability_id": 441,
+      "classification": "REAL_IMPLEMENTATION",
+      "canonical_requirement": "Oracle Risk — Derivatives, Funding & Liquidations",
+      "input_difference": "cap_441 seed key + symbol",
+      "algorithm_difference": "oracle_risk_441",
+      "output_surface": "ok=true capability_id=441 feature-specific fields",
+      "oracle": "Reopening Phase 8 — Oracle Risk requires freshness/staleness validation, not stat-arb insight"
+    },
+    {
+      "capability_id": 442,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Liquidity Risk — Risk, Hedging & Stress Analytics",
+      "input_difference": "cap_442 seed key + symbol",
+      "algorithm_difference": "liquidity_risk_442",
+      "output_surface": "ok=true capability_id=442 feature-specific fields",
+      "oracle": "execute_capability(442) ok=true; distinct surface 'liquidity_risk' in payload; seed cap_442 metric"
+    },
+    {
+      "capability_id": 443,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Protocol Exploit Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_443 seed key + symbol",
+      "algorithm_difference": "protocol_exploit_intelligence_443",
+      "output_surface": "ok=true capability_id=443 feature-specific fields",
+      "oracle": "execute_capability(443) ok=true; distinct surface 'protocol_exploit_intelligence' in payload; seed cap_443 metric"
+    },
+    {
+      "capability_id": 444,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Stablecoin Risk Intelligence — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_444 seed key + symbol",
+      "algorithm_difference": "stablecoin_risk_intelligence_444",
+      "output_surface": "ok=true capability_id=444 feature-specific fields",
+      "oracle": "execute_capability(444) ok=true; distinct surface 'stablecoin_risk_intelligence' in payload; seed cap_444 metric"
+    },
+    {
+      "capability_id": 445,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "DeFi Strategy Risk — DeFi, Yield, Stablecoins & Token Economics",
+      "input_difference": "cap_445 seed key + symbol",
+      "algorithm_difference": "defi_strategy_risk_445",
+      "output_surface": "ok=true capability_id=445 feature-specific fields",
+      "oracle": "execute_capability(445) ok=true; distinct surface 'defi_strategy_risk' in payload; seed cap_445 metric"
+    },
+    {
+      "capability_id": 446,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Real-Time Risk Alerts — Reporting, Audit, Tax & Governance",
+      "input_difference": "cap_446 seed key + symbol",
+      "algorithm_difference": "real_time_risk_alerts_446",
+      "output_surface": "ok=true capability_id=446 feature-specific fields",
+      "oracle": "execute_capability(446) ok=true; distinct surface 'real_time_risk_alerts' in payload; seed cap_446 metric"
+    },
+    {
+      "capability_id": 447,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "DAO Treasury Risk — Risk, Hedging & Stress Analytics",
+      "input_difference": "cap_447 seed key + symbol",
+      "algorithm_difference": "dao_treasury_risk_447",
+      "output_surface": "ok=true capability_id=447 feature-specific fields",
+      "oracle": "execute_capability(447) ok=true; distinct surface 'dao_treasury_risk' in payload; seed cap_447 metric"
+    },
+    {
+      "capability_id": 448,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Institutional Risk API — On-Chain, Wallet, Whale & Entity Intelligence",
+      "input_difference": "cap_448 seed key + symbol",
+      "algorithm_difference": "institutional_risk_api_448",
+      "output_surface": "ok=true capability_id=448 feature-specific fields",
+      "oracle": "execute_capability(448) ok=true; distinct surface 'institutional_risk_api' in payload; seed cap_448 metric"
+    },
+    {
+      "capability_id": 449,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Curated On-Chain Dashboards — Institutional, B2B, API & Developer Platform",
+      "input_difference": "cap_449 seed key + symbol",
+      "algorithm_difference": "curated_on_chain_dashboards_449",
+      "output_surface": "ok=true capability_id=449 feature-specific fields",
+      "oracle": "execute_capability(449) ok=true; distinct surface 'curated_on_chain_dashboards' in payload; seed cap_449 metric"
+    },
+    {
+      "capability_id": 450,
+      "classification": "VALID_SHARED_CORE_DISTINCT_SEMANTICS",
+      "canonical_requirement": "Narrative-Driven Research — On-Chain, Wallet, Whale & Entity Intelligence",
+      "input_difference": "cap_450 seed key + symbol",
+      "algorithm_difference": "narrative_driven_research_450",
+      "output_surface": "ok=true capability_id=450 feature-specific fields",
+      "oracle": "execute_capability(450) ok=true; distinct surface 'narrative_driven_research' in payload; seed cap_450 metric"
+    }
+  ]
+}
