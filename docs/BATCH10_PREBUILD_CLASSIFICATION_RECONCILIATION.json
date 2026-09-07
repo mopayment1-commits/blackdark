@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH10_PREBUILD_CLASSIFICATION_RECONCILIATION",
-  "generated_at_utc": "2026-09-07T08:38:56.698392+00:00",
-  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "generated_at_utc": "2026-09-07T08:40:59.869721+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "pre_remediation_sha": "a5c5c3ff4c4c859725f7d4300f57ddc1dbad8af2",
   "semantic_remediation_introduced_sha": "8388fb9a7ffdffd8eb8b7a286d9273fc6d10063c",
   "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md §3 Pre-Build State Classification",

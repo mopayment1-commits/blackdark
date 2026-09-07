@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH10_V6_APPLICABILITY_RESOLVED",
-  "generated_at_utc": "2026-09-07T08:38:57.854064+00:00",
-  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "generated_at_utc": "2026-09-07T08:41:01.031454+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "resolved": true,
   "local_applicability_gaps": [],
   "rows": [

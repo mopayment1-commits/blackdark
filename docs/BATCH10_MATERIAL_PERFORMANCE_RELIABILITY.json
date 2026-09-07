@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH10_MATERIAL_PERFORMANCE_RELIABILITY",
-  "generated_at_utc": "2026-09-07T08:38:56.715187+00:00",
-  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "generated_at_utc": "2026-09-07T08:40:59.886559+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "nielsen_mandated": false,
   "v6_note": "Nielsen thresholds not imposed as Batch10 performance engineering standard",
   "material_requirements": {

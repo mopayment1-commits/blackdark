@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH10_SOURCE_DEPENDENCY_APPLICABILITY",
-  "generated_at_utc": "2026-09-07T08:38:56.715181+00:00",
-  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "generated_at_utc": "2026-09-07T08:40:59.886555+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "source_dependency_applicability_resolved": true,
   "rights_provenance_gaps": [],
   "false_live_readiness_claims": 0,

@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH10_ENTITLEMENT_MATERIAL_PATH_AUDIT",
-  "generated_at_utc": "2026-09-07T08:37:22.855113+00:00",
-  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "generated_at_utc": "2026-09-07T08:39:25.619853+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "scope": "Material cap646 runtime path — Batch10 451-500",
   "all_batch10_free_tier": true,
   "material_entitlement_paths_proven": true,

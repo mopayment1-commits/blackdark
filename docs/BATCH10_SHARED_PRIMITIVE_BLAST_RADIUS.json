@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH10_SHARED_PRIMITIVE_BLAST_RADIUS",
-  "generated_at_utc": "2026-09-07T08:38:56.708652+00:00",
-  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "generated_at_utc": "2026-09-07T08:40:59.880107+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "introduced_by_commits": [
     "8388fb9",
     "e69a139"
@@ -200,6 +200,6 @@
       "tail": "........................................................................ [ 50%]\n........................................................................ [100%]\n"
     }
   ],
-  "tested_sha": "6de1e08918af436d3ab70681cbd9418015744154",
+  "tested_sha": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "affected_regression_gap": []
 }

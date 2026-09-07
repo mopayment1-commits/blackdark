@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH10_CONSUMER_PATH_EVIDENCE_V2",
-  "generated_at_utc": "2026-09-07T08:38:56.708637+00:00",
-  "git_commit": "6de1e08918af436d3ab70681cbd9418015744154",
+  "generated_at_utc": "2026-09-07T08:40:59.880092+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
   "consumer_paths_proven": "50/50",
   "generic_gateway_sole_evidence": 0,
   "orphan_capabilities": 0,
