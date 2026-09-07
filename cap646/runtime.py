@@ -44,7 +44,7 @@ def _pdf_dedicated_platform_ids() -> frozenset[int]:
 
     bindings = discover_bindings()
     dedicated: set[int] = set()
-    for cid in range(301, 551):
+    for cid in range(301, 601):
         pdf = bindings.get(cid)
         if pdf and pdf[0].startswith(
             (
@@ -63,6 +63,8 @@ def _pdf_dedicated_platform_ids() -> frozenset[int]:
 
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
+    if capability_id in _pdf_dedicated_platform_ids():
+        return handle_platform_capability
     if capability_id in OPTION_A_IDS:
         if capability_id in BATCH01_IDS:
             return handle_batch01_capability
@@ -151,7 +153,7 @@ async def execute_capability(
 
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
-    if capability_id in BATCH01_IDS:
+    if capability_id in BATCH01_IDS and capability_id not in _pdf_dedicated_platform_ids():
         return await execute_and_enrich_batch(
             handle_batch01_capability, capability_id, row=row, params=params
         )

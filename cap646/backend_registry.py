@@ -48,6 +48,14 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "symbol",
         "canonical_duplicate_reuse_205",
     ),
+    551: BackendBinding(
+        551,
+        "cap646.batch02_production",
+        "cap_088",
+        "liquidation_intelligence",
+        "symbol",
+        "canonical_duplicate_reuse_88",
+    ),
 }
 
 
@@ -135,6 +143,25 @@ def _register_batch03_bindings() -> None:
 
 
 _register_batch03_bindings()
+
+
+# PDF-registry hero overrides — must win over legacy batch01 extension IDs (e.g. #584).
+_EXPLICIT_BINDINGS[578] = BackendBinding(
+    578,
+    "bd_platform.heroes_capability_layer",
+    "shadow_fork_pre_execution_578",
+    "shadow_fork_pre_execution",
+    "symbol",
+    "pdf_capability_registry_hero",
+)
+_EXPLICIT_BINDINGS[584] = BackendBinding(
+    584,
+    "bd_platform.heroes_capability_layer",
+    "coindesk_rss_feed_584",
+    "coindesk_rss_feed",
+    "none",
+    "pdf_capability_registry_hero",
+)
 
 
 # Map gap-matrix component stems → canonical import path + entrypoint
@@ -326,7 +353,7 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     track = row["track"]
     surface = _slug(name)
 
-    if 301 <= capability_id <= 550:
+    if 301 <= capability_id <= 600:
         pdf = _pdf_registry_bindings().get(capability_id)
         if pdf is not None:
             mod, entrypoint = pdf
