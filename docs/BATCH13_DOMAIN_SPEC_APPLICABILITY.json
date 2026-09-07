@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_DOMAIN_SPEC_APPLICABILITY",
-  "generated_at_utc": "2026-09-07T20:46:54.584793+00:00",
-  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
+  "generated_at_utc": "2026-09-07T21:28:41.034197+00:00",
+  "git_commit": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
   "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
   "scope": "Delta-only NOT_APPLICABLE / PARTIALLY_APPLICABLE mapping — operational_market_intelligence 601-650",
   "capability_type": "operational_market_intelligence",

@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_CONSUMER_PATH_EVIDENCE",
-  "generated_at_utc": "2026-09-07T20:45:59.065756+00:00",
-  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
+  "generated_at_utc": "2026-09-07T21:27:45.689764+00:00",
+  "git_commit": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
   "consumer_paths_accounted": "50/50",
   "generic_gateway_as_sole_evidence": 0,
   "unresolved_consumer_path_gap": 0,
@@ -22,7 +22,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 602,
@@ -40,7 +40,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 603,
@@ -58,7 +58,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 604,
@@ -76,7 +76,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 605,
@@ -94,7 +94,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 606,
@@ -112,7 +112,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 607,
@@ -130,7 +130,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 608,
@@ -148,7 +148,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 609,
@@ -166,7 +166,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 610,
@@ -184,7 +184,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 611,
@@ -202,7 +202,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 612,
@@ -220,7 +220,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 613,
@@ -238,7 +238,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "E. CANONICAL_DUPLICATE_REUSE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 614,
@@ -256,7 +256,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 615,
@@ -274,7 +274,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 616,
@@ -292,7 +292,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 617,
@@ -310,7 +310,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 618,
@@ -328,7 +328,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 619,
@@ -346,7 +346,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 620,
@@ -364,7 +364,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 621,
@@ -382,7 +382,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 622,
@@ -400,7 +400,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 623,
@@ -418,7 +418,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 624,
@@ -436,7 +436,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 625,
@@ -454,7 +454,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 626,
@@ -472,7 +472,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 627,
@@ -490,7 +490,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 628,
@@ -508,7 +508,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 629,
@@ -526,7 +526,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "A. EXISTING_VERIFIED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 630,
@@ -544,7 +544,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 631,
@@ -562,7 +562,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "A. EXISTING_VERIFIED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 632,
@@ -580,7 +580,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 633,
@@ -598,7 +598,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 634,
@@ -616,7 +616,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 635,
@@ -634,7 +634,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 636,
@@ -652,7 +652,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 637,
@@ -670,7 +670,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 638,
@@ -688,7 +688,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 639,
@@ -706,7 +706,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 640,
@@ -724,7 +724,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 641,
@@ -742,7 +742,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 642,
@@ -760,7 +760,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "A. EXISTING_VERIFIED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 643,
@@ -778,7 +778,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 644,
@@ -796,7 +796,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "A. EXISTING_VERIFIED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 645,
@@ -814,7 +814,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "B. EXISTING_NEEDS_EXTENSION",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 646,
@@ -832,7 +832,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "A. EXISTING_VERIFIED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 647,
@@ -850,7 +850,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 648,
@@ -868,7 +868,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 649,
@@ -886,7 +886,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     },
     {
       "capability_id": 650,
@@ -904,7 +904,7 @@
       "external_blocker": null,
       "generic_gateway_as_sole_evidence": false,
       "classification": "G. EXTERNAL_DEPENDENCY_BLOCKED",
-      "tested_sha": "53f698bf0848305b498049a1f3800b021fbacd78"
+      "tested_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
     }
   ]
 }

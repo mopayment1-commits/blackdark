@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_CAPABILITY_INVENTORY_601_650",
-  "generated_at_utc": "2026-09-07T20:46:54.570813+00:00",
-  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
+  "generated_at_utc": "2026-09-07T21:28:41.021150+00:00",
+  "git_commit": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
   "branch": "cursor/batch13-601-650-ed16",
   "manifest": "scripts/partial_batches/batch_13_601_650.json",
   "membership": {

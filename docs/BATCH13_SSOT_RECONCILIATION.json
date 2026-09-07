@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_SSOT_RECONCILIATION",
-  "generated_at_utc": "2026-09-07T20:46:54.591678+00:00",
-  "git_commit": "53f698bf0848305b498049a1f3800b021fbacd78",
+  "generated_at_utc": "2026-09-07T21:28:41.040277+00:00",
+  "git_commit": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
   "active_ssot_conflicts": 0,
   "stale_active_truths": 0,
   "unexplained_parallel_status_dimensions": 0,
