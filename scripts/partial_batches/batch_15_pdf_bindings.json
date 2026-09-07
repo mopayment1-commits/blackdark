@@ -1,0 +1,202 @@
+{
+  "701": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "revenue_fees_economic_activity_701"
+  ],
+  "702": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "cross_market_research_copilot_702"
+  ],
+  "703": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "investment_thesis_scoring_703"
+  ],
+  "704": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "defi_risk_radar_704"
+  ],
+  "705": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "lending_market_risk_705"
+  ],
+  "706": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "collateral_risk_706"
+  ],
+  "707": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "liquidation_risk_707"
+  ],
+  "708": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "oracle_risk_708"
+  ],
+  "709": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "liquidity_risk_709"
+  ],
+  "710": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "protocol_exploit_intelligence_710"
+  ],
+  "711": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "stablecoin_risk_intelligence_711"
+  ],
+  "712": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "defi_strategy_risk_712"
+  ],
+  "713": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "real_time_risk_alerts_713"
+  ],
+  "714": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "dao_treasury_risk_714"
+  ],
+  "715": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "institutional_risk_api_715"
+  ],
+  "716": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "curated_on_chain_dashboards_716"
+  ],
+  "717": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "narrative_driven_research_717"
+  ],
+  "718": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "protocol_dominance_718"
+  ],
+  "719": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "aave_multi_chain_analytics_719"
+  ],
+  "720": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "risk_curation_720"
+  ],
+  "721": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "capital_protection_controls_721"
+  ],
+  "722": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "stress_testing_722"
+  ],
+  "723": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "cross_protocol_contagion_723"
+  ],
+  "724": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "protocol_risk_passport_724"
+  ],
+  "725": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "risk_to_decision_intelligence_725"
+  ],
+  "726": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "network_data_pro_metrics_726"
+  ],
+  "727": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "atlas_blockchain_search_727"
+  ],
+  "728": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "address_balance_search_728"
+  ],
+  "729": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "transaction_search_729"
+  ],
+  "730": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "block_search_730"
+  ],
+  "731": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "balance_updates_731"
+  ],
+  "732": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "stablecoin_network_metrics_732"
+  ],
+  "733": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "market_data_feed_733"
+  ],
+  "734": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "market_data_pro_734"
+  ],
+  "735": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "reference_rates_735"
+  ],
+  "736": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "indexes_736"
+  ],
+  "737": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "realized_metrics_737"
+  ],
+  "738": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "supply_metrics_738"
+  ],
+  "739": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "mining_validator_metrics_739"
+  ],
+  "740": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "fee_metrics_740"
+  ],
+  "741": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "activity_metrics_741"
+  ],
+  "742": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "custom_metric_workbench_742"
+  ],
+  "743": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "community_charts_api_743"
+  ],
+  "744": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "market_network_join_744"
+  ],
+  "745": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "data_quality_methodologies_745"
+  ],
+  "746": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "historical_research_dataset_746"
+  ],
+  "747": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "institutional_apis_747"
+  ],
+  "748": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "cross_network_decision_intelligence_748"
+  ],
+  "749": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "institutional_trade_data_749"
+  ],
+  "750": [
+    "bd_platform.batch15_defi_risk_data_facade_layer",
+    "order_book_data_750"
+  ]
+}
