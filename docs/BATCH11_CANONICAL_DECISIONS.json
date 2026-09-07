@@ -1,0 +1,36 @@
+{
+  "artifact": "BATCH11_CANONICAL_DECISIONS",
+  "generated_at_utc": "2026-09-07T11:27:23.114089+00:00",
+  "git_commit": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
+  "decisions": {
+    "525": {
+      "decision": "CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 74,
+      "facade_binding": "bd_platform.heroes_capability_layer.strategy_backtesting_525",
+      "canonical_implementation": "bd_platform.pro_trader_layer.run_backtest_74",
+      "underlying_module": "bd_platform.pro_trader_layer",
+      "underlying_function": "run_backtest_74",
+      "evidence": "Hero facade delegates to canonical #74 backtest — not a distinct semantic surface",
+      "mece_action": "Count via canonical #74 only; #525 facade does not add second Hero score"
+    },
+    "517": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "binding_function": "fix_connectivity_517",
+      "wraps": "comparison_engine.run_comparison_engine",
+      "evidence": "FIX Connectivity (#517) wraps comparison_engine with Batch11 capability identity — outside institutional_delivery shared core",
+      "mece_action": "Count as distinct outside-shared-core surface; not generic template"
+    },
+    "528": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.market_rankings",
+      "binding_function": "market_rankings",
+      "evidence": "Liquidation Levels (#528) routes to market_rankings — outside institutional_delivery shared core",
+      "mece_action": "Count as distinct outside-shared-core surface bound to market_rankings"
+    }
+  },
+  "summary": {
+    "canonical_duplicate_reuse_count": 3,
+    "keep_distinct_but_reuse_shared_core_count": 47
+  }
+}

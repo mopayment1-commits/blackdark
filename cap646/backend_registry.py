@@ -32,30 +32,6 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "none",
         "explicit_option_a",
     ),
-    500: BackendBinding(
-        500,
-        "cap646.data_spine",
-        "normalization_report",
-        "data_quality_normalization",
-        "symbol",
-        "explicit_option_a",
-    ),
-    507: BackendBinding(
-        507,
-        "cap646.fallbacks",
-        "resolve_ohlcv_closes",
-        "ohlcv",
-        "symbol",
-        "explicit_option_a",
-    ),
-    534: BackendBinding(
-        534,
-        "cap646.data_spine",
-        "bucketed_cvd_report",
-        "bucketed_cvd",
-        "symbol",
-        "explicit_option_a",
-    ),
     69: BackendBinding(
         69,
         "cap646.batch02_production",
@@ -63,6 +39,38 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "cross_domain_decision_intelligence_layer",
         "symbol",
         "batch02_production_spine_ssot",
+    ),
+    550: BackendBinding(
+        550,
+        "bd_platform.derivatives_hub",
+        "derivatives_overview",
+        "open_interest_intelligence",
+        "symbol",
+        "canonical_duplicate_reuse_205",
+    ),
+    551: BackendBinding(
+        551,
+        "cap646.batch02_production",
+        "cap_088",
+        "liquidation_intelligence",
+        "symbol",
+        "canonical_duplicate_reuse_88",
+    ),
+    578: BackendBinding(
+        578,
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "unified_portfolio_dashboard_578",
+        "unified_portfolio_dashboard",
+        "symbol",
+        "canonical_catalog_semantics",
+    ),
+    584: BackendBinding(
+        584,
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "risk_management_shield_584",
+        "risk_management_shield",
+        "symbol",
+        "canonical_catalog_semantics",
     ),
 }
 
@@ -72,11 +80,31 @@ def _slug(name: str) -> str:
     return s[:80] or "capability"
 
 
+def _infer_param_style(module: str, entrypoint: str) -> str:
+    """Infer institutional param_style from backend entrypoint signature."""
+    import importlib
+    import inspect
+
+    try:
+        fn = getattr(importlib.import_module(module), entrypoint)
+        sig = inspect.signature(fn)
+    except Exception:
+        return "symbol"
+    names = set(sig.parameters)
+    if not names:
+        return "none"
+    if "locale" in names and "symbol" not in names and "asset" not in names:
+        return "none"
+    return "symbol"
+
+
 def _register_batch01_bindings() -> None:
     from cap646.batch01_production import BATCH01_IDS, batch01_entrypoint
 
     for cid in BATCH01_IDS:
         if cid in _EXPLICIT_BINDINGS:
+            continue
+        if 551 <= cid <= 600:
             continue
         row = catalog_by_id().get(cid, {})
         surface = _slug(row.get("capability", f"cap_{cid}"))
@@ -305,17 +333,54 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
     return None
 
 
+@lru_cache(maxsize=1)
+def _pdf_registry_bindings() -> dict[int, tuple[str, str]]:
+    from pdf_capability_registry import discover_bindings
+
+    return discover_bindings()
+
+
 @lru_cache(maxsize=646)
 def resolve_binding(capability_id: int) -> BackendBinding:
     explicit = _EXPLICIT_BINDINGS.get(capability_id)
     if explicit is not None:
         return explicit
 
+    if 551 <= capability_id <= 600:
+        pdf = _pdf_registry_bindings().get(capability_id)
+        if pdf is not None:
+            mod, entrypoint = pdf
+            row = catalog_by_id()[capability_id]
+            surface = _slug(row["capability"])
+            param_style = _infer_param_style(mod, entrypoint)
+            return BackendBinding(
+                capability_id,
+                mod,
+                entrypoint,
+                surface,
+                param_style,
+                "pdf_capability_registry",
+            )
+
     row = catalog_by_id()[capability_id]
     matrix = matrix_by_id().get(capability_id, {})
     name = row["capability"]
     track = row["track"]
     surface = _slug(name)
+
+    if 301 <= capability_id <= 550:
+        pdf = _pdf_registry_bindings().get(capability_id)
+        if pdf is not None:
+            mod, entrypoint = pdf
+            param_style = _infer_param_style(mod, entrypoint)
+            return BackendBinding(
+                capability_id,
+                mod,
+                entrypoint,
+                surface,
+                param_style,
+                "pdf_capability_registry",
+            )
 
     comp = _component_binding(matrix.get("existing_code_components") or [])
     if comp:

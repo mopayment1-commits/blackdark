@@ -1,0 +1,964 @@
+{
+  "artifact": "BATCH09_COLLECTIVE_REVIEW_LOCAL",
+  "generated_at": "2026-09-06T20:13:49.890619+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "scope": "Project governance collective_review_local — separate from Pentagonal Column 5",
+  "disclaimer": "collective_review_local is LOCAL automated governance review. It is NOT Pentagonal Column 5 (Readiness & Evidence) and NOT independent human sign-off.",
+  "summary": {
+    "collective_review_local_complete": 50,
+    "total": 50,
+    "collective_review_local_complete_ratio": "50/50"
+  },
+  "rows": [
+    {
+      "capability_id": 401,
+      "capability_name": "Bridges Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=401",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.bridges_intelligence_401"
+    },
+    {
+      "capability_id": 402,
+      "capability_name": "Yields Screener",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=402",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.yields_screener_402"
+    },
+    {
+      "capability_id": 403,
+      "capability_name": "Yield History",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=403",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.yield_history_403"
+    },
+    {
+      "capability_id": 404,
+      "capability_name": "Borrowing Rates",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=404",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.borrowing_rates_404"
+    },
+    {
+      "capability_id": 405,
+      "capability_name": "Liquid Staking Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=405",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.liquid_staking_intelligence_405"
+    },
+    {
+      "capability_id": 406,
+      "capability_name": "RWA Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=406",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.rwa_intelligence_406"
+    },
+    {
+      "capability_id": 407,
+      "capability_name": "Raises / Funding Rounds",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=407",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.raises_funding_rounds_407"
+    },
+    {
+      "capability_id": 408,
+      "capability_name": "Investor Profiles",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=408",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.investor_profiles_408"
+    },
+    {
+      "capability_id": 409,
+      "capability_name": "Unlocks",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=409",
+      "binding_reviewed": "bd_platform.quicktake_feed.quicktake_feed_status_409"
+    },
+    {
+      "capability_id": 410,
+      "capability_name": "Treasury Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=410",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.treasury_intelligence_410"
+    },
+    {
+      "capability_id": 411,
+      "capability_name": "Airdrop / Incentive Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=411",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.airdrop_incentive_intelligence_411"
+    },
+    {
+      "capability_id": 412,
+      "capability_name": "Capital Formation Radar",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=412",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.capital_formation_radar_412"
+    },
+    {
+      "capability_id": 413,
+      "capability_name": "DeFi Opportunity Screener",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=413",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.defi_opportunity_screener_413"
+    },
+    {
+      "capability_id": 414,
+      "capability_name": "DeFi Risk Passport",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=414",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.defi_risk_passport_414"
+    },
+    {
+      "capability_id": 415,
+      "capability_name": "API Aggregation Layer",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=415",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.api_aggregation_layer_415"
+    },
+    {
+      "capability_id": 416,
+      "capability_name": "Cross-DeFi Decision Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=416",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.cross_defi_decision_intelligence_416"
+    },
+    {
+      "capability_id": 417,
+      "capability_name": "Cross-Chain Fundamentals",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=417",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.cross_chain_fundamentals_417"
+    },
+    {
+      "capability_id": 418,
+      "capability_name": "Protocol Fundamentals",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=418",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.protocol_fundamentals_418"
+    },
+    {
+      "capability_id": 419,
+      "capability_name": "Stablecoin Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=419",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.stablecoin_intelligence_419"
+    },
+    {
+      "capability_id": 420,
+      "capability_name": "Stablecoin Activity Breakdown",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=420",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.stablecoin_activity_breakdown_420"
+    },
+    {
+      "capability_id": 421,
+      "capability_name": "Developer Activity",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=421",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.developer_activity_421"
+    },
+    {
+      "capability_id": 422,
+      "capability_name": "Sector/Ecosystem Comparables",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=422",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.sector_ecosystem_comparables_422"
+    },
+    {
+      "capability_id": 423,
+      "capability_name": "Equities + Crypto Research",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=423",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.equities_crypto_research_423"
+    },
+    {
+      "capability_id": 424,
+      "capability_name": "Consensus Estimates",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=424",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.consensus_estimates_424"
+    },
+    {
+      "capability_id": 425,
+      "capability_name": "AI Analyst",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=425",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.ai_analyst_425"
+    },
+    {
+      "capability_id": 426,
+      "capability_name": "Thesis Research Workspace",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=426",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.thesis_research_workspace_426"
+    },
+    {
+      "capability_id": 427,
+      "capability_name": "Comparable Company / Protocol Analysis",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=427",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.comparable_company_protocol_analysis_427"
+    },
+    {
+      "capability_id": 428,
+      "capability_name": "Excel / Sheets Integration",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=428",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.excel_sheets_integration_428"
+    },
+    {
+      "capability_id": 429,
+      "capability_name": "API Data Platform",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=429",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.api_data_platform_429"
+    },
+    {
+      "capability_id": 430,
+      "capability_name": "Research Templates",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=430",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.research_templates_430"
+    },
+    {
+      "capability_id": 431,
+      "capability_name": "Dashboards",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=431",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.dashboards_431"
+    },
+    {
+      "capability_id": 432,
+      "capability_name": "Stablecoin Payment Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=432",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.stablecoin_payment_intelligence_432"
+    },
+    {
+      "capability_id": 433,
+      "capability_name": "On-Chain Usage Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=433",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.on_chain_usage_intelligence_433"
+    },
+    {
+      "capability_id": 434,
+      "capability_name": "Revenue / Fees / Economic Activity",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=434",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.revenue_fees_economic_activity_434"
+    },
+    {
+      "capability_id": 435,
+      "capability_name": "Cross-Market Research Copilot",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=435",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.cross_market_research_copilot_435"
+    },
+    {
+      "capability_id": 436,
+      "capability_name": "Investment Thesis Scoring",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=436",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.investment_thesis_scoring_436"
+    },
+    {
+      "capability_id": 437,
+      "capability_name": "DeFi Risk Radar",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "CLOSED_REUSED_LINK",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=437",
+      "binding_reviewed": "bd_platform.heroes_capability_layer.correlation_contagion_risk_437"
+    },
+    {
+      "capability_id": 438,
+      "capability_name": "Lending Market Risk",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=438",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.lending_market_risk_438"
+    },
+    {
+      "capability_id": 439,
+      "capability_name": "Collateral Risk",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=439",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.collateral_risk_439"
+    },
+    {
+      "capability_id": 440,
+      "capability_name": "Liquidation Risk",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=440",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.liquidation_risk_440"
+    },
+    {
+      "capability_id": 441,
+      "capability_name": "Oracle Risk",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "CLOSED_REUSED_LINK",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=441",
+      "binding_reviewed": "bd_platform.heroes_capability_layer.strategy_vetting_algorithm_441"
+    },
+    {
+      "capability_id": 442,
+      "capability_name": "Liquidity Risk",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=442",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.liquidity_risk_442"
+    },
+    {
+      "capability_id": 443,
+      "capability_name": "Protocol Exploit Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=443",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.protocol_exploit_intelligence_443"
+    },
+    {
+      "capability_id": 444,
+      "capability_name": "Stablecoin Risk Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=444",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.stablecoin_risk_intelligence_444"
+    },
+    {
+      "capability_id": 445,
+      "capability_name": "DeFi Strategy Risk",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=445",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.defi_strategy_risk_445"
+    },
+    {
+      "capability_id": 446,
+      "capability_name": "Real-Time Risk Alerts",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=446",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.real_time_risk_alerts_446"
+    },
+    {
+      "capability_id": 447,
+      "capability_name": "DAO Treasury Risk",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=447",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.dao_treasury_risk_447"
+    },
+    {
+      "capability_id": 448,
+      "capability_name": "Institutional Risk API",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=448",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.institutional_risk_api_448"
+    },
+    {
+      "capability_id": 449,
+      "capability_name": "Curated On-Chain Dashboards",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=449",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.curated_on_chain_dashboards_449"
+    },
+    {
+      "capability_id": 450,
+      "capability_name": "Narrative-Driven Research",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH09_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH09_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH09_RTM_401_450.json"
+      ],
+      "review_evidence_location": "docs/BATCH09_COLLECTIVE_REVIEW_LOCAL.json#capability_id=450",
+      "binding_reviewed": "bd_platform.defi_yield_intelligence_layer.narrative_driven_research_450"
+    }
+  ]
+}

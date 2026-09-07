@@ -1,0 +1,425 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "local_complete": 50
+  },
+  "artifact": "BATCH08_12207_VALIDATION_PACKAGE",
+  "generated_at": "2026-09-06T14:34:24.745888+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "scope": "Batch08 12207 Validation Package IDs 351-400",
+  "status": "LOCAL_COMPLETE",
+  "not_claimed": [
+    "VALIDATION_EXECUTED_LIVE",
+    "G7 PASS"
+  ],
+  "per_id": [
+    {
+      "capability_id": 351,
+      "validation_objective": "Verify Active Users delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 352,
+      "validation_objective": "Verify Core Developers delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 353,
+      "validation_objective": "Verify Code Commits delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 354,
+      "validation_objective": "Verify TVL Intelligence delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 355,
+      "validation_objective": "Verify Borrowed / Loans Outstanding delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 356,
+      "validation_objective": "Verify DEX Volume delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 357,
+      "validation_objective": "Verify Stablecoin Supply delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 358,
+      "validation_objective": "Verify Valuation Multiples delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 359,
+      "validation_objective": "Verify Growth Metrics delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 360,
+      "validation_objective": "Verify Margins / Take Rate delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 361,
+      "validation_objective": "Verify Project Comparables delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 362,
+      "validation_objective": "Verify Sector Comparables delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 363,
+      "validation_objective": "Verify Tokenized Asset Coverage delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 364,
+      "validation_objective": "Verify Fundamental Screener delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 365,
+      "validation_objective": "Verify Financial Statement View delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 366,
+      "validation_objective": "Verify Data Methodology Registry delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 367,
+      "validation_objective": "Verify Source Data Provenance delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 368,
+      "validation_objective": "Verify API / Data Export delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 369,
+      "validation_objective": "Verify Cross-Fundamental Decision Intelligence delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 370,
+      "validation_objective": "Verify SQL On-Chain Query Workspace delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 371,
+      "validation_objective": "Verify Curated Data Models delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 372,
+      "validation_objective": "Verify Decoded Smart Contract Tables delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 373,
+      "validation_objective": "Verify Cross-Chain Data Warehouse delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 374,
+      "validation_objective": "Verify Visualization Builder delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 375,
+      "validation_objective": "Verify Dashboard Builder delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 376,
+      "validation_objective": "Verify Public Dashboard Sharing delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 377,
+      "validation_objective": "Verify Community Discovery delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 378,
+      "validation_objective": "Verify Query Forking delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 379,
+      "validation_objective": "Verify Data API delivers catalog-aligned insight",
+      "classification": "REUSED-LINK",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 380,
+      "validation_objective": "Verify Real-Time Feed delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 381,
+      "validation_objective": "Verify Datashare delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 382,
+      "validation_objective": "Verify dbt Connector delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 383,
+      "validation_objective": "Verify BI Connectors delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 384,
+      "validation_objective": "Verify MCP for AI Agents delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 385,
+      "validation_objective": "Verify Prompt-to-SQL Agent delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 386,
+      "validation_objective": "Verify Dashboard-from-Prompt delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 387,
+      "validation_objective": "Verify Scheduled Queries delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 388,
+      "validation_objective": "Verify Alerts from Query Results delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 389,
+      "validation_objective": "Verify Data Lineage delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 390,
+      "validation_objective": "Verify Query Performance Governance delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 391,
+      "validation_objective": "Verify White-Label Embedded Analytics delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 392,
+      "validation_objective": "Verify Cross-Domain Decision Layer delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 393,
+      "validation_objective": "Verify TVL Intelligence delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 394,
+      "validation_objective": "Verify Chain TVL Comparison delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 395,
+      "validation_objective": "Verify Protocol Directory delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 396,
+      "validation_objective": "Verify Fees & Revenue delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 397,
+      "validation_objective": "Verify DEX Volume delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 398,
+      "validation_objective": "Verify Perps Volume delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 399,
+      "validation_objective": "Verify Options Volume delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    },
+    {
+      "capability_id": 400,
+      "validation_objective": "Verify Stablecoins Intelligence delivers catalog-aligned insight",
+      "classification": "VERIFIED-DEEP",
+      "local_complete": true,
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "acceptance_authority": "institutional-owner + independent reviewer"
+    }
+  ],
+  "summary": {
+    "local_complete": 50,
+    "requires_railway": 50
+  }
+}

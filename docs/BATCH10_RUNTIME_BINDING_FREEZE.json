@@ -1,0 +1,36 @@
+{
+  "batch": "batch10",
+  "scope": "451-500",
+  "final_material_sha": "a72cf879afa34fb40ca35eb8aa0f9a437f2dfa92",
+  "production_runtime_sha": "bc15dddc1c97bd550afacc6fbed8453104661c76",
+  "ssot_artifact": "docs/BATCH10_RUNTIME_CANONICAL_BINDING_FINAL.json",
+  "classification_counts": {
+    "A_CANONICAL_RUNTIME_MATCH": 49,
+    "B_PROVEN_SEMANTICALLY_EQUIVALENT_BINDING": 1,
+    "C_ROUTING_DIVERGENCE_MATERIAL_DEFECT": 0
+  },
+  "active_ssot_conflicts": 0,
+  "known_local_deficiencies": [],
+  "pending_verifications": [],
+  "formal_gate_failures": 0,
+  "formal_gates": {
+    "status": "PASS_ON_FINAL_MATERIAL_SHA",
+    "gate_tested_sha": "a72cf879afa34fb40ca35eb8aa0f9a437f2dfa92",
+    "Security Scan": {"run_id": 34107161895, "result": "PASS"},
+    "CI Critical Gate Suite": {"run_id": 34107162040, "result": "PASS"},
+    "SonarCloud Analysis": {"run_id": 34107161961, "result": "PASS"},
+    "CAP978 Institutional Gate": {"run_id": 34107161833, "result": "PASS"}
+  },
+  "flags": {
+    "RUNTIME_CANONICAL_BINDING_PROVEN_50_OF_50": true,
+    "RUNTIME_SEMANTIC_OUTPUT_PROVEN_50_OF_50": true,
+    "WRONG_BACKEND_BINDINGS_ZERO": true,
+    "ORPHAN_SEMANTIC_IMPLEMENTATIONS_ZERO": true,
+    "CAP458_RUNTIME_CANONICAL_REUSE_PROVEN": true,
+    "CANONICAL_RUNTIME_CONFLICTS_ZERO": true,
+    "ACTIVE_SSOT_CONFLICTS_ZERO": true,
+    "FORMAL_GATES_BIND_FINAL_MATERIAL_CODE": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true,
+    "BATCH10_FINAL_LOCAL_FREEZE": true
+  }
+}

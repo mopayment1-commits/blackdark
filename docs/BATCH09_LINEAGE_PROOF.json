@@ -1,0 +1,14 @@
+{
+  "artifact": "BATCH09_LINEAGE_PROOF",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
+  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
+  "batch08_frozen_tip": "a9c5ba50622cdb0a1224b5d7a58cc245c4be8dca",
+  "batch09_head": "40769dd2cd0a91ea8d463843c2305004192da136",
+  "batch08_is_ancestor_of_head": true,
+  "previous_batch_frozen_tip_included_or_equivalent": true,
+  "missing_prior_runtime_fix": [],
+  "missing_prior_security_fix": [],
+  "missing_prior_semantic_fix": [],
+  "unexplained_branch_base_gap": [],
+  "proof_command": "git merge-base --is-ancestor a9c5ba50622cdb0a1224b5d7a58cc245c4be8dca 40769dd2cd0a91ea8d463843c2305004192da136"
+}

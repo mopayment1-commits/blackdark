@@ -1,0 +1,37 @@
+{
+  "artifact": "BATCH08_SSOT_RECONCILIATION",
+  "generated_at": "2026-09-06T14:34:23.171805+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "trackers": {
+    "PROGRESS_826_CANONICAL": {
+      "path": "docs/PROGRESS_826_CANONICAL.json",
+      "active_canonical_role": "ACTIVE_NUMERATOR_SSOT for PRODUCTION-ALIGNED count toward 826",
+      "schema": "numerator/denominator + formula breakdown",
+      "consumers": [
+        "scripts/compute_progress_826.py",
+        "institutional closure reports"
+      ],
+      "computed_at": "2026-09-01T20:03:40.237635+00:00",
+      "batch08_in_numerator": false,
+      "batch08_note": "Batch08 351-400 are PASS_ENGINEERING / LOCAL_COMPLETE — not PRODUCTION-ALIGNED. Numerator unchanged until G6/Railway. Inventory lists batch08 IDs as PENDING/DEFERRED."
+    },
+    "CAPABILITIES_826_INVENTORY": {
+      "path": "docs/CAPABILITIES_826_INVENTORY.json",
+      "active_canonical_role": "ACTIVE per-ID status SSOT feeding PROGRESS_826",
+      "batch08_ids_present": 50,
+      "batch08_status_snapshot": {
+        "PENDING": 41,
+        "NOT_COMPLETE": 9
+      }
+    },
+    "batch08_independent": {
+      "exists": false,
+      "active_canonical_role": "NOT_PRESENT",
+      "replacement_ssot": "docs/BATCH08_FINAL_LOCAL_FREEZE.json + docs/BATCH08_V3_STATE_CLASSIFICATION.json",
+      "note": "No batch08_independent counter required — v3 freeze is batch08 SSOT"
+    }
+  },
+  "stale_active_ssot": [],
+  "unreconciled_project_trackers": [],
+  "legacy_tracker_ambiguity": []
+}

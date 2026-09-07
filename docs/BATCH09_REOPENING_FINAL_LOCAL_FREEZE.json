@@ -1,0 +1,53 @@
+{
+  "artifact": "BATCH09_REOPENING_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
+  "supersedes": {
+    "prior_artifact": "docs/BATCH09_FINAL_LOCAL_FREEZE.json",
+    "prior_freeze_sha": "255327b9a160715a28a60787ecec526a002a02ed",
+    "reopening_record": "docs/BATCH09_REOPENING_DELTA_REMEDIATION.json",
+    "rule": "v5 Rule AF — material contradictions after prior freeze"
+  },
+  "identity": {
+    "canonical_tested_source_head": "40769dd2cd0a91ea8d463843c2305004192da136",
+    "regression_head": "40769dd2cd0a91ea8d463843c2305004192da136",
+    "final_freeze_head": "40769dd2cd0a91ea8d463843c2305004192da136",
+    "prior_freeze_head": "255327b9a160715a28a60787ecec526a002a02ed",
+    "batch08_ancestry_tip": "a9c5ba50622cdb0a1224b5d7a58cc245c4be8dca"
+  },
+  "freeze_assertions": {
+    "BATCH09_FINAL_LOCAL_FREEZE": true,
+    "LOCAL_GOVERNANCE_COMPLETE": true,
+    "PASS_ENGINEERING": true,
+    "SUPERSEDES_PRIOR_FREEZE": true
+  },
+  "deferred_claims": [
+    "PASS_LIVE",
+    "G6 PASS",
+    "G7 PASS",
+    "ASSURANCE_READY",
+    "PRODUCTION_ALIGNED"
+  ],
+  "g6_status": "BLOCKED_EXTERNAL_RAILWAY",
+  "g7_status": "PENDING_INDEPENDENT_ASSURANCE",
+  "known_local_deficiencies": [],
+  "acceptance": {
+    "audit_report_items_unclassified": 0,
+    "active_SSOT_conflicts": 0,
+    "previous_batch_lineage_unresolved": 0,
+    "semantic_proof_complete": "50/50",
+    "hidden_stub_or_template": 0,
+    "actual_consumer_path_gap": 0,
+    "shared_core_semantic_conflict": 0,
+    "unresolved_canonical_conflict": 0,
+    "duplicate_quality_unresolved": 0,
+    "domain_applicability": "50/50",
+    "locally_solvable_domain_gap": 0,
+    "tier_truth_reconciled": "50/50",
+    "hero_unresolved": 0,
+    "material_security_or_AI_gap": 0,
+    "affected_regression_gap": 0,
+    "formal_gate_provenance_complete": true,
+    "unexplained_material_warning": [],
+    "known_local_deficiencies": []
+  }
+}

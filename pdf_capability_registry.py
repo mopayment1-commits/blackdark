@@ -43,7 +43,7 @@ _MANUAL: dict[int, tuple[str, str]] = {
     288: ("bd_platform.correlation_mindshare", "compute_mindshare_correlation_288"),
     316: ("bd_platform.sse_stream", "sse_digest_status_316"),
     331: ("bd_platform.charting_market_intelligence_layer", "etf_reference_rates_inav_331"),
-    378: ("exchange_currency_status", "deposit_currencies_open"),
+    378: ("exchange_currency_status", "query_forking_status_378"),
     379: ("bd_platform.arbitrage_portfolio_ux_layer", "analyze_liquidity_capacity_189"),
     380: ("exchange_currency_status", "deposit_currencies_open"),
     381: ("exchange_currency_status", "withdrawal_currencies_closed"),
@@ -51,8 +51,18 @@ _MANUAL: dict[int, tuple[str, str]] = {
     393: ("data_sources_registry", "registry_summary"),
     396: ("bd_platform.news_classifier", "coindesk_feed"),
     409: ("bd_platform.quicktake_feed", "quicktake_feed_status_409"),
-    517: ("comparison_engine", "run_comparison_engine"),
+    437: ("bd_platform.defi_yield_intelligence_layer", "defi_risk_radar_437"),
+    441: ("bd_platform.defi_yield_intelligence_layer", "oracle_risk_441"),
+    517: ("bd_platform.institutional_delivery_intelligence_layer", "fix_connectivity_517"),
     528: ("bd_platform.market_rankings", "market_rankings"),
+    578: (
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "unified_portfolio_dashboard_578",
+    ),
+    584: (
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "risk_management_shield_584",
+    ),
     627: ("comparison_engine", "run_comparison_engine"),
     630: ("bd_platform.intelligence_ux_extensions_layer", "scan_market_opportunities_238"),
     702: ("graphql_schema", "graphql_health"),
@@ -153,8 +163,11 @@ def discover_bindings() -> dict[int, tuple[str, str]]:
                     continue
                 fn, cid = m.group(1), int(m.group(2))
                 if 1 <= cid <= 826:
+                    if cid in _MANUAL:
+                        continue
                     if cid not in out or rel.startswith("bd_platform"):
                         out[cid] = (rel, f"{fn}_{cid}")
+    out.update(_MANUAL)
     return out
 
 

@@ -1,0 +1,1217 @@
+{
+  "artifact": "BATCH09_EXISTING_VERIFIED_EVIDENCE",
+  "generated_at": "2026-09-06T20:13:49.890583+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "scope": "Per-ID EXISTING_VERIFIED / CLOSED_REUSED_LINK evidence chain — Batch09 401-450",
+  "summary": {
+    "existing_verified_count": 48,
+    "evidence_complete_existing_verified": 48,
+    "closed_reused_link_count": 2,
+    "existing_verified_without_full_evidence": [],
+    "reclassified_ids": []
+  },
+  "rows": [
+    {
+      "capability_id": 401,
+      "capability_name": "Bridges Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=401",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::bridges_intelligence_401",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.bridges_intelligence_401",
+      "acceptance_oracle": "execute_capability(401) ok=true; catalog surface 'bridges_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(401)",
+      "api_consumer": "/api/cap646/401",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Bridges Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 402,
+      "capability_name": "Yields Screener",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=402",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::yields_screener_402",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.yields_screener_402",
+      "acceptance_oracle": "execute_capability(402) ok=true; catalog surface 'yields_screener' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(402)",
+      "api_consumer": "/api/cap646/402",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Yields Screener insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 403,
+      "capability_name": "Yield History",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=403",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::yield_history_403",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.yield_history_403",
+      "acceptance_oracle": "execute_capability(403) ok=true; catalog surface 'yield_history' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(403)",
+      "api_consumer": "/api/cap646/403",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Yield History insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 404,
+      "capability_name": "Borrowing Rates",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=404",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::borrowing_rates_404",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.borrowing_rates_404",
+      "acceptance_oracle": "execute_capability(404) ok=true; catalog surface 'borrowing_rates' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(404)",
+      "api_consumer": "/api/cap646/404",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Borrowing Rates insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 405,
+      "capability_name": "Liquid Staking Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=405",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::liquid_staking_intelligence_405",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.liquid_staking_intelligence_405",
+      "acceptance_oracle": "execute_capability(405) ok=true; catalog surface 'liquid_staking_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(405)",
+      "api_consumer": "/api/cap646/405",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Liquid Staking Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 406,
+      "capability_name": "RWA Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=406",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::rwa_intelligence_406",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.rwa_intelligence_406",
+      "acceptance_oracle": "execute_capability(406) ok=true; catalog surface 'rwa_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(406)",
+      "api_consumer": "/api/cap646/406",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned RWA Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 407,
+      "capability_name": "Raises / Funding Rounds",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=407",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::raises_funding_rounds_407",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.raises_funding_rounds_407",
+      "acceptance_oracle": "execute_capability(407) ok=true; catalog surface 'raises_funding_rounds' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(407)",
+      "api_consumer": "/api/cap646/407",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Raises / Funding Rounds insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 408,
+      "capability_name": "Investor Profiles",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=408",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::investor_profiles_408",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.investor_profiles_408",
+      "acceptance_oracle": "execute_capability(408) ok=true; catalog surface 'investor_profiles' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(408)",
+      "api_consumer": "/api/cap646/408",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Investor Profiles insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 409,
+      "capability_name": "Unlocks",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=409",
+      "canonical_implementation": "bd_platform/quicktake_feed.py::quicktake_feed_status_409",
+      "module_function": "bd_platform.quicktake_feed.quicktake_feed_status_409",
+      "acceptance_oracle": "execute_capability(409) ok=true; catalog surface 'quicktake_feed_status' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(409)",
+      "api_consumer": "/api/cap646/409",
+      "data_source_lineage": "bd_platform.quicktake_feed",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Unlocks insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 410,
+      "capability_name": "Treasury Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=410",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::treasury_intelligence_410",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.treasury_intelligence_410",
+      "acceptance_oracle": "execute_capability(410) ok=true; catalog surface 'treasury_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(410)",
+      "api_consumer": "/api/cap646/410",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Treasury Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 411,
+      "capability_name": "Airdrop / Incentive Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=411",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::airdrop_incentive_intelligence_411",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.airdrop_incentive_intelligence_411",
+      "acceptance_oracle": "execute_capability(411) ok=true; catalog surface 'airdrop_incentive_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(411)",
+      "api_consumer": "/api/cap646/411",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Airdrop / Incentive Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 412,
+      "capability_name": "Capital Formation Radar",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=412",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::capital_formation_radar_412",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.capital_formation_radar_412",
+      "acceptance_oracle": "execute_capability(412) ok=true; catalog surface 'capital_formation_radar' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(412)",
+      "api_consumer": "/api/cap646/412",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Capital Formation Radar insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 413,
+      "capability_name": "DeFi Opportunity Screener",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=413",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::defi_opportunity_screener_413",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.defi_opportunity_screener_413",
+      "acceptance_oracle": "execute_capability(413) ok=true; catalog surface 'defi_opportunity_screener' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(413)",
+      "api_consumer": "/api/cap646/413",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned DeFi Opportunity Screener insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 414,
+      "capability_name": "DeFi Risk Passport",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=414",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::defi_risk_passport_414",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.defi_risk_passport_414",
+      "acceptance_oracle": "execute_capability(414) ok=true; catalog surface 'defi_risk_passport' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(414)",
+      "api_consumer": "/api/cap646/414",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned DeFi Risk Passport insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 415,
+      "capability_name": "API Aggregation Layer",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=415",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::api_aggregation_layer_415",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.api_aggregation_layer_415",
+      "acceptance_oracle": "execute_capability(415) ok=true; catalog surface 'api_aggregation_layer' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(415)",
+      "api_consumer": "/api/cap646/415",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned API Aggregation Layer insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 416,
+      "capability_name": "Cross-DeFi Decision Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=416",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::cross_defi_decision_intelligence_416",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.cross_defi_decision_intelligence_416",
+      "acceptance_oracle": "execute_capability(416) ok=true; catalog surface 'cross_defi_decision_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(416)",
+      "api_consumer": "/api/cap646/416",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Cross-DeFi Decision Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 417,
+      "capability_name": "Cross-Chain Fundamentals",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=417",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::cross_chain_fundamentals_417",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.cross_chain_fundamentals_417",
+      "acceptance_oracle": "execute_capability(417) ok=true; catalog surface 'cross_chain_fundamentals' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(417)",
+      "api_consumer": "/api/cap646/417",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Cross-Chain Fundamentals insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 418,
+      "capability_name": "Protocol Fundamentals",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=418",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::protocol_fundamentals_418",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.protocol_fundamentals_418",
+      "acceptance_oracle": "execute_capability(418) ok=true; catalog surface 'protocol_fundamentals' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(418)",
+      "api_consumer": "/api/cap646/418",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Protocol Fundamentals insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 419,
+      "capability_name": "Stablecoin Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=419",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::stablecoin_intelligence_419",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.stablecoin_intelligence_419",
+      "acceptance_oracle": "execute_capability(419) ok=true; catalog surface 'stablecoin_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(419)",
+      "api_consumer": "/api/cap646/419",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Stablecoin Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 420,
+      "capability_name": "Stablecoin Activity Breakdown",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=420",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::stablecoin_activity_breakdown_420",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.stablecoin_activity_breakdown_420",
+      "acceptance_oracle": "execute_capability(420) ok=true; catalog surface 'stablecoin_activity_breakdown' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(420)",
+      "api_consumer": "/api/cap646/420",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Stablecoin Activity Breakdown insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 421,
+      "capability_name": "Developer Activity",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=421",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::developer_activity_421",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.developer_activity_421",
+      "acceptance_oracle": "execute_capability(421) ok=true; catalog surface 'developer_activity' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(421)",
+      "api_consumer": "/api/cap646/421",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Developer Activity insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 422,
+      "capability_name": "Sector/Ecosystem Comparables",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=422",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::sector_ecosystem_comparables_422",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.sector_ecosystem_comparables_422",
+      "acceptance_oracle": "execute_capability(422) ok=true; catalog surface 'sector_ecosystem_comparables' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(422)",
+      "api_consumer": "/api/cap646/422",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Sector/Ecosystem Comparables insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 423,
+      "capability_name": "Equities + Crypto Research",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=423",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::equities_crypto_research_423",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.equities_crypto_research_423",
+      "acceptance_oracle": "execute_capability(423) ok=true; catalog surface 'equities_crypto_research' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(423)",
+      "api_consumer": "/api/cap646/423",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Equities + Crypto Research insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 424,
+      "capability_name": "Consensus Estimates",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=424",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::consensus_estimates_424",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.consensus_estimates_424",
+      "acceptance_oracle": "execute_capability(424) ok=true; catalog surface 'consensus_estimates' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(424)",
+      "api_consumer": "/api/cap646/424",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Consensus Estimates insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 425,
+      "capability_name": "AI Analyst",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=425",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::ai_analyst_425",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.ai_analyst_425",
+      "acceptance_oracle": "execute_capability(425) ok=true; catalog surface 'ai_analyst' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(425)",
+      "api_consumer": "/api/cap646/425",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned AI Analyst insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 426,
+      "capability_name": "Thesis Research Workspace",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=426",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::thesis_research_workspace_426",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.thesis_research_workspace_426",
+      "acceptance_oracle": "execute_capability(426) ok=true; catalog surface 'thesis_research_workspace' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(426)",
+      "api_consumer": "/api/cap646/426",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Thesis Research Workspace insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 427,
+      "capability_name": "Comparable Company / Protocol Analysis",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=427",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::comparable_company_protocol_analysis_427",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.comparable_company_protocol_analysis_427",
+      "acceptance_oracle": "execute_capability(427) ok=true; catalog surface 'comparable_company_protocol_analysis' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(427)",
+      "api_consumer": "/api/cap646/427",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Comparable Company / Protocol Analysis insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 428,
+      "capability_name": "Excel / Sheets Integration",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=428",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::excel_sheets_integration_428",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.excel_sheets_integration_428",
+      "acceptance_oracle": "execute_capability(428) ok=true; catalog surface 'excel_sheets_integration' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(428)",
+      "api_consumer": "/api/cap646/428",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Excel / Sheets Integration insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 429,
+      "capability_name": "API Data Platform",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=429",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::api_data_platform_429",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.api_data_platform_429",
+      "acceptance_oracle": "execute_capability(429) ok=true; catalog surface 'api_data_platform' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(429)",
+      "api_consumer": "/api/cap646/429",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned API Data Platform insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 430,
+      "capability_name": "Research Templates",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=430",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::research_templates_430",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.research_templates_430",
+      "acceptance_oracle": "execute_capability(430) ok=true; catalog surface 'research_templates' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(430)",
+      "api_consumer": "/api/cap646/430",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Research Templates insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 431,
+      "capability_name": "Dashboards",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=431",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::dashboards_431",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.dashboards_431",
+      "acceptance_oracle": "execute_capability(431) ok=true; catalog surface 'dashboards' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(431)",
+      "api_consumer": "/api/cap646/431",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Dashboards insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 432,
+      "capability_name": "Stablecoin Payment Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=432",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::stablecoin_payment_intelligence_432",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.stablecoin_payment_intelligence_432",
+      "acceptance_oracle": "execute_capability(432) ok=true; catalog surface 'stablecoin_payment_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(432)",
+      "api_consumer": "/api/cap646/432",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Stablecoin Payment Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 433,
+      "capability_name": "On-Chain Usage Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=433",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::on_chain_usage_intelligence_433",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.on_chain_usage_intelligence_433",
+      "acceptance_oracle": "execute_capability(433) ok=true; catalog surface 'on_chain_usage_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(433)",
+      "api_consumer": "/api/cap646/433",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned On-Chain Usage Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 434,
+      "capability_name": "Revenue / Fees / Economic Activity",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=434",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::revenue_fees_economic_activity_434",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.revenue_fees_economic_activity_434",
+      "acceptance_oracle": "execute_capability(434) ok=true; catalog surface 'revenue_fees_economic_activity' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(434)",
+      "api_consumer": "/api/cap646/434",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Revenue / Fees / Economic Activity insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 435,
+      "capability_name": "Cross-Market Research Copilot",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=435",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::cross_market_research_copilot_435",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.cross_market_research_copilot_435",
+      "acceptance_oracle": "execute_capability(435) ok=true; catalog surface 'cross_market_research_copilot' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(435)",
+      "api_consumer": "/api/cap646/435",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Cross-Market Research Copilot insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 436,
+      "capability_name": "Investment Thesis Scoring",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=436",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::investment_thesis_scoring_436",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.investment_thesis_scoring_436",
+      "acceptance_oracle": "execute_capability(436) ok=true; catalog surface 'investment_thesis_scoring' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(436)",
+      "api_consumer": "/api/cap646/436",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Investment Thesis Scoring insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 437,
+      "capability_name": "DeFi Risk Radar",
+      "prebuild_classification": "CLOSED_REUSED_LINK",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=437",
+      "canonical_implementation": "bd_platform/heroes_capability_layer.py::correlation_contagion_risk_437",
+      "module_function": "bd_platform.heroes_capability_layer.correlation_contagion_risk_437",
+      "acceptance_oracle": "execute_capability(437) ok=true; catalog surface 'correlation_contagion_risk' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(437)",
+      "api_consumer": "/api/cap646/437",
+      "data_source_lineage": "bd_platform.heroes_capability_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned DeFi Risk Radar insight payload",
+      "evidence_complete": true,
+      "reuse_target": "#288 bd_platform.correlation_mindshare.compute_mindshare_correlation_288"
+    },
+    {
+      "capability_id": 438,
+      "capability_name": "Lending Market Risk",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=438",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::lending_market_risk_438",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.lending_market_risk_438",
+      "acceptance_oracle": "execute_capability(438) ok=true; catalog surface 'lending_market_risk' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(438)",
+      "api_consumer": "/api/cap646/438",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Lending Market Risk insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 439,
+      "capability_name": "Collateral Risk",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=439",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::collateral_risk_439",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.collateral_risk_439",
+      "acceptance_oracle": "execute_capability(439) ok=true; catalog surface 'collateral_risk' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(439)",
+      "api_consumer": "/api/cap646/439",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Collateral Risk insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 440,
+      "capability_name": "Liquidation Risk",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=440",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::liquidation_risk_440",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.liquidation_risk_440",
+      "acceptance_oracle": "execute_capability(440) ok=true; catalog surface 'liquidation_risk' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(440)",
+      "api_consumer": "/api/cap646/440",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Liquidation Risk insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 441,
+      "capability_name": "Oracle Risk",
+      "prebuild_classification": "CLOSED_REUSED_LINK",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=441",
+      "canonical_implementation": "bd_platform/heroes_capability_layer.py::strategy_vetting_algorithm_441",
+      "module_function": "bd_platform.heroes_capability_layer.strategy_vetting_algorithm_441",
+      "acceptance_oracle": "execute_capability(441) ok=true; catalog surface 'strategy_vetting_algorithm' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(441)",
+      "api_consumer": "/api/cap646/441",
+      "data_source_lineage": "bd_platform.heroes_capability_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Oracle Risk insight payload",
+      "evidence_complete": true,
+      "reuse_target": "#155 bd_platform.intelligence_analysis_layer.stat_arb_insight_155"
+    },
+    {
+      "capability_id": 442,
+      "capability_name": "Liquidity Risk",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=442",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::liquidity_risk_442",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.liquidity_risk_442",
+      "acceptance_oracle": "execute_capability(442) ok=true; catalog surface 'liquidity_risk' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(442)",
+      "api_consumer": "/api/cap646/442",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Liquidity Risk insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 443,
+      "capability_name": "Protocol Exploit Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=443",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::protocol_exploit_intelligence_443",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.protocol_exploit_intelligence_443",
+      "acceptance_oracle": "execute_capability(443) ok=true; catalog surface 'protocol_exploit_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(443)",
+      "api_consumer": "/api/cap646/443",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Protocol Exploit Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 444,
+      "capability_name": "Stablecoin Risk Intelligence",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=444",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::stablecoin_risk_intelligence_444",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.stablecoin_risk_intelligence_444",
+      "acceptance_oracle": "execute_capability(444) ok=true; catalog surface 'stablecoin_risk_intelligence' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(444)",
+      "api_consumer": "/api/cap646/444",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Stablecoin Risk Intelligence insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 445,
+      "capability_name": "DeFi Strategy Risk",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=445",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::defi_strategy_risk_445",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.defi_strategy_risk_445",
+      "acceptance_oracle": "execute_capability(445) ok=true; catalog surface 'defi_strategy_risk' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(445)",
+      "api_consumer": "/api/cap646/445",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned DeFi Strategy Risk insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 446,
+      "capability_name": "Real-Time Risk Alerts",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=446",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::real_time_risk_alerts_446",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.real_time_risk_alerts_446",
+      "acceptance_oracle": "execute_capability(446) ok=true; catalog surface 'real_time_risk_alerts' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(446)",
+      "api_consumer": "/api/cap646/446",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Real-Time Risk Alerts insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 447,
+      "capability_name": "DAO Treasury Risk",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=447",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::dao_treasury_risk_447",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.dao_treasury_risk_447",
+      "acceptance_oracle": "execute_capability(447) ok=true; catalog surface 'dao_treasury_risk' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(447)",
+      "api_consumer": "/api/cap646/447",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned DAO Treasury Risk insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 448,
+      "capability_name": "Institutional Risk API",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=448",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::institutional_risk_api_448",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.institutional_risk_api_448",
+      "acceptance_oracle": "execute_capability(448) ok=true; catalog surface 'institutional_risk_api' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(448)",
+      "api_consumer": "/api/cap646/448",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Institutional Risk API insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 449,
+      "capability_name": "Curated On-Chain Dashboards",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=449",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::curated_on_chain_dashboards_449",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.curated_on_chain_dashboards_449",
+      "acceptance_oracle": "execute_capability(449) ok=true; catalog surface 'curated_on_chain_dashboards' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(449)",
+      "api_consumer": "/api/cap646/449",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Curated On-Chain Dashboards insight payload",
+      "evidence_complete": true
+    },
+    {
+      "capability_id": 450,
+      "capability_name": "Narrative-Driven Research",
+      "prebuild_classification": "EXISTING_VERIFIED",
+      "canonical_definition": "docs/cap646/CAP646_CATALOG.json id=450",
+      "canonical_implementation": "bd_platform/defi_yield_intelligence_layer.py::narrative_driven_research_450",
+      "module_function": "bd_platform.defi_yield_intelligence_layer.narrative_driven_research_450",
+      "acceptance_oracle": "execute_capability(450) ok=true; catalog surface 'narrative_driven_research' present in payload",
+      "semantic_proof": "LOCAL_RUNTIME_EXECUTION + quad audit VERIFIED-DEEP",
+      "runtime_route": "pdf_capability_registry.execute_capability(450)",
+      "api_consumer": "/api/cap646/450",
+      "data_source_lineage": "bd_platform.defi_yield_intelligence_layer",
+      "entitlement": "cap646 runtime gate (skip_entitlement in tests only)",
+      "tests": [
+        "tests/test_hero_batch_09_capabilities.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "evidence_locations": [
+        "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json",
+        "data/hero_batch_09_401_450_evidence.jsonl"
+      ],
+      "user_outcome": "Catalog-aligned Narrative-Driven Research insight payload",
+      "evidence_complete": true
+    }
+  ]
+}
