@@ -222,11 +222,15 @@ def dex_liquidity_listener_614(*, symbol: str = "BTC", seed: dict[str, Any] | No
 def gas_cost_predictor_615(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Gas_Cost_Predictor (#615)."""
     seed = seed or _load_seed()
+    extra = compute_semantic_extra(615, symbol=symbol, seed=seed)
+    gas_gwei = float(extra.get("gas_gwei_predicted") or 0.0)
+    # Deterministic local estimate — not live oracle claim (standard 21k gas @ modeled ETH USD).
+    extra["gas_usd"] = round(gas_gwei * 1e-9 * 21_000 * 3_500, 6)
     return _base(
         615,
         symbol=symbol,
         seed=seed,
-        extra=compute_semantic_extra(615, symbol=symbol, seed=seed),
+        extra=extra,
     )
 
 def yield_delta_listener_616(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -500,6 +504,7 @@ def decision_certificate_export_641(*, symbol: str = "BTC", seed: dict[str, Any]
             "feature": "Decision Certificate + Institutional DD Export",
             "attribution": "decision_certificate.build_decision_certificate",
             "formula_visible": True,
+            "certificate": underlying,
             "decision_certificate_institutional_dd_export": underlying,
             "underlying": underlying,
         },
