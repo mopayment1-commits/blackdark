@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import math
 
 import pytest
 
@@ -36,10 +37,10 @@ def test_independent_boundary_oracle_finite(capability_id: int):
     rule = spec["rule"]
     inputs = {k: float(v) for k, v in spec["defaults"].items()}
     boundary = independent_boundary_primary(rule, inputs)
-    assert boundary == boundary  # not NaN
+    assert math.isfinite(boundary)
     production = compute_semantic_extra(capability_id, symbol="ETH", seed={})
     field = PRIMARY_FIELD[rule]
-    assert production[field] == production[field]
+    assert math.isfinite(production[field])
 
 
 @pytest.mark.parametrize("capability_id", shared_core_ids())
