@@ -55,11 +55,12 @@
     "497": "PENDING",
     "498": "PENDING",
     "499": "PENDING",
-    "500": "PRODUCTION-ALIGNED"
+    "500": "PENDING"
   },
   "why_451_499_pending": "826 inventory PRODUCTION-ALIGNED requires G6/live spine — Batch10 PASS_ENGINEERING is orthogonal engineering dimension",
   "why_458_not_complete": "Hero audit NOT_COMPLETE reflects live spine — canonical reuse to #86 PRODUCTION-ALIGNED is engineering decision not inventory promotion",
-  "why_500_production_aligned": "Explicit Option A cap646.data_spine.normalization_report binding predates Batch10 semantic remediation",
+  "why_500_pending": "Current live/inventory dimension PENDING (G6 spine not proven). Canonical runtime: defi_yield_intelligence_layer.data_quality_normalization_500 via pdf_capability_registry.",
+  "why_500_historical_production_aligned": "Historical Option-A PRODUCTION-ALIGNED (cap646.data_spine.normalization_report) preserved time-bounded in docs/OPTION_A_PRODUCTION_PROOF.json — not current active inventory claim",
   "progress_826_canonical": "104/826",
   "progress_826_semantics": "104/826 intentionally excludes PASS_ENGINEERING-only batches — not stale, different completion dimension",
   "prior_ssot_overclaim_corrected": "BATCH10_SSOT_RECONCILIATION updated_ids=50 reclassified as orthogonal reconciliation not inventory status mutation"

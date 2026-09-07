@@ -1854,8 +1854,8 @@
         {
           "route_id": "cap646_data_spine_explicit",
           "path": "cap646.data_spine.normalization_report",
-          "role": "production_aligned_canonical_spine",
-          "evidence": "tests/test_batch10_material_consumer_paths.py::test_500_explicit_data_spine_production_binding"
+          "role": "historical_option_a_production_aligned_evidence",
+          "evidence": "docs/OPTION_A_PRODUCTION_PROOF.json (pre-bc15ddd; superseded by pdf_registry defi_yield runtime)"
         },
         {
           "route_id": "http_dashboard_api",

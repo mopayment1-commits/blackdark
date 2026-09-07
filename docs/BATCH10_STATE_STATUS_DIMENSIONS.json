@@ -13,13 +13,13 @@
     "CAPABILITIES_826_INVENTORY.status": {
       "semantics": "Live/production PRODUCTION-ALIGNED SSOT — requires G6 spine proof",
       "batch10_counts": {
-        "PENDING": 48,
+        "PENDING": 49,
         "NOT_COMPLETE": 1,
-        "PRODUCTION-ALIGNED": 1
+        "PRODUCTION-ALIGNED": 0
       },
       "batch10_451_499": "PENDING — correct pre-G6; not same dimension as PASS_ENGINEERING",
       "batch10_458": "NOT_COMPLETE — hero audit dimension; engineering reuse proven separately",
-      "batch10_500": "PRODUCTION-ALIGNED — explicit cap646.data_spine binding pre-Batch10"
+      "batch10_500": "PENDING — canonical runtime defi_yield via pdf_capability_registry; historical Option-A PRODUCTION-ALIGNED archived only"
     },
     "PASS_ENGINEERING": {
       "semantics": "Local engineering closure per v6 §PASS_ENGINEERING",
@@ -41,9 +41,9 @@
       "resolution": "Numerator counts PRODUCTION-ALIGNED with batch01/02 proof only; Batch10 not in numerator until PRODUCTION-ALIGNED"
     },
     {
-      "apparent_contradiction": "#500 PRODUCTION-ALIGNED vs defi_yield generic pre-build",
+      "apparent_contradiction": "#500 historical Option-A PRODUCTION-ALIGNED vs current PENDING inventory",
       "disposition": "B_ORTHOGONAL_STATUS_DIMENSIONS",
-      "resolution": "Dual spine: cap646.data_spine canonical vs defi_yield registry path remediated separately"
+      "resolution": "Historical Option-A evidence preserved in OPTION_A_PRODUCTION_PROOF.json; active inventory PENDING with defi_yield canonical runtime (bc15ddd+)"
     }
   ],
   "active_ssot_conflicts": [],
