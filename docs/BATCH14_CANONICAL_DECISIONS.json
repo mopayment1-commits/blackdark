@@ -1,0 +1,40 @@
+{
+  "artifact": "BATCH14_CANONICAL_DECISIONS",
+  "generated_at_utc": "2026-09-07T22:24:59.413271+00:00",
+  "git_commit": "69f1ebd40114f57947811c20d9a176ee85563d92",
+  "decisions": {
+    "660": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 354,
+      "canonical_name": "TVL Intelligence",
+      "facade_binding": "bd_platform.batch14_extension_analytics_layer.tvl_intelligence_660",
+      "canonical_implementation": "bd_platform.charting_market_intelligence_layer.tvl_intelligence_354",
+      "evidence": "TVL Intelligence delegates to charting layer #354"
+    },
+    "661": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 394,
+      "canonical_name": "Chain TVL Comparison",
+      "facade_binding": "bd_platform.batch14_extension_analytics_layer.chain_tvl_comparison_661",
+      "canonical_implementation": "bd_platform.charting_market_intelligence_layer.chain_tvl_comparison_394",
+      "evidence": "Chain TVL Comparison delegates to charting layer #394"
+    },
+    "676": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 604,
+      "canonical_name": "Unlocks facade",
+      "facade_binding": "bd_platform.batch14_extension_analytics_layer.unlocks_676",
+      "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.token_unlock_forecaster_604",
+      "evidence": "Unlocks facade delegates to token unlock forecaster #604"
+    }
+  },
+  "canonical_duplicate_targets": {
+    "660": 354,
+    "661": 394,
+    "676": 604
+  },
+  "summary": {
+    "canonical_duplicate_reuse_count": 3,
+    "keep_distinct_but_reuse_shared_core_count": 39
+  }
+}

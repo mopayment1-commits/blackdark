@@ -1,0 +1,1032 @@
+{
+  "artifact": "BATCH14_CROSS_BATCH_DUPLICATE_ANALYSIS",
+  "generated_at_utc": "2026-09-07T22:24:59.413271+00:00",
+  "git_commit": "69f1ebd40114f57947811c20d9a176ee85563d92",
+  "layer_b_cross_batch": {
+    "scope": "Layer B — Batch14 IDs 651-700 vs prior capabilities 1-650",
+    "summary": {
+      "cross_batch_canonical_reuse": 3,
+      "cross_batch_keep_distinct_but_reuse_shared_core": 47,
+      "cross_batch_unresolved": 0
+    },
+    "per_id": [
+      {
+        "batch14_id": 651,
+        "capability_name": "MCP for AI Agents",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.mcp_for_ai_agents_651",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #651",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 652,
+        "capability_name": "Prompt-to-SQL Agent",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.prompt_to_sql_agent_652",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #652",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 653,
+        "capability_name": "Dashboard-from-Prompt",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.dashboard_from_prompt_653",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #653",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 654,
+        "capability_name": "Scheduled Queries",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.scheduled_queries_654",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #654",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 655,
+        "capability_name": "Alerts from Query Results",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.alerts_from_query_results_655",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #655",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 656,
+        "capability_name": "Data Lineage",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.data_lineage_656",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #656",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 657,
+        "capability_name": "Query Performance Governance",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.query_performance_governance_657",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #657",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 658,
+        "capability_name": "White-Label Embedded Analytics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.white_label_embedded_analytics_658",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #658",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 659,
+        "capability_name": "Cross-Domain Decision Layer",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.cross_domain_decision_layer_659",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #659",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 660,
+        "capability_name": "TVL Intelligence",
+        "prior_id": 354,
+        "relationship": "E. CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.charting_market_intelligence_layer.tvl_intelligence_354",
+        "facade_binding": "bd_platform.batch14_extension_analytics_layer.tvl_intelligence_660",
+        "evidence": "TVL Intelligence delegates to charting layer #354",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch14_id": 661,
+        "capability_name": "Chain TVL Comparison",
+        "prior_id": 394,
+        "relationship": "E. CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.charting_market_intelligence_layer.chain_tvl_comparison_394",
+        "facade_binding": "bd_platform.batch14_extension_analytics_layer.chain_tvl_comparison_661",
+        "evidence": "Chain TVL Comparison delegates to charting layer #394",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch14_id": 662,
+        "capability_name": "Protocol Directory",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.protocol_directory_662",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #662",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 663,
+        "capability_name": "Fees & Revenue",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.fees_revenue_663",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #663",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 664,
+        "capability_name": "DEX Volume",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.dex_volume_664",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #664",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 665,
+        "capability_name": "Perps Volume",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.perps_volume_665",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #665",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 666,
+        "capability_name": "Options Volume",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.options_volume_666",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #666",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 667,
+        "capability_name": "Stablecoins Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.stablecoins_intelligence_667",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #667",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 668,
+        "capability_name": "Bridges Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.bridges_intelligence_668",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #668",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 669,
+        "capability_name": "Yields Screener",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.yields_screener_669",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #669",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 670,
+        "capability_name": "Yield History",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.yield_history_670",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #670",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 671,
+        "capability_name": "Borrowing Rates",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.borrowing_rates_671",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #671",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 672,
+        "capability_name": "Liquid Staking Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.liquid_staking_intelligence_672",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #672",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 673,
+        "capability_name": "RWA Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.rwa_intelligence_673",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #673",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 674,
+        "capability_name": "Raises / Funding Rounds",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.raises_funding_rounds_674",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #674",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 675,
+        "capability_name": "Investor Profiles",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.investor_profiles_675",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #675",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 676,
+        "capability_name": "Unlocks",
+        "prior_id": 604,
+        "relationship": "E. CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.token_unlock_forecaster_604",
+        "facade_binding": "bd_platform.batch14_extension_analytics_layer.unlocks_676",
+        "evidence": "Unlocks facade delegates to token unlock forecaster #604",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch14_id": 677,
+        "capability_name": "Treasury Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.treasury_intelligence_677",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #677",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 678,
+        "capability_name": "Airdrop / Incentive Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.airdrop_incentive_intelligence_678",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #678",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 679,
+        "capability_name": "Capital Formation Radar",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.capital_formation_radar_679",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #679",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 680,
+        "capability_name": "DeFi Opportunity Screener",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.defi_opportunity_screener_680",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #680",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 681,
+        "capability_name": "DeFi Risk Passport",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.defi_risk_passport_681",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #681",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 682,
+        "capability_name": "API Aggregation Layer",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.api_aggregation_layer_682",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #682",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 683,
+        "capability_name": "Cross-DeFi Decision Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.cross_defi_decision_intelligence_683",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #683",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 684,
+        "capability_name": "Cross-Chain Fundamentals",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.cross_chain_fundamentals_684",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #684",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 685,
+        "capability_name": "Protocol Fundamentals",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.protocol_fundamentals_685",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #685",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 686,
+        "capability_name": "Stablecoin Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.stablecoin_intelligence_686",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #686",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 687,
+        "capability_name": "Stablecoin Activity Breakdown",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.stablecoin_activity_breakdown_687",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #687",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 688,
+        "capability_name": "Developer Activity",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.developer_activity_688",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #688",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 689,
+        "capability_name": "Sector/Ecosystem Comparables",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.sector_ecosystem_comparables_689",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #689",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 690,
+        "capability_name": "Equities + Crypto Research",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.equities_crypto_research_690",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #690",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 691,
+        "capability_name": "Consensus Estimates",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.consensus_estimates_691",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #691",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 692,
+        "capability_name": "AI Analyst",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.ai_analyst_692",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #692",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 693,
+        "capability_name": "Thesis Research Workspace",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.thesis_research_workspace_693",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #693",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 694,
+        "capability_name": "Comparable Company / Protocol Analysis",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.comparable_company_protocol_analysis_694",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #694",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 695,
+        "capability_name": "Excel / Sheets Integration",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.excel_sheets_integration_695",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #695",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 696,
+        "capability_name": "API Data Platform",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.api_data_platform_696",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #696",
+        "decision": "B. EXISTING_NEEDS_EXTENSION",
+        "cross_batch_decision": "B. EXISTING_NEEDS_EXTENSION"
+      },
+      {
+        "batch14_id": 697,
+        "capability_name": "Research Templates",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.research_templates_697",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #697",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 698,
+        "capability_name": "Dashboards",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.dashboards_698",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #698",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 699,
+        "capability_name": "Stablecoin Payment Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.stablecoin_payment_intelligence_699",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #699",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch14_id": 700,
+        "capability_name": "On-Chain Usage Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch14_extension_analytics_layer.on_chain_usage_intelligence_700",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch14 #700",
+        "decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "D. KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      }
+    ],
+    "canonical_reuse_entries": [
+      {
+        "batch14_id": 660,
+        "capability_name": "TVL Intelligence",
+        "prior_id": 354,
+        "relationship": "E. CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.charting_market_intelligence_layer.tvl_intelligence_354",
+        "facade_binding": "bd_platform.batch14_extension_analytics_layer.tvl_intelligence_660",
+        "evidence": "TVL Intelligence delegates to charting layer #354",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch14_id": 661,
+        "capability_name": "Chain TVL Comparison",
+        "prior_id": 394,
+        "relationship": "E. CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.charting_market_intelligence_layer.chain_tvl_comparison_394",
+        "facade_binding": "bd_platform.batch14_extension_analytics_layer.chain_tvl_comparison_661",
+        "evidence": "Chain TVL Comparison delegates to charting layer #394",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch14_id": 676,
+        "capability_name": "Unlocks",
+        "prior_id": 604,
+        "relationship": "E. CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.token_unlock_forecaster_604",
+        "facade_binding": "bd_platform.batch14_extension_analytics_layer.unlocks_676",
+        "evidence": "Unlocks facade delegates to token unlock forecaster #604",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      }
+    ]
+  },
+  "layer_b_exhaustive_coverage": {
+    "scope": "Exhaustive machine coverage — Batch14 651-700 vs prior 1-650",
+    "method": "Deterministic pair evaluator over all 50×650 candidate pairs. No indexing filter may omit pairs — each (batch14_id, prior_id) receives a decision.",
+    "expected_cross_batch_pairs": 32500,
+    "evaluated_cross_batch_pairs": 32500,
+    "omitted_pairs": [],
+    "unresolved_pairs": [],
+    "duplicate_coverage_complete": true,
+    "decision_counts": {
+      "DISTINCT": 32434,
+      "SEMANTIC_NAME_OVERLAP": 63,
+      "E. CANONICAL_DUPLICATE_REUSE": 3
+    },
+    "material_overlap_count": 66,
+    "material_overlaps": [
+      {
+        "batch14_id": 651,
+        "prior_id": 384,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.mcp_for_ai_agents_651",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.mcp_for_ai_agents_384"
+      },
+      {
+        "batch14_id": 651,
+        "prior_id": 518,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.mcp_for_ai_agents_651",
+        "prior_binding": "bd_platform.institutional_delivery_intelligence_layer.mcp_for_ai_518"
+      },
+      {
+        "batch14_id": 652,
+        "prior_id": 385,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.prompt_to_sql_agent_652",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.prompt_to_sql_agent_385"
+      },
+      {
+        "batch14_id": 653,
+        "prior_id": 386,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.dashboard_from_prompt_653",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.dashboard_from_prompt_386"
+      },
+      {
+        "batch14_id": 654,
+        "prior_id": 387,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.scheduled_queries_654",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.scheduled_queries_387"
+      },
+      {
+        "batch14_id": 655,
+        "prior_id": 388,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.alerts_from_query_results_655",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.alerts_from_query_results_388"
+      },
+      {
+        "batch14_id": 656,
+        "prior_id": 389,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.data_lineage_656",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.data_lineage_389"
+      },
+      {
+        "batch14_id": 657,
+        "prior_id": 390,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.query_performance_governance_657",
+        "prior_binding": "bd_platform.whales_institutional_layer.build_exchange_health_80"
+      },
+      {
+        "batch14_id": 658,
+        "prior_id": 391,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.white_label_embedded_analytics_658",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.white_label_embedded_analytics_391"
+      },
+      {
+        "batch14_id": 659,
+        "prior_id": 392,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.cross_domain_decision_layer_659",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.cross_domain_decision_layer_392"
+      },
+      {
+        "batch14_id": 660,
+        "prior_id": 354,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "CANONICAL_REUSE",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.tvl_intelligence_660",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.tvl_intelligence_354"
+      },
+      {
+        "batch14_id": 660,
+        "prior_id": 393,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.tvl_intelligence_660",
+        "prior_binding": "data_sources_registry.registry_summary"
+      },
+      {
+        "batch14_id": 661,
+        "prior_id": 394,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "CANONICAL_REUSE",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.chain_tvl_comparison_661",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.chain_tvl_comparison_394"
+      },
+      {
+        "batch14_id": 662,
+        "prior_id": 395,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.protocol_directory_662",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.protocol_directory_395"
+      },
+      {
+        "batch14_id": 663,
+        "prior_id": 396,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.fees_revenue_663",
+        "prior_binding": "bd_platform.news_classifier.coindesk_feed"
+      },
+      {
+        "batch14_id": 664,
+        "prior_id": 356,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.dex_volume_664",
+        "prior_binding": "bd_platform.heroes_capability_layer.marketwatch_rss_feeds_356"
+      },
+      {
+        "batch14_id": 664,
+        "prior_id": 397,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.dex_volume_664",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.dex_volume_397"
+      },
+      {
+        "batch14_id": 665,
+        "prior_id": 398,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.perps_volume_665",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.perps_volume_398"
+      },
+      {
+        "batch14_id": 666,
+        "prior_id": 263,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.options_volume_666",
+        "prior_binding": "bd_platform.derivatives_onchain_intelligence_layer.options_volume_263"
+      },
+      {
+        "batch14_id": 666,
+        "prior_id": 399,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.options_volume_666",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.options_volume_399"
+      },
+      {
+        "batch14_id": 667,
+        "prior_id": 400,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.stablecoins_intelligence_667",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.stablecoins_intelligence_400"
+      },
+      {
+        "batch14_id": 668,
+        "prior_id": 401,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.bridges_intelligence_668",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.bridges_intelligence_401"
+      },
+      {
+        "batch14_id": 669,
+        "prior_id": 211,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.yields_screener_669",
+        "prior_binding": "bd_platform.onchain_defi_sources_layer.cross_margin_risk_alert_211"
+      },
+      {
+        "batch14_id": 669,
+        "prior_id": 402,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.yields_screener_669",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.yields_screener_402"
+      },
+      {
+        "batch14_id": 670,
+        "prior_id": 403,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.yield_history_670",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.yield_history_403"
+      },
+      {
+        "batch14_id": 671,
+        "prior_id": 404,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.borrowing_rates_671",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.borrowing_rates_404"
+      },
+      {
+        "batch14_id": 672,
+        "prior_id": 405,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.liquid_staking_intelligence_672",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.liquid_staking_intelligence_405"
+      },
+      {
+        "batch14_id": 673,
+        "prior_id": 406,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.rwa_intelligence_673",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.rwa_intelligence_406"
+      },
+      {
+        "batch14_id": 674,
+        "prior_id": 407,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.raises_funding_rounds_674",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.raises_funding_rounds_407"
+      },
+      {
+        "batch14_id": 675,
+        "prior_id": 408,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.investor_profiles_675",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.investor_profiles_408"
+      },
+      {
+        "batch14_id": 676,
+        "prior_id": 409,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.unlocks_676",
+        "prior_binding": "bd_platform.quicktake_feed.quicktake_feed_status_409"
+      },
+      {
+        "batch14_id": 676,
+        "prior_id": 604,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "CANONICAL_REUSE",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.unlocks_676",
+        "prior_binding": "bd_platform.batch13_operational_intelligence_layer.token_unlock_forecaster_604"
+      },
+      {
+        "batch14_id": 677,
+        "prior_id": 410,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.treasury_intelligence_677",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.treasury_intelligence_410"
+      },
+      {
+        "batch14_id": 678,
+        "prior_id": 411,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.airdrop_incentive_intelligence_678",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.airdrop_incentive_intelligence_411"
+      },
+      {
+        "batch14_id": 679,
+        "prior_id": 412,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.capital_formation_radar_679",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.capital_formation_radar_412"
+      },
+      {
+        "batch14_id": 680,
+        "prior_id": 211,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.defi_opportunity_screener_680",
+        "prior_binding": "bd_platform.onchain_defi_sources_layer.cross_margin_risk_alert_211"
+      },
+      {
+        "batch14_id": 680,
+        "prior_id": 413,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.defi_opportunity_screener_680",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.defi_opportunity_screener_413"
+      },
+      {
+        "batch14_id": 681,
+        "prior_id": 414,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.defi_risk_passport_681",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.defi_risk_passport_414"
+      },
+      {
+        "batch14_id": 682,
+        "prior_id": 415,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.api_aggregation_layer_682",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.api_aggregation_layer_415"
+      },
+      {
+        "batch14_id": 683,
+        "prior_id": 416,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.cross_defi_decision_intelligence_683",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.cross_defi_decision_intelligence_416"
+      },
+      {
+        "batch14_id": 684,
+        "prior_id": 417,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.cross_chain_fundamentals_684",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.cross_chain_fundamentals_417"
+      },
+      {
+        "batch14_id": 685,
+        "prior_id": 418,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.protocol_fundamentals_685",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.protocol_fundamentals_418"
+      },
+      {
+        "batch14_id": 686,
+        "prior_id": 419,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.stablecoin_intelligence_686",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.stablecoin_intelligence_419"
+      },
+      {
+        "batch14_id": 687,
+        "prior_id": 420,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.stablecoin_activity_breakdown_687",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.stablecoin_activity_breakdown_420"
+      },
+      {
+        "batch14_id": 688,
+        "prior_id": 182,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.developer_activity_688",
+        "prior_binding": "bd_platform.arbitrage_portfolio_ux_layer.white_label_infrastructure_status_182"
+      },
+      {
+        "batch14_id": 688,
+        "prior_id": 421,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.developer_activity_688",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.developer_activity_421"
+      },
+      {
+        "batch14_id": 689,
+        "prior_id": 422,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.sector_ecosystem_comparables_689",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.sector_ecosystem_comparables_422"
+      },
+      {
+        "batch14_id": 690,
+        "prior_id": 423,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.equities_crypto_research_690",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.equities_crypto_research_423"
+      },
+      {
+        "batch14_id": 691,
+        "prior_id": 424,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.consensus_estimates_691",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.consensus_estimates_424"
+      },
+      {
+        "batch14_id": 692,
+        "prior_id": 425,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch14_binding": "bd_platform.batch14_extension_analytics_layer.ai_analyst_692",
+        "prior_binding": "bd_platform.defi_yield_intelligence_layer.ai_analyst_425"
+      }
+    ],
+    "material_overlaps_truncated": true,
+    "pair_decision_digest_sha256": "89f7c95295cb704ec61a8afc189d575922036291394dbbae935177e53c98908c",
+    "unresolved_duplicate_conflicts": 0
+  },
+  "summary": {
+    "expected_cross_batch_pairs": 32500,
+    "evaluated_cross_batch_pairs": 32500,
+    "cross_batch_unresolved": 0,
+    "unresolved_duplicate_conflicts": 0
+  }
+}
