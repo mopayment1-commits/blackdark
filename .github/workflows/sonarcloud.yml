@@ -115,6 +115,12 @@ jobs:
             tests/test_batch12_runtime_canonical_binding.py \
             tests/test_batch12_full_path_entitlement.py \
             tests/test_batch12_cap551_canonical_reuse.py \
+            tests/test_batch13_shared_core_semantics.py \
+            tests/test_batch13_independent_oracle_semantics.py \
+            tests/test_batch13_runtime_canonical_binding.py \
+            tests/test_batch13_membership_and_profile.py \
+            tests/test_batch13_adaptive_spine.py \
+            tests/test_batch13_temporal_spine.py \
             tests/test_defi_yield_intelligence_batch401_500.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \

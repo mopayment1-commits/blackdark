@@ -16,6 +16,9 @@ from bd_platform.batch13_semantic_engine import compute_semantic_extra
 
 logger = logging.getLogger("BLACKDARK.Batch13OperationalIntel")
 
+_EXTERNAL_DEPENDENCY_DEFAULT = "External dependency"
+_EXTERNAL_INTERNAL_ACTION = "none — requires external provisioning"
+
 _SEED_PATH = Path("data/legal_retail_commercial_seed.json")
 
 
@@ -514,7 +517,7 @@ def real_time_feed_647(*, symbol: str = "BTC", seed: dict[str, Any] | None = Non
     """Real-Time Feed (#647) — external dependency blocked locally."""
     from cap978.external_registry import external_registry_rows
     seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == {cid}), 'External dependency')
+    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 647), _EXTERNAL_DEPENDENCY_DEFAULT)
     return _base(
         647,
         symbol=symbol,
@@ -524,7 +527,7 @@ def real_time_feed_647(*, symbol: str = "BTC", seed: dict[str, Any] | None = Non
             "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
             "blocker_type": "vendor_license_or_infra",
             "reason": reason,
-            "internal_action": "none — requires external provisioning",
+            "internal_action": _EXTERNAL_INTERNAL_ACTION,
             "analysis_only": True,
         },
     )
@@ -533,7 +536,7 @@ def datashare_648(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) ->
     """Datashare (#648) — external dependency blocked locally."""
     from cap978.external_registry import external_registry_rows
     seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == {cid}), 'External dependency')
+    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 648), _EXTERNAL_DEPENDENCY_DEFAULT)
     return _base(
         648,
         symbol=symbol,
@@ -543,7 +546,7 @@ def datashare_648(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) ->
             "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
             "blocker_type": "vendor_license_or_infra",
             "reason": reason,
-            "internal_action": "none — requires external provisioning",
+            "internal_action": _EXTERNAL_INTERNAL_ACTION,
             "analysis_only": True,
         },
     )
@@ -552,7 +555,7 @@ def dbt_connector_649(*, symbol: str = "BTC", seed: dict[str, Any] | None = None
     """dbt Connector (#649) — external dependency blocked locally."""
     from cap978.external_registry import external_registry_rows
     seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == {cid}), 'External dependency')
+    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 649), _EXTERNAL_DEPENDENCY_DEFAULT)
     return _base(
         649,
         symbol=symbol,
@@ -562,7 +565,7 @@ def dbt_connector_649(*, symbol: str = "BTC", seed: dict[str, Any] | None = None
             "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
             "blocker_type": "vendor_license_or_infra",
             "reason": reason,
-            "internal_action": "none — requires external provisioning",
+            "internal_action": _EXTERNAL_INTERNAL_ACTION,
             "analysis_only": True,
         },
     )
@@ -571,7 +574,7 @@ def bi_connectors_650(*, symbol: str = "BTC", seed: dict[str, Any] | None = None
     """BI Connectors (#650) — external dependency blocked locally."""
     from cap978.external_registry import external_registry_rows
     seed = seed or _load_seed()
-    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == {cid}), 'External dependency')
+    reason = next((r['reason'] for r in external_registry_rows() if r.get('id') == 650), _EXTERNAL_DEPENDENCY_DEFAULT)
     return _base(
         650,
         symbol=symbol,
@@ -581,7 +584,7 @@ def bi_connectors_650(*, symbol: str = "BTC", seed: dict[str, Any] | None = None
             "classification": "EXTERNAL_DEPENDENCY_BLOCKED",
             "blocker_type": "vendor_license_or_infra",
             "reason": reason,
-            "internal_action": "none — requires external provisioning",
+            "internal_action": _EXTERNAL_INTERNAL_ACTION,
             "analysis_only": True,
         },
     )

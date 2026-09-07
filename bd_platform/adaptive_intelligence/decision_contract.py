@@ -19,6 +19,12 @@ def build_decision_contract(
     score = float(top.get("relevance_score") or 0)
     abstain = score < 1.0
     now = datetime.now(UTC)
+    if score < 2:
+        uncertainty_band = "high"
+    elif score < 3:
+        uncertainty_band = "medium"
+    else:
+        uncertainty_band = "low"
     return {
         "goal": goal,
         "symbol": symbol.upper(),
@@ -26,7 +32,7 @@ def build_decision_contract(
         "abstain": abstain,
         "direction": "explore" if not abstain else "none",
         "selected_capability_id": None if abstain else top["capability_id"],
-        "uncertainty_band": "high" if score < 2 else "medium" if score < 3 else "low",
+        "uncertainty_band": uncertainty_band,
         "confidence_dimensions": {
             "trust": "catalog_match_only",
             "freshness": "not_live_verified",
