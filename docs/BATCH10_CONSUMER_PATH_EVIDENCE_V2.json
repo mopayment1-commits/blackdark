@@ -1,0 +1,1874 @@
+{
+  "artifact": "BATCH10_CONSUMER_PATH_EVIDENCE_V2",
+  "generated_at_utc": "2026-09-07T08:40:59.880092+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
+  "consumer_paths_proven": "50/50",
+  "generic_gateway_sole_evidence": 0,
+  "orphan_capabilities": 0,
+  "consumer_type_counts": {
+    "internal_decision_engine": 7,
+    "research_workflow": 23,
+    "B2B_institutional": 9,
+    "hero_surface": 1,
+    "user_feature_page": 5,
+    "developer_support_surface": 5
+  },
+  "rows": [
+    {
+      "capability_id": 451,
+      "official_name": "Protocol Dominance",
+      "intended_consumer_type": "internal_decision_engine",
+      "intended_consumer": "Internal risk/decision support workflows — Protocol Dominance",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.protocol_dominance_451(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(451)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(451)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/451",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_dominance_451",
+      "material_output": "Semantic insight payload semantic_rule=protocol_dominance with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 452,
+      "official_name": "Aave Multi-Chain Analytics",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Aave Multi-Chain Analytics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.aave_multi_chain_analytics_452(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(452)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(452)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/452",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.aave_multi_chain_analytics_452",
+      "material_output": "Semantic insight payload semantic_rule=aave_multi_chain with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 453,
+      "official_name": "Risk Curation",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Risk Curation",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.risk_curation_453(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(453)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(453)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/453",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.risk_curation_453",
+      "material_output": "Semantic insight payload semantic_rule=risk_curation with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 454,
+      "official_name": "Capital Protection Controls",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Capital Protection Controls",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.capital_protection_controls_454(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(454)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(454)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/454",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.capital_protection_controls_454",
+      "material_output": "Semantic insight payload semantic_rule=capital_protection with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 455,
+      "official_name": "Stress Testing",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Stress Testing",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.stress_testing_455(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(455)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(455)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/455",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.stress_testing_455",
+      "material_output": "Semantic insight payload semantic_rule=stress_testing with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 456,
+      "official_name": "Cross-Protocol Contagion",
+      "intended_consumer_type": "internal_decision_engine",
+      "intended_consumer": "Internal risk/decision support workflows — Cross-Protocol Contagion",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.cross_protocol_contagion_456(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(456)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(456)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/456",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.cross_protocol_contagion_456",
+      "material_output": "Semantic insight payload semantic_rule=cross_protocol_contagion with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 457,
+      "official_name": "Protocol Risk Passport",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Protocol Risk Passport",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.protocol_risk_passport_457(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(457)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(457)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/457",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_risk_passport_457",
+      "material_output": "Semantic insight payload semantic_rule=protocol_risk_passport with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 458,
+      "official_name": "Risk-to-Decision Intelligence",
+      "intended_consumer_type": "hero_surface",
+      "intended_consumer": "Hero methodology registry surface (#458 facade) — Risk-to-Decision Intelligence",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.heroes_capability_layer.metric_methodology_registry_458(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(458)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(458)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/458",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
+      "material_output": "Methodology documentation payload delegated from #86",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 459,
+      "official_name": "Network Data Pro Metrics",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Network Data Pro Metrics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.network_data_pro_metrics_459(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(459)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(459)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/459",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.network_data_pro_metrics_459",
+      "material_output": "Semantic insight payload semantic_rule=network_data_pro with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 460,
+      "official_name": "Atlas Blockchain Search",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Atlas Blockchain Search",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.atlas_blockchain_search_460(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(460)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(460)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/460",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.atlas_blockchain_search_460",
+      "material_output": "Semantic insight payload semantic_rule=atlas_blockchain_search with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 461,
+      "official_name": "Address/Balance Search",
+      "intended_consumer_type": "user_feature_page",
+      "intended_consumer": "User-facing data quality / dashboard feature consumers — Address/Balance Search",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.address_balance_search_461(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(461)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(461)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/461",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.address_balance_search_461",
+      "material_output": "Semantic insight payload semantic_rule=address_balance_search with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 462,
+      "official_name": "Transaction Search",
+      "intended_consumer_type": "developer_support_surface",
+      "intended_consumer": "Developer/platform support tooling — Transaction Search",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.transaction_search_462(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(462)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(462)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/462",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.transaction_search_462",
+      "material_output": "Semantic insight payload semantic_rule=transaction_search with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 463,
+      "official_name": "Block Search",
+      "intended_consumer_type": "developer_support_surface",
+      "intended_consumer": "Developer/platform support tooling — Block Search",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.block_search_463(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(463)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(463)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/463",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.block_search_463",
+      "material_output": "Semantic insight payload semantic_rule=block_search with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 464,
+      "official_name": "Balance Updates",
+      "intended_consumer_type": "developer_support_surface",
+      "intended_consumer": "Developer/platform support tooling — Balance Updates",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.balance_updates_464(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(464)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(464)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/464",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.balance_updates_464",
+      "material_output": "Semantic insight payload semantic_rule=balance_updates with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 465,
+      "official_name": "Stablecoin Network Metrics",
+      "intended_consumer_type": "developer_support_surface",
+      "intended_consumer": "Developer/platform support tooling — Stablecoin Network Metrics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.stablecoin_network_metrics_465(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(465)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(465)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/465",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_network_metrics_465",
+      "material_output": "Semantic insight payload semantic_rule=stablecoin_network with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 466,
+      "official_name": "Market Data Feed",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Market Data Feed",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.market_data_feed_466(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(466)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(466)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/466",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_feed_466",
+      "material_output": "Semantic insight payload semantic_rule=market_data_feed with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 467,
+      "official_name": "Market Data Pro",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Market Data Pro",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.market_data_pro_467(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(467)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(467)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/467",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_pro_467",
+      "material_output": "Semantic insight payload semantic_rule=market_data_pro with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 468,
+      "official_name": "Reference Rates",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Reference Rates",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.reference_rates_468(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(468)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(468)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/468",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+      "material_output": "Semantic insight payload semantic_rule=reference_rates with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 469,
+      "official_name": "Indexes",
+      "intended_consumer_type": "internal_decision_engine",
+      "intended_consumer": "Internal risk/decision support workflows — Indexes",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.indexes_469(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(469)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(469)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/469",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.indexes_469",
+      "material_output": "Semantic insight payload semantic_rule=indexes with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 470,
+      "official_name": "Realized Metrics",
+      "intended_consumer_type": "internal_decision_engine",
+      "intended_consumer": "Internal risk/decision support workflows — Realized Metrics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.realized_metrics_470(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(470)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(470)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/470",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.realized_metrics_470",
+      "material_output": "Semantic insight payload semantic_rule=realized_metrics with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 471,
+      "official_name": "Supply Metrics",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Supply Metrics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.supply_metrics_471(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(471)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(471)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/471",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.supply_metrics_471",
+      "material_output": "Semantic insight payload semantic_rule=supply_metrics with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 472,
+      "official_name": "Mining/Validator Metrics",
+      "intended_consumer_type": "user_feature_page",
+      "intended_consumer": "User-facing data quality / dashboard feature consumers — Mining/Validator Metrics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.mining_validator_metrics_472(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(472)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(472)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/472",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.mining_validator_metrics_472",
+      "material_output": "Semantic insight payload semantic_rule=mining_validator with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 473,
+      "official_name": "Fee Metrics",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Fee Metrics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.fee_metrics_473(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(473)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(473)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/473",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.fee_metrics_473",
+      "material_output": "Semantic insight payload semantic_rule=fee_metrics with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 474,
+      "official_name": "Activity Metrics",
+      "intended_consumer_type": "user_feature_page",
+      "intended_consumer": "User-facing data quality / dashboard feature consumers — Activity Metrics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.activity_metrics_474(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(474)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(474)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/474",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.activity_metrics_474",
+      "material_output": "Semantic insight payload semantic_rule=activity_metrics with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 475,
+      "official_name": "Custom Metric Workbench",
+      "intended_consumer_type": "user_feature_page",
+      "intended_consumer": "User-facing data quality / dashboard feature consumers — Custom Metric Workbench",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.custom_metric_workbench_475(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(475)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(475)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/475",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.custom_metric_workbench_475",
+      "material_output": "Semantic insight payload semantic_rule=custom_metric_workbench with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 476,
+      "official_name": "Community Charts/API",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Community Charts/API",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.community_charts_api_476(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(476)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(476)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/476",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.community_charts_api_476",
+      "material_output": "Semantic insight payload semantic_rule=community_charts_api with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 477,
+      "official_name": "Market + Network Join",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Market + Network Join",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.market_network_join_477(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(477)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(477)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/477",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_network_join_477",
+      "material_output": "Semantic insight payload semantic_rule=market_network_join with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 478,
+      "official_name": "Data Quality Methodologies",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Data Quality Methodologies",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.data_quality_methodologies_478(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(478)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(478)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/478",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_methodologies_478",
+      "material_output": "Semantic insight payload semantic_rule=data_quality_methodologies with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 479,
+      "official_name": "Historical Research Dataset",
+      "intended_consumer_type": "internal_decision_engine",
+      "intended_consumer": "Internal risk/decision support workflows — Historical Research Dataset",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.historical_research_dataset_479(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(479)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(479)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/479",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.historical_research_dataset_479",
+      "material_output": "Semantic insight payload semantic_rule=historical_research_dataset with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 480,
+      "official_name": "Institutional APIs",
+      "intended_consumer_type": "internal_decision_engine",
+      "intended_consumer": "Internal risk/decision support workflows — Institutional APIs",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.institutional_apis_480(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(480)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(480)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/480",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_apis_480",
+      "material_output": "Semantic insight payload semantic_rule=institutional_apis with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 481,
+      "official_name": "Cross-Network Decision Intelligence",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Cross-Network Decision Intelligence",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.cross_network_decision_intelligence_481(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(481)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(481)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/481",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.cross_network_decision_intelligence_481",
+      "material_output": "Semantic insight payload semantic_rule=cross_network_decision with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 482,
+      "official_name": "Institutional Trade Data",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Institutional Trade Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.institutional_trade_data_482(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(482)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(482)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/482",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_trade_data_482",
+      "material_output": "Semantic insight payload semantic_rule=institutional_trade_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 483,
+      "official_name": "Order Book Data",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Order Book Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.order_book_data_483(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(483)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(483)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/483",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.order_book_data_483",
+      "material_output": "Semantic insight payload semantic_rule=order_book_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 484,
+      "official_name": "OHLCV Data",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — OHLCV Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.ohlcv_data_484(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(484)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(484)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/484",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.ohlcv_data_484",
+      "material_output": "Semantic insight payload semantic_rule=ohlcv_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 485,
+      "official_name": "Derivatives Data",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Derivatives Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.derivatives_data_485(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(485)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(485)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/485",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.derivatives_data_485",
+      "material_output": "Semantic insight payload semantic_rule=derivatives_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 486,
+      "official_name": "Open Interest Data",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Open Interest Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.open_interest_data_486(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(486)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(486)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/486",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.open_interest_data_486",
+      "material_output": "Semantic insight payload semantic_rule=open_interest_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 487,
+      "official_name": "Funding Rate Data",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Funding Rate Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.funding_rate_data_487(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(487)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(487)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/487",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.funding_rate_data_487",
+      "material_output": "Semantic insight payload semantic_rule=funding_rate_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 488,
+      "official_name": "Index Data",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Index Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.index_data_488(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(488)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(488)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/488",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.index_data_488",
+      "material_output": "Semantic insight payload semantic_rule=index_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 489,
+      "official_name": "Reference Pricing",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Reference Pricing",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.reference_pricing_489(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(489)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(489)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/489",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.reference_pricing_489",
+      "material_output": "Semantic insight payload semantic_rule=reference_pricing with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 490,
+      "official_name": "Exchange Metadata",
+      "intended_consumer_type": "internal_decision_engine",
+      "intended_consumer": "Internal risk/decision support workflows — Exchange Metadata",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.exchange_metadata_490(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(490)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(490)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/490",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.exchange_metadata_490",
+      "material_output": "Semantic insight payload semantic_rule=exchange_metadata with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 491,
+      "official_name": "Asset Metadata",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Asset Metadata",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.asset_metadata_491(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(491)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(491)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/491",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.asset_metadata_491",
+      "material_output": "Semantic insight payload semantic_rule=asset_metadata with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 492,
+      "official_name": "Historical Market Archive",
+      "intended_consumer_type": "developer_support_surface",
+      "intended_consumer": "Developer/platform support tooling — Historical Market Archive",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.historical_market_archive_492(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(492)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(492)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/492",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.historical_market_archive_492",
+      "material_output": "Semantic insight payload semantic_rule=historical_market_archive with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 493,
+      "official_name": "Real-Time Streams",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Real-Time Streams",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.real_time_streams_493(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(493)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(493)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/493",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.real_time_streams_493",
+      "material_output": "Semantic insight payload semantic_rule=real_time_streams with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 494,
+      "official_name": "Market Aggregates",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Market Aggregates",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.market_aggregates_494(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(494)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(494)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/494",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_aggregates_494",
+      "material_output": "Semantic insight payload semantic_rule=market_aggregates with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 495,
+      "official_name": "Liquidity Analytics",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Liquidity Analytics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.liquidity_analytics_495(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(495)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(495)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/495",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.liquidity_analytics_495",
+      "material_output": "Semantic insight payload semantic_rule=liquidity_analytics with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 496,
+      "official_name": "Volatility Analytics",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — Volatility Analytics",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.volatility_analytics_496(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(496)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(496)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/496",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.volatility_analytics_496",
+      "material_output": "Semantic insight payload semantic_rule=volatility_analytics with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 497,
+      "official_name": "Market Cap / Supply",
+      "intended_consumer_type": "B2B_institutional",
+      "intended_consumer": "Institutional API / B2B analytics consumers — Market Cap / Supply",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.market_cap_supply_497(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(497)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(497)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/497",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_cap_supply_497",
+      "material_output": "Semantic insight payload semantic_rule=market_cap_supply with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 498,
+      "official_name": "ETF / ETP Data",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — ETF / ETP Data",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.etf_etp_data_498(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(498)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(498)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/498",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.etf_etp_data_498",
+      "material_output": "Semantic insight payload semantic_rule=etf_etp_data with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 499,
+      "official_name": "API Coverage Registry",
+      "intended_consumer_type": "research_workflow",
+      "intended_consumer": "Research and analytics workflow consuming market/network intelligence JSON — API Coverage Registry",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.api_coverage_registry_499(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(499)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(499)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/499",
+          "role": "supplementary_api_gateway_evidence",
+          "evidence": "cap646 institutional gateway — not sole proof"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.api_coverage_registry_499",
+      "material_output": "Semantic insight payload semantic_rule=api_coverage_registry with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    },
+    {
+      "capability_id": 500,
+      "official_name": "Data Quality & Normalization",
+      "intended_consumer_type": "user_feature_page",
+      "intended_consumer": "User-facing data quality / dashboard feature consumers — Data Quality & Normalization",
+      "material_routes": [
+        {
+          "route_id": "module_builder_direct",
+          "path": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500(symbol, seed)",
+          "role": "primary_material_implementation",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_direct_module_builder_material_output"
+        },
+        {
+          "route_id": "pdf_registry_execute",
+          "path": "pdf_capability_registry.execute_capability(500)",
+          "role": "registry_consumer_path",
+          "evidence": "tests/test_batch10_material_consumer_paths.py::test_registry_execute_material_output"
+        },
+        {
+          "route_id": "cap646_runtime",
+          "path": "cap646.runtime.execute_capability(500)",
+          "role": "production_gateway_with_entitlement",
+          "evidence": "tests/test_batch10_full_path_entitlement.py"
+        },
+        {
+          "route_id": "cap646_data_spine_explicit",
+          "path": "cap646.data_spine.normalization_report",
+          "role": "historical_option_a_production_aligned_evidence",
+          "evidence": "docs/OPTION_A_PRODUCTION_PROOF.json (pre-bc15ddd; superseded by pdf_registry defi_yield runtime)"
+        },
+        {
+          "route_id": "http_dashboard_api",
+          "path": "GET /api/cap646/500",
+          "role": "user_or_hero_api_surface",
+          "evidence": "tests/test_batch10_full_path_entitlement.py (material path includes cap646 runtime)"
+        }
+      ],
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500",
+      "material_output": "Semantic insight payload semantic_rule=data_quality_normalization with domain-specific fields",
+      "generic_gateway_as_sole_evidence": false,
+      "entitlement_applicability": "cap646.runtime entitlement_engine.check on production gateway path",
+      "entitlement_evidence": "tests/test_batch10_full_path_entitlement.py"
+    }
+  ]
+}

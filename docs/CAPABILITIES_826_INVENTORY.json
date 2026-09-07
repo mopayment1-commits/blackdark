@@ -7207,15 +7207,15 @@
       "id": 500,
       "official_batch": "batch10",
       "capability": "Data Quality & Normalization",
-      "status": "PRODUCTION-ALIGNED",
+      "status": "PENDING",
       "production_spine": null,
       "expected_surface": null,
       "in_hero_evidence": true,
-      "hero_classification": "PRODUCTION-ALIGNED",
+      "hero_classification": "DEFERRED/TEMPLATE-STUB",
       "user_facing": true,
-      "binding_source": "explicit_option_a",
-      "backend": "cap646.data_spine.normalization_report",
-      "notes": "from_hero_evidence"
+      "binding_source": "pdf_capability_registry",
+      "backend": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500",
+      "notes": "Current canonical runtime via pdf_capability_registry (bc15ddd+). Historical Option-A PRODUCTION-ALIGNED preserved in docs/OPTION_A_PRODUCTION_PROOF.json and docs/OPTION_A_PRODUCTION_ALIGNED_MANIFEST.json only."
     },
     "501": {
       "id": 501,

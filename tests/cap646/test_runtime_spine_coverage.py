@@ -19,7 +19,7 @@ HANDLER_ROUTE_SAMPLES = [
     (200, "T04"),  # market (non-batch)
     (400, "T12"),  # ai
     (338, "T04"),  # option A data
-    (500, "T04"),  # option A data
+    (500, "T04"),  # batch10 pdf-registry platform handler
     (49, "T12"),  # verified
     (632, "T12"),  # verified family
     (642, "T17"),  # wave/ai
@@ -134,8 +134,19 @@ async def test_free_tier_non_batch_capabilities():
 def test_route_handler_option_a_branches():
     assert _route_handler("T04", "Market", 507).__name__ == "handle_market_capability"
     assert _route_handler("T04", "Data Platform", 338).__name__ == "handle_data_capability"
-    assert _route_handler("T04", "Data Platform", 500).__name__ == "handle_data_capability"
     assert _route_handler("T12", "AI Research", 401).__name__ == "handle_platform_capability"
+
+
+def test_cap500_canonical_runtime_route_not_option_a():
+    """#500 canonical runtime: pdf registry platform handler, not superseded Option-A data spine."""
+    from cap646.backend_registry import resolve_binding
+
+    row = catalog_by_id()[500]
+    assert _route_handler(row["track"], row["capability"], 500).__name__ == "handle_platform_capability"
+    binding = resolve_binding(500)
+    assert binding.module == "bd_platform.defi_yield_intelligence_layer"
+    assert binding.entrypoint == "data_quality_normalization_500"
+    assert binding.source == "pdf_capability_registry"
 
 
 @pytest.mark.asyncio

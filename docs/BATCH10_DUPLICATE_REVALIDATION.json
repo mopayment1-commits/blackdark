@@ -1,0 +1,22 @@
+{
+  "artifact": "BATCH10_DUPLICATE_REVALIDATION",
+  "generated_at_utc": "2026-09-07T08:40:59.886573+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
+  "preserved_reviews": {
+    "internal_1225": "1225/1225",
+    "cross_batch_22500": "22500/22500"
+  },
+  "material_decisions_revalidated": 1,
+  "decisions": [
+    {
+      "capability_id": 458,
+      "decision": "CANONICAL_DUPLICATE_REUSE",
+      "canonical_id": 86,
+      "revalidation_result": "CONFIRMED",
+      "evidence": "docs/BATCH10_CAP458_CANONICAL_REUSE_PROOF.json"
+    }
+  ],
+  "known_material_wrong_duplicate_decisions": 0,
+  "unresolved_duplicate_decisions": 0,
+  "no_parallel_implementation": true
+}

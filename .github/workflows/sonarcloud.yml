@@ -97,6 +97,11 @@ jobs:
             tests/test_bigquery_export_mock.py \
             tests/cap646/test_institutional_gate.py \
             tests/test_sonar_pr356_new_code_coverage.py \
+            tests/test_batch10_shared_core_semantics.py \
+            tests/test_batch10_independent_oracle_semantics.py \
+            tests/test_batch10_consumer_paths.py \
+            tests/test_batch10_membership_and_profile.py \
+            tests/test_defi_yield_intelligence_batch401_500.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \

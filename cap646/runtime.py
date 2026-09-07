@@ -30,7 +30,7 @@ from cap646.handlers.batch03 import handle_batch03_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
-OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS
+OPTION_A_IDS = frozenset({338, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS
 WAVE_D_SET = set(WAVE_D)
 
 
@@ -44,7 +44,7 @@ def _pdf_dedicated_platform_ids() -> frozenset[int]:
 
     bindings = discover_bindings()
     dedicated: set[int] = set()
-    for cid in range(301, 451):
+    for cid in range(301, 501):
         pdf = bindings.get(cid)
         if pdf and pdf[0].startswith(
             (
@@ -67,7 +67,7 @@ def _route_handler(track: str, name: str, capability_id: int):
             return handle_batch02_capability
         if capability_id in BATCH03_IDS:
             return handle_batch03_capability
-        if capability_id in {338, 500}:
+        if capability_id in {338}:
             return handle_data_capability
         return handle_market_capability
     if capability_id == 329:

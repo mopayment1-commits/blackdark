@@ -1,4 +1,4 @@
-"""Option A production-path tests — #338, #500, #507, #534."""
+"""Option A production-path tests — #338, #507, #534."""
 
 from __future__ import annotations
 
@@ -10,7 +10,6 @@ import pytest
     "capability_id,expected_surface,expected_module,expected_entrypoint",
     [
         (338, "data_quality_pipeline", "cap646.data_spine", "data_quality_pipeline_report"),
-        (500, "data_quality_normalization", "cap646.data_spine", "normalization_report"),
         (507, "ohlcv", "cap646.fallbacks", "resolve_ohlcv_closes"),
         (534, "bucketed_cvd", "cap646.data_spine", "bucketed_cvd_report"),
     ],
@@ -26,7 +25,7 @@ async def test_option_a_runtime_execute(capability_id, expected_surface, expecte
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("capability_id", [338, 500, 507, 534])
+@pytest.mark.parametrize("capability_id", [338, 507, 534])
 async def test_option_a_backend_registry_binding(capability_id):
     from cap646.backend_registry import binding_for
 

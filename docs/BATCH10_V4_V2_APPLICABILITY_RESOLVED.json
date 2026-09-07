@@ -1,0 +1,79 @@
+{
+  "artifact": "BATCH10_V4_V2_APPLICABILITY_RESOLVED",
+  "generated_at_utc": "2026-09-07T08:41:01.031466+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
+  "resolved": true,
+  "local_applicability_gaps": [],
+  "rows": [
+    {
+      "control": "live_shadow_collection",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+    },
+    {
+      "control": "historical_backfill",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+    },
+    {
+      "control": "signal_registry",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Batch10 market/network/risk analytics are read-only intelligence — no signal emission registry per ID"
+    },
+    {
+      "control": "prediction_ledger",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No forward prediction ledger obligation for market data/search surfaces"
+    },
+    {
+      "control": "decision_ledger",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Analytics-only capabilities — no user decision ledger write path"
+    },
+    {
+      "control": "automated_outcome_evaluator",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No automated outcome evaluation loop for read-only market/network payloads"
+    },
+    {
+      "control": "data_provenance",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Provider/source lineage required for market/network feeds — module-level provenance"
+    },
+    {
+      "control": "algorithm_model_versioning",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Scoring/heuristics versioned at defi_yield_intelligence_layer; not per-capability model registry"
+    },
+    {
+      "control": "historical_replay_engine",
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No PIT replay engine obligation for static market data analytics surfaces"
+    },
+    {
+      "control": "market_event_library",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network events may link to event KB — contextual enrichment only"
+    },
+    {
+      "control": "failure_registry",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+    },
+    {
+      "control": "evidence_store",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+    },
+    {
+      "control": "data_freshness",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+    },
+    {
+      "control": "data_rights_registry",
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Third-party market data providers require rights tagging — layer policy"
+    }
+  ]
+}

@@ -32,14 +32,6 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "none",
         "explicit_option_a",
     ),
-    500: BackendBinding(
-        500,
-        "cap646.data_spine",
-        "normalization_report",
-        "data_quality_normalization",
-        "symbol",
-        "explicit_option_a",
-    ),
     507: BackendBinding(
         507,
         "cap646.fallbacks",
@@ -70,6 +62,24 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
 def _slug(name: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")
     return s[:80] or "capability"
+
+
+def _infer_param_style(module: str, entrypoint: str) -> str:
+    """Infer institutional param_style from backend entrypoint signature."""
+    import importlib
+    import inspect
+
+    try:
+        fn = getattr(importlib.import_module(module), entrypoint)
+        sig = inspect.signature(fn)
+    except Exception:
+        return "symbol"
+    names = set(sig.parameters)
+    if not names:
+        return "none"
+    if "locale" in names and "symbol" not in names and "asset" not in names:
+        return "none"
+    return "symbol"
 
 
 def _register_batch01_bindings() -> None:
@@ -324,11 +334,19 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     track = row["track"]
     surface = _slug(name)
 
-    if 301 <= capability_id <= 450:
+    if 301 <= capability_id <= 500:
         pdf = _pdf_registry_bindings().get(capability_id)
         if pdf is not None:
             mod, entrypoint = pdf
-            return BackendBinding(capability_id, mod, entrypoint, surface, "symbol", "pdf_capability_registry")
+            param_style = _infer_param_style(mod, entrypoint)
+            return BackendBinding(
+                capability_id,
+                mod,
+                entrypoint,
+                surface,
+                param_style,
+                "pdf_capability_registry",
+            )
 
     comp = _component_binding(matrix.get("existing_code_components") or [])
     if comp:
