@@ -100,6 +100,7 @@ jobs:
             tests/test_batch10_shared_core_semantics.py \
             tests/test_batch10_independent_oracle_semantics.py \
             tests/test_batch10_consumer_paths.py \
+            tests/test_batch10_membership_and_profile.py \
             tests/test_defi_yield_intelligence_batch401_500.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
