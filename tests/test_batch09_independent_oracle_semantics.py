@@ -37,10 +37,10 @@ def test_independent_boundary_oracle_finite(capability_id: int):
     rule = spec["rule"]
     inputs = {k: float(v) for k, v in spec["defaults"].items()}
     boundary = independent_boundary_primary(rule, inputs)
-    assert boundary == boundary  # not NaN
     production = compute_semantic_extra(capability_id, symbol="ETH", seed={})
     field = PRIMARY_FIELD[rule]
-    assert production[field] == production[field]
+    finite_values = (boundary, production[field])
+    assert all(math.isfinite(value) for value in finite_values)
 
 
 @pytest.mark.parametrize("capability_id", shared_core_ids())
