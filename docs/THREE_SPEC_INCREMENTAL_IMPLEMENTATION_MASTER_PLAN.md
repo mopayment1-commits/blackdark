@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-07T22:10:43.174673+00:00  
-**Branch:** `cursor/batch13-601-650-ed16`  
-**HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`  
+**Generated:** 2026-09-07T23:04:11.091401+00:00
+**Branch:** `cursor/batch14-651-700-ed16`
+**HEAD:** `1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -33,6 +33,14 @@ Per-batch sequence going forward:
 12. Batch freeze
 
 Each batch reports **CAPABILITY_BATCH_LOCAL_CLOSURE** and **THREE_SPEC_INCREMENTAL_CLOSURE_FOR_THIS_BATCH** separately from **THREE_SPEC_FINAL_PROJECT_COMPLETION**.
+
+
+## 2b. Batch14 closure (651-700)
+
+**Batch14 material SHA:** `69f1ebd40114f57947811c20d9a176ee85563d92`
+**Ledger requirements marked BUILT_THIS_BATCH:** 209
+
+Batch14 extension analytics layer (651-700), three-spec foundations, canonical reuse facades (660→354 TVL Intelligence, 661→394 Chain TVL Comparison, 676→604 Unlocks), and local freeze artifacts.
 
 ## 2. Current state through Batch13
 
