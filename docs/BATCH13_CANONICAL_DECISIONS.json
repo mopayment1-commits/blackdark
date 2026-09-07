@@ -1,0 +1,99 @@
+{
+  "artifact": "BATCH13_CANONICAL_DECISIONS",
+  "generated_at_utc": "2026-09-07T19:31:23.220524+00:00",
+  "git_commit": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "decisions": {
+    "613": {
+      "decision": "CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 88,
+      "facade_binding": "bd_platform.batch13_operational_intelligence_layer.liquidation_screener_613",
+      "canonical_implementation": "cap646.batch02_production.cap_088",
+      "evidence": "Liquidation Screener delegates to canonical liquidation radar #88 semantics"
+    },
+    "627": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "comparison_engine",
+      "binding_function": "run_comparison_engine",
+      "evidence": "Custom Institutional Data Terminal uses comparison_engine manual binding"
+    },
+    "637": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.batch13_operational_intelligence_layer",
+      "binding_function": "scenario_engine_637",
+      "evidence": "Hero kill-rate board was integration-only; catalog-aligned scenario engine",
+      "hero_relation": "bd_platform.heroes_capability_layer.public_kill_rate_board_637 integration-only"
+    },
+    "638": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.batch13_operational_intelligence_layer",
+      "binding_function": "claims_prediction_verification_638",
+      "evidence": "Catalog-aligned claims verification via oracle_track_record"
+    },
+    "639": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.batch13_operational_intelligence_layer",
+      "binding_function": "net_edge_truth_score_639",
+      "evidence": "Catalog-aligned net-edge truth via net_edge_truth module"
+    },
+    "640": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.batch13_operational_intelligence_layer",
+      "binding_function": "public_accuracy_ledger_640",
+      "evidence": "Catalog-aligned public accuracy ledger via oracle_track_record"
+    },
+    "641": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.batch13_operational_intelligence_layer",
+      "binding_function": "decision_certificate_export_641",
+      "evidence": "Catalog-aligned decision certificate export"
+    },
+    "642": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "cap646.batch01_production",
+      "binding_function": "execute",
+      "evidence": "AI Output Provenance via batch01 production spine"
+    },
+    "644": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "cap646.batch01_production",
+      "binding_function": "execute",
+      "evidence": "Capacity/load evidence via batch01 production spine"
+    },
+    "645": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "bd_platform.batch13_operational_intelligence_layer",
+      "binding_function": "security_verification_evidence_645",
+      "evidence": "Catalog-aligned security verification via security_posture"
+    },
+    "646": {
+      "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "binding_module": "cap646.handlers.institutional",
+      "binding_function": "handle_institutional_capability",
+      "evidence": "Chaos resilience via institutional handler + rc2 chaos tests"
+    },
+    "647": {
+      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "blocker": "vendor SLA feed",
+      "evidence": "cap978.external_registry ID647"
+    },
+    "648": {
+      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "blocker": "datashare warehouse agreement",
+      "evidence": "cap978.external_registry ID648"
+    },
+    "649": {
+      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "blocker": "external dbt deployment",
+      "evidence": "cap978.external_registry ID649"
+    },
+    "650": {
+      "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+      "blocker": "BI connector licenses",
+      "evidence": "cap978.external_registry ID650"
+    }
+  },
+  "summary": {
+    "canonical_duplicate_reuse_count": 15,
+    "keep_distinct_but_reuse_shared_core_count": 33
+  }
+}

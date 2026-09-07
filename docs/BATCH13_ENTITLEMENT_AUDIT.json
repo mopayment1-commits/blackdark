@@ -1,0 +1,462 @@
+{
+  "artifact": "BATCH13_ENTITLEMENT_AUDIT",
+  "generated_at_utc": "2026-09-07T19:31:30.893066+00:00",
+  "git_commit": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "scope": "Entitlement and object-level authorization — Batch13 601-650",
+  "summary": {
+    "proven_local": 50,
+    "total": 50
+  },
+  "rows": [
+    {
+      "capability_id": 601,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=601",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 602,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=602",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 603,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=603",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 604,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=604",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 605,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=605",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 606,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=606",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 607,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=607",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 608,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=608",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 609,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=609",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 610,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=610",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 611,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=611",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 612,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=612",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 613,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=613",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 614,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=614",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 615,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=615",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 616,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=616",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 617,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=617",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 618,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=618",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 619,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=619",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 620,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=620",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 621,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=621",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 622,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=622",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 623,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=623",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 624,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=624",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 625,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=625",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 626,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=626",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 627,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=627",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 628,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=628",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 629,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=629",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 630,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=630",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 631,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=631",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 632,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=632",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 633,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=633",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 634,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=634",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 635,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=635",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 636,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=636",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 637,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=637",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 638,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=638",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 639,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=639",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 640,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=640",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 641,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=641",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 642,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=642",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 643,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=643",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 644,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=644",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 645,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=645",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 646,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=646",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 647,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=647",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 648,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=648",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 649,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=649",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    },
+    {
+      "capability_id": 650,
+      "entitlement_gate": "cap646 runtime entitlement_engine.check",
+      "test_mode": "skip_entitlement in pytest only",
+      "production_pattern": "GET /api/cap646/{id} with tenant entitlement",
+      "object_level_auth": "per-ID routing capability_id=650",
+      "status": "PROVEN_LOCAL",
+      "evidence": "tests/test_batch13_consumer_paths.py"
+    }
+  ]
+}

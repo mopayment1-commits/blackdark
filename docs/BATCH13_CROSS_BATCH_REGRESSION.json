@@ -1,0 +1,65 @@
+{
+  "artifact": "BATCH13_CROSS_BATCH_REGRESSION",
+  "generated_at_utc": "2026-09-07T19:31:23.220524+00:00",
+  "git_commit": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "suites": [
+    {
+      "label": "batch13_shared_core_semantics",
+      "command": "pytest tests/test_batch13_shared_core_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..................................                                       [100%]\n"
+    },
+    {
+      "label": "batch13_independent_oracle_semantics",
+      "command": "pytest tests/test_batch13_independent_oracle_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".................................                                        [100%]\n"
+    },
+    {
+      "label": "batch13_runtime_canonical_binding",
+      "command": "pytest tests/test_batch13_runtime_canonical_binding.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "....                                                                     [100%]\n"
+    },
+    {
+      "label": "batch13_membership",
+      "command": "pytest tests/test_batch13_membership_and_profile.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..                                                                       [100%]\n"
+    },
+    {
+      "label": "batch13_adaptive_spine",
+      "command": "pytest tests/test_batch13_adaptive_spine.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".....                                                                    [100%]\n"
+    },
+    {
+      "label": "batch13_temporal_spine",
+      "command": "pytest tests/test_batch13_temporal_spine.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "....                                                                     [100%]\n"
+    },
+    {
+      "label": "batch12_blast_regression",
+      "command": "pytest tests/test_batch12_membership_and_profile.py -q",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..                                                                       [100%]\n"
+    },
+    {
+      "label": "cap646_option_a",
+      "command": "pytest tests/cap646/test_option_a_production.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..                                                                       [100%]\n"
+    }
+  ],
+  "affected_regression_gap": [],
+  "blast_radius_regression_pass": true
+}

@@ -26,3 +26,11 @@ Canonical pointer: [`GOVERNING_STANDARD.json`](./GOVERNING_STANDARD.json)
 - **Role:** implementation/design addendum for historical data, replay, point-in-time reconstruction, signals/predictions/decisions/outcomes, evidence, forward shadow, learning/calibration, failure corpus, model/dataset lineage, drift, data quality, rights/retention, and Market Time Machine.
 - **Hierarchy:** applies after v6, then v4_v2; does not supersede either and does not create a parallel SSOT.
 - **Registration ≠ implementation proof:** presence in this index is not evidence of IMPLEMENTED / PASS_ENGINEERING / PASS_LIVE.
+
+## Adaptive intelligence experience spec (subordinate to v6, v4_v2, and Temporal)
+
+**Active (registered):** [`domain/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4.md`](./domain/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4.md)
+
+- **Role:** implementation/design and experience specification for Intent Search, Intelligence Router, Decision Contract, Capability Graph, Progressive Disclosure safety floor, and related adaptive UX controls.
+- **Hierarchy:** applies after v6, v4_v2, and Temporal Intelligence; does not supersede any and does not create a parallel SSOT.
+- **Registration ≠ implementation proof:** Batch13 is the first batch where material adaptive spine modules must be evidenced locally.

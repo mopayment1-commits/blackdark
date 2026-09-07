@@ -1,0 +1,142 @@
+{
+  "generated_at_utc": "2026-09-07T19:30:03.469983+00:00",
+  "git_head": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "spec_sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+  "rows": [
+    {
+      "requirement": "Evidence taxonomy",
+      "priority": "P0",
+      "canonical_implementation": "cap646/evidence_class.py",
+      "status_after": "BUILT_LOCAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Signal/Prediction/Decision/Outcome ledgers",
+      "priority": "P0",
+      "canonical_implementation": "signal_registry.py;decision_ledger.py",
+      "status_after": "BUILT_LOCAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Point-in-Time availability model",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Temporal Leakage Firewall",
+      "priority": "P0",
+      "canonical_implementation": "temporal_leakage_firewall.py",
+      "status_after": "BUILT_LOCAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Canonical Historical Event Store",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Dataset/Model/Rule/Evaluator lineage",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Reproducibility Manifest",
+      "priority": "P0",
+      "canonical_implementation": "reproducibility_manifest.py",
+      "status_after": "BUILT_LOCAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Deterministic Replay",
+      "priority": "P0",
+      "canonical_implementation": "market_replay.py",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Walk-Forward Evaluation",
+      "priority": "P0",
+      "canonical_implementation": "ml/walk_forward.py",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Automated Outcome Factory",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Outcome quality / label confidence",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Immutable Forward-Shadow receipts",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Failure / Surprise / Abstention Corpus",
+      "priority": "P0",
+      "canonical_implementation": "failure_corpus.py",
+      "status_after": "BUILT_LOCAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Regime Intelligence Library",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Source quality / reliability",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Source rights / retention",
+      "priority": "P0",
+      "canonical_implementation": "NOT_FOUND",
+      "status_after": "PARTIAL_OR_EXTERNAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    },
+    {
+      "requirement": "Evaluation Contamination Registry",
+      "priority": "P0",
+      "canonical_implementation": "evaluation_contamination_registry.py",
+      "status_after": "BUILT_LOCAL",
+      "evidence_class_mapping": "cap646.evidence_class"
+    }
+  ],
+  "TEMPORAL_ALL_BUILDABLE_REQUIREMENTS_INVENTORIED": true,
+  "TEMPORAL_LOCAL_IMPLEMENTATION_GAPS": [
+    "Point-in-Time availability model",
+    "Canonical Historical Event Store",
+    "Dataset/Model/Rule/Evaluator lineage",
+    "Deterministic Replay",
+    "Walk-Forward Evaluation",
+    "Outcome quality / label confidence",
+    "Regime Intelligence Library",
+    "Source quality / reliability",
+    "Source rights / retention"
+  ],
+  "TEMPORAL_EVIDENCE_CLASS_MAPPING_EXPLICIT": true,
+  "TEMPORAL_LEAKAGE_FIREWALL_LOCAL_IMPLEMENTATION_COMPLETE": true,
+  "TEMPORAL_UNSUPPORTED_EVIDENCE_PROMOTIONS_ZERO": true,
+  "TEMPORAL_UNPROVEN_COMPLETE_CLAIMS_ZERO": true
+}

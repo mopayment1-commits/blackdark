@@ -1,0 +1,652 @@
+{
+  "artifact": "BATCH13_CROSS_BATCH_DUPLICATE_ANALYSIS",
+  "generated_at_utc": "2026-09-07T19:31:23.220524+00:00",
+  "git_commit": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "layer_b_cross_batch": {
+    "scope": "Layer B — Batch13 IDs 601-650 vs prior capabilities 1-500",
+    "summary": {
+      "cross_batch_canonical_reuse": 1,
+      "cross_batch_keep_distinct_but_reuse_shared_core": 49,
+      "cross_batch_unresolved": 0
+    },
+    "per_id": [
+      {
+        "batch13_id": 601,
+        "capability_name": "Visual_Transaction_Graph",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.visual_transaction_graph_601",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #601",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 602,
+        "capability_name": "Developer_Wallet_Tracker",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.developer_wallet_tracker_602",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #602",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 603,
+        "capability_name": "Miner_Flow_Monitor",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.miner_flow_monitor_603",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #603",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 604,
+        "capability_name": "Token_Unlock_Forecaster",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.token_unlock_forecaster_604",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #604",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 605,
+        "capability_name": "Governance_Sentiment_Monitor",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.governance_sentiment_monitor_605",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #605",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 606,
+        "capability_name": "Dev_Health_Score",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.dev_health_score_606",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #606",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 607,
+        "capability_name": "Financial_Health_Scoring",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.financial_health_scoring_607",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #607",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 608,
+        "capability_name": "Custom_Ratio_Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.custom_ratio_engine_608",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #608",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 609,
+        "capability_name": "Funding_Rate_Listener",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.funding_rate_listener_609",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #609",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 610,
+        "capability_name": "Funding_Arbitrage_Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.funding_arbitrage_engine_610",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #610",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 611,
+        "capability_name": "Funding_Rate_Heatmap_Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.funding_rate_heatmap_engine_611",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #611",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 612,
+        "capability_name": "Spread_Calculation_Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.spread_calculation_engine_612",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #612",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 613,
+        "capability_name": "Liquidation_Screener",
+        "prior_id": 88,
+        "relationship": "CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "cap646.batch02_production.cap_088",
+        "facade_binding": "bd_platform.batch13_operational_intelligence_layer.liquidation_screener_613",
+        "evidence": "Liquidation Screener delegates to canonical liquidation radar #88 semantics",
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch13_id": 614,
+        "capability_name": "DEX_Liquidity_Listener",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.dex_liquidity_listener_614",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #614",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 615,
+        "capability_name": "Gas_Cost_Predictor",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.gas_cost_predictor_615",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #615",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 616,
+        "capability_name": "Yield_Delta_Listener",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.yield_delta_listener_616",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #616",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 617,
+        "capability_name": "Yield_Arbitrage_Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.yield_arbitrage_engine_617",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #617",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 618,
+        "capability_name": "Yield_Optimization_Module",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.yield_optimization_module_618",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #618",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 619,
+        "capability_name": "Trend_Metric_Collector",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.trend_metric_collector_619",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #619",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 620,
+        "capability_name": "MTF_Core_Logic",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.mtf_core_logic_620",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #620",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 621,
+        "capability_name": "Pattern_Recognition_Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.pattern_recognition_engine_621",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #621",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 622,
+        "capability_name": "Prediction_Trend_Analyzer",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.prediction_trend_analyzer_622",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #622",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 623,
+        "capability_name": "Execution_Latency_Monitor",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.execution_latency_monitor_623",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #623",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 624,
+        "capability_name": "Low_Latency_Execution_Node",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.low_latency_execution_node_624",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #624",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 625,
+        "capability_name": "Rust_Execution_Module",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.rust_execution_module_625",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #625",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 626,
+        "capability_name": "Institutional_Dashboard",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.institutional_dashboard_626",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #626",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 627,
+        "capability_name": "Custom_Institutional_Data_Terminal",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "comparison_engine.run_comparison_engine",
+        "evidence": "Custom Institutional Data Terminal uses comparison_engine manual binding",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 628,
+        "capability_name": "Viral_Intelligence_Distribution_Loop",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.viral_intelligence_distribution_loop_628",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #628",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 629,
+        "capability_name": "Real-Time Wallet Alerts",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.heroes_capability_layer.single_sentence_oracle_629",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #629",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 630,
+        "capability_name": "Real_Time_Data_Freshness_Update_Assurance",
+        "prior_id": 238,
+        "relationship": "PRIOR_BINDING_MATCH",
+        "canonical_implementation": "bd_platform.intelligence_ux_extensions_layer.scan_market_opportunities_238",
+        "prior_binding_matches": [
+          238
+        ],
+        "evidence": "pdf_capability_registry binding unique for batch13 #630",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 631,
+        "capability_name": "Data_Source_Ingestion_Normalization_Provenance_Reliability_Architecture",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.heroes_capability_layer.unified_live_technical_analysis_631",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #631",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 632,
+        "capability_name": "Multi-Tier Data Storage",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.multi_tier_data_storage_632",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #632",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 633,
+        "capability_name": "Cross-Chain Liquidity Flow",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.cross_chain_liquidity_flow_633",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #633",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 634,
+        "capability_name": "Liquidity/Full-Fill Feasibility",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.liquidity_full_fill_feasibility_634",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #634",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 635,
+        "capability_name": "Unified Arbitrage Opportunity Engine",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.heroes_capability_layer.trad_simulator_635",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #635",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 636,
+        "capability_name": "Market/Data Drift Monitoring",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.market_data_drift_monitoring_636",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #636",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 637,
+        "capability_name": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.scenario_engine_637",
+        "evidence": "Hero kill-rate board was integration-only; catalog-aligned scenario engine",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 638,
+        "capability_name": "Claims/Prediction Verification Engine",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.claims_prediction_verification_638",
+        "evidence": "Catalog-aligned claims verification via oracle_track_record",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 639,
+        "capability_name": "Net-Edge Truth Score",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.net_edge_truth_score_639",
+        "evidence": "Catalog-aligned net-edge truth via net_edge_truth module",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 640,
+        "capability_name": "Public Accuracy Ledger",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.public_accuracy_ledger_640",
+        "evidence": "Catalog-aligned public accuracy ledger via oracle_track_record",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 641,
+        "capability_name": "Decision Certificate + Institutional DD Export",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.decision_certificate_export_641",
+        "evidence": "Catalog-aligned decision certificate export",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 642,
+        "capability_name": "AI Output Provenance / Compliance Footer",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "cap646.batch01_production.execute",
+        "evidence": "AI Output Provenance via batch01 production spine",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 643,
+        "capability_name": "End-to-End Decision Traceability",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.end_to_end_decision_traceability_643",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch13 #643",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch13_id": 644,
+        "capability_name": "Capacity / Load Evidence",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "cap646.batch01_production.execute",
+        "evidence": "Capacity/load evidence via batch01 production spine",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 645,
+        "capability_name": "Security Verification Evidence",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "bd_platform.batch13_operational_intelligence_layer.security_verification_evidence_645",
+        "evidence": "Catalog-aligned security verification via security_posture",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 646,
+        "capability_name": "Chaos / Failure-Injection Resilience Testing",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "cap646.handlers.institutional.handle_institutional_capability",
+        "evidence": "Chaos resilience via institutional handler + rc2 chaos tests",
+        "decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+        "cross_batch_decision": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+      },
+      {
+        "batch13_id": 647,
+        "capability_name": "Real-Time Feed",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "None.None",
+        "evidence": "cap978.external_registry ID647",
+        "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+        "cross_batch_decision": "EXTERNAL_DEPENDENCY_BLOCKED"
+      },
+      {
+        "batch13_id": 648,
+        "capability_name": "Datashare",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "None.None",
+        "evidence": "cap978.external_registry ID648",
+        "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+        "cross_batch_decision": "EXTERNAL_DEPENDENCY_BLOCKED"
+      },
+      {
+        "batch13_id": 649,
+        "capability_name": "dbt Connector",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "None.None",
+        "evidence": "cap978.external_registry ID649",
+        "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+        "cross_batch_decision": "EXTERNAL_DEPENDENCY_BLOCKED"
+      },
+      {
+        "batch13_id": 650,
+        "capability_name": "BI Connectors",
+        "prior_id": null,
+        "relationship": "OUTSIDE_SHARED_CORE",
+        "canonical_implementation": "None.None",
+        "evidence": "cap978.external_registry ID650",
+        "decision": "EXTERNAL_DEPENDENCY_BLOCKED",
+        "cross_batch_decision": "EXTERNAL_DEPENDENCY_BLOCKED"
+      }
+    ],
+    "canonical_reuse_entries": [
+      {
+        "batch13_id": 613,
+        "capability_name": "Liquidation_Screener",
+        "prior_id": 88,
+        "relationship": "CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "cap646.batch02_production.cap_088",
+        "facade_binding": "bd_platform.batch13_operational_intelligence_layer.liquidation_screener_613",
+        "evidence": "Liquidation Screener delegates to canonical liquidation radar #88 semantics",
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      }
+    ]
+  },
+  "layer_b_exhaustive_coverage": {
+    "scope": "Exhaustive machine coverage — Batch13 601-650 vs prior 1-500",
+    "method": "Deterministic pair evaluator over all 50×500 candidate pairs. No indexing filter may omit pairs — each (batch13_id, prior_id) receives a decision.",
+    "expected_cross_batch_pairs": 30000,
+    "evaluated_cross_batch_pairs": 30000,
+    "omitted_pairs": [],
+    "unresolved_pairs": [],
+    "duplicate_coverage_complete": true,
+    "decision_counts": {
+      "DISTINCT": 29827,
+      "CANONICAL_DUPLICATE_REUSE": 1,
+      "SEMANTIC_NAME_OVERLAP": 5,
+      "SHARED_MODULE_DISTINCT_FN": 166,
+      "PRIOR_BINDING_MATCH": 1
+    },
+    "material_overlap_count": 7,
+    "material_overlaps": [
+      {
+        "batch13_id": 613,
+        "prior_id": 88,
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "relationship": "CANONICAL_REUSE",
+        "batch13_binding": "bd_platform.batch13_operational_intelligence_layer.liquidation_screener_613",
+        "prior_binding": "bd_platform.institutional_b2b_layer.map_org_role_to_team_88"
+      },
+      {
+        "batch13_id": 613,
+        "prior_id": 211,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch13_binding": "bd_platform.batch13_operational_intelligence_layer.liquidation_screener_613",
+        "prior_binding": "bd_platform.onchain_defi_sources_layer.cross_margin_risk_alert_211"
+      },
+      {
+        "batch13_id": 630,
+        "prior_id": 238,
+        "decision": "PRIOR_BINDING_MATCH",
+        "relationship": "BINDING_COLLISION",
+        "batch13_binding": "bd_platform.intelligence_ux_extensions_layer.scan_market_opportunities_238",
+        "prior_binding": "bd_platform.intelligence_ux_extensions_layer.scan_market_opportunities_238"
+      },
+      {
+        "batch13_id": 647,
+        "prior_id": 380,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch13_binding": "bd_platform.batch13_operational_intelligence_layer.real_time_feed_647",
+        "prior_binding": "exchange_currency_status.deposit_currencies_open"
+      },
+      {
+        "batch13_id": 648,
+        "prior_id": 381,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch13_binding": "bd_platform.batch13_operational_intelligence_layer.datashare_648",
+        "prior_binding": "exchange_currency_status.withdrawal_currencies_closed"
+      },
+      {
+        "batch13_id": 649,
+        "prior_id": 382,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch13_binding": "bd_platform.batch13_operational_intelligence_layer.dbt_connector_649",
+        "prior_binding": "bd_platform.heroes_capability_layer.single_sentence_financial_button_382"
+      },
+      {
+        "batch13_id": 650,
+        "prior_id": 383,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch13_binding": "bd_platform.batch13_operational_intelligence_layer.bi_connectors_650",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.bi_connectors_383"
+      }
+    ],
+    "material_overlaps_truncated": false,
+    "pair_decision_digest_sha256": "f786eb93b66c3370d3e97381506bbecaac3f7bec3f3dfb14c746d263be5d51a1",
+    "unresolved_duplicate_conflicts": 0
+  },
+  "summary": {
+    "expected_cross_batch_pairs": 30000,
+    "evaluated_cross_batch_pairs": 30000,
+    "cross_batch_unresolved": 0,
+    "unresolved_duplicate_conflicts": 0
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "generated_at_utc": "2026-09-07T19:30:03.472694+00:00",
+  "git_head": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "shared_implementations": [
+    {
+      "requirement": "evidence_class",
+      "implementation": "cap646/evidence_class.py",
+      "specs": [
+        "v4_v2",
+        "temporal",
+        "adaptive"
+      ]
+    },
+    {
+      "requirement": "decision_contract",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "specs": [
+        "adaptive",
+        "temporal"
+      ]
+    },
+    {
+      "requirement": "temporal_leakage_firewall",
+      "implementation": "temporal_leakage_firewall.py",
+      "specs": [
+        "v4_v2",
+        "temporal"
+      ]
+    },
+    {
+      "requirement": "failure_corpus",
+      "implementation": "failure_corpus.py",
+      "specs": [
+        "v4_v2",
+        "temporal"
+      ]
+    }
+  ],
+  "THREE_SPEC_SHARED_IMPLEMENTATIONS_RECONCILED": true,
+  "THREE_SPEC_PARALLEL_DUPLICATE_SYSTEMS_ZERO": true,
+  "THREE_SPEC_ACTIVE_CONFLICTS": []
+}
