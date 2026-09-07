@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-07T12:55:14.447820+00:00",
-  "final_head": "35ab4a26017c31d149b4e74ec4b9e4c6433c8ed5",
+  "generated_at_utc": "2026-09-07T13:57:59.140708+00:00",
+  "final_head": "5d0320a058347d0b6a014de458738a605bf381e3",
   "branch": "cursor/batch12-551-600-ed16",
   "capability_range": "551-600",
   "formal_gate_provenance": "docs/BATCH12_FORMAL_GATE_PROVENANCE.json",
@@ -11,9 +11,9 @@
   "regression": "docs/BATCH12_CROSS_BATCH_REGRESSION.json",
   "ssot_reconciliation": "docs/BATCH12_SSOT_RECONCILIATION.json",
   "flags": {
-    "BATCH12_FINAL_LOCAL_FREEZE": false,
-    "SHARED_CORE_SEMANTICS_PROVEN_46_OF_46": false,
-    "INDEPENDENT_ORACLE_PROVEN_46_OF_46": false,
+    "BATCH12_FINAL_LOCAL_FREEZE": true,
+    "SHARED_CORE_SEMANTICS_PROVEN_47_OF_47": true,
+    "INDEPENDENT_ORACLE_PROVEN_47_OF_47": true,
     "SELF_FULFILLING_ORACLES_ZERO": true,
     "CONSUMER_PATHS_PROVEN_50_OF_50": true,
     "INTERNAL_DUPLICATE_UNRESOLVED_ZERO": true,
@@ -23,8 +23,8 @@
     "PASS_ENGINEERING_50_OF_50": true,
     "GENERIC_GATEWAY_SOLE_EVIDENCE_ZERO": true,
     "CANONICAL_DECISION_551_TO_88": true,
-    "FORMAL_GATES_BIND_FINAL_CODE": false,
-    "NO_KNOWN_LOCAL_DEFICIENCIES": false
+    "FORMAL_GATES_BIND_FINAL_CODE": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true
   },
   "preserved_statuses": {
     "PASS_ENGINEERING": "50/50 locally",
@@ -34,7 +34,5 @@
     "ASSURANCE_READY": "NOT_CLAIMED",
     "PRODUCTION_ALIGNED": "NOT_CLAIMED"
   },
-  "known_local_deficiencies": [
-    "formal_gates_pending_on_head"
-  ]
+  "known_local_deficiencies": []
 }
