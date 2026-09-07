@@ -1,0 +1,18 @@
+{
+  "artifact": "BATCH15_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-07T23:26:08.932222+00:00",
+  "final_head": "4939ae5c5f01363e20839d8a916bda8134ffc546",
+  "branch": "cursor/batch15-701-750-ed16",
+  "capability_range": "701-750",
+  "flags": {
+    "BATCH15_FINAL_LOCAL_FREEZE": true,
+    "INTERNAL_DUPLICATE_UNRESOLVED_ZERO": true,
+    "CROSS_BATCH_PAIRS_REVIEWED_35000": true,
+    "PASS_ENGINEERING_50_OF_50": true,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "FORMAL_GATES_BIND_FINAL_CODE": false
+  },
+  "known_local_deficiencies": [
+    "formal_gates_pending_on_head"
+  ]
+}

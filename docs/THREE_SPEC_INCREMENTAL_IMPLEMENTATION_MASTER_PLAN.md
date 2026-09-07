@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-07T23:04:11.091401+00:00
-**Branch:** `cursor/batch14-651-700-ed16`
-**HEAD:** `1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359`
+**Generated:** 2026-09-07T23:26:08.932222+00:00
+**Branch:** `cursor/batch15-701-750-ed16`
+**HEAD:** `4939ae5c5f01363e20839d8a916bda8134ffc546`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -41,6 +41,14 @@ Each batch reports **CAPABILITY_BATCH_LOCAL_CLOSURE** and **THREE_SPEC_INCREMENT
 **Ledger requirements marked BUILT_THIS_BATCH:** 209
 
 Batch14 extension analytics layer (651-700), three-spec foundations, canonical reuse facades (660→354 TVL Intelligence, 661→394 Chain TVL Comparison, 676→604 Unlocks), and local freeze artifacts.
+
+
+## 2b. Batch15 closure (701-750)
+
+**Batch15 material SHA:** `4939ae5c5f01363e20839d8a916bda8134ffc546`
+**Ledger requirements marked BUILT_THIS_BATCH:** 23
+
+Batch15 DeFi/risk/data facade layer (701-750) with canonical reuse of Batch09 semantics (434-483, plus 725→458), three-spec progression (walk-forward v2, regime library v2, human validation shadow v2, universal command controlled).
 
 ## 2. Current state through Batch13
 
