@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_INDEPENDENT_ORACLE_EVIDENCE",
-  "generated_at_utc": "2026-09-07T19:31:23.220524+00:00",
-  "git_commit": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "generated_at_utc": "2026-09-07T19:31:56.637132+00:00",
+  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
   "oracle_rows_accounted": "33/33",
   "self_fulfilling_oracles": 0,
   "all_match": true,
@@ -17,7 +17,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 602,
@@ -30,7 +30,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 603,
@@ -43,7 +43,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 604,
@@ -56,7 +56,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 605,
@@ -69,7 +69,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 606,
@@ -82,7 +82,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 607,
@@ -95,7 +95,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 608,
@@ -108,7 +108,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 609,
@@ -121,7 +121,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 610,
@@ -134,7 +134,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 611,
@@ -147,7 +147,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 612,
@@ -160,7 +160,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 613,
@@ -173,7 +173,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 614,
@@ -186,7 +186,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 615,
@@ -199,7 +199,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 616,
@@ -212,7 +212,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 617,
@@ -225,7 +225,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 618,
@@ -238,7 +238,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 619,
@@ -251,7 +251,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 620,
@@ -264,7 +264,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 621,
@@ -277,7 +277,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 622,
@@ -290,7 +290,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 623,
@@ -303,7 +303,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 624,
@@ -316,7 +316,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 625,
@@ -329,7 +329,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 626,
@@ -342,7 +342,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 628,
@@ -355,7 +355,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 632,
@@ -368,7 +368,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 633,
@@ -381,7 +381,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 634,
@@ -394,7 +394,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 635,
@@ -407,7 +407,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 636,
@@ -420,7 +420,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     },
     {
       "capability_id": 643,
@@ -433,7 +433,7 @@
       "oracle_source": "tests/batch13_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch13_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "927fc7c298877c40f06dc9b126af9ca0448530f1"
+      "tested_sha": "e1297aa4302d04686ecdb7efbb491e1e19e3b920"
     }
   ]
 }

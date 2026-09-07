@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_CROSS_BATCH_REGRESSION",
-  "generated_at_utc": "2026-09-07T19:31:23.220524+00:00",
-  "git_commit": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "generated_at_utc": "2026-09-07T19:31:56.637132+00:00",
+  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
   "suites": [
     {
       "label": "batch13_shared_core_semantics",

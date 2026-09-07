@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH13_TEMPORAL_INTELLIGENCE_APPLICABILITY",
-  "generated_at_utc": "2026-09-07T19:31:30.891139+00:00",
-  "git_commit": "927fc7c298877c40f06dc9b126af9ca0448530f1",
+  "generated_at_utc": "2026-09-07T19:32:04.301704+00:00",
+  "git_commit": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
   "temporal_spec_authority": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
   "scope": "Temporal Intelligence control delta mapping — Batch13 601-650",
   "controls_delta": {
