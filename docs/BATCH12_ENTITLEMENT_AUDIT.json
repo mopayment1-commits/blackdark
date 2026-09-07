@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_ENTITLEMENT_AUDIT",
-  "generated_at_utc": "2026-09-07T16:28:49.914189+00:00",
-  "git_commit": "cf539c1070c55dc253c93d682dd031b215a2f56a",
+  "generated_at_utc": "2026-09-07T16:52:32.231973+00:00",
+  "git_commit": "cd7f478d82b5751b66e3bbc862516da74e7e4a81",
   "scope": "Entitlement and object-level authorization — Batch12 551-600",
   "summary": {
     "proven_local": 50,

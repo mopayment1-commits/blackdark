@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH12_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-07T16:28:26.006675+00:00",
-  "final_head": "cf539c1070c55dc253c93d682dd031b215a2f56a",
+  "generated_at_utc": "2026-09-07T16:52:07.243799+00:00",
+  "final_head": "cd7f478d82b5751b66e3bbc862516da74e7e4a81",
   "branch": "cursor/batch12-551-600-ed16",
   "capability_range": "551-600",
   "formal_gate_provenance": "docs/BATCH12_FORMAL_GATE_PROVENANCE.json",
@@ -23,7 +23,7 @@
     "PASS_ENGINEERING_50_OF_50": true,
     "GENERIC_GATEWAY_SOLE_EVIDENCE_ZERO": true,
     "CANONICAL_DECISION_551_TO_88": true,
-    "FORMAL_GATES_BIND_FINAL_CODE": false,
+    "FORMAL_GATES_BIND_FINAL_CODE": true,
     "NO_KNOWN_LOCAL_DEFICIENCIES": true
   },
   "preserved_statuses": {
