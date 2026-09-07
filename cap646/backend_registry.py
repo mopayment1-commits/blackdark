@@ -40,6 +40,14 @@ _EXPLICIT_BINDINGS: dict[int, BackendBinding] = {
         "symbol",
         "batch02_production_spine_ssot",
     ),
+    550: BackendBinding(
+        550,
+        "bd_platform.derivatives_hub",
+        "derivatives_overview",
+        "open_interest_intelligence",
+        "symbol",
+        "canonical_duplicate_reuse_205",
+    ),
 }
 
 

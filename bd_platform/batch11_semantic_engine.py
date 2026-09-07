@@ -576,7 +576,6 @@ CAPABILITY_SEMANTIC_SPECS: dict[int, dict[str, Any]] = {
     547: {"rule": "high_resolution_multi_pane", "defaults": {"panes_count": 6, "resolution_factor": 2.5, "refresh_hz": 4}, "feature": "High-Resolution Multi-Pane Charts"},
     548: {"rule": "derivatives_dashboard", "defaults": {"widgets_active": 18, "refresh_rate_hz": 2, "alerts_configured": 12}, "feature": "Derivatives Dashboard"},
     549: {"rule": "funding_rate_intelligence", "defaults": {"perp_funding_bps": 9.2, "historical_avg_bps": 5.8, "venue_count": 12}, "feature": "Funding Rate Intelligence"},
-    550: {"rule": "open_interest_intelligence", "defaults": {"oi_change_24h_pct": 3.6, "oi_usd": 10800000000.0, "concentration_pct": 28}, "feature": "Open Interest Intelligence"},
 }
 
 def compute_semantic_extra(cap_id: int, *, symbol: str, seed: dict[str, Any]) -> dict[str, Any]:

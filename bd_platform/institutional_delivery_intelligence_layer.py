@@ -531,15 +531,18 @@ def funding_rate_intelligence_549(*, symbol: str = "BTC", seed: dict[str, Any] |
         extra=compute_semantic_extra(549, symbol=symbol, seed=seed),
     )
 
-def open_interest_intelligence_550(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Open Interest Intelligence (#550)."""
-    seed = seed or _load_seed()
-    return _base(
-        550,
-        symbol=symbol,
-        seed=seed,
-        extra=compute_semantic_extra(550, symbol=symbol, seed=seed),
-    )
+async def open_interest_intelligence_550(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Open Interest Intelligence (#550) — canonical reuse facade for #205 derivatives semantics."""
+    from cap646.handlers.derivatives import handle_derivatives_capability
+
+    result = await handle_derivatives_capability(205, params={"symbol": symbol})
+    if isinstance(result, dict):
+        result = dict(result)
+        result["capability_id"] = 550
+        result["canonical_reuse_of"] = 205
+        result["feature_ref"] = "open_interest_intelligence_550"
+        result.setdefault("ok", result.get("success", True) is not False)
+    return result
 
 def liquidation_intelligence_551(*, symbol: str = "BTC", seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Liquidation Intelligence (#551)."""

@@ -55,7 +55,7 @@ def test_execute_capability_semantic_surface(capability_id: int, seed: dict):
 
 
 def test_shared_core_count_batch11():
-    assert len(shared_core_ids()) == 47
+    assert len(shared_core_ids()) == 46
 
 
 def test_525_hero_delegate_binding():

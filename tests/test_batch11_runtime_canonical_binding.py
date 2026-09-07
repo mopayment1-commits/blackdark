@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from bd_platform.batch11_membership import HERO_DELEGATE_ID, outside_shared_core_ids, shared_core_47_ids
+from bd_platform.batch11_membership import CANONICAL_DUPLICATE_REUSE_ID, HERO_DELEGATE_ID, outside_shared_core_ids, shared_core_47_ids
 from bd_platform.batch11_semantic_engine import CAPABILITY_SEMANTIC_SPECS, compute_semantic_extra
 from bd_platform.heroes_capability_layer import strategy_backtesting_525
 from bd_platform.pro_trader_layer import run_backtest_74
@@ -42,6 +42,11 @@ def client() -> TestClient:
 
 @pytest.mark.parametrize("capability_id", _batch_ids())
 def test_pdf_registry_matches_backend_registry(capability_id: int):
+    if capability_id == CANONICAL_DUPLICATE_REUSE_ID:
+        binding = resolve_binding(capability_id)
+        assert binding.source == "canonical_duplicate_reuse_205"
+        assert binding.module == "bd_platform.derivatives_hub"
+        return
     mod, entry = discover_bindings()[capability_id]
     binding = resolve_binding(capability_id)
     assert binding.module == mod, binding
@@ -64,12 +69,20 @@ async def test_cap646_runtime_binding_and_output(capability_id: int, seed: dict)
     mod, entry = discover_bindings()[capability_id]
     result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "ETH"})
     assert result.get("success") is True, result
-    assert result.get("backend_module") == mod
-    assert result.get("backend_entrypoint") == entry
-    assert result.get("binding_source") == "pdf_capability_registry"
 
     payload = result.get("result") or result
     assert isinstance(payload, dict)
+
+    if capability_id == CANONICAL_DUPLICATE_REUSE_ID:
+        assert result.get("classification") == "DUPLICATE/ALREADY_COVERED"
+        assert result.get("duplicate_of") == 205
+        assert result.get("backend_module") == "cap646.handlers.derivatives"
+        assert payload.get("surface") == "open_interest_intelligence"
+        return
+
+    assert result.get("backend_module") == mod
+    assert result.get("backend_entrypoint") == entry
+    assert result.get("binding_source") == "pdf_capability_registry"
 
     if capability_id == HERO_DELEGATE_ID:
         facade = strategy_backtesting_525(symbol="ETH")
@@ -100,6 +113,11 @@ def test_http_get_production_path(client: TestClient, capability_id: int):
     assert response.status_code == 200
     body = response.json()
     assert body.get("success") is True, body
+    if capability_id == CANONICAL_DUPLICATE_REUSE_ID:
+        assert body.get("classification") == "DUPLICATE/ALREADY_COVERED"
+        assert body.get("duplicate_of") == 205
+        assert body.get("backend_module") == "cap646.handlers.derivatives"
+        return
     mod, entry = discover_bindings()[capability_id]
     assert body.get("backend_module") == mod
     assert body.get("backend_entrypoint") == entry
@@ -117,6 +135,11 @@ def test_http_post_gateway_execute_path(client: TestClient, capability_id: int):
     assert response.status_code == 200
     body = response.json()
     assert body.get("success") is True, body
+    if capability_id == CANONICAL_DUPLICATE_REUSE_ID:
+        assert body.get("classification") == "DUPLICATE/ALREADY_COVERED"
+        assert body.get("duplicate_of") == 205
+        assert body.get("backend_module") == "cap646.handlers.derivatives"
+        return
     mod, entry = discover_bindings()[capability_id]
     assert body.get("backend_module") == mod
     assert body.get("backend_entrypoint") == entry
@@ -126,6 +149,10 @@ def test_http_post_gateway_execute_path(client: TestClient, capability_id: int):
 def test_runtime_binding_summary_flags():
     wrong = []
     for cap_id in _batch_ids():
+        if cap_id == CANONICAL_DUPLICATE_REUSE_ID:
+            binding = binding_for(cap_id)
+            assert binding["binding_source"] == "canonical_duplicate_reuse_205"
+            continue
         mod, entry = discover_bindings()[cap_id]
         binding = binding_for(cap_id)
         if binding["backend_module"] != mod or binding["backend_entrypoint"] != entry:

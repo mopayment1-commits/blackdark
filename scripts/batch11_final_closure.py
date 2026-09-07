@@ -75,6 +75,16 @@ CANONICAL_DECISIONS: dict[int, dict[str, Any]] = {
         "evidence": "Liquidation Levels (#528) routes to market_rankings — outside institutional_delivery shared core",
         "mece_action": "Count as distinct outside-shared-core surface bound to market_rankings",
     },
+    550: {
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "canonical_capability_id": 205,
+        "facade_binding": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+        "canonical_implementation": "cap646.handlers.derivatives.handle_derivatives_capability → derivatives_overview(205)",
+        "underlying_module": "bd_platform.derivatives_hub",
+        "underlying_function": "derivatives_overview",
+        "evidence": "Catalog duplicate Open Interest Intelligence — runtime delegates to canonical #205 derivatives semantics; no parallel Batch11 semantic engine",
+        "mece_action": "Count via canonical #205; #550 facade/pdf path must not add independent semantics",
+    },
 }
 
 DOMAIN_SPEC_CAPABILITY_TYPE = "institutional_delivery_entity_intelligence"
@@ -1112,8 +1122,8 @@ async def main() -> int:
         layer_a["summary"]["internal_unresolved"] == 0
         and exhaustive["unresolved_duplicate_conflicts"] == 0
         and exhaustive["evaluated_cross_batch_pairs"] >= EXPECTED_CROSS_BATCH_PAIRS
-        and len(semantic_rows) == 47
-        and len(oracle_rows) == 47
+        and len(semantic_rows) == 46
+        and len(oracle_rows) == 46
         and all(r["match"] for r in oracle_rows)
         and len(consumer_rows) == 50
         and all(r["passed"] for r in regression)

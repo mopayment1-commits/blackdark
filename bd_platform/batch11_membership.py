@@ -8,8 +8,9 @@ from bd_platform.batch11_semantic_engine import shared_core_ids
 
 BATCH11_IDS = list(range(501, 551))
 CUSTOM_IMPLEMENTATION_IDS: list[int] = []
-OUTSIDE_SHARED_CORE_IDS = [517, 525, 528]
+OUTSIDE_SHARED_CORE_IDS = [517, 525, 528, 550]
 HERO_DELEGATE_ID = 525
+CANONICAL_DUPLICATE_REUSE_ID = 550
 
 
 def parameterized_ids() -> list[int]:
@@ -30,9 +31,9 @@ def custom_implementation_ids() -> list[int]:
 
 def membership_ranges() -> dict[str, str]:
     return {
-        "shared_core_47": "501–516, 518–524, 526–527, 529–550",
-        "outside_shared_core": "517, 525, 528",
-        "parameterized_47": "501–516, 518–524, 526–527, 529–550",
+        "shared_core_47": "501–516, 518–524, 526–527, 529–549",
+        "outside_shared_core": "517, 525, 528, 550",
+        "parameterized_47": "501–516, 518–524, 526–527, 529–549",
         "custom_0": "(none)",
     }
 
@@ -46,17 +47,17 @@ def verify_membership() -> dict[str, object]:
     errors: list[str] = []
     if len(batch) != 50:
         errors.append("batch_not_50")
-    if len(shared) != 47:
-        errors.append("shared_not_47")
-    if len(outside) != 3:
-        errors.append("outside_not_3")
-    if len(param) != 47:
-        errors.append("parameterized_not_47")
+    if len(shared) != 46:
+        errors.append("shared_not_46")
+    if len(outside) != 4:
+        errors.append("outside_not_4")
+    if len(param) != 46:
+        errors.append("parameterized_not_46")
     if shared | outside != batch:
         errors.append("union_not_batch")
     if shared & outside:
         errors.append("shared_outside_overlap")
-    if outside != {517, 525, 528}:
+    if outside != {517, 525, 528, 550}:
         errors.append("outside_set_wrong")
     if 517 not in outside:
         errors.append("517_not_outside")

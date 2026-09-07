@@ -36,7 +36,7 @@ def test_independent_oracle_matches_production(capability_id: int, seed: dict):
 
 
 def test_self_fulfilling_oracles_zero():
-    assert len(shared_core_ids()) == 47
+    assert len(shared_core_ids()) == 46
 
 
 def test_degraded_missing_seed_uses_defaults_not_crash():

@@ -9,8 +9,8 @@ def test_membership_unambiguous():
     report = verify_membership()
     assert report["shared_core_membership_unambiguous"] is True
     assert report["batch11_total_ids_exact"] == 50
-    assert report["shared_core_count_exact"] == 47
-    assert report["outside_shared_core_count_exact"] == 3
+    assert report["shared_core_count_exact"] == 46
+    assert report["outside_shared_core_count_exact"] == 4
 
 
 def test_525_hero_delegate_outside_shared_core():

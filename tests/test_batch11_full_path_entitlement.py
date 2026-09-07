@@ -31,6 +31,11 @@ async def test_full_path_allow_via_cap646_runtime(capability_id: int):
         params={"symbol": "BTC"},
     )
     assert result.get("success") is True, result
+    if capability_id == 550:
+        assert result.get("classification") == "DUPLICATE/ALREADY_COVERED"
+        assert result.get("duplicate_of") == 205
+        assert result.get("requested_capability_id") == 550
+        return
     assert result.get("capability_id") == capability_id
 
 
