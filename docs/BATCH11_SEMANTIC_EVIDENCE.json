@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH11_SEMANTIC_EVIDENCE",
-  "generated_at_utc": "2026-09-07T10:16:07.011548+00:00",
-  "git_commit": "180ae2a2f85e2af5029dd131795d02f676276b67",
+  "generated_at_utc": "2026-09-07T11:27:23.114089+00:00",
+  "git_commit": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
   "shared_ids_accounted": "47/47",
   "parameterized_count": 47,
   "generic_template_defect": 0,
@@ -32,7 +32,7 @@
       "exact_semantic_distinction_vs_neighbors": "First shared-core parameterized ID in batch11 institutional delivery layer",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 502,
@@ -59,7 +59,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule benchmark_administration vs neighbor #501 rule institutional_delivery; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 503,
@@ -86,7 +86,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule cross_market_data vs neighbor #502 rule benchmark_administration; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 504,
@@ -113,7 +113,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule unified_exchange_connector vs neighbor #503 rule cross_market_data; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 505,
@@ -140,7 +140,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule tick_trade_data vs neighbor #504 rule unified_exchange_connector; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 506,
@@ -167,7 +167,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule quote_data vs neighbor #505 rule tick_trade_data; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 507,
@@ -194,7 +194,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule ohlcv vs neighbor #506 rule quote_data; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 508,
@@ -221,7 +221,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule l1_order_book vs neighbor #507 rule ohlcv; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 509,
@@ -248,7 +248,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule l2_order_book vs neighbor #508 rule l1_order_book; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 510,
@@ -275,7 +275,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule l3_order_book vs neighbor #509 rule l2_order_book; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 511,
@@ -302,7 +302,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule options_market_data vs neighbor #510 rule l3_order_book; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 512,
@@ -329,7 +329,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule funding_oi_liquidation vs neighbor #511 rule options_market_data; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 513,
@@ -356,7 +356,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule asset_symbol_metadata vs neighbor #512 rule funding_oi_liquidation; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 514,
@@ -383,7 +383,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule historical_flat_files vs neighbor #513 rule asset_symbol_metadata; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 515,
@@ -410,7 +410,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule rest_api vs neighbor #514 rule historical_flat_files; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 516,
@@ -437,7 +437,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule websocket_streaming vs neighbor #515 rule rest_api; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 518,
@@ -464,7 +464,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule mcp_for_ai vs neighbor #516 rule websocket_streaming; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 519,
@@ -491,7 +491,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule exchange_rates_vwap vs neighbor #518 rule mcp_for_ai; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 520,
@@ -518,7 +518,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule indexes vs neighbor #519 rule exchange_rates_vwap; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 521,
@@ -545,7 +545,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule volatility_index vs neighbor #520 rule indexes; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 522,
@@ -572,7 +572,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule ems_integration_boundary vs neighbor #521 rule volatility_index; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 523,
@@ -599,7 +599,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule data_health_sla vs neighbor #522 rule ems_integration_boundary; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 524,
@@ -626,7 +626,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule symbol_mapping_engine vs neighbor #523 rule data_health_sla; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 526,
@@ -653,7 +653,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule ai_market_grounding vs neighbor #524 rule symbol_mapping_engine; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 527,
@@ -680,7 +680,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule liquidation_heatmap vs neighbor #526 rule ai_market_grounding; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 529,
@@ -707,7 +707,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule liquidation_cascade_model vs neighbor #527 rule liquidation_heatmap; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 530,
@@ -734,7 +734,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule global_liquidation_metrics vs neighbor #529 rule liquidation_cascade_model; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 531,
@@ -761,7 +761,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule open_interest vs neighbor #530 rule global_liquidation_metrics; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 532,
@@ -788,7 +788,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule funding_rates vs neighbor #531 rule open_interest; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 533,
@@ -815,7 +815,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule order_flow_intelligence vs neighbor #532 rule funding_rates; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 534,
@@ -842,7 +842,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule bucketed_cvd vs neighbor #533 rule order_flow_intelligence; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 535,
@@ -869,7 +869,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule whale_vs_retail_flow vs neighbor #534 rule bucketed_cvd; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 536,
@@ -896,7 +896,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule slippage_intelligence vs neighbor #535 rule whale_vs_retail_flow; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 537,
@@ -923,7 +923,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule global_order_book_metrics vs neighbor #536 rule slippage_intelligence; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 538,
@@ -950,7 +950,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule order_book_imbalance vs neighbor #537 rule global_order_book_metrics; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 539,
@@ -977,7 +977,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule liquidity_zones vs neighbor #538 rule order_book_imbalance; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 540,
@@ -1004,7 +1004,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule bot_activity_detection vs neighbor #539 rule liquidity_zones; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 541,
@@ -1031,7 +1031,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule market_positioning vs neighbor #540 rule bot_activity_detection; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 542,
@@ -1058,7 +1058,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule liquidation_pressure_score vs neighbor #541 rule market_positioning; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 543,
@@ -1085,7 +1085,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule orderflow_anomaly_detection vs neighbor #542 rule liquidation_pressure_score; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 544,
@@ -1112,7 +1112,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule api_indicator_platform vs neighbor #543 rule orderflow_anomaly_detection; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 545,
@@ -1139,7 +1139,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule trader_cohort_intelligence vs neighbor #544 rule api_indicator_platform; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 546,
@@ -1166,7 +1166,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule cross_derivatives_decision vs neighbor #545 rule trader_cohort_intelligence; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 547,
@@ -1193,7 +1193,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule high_resolution_multi_pane vs neighbor #546 rule cross_derivatives_decision; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 548,
@@ -1220,7 +1220,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule derivatives_dashboard vs neighbor #547 rule high_resolution_multi_pane; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 549,
@@ -1247,7 +1247,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule funding_rate_intelligence vs neighbor #548 rule derivatives_dashboard; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 550,
@@ -1274,7 +1274,7 @@
       "exact_semantic_distinction_vs_neighbors": "Rule open_interest_intelligence vs neighbor #549 rule funding_rate_intelligence; distinct domain inputs/transform",
       "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
       "test_evidence_reference": "tests/test_batch11_shared_core_semantics.py",
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     }
   ]
 }

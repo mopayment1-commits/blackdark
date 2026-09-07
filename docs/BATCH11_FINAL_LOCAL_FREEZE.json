@@ -1,9 +1,11 @@
 {
   "artifact": "BATCH11_FINAL_LOCAL_FREEZE",
-  "generated_at_utc": "2026-09-07T10:16:07.011548+00:00",
-  "final_head": "180ae2a2f85e2af5029dd131795d02f676276b67",
+  "generated_at_utc": "2026-09-07T11:27:23.114089+00:00",
+  "final_head": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
+  "final_material_tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
   "branch": "cursor/batch11-501-550-ed16",
   "capability_range": "501-550",
+  "prebuild_reconciliation": "docs/BATCH11_PREBUILD_CLASSIFICATION_RECONCILIATION.json",
   "formal_gate_provenance": "docs/BATCH11_FORMAL_GATE_PROVENANCE.json",
   "semantic_evidence": "docs/BATCH11_SEMANTIC_EVIDENCE.json",
   "independent_oracle_evidence": "docs/BATCH11_INDEPENDENT_ORACLE_EVIDENCE.json",
@@ -23,7 +25,7 @@
     "PASS_ENGINEERING_50_OF_50": true,
     "GENERIC_GATEWAY_SOLE_EVIDENCE_ZERO": true,
     "CANONICAL_DECISION_525_TO_74": true,
-    "FORMAL_GATES_BIND_FINAL_CODE": false,
+    "FORMAL_GATES_BIND_FINAL_CODE": true,
     "NO_KNOWN_LOCAL_DEFICIENCIES": true
   },
   "preserved_statuses": {

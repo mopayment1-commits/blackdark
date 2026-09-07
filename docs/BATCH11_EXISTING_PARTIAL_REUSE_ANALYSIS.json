@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH11_EXISTING_PARTIAL_REUSE_ANALYSIS",
-  "generated_at_utc": "2026-09-07T10:16:26.177534+00:00",
-  "git_commit": "180ae2a2f85e2af5029dd131795d02f676276b67",
+  "generated_at_utc": "2026-09-07T11:27:44.267224+00:00",
+  "git_commit": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
   "scope": "v4_v2 domain spec + Temporal Intelligence controls — Batch11 501-550",
   "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
   "temporal_spec_authority": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",

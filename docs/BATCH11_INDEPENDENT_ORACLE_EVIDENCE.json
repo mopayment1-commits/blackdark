@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH11_INDEPENDENT_ORACLE_EVIDENCE",
-  "generated_at_utc": "2026-09-07T10:16:07.011548+00:00",
-  "git_commit": "180ae2a2f85e2af5029dd131795d02f676276b67",
+  "generated_at_utc": "2026-09-07T11:27:23.114089+00:00",
+  "git_commit": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
   "oracle_rows_accounted": "47/47",
   "self_fulfilling_oracles": 0,
   "all_match": true,
@@ -17,7 +17,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 502,
@@ -30,7 +30,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 503,
@@ -43,7 +43,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 504,
@@ -56,7 +56,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 505,
@@ -69,7 +69,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 506,
@@ -82,7 +82,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 507,
@@ -95,7 +95,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 508,
@@ -108,7 +108,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 509,
@@ -121,7 +121,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 510,
@@ -134,7 +134,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 511,
@@ -147,7 +147,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 512,
@@ -160,7 +160,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 513,
@@ -173,7 +173,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 514,
@@ -186,7 +186,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 515,
@@ -199,7 +199,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 516,
@@ -212,7 +212,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 518,
@@ -225,7 +225,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 519,
@@ -238,7 +238,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 520,
@@ -251,7 +251,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 521,
@@ -264,7 +264,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 522,
@@ -277,7 +277,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 523,
@@ -290,7 +290,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 524,
@@ -303,7 +303,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 526,
@@ -316,7 +316,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 527,
@@ -329,7 +329,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 529,
@@ -342,7 +342,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 530,
@@ -355,7 +355,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 531,
@@ -368,7 +368,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 532,
@@ -381,7 +381,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 533,
@@ -394,7 +394,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 534,
@@ -407,7 +407,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 535,
@@ -420,7 +420,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 536,
@@ -433,7 +433,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 537,
@@ -446,7 +446,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 538,
@@ -459,7 +459,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 539,
@@ -472,7 +472,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 540,
@@ -485,7 +485,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 541,
@@ -498,7 +498,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 542,
@@ -511,7 +511,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 543,
@@ -524,7 +524,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 544,
@@ -537,7 +537,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 545,
@@ -550,7 +550,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 546,
@@ -563,7 +563,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 547,
@@ -576,7 +576,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 548,
@@ -589,7 +589,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 549,
@@ -602,7 +602,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     },
     {
       "capability_id": 550,
@@ -615,7 +615,7 @@
       "oracle_source": "tests/batch11_independent_semantic_oracles.py",
       "production_source": "bd_platform.batch11_semantic_engine",
       "self_fulfilling": false,
-      "tested_sha": "180ae2a2f85e2af5029dd131795d02f676276b67"
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
     }
   ]
 }
