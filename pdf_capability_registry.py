@@ -43,7 +43,7 @@ _MANUAL: dict[int, tuple[str, str]] = {
     288: ("bd_platform.correlation_mindshare", "compute_mindshare_correlation_288"),
     316: ("bd_platform.sse_stream", "sse_digest_status_316"),
     331: ("bd_platform.charting_market_intelligence_layer", "etf_reference_rates_inav_331"),
-    378: ("exchange_currency_status", "deposit_currencies_open"),
+    378: ("exchange_currency_status", "query_forking_status_378"),
     379: ("bd_platform.arbitrage_portfolio_ux_layer", "analyze_liquidity_capacity_189"),
     380: ("exchange_currency_status", "deposit_currencies_open"),
     381: ("exchange_currency_status", "withdrawal_currencies_closed"),
@@ -51,17 +51,64 @@ _MANUAL: dict[int, tuple[str, str]] = {
     393: ("data_sources_registry", "registry_summary"),
     396: ("bd_platform.news_classifier", "coindesk_feed"),
     409: ("bd_platform.quicktake_feed", "quicktake_feed_status_409"),
-    517: ("comparison_engine", "run_comparison_engine"),
+    437: ("bd_platform.defi_yield_intelligence_layer", "defi_risk_radar_437"),
+    441: ("bd_platform.defi_yield_intelligence_layer", "oracle_risk_441"),
+    517: ("bd_platform.institutional_delivery_intelligence_layer", "fix_connectivity_517"),
     528: ("bd_platform.market_rankings", "market_rankings"),
+    578: (
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "unified_portfolio_dashboard_578",
+    ),
+    584: (
+        "bd_platform.institutional_delivery_intelligence_layer",
+        "risk_management_shield_584",
+    ),
     627: ("comparison_engine", "run_comparison_engine"),
     630: ("bd_platform.intelligence_ux_extensions_layer", "scan_market_opportunities_238"),
-    702: ("graphql_schema", "graphql_health"),
-    745: ("subscription_analytics", "subscription_analytics_status_745"),
-    752: ("institutional_assurance", "backup_status"),
-    753: ("institutional_assurance", "ir_program"),
+    637: ("bd_platform.batch13_operational_intelligence_layer", "scenario_engine_637"),
+    638: ("bd_platform.batch13_operational_intelligence_layer", "claims_prediction_verification_638"),
+    639: ("bd_platform.batch13_operational_intelligence_layer", "net_edge_truth_score_639"),
+    640: ("bd_platform.batch13_operational_intelligence_layer", "public_accuracy_ledger_640"),
+    641: ("bd_platform.batch13_operational_intelligence_layer", "decision_certificate_export_641"),
+    642: ("cap646.batch01_production", "cap_642"),
+    644: ("cap646.batch01_production", "cap_644"),
+    645: ("bd_platform.batch13_operational_intelligence_layer", "security_verification_evidence_645"),
+    635: ("bd_platform.batch13_operational_intelligence_layer", "unified_arbitrage_opportunity_engine_635"),
+    646: ("cap646.batch01_production", "cap_646"),
     816: ("dimension_conflict_guard", "dimension_conflict_status"),
     819: ("blackdark.data.db", "data_engine_available"),
 }
+
+_BATCH15_BINDINGS_PATH = ROOT / "scripts/partial_batches/batch_15_pdf_bindings.json"
+_BATCH16_BINDINGS_PATH = ROOT / "scripts/partial_batches/batch_16_pdf_bindings.json"
+_BATCH17_BINDINGS_PATH = ROOT / "scripts/partial_batches/batch_17_pdf_bindings.json"
+
+
+def _load_batch15_bindings() -> dict[int, tuple[str, str]]:
+    if not _BATCH15_BINDINGS_PATH.is_file():
+        return {}
+    import json as _json
+
+    raw = _json.loads(_BATCH15_BINDINGS_PATH.read_text(encoding="utf-8"))
+    return {int(k): (v[0], v[1]) for k, v in raw.items()}
+
+
+def _load_batch16_bindings() -> dict[int, tuple[str, str]]:
+    if not _BATCH16_BINDINGS_PATH.is_file():
+        return {}
+    import json as _json
+
+    raw = _json.loads(_BATCH16_BINDINGS_PATH.read_text(encoding="utf-8"))
+    return {int(k): (v[0], v[1]) for k, v in raw.items()}
+
+
+def _load_batch17_bindings() -> dict[int, tuple[str, str]]:
+    if not _BATCH17_BINDINGS_PATH.is_file():
+        return {}
+    import json as _json
+
+    raw = _json.loads(_BATCH17_BINDINGS_PATH.read_text(encoding="utf-8"))
+    return {int(k): (v[0], v[1]) for k, v in raw.items()}
 
 _MODULE_ENTRYPOINTS: dict[str, str] = {
     "net_edge_truth": "compute_net_edge_truth",
@@ -153,8 +200,14 @@ def discover_bindings() -> dict[int, tuple[str, str]]:
                     continue
                 fn, cid = m.group(1), int(m.group(2))
                 if 1 <= cid <= 826:
+                    if cid in _MANUAL:
+                        continue
                     if cid not in out or rel.startswith("bd_platform"):
                         out[cid] = (rel, f"{fn}_{cid}")
+    out.update(_MANUAL)
+    out.update(_load_batch15_bindings())
+    out.update(_load_batch16_bindings())
+    out.update(_load_batch17_bindings())
     return out
 
 
@@ -384,6 +437,12 @@ def _default_kwargs(fn: Callable[..., Any], capability_id: int | None = None) ->
         kwargs.setdefault("source_a_ts_ms", now - 500)
         kwargs.setdefault("source_b_ts_ms", now - 800)
         kwargs.setdefault("server_ts_ms", now)
+    if capability_id is not None and 701 <= capability_id <= 750:
+        kwargs["capability_id"] = capability_id
+    if capability_id is not None and 751 <= capability_id <= 800:
+        kwargs["capability_id"] = capability_id
+    if capability_id is not None and 801 <= capability_id <= 826:
+        kwargs["capability_id"] = capability_id
     return kwargs
 
 

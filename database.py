@@ -782,6 +782,150 @@ async def _ensure_billing_subscription_tables(db: Any) -> None:
         )
         """
     )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_event_inbox (
+            id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider             TEXT    NOT NULL,
+            stripe_event_id      TEXT    NOT NULL,
+            event_type           TEXT,
+            object_id            TEXT,
+            stripe_created_at    INTEGER,
+            received_at          TEXT    NOT NULL,
+            payload_hash         TEXT,
+            processing_status    TEXT    NOT NULL DEFAULT 'pending',
+            attempt_count        INTEGER NOT NULL DEFAULT 0,
+            processed_at         TEXT,
+            last_error           TEXT,
+            last_attempt_at      TEXT,
+            payload_json         TEXT,
+            UNIQUE(provider, stripe_event_id)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_billing_inbox_status
+            ON billing_event_inbox (processing_status, received_at)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_dlq (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            inbox_id        INTEGER NOT NULL,
+            stripe_event_id TEXT    NOT NULL,
+            reason          TEXT,
+            attempts        INTEGER NOT NULL DEFAULT 0,
+            moved_at        TEXT    NOT NULL,
+            replay_status   TEXT    NOT NULL DEFAULT 'pending',
+            replayed_at     TEXT
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_out_of_order_guard (
+            object_id                        TEXT PRIMARY KEY,
+            last_applied_event_id            TEXT,
+            last_applied_event_created_at    INTEGER,
+            billing_generation               INTEGER NOT NULL DEFAULT 1
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_reconciliation_runs (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id         INTEGER,
+            email           TEXT,
+            result          TEXT    NOT NULL,
+            mismatches_json TEXT,
+            checked_at      TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_break_glass_overrides (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id         INTEGER NOT NULL,
+            actor           TEXT    NOT NULL,
+            actor_role      TEXT,
+            reason          TEXT    NOT NULL,
+            ticket          TEXT,
+            old_tier        TEXT,
+            new_tier        TEXT    NOT NULL,
+            created_at      TEXT    NOT NULL,
+            expires_at      TEXT    NOT NULL,
+            approval_actor  TEXT,
+            active          INTEGER NOT NULL DEFAULT 1
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_consent_records (
+            id                          INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id                     INTEGER NOT NULL,
+            terms_version               TEXT    NOT NULL,
+            renewal_disclosure_version  TEXT    NOT NULL,
+            consent_at                  TEXT    NOT NULL,
+            consent_source              TEXT    NOT NULL,
+            tier                        TEXT,
+            billing_frequency           TEXT
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_renewal_reminders (
+            id               INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id          INTEGER NOT NULL,
+            renewal_at       TEXT    NOT NULL,
+            notice_sent_at   TEXT    NOT NULL,
+            delivery_status  TEXT    NOT NULL DEFAULT 'queued'
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_fraud_events (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            email       TEXT    NOT NULL,
+            event_type  TEXT    NOT NULL,
+            detail      TEXT,
+            created_at  TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_org_accounts (
+            org_id                      INTEGER PRIMARY KEY,
+            billing_owner_user_id       INTEGER NOT NULL,
+            paid_seats                  INTEGER NOT NULL DEFAULT 1,
+            contract_id                 TEXT,
+            custom_entitlement_profile  TEXT,
+            payment_terms               TEXT,
+            contract_start              TEXT,
+            contract_end                TEXT,
+            created_at                  TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_org_members (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            org_id      INTEGER NOT NULL,
+            user_id     INTEGER NOT NULL,
+            entitled    INTEGER NOT NULL DEFAULT 1,
+            created_at  TEXT    NOT NULL,
+            UNIQUE(org_id, user_id)
+        )
+        """
+    )
 
 
 async def _ensure_user_profile_columns(db: Any) -> None:

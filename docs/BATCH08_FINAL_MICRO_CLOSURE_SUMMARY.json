@@ -1,0 +1,198 @@
+{
+  "final_head": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+  "codeql": {
+    "workflow_definition": ".github/workflows/security.yml#jobs.codeql",
+    "evidence_mode": "GITHUB_ACTIONS",
+    "tested_sha": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+    "branch": "cursor/batch08-351-400-ed16",
+    "result": "PASS",
+    "run_id": 34046238644,
+    "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34046238644",
+    "jobs": [
+      {
+        "name": "codeql",
+        "conclusion": "success"
+      }
+    ],
+    "actual_codeql_executed": true,
+    "actual_codeql_result": "PASS",
+    "codeql_tested_sha_proven": true,
+    "codeql_evidence_substitution": [],
+    "supporting_bandit_only": false
+  },
+  "batch07_regression": {
+    "batch07_regression_coverage_proven": true,
+    "batch07_regression_result": "PASS",
+    "regression_scope_claim_contradictions": [],
+    "shared_code_regression_gap": [],
+    "proof_mode": "direct_suite_present",
+    "suite_mapping": [
+      {
+        "batch07_scope": "301-350",
+        "suite": "batch07_hero_capabilities",
+        "script": "tests/test_hero_batch_07_capabilities.py",
+        "coverage_type": "direct_hero_execution"
+      }
+    ]
+  },
+  "http_entitlement": {
+    "artifact": "BATCH08_CANONICAL_HTTP_ENTITLEMENT",
+    "generated_at": "2026-09-06T16:44:01.941251+00:00",
+    "git_commit": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+    "test_module": "tests/test_batch08_canonical_http_entitlement.py",
+    "exit_code": 0,
+    "passed": true,
+    "canonical_route": "/api/cap646/{capability_id}",
+    "mock_only_entitlement_evidence": [],
+    "auth_entitlement_bypass_gap": [],
+    "locally_testable_entitlement_incomplete": [],
+    "tier_denial_not_applicable": {
+      "scope": "351-400",
+      "reason": "cap646.entitlements default min_tier=free; no Batch08 ID in _TIER_REQUIREMENTS",
+      "restricted_ids": []
+    },
+    "summary_tail": "n3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+    "canonical_entitlement_paths_identified": true,
+    "material_entitlement_paths_locally_executed": true
+  },
+  "state_status": {
+    "artifact": "BATCH08_STATE_STATUS_DIMENSIONS",
+    "generated_at": "2026-09-06T16:44:01.940900+00:00",
+    "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md",
+    "state_status_dimensions_explicit": true,
+    "dimensions": {
+      "CAPABILITIES_826_INVENTORY.status": {
+        "authority": "826 RTM live/production alignment SSOT",
+        "semantics": "PRODUCTION-ALIGNED only after G6/live spine proof; PENDING/NOT_COMPLETE are pre-live",
+        "batch08_counts": {
+          "PENDING": 41,
+          "NOT_COMPLETE": 9,
+          "PRODUCTION-ALIGNED": 0
+        },
+        "feeds": "docs/PROGRESS_826_CANONICAL.json numerator when PRODUCTION-ALIGNED"
+      },
+      "BATCH08_V3_STATE_CLASSIFICATION.canonical_state": {
+        "authority": "Batch08 engineering forensics dimension",
+        "semantics": "EXISTING_VERIFIED/PARTIAL_CANONICAL describe binding verification — not live deploy",
+        "batch08_counts": {
+          "EXISTING_VERIFIED": 49,
+          "PARTIAL_CANONICAL": 1
+        },
+        "does_not_replace": "826 inventory PRODUCTION-ALIGNED"
+      },
+      "BATCH08 closure_status / PASS_ENGINEERING": {
+        "authority": "Batch08 local freeze dimension",
+        "semantics": "Local runtime + institutional evidence complete; Railway/G6 deferred"
+      },
+      "progress_826 numerator": {
+        "value": "104/826",
+        "semantics": "Counts inventory PRODUCTION-ALIGNED with batch01/02 proof — excludes PASS_ENGINEERING-only batches",
+        "batch08_in_numerator": false,
+        "reason": "Batch08 not PRODUCTION-ALIGNED until G6/Railway — correct exclusion"
+      },
+      "batch08_independent artifact": {
+        "required": false,
+        "v5_rule": "§113.4 Single Canonical Register — BATCH08_FINAL_LOCAL_FREEZE.json is Batch08 SSOT",
+        "replacement": "docs/BATCH08_FINAL_LOCAL_FREEZE.json"
+      }
+    },
+    "mapping_examples": [
+      {
+        "capability_id": 351,
+        "inventory_status": "PENDING",
+        "v3_canonical_state": "EXISTING_VERIFIED",
+        "engineering_closure": "PASS_ENGINEERING",
+        "live_status": "AWAITING_DEPLOY",
+        "contradiction": false,
+        "note": "Different dimensions — not stale SSOT"
+      },
+      {
+        "capability_id": 379,
+        "inventory_status": "NOT_COMPLETE",
+        "v3_canonical_state": "PARTIAL_CANONICAL",
+        "engineering_closure": "REUSED-LINK",
+        "live_status": "AWAITING_DEPLOY",
+        "contradiction": false,
+        "note": "826 NOT_COMPLETE reflects hero audit; Batch08 REUSED-LINK is engineering canonical decision"
+      }
+    ],
+    "active_ssot_contradictions": [],
+    "stale_governing_trackers": [],
+    "false_production_alignment_claims": [],
+    "progress_826_semantics_proven": true,
+    "G6": "BLOCKED_EXTERNAL_RAILWAY",
+    "PASS_LIVE": "NOT_CLAIMED",
+    "G7": "PENDING_INDEPENDENT_ASSURANCE",
+    "ASSURANCE_READY": "NOT_CLAIMED"
+  },
+  "false_gap_reconciliation": {
+    "artifact": "BATCH08_FALSE_GAP_RECONCILIATION",
+    "generated_at": "2026-09-06T16:44:01.941157+00:00",
+    "rows": [
+      {
+        "verification_claim": "INVEST per capability required",
+        "v5_rule": "§113.1 — goal must be proven, not a fixed dossier shape",
+        "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+        "reason": "Batch08 closure uses runtime/RTM evidence; no v5 mandate for per-ID INVEST files"
+      },
+      {
+        "verification_claim": "Fixed filename BATCH08_ACCEPTANCE_351_400.json",
+        "v5_rule": "§113.1 Anti-Bureaucracy",
+        "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+        "reason": "Acceptance criteria satisfied via BATCH08_RTM + pentagonal + hero matrix artifacts"
+      },
+      {
+        "verification_claim": "Exact triple-match guard acceptance=results=rules_total",
+        "v5_rule": "§113.1 — optional example only in v5",
+        "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+        "reason": "Machine assertions in existing Batch08 JSON artifacts provide equivalent checks"
+      },
+      {
+        "verification_claim": "ADR per duplicate pair",
+        "v5_rule": "§105.4 / §113.3 risk-based",
+        "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+        "reason": "1225+17500 pairs resolved; material decisions documented for #379/#382 only"
+      },
+      {
+        "verification_claim": "TIME decision per every distinct pair",
+        "v5_rule": "§113.3 risk-based duplicate governance",
+        "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+        "reason": "Canonical actions KEEP_DISTINCT/REUSE_EXISTING_CANONICAL cover pair outcomes"
+      },
+      {
+        "verification_claim": "Mandatory PRODUCTION-ALIGNED before FINAL_LOCAL_FREEZE",
+        "v5_rule": "§16.8 local freeze vs G6 live gate separation",
+        "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+        "reason": "PASS_ENGINEERING local freeze explicitly defers PRODUCTION-ALIGNED until G6"
+      },
+      {
+        "verification_claim": "Extra duplicate layers C/D without demonstrated risk",
+        "v5_rule": "§113.3 — layers required only when semantic risk exists",
+        "final_disposition": "NOT_A_REQUIRED_DEFICIENCY",
+        "reason": "Layers A+B exhaustive; hero matrix covers hero scope; pre-batch SSOT IDs not in Batch08 range"
+      },
+      {
+        "verification_claim": "LOCAL_CODEQL_PROXY_REPLAY represented as CodeQL",
+        "v5_rule": "§113.2 — evidence must match tool identity",
+        "final_disposition": "REAL_GAP",
+        "reason": "Proxy pytest/bandit is not CodeQL — requires GitHub CodeQL job evidence"
+      },
+      {
+        "verification_claim": "Batch07 hero regression absent from cross-batch artifact",
+        "v5_rule": "Regression scope claim must match executed suites",
+        "final_disposition": "REAL_GAP",
+        "reason": "Scope claimed Batch01-07 but batch07_hero suite missing"
+      },
+      {
+        "verification_claim": "Mock-only entitlement evidence for Batch08",
+        "v5_rule": "OWASP ASVS entitlement-before-execution on canonical route",
+        "final_disposition": "REAL_GAP",
+        "reason": "Requires real HTTP TestClient path evidence for canonical /api/cap646/{id}"
+      }
+    ]
+  },
+  "remaining_real_local_deficiencies": [],
+  "known_local_deficiencies": [],
+  "BATCH08_FINAL_LOCAL_FREEZE": true,
+  "LOCAL_GOVERNANCE_COMPLETE": true
+}

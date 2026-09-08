@@ -1,0 +1,910 @@
+{
+  "artifact": "BATCH11_CONSUMER_PATH_EVIDENCE",
+  "generated_at_utc": "2026-09-07T11:27:23.114089+00:00",
+  "git_commit": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
+  "consumer_paths_accounted": "50/50",
+  "generic_gateway_as_sole_evidence": 0,
+  "unresolved_consumer_path_gap": 0,
+  "rows": [
+    {
+      "capability_id": 501,
+      "official_name": "Institutional Delivery",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/501",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.institutional_delivery_501",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 502,
+      "official_name": "Benchmark Administration Metadata",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/502",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.benchmark_administration_metadata_502",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 503,
+      "official_name": "Cross-Market Data Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/503",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.cross_market_data_intelligence_503",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 504,
+      "official_name": "Unified Exchange Connector Layer",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/504",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.unified_exchange_connector_layer_504",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 505,
+      "official_name": "Tick Trade Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/505",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.tick_trade_data_505",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 506,
+      "official_name": "Quote Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/506",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.quote_data_506",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 507,
+      "official_name": "OHLCV",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/507",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.ohlcv_507",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 508,
+      "official_name": "L1 Order Book",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/508",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.l1_order_book_508",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 509,
+      "official_name": "L2 Order Book",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/509",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.l2_order_book_509",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 510,
+      "official_name": "L3 Order Book",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/510",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.l3_order_book_510",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 511,
+      "official_name": "Options Market Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/511",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.options_market_data_511",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 512,
+      "official_name": "Funding / OI / Liquidation Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/512",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_oi_liquidation_metrics_512",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 513,
+      "official_name": "Asset & Symbol Metadata",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/513",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.asset_symbol_metadata_513",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 514,
+      "official_name": "Historical Flat Files",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/514",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.historical_flat_files_514",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 515,
+      "official_name": "REST API",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/515",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.rest_api_515",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 516,
+      "official_name": "WebSocket Streaming",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/516",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.websocket_streaming_516",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 517,
+      "official_name": "FIX Connectivity",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/517",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.fix_connectivity_517",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 518,
+      "official_name": "MCP for AI",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/518",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.mcp_for_ai_518",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 519,
+      "official_name": "Exchange Rates / VWAP",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/519",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.exchange_rates_vwap_519",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 520,
+      "official_name": "Indexes",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/520",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.indexes_520",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 521,
+      "official_name": "Volatility Index",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/521",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.volatility_index_521",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 522,
+      "official_name": "EMS Integration Boundary",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/522",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.ems_integration_boundary_522",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 523,
+      "official_name": "Data Health / SLA Monitoring",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/523",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.data_health_sla_monitoring_523",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 524,
+      "official_name": "Symbol Mapping Engine",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/524",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.symbol_mapping_engine_524",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 525,
+      "official_name": "Cross-Venue Data Quality Score",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/525",
+      "downstream_implementation": "bd_platform.heroes_capability_layer.strategy_backtesting_525",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "CANONICAL_DUPLICATE_REUSE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 526,
+      "official_name": "AI Market Data Grounding Layer",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/526",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.ai_market_data_grounding_layer_526",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 527,
+      "official_name": "Liquidation Heatmap",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/527",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_heatmap_527",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 528,
+      "official_name": "Liquidation Levels",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/528",
+      "downstream_implementation": "bd_platform.market_rankings.market_rankings",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 529,
+      "official_name": "Liquidation Cascade Model",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/529",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_cascade_model_529",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 530,
+      "official_name": "Global Liquidation Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/530",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.global_liquidation_metrics_530",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 531,
+      "official_name": "Open Interest",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/531",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 532,
+      "official_name": "Funding Rates",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/532",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_rates_532",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 533,
+      "official_name": "Order Flow Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/533",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.order_flow_intelligence_533",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 534,
+      "official_name": "Bucketed CVD",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/534",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.bucketed_cvd_534",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 535,
+      "official_name": "Whale vs Retail Flow",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/535",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.whale_vs_retail_flow_535",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 536,
+      "official_name": "Slippage Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/536",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.slippage_intelligence_536",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 537,
+      "official_name": "Global Order Book Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/537",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.global_order_book_metrics_537",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 538,
+      "official_name": "Order Book Imbalance",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/538",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.order_book_imbalance_538",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 539,
+      "official_name": "Liquidity Zones",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/539",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidity_zones_539",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 540,
+      "official_name": "Bot Activity Detection",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/540",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.bot_activity_detection_540",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 541,
+      "official_name": "Market Positioning",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/541",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.market_positioning_541",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 542,
+      "official_name": "Liquidation Pressure Score",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/542",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_pressure_score_542",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 543,
+      "official_name": "Orderflow Anomaly Detection",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/543",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.orderflow_anomaly_detection_543",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 544,
+      "official_name": "API Indicator Platform",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/544",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.api_indicator_platform_544",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 545,
+      "official_name": "Trader Cohort Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/545",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.trader_cohort_intelligence_545",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 546,
+      "official_name": "Cross-Derivatives Decision Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/546",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.cross_derivatives_decision_intelligence_546",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 547,
+      "official_name": "High-Resolution Multi-Pane Charts",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/547",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.high_resolution_multi_pane_charts_547",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 548,
+      "official_name": "Derivatives Dashboard",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/548",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.derivatives_dashboard_548",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 549,
+      "official_name": "Funding Rate Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/549",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    },
+    {
+      "capability_id": 550,
+      "official_name": "Open Interest Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/550",
+      "downstream_implementation": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch11_consumer_paths.py",
+        "tests/test_institutional_delivery_intelligence_batch501_550.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8"
+    }
+  ]
+}

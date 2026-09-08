@@ -1,0 +1,41 @@
+{
+  "artifact": "BATCH11_PREBUILD_CLASSIFICATION_RECONCILIATION",
+  "generated_at_utc": "2026-09-07T11:30:00.000000+00:00",
+  "git_commit": "f584d4eaa9fef8c005d30d4941ccb06e247e02b8",
+  "pre_remediation_baseline": "740bf0d (routing skeleton before semantic engine wiring)",
+  "semantic_remediation_introduced_sha": "89302d3 (batch11_semantic_engine + membership)",
+  "authority": "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md §3 Pre-Build State Classification",
+  "prior_historical_warning": "batch_06_501_600.json and test_institutional_delivery_intelligence_batch501_600.py are NOT Batch11 completion proof — filename alone insufficient",
+  "pre_build_classification_counts": {
+    "A_EXISTING_VERIFIED": 1,
+    "B_EXISTING_NEEDS_EXTENSION": 1,
+    "C_PARTIAL_IMPLEMENTATION": 46,
+    "E_CANONICAL_DUPLICATE_REUSE": 2
+  },
+  "pre_build_membership": {
+    "A_EXISTING_VERIFIED": [528],
+    "B_EXISTING_NEEDS_EXTENSION": [517],
+    "C_PARTIAL_IMPLEMENTATION": [
+      501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516,
+      518, 519, 520, 521, 522, 523, 524, 526, 527, 529, 530, 531, 532, 533, 534, 535,
+      536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549
+    ],
+    "E_CANONICAL_DUPLICATE_REUSE": [525, 550]
+  },
+  "post_remediation_classification_counts": {
+    "D_KEEP_DISTINCT_BUT_REUSE_SHARED_CORE": 47,
+    "OUTSIDE_SHARED_CORE_MODULE_BINDING": 2,
+    "E_CANONICAL_DUPLICATE_REUSE": 1
+  },
+  "acceptance": {
+    "PREBUILD_CLASSIFICATION_EXACT_50": true,
+    "PREBUILD_CLASSIFICATION_OVERLAP_ZERO": true,
+    "PREBUILD_CLASSIFICATION_MISSING": [],
+    "PREBUILD_TRUTH_RECONCILED": true
+  },
+  "notes": {
+    "507_534_routing": "Pre-build Option-A market/data spine overrides diverged from pdf registry — remediated in 740bf0d",
+    "517_identity": "Pre-build comparison_engine returned capability_id=627 — fix_connectivity_517 wrapper added in 95e1e23",
+    "550_catalog": "Catalog duplicate of #205 Open Interest Intelligence — runtime exempted 351-550 in cap646/catalog.py"
+  }
+}

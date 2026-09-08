@@ -1,0 +1,102 @@
+{
+  "generated_at_utc": "2026-09-07T19:31:56.578211+00:00",
+  "git_head": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "spec_sha256": "5a554be33a6a9c814ffd64dc21f76d74b400dfe850f02a74c8b3030a83d5622a",
+  "unique_buildable_requirements": 9,
+  "rows": [
+    {
+      "requirement_id": "signal_registry",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "signal_registry.py",
+      "status_before": "PARTIAL",
+      "delta": "reused_existing",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "existing module tests"
+    },
+    {
+      "requirement_id": "decision_ledger",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "decision_ledger.py",
+      "status_before": "PARTIAL",
+      "delta": "reused_existing",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "existing module tests"
+    },
+    {
+      "requirement_id": "failure_corpus",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "failure_corpus.py",
+      "status_before": "PARTIAL",
+      "delta": "reused_existing",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "existing module tests"
+    },
+    {
+      "requirement_id": "hot_storage",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "hot_storage.py",
+      "status_before": "PARTIAL",
+      "delta": "reused_existing",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "existing module tests"
+    },
+    {
+      "requirement_id": "data_lake",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "data_lake.py",
+      "status_before": "PARTIAL",
+      "delta": "reused_existing",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "existing module tests"
+    },
+    {
+      "requirement_id": "evidence_class",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "cap646/evidence_class.py",
+      "status_before": "PARTIAL",
+      "delta": "reused_existing",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "existing module tests"
+    },
+    {
+      "requirement_id": "temporal_leakage_firewall",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "temporal_leakage_firewall.py",
+      "status_before": "PARTIAL",
+      "delta": "batch13_materialized",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "tests/test_batch13_temporal_spine.py"
+    },
+    {
+      "requirement_id": "reproducibility_manifest",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "reproducibility_manifest.py",
+      "status_before": "PARTIAL",
+      "delta": "batch13_materialized",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "tests/test_batch13_temporal_spine.py"
+    },
+    {
+      "requirement_id": "evaluation_contamination_registry",
+      "source_section": "v4_v2 register/spine",
+      "canonical_implementation": "evaluation_contamination_registry.py",
+      "status_before": "PARTIAL",
+      "delta": "batch13_materialized",
+      "status_after": "BUILT_LOCAL",
+      "runtime/consumer": "cap646/temporal spine",
+      "tests/evidence": "tests/test_batch13_temporal_spine.py"
+    }
+  ],
+  "V4_V2_UNIQUE_BUILDABLE_REQUIREMENTS_INVENTORIED": true,
+  "V4_V2_INTERNAL_DOUBLE_COUNTING_ZERO": true,
+  "V4_V2_LOCAL_IMPLEMENTATION_GAPS": [],
+  "V4_V2_UNPROVEN_COMPLETE_CLAIMS_ZERO": true
+}

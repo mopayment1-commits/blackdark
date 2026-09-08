@@ -9,6 +9,7 @@ from typing import Any
 
 _ROOT = Path(__file__).resolve().parent.parent
 _CATALOG = _ROOT / "docs" / "cap646" / "CAP646_CATALOG.json"
+_CAP978 = _ROOT / "docs" / "cap978" / "CAP978_CATALOG.json"
 _MATRIX = _ROOT / "docs" / "cap646" / "CAP646_GAP_MATRIX.json"
 
 REPEAT_CANONICAL: dict[str, int] = {
@@ -42,7 +43,14 @@ EXTERNAL_IDS: frozenset[int] = FREE_TIER_BASE_IDS
 
 @lru_cache(maxsize=1)
 def load_catalog() -> list[dict[str, Any]]:
-    return json.loads(_CATALOG.read_text(encoding="utf-8"))
+    rows = json.loads(_CATALOG.read_text(encoding="utf-8"))
+    by_id = {int(r["id"]): r for r in rows}
+    if _CAP978.is_file():
+        for r in json.loads(_CAP978.read_text(encoding="utf-8")):
+            cid = int(r["id"])
+            if cid not in by_id:
+                by_id[cid] = r
+    return [by_id[i] for i in sorted(by_id)]
 
 
 @lru_cache(maxsize=1)
@@ -63,6 +71,8 @@ def matrix_by_id() -> dict[int, dict[str, Any]]:
 
 def canonical_id(capability_id: int) -> int:
     row = catalog_by_id()[capability_id]
+    if 351 <= capability_id <= 600 and capability_id not in {550, 551}:
+        return capability_id
     canon = REPEAT_CANONICAL.get(row["capability"])
     return canon if canon and canon != capability_id else capability_id
 

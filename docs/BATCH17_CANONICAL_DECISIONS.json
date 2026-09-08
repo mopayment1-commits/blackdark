@@ -1,0 +1,246 @@
+{
+  "artifact": "BATCH17_CANONICAL_DECISIONS",
+  "generated_at_utc": "2026-09-08T10:02:45.597484+00:00",
+  "git_commit": "b5d531340f3bbbda1f399995a689a10acbb88edc",
+  "decisions": {
+    "801": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 534,
+      "canonical_name": "Bucketed CVD",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.bucketed_cvd_534",
+      "evidence": "CAP978 extension #801 delegates to canonical #534"
+    },
+    "802": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 535,
+      "canonical_name": "Whale vs Retail Flow",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.whale_vs_retail_flow_535",
+      "evidence": "CAP978 extension #802 delegates to canonical #535"
+    },
+    "803": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 536,
+      "canonical_name": "Slippage Intelligence",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.slippage_intelligence_536",
+      "evidence": "CAP978 extension #803 delegates to canonical #536"
+    },
+    "804": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 537,
+      "canonical_name": "Global Order Book Metrics",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.global_order_book_metrics_537",
+      "evidence": "CAP978 extension #804 delegates to canonical #537"
+    },
+    "805": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 538,
+      "canonical_name": "Order Book Imbalance",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.order_book_imbalance_538",
+      "evidence": "CAP978 extension #805 delegates to canonical #538"
+    },
+    "806": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 539,
+      "canonical_name": "Liquidity Zones",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidity_zones_539",
+      "evidence": "CAP978 extension #806 delegates to canonical #539"
+    },
+    "807": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 540,
+      "canonical_name": "Bot Activity Detection",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.bot_activity_detection_540",
+      "evidence": "CAP978 extension #807 delegates to canonical #540"
+    },
+    "808": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 541,
+      "canonical_name": "Market Positioning",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.market_positioning_541",
+      "evidence": "CAP978 extension #808 delegates to canonical #541"
+    },
+    "809": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 542,
+      "canonical_name": "Liquidation Pressure Score",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_pressure_score_542",
+      "evidence": "CAP978 extension #809 delegates to canonical #542"
+    },
+    "810": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 543,
+      "canonical_name": "Orderflow Anomaly Detection",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.orderflow_anomaly_detection_543",
+      "evidence": "CAP978 extension #810 delegates to canonical #543"
+    },
+    "811": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 544,
+      "canonical_name": "API Indicator Platform",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.api_indicator_platform_544",
+      "evidence": "CAP978 extension #811 delegates to canonical #544"
+    },
+    "812": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 545,
+      "canonical_name": "Trader Cohort Intelligence",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.trader_cohort_intelligence_545",
+      "evidence": "CAP978 extension #812 delegates to canonical #545"
+    },
+    "813": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 546,
+      "canonical_name": "Cross-Derivatives Decision Intelligence",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.cross_derivatives_decision_intelligence_546",
+      "evidence": "CAP978 extension #813 delegates to canonical #546"
+    },
+    "814": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 547,
+      "canonical_name": "High-Resolution Multi-Pane Charts",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.high_resolution_multi_pane_charts_547",
+      "evidence": "CAP978 extension #814 delegates to canonical #547"
+    },
+    "815": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 548,
+      "canonical_name": "Derivatives Dashboard",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.derivatives_dashboard_548",
+      "evidence": "CAP978 extension #815 delegates to canonical #548"
+    },
+    "816": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 549,
+      "canonical_name": "Funding Rate Intelligence",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_rate_intelligence_549",
+      "evidence": "CAP978 extension #816 delegates to canonical #549"
+    },
+    "817": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 550,
+      "canonical_name": "Open Interest Intelligence",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.open_interest_intelligence_550",
+      "evidence": "CAP978 extension #817 delegates to canonical #550"
+    },
+    "818": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 551,
+      "canonical_name": "Liquidation Intelligence",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_intelligence_551",
+      "evidence": "CAP978 extension #818 delegates to canonical #551"
+    },
+    "819": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 552,
+      "canonical_name": "Futures Volume",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.futures_volume_552",
+      "evidence": "CAP978 extension #819 delegates to canonical #552"
+    },
+    "820": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 553,
+      "canonical_name": "Basis Intelligence",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.basis_intelligence_553",
+      "evidence": "CAP978 extension #820 delegates to canonical #553"
+    },
+    "821": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 554,
+      "canonical_name": "Spot Market Data",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.spot_market_data_554",
+      "evidence": "CAP978 extension #821 delegates to canonical #554"
+    },
+    "822": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 555,
+      "canonical_name": "Options Analytics",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.options_analytics_555",
+      "evidence": "CAP978 extension #822 delegates to canonical #555"
+    },
+    "823": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 556,
+      "canonical_name": "Options IV Surface",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.options_iv_surface_556",
+      "evidence": "CAP978 extension #823 delegates to canonical #556"
+    },
+    "824": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 557,
+      "canonical_name": "Options Skew",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.options_skew_557",
+      "evidence": "CAP978 extension #824 delegates to canonical #557"
+    },
+    "825": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 558,
+      "canonical_name": "Options Term Structure",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.options_term_structure_558",
+      "evidence": "CAP978 extension #825 delegates to canonical #558"
+    },
+    "826": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 559,
+      "canonical_name": "TradFi Context",
+      "facade_binding": "bd_platform.batch17_final_program_facade_layer.execute_batch17_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.tradfi_context_559",
+      "evidence": "CAP978 extension #826 delegates to canonical #559"
+    }
+  },
+  "canonical_duplicate_targets": {
+    "801": 534,
+    "802": 535,
+    "803": 536,
+    "804": 537,
+    "805": 538,
+    "806": 539,
+    "807": 540,
+    "808": 541,
+    "809": 542,
+    "810": 543,
+    "811": 544,
+    "812": 545,
+    "813": 546,
+    "814": 547,
+    "815": 548,
+    "816": 549,
+    "817": 550,
+    "818": 551,
+    "819": 552,
+    "820": 553,
+    "821": 554,
+    "822": 555,
+    "823": 556,
+    "824": 557,
+    "825": 558,
+    "826": 559
+  },
+  "summary": {
+    "canonical_duplicate_reuse_count": 26
+  }
+}

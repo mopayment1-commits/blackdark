@@ -1,0 +1,78 @@
+{
+  "artifact": "BATCH09_REOPENING_DELTA_REMEDIATION",
+  "generated_at_utc": "2026-09-06T21:59:31.503665+00:00",
+  "git_commit": "40769dd2cd0a91ea8d463843c2305004192da136",
+  "supersedes": {
+    "prior_freeze_artifact": "docs/BATCH09_FINAL_LOCAL_FREEZE.json",
+    "prior_freeze_sha": "255327b9a160715a28a60787ecec526a002a02ed",
+    "preserved_non_destructively": true
+  },
+  "status": {
+    "PREVIOUS_FREEZE_EVIDENCE_PRESERVED": true,
+    "LOCAL_CLOSURE_REOPENED_BY_MATERIAL_CONTRADICTIONS": true,
+    "BATCH09_CURRENT_LOCAL_STATUS": "REOPENED_DELTA_REMEDIATION",
+    "PASS_LIVE": "NOT_CLAIMED",
+    "G6": "BLOCKED_EXTERNAL_RAILWAY",
+    "G7": "PENDING_INDEPENDENT_ASSURANCE",
+    "ASSURANCE_READY": "NOT_CLAIMED",
+    "PRODUCTION_ALIGNED": "NOT_CLAIMED"
+  },
+  "acceptance": {
+    "audit_report_items_unclassified": 0,
+    "active_SSOT_conflicts": 0,
+    "previous_batch_lineage_unresolved": 0,
+    "semantic_proof_complete": "50/50",
+    "hidden_stub_or_template": 0,
+    "actual_consumer_path_gap": 0,
+    "shared_core_semantic_conflict": 0,
+    "unresolved_canonical_conflict": 0,
+    "duplicate_quality_unresolved": 0,
+    "domain_applicability": "50/50",
+    "locally_solvable_domain_gap": 0,
+    "tier_truth_reconciled": "50/50",
+    "hero_unresolved": 0,
+    "material_security_or_AI_gap": 0,
+    "affected_regression_gap": 0,
+    "formal_gate_provenance_complete": true,
+    "unexplained_material_warning": [],
+    "known_local_deficiencies": []
+  },
+  "artifacts": [
+    "BATCH09_AUDIT_RECONCILIATION_G0_G9.json",
+    "BATCH09_LINEAGE_PROOF.json",
+    "BATCH09_BATCH06_RANGE_RESOLUTION.json",
+    "BATCH09_SEMANTIC_CORRECTNESS_401_450.json",
+    "BATCH09_CONSUMER_PATH_401_450.json",
+    "BATCH09_SHARED_CORE_DISTINCTNESS.json",
+    "BATCH09_CANONICAL_DECISIONS_437_441.json",
+    "BATCH09_SSOT_RECONCILIATION.json",
+    "BATCH09_LAYER_D_SSOT_RECONCILIATION.json",
+    "BATCH09_SHA_PROVENANCE_CHAIN.json"
+  ],
+  "regression_runs": [
+    {
+      "label": "batch09_semantic_remediation",
+      "command": "tests/test_batch09_semantic_remediation.py",
+      "exit_code": 0,
+      "tail": "....                                                                     [100%]\n"
+    },
+    {
+      "label": "batch09_hero",
+      "command": "tests/test_hero_batch_09_capabilities.py",
+      "exit_code": 0,
+      "tail": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "batch09_entitlement",
+      "command": "tests/test_batch09_canonical_http_entitlement.py tests/test_batch09_full_path_entitlement.py",
+      "exit_code": 0,
+      "tail": "........................................................ [ 28%]\n........................................................................ [ 56%]\n........................................................................ [ 84%]\n........................................                                 [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    },
+    {
+      "label": "defi_yield_401_500",
+      "command": "tests/test_defi_yield_intelligence_batch401_500.py",
+      "exit_code": 0,
+      "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    }
+  ]
+}

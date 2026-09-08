@@ -1,0 +1,655 @@
+{
+  "artifact": "BATCH10_CROSS_BATCH_DUPLICATE_ANALYSIS",
+  "generated_at_utc": "2026-09-07T01:09:57.676301+00:00",
+  "git_commit": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d",
+  "layer_b_cross_batch": {
+    "scope": "Layer B — Batch10 IDs 451-500 vs prior capabilities 1-450",
+    "summary": {
+      "cross_batch_canonical_reuse": 1,
+      "cross_batch_keep_distinct_but_reuse_shared_core": 49,
+      "cross_batch_unresolved": 0
+    },
+    "per_id": [
+      {
+        "batch10_id": 451,
+        "capability_name": "Protocol Dominance",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_dominance_451",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #451",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 452,
+        "capability_name": "Aave Multi-Chain Analytics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.aave_multi_chain_analytics_452",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #452",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 453,
+        "capability_name": "Risk Curation",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.risk_curation_453",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #453",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 454,
+        "capability_name": "Capital Protection Controls",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.capital_protection_controls_454",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #454",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 455,
+        "capability_name": "Stress Testing",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.stress_testing_455",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #455",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 456,
+        "capability_name": "Cross-Protocol Contagion",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.cross_protocol_contagion_456",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #456",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 457,
+        "capability_name": "Protocol Risk Passport",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_risk_passport_457",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #457",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 458,
+        "capability_name": "Risk-to-Decision Intelligence",
+        "prior_id": 86,
+        "relationship": "CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.whales_institutional_layer.build_methodology_docs_86",
+        "facade_binding": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
+        "evidence": "Hero facade delegates to canonical #86 methodology docs — not a distinct semantic surface",
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      },
+      {
+        "batch10_id": 459,
+        "capability_name": "Network Data Pro Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.network_data_pro_metrics_459",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #459",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 460,
+        "capability_name": "Atlas Blockchain Search",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.atlas_blockchain_search_460",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #460",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 461,
+        "capability_name": "Address/Balance Search",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.address_balance_search_461",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #461",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 462,
+        "capability_name": "Transaction Search",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.transaction_search_462",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #462",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 463,
+        "capability_name": "Block Search",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.block_search_463",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #463",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 464,
+        "capability_name": "Balance Updates",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.balance_updates_464",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #464",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 465,
+        "capability_name": "Stablecoin Network Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_network_metrics_465",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #465",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 466,
+        "capability_name": "Market Data Feed",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_feed_466",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #466",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 467,
+        "capability_name": "Market Data Pro",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_pro_467",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #467",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 468,
+        "capability_name": "Reference Rates",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #468",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 469,
+        "capability_name": "Indexes",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.indexes_469",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #469",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 470,
+        "capability_name": "Realized Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.realized_metrics_470",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #470",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 471,
+        "capability_name": "Supply Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.supply_metrics_471",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #471",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 472,
+        "capability_name": "Mining/Validator Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.mining_validator_metrics_472",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #472",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 473,
+        "capability_name": "Fee Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.fee_metrics_473",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #473",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 474,
+        "capability_name": "Activity Metrics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.activity_metrics_474",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #474",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 475,
+        "capability_name": "Custom Metric Workbench",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.custom_metric_workbench_475",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #475",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 476,
+        "capability_name": "Community Charts/API",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.community_charts_api_476",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #476",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 477,
+        "capability_name": "Market + Network Join",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_network_join_477",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #477",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 478,
+        "capability_name": "Data Quality Methodologies",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_methodologies_478",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #478",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 479,
+        "capability_name": "Historical Research Dataset",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.historical_research_dataset_479",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #479",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 480,
+        "capability_name": "Institutional APIs",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_apis_480",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #480",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 481,
+        "capability_name": "Cross-Network Decision Intelligence",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.cross_network_decision_intelligence_481",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #481",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 482,
+        "capability_name": "Institutional Trade Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_trade_data_482",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #482",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 483,
+        "capability_name": "Order Book Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.order_book_data_483",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #483",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 484,
+        "capability_name": "OHLCV Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.ohlcv_data_484",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #484",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 485,
+        "capability_name": "Derivatives Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.derivatives_data_485",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #485",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 486,
+        "capability_name": "Open Interest Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.open_interest_data_486",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #486",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 487,
+        "capability_name": "Funding Rate Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.funding_rate_data_487",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #487",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 488,
+        "capability_name": "Index Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.index_data_488",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #488",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 489,
+        "capability_name": "Reference Pricing",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.reference_pricing_489",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #489",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 490,
+        "capability_name": "Exchange Metadata",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.exchange_metadata_490",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #490",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 491,
+        "capability_name": "Asset Metadata",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.asset_metadata_491",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #491",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 492,
+        "capability_name": "Historical Market Archive",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.historical_market_archive_492",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #492",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 493,
+        "capability_name": "Real-Time Streams",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.real_time_streams_493",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #493",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 494,
+        "capability_name": "Market Aggregates",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_aggregates_494",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #494",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 495,
+        "capability_name": "Liquidity Analytics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.liquidity_analytics_495",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #495",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 496,
+        "capability_name": "Volatility Analytics",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.volatility_analytics_496",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #496",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 497,
+        "capability_name": "Market Cap / Supply",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_cap_supply_497",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #497",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 498,
+        "capability_name": "ETF / ETP Data",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.etf_etp_data_498",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #498",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 499,
+        "capability_name": "API Coverage Registry",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.api_coverage_registry_499",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #499",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      },
+      {
+        "batch10_id": 500,
+        "capability_name": "Data Quality & Normalization",
+        "prior_id": null,
+        "relationship": "DISTINCT",
+        "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500",
+        "prior_binding_matches": [],
+        "evidence": "pdf_capability_registry binding unique for batch10 #500",
+        "decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+        "cross_batch_decision": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+      }
+    ],
+    "canonical_reuse_entries": [
+      {
+        "batch10_id": 458,
+        "capability_name": "Risk-to-Decision Intelligence",
+        "prior_id": 86,
+        "relationship": "CANONICAL_DUPLICATE_REUSE",
+        "canonical_implementation": "bd_platform.whales_institutional_layer.build_methodology_docs_86",
+        "facade_binding": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
+        "evidence": "Hero facade delegates to canonical #86 methodology docs — not a distinct semantic surface",
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "CANONICAL_DUPLICATE_REUSE",
+        "hero_double_count_risk": false
+      }
+    ]
+  },
+  "layer_b_exhaustive_coverage": {
+    "scope": "Exhaustive machine coverage — Batch10 451-500 vs prior 1-450",
+    "method": "Deterministic pair evaluator over all 50×450 candidate pairs. No indexing filter may omit pairs — each (batch10_id, prior_id) receives a decision.",
+    "expected_cross_batch_pairs": 22500,
+    "evaluated_cross_batch_pairs": 22500,
+    "omitted_pairs": [],
+    "unresolved_pairs": [],
+    "duplicate_coverage_complete": true,
+    "decision_counts": {
+      "DISTINCT": 20044,
+      "SHARED_MODULE_DISTINCT_FN": 2450,
+      "CANONICAL_DUPLICATE_REUSE": 1,
+      "SEMANTIC_NAME_OVERLAP": 5
+    },
+    "material_overlap_count": 6,
+    "material_overlaps": [
+      {
+        "batch10_id": 458,
+        "prior_id": 86,
+        "decision": "CANONICAL_DUPLICATE_REUSE",
+        "relationship": "CANONICAL_REUSE",
+        "batch10_binding": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
+        "prior_binding": "bd_platform.whales_institutional_layer.run_whales_institutional_e2e_77_86"
+      },
+      {
+        "batch10_id": 462,
+        "prior_id": 279,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch10_binding": "bd_platform.defi_yield_intelligence_layer.transaction_search_462",
+        "prior_binding": "bd_platform.heroes_capability_layer.chart_sharing_279"
+      },
+      {
+        "batch10_id": 468,
+        "prior_id": 330,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch10_binding": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+        "prior_binding": "bd_platform.heroes_capability_layer.ai_trading_engine_330"
+      },
+      {
+        "batch10_id": 468,
+        "prior_id": 331,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch10_binding": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.etf_reference_rates_inav_331"
+      },
+      {
+        "batch10_id": 468,
+        "prior_id": 332,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch10_binding": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+        "prior_binding": "bd_platform.charting_market_intelligence_layer.commodity_tradfi_reference_rates_332"
+      },
+      {
+        "batch10_id": 485,
+        "prior_id": 268,
+        "decision": "SEMANTIC_NAME_OVERLAP",
+        "relationship": "SEMANTIC_OVERLAP",
+        "batch10_binding": "bd_platform.defi_yield_intelligence_layer.derivatives_data_485",
+        "prior_binding": "bd_platform.derivatives_onchain_intelligence_layer.historical_derivatives_data_268"
+      }
+    ],
+    "material_overlaps_truncated": false,
+    "pair_decision_digest_sha256": "ce949f5c0974f0925c77db39394e78d8c281dc575df0a9871c45374400859070",
+    "unresolved_duplicate_conflicts": 0
+  },
+  "summary": {
+    "expected_cross_batch_pairs": 22500,
+    "evaluated_cross_batch_pairs": 22500,
+    "cross_batch_unresolved": 0,
+    "unresolved_duplicate_conflicts": 0
+  }
+}

@@ -2,6 +2,7 @@
 
 **Status:** ACTIVE — permanent review & acceptance baseline for this project  
 **Adopted:** 2026-08-21  
+**Capability-build governing standard (v6):** [`docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md`](../standards/BLACKDARK_INSTITUTIONAL_STANDARD_v6.md) — primary Arabic source: [`معيار_مؤسسي_صارم_..._2026_v6.md`](../standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md). Canonical pointer: [`GOVERNING_STANDARD.json`](../standards/GOVERNING_STANDARD.json). Historical v5 preserved at `docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md`.  
 **Authority:** User directive — do not override without explicit user instruction
 
 ## Source document

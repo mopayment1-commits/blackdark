@@ -86,8 +86,24 @@ def enqueue_email(
         _PATH.parent.mkdir(parents=True, exist_ok=True)
         with _PATH.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(_redact_for_disk(row), separators=(",", ":"), default=str) + "\n")
-    # Return in-memory row (includes clear body) for immediate senders.
     return dict(row)
+
+
+def enqueue_localized_email(
+    to_email: str,
+    *,
+    lang: str | None,
+    subject_key: str,
+    body_key: str,
+    payload: dict[str, Any] | None = None,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    from i18n_enforcement import localize_email
+
+    loc = localize_email(lang, subject_key, body_key, **kwargs)
+    merged = dict(payload or {})
+    merged["locale"] = loc["locale"]
+    return enqueue_email(to_email, loc["subject"], loc["body"], payload=merged)
 
 
 def list_queued(*, limit: int = 50) -> list[dict[str, Any]]:

@@ -1,0 +1,909 @@
+{
+  "generated_at": "2026-09-08T21:40:11.079862+00:00",
+  "git_head": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+  "bindings": {
+    "BILL-001": {
+      "domain": "principles",
+      "module_paths": [
+        "billing/subscription_engine.py",
+        "billing/entitlement_state.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-001",
+      "title": "\u0627\u0644\u0645\u0628\u0627\u062f\u0626 \u063a\u064a\u0631 \u0627\u0644\u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u062a\u0641\u0627\u0648\u0636",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-002": {
+      "domain": "provider_eligibility",
+      "module_paths": [
+        "billing/ops_readiness.py"
+      ],
+      "reuse": "KEEP",
+      "gate": "LIVE_GATED",
+      "requirement_id": "BILL-002",
+      "title": "Provider Eligibility Gate \u2014 \u0642\u0628\u0644 Live",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": false
+    },
+    "BILL-003": {
+      "domain": "architecture",
+      "module_paths": [
+        "billing/event_processor.py",
+        "billing/webhook_processor.py",
+        "billing/subscription_engine.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-003",
+      "title": "\u0627\u0644\u0645\u0639\u0645\u0627\u0631\u064a\u0629 \u0627\u0644\u062d\u0627\u0643\u0645\u0629",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-004": {
+      "domain": "database",
+      "module_paths": [
+        "database.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-004",
+      "title": "\u0642\u0627\u0639\u062f\u0629 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-005": {
+      "domain": "event_inbox",
+      "module_paths": [
+        "billing/event_inbox.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-005",
+      "title": "Billing Event Inbox",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-006": {
+      "domain": "webhook_security",
+      "module_paths": [
+        "billing_service.py",
+        "dashboard.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-006",
+      "title": "Webhook Security",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-007": {
+      "domain": "async_processing",
+      "module_paths": [
+        "billing/event_processor.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-007",
+      "title": "Async Processing",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-008": {
+      "domain": "out_of_order",
+      "module_paths": [
+        "billing/out_of_order_guard.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-008",
+      "title": "Out-of-Order Protection",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-009": {
+      "domain": "billing_state",
+      "module_paths": [
+        "billing/billing_states.py",
+        "billing/subscription_store.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-009",
+      "title": "Billing State Model",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-010": {
+      "domain": "entitlement_state",
+      "module_paths": [
+        "billing/entitlement_state.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-010",
+      "title": "Entitlement State Model",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-011": {
+      "domain": "paid_through",
+      "module_paths": [
+        "billing/entitlement_state.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-011",
+      "title": "Paid-Through Semantics",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-012": {
+      "domain": "free_plan",
+      "module_paths": [
+        "billing/plan_registry.py",
+        "billing/subscription_engine.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-012",
+      "title": "Free Plan",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-013": {
+      "domain": "price_registry",
+      "module_paths": [
+        "billing/plan_registry.py",
+        "billing/price_versioning.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-013",
+      "title": "Product / Price Registry",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-014": {
+      "domain": "price_versioning",
+      "module_paths": [
+        "billing/price_versioning.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-014",
+      "title": "Price Versioning",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-015": {
+      "domain": "signup",
+      "module_paths": [
+        "billing/subscription_engine.py",
+        "api/routers/billing.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-015",
+      "title": "Signup",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-016": {
+      "domain": "upgrade",
+      "module_paths": [
+        "billing/subscription_engine.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-016",
+      "title": "Upgrade",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-017": {
+      "domain": "downgrade",
+      "module_paths": [
+        "billing/subscription_engine.py",
+        "billing/sweeper.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-017",
+      "title": "Downgrade",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-018": {
+      "domain": "proration",
+      "module_paths": [
+        "billing/financial_arithmetic.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-018",
+      "title": "Proration",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-019": {
+      "domain": "renewal",
+      "module_paths": [
+        "billing/subscription_engine.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-019",
+      "title": "Renewal",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-020": {
+      "domain": "renewal_reminder",
+      "module_paths": [
+        "billing/renewal_reminder.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-020",
+      "title": "Renewal Reminder",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-021": {
+      "domain": "dunning",
+      "module_paths": [
+        "billing/subscription_engine.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-021",
+      "title": "Payment Failure / Dunning",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-022": {
+      "domain": "grace",
+      "module_paths": [
+        "billing/subscription_engine.py",
+        "billing/entitlement_state.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-022",
+      "title": "Grace Period",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-023": {
+      "domain": "card_declines",
+      "module_paths": [
+        "billing/card_declines.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-023",
+      "title": "Card Declines",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-024": {
+      "domain": "payment_methods",
+      "module_paths": [
+        "billing_service.py",
+        "payments_usd.py"
+      ],
+      "reuse": "KEEP",
+      "gate": "LIVE_GATED",
+      "requirement_id": "BILL-024",
+      "title": "Payment Methods",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": false
+    },
+    "BILL-025": {
+      "domain": "customer_portal",
+      "module_paths": [
+        "billing_service.py",
+        "api/routers/billing.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-025",
+      "title": "Customer Portal",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-026": {
+      "domain": "cancellation",
+      "module_paths": [
+        "billing/subscription_engine.py",
+        "api/routers/billing.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-026",
+      "title": "Cancellation",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-027": {
+      "domain": "refunds",
+      "module_paths": [
+        "billing/webhook_resolver.py",
+        "billing/subscription_engine.py"
+      ],
+      "reuse": "IMPROVE",
+      "requirement_id": "BILL-027",
+      "title": "Refunds \u2014 P0 Core",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-028": {
+      "domain": "disputes",
+      "module_paths": [
+        "billing/webhook_resolver.py"
+      ],
+      "reuse": "IMPROVE",
+      "requirement_id": "BILL-028",
+      "title": "Disputes / Chargebacks \u2014 P0 Core",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-029": {
+      "domain": "reconciliation",
+      "module_paths": [
+        "billing/reconciliation.py",
+        "billing/sweeper.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-029",
+      "title": "Reconciliation Worker",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-030": {
+      "domain": "invoices",
+      "module_paths": [
+        "billing/subscription_engine.py",
+        "institutional_commerce.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-030",
+      "title": "Invoice Handling",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-031": {
+      "domain": "financial_arithmetic",
+      "module_paths": [
+        "billing/financial_arithmetic.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-031",
+      "title": "Financial Arithmetic",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-032": {
+      "domain": "cost_model",
+      "module_paths": [
+        "payments_usd.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-032",
+      "title": "Cost Model",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-033": {
+      "domain": "taxes",
+      "module_paths": [
+        "billing/consent_registry.py",
+        "billing/price_versioning.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-033",
+      "title": "Taxes",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-034": {
+      "domain": "sca",
+      "module_paths": [
+        "billing/entitlement_state.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-034",
+      "title": "SCA / 3DS",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-035": {
+      "domain": "pci",
+      "module_paths": [
+        "payments_usd.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-035",
+      "title": "PCI",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-036": {
+      "domain": "secrets",
+      "module_paths": [
+        "production_guard.py",
+        "config.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-036",
+      "title": "Secrets",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-037": {
+      "domain": "audit",
+      "module_paths": [
+        "billing/audit_ledger.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-037",
+      "title": "Audit Trail",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-038": {
+      "domain": "break_glass",
+      "module_paths": [
+        "billing/break_glass.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-038",
+      "title": "Break-Glass",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-039": {
+      "domain": "admin_console",
+      "module_paths": [
+        "api/routers/admin_billing.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-039",
+      "title": "Admin Billing Console",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-040": {
+      "domain": "fraud",
+      "module_paths": [
+        "billing/fraud_controls.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-040",
+      "title": "Fraud / Abuse",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-041": {
+      "domain": "observability",
+      "module_paths": [
+        "billing/observability.py",
+        "billing/admin_metrics.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-041",
+      "title": "Observability",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-042": {
+      "domain": "alerts",
+      "module_paths": [
+        "billing/observability.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-042",
+      "title": "Alerts",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-043": {
+      "domain": "b2b",
+      "module_paths": [
+        "billing/seat_enforcement.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-043",
+      "title": "B2B / Institutional Architecture",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-044": {
+      "domain": "seats",
+      "module_paths": [
+        "billing/seat_enforcement.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-044",
+      "title": "Seat Enforcement",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-045": {
+      "domain": "enterprise_terms",
+      "module_paths": [
+        "billing/seat_enforcement.py",
+        "institutional_commerce.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
+      ],
+      "reuse": "REUSE",
+      "launch_policy_notes": "DISABLED_AT_LAUNCH; PREPAID_ONLY; NET_15/NET_30 disabled; future NET via governed admin only",
+      "requirement_id": "BILL-045",
+      "title": "Enterprise Payment Terms",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-046": {
+      "domain": "multi_currency",
+      "module_paths": [
+        "billing/price_versioning.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
+      ],
+      "reuse": "REUSE",
+      "launch_policy_notes": "DISABLED_AT_LAUNCH; USD_ONLY; architecture preserved; future currencies require owner approval",
+      "requirement_id": "BILL-046",
+      "title": "Multi-Currency",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-047": {
+      "domain": "legal",
+      "module_paths": [
+        "docs/SUBSCRIPTION_LEGAL_BASIS.md"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-047",
+      "title": "Legal Compliance Layer",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-048": {
+      "domain": "consent",
+      "module_paths": [
+        "billing/consent_registry.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-048",
+      "title": "Consent Evidence",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-049": {
+      "domain": "privacy",
+      "module_paths": [
+        "docs/SUBSCRIPTION_LEGAL_BASIS.md"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-049",
+      "title": "Data Privacy",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-050": {
+      "domain": "retention",
+      "module_paths": [
+        "docs/SUBSCRIPTION_LEGAL_BASIS.md"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-050",
+      "title": "Retention",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-051": {
+      "domain": "customer_ux",
+      "module_paths": [
+        "pricing_catalog.py",
+        "api/routers/billing.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-051",
+      "title": "Customer UX",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-052": {
+      "domain": "capability_enforcement",
+      "module_paths": [
+        "cap646/entitlements.py",
+        "billing/subscription_engine.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-052",
+      "title": "Capability Enforcement",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-053": {
+      "domain": "tier_consistency",
+      "module_paths": [
+        "cap646/entitlements.py",
+        "billing/plan_registry.py"
+      ],
+      "reuse": "KEEP",
+      "requirement_id": "BILL-053",
+      "title": "Subscription-to-Capability Consistency",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-054": {
+      "domain": "failure_safety",
+      "module_paths": [
+        "billing/event_inbox.py",
+        "billing/reconciliation.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-054",
+      "title": "Failure Safety",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-055": {
+      "domain": "dlq",
+      "module_paths": [
+        "billing/event_inbox.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-055",
+      "title": "Dead Letter Queue",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-056": {
+      "domain": "replay",
+      "module_paths": [
+        "billing/event_inbox.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-056",
+      "title": "Replay",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-057": {
+      "domain": "concurrency",
+      "module_paths": [
+        "billing/out_of_order_guard.py",
+        "database.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-057",
+      "title": "Concurrency",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-058": {
+      "domain": "reliability",
+      "module_paths": [
+        "billing/subscription_engine.py",
+        "billing/event_inbox.py"
+      ],
+      "reuse": "REUSE",
+      "requirement_id": "BILL-058",
+      "title": "Reliability",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-059": {
+      "domain": "p0_test_matrix",
+      "module_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-059",
+      "title": "Core P0 Test Matrix",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-060": {
+      "domain": "acceptance_gates",
+      "module_paths": [
+        "scripts/billing_source_driven_final_closure.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-060",
+      "title": "Acceptance Gates",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    },
+    "BILL-061": {
+      "domain": "live_activation",
+      "module_paths": [
+        "billing/ops_readiness.py"
+      ],
+      "reuse": "KEEP",
+      "gate": "LIVE_GATED",
+      "requirement_id": "BILL-061",
+      "title": "Live Activation Gate",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": false
+    },
+    "BILL-062": {
+      "domain": "implementation_phases",
+      "module_paths": [
+        "scripts/billing_source_driven_final_closure.py"
+      ],
+      "reuse": "BUILD",
+      "requirement_id": "BILL-062",
+      "title": "\u0645\u0631\u0627\u062d\u0644 \u0627\u0644\u062a\u0646\u0641\u064a\u0630 \u0627\u0644\u0646\u0647\u0627\u0626\u064a\u0629",
+      "test_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "implementation_intended": true
+    }
+  },
+  "total_bindings": 62
+}

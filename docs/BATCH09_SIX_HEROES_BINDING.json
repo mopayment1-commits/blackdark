@@ -1,0 +1,298 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "not_hero_relevant": 48,
+    "hero_context_only": 2,
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": 0
+  },
+  "artifact": "BATCH09_SIX_HEROES_BINDING",
+  "generated_at": "2026-09-06T20:16:44.215633+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "scope": "Six Heroes binding classification — Batch09 401-450 (post duplicate reconciliation)",
+  "summary": {
+    "NOT_HERO_RELEVANT": 48,
+    "HERO_CONTEXT_ONLY": 2,
+    "HERO_DIRECT_FEED": 0,
+    "duplicate_hero_contributions": 0,
+    "hero_binding_conflicts": 0
+  },
+  "reconfirmation": {
+    "437_no_double_count_with_288": true,
+    "441_no_double_count_with_155": true,
+    "regression_suite": "tests/test_heroes_quality_polish.py + cross-batch regression"
+  },
+  "per_id": [
+    {
+      "capability_id": 401,
+      "capability_name": "Bridges Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 402,
+      "capability_name": "Yields Screener",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 403,
+      "capability_name": "Yield History",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 404,
+      "capability_name": "Borrowing Rates",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 405,
+      "capability_name": "Liquid Staking Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 406,
+      "capability_name": "RWA Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 407,
+      "capability_name": "Raises / Funding Rounds",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 408,
+      "capability_name": "Investor Profiles",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 409,
+      "capability_name": "Unlocks",
+      "classification": "NOT_HERO_RELEVANT",
+      "hero_facade": {
+        "decision": "KEEP_DISTINCT",
+        "duplicate_hero_contribution": false,
+        "note": "QuickTake feed status — not Hero FEED"
+      }
+    },
+    {
+      "capability_id": 410,
+      "capability_name": "Treasury Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 411,
+      "capability_name": "Airdrop / Incentive Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 412,
+      "capability_name": "Capital Formation Radar",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 413,
+      "capability_name": "DeFi Opportunity Screener",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 414,
+      "capability_name": "DeFi Risk Passport",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 415,
+      "capability_name": "API Aggregation Layer",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 416,
+      "capability_name": "Cross-DeFi Decision Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 417,
+      "capability_name": "Cross-Chain Fundamentals",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 418,
+      "capability_name": "Protocol Fundamentals",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 419,
+      "capability_name": "Stablecoin Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 420,
+      "capability_name": "Stablecoin Activity Breakdown",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 421,
+      "capability_name": "Developer Activity",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 422,
+      "capability_name": "Sector/Ecosystem Comparables",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 423,
+      "capability_name": "Equities + Crypto Research",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 424,
+      "capability_name": "Consensus Estimates",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 425,
+      "capability_name": "AI Analyst",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 426,
+      "capability_name": "Thesis Research Workspace",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 427,
+      "capability_name": "Comparable Company / Protocol Analysis",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 428,
+      "capability_name": "Excel / Sheets Integration",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 429,
+      "capability_name": "API Data Platform",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 430,
+      "capability_name": "Research Templates",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 431,
+      "capability_name": "Dashboards",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 432,
+      "capability_name": "Stablecoin Payment Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 433,
+      "capability_name": "On-Chain Usage Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 434,
+      "capability_name": "Revenue / Fees / Economic Activity",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 435,
+      "capability_name": "Cross-Market Research Copilot",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 436,
+      "capability_name": "Investment Thesis Scoring",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 437,
+      "capability_name": "DeFi Risk Radar",
+      "classification": "HERO_CONTEXT_ONLY",
+      "hero_context": {
+        "canonical_capability_id": 288,
+        "contribution": "context_only_via_canonical_288",
+        "duplicate_hero_contribution": false,
+        "note": "Facade does not add second Hero score beyond canonical #288"
+      }
+    },
+    {
+      "capability_id": 438,
+      "capability_name": "Lending Market Risk",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 439,
+      "capability_name": "Collateral Risk",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 440,
+      "capability_name": "Liquidation Risk",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 441,
+      "capability_name": "Oracle Risk",
+      "classification": "HERO_CONTEXT_ONLY",
+      "hero_context": {
+        "canonical_capability_id": 155,
+        "contribution": "context_only_via_canonical_155",
+        "duplicate_hero_contribution": false,
+        "note": "Strategy vetting facade delegates to canonical #155"
+      }
+    },
+    {
+      "capability_id": 442,
+      "capability_name": "Liquidity Risk",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 443,
+      "capability_name": "Protocol Exploit Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 444,
+      "capability_name": "Stablecoin Risk Intelligence",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 445,
+      "capability_name": "DeFi Strategy Risk",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 446,
+      "capability_name": "Real-Time Risk Alerts",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 447,
+      "capability_name": "DAO Treasury Risk",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 448,
+      "capability_name": "Institutional Risk API",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 449,
+      "capability_name": "Curated On-Chain Dashboards",
+      "classification": "NOT_HERO_RELEVANT"
+    },
+    {
+      "capability_id": 450,
+      "capability_name": "Narrative-Driven Research",
+      "classification": "NOT_HERO_RELEVANT"
+    }
+  ]
+}

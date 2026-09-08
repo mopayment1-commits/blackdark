@@ -121,24 +121,32 @@ async def process_stripe_event(event: dict[str, Any]) -> dict[str, Any]:
         return {"handled": False, "reason": "missing_subscription"}
 
     if event_type == "charge.refunded":
-        result = await revoke_for_financial_reversal(
-            provider_subscription_id=None,
-            provider="stripe",
-            provider_event_id=event_id,
-            reason="charge_refunded",
-            payment_status="refunded",
-        )
-        return {"handled": True, "action": "refund", **result}
+        from billing.webhook_resolver import handle_refund_event
 
-    if event_type == "charge.dispute.created":
-        result = await revoke_for_financial_reversal(
-            provider_subscription_id=None,
+        amount_refunded = data_object.get("amount_refunded") or 0
+        amount = data_object.get("amount") or 0
+        partial = bool(amount_refunded and amount and int(amount_refunded) < int(amount))
+        result = await handle_refund_event(
+            data_object,
             provider="stripe",
             provider_event_id=event_id,
-            reason="charge_dispute",
-            payment_status="disputed",
+            partial=partial,
         )
-        return {"handled": True, "action": "dispute", **result}
+        return {"handled": result.get("handled", False), "action": "refund", **result}
+
+    if event_type in {"charge.dispute.created", "charge.dispute.closed"}:
+        from billing.webhook_resolver import handle_dispute_event
+
+        dispute_status = "open" if event_type == "charge.dispute.created" else str(
+            (data_object.get("dispute") or {}).get("status") or "closed"
+        )
+        result = await handle_dispute_event(
+            data_object,
+            provider="stripe",
+            provider_event_id=event_id,
+            dispute_status=dispute_status,
+        )
+        return {"handled": result.get("handled", False), "action": "dispute", **result}
 
     return {"handled": False, "type": event_type}
 

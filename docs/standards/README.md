@@ -1,0 +1,43 @@
+# Project Standards
+
+## Governing institutional standard
+
+**Active (v6):** [`معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md`](./معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md)
+
+Machine alias: [`BLACKDARK_INSTITUTIONAL_STANDARD_v6.md`](./BLACKDARK_INSTITUTIONAL_STANDARD_v6.md) → same file.
+
+Canonical pointer: [`GOVERNING_STANDARD.json`](./GOVERNING_STANDARD.json)
+
+## Historical (preserved)
+
+- **v5:** [`BLACKDARK_INSTITUTIONAL_STANDARD_v5.md`](./BLACKDARK_INSTITUTIONAL_STANDARD_v5.md) — superseded by v6; not deleted.
+- **v5 backup:** [`BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md`](./BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md)
+
+## Domain / data spec (subordinate to v6)
+
+**Active (v4_v2):** [`domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md`](./domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md)
+
+**Historical (v4):** [`domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md`](./domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4.md) — superseded by v4_v2; not deleted.
+
+## Temporal intelligence addendum (subordinate to v6 and v4_v2)
+
+**Active (registered):** [`domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md`](./domain/BLACKDARK%20Temporal%20Intelligence%20%26%20Evidence%20Acceleration%20System.md)
+
+- **Role:** implementation/design addendum for historical data, replay, point-in-time reconstruction, signals/predictions/decisions/outcomes, evidence, forward shadow, learning/calibration, failure corpus, model/dataset lineage, drift, data quality, rights/retention, and Market Time Machine.
+- **Hierarchy:** applies after v6, then v4_v2; does not supersede either and does not create a parallel SSOT.
+- **Registration ≠ implementation proof:** presence in this index is not evidence of IMPLEMENTED / PASS_ENGINEERING / PASS_LIVE.
+
+## Adaptive intelligence experience spec (subordinate to v6, v4_v2, and Temporal)
+
+**Active (registered):** [`domain/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4.md`](./domain/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4.md)
+
+- **Role:** implementation/design and experience specification for Intent Search, Intelligence Router, Decision Contract, Capability Graph, Progressive Disclosure safety floor, and related adaptive UX controls.
+- **Hierarchy:** applies after v6, v4_v2, and Temporal Intelligence; does not supersede any and does not create a parallel SSOT.
+- **Registration ≠ implementation proof:** Batch13 is the first batch where material adaptive spine modules must be evidenced locally.
+
+## Three-spec incremental implementation program (planning)
+
+- **Ledger (machine-readable):** [`../THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`](../THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json)
+- **Master plan (human-readable):** [`../THREE_SPEC_INCREMENTAL_IMPLEMENTATION_MASTER_PLAN.md`](../THREE_SPEC_INCREMENTAL_IMPLEMENTATION_MASTER_PLAN.md)
+
+Tracks dependency-driven, incremental implementation of v4_v2, Temporal Intelligence, and Adaptive Intelligence v4 alongside capability batches 651–826. Does not replace governing specifications.

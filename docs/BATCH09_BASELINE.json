@@ -1,0 +1,78 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "bindings_present": true,
+    "catalog_rows": 50,
+    "quad_pass_count": 50
+  },
+  "artifact": "BATCH09_BASELINE",
+  "phase": 0,
+  "phase_label": "forensics",
+  "generated_at": "2026-09-06T20:16:44.211684+00:00",
+  "identity": {
+    "canonical_tested_source_head": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
+    "regression_head": "cc74f00775d181a22ff4f1a71800cf8f7d5f9f04",
+    "git_branch": "cursor/batch09-401-450-ed16",
+    "artifact_generation_head": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+    "container_commit": null,
+    "ci_evidence_head": "7ed7dd0a4055dbfa748aa676c7f554d6b18ae225",
+    "final_freeze_head": "9d5057ab9f8f28f62fc0cf56200f05a20df00de1"
+  },
+  "provenance": {
+    "method": "git_log_derived",
+    "description": "canonical_tested_source_head is the tested implementation commit (scripts/run_batch09_deep_closure.py ancestry). Derive freeze artifact commit via git log if needed. The artifact does NOT embed its own commit SHA as an institutional correctness gate.",
+    "self_referential_head_embedding": "prohibited"
+  },
+  "scope": {
+    "batch": "batch09",
+    "capability_range": "401-450",
+    "manifest": "scripts/partial_batches/batch_09_401_450.json",
+    "catalog": "docs/cap646/CAP646_CATALOG.json",
+    "audit": "docs/RETROSPECTIVE_DEEP_AUDIT_BATCH_05_401_500.json"
+  },
+  "inventory": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "binding_coverage": 50
+  },
+  "classification_snapshot": {
+    "VERIFIED-DEEP": 97,
+    "REUSED-LINK": 3,
+    "WRAPPER-ONLY-UNVERIFIED": 0,
+    "DEFERRED/DELEGATED": 0
+  },
+  "audit_source": "file",
+  "binding_sample": [
+    {
+      "capability_id": 401,
+      "module": "bd_platform.defi_yield_intelligence_layer",
+      "function": "bridges_intelligence_401",
+      "catalog": "Bridges Intelligence"
+    },
+    {
+      "capability_id": 437,
+      "module": "bd_platform.heroes_capability_layer",
+      "function": "correlation_contagion_risk_437",
+      "catalog": "DeFi Risk Radar"
+    },
+    {
+      "capability_id": 450,
+      "module": "bd_platform.defi_yield_intelligence_layer",
+      "function": "narrative_driven_research_450",
+      "catalog": "Narrative-Driven Research"
+    }
+  ],
+  "not_claimed": [
+    "PASS_LIVE",
+    "G6 PASS",
+    "G7 PASS",
+    "ASSURANCE_READY",
+    "LIVE_READY"
+  ]
+}

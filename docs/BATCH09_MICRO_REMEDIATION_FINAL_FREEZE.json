@@ -1,0 +1,84 @@
+{
+  "artifact": "BATCH09_MICRO_REMEDIATION_FINAL_FREEZE",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "supersedes": [
+    "docs/BATCH09_REOPENING_FINAL_LOCAL_FREEZE.json",
+    "docs/BATCH09_FINAL_LOCAL_FREEZE.json"
+  ],
+  "final_head": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "material_remediation_head": "b5bf380001774837c6dff0c96fc9c775092a8ef0",
+  "intermediate_docs_sha_33bf5f3": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+  "formal_gate_provenance": "docs/BATCH09_FORMAL_GATE_PROVENANCE.json",
+  "shared_core_semantics": "docs/BATCH09_SHARED_CORE_SEMANTICS_401_450.json",
+  "consumer_paths": "docs/BATCH09_CONSUMER_PATH_401_450.json",
+  "conditional_defects": "docs/BATCH09_CONDITIONAL_DEFECT_RESOLUTION.json",
+  "regression": {
+    "artifact": "BATCH09_CROSS_BATCH_REGRESSION",
+    "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+    "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+    "suites": [
+      {
+        "label": "batch09_shared_core_semantics",
+        "command": "pytest tests/test_batch09_shared_core_semantics.py",
+        "exit_code": 0,
+        "passed": true,
+        "tail": "........................................................................ [ 48%]\n........................................................................ [ 97%]\n...                                                                      [100%]\n"
+      },
+      {
+        "label": "batch09_consumer_paths",
+        "command": "pytest tests/test_batch09_consumer_paths.py",
+        "exit_code": 0,
+        "passed": true,
+        "tail": "...........................................................              [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+      },
+      {
+        "label": "batch09_semantic_remediation",
+        "command": "pytest tests/test_batch09_semantic_remediation.py",
+        "exit_code": 0,
+        "passed": true,
+        "tail": "....                                                                     [100%]\n"
+      },
+      {
+        "label": "batch09_hero",
+        "command": "pytest tests/test_hero_batch_09_capabilities.py -q",
+        "exit_code": 0,
+        "passed": true,
+        "tail": "...................................................                      [100%]\n"
+      },
+      {
+        "label": "defi_yield_batch401_500",
+        "command": "pytest tests/test_defi_yield_intelligence_batch401_500.py -q",
+        "exit_code": 0,
+        "passed": true,
+        "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+      }
+    ],
+    "affected_regression_gap": [],
+    "blast_radius_regression_pass": true
+  },
+  "flags": {
+    "FORMAL_GATES_BIND_FINAL_CODE": true,
+    "SHARED_CORE_SEMANTICS_PROVEN_48_OF_48": true,
+    "NAME_OR_SEED_ONLY_PROOF_ZERO": true,
+    "CONDITIONAL_DEFECTS_RESOLVED": true,
+    "CONSUMER_PATHS_PROVEN_50_OF_50": true,
+    "GENERIC_GATEWAY_SOLE_EVIDENCE_ZERO": true,
+    "SHA_PROVENANCE_COMPLETE": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true,
+    "BATCH09_FINAL_LOCAL_FREEZE": true,
+    "SHARED_CORE_MEMBERSHIP_RECONCILED": true,
+    "PARAMETERIZED_SEMANTICS_PROVEN_47_OF_47": true,
+    "SELF_FULFILLING_ORACLES_ZERO": true,
+    "V6_BATCH09_DELTA_RESOLVED": true,
+    "V4_V2_BATCH09_MATERIAL_DELTA_ZERO": true
+  },
+  "preserved_statuses": {
+    "PASS_LIVE": "NOT_CLAIMED",
+    "G6": "BLOCKED_EXTERNAL_RAILWAY",
+    "G7": "PENDING_INDEPENDENT_ASSURANCE",
+    "ASSURANCE_READY": "NOT_CLAIMED",
+    "PRODUCTION_ALIGNED": "NOT_CLAIMED"
+  },
+  "known_local_deficiencies": [],
+  "governance_semantic_consistency": "docs/BATCH09_GOVERNANCE_SEMANTIC_CONSISTENCY.json"
+}

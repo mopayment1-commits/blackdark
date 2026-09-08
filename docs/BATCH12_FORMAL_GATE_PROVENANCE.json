@@ -1,0 +1,58 @@
+{
+  "artifact": "BATCH12_FORMAL_GATE_PROVENANCE",
+  "generated_at_utc": "2026-09-07T19:00:00.000000+00:00",
+  "final_material_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+  "final_code_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+  "gate_tested_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+  "branch": "cursor/batch12-551-600-ed16",
+  "formal_gates_on_final_material_code": "PASS",
+  "formal_gates_on_final_code": "PASS",
+  "gates": [
+    {
+      "workflow": "Security Scan",
+      "workflow_file": "security.yml",
+      "run_id": 34151919414,
+      "gate_tested_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+      "result": "PASS",
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34151919414",
+      "codeql_jobs": [
+        {
+          "name": "codeql",
+          "conclusion": "success"
+        }
+      ],
+      "codeql_result": "PASS"
+    },
+    {
+      "workflow": "CI Critical Gate Suite",
+      "workflow_file": "ci-critical.yml",
+      "run_id": 34151919373,
+      "gate_tested_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+      "result": "PASS",
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34151919373"
+    },
+    {
+      "workflow": "SonarCloud Analysis",
+      "workflow_file": "sonarcloud.yml",
+      "run_id": 34151919379,
+      "gate_tested_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+      "result": "PASS",
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34151919379"
+    },
+    {
+      "workflow": "CAP978 Institutional Gate",
+      "workflow_file": "cap978-institutional-gate.yml",
+      "run_id": 34151919378,
+      "gate_tested_sha": "6b8a28019dc9ccf03504808a03c3d1a3c420dabe",
+      "result": "PASS",
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34151919378"
+    }
+  ],
+  "acceptance": {
+    "code_delta_zero": true,
+    "production_runtime_delta_from_material_sha": 0,
+    "all_applicable_formal_gates_pass": true,
+    "FORMAL_GATES_BIND_FINAL_MATERIAL_CODE": true,
+    "FORMAL_GATE_FAILURES_ZERO": true
+  }
+}

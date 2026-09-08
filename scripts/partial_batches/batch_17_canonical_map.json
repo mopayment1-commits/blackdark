@@ -1,0 +1,158 @@
+{
+  "801": [
+    534,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "bucketed_cvd_534",
+    {}
+  ],
+  "802": [
+    535,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "whale_vs_retail_flow_535",
+    {}
+  ],
+  "803": [
+    536,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "slippage_intelligence_536",
+    {}
+  ],
+  "804": [
+    537,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "global_order_book_metrics_537",
+    {}
+  ],
+  "805": [
+    538,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "order_book_imbalance_538",
+    {}
+  ],
+  "806": [
+    539,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "liquidity_zones_539",
+    {}
+  ],
+  "807": [
+    540,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "bot_activity_detection_540",
+    {}
+  ],
+  "808": [
+    541,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "market_positioning_541",
+    {}
+  ],
+  "809": [
+    542,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "liquidation_pressure_score_542",
+    {}
+  ],
+  "810": [
+    543,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "orderflow_anomaly_detection_543",
+    {}
+  ],
+  "811": [
+    544,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "api_indicator_platform_544",
+    {}
+  ],
+  "812": [
+    545,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "trader_cohort_intelligence_545",
+    {}
+  ],
+  "813": [
+    546,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "cross_derivatives_decision_intelligence_546",
+    {}
+  ],
+  "814": [
+    547,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "high_resolution_multi_pane_charts_547",
+    {}
+  ],
+  "815": [
+    548,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "derivatives_dashboard_548",
+    {}
+  ],
+  "816": [
+    549,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "funding_rate_intelligence_549",
+    {}
+  ],
+  "817": [
+    550,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "open_interest_intelligence_550",
+    {}
+  ],
+  "818": [
+    551,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "liquidation_intelligence_551",
+    {}
+  ],
+  "819": [
+    552,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "futures_volume_552",
+    {}
+  ],
+  "820": [
+    553,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "basis_intelligence_553",
+    {}
+  ],
+  "821": [
+    554,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "spot_market_data_554",
+    {}
+  ],
+  "822": [
+    555,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "options_analytics_555",
+    {}
+  ],
+  "823": [
+    556,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "options_iv_surface_556",
+    {}
+  ],
+  "824": [
+    557,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "options_skew_557",
+    {}
+  ],
+  "825": [
+    558,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "options_term_structure_558",
+    {}
+  ],
+  "826": [
+    559,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "tradfi_context_559",
+    {}
+  ]
+}

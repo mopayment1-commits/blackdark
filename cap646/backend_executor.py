@@ -22,12 +22,25 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
     tier = str(params.get("tier") or "pro")
     style = binding.param_style
 
+    if binding.entrypoint in ("execute_batch15_facade", "execute_batch16_facade", "execute_batch17_facade"):
+        kw = {"capability_id": binding.capability_id, "symbol": symbol}
+        return fn(**kw) if not inspect.iscoroutinefunction(fn) else await fn(**kw)
+
     if style == "none":
         return fn() if not inspect.iscoroutinefunction(fn) else await fn()
     if style == "symbol":
         sig = inspect.signature(fn)
+        if len(sig.parameters) == 0:
+            return fn() if not inspect.iscoroutinefunction(fn) else await fn()
         if "symbol" in sig.parameters:
             return fn(symbol=symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol=symbol)
+        if "exchange" in sig.parameters:
+            exchange = str(params.get("exchange") or "binance")
+            return (
+                fn(exchange=exchange)
+                if not inspect.iscoroutinefunction(fn)
+                else await fn(exchange=exchange)
+            )
         if "limit" in sig.parameters:
             return fn(limit=int(params.get("limit") or 5)) if not inspect.iscoroutinefunction(fn) else await fn(limit=int(params.get("limit") or 5))
         return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
@@ -113,7 +126,7 @@ def _success_from_result(result: Any) -> bool:
     if result is None:
         return False
     if isinstance(result, dict):
-        if result.get("success") is False:
+        if result.get("success") is False or result.get("ok") is False:
             return False
         # Rankings / list-shaped payloads executed even when vendor empty
         if "coins" in result and isinstance(result["coins"], list):
@@ -174,6 +187,12 @@ async def execute_binding(capability_id: int, *, params: dict[str, Any] | None =
     from cap646.domain_enrichment import enrich_capability_result
 
     payload = await enrich_capability_result(capability_id, payload, params=params)
+    try:
+        from bd_platform.v4_v2_source_driven_engineering import enforce_provenance
+
+        payload = enforce_provenance(payload, source_id=f"cap_{capability_id}")
+    except Exception:
+        pass
     return payload
 
 

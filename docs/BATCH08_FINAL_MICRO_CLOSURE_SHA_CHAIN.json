@@ -1,0 +1,40 @@
+{
+  "artifact": "BATCH08_FINAL_MICRO_CLOSURE_SHA_CHAIN",
+  "generated_at": "2026-09-06T16:44:23.321963+00:00",
+  "baseline_head": "bfa6ef699f3a5a0e6beb1d233cf8cf000f2ef336",
+  "final_head": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+  "commits_since_baseline": [
+    {
+      "sha": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+      "subject": "fix(ci): drop SARIF artifact upload; CodeQL analyze-only with upload=false",
+      "bucket": "workflow_logic"
+    },
+    {
+      "sha": "0b2971d030ed4c9a34cc1dabe1c4b154b3817e68",
+      "subject": "fix(ci): pin upload-artifact SHA for CodeQL SARIF artifact step",
+      "bucket": "workflow_logic"
+    },
+    {
+      "sha": "73024ae4385de732194d2247377c1e3a9cd1af9d",
+      "subject": "fix(ci): run CodeQL analyze with upload=false to avoid default-setup SARIF conflict",
+      "bucket": "workflow_logic"
+    },
+    {
+      "sha": "e198a4030b41c044902837a05996632e70a2708f",
+      "subject": "fix(ci): pin valid GitHub CodeQL action SHA for security workflow",
+      "bucket": "workflow_logic"
+    },
+    {
+      "sha": "8af4da422e392942604a7c86b76f30b3eacb12f9",
+      "subject": "fix(batch08): final local micro-closure for CodeQL, Batch07 regression, HTTP entitlement, SSOT semantics",
+      "bucket": "test_logic"
+    }
+  ],
+  "production_runtime_drift": 0,
+  "production_runtime_commits": [],
+  "final_sha_chain_complete": true,
+  "unexplained_sha_transitions": [],
+  "material_evidence_vs_source_drift": [],
+  "performance_threshold_false_attribution": [],
+  "performance_evidence_unchanged_unless_real_drift": true
+}

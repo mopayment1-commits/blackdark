@@ -1,0 +1,840 @@
+{
+  "artifact": "BATCH09_GOVERNANCE_SEMANTIC_CONSISTENCY",
+  "generated_at_utc": "2026-09-06T23:18:36.732227+00:00",
+  "git_commit": "4db12027ee0008ccd3bf9e15cdd7caa1b0e7ccc8",
+  "scope": "401-450",
+  "membership": {
+    "batch09_total_ids_exact": 50,
+    "shared_core_count_exact": 48,
+    "outside_shared_core_count_exact": 2,
+    "parameterized_count_exact": 47,
+    "custom_count_exact": 2,
+    "A_shared_core_48_ids": [
+      401,
+      402,
+      403,
+      404,
+      405,
+      406,
+      407,
+      408,
+      410,
+      411,
+      412,
+      413,
+      414,
+      415,
+      416,
+      417,
+      418,
+      419,
+      420,
+      421,
+      422,
+      423,
+      424,
+      425,
+      426,
+      427,
+      428,
+      429,
+      430,
+      431,
+      432,
+      433,
+      434,
+      435,
+      436,
+      437,
+      438,
+      439,
+      440,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450
+    ],
+    "B_outside_shared_core_ids": [
+      409,
+      441
+    ],
+    "C_parameterized_47_ids": [
+      401,
+      402,
+      403,
+      404,
+      405,
+      406,
+      407,
+      408,
+      410,
+      411,
+      412,
+      413,
+      414,
+      415,
+      416,
+      417,
+      418,
+      419,
+      420,
+      421,
+      422,
+      423,
+      424,
+      425,
+      426,
+      427,
+      428,
+      429,
+      430,
+      431,
+      432,
+      433,
+      434,
+      435,
+      436,
+      438,
+      439,
+      440,
+      442,
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450
+    ],
+    "D_custom_implementation_ids": [
+      437,
+      441
+    ],
+    "ranges": {
+      "shared_core_48": "401–408, 410–440, 442–450",
+      "outside_shared_core": "409, 441",
+      "parameterized_47": "401–408, 410–436, 438–440, 442–450",
+      "custom_2": "437, 441"
+    },
+    "membership_overlap_errors": [],
+    "membership_missing_ids": [],
+    "shared_core_membership_unambiguous": true,
+    "437_custom_inside_shared_core": true,
+    "441_custom_outside_shared_core": true,
+    "shared_core_48_definition": "batch09 IDs 401–450 minus outside {409 quicktake_feed, 441 custom oracle-risk}; equals parameterized-47 plus custom #437 inside shared-core",
+    "outside_roles": {
+      "409": "non-shared-core module (quicktake_feed)",
+      "441": "custom oracle-risk implementation outside shared-core-48"
+    },
+    "custom_roles": {
+      "437": "custom defi_risk_radar inside shared-core-48",
+      "441": "custom oracle_risk outside shared-core-48"
+    }
+  },
+  "parameterized_semantics": {
+    "parameterized_semantics_proven": "47/47",
+    "self_fulfilling_oracles": 0,
+    "name_seed_only_proofs": 0,
+    "generic_template_semantics": 0,
+    "insufficient_evidence": 0,
+    "rows": [
+      {
+        "capability_id": 401,
+        "canonical_requirement": "Bridges Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "bridge_flow_ratio",
+        "input_defaults": {
+          "bridge_volume_usd": 1200000000.0,
+          "tvl_usd": 4500000000.0,
+          "flow_7d_change_pct": 2.3
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['bridge_flow_ratio']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 402,
+        "canonical_requirement": "Yields Screener — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "yield_screener_rank",
+        "input_defaults": {
+          "top_pool_apy_pct": 8.2,
+          "median_pool_apy_pct": 3.1,
+          "pool_count": 42
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['yield_screener_rank']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 403,
+        "canonical_requirement": "Yield History — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "yield_history_trend",
+        "input_defaults": {
+          "apy_day0_pct": 5.5,
+          "apy_day30_pct": 4.1,
+          "volatility_pct": 1.2
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['yield_history_trend']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 404,
+        "canonical_requirement": "Borrowing Rates — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "borrow_lend_spread",
+        "input_defaults": {
+          "borrow_rate_bps": 450,
+          "supply_rate_bps": 180,
+          "utilization_pct": 72
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['borrow_lend_spread']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 405,
+        "canonical_requirement": "Liquid Staking Intelligence — Foundation, Architecture & Reliability",
+        "semantic_rule": "liquid_staking_yield",
+        "input_defaults": {
+          "staked_ratio_pct": 62,
+          "validator_yield_pct": 3.8
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['liquid_staking_yield']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 406,
+        "canonical_requirement": "RWA Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "rwa_allocation",
+        "input_defaults": {
+          "rwa_allocation_pct": 12.5,
+          "tokenized_tvl_usd": 2100000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['rwa_allocation']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 407,
+        "canonical_requirement": "Raises / Funding Rounds — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "funding_velocity",
+        "input_defaults": {
+          "rounds_90d": 6,
+          "median_raise_usd": 18000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['funding_velocity']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 408,
+        "canonical_requirement": "Investor Profiles — Derivatives, Funding & Liquidations",
+        "semantic_rule": "investor_breadth",
+        "input_defaults": {
+          "unique_investors": 28,
+          "avg_ticket_usd": 2500000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['investor_breadth']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 410,
+        "canonical_requirement": "Treasury Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "treasury_runway",
+        "input_defaults": {
+          "treasury_usd": 85000000.0,
+          "monthly_burn_usd": 4200000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['treasury_runway']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 411,
+        "canonical_requirement": "Airdrop / Incentive Intelligence — On-Chain, Wallet, Whale & Entity Intelligence",
+        "semantic_rule": "airdrop_pressure",
+        "input_defaults": {
+          "pending_airdrop_usd": 12000000.0,
+          "circulating_mcap_usd": 420000000.0,
+          "eligible_wallets": 15000
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['airdrop_pressure']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 412,
+        "canonical_requirement": "Capital Formation Radar — Data Platform, Quality & Connectors",
+        "semantic_rule": "capital_formation",
+        "input_defaults": {
+          "new_capital_usd": 55000000.0,
+          "sector_tvl_usd": 8000000000.0,
+          "sector_score": 1.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['capital_formation']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 413,
+        "canonical_requirement": "DeFi Opportunity Screener — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "defi_opportunity",
+        "input_defaults": {
+          "apy_pct": 7.4,
+          "tvl_usd": 1100000000.0,
+          "risk_score": 35
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['defi_opportunity']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 414,
+        "canonical_requirement": "DeFi Risk Passport — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "risk_passport",
+        "input_defaults": {
+          "audit_score": 82,
+          "exploit_history": 15,
+          "tvl_stability": 78
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['risk_passport']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 415,
+        "canonical_requirement": "API Aggregation Layer — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "api_aggregation",
+        "input_defaults": {
+          "endpoint_count": 12,
+          "freshness_score": 0.91
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['api_aggregation']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 416,
+        "canonical_requirement": "Cross-DeFi Decision Intelligence — Institutional, B2B, API & Developer Platform",
+        "semantic_rule": "cross_defi_decision",
+        "input_defaults": {
+          "signal_a": 0.62,
+          "signal_b": 0.55,
+          "signal_c": 0.48
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['cross_defi_decision']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 417,
+        "canonical_requirement": "Cross-Chain Fundamentals — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "cross_chain_fundamentals",
+        "input_defaults": {
+          "active_chains": 7,
+          "avg_tvl_per_chain_usd": 250000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['cross_chain_fundamentals']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 418,
+        "canonical_requirement": "Protocol Fundamentals — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "protocol_fundamentals",
+        "input_defaults": {
+          "revenue_usd": 1800000.0,
+          "tvl_usd": 3200000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['protocol_fundamentals']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 419,
+        "canonical_requirement": "Stablecoin Intelligence — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "stablecoin_intel",
+        "input_defaults": {
+          "peg_deviation_bps": 3.5,
+          "supply_change_7d_pct": 1.2
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['stablecoin_intel']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 420,
+        "canonical_requirement": "Stablecoin Activity Breakdown — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "stablecoin_activity",
+        "input_defaults": {
+          "transfer_volume_usd": 4500000000.0,
+          "supply_usd": 32000000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['stablecoin_activity']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 421,
+        "canonical_requirement": "Developer Activity — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "developer_activity",
+        "input_defaults": {
+          "commits_30d": 145,
+          "contributor_count": 22
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['developer_activity']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 422,
+        "canonical_requirement": "Sector/Ecosystem Comparables — Institutional, B2B, API & Developer Platform",
+        "semantic_rule": "sector_comparables",
+        "input_defaults": {
+          "sector_mcap_usd": 12000000000.0,
+          "peer_mcap_usd": 9000000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['sector_comparables']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 423,
+        "canonical_requirement": "Equities + Crypto Research — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "equities_crypto",
+        "input_defaults": {
+          "equity_beta": 1.15,
+          "crypto_correlation": 0.68
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['equities_crypto']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 424,
+        "canonical_requirement": "Consensus Estimates — UX, Dashboards, Visualization & Beginner Experience",
+        "semantic_rule": "consensus_estimates",
+        "input_defaults": {
+          "estimate_high": 125,
+          "estimate_low": 98
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['consensus_estimates']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 425,
+        "canonical_requirement": "AI Analyst — Data Platform, Quality & Connectors",
+        "semantic_rule": "ai_analyst",
+        "input_defaults": {
+          "confidence": 0.78,
+          "signal_strength": 0.65
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['ai_analyst']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 426,
+        "canonical_requirement": "Thesis Research Workspace — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "thesis_workspace",
+        "input_defaults": {
+          "thesis_score": 0.72,
+          "evidence_count": 14
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['thesis_workspace']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 427,
+        "canonical_requirement": "Comparable Company / Protocol Analysis — Technical, Quant & Predictive Analytics",
+        "semantic_rule": "comparable_company",
+        "input_defaults": {
+          "target_metric": 18.5,
+          "peer_median": 14.2
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['comparable_company']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 428,
+        "canonical_requirement": "Excel / Sheets Integration — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "excel_sheets",
+        "input_defaults": {
+          "export_rows": 2500,
+          "refresh_minutes": 15
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['excel_sheets']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 429,
+        "canonical_requirement": "API Data Platform — Security, Privacy, Identity & Compliance",
+        "semantic_rule": "api_data_platform",
+        "input_defaults": {
+          "daily_api_calls": 125000,
+          "quota_calls": 250000
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['api_data_platform']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 430,
+        "canonical_requirement": "Research Templates — Technical, Quant & Predictive Analytics",
+        "semantic_rule": "research_templates",
+        "input_defaults": {
+          "template_count": 18,
+          "coverage_score": 0.84
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['research_templates']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 431,
+        "canonical_requirement": "Dashboards — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "dashboards",
+        "input_defaults": {
+          "widget_count": 24,
+          "freshness_score": 0.88
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['dashboards']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 432,
+        "canonical_requirement": "Stablecoin Payment Intelligence — UX, Dashboards, Visualization & Beginner Experience",
+        "semantic_rule": "stablecoin_payment",
+        "input_defaults": {
+          "payment_volume_usd": 850000000.0,
+          "merchant_count": 4200
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['stablecoin_payment']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 433,
+        "canonical_requirement": "On-Chain Usage Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "on_chain_usage",
+        "input_defaults": {
+          "daily_active_addresses": 125000,
+          "tx_per_user": 2.4
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['on_chain_usage']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 434,
+        "canonical_requirement": "Revenue / Fees / Economic Activity — On-Chain, Wallet, Whale & Entity Intelligence",
+        "semantic_rule": "revenue_fees",
+        "input_defaults": {
+          "fees_24h_usd": 420000,
+          "tvl_usd": 1500000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['revenue_fees']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 435,
+        "canonical_requirement": "Cross-Market Research Copilot — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "cross_market_copilot",
+        "input_defaults": {
+          "equity_signal": 0.58,
+          "crypto_signal": 0.71
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['cross_market_copilot']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 436,
+        "canonical_requirement": "Investment Thesis Scoring — AI, Sentiment, News & Decision Intelligence",
+        "semantic_rule": "investment_thesis",
+        "input_defaults": {
+          "growth_score": 72,
+          "risk_score": 28,
+          "moat_score": 65
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['investment_thesis']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 438,
+        "canonical_requirement": "Lending Market Risk — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "lending_market_risk",
+        "input_defaults": {
+          "utilization_pct": 81,
+          "liquidation_buffer_pct": 12
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['lending_market_risk']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 439,
+        "canonical_requirement": "Collateral Risk — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "collateral_risk",
+        "input_defaults": {
+          "collateral_factor": 0.78,
+          "price_volatility_pct": 22
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['collateral_risk']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 440,
+        "canonical_requirement": "Liquidation Risk — Risk, Hedging & Stress Analytics",
+        "semantic_rule": "liquidation_risk",
+        "input_defaults": {
+          "near_liq_positions": 145,
+          "open_positions": 3200
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['liquidation_risk']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 442,
+        "canonical_requirement": "Liquidity Risk — Risk, Hedging & Stress Analytics",
+        "semantic_rule": "liquidity_risk",
+        "input_defaults": {
+          "bid_ask_bps": 8.5,
+          "depth_usd": 12000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['liquidity_risk']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 443,
+        "canonical_requirement": "Protocol Exploit Intelligence — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "protocol_exploit",
+        "input_defaults": {
+          "exploit_incidents_12m": 2,
+          "tvl_at_risk_usd": 450000000.0
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['protocol_exploit']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 444,
+        "canonical_requirement": "Stablecoin Risk Intelligence — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "stablecoin_risk",
+        "input_defaults": {
+          "depeg_events_12m": 1,
+          "reserve_transparency_score": 88
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['stablecoin_risk']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 445,
+        "canonical_requirement": "DeFi Strategy Risk — DeFi, Yield, Stablecoins & Token Economics",
+        "semantic_rule": "defi_strategy_risk",
+        "input_defaults": {
+          "leverage_ratio": 2.4,
+          "strategy_var_pct": 18
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['defi_strategy_risk']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 446,
+        "canonical_requirement": "Real-Time Risk Alerts — Reporting, Audit, Tax & Governance",
+        "semantic_rule": "real_time_alerts",
+        "input_defaults": {
+          "alert_count_24h": 37,
+          "severity_weight": 1.6
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['real_time_alerts']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 447,
+        "canonical_requirement": "DAO Treasury Risk — Risk, Hedging & Stress Analytics",
+        "semantic_rule": "dao_treasury",
+        "input_defaults": {
+          "treasury_usd": 120000000.0,
+          "token_holders": 45000
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['dao_treasury']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 448,
+        "canonical_requirement": "Institutional Risk API — On-Chain, Wallet, Whale & Entity Intelligence",
+        "semantic_rule": "institutional_risk_api",
+        "input_defaults": {
+          "risk_score": 42,
+          "coverage_pct": 93
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['institutional_risk_api']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 449,
+        "canonical_requirement": "Curated On-Chain Dashboards — Institutional, B2B, API & Developer Platform",
+        "semantic_rule": "curated_dashboards",
+        "input_defaults": {
+          "dashboard_count": 9,
+          "metric_freshness_min": 12
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['curated_dashboards']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      },
+      {
+        "capability_id": 450,
+        "canonical_requirement": "Narrative-Driven Research — On-Chain, Wallet, Whale & Entity Intelligence",
+        "semantic_rule": "narrative_research",
+        "input_defaults": {
+          "narrative_strength": 0.74,
+          "social_velocity": 1.35
+        },
+        "independent_oracle": "tests/batch09_independent_semantic_oracles.py PRIMARY_FIELD['narrative_research']",
+        "negative_boundary": "independent_boundary_primary() with 1% degraded inputs",
+        "classification": "VALID_PARAMETERIZED_SEMANTICS"
+      }
+    ],
+    "tests": [
+      {
+        "command": "pytest tests/test_batch09_independent_oracle_semantics.py",
+        "exit_code": 0,
+        "passed": true
+      },
+      {
+        "command": "pytest tests/test_batch09_shared_core_semantics.py",
+        "exit_code": 0,
+        "passed": true
+      }
+    ]
+  },
+  "governance_hierarchy": {
+    "institutional_standard": {
+      "version": "v6",
+      "path": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md",
+      "role": "ACTIVE_GOVERNING"
+    },
+    "domain_standard": {
+      "version": "v4_v2",
+      "path": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "role": "ACTIVE_DOMAIN_SUBORDINATE",
+      "subordinate_to": "v6"
+    },
+    "prospective_application_only": true,
+    "historical_evidence_not_rewritten": true
+  },
+  "v6_applicability": {
+    "rows": [
+      {
+        "requirement": "v6 supreme governing standard; v5 superseded historical",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE",
+        "evidence": "docs/standards/معيار_مؤسسي_صارم_لبناء_القدرات_والمميزات_وجاهزية_لجنة_الفحص_2026_v6.md"
+      },
+      {
+        "requirement": "Shared-core semantic distinctness (not name/seed-only)",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE",
+        "evidence": "tests/test_batch09_independent_oracle_semantics.py"
+      },
+      {
+        "requirement": "Formal gate provenance on material code",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE",
+        "evidence": "docs/BATCH09_FORMAL_GATE_PROVENANCE.json"
+      },
+      {
+        "requirement": "Consumer path beyond generic gateway",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE",
+        "evidence": "tests/test_batch09_consumer_paths.py"
+      },
+      {
+        "requirement": "Orthogonal status dimensions without SSOT contradiction",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE",
+        "evidence": "docs/BATCH09_STATE_STATUS_DIMENSIONS.json"
+      }
+    ],
+    "local_delta_required": [],
+    "V6_BATCH09_DELTA_RESOLVED": true
+  },
+  "v4_v2_applicability": {
+    "rows": [
+      {
+        "requirement": "Data asset contracts / accumulation stores (Signal/Decision/Outcome ledgers)",
+        "batch09_applicability": "Insight-only analytics batch; no per-capability ledger write path claimed",
+        "classification": "NO_MATERIAL_DELTA"
+      },
+      {
+        "requirement": "Provenance / formula visibility / attribution on derived intelligence",
+        "batch09_applicability": "formula_visible + attribution on semantic payloads",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE",
+        "evidence": "bd_platform/batch09_semantic_engine.py + tests/test_batch09_independent_oracle_semantics.py"
+      },
+      {
+        "requirement": "PIT replay / track-record store for published signals",
+        "batch09_applicability": "Batch09 PASS_ENGINEERING uses seed contracts; live replay deferred pre-G6",
+        "classification": "EXTERNAL_ONLY"
+      },
+      {
+        "requirement": "Data rights / analysis-only / no-execution disclaimers",
+        "batch09_applicability": "analysis_only + no_execution on defi layer payloads",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE",
+        "evidence": "bd_platform/defi_yield_intelligence_layer.py _base()"
+      },
+      {
+        "requirement": "Retention / recovery / evidence integrity for strategic assets",
+        "batch09_applicability": "Institutional evidence via freeze artifacts; live retention spine pre-G6",
+        "classification": "EXTERNAL_ONLY"
+      },
+      {
+        "requirement": "Reuse/extend existing infrastructure; no parallel SSOT",
+        "batch09_applicability": "cap646 + registry + shared defi layer; GOVERNING_STANDARD.json single pointer",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE"
+      },
+      {
+        "requirement": "Strategic NOW/KEEP/BUILD_NOW labels not implementation proof",
+        "batch09_applicability": "Batch09 closure uses runtime tests + formal gates only",
+        "classification": "ALREADY_SATISFIED_WITH_EVIDENCE"
+      }
+    ],
+    "local_delta_required": [],
+    "V4_V2_BATCH09_MATERIAL_DELTA": 0,
+    "affected_ids": []
+  },
+  "known_local_deficiencies": [],
+  "flags": {
+    "SHARED_CORE_MEMBERSHIP_RECONCILED": true,
+    "PARAMETERIZED_SEMANTICS_PROVEN_47_OF_47": true,
+    "SELF_FULFILLING_ORACLES_ZERO": true,
+    "V6_BATCH09_DELTA_RESOLVED": true,
+    "V4_V2_BATCH09_MATERIAL_DELTA_ZERO": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true,
+    "BATCH09_FINAL_LOCAL_FREEZE": true
+  },
+  "preserved_statuses": {
+    "PASS_LIVE": "NOT_CLAIMED",
+    "G6": "BLOCKED_EXTERNAL_RAILWAY",
+    "G7": "PENDING_INDEPENDENT_ASSURANCE"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "artifact": "BATCH09_CONDITIONAL_DEFECT_RESOLUTION",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "unresolved_conditional_defects": 0,
+  "resolutions": [
+    {
+      "id": "G1-2",
+      "original_issue": "Parallel status dimensions (PENDING vs EXISTING_VERIFIED vs PASS_ENGINEERING)",
+      "final_disposition": "FIXED",
+      "evidence": "docs/BATCH09_STATE_STATUS_DIMENSIONS.json — orthogonal dimensions mapped with zero active_ssot_contradictions",
+      "blocks_local_freeze": false,
+      "why": "Dimensions are documented as non-interchangeable; no stale truth claims."
+    },
+    {
+      "id": "G1-5",
+      "original_issue": "Consumer path assumed GET /api/cap646/{id} only",
+      "final_disposition": "FIXED",
+      "evidence": "tests/test_batch09_consumer_paths.py — HTTP→cap646 runtime→registry backend + material surface fields for special modes",
+      "blocks_local_freeze": false,
+      "why": "Gateway documented as entrypoint only; downstream semantic surfaces tested per mode."
+    },
+    {
+      "id": "G2-2",
+      "original_issue": "Not Greenfield/Brownfield/Stub taxonomy labels",
+      "final_disposition": "ACCEPTED_NON_BLOCKING_WITH_EVIDENCE",
+      "evidence": "docs/BATCH09_V3_STATE_CLASSIFICATION.json EXISTING_VERIFIED/PARTIAL_CANONICAL per v6 §113 engineering forensics",
+      "blocks_local_freeze": false,
+      "why": "V3 vocabulary is the governing engineering classification; legacy GB/S labels are not required for local freeze."
+    },
+    {
+      "id": "G8-1",
+      "original_issue": "No live probe of all free/public data sources",
+      "final_disposition": "ACCEPTED_NON_BLOCKING_WITH_EVIDENCE",
+      "evidence": "Seed/fallback contracts exercised in semantic + consumer tests; live probes deferred to G6/Railway (PASS_LIVE NOT_CLAIMED)",
+      "blocks_local_freeze": false,
+      "why": "Locally testable material paths covered; live-only probes are external-blocked pre-G6."
+    }
+  ]
+}

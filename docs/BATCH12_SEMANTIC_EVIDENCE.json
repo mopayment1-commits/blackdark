@@ -1,0 +1,1280 @@
+{
+  "artifact": "BATCH12_SEMANTIC_EVIDENCE",
+  "generated_at_utc": "2026-09-07T16:28:26.006675+00:00",
+  "git_commit": "cf539c1070c55dc253c93d682dd031b215a2f56a",
+  "shared_ids_accounted": "47/47",
+  "parameterized_count": 47,
+  "generic_template_defect": 0,
+  "wrong_semantics": 0,
+  "rows": [
+    {
+      "capability_id": 552,
+      "canonical_requirement": "Futures Volume — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Futures Volume",
+      "actual_inputs_data_used": {
+        "futures_volume_usd": 1250000000.0,
+        "spot_volume_usd": 980000000.0,
+        "venue_count": 14
+      },
+      "transformation_calculation_rules": "futures_volume",
+      "expected_semantic_outcome": {
+        "futures_volume": 127.551,
+        "futures_volume_usd": 1250000000.0,
+        "spot_volume_usd": 980000000.0,
+        "venue_count": 14.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=futures_volume with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "First shared-core parameterized ID in batch12 institutional delivery layer",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 553,
+      "canonical_requirement": "Basis Intelligence — Market Data, Pricing & Liquidity",
+      "real_semantic_objective": "Basis Intelligence",
+      "actual_inputs_data_used": {
+        "perp_price": 42150.5,
+        "spot_price": 42080.2,
+        "basis_bps": 16.8
+      },
+      "transformation_calculation_rules": "basis_intelligence",
+      "expected_semantic_outcome": {
+        "basis_intelligence": 70.3,
+        "perp_price": 42150.5,
+        "spot_price": 42080.2,
+        "basis_bps": 16.8,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=basis_intelligence with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule basis_intelligence vs neighbor #552 rule futures_volume; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 554,
+      "canonical_requirement": "Spot Market Data — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Spot Market Data",
+      "actual_inputs_data_used": {
+        "tick_rate_hz": 420,
+        "symbols_covered": 380,
+        "latency_ms": 18
+      },
+      "transformation_calculation_rules": "spot_market_data",
+      "expected_semantic_outcome": {
+        "spot_market_data": 340.4,
+        "tick_rate_hz": 420.0,
+        "symbols_covered": 380.0,
+        "latency_ms": 18.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=spot_market_data with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule spot_market_data vs neighbor #553 rule basis_intelligence; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 555,
+      "canonical_requirement": "Options Analytics — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Options Analytics",
+      "actual_inputs_data_used": {
+        "contracts_tracked": 520,
+        "greeks_fields": 7,
+        "expiry_buckets": 9
+      },
+      "transformation_calculation_rules": "options_analytics",
+      "expected_semantic_outcome": {
+        "options_analytics": 327.6,
+        "contracts_tracked": 520.0,
+        "greeks_fields": 7.0,
+        "expiry_buckets": 9.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=options_analytics with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule options_analytics vs neighbor #554 rule spot_market_data; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 556,
+      "canonical_requirement": "Options IV Surface — Market Data, Pricing & Liquidity",
+      "real_semantic_objective": "Options IV Surface",
+      "actual_inputs_data_used": {
+        "atm_iv_pct": 62.5,
+        "realized_vol_pct": 48.2,
+        "surface_nodes": 36
+      },
+      "transformation_calculation_rules": "options_iv_surface",
+      "expected_semantic_outcome": {
+        "options_iv_surface": 129.668,
+        "atm_iv_pct": 62.5,
+        "realized_vol_pct": 48.2,
+        "surface_nodes": 36.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=options_iv_surface with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule options_iv_surface vs neighbor #555 rule options_analytics; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 557,
+      "canonical_requirement": "Options Skew — Foundation, Architecture & Reliability",
+      "real_semantic_objective": "Options Skew",
+      "actual_inputs_data_used": {
+        "put_iv_pct": 68.4,
+        "call_iv_pct": 54.1,
+        "skew_strikes": 24
+      },
+      "transformation_calculation_rules": "options_skew",
+      "expected_semantic_outcome": {
+        "options_skew": 14.3,
+        "put_iv_pct": 68.4,
+        "call_iv_pct": 54.1,
+        "skew_strikes": 24.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=options_skew with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule options_skew vs neighbor #556 rule options_iv_surface; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 558,
+      "canonical_requirement": "Options Term Structure — Risk, Hedging & Stress Analytics",
+      "real_semantic_objective": "Options Term Structure",
+      "actual_inputs_data_used": {
+        "front_iv_pct": 58.0,
+        "back_iv_pct": 52.5,
+        "tenor_days": 90
+      },
+      "transformation_calculation_rules": "options_term_structure",
+      "expected_semantic_outcome": {
+        "options_term_structure": 46.75,
+        "front_iv_pct": 58.0,
+        "back_iv_pct": 52.5,
+        "tenor_days": 90.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=options_term_structure with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule options_term_structure vs neighbor #557 rule options_skew; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 559,
+      "canonical_requirement": "TradFi Context — Foundation, Architecture & Reliability",
+      "real_semantic_objective": "TradFi Context",
+      "actual_inputs_data_used": {
+        "macro_signals": 12,
+        "risk_events_24h": 4,
+        "equity_beta": 0.72
+      },
+      "transformation_calculation_rules": "tradfi_context",
+      "expected_semantic_outcome": {
+        "tradfi_context": 300.0,
+        "macro_signals": 12.0,
+        "risk_events_24h": 4.0,
+        "equity_beta": 0.72,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=tradfi_context with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule tradfi_context vs neighbor #558 rule options_term_structure; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 560,
+      "canonical_requirement": "Multi-Indicator Workspace — Unmapped PDF Extension Track",
+      "real_semantic_objective": "Multi-Indicator Workspace",
+      "actual_inputs_data_used": {
+        "indicators_active": 18,
+        "panes_count": 6,
+        "refresh_hz": 3
+      },
+      "transformation_calculation_rules": "multi_indicator_workspace",
+      "expected_semantic_outcome": {
+        "multi_indicator_workspace": 3.24,
+        "indicators_active": 18.0,
+        "panes_count": 6.0,
+        "refresh_hz": 3.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=multi_indicator_workspace with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule multi_indicator_workspace vs neighbor #559 rule tradfi_context; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 561,
+      "canonical_requirement": "Real-Time Prices — Foundation, Architecture & Reliability",
+      "real_semantic_objective": "Real-Time Prices",
+      "actual_inputs_data_used": {
+        "updates_per_sec": 960,
+        "latency_ms": 14,
+        "venues_streaming": 16
+      },
+      "transformation_calculation_rules": "real_time_prices",
+      "expected_semantic_outcome": {
+        "real_time_prices": 68.5714,
+        "updates_per_sec": 960.0,
+        "latency_ms": 14.0,
+        "venues_streaming": 16.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=real_time_prices with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule real_time_prices vs neighbor #560 rule multi_indicator_workspace; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 562,
+      "canonical_requirement": "Historical Data — Market Data, Pricing & Liquidity",
+      "real_semantic_objective": "Historical Data",
+      "actual_inputs_data_used": {
+        "bars_available": 8760,
+        "bars_expected": 9000,
+        "interval_minutes": 60
+      },
+      "transformation_calculation_rules": "historical_data",
+      "expected_semantic_outcome": {
+        "historical_data": 97.3333,
+        "bars_available": 8760.0,
+        "bars_expected": 9000.0,
+        "interval_minutes": 60.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=historical_data with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule historical_data vs neighbor #561 rule real_time_prices; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 563,
+      "canonical_requirement": "API Data Access — Market Data, Pricing & Liquidity",
+      "real_semantic_objective": "API Data Access",
+      "actual_inputs_data_used": {
+        "endpoint_count": 84,
+        "sla_uptime_pct": 99.4,
+        "p95_latency_ms": 92
+      },
+      "transformation_calculation_rules": "api_data_access",
+      "expected_semantic_outcome": {
+        "api_data_access": 73.42,
+        "endpoint_count": 84.0,
+        "sla_uptime_pct": 99.4,
+        "p95_latency_ms": 92.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=api_data_access with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule api_data_access vs neighbor #562 rule historical_data; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 564,
+      "canonical_requirement": "News Context — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "News Context",
+      "actual_inputs_data_used": {
+        "articles_24h": 145,
+        "sentiment_score": 0.62,
+        "entity_tags": 28
+      },
+      "transformation_calculation_rules": "news_context",
+      "expected_semantic_outcome": {
+        "news_context": 25.172,
+        "articles_24h": 145.0,
+        "sentiment_score": 0.62,
+        "entity_tags": 28.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=news_context with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule news_context vs neighbor #563 rule api_data_access; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 565,
+      "canonical_requirement": "Cross-Asset Correlation — Data Platform, Quality & Connectors",
+      "real_semantic_objective": "Cross-Asset Correlation",
+      "actual_inputs_data_used": {
+        "btc_correlation": 0.78,
+        "eth_correlation": 0.65,
+        "lookback_days": 30
+      },
+      "transformation_calculation_rules": "cross_asset_correlation",
+      "expected_semantic_outcome": {
+        "cross_asset_correlation": 0.13,
+        "btc_correlation": 0.78,
+        "eth_correlation": 0.65,
+        "lookback_days": 30.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=cross_asset_correlation with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule cross_asset_correlation vs neighbor #564 rule news_context; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 566,
+      "canonical_requirement": "Derivatives Regime Engine — Foundation, Architecture & Reliability",
+      "real_semantic_objective": "Derivatives Regime Engine",
+      "actual_inputs_data_used": {
+        "trend_score": 72,
+        "vol_regime_score": 68,
+        "funding_regime_score": 61
+      },
+      "transformation_calculation_rules": "derivatives_regime_engine",
+      "expected_semantic_outcome": {
+        "derivatives_regime_engine": 64.2,
+        "trend_score": 72.0,
+        "vol_regime_score": 68.0,
+        "funding_regime_score": 61.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=derivatives_regime_engine with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule derivatives_regime_engine vs neighbor #565 rule cross_asset_correlation; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 567,
+      "canonical_requirement": "Cross-Market Decision Intelligence — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Cross-Market Decision Intelligence",
+      "actual_inputs_data_used": {
+        "spot_signal": 0.64,
+        "perp_signal": 0.58,
+        "options_signal": 0.51
+      },
+      "transformation_calculation_rules": "cross_market_decision_intelligence",
+      "expected_semantic_outcome": {
+        "cross_market_decision_intelligence": 0.5773,
+        "spot_signal": 0.64,
+        "perp_signal": 0.58,
+        "options_signal": 0.51,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=cross_market_decision_intelligence with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule cross_market_decision_intelligence vs neighbor #566 rule derivatives_regime_engine; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 568,
+      "canonical_requirement": "Security_First_Architecture — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Security First Architecture",
+      "actual_inputs_data_used": {
+        "controls_passed": 46,
+        "controls_total": 50,
+        "audit_findings": 2
+      },
+      "transformation_calculation_rules": "security_first_architecture",
+      "expected_semantic_outcome": {
+        "security_first_architecture": 92.0,
+        "controls_passed": 46.0,
+        "controls_total": 50.0,
+        "audit_findings": 2.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=security_first_architecture with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule security_first_architecture vs neighbor #567 rule cross_market_decision_intelligence; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 569,
+      "canonical_requirement": "API_Security_Encryption — Security, Privacy, Identity & Compliance",
+      "real_semantic_objective": "API Security Encryption",
+      "actual_inputs_data_used": {
+        "tls_coverage_pct": 99.8,
+        "key_rotation_days": 28,
+        "auth_strength_score": 88
+      },
+      "transformation_calculation_rules": "api_security_encryption",
+      "expected_semantic_outcome": {
+        "api_security_encryption": 60.7,
+        "tls_coverage_pct": 99.8,
+        "key_rotation_days": 28.0,
+        "auth_strength_score": 88.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=api_security_encryption with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule api_security_encryption vs neighbor #568 rule security_first_architecture; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 570,
+      "canonical_requirement": "High_Availability_Architecture — Security, Privacy, Identity & Compliance",
+      "real_semantic_objective": "High Availability Architecture",
+      "actual_inputs_data_used": {
+        "healthy_nodes": 11,
+        "total_nodes": 12,
+        "failover_seconds": 18
+      },
+      "transformation_calculation_rules": "high_availability_architecture",
+      "expected_semantic_outcome": {
+        "high_availability_architecture": 91.6667,
+        "healthy_nodes": 11.0,
+        "total_nodes": 12.0,
+        "failover_seconds": 18.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=high_availability_architecture with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule high_availability_architecture vs neighbor #569 rule api_security_encryption; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 571,
+      "canonical_requirement": "Infrastructure_Uptime_Shield — Foundation, Architecture & Reliability",
+      "real_semantic_objective": "Infrastructure Uptime Shield",
+      "actual_inputs_data_used": {
+        "uptime_pct": 99.92,
+        "incidents_30d": 1,
+        "mttr_minutes": 12
+      },
+      "transformation_calculation_rules": "infrastructure_uptime_shield",
+      "expected_semantic_outcome": {
+        "infrastructure_uptime_shield": 67.86,
+        "uptime_pct": 99.92,
+        "incidents_30d": 1.0,
+        "mttr_minutes": 12.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=infrastructure_uptime_shield with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule infrastructure_uptime_shield vs neighbor #570 rule high_availability_architecture; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 572,
+      "canonical_requirement": "Institutional_Data_Architecture — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "Institutional Data Architecture",
+      "actual_inputs_data_used": {
+        "data_domains": 14,
+        "pipelines_active": 36,
+        "retention_years": 7
+      },
+      "transformation_calculation_rules": "institutional_data_architecture",
+      "expected_semantic_outcome": {
+        "institutional_data_architecture": 35.28,
+        "data_domains": 14.0,
+        "pipelines_active": 36.0,
+        "retention_years": 7.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=institutional_data_architecture with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule institutional_data_architecture vs neighbor #571 rule infrastructure_uptime_shield; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 573,
+      "canonical_requirement": "Flexible_Connector_Microservice — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "Flexible Connector Microservice",
+      "actual_inputs_data_used": {
+        "connectors_live": 22,
+        "connectors_planned": 26,
+        "avg_latency_ms": 45
+      },
+      "transformation_calculation_rules": "flexible_connector_microservice",
+      "expected_semantic_outcome": {
+        "flexible_connector_microservice": 84.6154,
+        "connectors_live": 22.0,
+        "connectors_planned": 26.0,
+        "avg_latency_ms": 45.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=flexible_connector_microservice with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule flexible_connector_microservice vs neighbor #572 rule institutional_data_architecture; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 574,
+      "canonical_requirement": "Institutional_API_Gateway — Security, Privacy, Identity & Compliance",
+      "real_semantic_objective": "Institutional API Gateway",
+      "actual_inputs_data_used": {
+        "requests_per_sec": 1850,
+        "p99_latency_ms": 48,
+        "routes_configured": 120
+      },
+      "transformation_calculation_rules": "institutional_api_gateway",
+      "expected_semantic_outcome": {
+        "institutional_api_gateway": 38.5417,
+        "requests_per_sec": 1850.0,
+        "p99_latency_ms": 48.0,
+        "routes_configured": 120.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=institutional_api_gateway with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule institutional_api_gateway vs neighbor #573 rule flexible_connector_microservice; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 575,
+      "canonical_requirement": "API_Data_Pipe — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "API Data Pipe",
+      "actual_inputs_data_used": {
+        "throughput_mbps": 420,
+        "error_rate_pct": 0.12,
+        "batch_jobs_24h": 86
+      },
+      "transformation_calculation_rules": "api_data_pipe",
+      "expected_semantic_outcome": {
+        "api_data_pipe": 212.836,
+        "throughput_mbps": 420.0,
+        "error_rate_pct": 0.12,
+        "batch_jobs_24h": 86.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=api_data_pipe with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule api_data_pipe vs neighbor #574 rule institutional_api_gateway; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 576,
+      "canonical_requirement": "Developer_SDK — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "Developer SDK",
+      "actual_inputs_data_used": {
+        "sdk_methods": 128,
+        "language_bindings": 5,
+        "downloads_30d": 4200
+      },
+      "transformation_calculation_rules": "developer_sdk",
+      "expected_semantic_outcome": {
+        "developer_sdk": 26880.0,
+        "sdk_methods": 128.0,
+        "language_bindings": 5.0,
+        "downloads_30d": 4200.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=developer_sdk with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule developer_sdk vs neighbor #575 rule api_data_pipe; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 577,
+      "canonical_requirement": "Pro_Developer_Sandbox — Institutional, B2B, API & Developer Platform",
+      "real_semantic_objective": "Pro Developer Sandbox",
+      "actual_inputs_data_used": {
+        "sandbox_runs_24h": 240,
+        "quota_runs": 300,
+        "avg_runtime_sec": 18
+      },
+      "transformation_calculation_rules": "pro_developer_sandbox",
+      "expected_semantic_outcome": {
+        "pro_developer_sandbox": 80.0,
+        "sandbox_runs_24h": 240.0,
+        "quota_runs": 300.0,
+        "avg_runtime_sec": 18.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=pro_developer_sandbox with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule pro_developer_sandbox vs neighbor #576 rule developer_sdk; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 579,
+      "canonical_requirement": "Global_Asset_Tracker — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Global Asset Tracker",
+      "actual_inputs_data_used": {
+        "assets_tracked": 420,
+        "chains_covered": 18,
+        "sync_latency_sec": 22
+      },
+      "transformation_calculation_rules": "global_asset_tracker",
+      "expected_semantic_outcome": {
+        "global_asset_tracker": 231.0,
+        "assets_tracked": 420.0,
+        "chains_covered": 18.0,
+        "sync_latency_sec": 22.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=global_asset_tracker with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule global_asset_tracker vs neighbor #577 rule pro_developer_sandbox; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 580,
+      "canonical_requirement": "Multi_Account_Sync — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Multi Account Sync",
+      "actual_inputs_data_used": {
+        "accounts_synced": 14,
+        "accounts_total": 16,
+        "drift_events_24h": 1
+      },
+      "transformation_calculation_rules": "multi_account_sync",
+      "expected_semantic_outcome": {
+        "multi_account_sync": 87.5,
+        "accounts_synced": 14.0,
+        "accounts_total": 16.0,
+        "drift_events_24h": 1.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=multi_account_sync with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule multi_account_sync vs neighbor #579 rule global_asset_tracker; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 581,
+      "canonical_requirement": "On_Chain_Balance_Monitor — Billing, Subscription, Tenant & Business Operations",
+      "real_semantic_objective": "On Chain Balance Monitor",
+      "actual_inputs_data_used": {
+        "wallets_monitored": 860,
+        "alert_latency_sec": 28,
+        "chains_watched": 12
+      },
+      "transformation_calculation_rules": "on_chain_balance_monitor",
+      "expected_semantic_outcome": {
+        "on_chain_balance_monitor": 30.7143,
+        "wallets_monitored": 860.0,
+        "alert_latency_sec": 28.0,
+        "chains_watched": 12.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=on_chain_balance_monitor with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule on_chain_balance_monitor vs neighbor #580 rule multi_account_sync; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 582,
+      "canonical_requirement": "Profitability_Analyzer — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Profitability Analyzer",
+      "actual_inputs_data_used": {
+        "realized_pnl_usd": 125000.0,
+        "unrealized_pnl_usd": 42000.0,
+        "trade_count_30d": 186
+      },
+      "transformation_calculation_rules": "profitability_analyzer",
+      "expected_semantic_outcome": {
+        "profitability_analyzer": 83000.0,
+        "realized_pnl_usd": 125000.0,
+        "unrealized_pnl_usd": 42000.0,
+        "trade_count_30d": 186.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=profitability_analyzer with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule profitability_analyzer vs neighbor #581 rule on_chain_balance_monitor; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 583,
+      "canonical_requirement": "Margin_Risk_Calculator — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Margin Risk Calculator",
+      "actual_inputs_data_used": {
+        "margin_usage_pct": 62,
+        "liquidation_buffer_pct": 18,
+        "leverage_ratio": 4.2
+      },
+      "transformation_calculation_rules": "margin_risk_calculator",
+      "expected_semantic_outcome": {
+        "margin_risk_calculator": 55.56,
+        "margin_usage_pct": 62.0,
+        "liquidation_buffer_pct": 18.0,
+        "leverage_ratio": 4.2,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=margin_risk_calculator with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule margin_risk_calculator vs neighbor #582 rule profitability_analyzer; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 585,
+      "canonical_requirement": "Volatility_Scoring_System — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Volatility Scoring System",
+      "actual_inputs_data_used": {
+        "vol_score": 74,
+        "max_score": 100,
+        "lookback_days": 14
+      },
+      "transformation_calculation_rules": "volatility_scoring_system",
+      "expected_semantic_outcome": {
+        "volatility_scoring_system": 74.0,
+        "vol_score": 74.0,
+        "max_score": 100.0,
+        "lookback_days": 14.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=volatility_scoring_system with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule volatility_scoring_system vs neighbor #583 rule margin_risk_calculator; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 586,
+      "canonical_requirement": "Volatility_Surface_Analyzer — Risk, Hedging & Stress Analytics",
+      "real_semantic_objective": "Volatility Surface Analyzer",
+      "actual_inputs_data_used": {
+        "surface_points": 240,
+        "atm_iv_pct": 59.5,
+        "term_buckets": 8
+      },
+      "transformation_calculation_rules": "volatility_surface_analyzer",
+      "expected_semantic_outcome": {
+        "volatility_surface_analyzer": 1142.4,
+        "surface_points": 240.0,
+        "atm_iv_pct": 59.5,
+        "term_buckets": 8.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=volatility_surface_analyzer with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule volatility_surface_analyzer vs neighbor #585 rule volatility_scoring_system; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 587,
+      "canonical_requirement": "Delta_Neutral_Calculator — Arbitrage, Execution & Trading Systems",
+      "real_semantic_objective": "Delta Neutral Calculator",
+      "actual_inputs_data_used": {
+        "portfolio_delta": 0.18,
+        "target_delta": 0.0,
+        "hedge_legs": 6
+      },
+      "transformation_calculation_rules": "delta_neutral_calculator",
+      "expected_semantic_outcome": {
+        "delta_neutral_calculator": 0.18,
+        "portfolio_delta": 0.18,
+        "target_delta": 0.0,
+        "hedge_legs": 6.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=delta_neutral_calculator with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule delta_neutral_calculator vs neighbor #586 rule volatility_surface_analyzer; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 588,
+      "canonical_requirement": "High_Precision_Backtesting — Security, Privacy, Identity & Compliance",
+      "real_semantic_objective": "High Precision Backtesting",
+      "actual_inputs_data_used": {
+        "trades_simulated": 125000,
+        "runtime_sec": 420,
+        "precision_bps": 0.5
+      },
+      "transformation_calculation_rules": "high_precision_backtesting",
+      "expected_semantic_outcome": {
+        "high_precision_backtesting": 297.619,
+        "trades_simulated": 125000.0,
+        "runtime_sec": 420.0,
+        "precision_bps": 0.5,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=high_precision_backtesting with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule high_precision_backtesting vs neighbor #587 rule delta_neutral_calculator; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 589,
+      "canonical_requirement": "Strategy_Vetting_Algorithm — Derivatives, Funding & Liquidations",
+      "real_semantic_objective": "Strategy Vetting Algorithm",
+      "actual_inputs_data_used": {
+        "sharpe_ratio": 1.42,
+        "max_drawdown_pct": 12.5,
+        "win_rate_pct": 58
+      },
+      "transformation_calculation_rules": "strategy_vetting_algorithm",
+      "expected_semantic_outcome": {
+        "strategy_vetting_algorithm": 12.86,
+        "sharpe_ratio": 1.42,
+        "max_drawdown_pct": 12.5,
+        "win_rate_pct": 58.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=strategy_vetting_algorithm with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule strategy_vetting_algorithm vs neighbor #588 rule high_precision_backtesting; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 590,
+      "canonical_requirement": "AI_Quant_Rating_Engine — Risk, Hedging & Stress Analytics",
+      "real_semantic_objective": "AI Quant Rating Engine",
+      "actual_inputs_data_used": {
+        "momentum_score": 0.71,
+        "value_score": 0.64,
+        "risk_score": 0.58
+      },
+      "transformation_calculation_rules": "ai_quant_rating_engine",
+      "expected_semantic_outcome": {
+        "ai_quant_rating_engine": 0.644,
+        "momentum_score": 0.71,
+        "value_score": 0.64,
+        "risk_score": 0.58,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=ai_quant_rating_engine with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule ai_quant_rating_engine vs neighbor #589 rule strategy_vetting_algorithm; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 591,
+      "canonical_requirement": "Sentiment_Analysis_Engine — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Sentiment Analysis Engine",
+      "actual_inputs_data_used": {
+        "positive_mentions": 420,
+        "total_mentions": 680,
+        "confidence_pct": 82
+      },
+      "transformation_calculation_rules": "sentiment_analysis_engine",
+      "expected_semantic_outcome": {
+        "sentiment_analysis_engine": 61.7647,
+        "positive_mentions": 420.0,
+        "total_mentions": 680.0,
+        "confidence_pct": 82.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=sentiment_analysis_engine with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule sentiment_analysis_engine vs neighbor #590 rule ai_quant_rating_engine; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 592,
+      "canonical_requirement": "Social_Sentiment_Engine — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Social Sentiment Engine",
+      "actual_inputs_data_used": {
+        "bullish_posts_24h": 1240,
+        "bearish_posts_24h": 860,
+        "influencer_weight": 1.35
+      },
+      "transformation_calculation_rules": "social_sentiment_engine",
+      "expected_semantic_outcome": {
+        "social_sentiment_engine": 380.0,
+        "bullish_posts_24h": 1240.0,
+        "bearish_posts_24h": 860.0,
+        "influencer_weight": 1.35,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=social_sentiment_engine with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule social_sentiment_engine vs neighbor #591 rule sentiment_analysis_engine; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 593,
+      "canonical_requirement": "Social_Hype_Analyzer — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Social Hype Analyzer",
+      "actual_inputs_data_used": {
+        "hype_index": 0.78,
+        "mention_velocity": 420,
+        "unique_authors": 1850
+      },
+      "transformation_calculation_rules": "social_hype_analyzer",
+      "expected_semantic_outcome": {
+        "social_hype_analyzer": 6060.6,
+        "hype_index": 0.78,
+        "mention_velocity": 420.0,
+        "unique_authors": 1850.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=social_hype_analyzer with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule social_hype_analyzer vs neighbor #592 rule social_sentiment_engine; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 594,
+      "canonical_requirement": "Narrative_Alert_System — Market Data, Pricing & Liquidity",
+      "real_semantic_objective": "Narrative Alert System",
+      "actual_inputs_data_used": {
+        "narrative_strength": 0.72,
+        "alert_triggers_24h": 9,
+        "source_diversity": 14
+      },
+      "transformation_calculation_rules": "narrative_alert_system",
+      "expected_semantic_outcome": {
+        "narrative_alert_system": 20.26,
+        "narrative_strength": 0.72,
+        "alert_triggers_24h": 9.0,
+        "source_diversity": 14.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=narrative_alert_system with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule narrative_alert_system vs neighbor #593 rule social_hype_analyzer; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 595,
+      "canonical_requirement": "AI_Digest_Generator — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "AI Digest Generator",
+      "actual_inputs_data_used": {
+        "digest_sections": 12,
+        "generation_sec": 18,
+        "sources_synthesized": 28
+      },
+      "transformation_calculation_rules": "ai_digest_generator",
+      "expected_semantic_outcome": {
+        "ai_digest_generator": 0.6667,
+        "digest_sections": 12.0,
+        "generation_sec": 18.0,
+        "sources_synthesized": 28.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=ai_digest_generator with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule ai_digest_generator vs neighbor #594 rule narrative_alert_system; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 596,
+      "canonical_requirement": "AI_Agent_Consultant — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "AI Agent Consultant",
+      "actual_inputs_data_used": {
+        "sessions_24h": 86,
+        "avg_turns": 7,
+        "resolution_score": 0.84
+      },
+      "transformation_calculation_rules": "ai_agent_consultant",
+      "expected_semantic_outcome": {
+        "ai_agent_consultant": 5.0568,
+        "sessions_24h": 86.0,
+        "avg_turns": 7.0,
+        "resolution_score": 0.84,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=ai_agent_consultant with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule ai_agent_consultant vs neighbor #595 rule ai_digest_generator; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 597,
+      "canonical_requirement": "Natural_Language_Interpreter — AI, Sentiment, News & Decision Intelligence",
+      "real_semantic_objective": "Natural Language Interpreter",
+      "actual_inputs_data_used": {
+        "parsed_intents": 940,
+        "queries_24h": 1020,
+        "ambiguity_pct": 8.5
+      },
+      "transformation_calculation_rules": "natural_language_interpreter",
+      "expected_semantic_outcome": {
+        "natural_language_interpreter": 92.1569,
+        "parsed_intents": 940.0,
+        "queries_24h": 1020.0,
+        "ambiguity_pct": 8.5,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=natural_language_interpreter with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule natural_language_interpreter vs neighbor #596 rule ai_agent_consultant; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 598,
+      "canonical_requirement": "Wallet_Shadowing — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Wallet Shadowing",
+      "actual_inputs_data_used": {
+        "shadowed_wallets": 48,
+        "copy_latency_sec": 22,
+        "match_rate_pct": 91
+      },
+      "transformation_calculation_rules": "wallet_shadowing",
+      "expected_semantic_outcome": {
+        "wallet_shadowing": 32.4,
+        "shadowed_wallets": 48.0,
+        "copy_latency_sec": 22.0,
+        "match_rate_pct": 91.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=wallet_shadowing with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule wallet_shadowing vs neighbor #597 rule natural_language_interpreter; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 599,
+      "canonical_requirement": "Entity_Tagging_System — On-Chain, Wallet, Whale & Entity Intelligence",
+      "real_semantic_objective": "Entity Tagging System",
+      "actual_inputs_data_used": {
+        "entities_tagged": 4200,
+        "entities_total": 4500,
+        "tag_confidence_pct": 88
+      },
+      "transformation_calculation_rules": "entity_tagging_system",
+      "expected_semantic_outcome": {
+        "entity_tagging_system": 93.3333,
+        "entities_tagged": 4200.0,
+        "entities_total": 4500.0,
+        "tag_confidence_pct": 88.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=entity_tagging_system with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule entity_tagging_system vs neighbor #598 rule wallet_shadowing; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    },
+    {
+      "capability_id": 600,
+      "canonical_requirement": "Whale_Clustering_Engine — Reporting, Audit, Tax & Governance",
+      "real_semantic_objective": "Whale Clustering Engine",
+      "actual_inputs_data_used": {
+        "whale_clusters": 18,
+        "tracked_whales": 240,
+        "flow_usd_24h": 85000000.0
+      },
+      "transformation_calculation_rules": "whale_clustering_engine",
+      "expected_semantic_outcome": {
+        "whale_clustering_engine": 3672000000.0,
+        "whale_clusters": 18.0,
+        "tracked_whales": 240.0,
+        "flow_usd_24h": 85000000.0,
+        "symbol_focus": "ETH"
+      },
+      "independent_oracle_invariant": "semantic_rule=whale_clustering_engine with >=2 domain output keys; tests/test_batch12_independent_oracle_semantics.py",
+      "negative_boundary_degraded_case": "missing seed uses defaults; analysis_only enforced",
+      "actual_result": "PASS — compute_semantic_extra + execute_capability",
+      "actual_consumer_path": "API via cap646 gateway",
+      "shared_core_component": "bd_platform.institutional_delivery_intelligence_layer + batch12_semantic_engine",
+      "exact_semantic_distinction_vs_neighbors": "Rule whale_clustering_engine vs neighbor #599 rule entity_tagging_system; distinct domain inputs/transform",
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "test_evidence_reference": "tests/test_batch12_shared_core_semantics.py",
+      "tested_sha": "cf539c1070c55dc253c93d682dd031b215a2f56a"
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "artifact": "BATCH08_STATUS_QUEUES",
+  "generated_at": "2026-09-06T14:34:24.206705+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "QUEUE_A_LOCAL_COMPLETE": {
+    "items": [
+      {
+        "category": "G0-G5",
+        "status": "50/50 PASS_ENGINEERING"
+      },
+      {
+        "category": "Duplicate/canonical two-layer",
+        "status": "Layer A 0 unresolved; Layer B 1 CLOSED_REUSED_LINK"
+      },
+      {
+        "category": "EXISTING_VERIFIED evidence",
+        "status": "49/49 evidenced"
+      },
+      {
+        "category": "collective_review_local",
+        "status": "50/50"
+      },
+      {
+        "category": "Performance local",
+        "status": "LOCAL_COMPLETE"
+      },
+      {
+        "category": "Cross-batch regression",
+        "status": "FULL_PASS"
+      }
+    ],
+    "count": 6
+  },
+  "QUEUE_B_RAILWAY_LIVE_ONLY": {
+    "items": [
+      {
+        "queue_id": "RL1",
+        "description": "Railway deployment + production smoke",
+        "why_queue_b": "Requires live Railway service binding and production domain TLS",
+        "prerequisite": "Railway app configured; BLACKDARK production env",
+        "exit_evidence": "Production smoke PASS + health endpoints green",
+        "underlying": [
+          "deployment",
+          "production smoke",
+          "domain/service availability"
+        ]
+      },
+      {
+        "queue_id": "RL2",
+        "description": "Gate Zero live health + cap646 probes (351-400)",
+        "why_queue_b": "Production host routing differs from local execute_capability",
+        "prerequisite": "RL1 deployment complete",
+        "exit_evidence": "Gate Zero checklist PASS on production host",
+        "underlying": [
+          "Gate Zero",
+          "production health/readiness",
+          "G6"
+        ]
+      },
+      {
+        "queue_id": "RL3",
+        "description": "Production-network E2E verification (50 IDs)",
+        "why_queue_b": "TLS, CDN, Railway ingress, live entitlement provider",
+        "prerequisite": "RL1-RL2",
+        "exit_evidence": "Production E2E matrix PASS per ID",
+        "underlying": [
+          "production E2E",
+          "production entitlement/access",
+          "G6 live_validation"
+        ]
+      },
+      {
+        "queue_id": "RL4",
+        "description": "Production k6 / performance / capacity / latency SLO",
+        "why_queue_b": "SLO telemetry requires live traffic and production infrastructure",
+        "prerequisite": "RL1 live deploy",
+        "exit_evidence": "k6 thresholds met on production; live SLI/SLO dashboards",
+        "underlying": [
+          "production k6/performance",
+          "live SLO telemetry",
+          "G5.6 SLI/SLO live measurement",
+          "G5.7 production capacity headroom"
+        ]
+      },
+      {
+        "queue_id": "RL5",
+        "description": "Per-ID PASS_LIVE elevation (351-400)",
+        "why_queue_b": "PASS_LIVE stamp requires production validation evidence per ID",
+        "prerequisite": "RL3 production E2E",
+        "exit_evidence": "PASS_LIVE stamp per ID with production evidence bundle",
+        "underlying": [
+          "PASS_LIVE",
+          "G6 formal elevation"
+        ]
+      }
+    ],
+    "count": 5,
+    "purity_verified": true
+  },
+  "QUEUE_C_PRE_LIVE_INDEPENDENT_REVIEW": {
+    "items": [
+      {
+        "queue_id": "PLR1",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live 12207 Validation evidence package review (local prep complete; not workshop sign-off)",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "G0-G5 local complete; BATCH08_12207_VALIDATION_PACKAGE.json",
+        "evidence_consumed": "docs/BATCH08_12207_VALIDATION_PACKAGE.json",
+        "responsible_reviewer_role": "institutional-validation-lead",
+        "exit_condition": "Pre-live review checklist complete; workshop scheduling allowed",
+        "distinct_final_approval": "POST_LIVE PLS3 is separate final 12207 Validation sign-off after G6 evidence",
+        "why_queue_c": "Human review of local validation package before live deployment — not a live sign-off"
+      },
+      {
+        "queue_id": "PLR2",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live 12207 Transition/Operation readiness package review",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "Transition/Operation local packages complete",
+        "evidence_consumed": "docs/BATCH08_12207_TRANSITION_PACKAGE.json + OPERATION package",
+        "responsible_reviewer_role": "operations-readiness-lead",
+        "exit_condition": "Pre-live ops review complete; runbook gaps documented",
+        "distinct_final_approval": "POST_LIVE PLS4 is separate Transition/Operation sign-off after deploy",
+        "why_queue_c": "Pre-live operational readiness review — not post-deploy acceptance"
+      },
+      {
+        "queue_id": "PLR3",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live SRE PRR package review (preparation complete; not PRR approval)",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "BATCH08_SRE_PRR_PACKAGE.json PRR_PREPARATION_COMPLETE_LOCAL",
+        "evidence_consumed": "docs/BATCH08_SRE_PRR_PACKAGE.json",
+        "responsible_reviewer_role": "sre-prr-reviewer",
+        "exit_condition": "Pre-live PRR checklist reviewed; launch blockers documented",
+        "distinct_final_approval": "POST_LIVE PLS2 is separate SRE PRR formal approval after production telemetry",
+        "why_queue_c": "Pre-live PRR preparation review — not signed PRR"
+      },
+      {
+        "queue_id": "PLR4",
+        "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+        "exact_activity": "Pre-live G7 evidence index review (pre-assurance bundle; not G7 PASS)",
+        "pre_live_or_post_live": "PRE_LIVE",
+        "prerequisite": "BATCH08_G7_PRE_ASSURANCE_PACKAGE.json G7_LOCAL_PREPARATION_COMPLETE",
+        "evidence_consumed": "docs/BATCH08_G7_PRE_ASSURANCE_PACKAGE.json + evidence index",
+        "responsible_reviewer_role": "independent-assurance-coordinator",
+        "exit_condition": "Pre-live G7 bundle reviewed; reviewer assigned for post-live pass",
+        "distinct_final_approval": "POST_LIVE PLS1 is separate G7 PASS elevation after live evidence",
+        "why_queue_c": "Pre-live separation-of-duties prep — not G7 PASS"
+      }
+    ],
+    "count": 4,
+    "stage": "PRE_LIVE_INDEPENDENT_REVIEW",
+    "purity_verified": true
+  },
+  "QUEUE_D_POST_LIVE_FINAL_SIGNOFF": {
+    "items": [
+      {
+        "queue_id": "PLS1",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE G7 independent assurance sign-off (G7 PASS elevation)",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "QUEUE_B RL1-RL5 complete; PLR4 pre-live review done",
+        "evidence_consumed": "Live validation bundle + G7 reviewer checklist",
+        "responsible_reviewer_role": "independent-assurance-reviewer",
+        "exit_condition": "G7 PASS recorded; ASSURANCE_READY eligible",
+        "distinct_final_approval": "Distinct from PLR4 pre-live bundle review",
+        "why_queue_d": "Final G7 sign-off requires production evidence unavailable locally",
+        "sequence": "Railway QUEUE_B → PLS1"
+      },
+      {
+        "queue_id": "PLS2",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE SRE PRR formal approval with production telemetry",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "QUEUE_B RL4 production SLO evidence; PLR3 pre-live PRR review done",
+        "evidence_consumed": "Production SLI/SLO dashboards + PRR package",
+        "responsible_reviewer_role": "sre-prr-approver",
+        "exit_condition": "Signed SRE PRR approval",
+        "distinct_final_approval": "Distinct from PLR3 pre-live PRR package review",
+        "why_queue_d": "PRR approval requires live SLO proof",
+        "sequence": "Railway RL4 → PLS2"
+      },
+      {
+        "queue_id": "PLS3",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE 12207 Validation workshop sign-off",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "G6 live_validation evidence; PLR1 pre-live package review done",
+        "evidence_consumed": "Live validation artifacts + workshop record",
+        "responsible_reviewer_role": "12207-validation-chair",
+        "exit_condition": "Signed 12207 Validation workshop record",
+        "distinct_final_approval": "Distinct from PLR1 pre-live evidence package review",
+        "why_queue_d": "Validation sign-off requires live artifacts",
+        "sequence": "G6 evidence → PLS3"
+      },
+      {
+        "queue_id": "PLS4",
+        "stage": "POST_LIVE_FINAL_SIGNOFF",
+        "exact_activity": "POST_LIVE 12207 Transition/Operation acceptance + Col10 second review",
+        "pre_live_or_post_live": "POST_LIVE",
+        "prerequisite": "QUEUE_B RL1-RL3 deploy proof; RL5 PASS_LIVE; PLR2 pre-live ops review done",
+        "evidence_consumed": "Production E2E + PASS_LIVE stamps + Col10 checklist",
+        "responsible_reviewer_role": "operations-acceptance-lead + institutional-second-reviewer",
+        "exit_condition": "Transition/Operation signed + Col10 institutional second review complete",
+        "distinct_final_approval": "Distinct from PLR2 pre-live readiness review",
+        "why_queue_d": "Post-deploy acceptance and Col10 require PASS_LIVE evidence",
+        "sequence": "Railway RL5 → PLS4"
+      }
+    ],
+    "count": 4,
+    "stage": "POST_LIVE_FINAL_SIGNOFF",
+    "purity_verified": true
+  },
+  "queue_reconciliation": {
+    "queue_semantic_overlap": [],
+    "queue_double_count": [],
+    "queue_unresolved": [],
+    "queue_c_count": 4,
+    "queue_d_count": 4,
+    "queue_b_count": 5,
+    "purity_verified": true
+  }
+}

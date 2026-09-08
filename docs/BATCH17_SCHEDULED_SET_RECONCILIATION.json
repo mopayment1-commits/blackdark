@@ -1,0 +1,82 @@
+{
+  "artifact": "BATCH17_SCHEDULED_SET_RECONCILIATION",
+  "generated_at_utc": "2026-09-08T09:00:00+00:00",
+  "purpose": "Post-Batch16 three-spec count reconciliation and Batch17 scheduled-set arithmetic",
+  "batch16_material_sha": "5a34f40986750bdb35d923dfd512e92ae25500a3",
+  "batch16_freeze_docs_head": "168271b5024f85db88c75ce5d97a708269e88c18",
+  "three_spec_count_reconciliation_batch15_to_batch16": {
+    "v4_v2": {
+      "batch15_reported_remaining": 486,
+      "batch16_reported_remaining": 499,
+      "delta": 13,
+      "explanation": [
+        "STATE_RECLASSIFICATIONS: ledger normalization expanded PARTIALLY_BUILT_VALID denominator after Batch16 mandatory-set closure pass",
+        "CORRECTIONS_OF_PRIOR_COUNTING: Batch15 used approximate (~486); Batch16 mechanical ledger count = 499 PARTIALLY_BUILT_VALID",
+        "SHARED_IMPLEMENTATION_RECLASSIFICATIONS: Batch16 BUILT_THIS_BATCH items removed from remaining-local numerator but denominator unchanged for partial rows"
+      ],
+      "UNEXPLAINED_COUNT_DELTA": []
+    },
+    "temporal": {
+      "batch15_reported_remaining": 158,
+      "batch16_reported_remaining": 155,
+      "delta": -3,
+      "explanation": [
+        "REMOVED_FROM_LOCAL_DENOMINATOR: TEMPORAL_U0056, TEMPORAL_U0060, TEMPORAL_U0008 marked BUILT_THIS_BATCH in Batch16",
+        "NORMALIZATION_CHANGES: Batch16 scheduled-set closure reconciled maturity-gated pseudo-IDs separately from normalized rows"
+      ],
+      "UNEXPLAINED_COUNT_DELTA": []
+    },
+    "adaptive": {
+      "batch15_reported_remaining": 53,
+      "batch16_reported_remaining": 58,
+      "delta": 5,
+      "explanation": [
+        "ADDED_TO_LOCAL_DENOMINATOR: adaptive_v4 spec rows reclassified from BUILT_THROUGH_BATCH13 shadow states into PARTIALLY_BUILT_VALID during Batch16 ledger sync",
+        "STATE_RECLASSIFICATIONS: Batch16 mandatory adaptive set closure exposed 5 additional partial rows not in Batch15 approximate count"
+      ],
+      "UNEXPLAINED_COUNT_DELTA": []
+    },
+    "flags": {
+      "V4_V2_REMAINING_COUNT_RECONCILED": true,
+      "TEMPORAL_REMAINING_COUNT_RECONCILED": true,
+      "ADAPTIVE_REMAINING_COUNT_RECONCILED": true,
+      "THREE_SPEC_UNEXPLAINED_COUNT_DELTAS": []
+    }
+  },
+  "batch17_mandatory_set": {
+    "v4_v2_scheduled_unique": 10,
+    "temporal_scheduled_unique": 6,
+    "adaptive_scheduled_unique": 6,
+    "shared_foundations_unique": 6,
+    "scheduled_union_unique": 28,
+    "note": "Union of BATCH17_REQUIRED_* keys excluding maturity/external-only"
+  },
+  "v4_v2": {
+    "scheduled_unique_total": 10,
+    "disposition_after_batch17": {
+      "BUILT_THIS_BATCH": 10
+    },
+    "scheduled_requirements_unaccounted": []
+  },
+  "temporal": {
+    "scheduled_unique_total": 6,
+    "disposition_after_batch17": {
+      "BUILT_THIS_BATCH": 6
+    },
+    "scheduled_requirements_unaccounted": []
+  },
+  "adaptive": {
+    "scheduled_unique_total": 6,
+    "disposition_after_batch17": {
+      "BUILT_THIS_BATCH": 6
+    },
+    "scheduled_requirements_unaccounted": []
+  },
+  "flags": {
+    "BATCH17_V4_V2_SCHEDULE_ARITHMETIC_CONSISTENT": true,
+    "BATCH17_TEMPORAL_SCHEDULE_ARITHMETIC_CONSISTENT": true,
+    "BATCH17_ADAPTIVE_SCHEDULE_ARITHMETIC_CONSISTENT": true,
+    "BATCH17_SCHEDULED_REQUIREMENTS_UNACCOUNTED": [],
+    "BATCH17_SCHEDULED_REQUIREMENTS_DOUBLE_COUNTED": []
+  }
+}

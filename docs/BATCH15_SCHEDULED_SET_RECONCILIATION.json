@@ -1,0 +1,63 @@
+{
+  "artifact": "BATCH15_SCHEDULED_SET_RECONCILIATION",
+  "generated_at_utc": "2026-09-08T00:00:00+00:00",
+  "purpose": "Read-only arithmetic reconciliation of post-Batch15 ledger mandatory set (does not rewrite Batch15 freeze)",
+  "batch15_material_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
+  "batch15_freeze_docs_head": "f178029b4a2616ab13e16e826cc110983b768f4f",
+  "v4_v2": {
+    "scheduled_unique_total": 25,
+    "disposition": {
+      "BUILT_THIS_BATCH": 23,
+      "EXISTING_PROVEN_ARCHITECTURE": 2
+    },
+    "EXISTING_PROVEN_items": [
+      {
+        "requirement_id": "P0_TEMPORAL::Walk-Forward Evaluation",
+        "disposition": "EXISTING_PROVEN",
+        "evidence": "batch15_three_spec_foundations.walk_forward_scaffolding v2 (architecture-only)",
+        "note": "P0 pseudo-ID not in normalized requirements table; tracked via foundations artifact"
+      },
+      {
+        "requirement_id": "P0_TEMPORAL::Regime Intelligence Library",
+        "disposition": "EXISTING_PROVEN",
+        "evidence": "batch15_three_spec_foundations.regime_intelligence_library v2 (architecture-only)",
+        "note": "P0 pseudo-ID not in normalized requirements table; tracked via foundations artifact"
+      }
+    ],
+    "scheduled_requirements_unaccounted": []
+  },
+  "temporal": {
+    "scheduled_unique_total": 4,
+    "disposition": {
+      "BUILT_THIS_BATCH": 2,
+      "EXISTING_PROVEN_ARCHITECTURE": 2
+    },
+    "BUILT_THIS_BATCH_ids": ["TEMPORAL_U0067", "TEMPORAL_U0070"],
+    "EXISTING_PROVEN_items": [
+      "P0_TEMPORAL::Walk-Forward Evaluation",
+      "P0_TEMPORAL::Regime Intelligence Library"
+    ],
+    "scheduled_requirements_unaccounted": []
+  },
+  "adaptive": {
+    "scheduled_unique_total": 6,
+    "disposition": {
+      "BUILT_THIS_BATCH": 6
+    },
+    "scheduled_requirements_unaccounted": []
+  },
+  "flags": {
+    "BATCH15_V4_V2_SCHEDULED_TOTAL_RECONCILED": true,
+    "BATCH15_TEMPORAL_SCHEDULED_TOTAL_RECONCILED": true,
+    "BATCH15_ADAPTIVE_SCHEDULED_TOTAL_RECONCILED": true,
+    "BATCH15_SCHEDULED_REQUIREMENTS_UNACCOUNTED": [],
+    "BATCH15_LEDGER_ARITHMETIC_CONFLICTS": []
+  },
+  "batch16_carry_forward": {
+    "BATCH16_OVERDUE_CORRECTIONS_from_batch15_p0_gaps": [
+      "P0_TEMPORAL::Walk-Forward Evaluation",
+      "P0_TEMPORAL::Regime Intelligence Library"
+    ],
+    "rationale": "P0 pseudo-IDs require Batch16 progression to next governed stage (runtime integration scaffolding), not Batch15 freeze rewrite"
+  }
+}

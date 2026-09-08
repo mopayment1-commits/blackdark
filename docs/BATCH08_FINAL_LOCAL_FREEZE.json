@@ -1,0 +1,396 @@
+{
+  "artifact": "BATCH08_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-06T16:44Z",
+  "identity": {
+    "canonical_tested_source_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
+    "regression_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
+    "final_freeze_head": "c175c2a153064f3b711b0778691d30049f040b40",
+    "baseline_ancestry": "1cc8ba43812aab462a7ea080eb34e625fb0abb36",
+    "batch05_canonical_tested_source": "c25a4d5dd2930eb3caeae7a656378e01a3c25a9e",
+    "container_commit": null,
+    "micro_reconciliation_head": "c175c2a153064f3b711b0778691d30049f040b40",
+    "final_micro_closure_head": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0"
+  },
+  "provenance": {
+    "method": "git_log_derived",
+    "description": "freeze_artifact_commit is informational provenance only. Derive via: git log -1 --format=%H -- docs/BATCH08_FINAL_LOCAL_FREEZE.json. The artifact does NOT embed its own commit SHA as an institutional correctness gate.",
+    "self_referential_head_embedding": "prohibited"
+  },
+  "semantic_equivalence": {
+    "comparison": "c7c1e4e49ef7a2a7230093c52a55360251848646..c175c2a153064f3b711b0778691d30049f040b40",
+    "files_changed_total": 15,
+    "production_runtime_drift": 0,
+    "production_runtime_files": [],
+    "test_logic_drift": 0,
+    "test_logic_files": [],
+    "dependency_drift": 0,
+    "dependency_files": [],
+    "workflow_logic_drift": 1,
+    "workflow_files": [
+      ".github/workflows/security.yml"
+    ],
+    "documentation_evidence_drift": 11,
+    "documentation_files": [
+      "docs/BATCH08_BASELINE.json",
+      "docs/BATCH08_CROSS_BATCH_REGRESSION.json",
+      "docs/BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION.json",
+      "docs/BATCH08_EVENT_LOOP_FORENSIC.json",
+      "docs/BATCH08_FINAL_LOCAL_FREEZE.json",
+      "docs/BATCH08_LOCAL_A11Y_INTERACTION.json",
+      "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json",
+      "docs/BATCH08_SHA_PROVENANCE_CHAIN.json",
+      "docs/BATCH08_V5_DELTA_RECONCILIATION.json",
+      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.backup_2026-09-06T1541Z.md",
+      "docs/standards/BLACKDARK_INSTITUTIONAL_STANDARD_v5.md"
+    ],
+    "assurance_tooling_drift": 3,
+    "assurance_tooling_files": [
+      "scripts/batch08_micro_reconciliation.py",
+      "scripts/batch08_v3_reconciliation.py",
+      "scripts/generate_batch08_institutional_package.py"
+    ],
+    "frozen_source_head_is_semantically_equivalent_to_current_head": true,
+    "note": "Drift counts are file-level changes between canonical tested source and final HEAD. production_runtime_drift counts capability/runtime code only — NOT 'Railway untouched'. documentation_evidence_drift is docs/data evidence artifacts only. assurance_tooling_drift is executable institutional scripts (reconciliation/generators)."
+  },
+  "preserved": {
+    "batch05_final_local_freeze": true,
+    "batch06_locally_frozen": true,
+    "batch08_capability_range": "351-400",
+    "railway_execution": "deferred",
+    "node24_actions": true
+  },
+  "batch08_classification": {
+    "total_ids": 50,
+    "existing_verified": 49,
+    "closed_reused_link": 1,
+    "internal_distinct_ids": 50,
+    "cross_batch_reused_link": 1,
+    "unresolved_duplicate_conflicts": 0,
+    "g0_g5_pass_engineering": 50,
+    "pentagonal_col5_readiness_evidence": 50,
+    "collective_review_local_col5": 50,
+    "col10_local_preparation": 50,
+    "production_aligned": 0,
+    "integrity": "valid"
+  },
+  "github_actions": {
+    "ci_evidence_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+    "evidence_head": "1b2a7b718f81e3d8b71cf983c964e926112bb04e",
+    "evidence_note": "CI gates must PASS on ci_evidence_head (final HEAD). Capability semantics validated at canonical_tested_source_head.",
+    "CAP978": {
+      "status": "PASS",
+      "run_id": 34040947302,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34040947302",
+      "headSha": "c7c1e4e49ef7a2a7230093c52a55360251848646"
+    },
+    "CI_CRITICAL_GATE": {
+      "status": "PASS",
+      "run_id": 34040947274,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34040947274",
+      "headSha": "c7c1e4e49ef7a2a7230093c52a55360251848646"
+    },
+    "SONARCLOUD": {
+      "status": "PASS",
+      "run_id": 34040947266,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34040947266",
+      "headSha": "c7c1e4e49ef7a2a7230093c52a55360251848646"
+    },
+    "SECURITY_SCAN": {
+      "status": "PASS",
+      "run_id": 34043926926,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34043926926",
+      "headSha": "c175c2a153064f3b711b0778691d30049f040b40",
+      "branch": "cursor/batch08-351-400-ed16",
+      "evidence_mode": "GITHUB_ACTIONS",
+      "workflow_definition": ".github/workflows/security.yml",
+      "note": "GitHub Security Scan at current Batch08 head"
+    },
+    "CODEQL": {
+      "status": "PASS",
+      "run_id": 34046238644,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34046238644",
+      "headSha": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+      "branch": "cursor/batch08-351-400-ed16",
+      "evidence_mode": "GITHUB_ACTIONS",
+      "actual_codeql_executed": true,
+      "note": "GitHub CodeQL job in security.yml — bandit remains supporting only"
+    },
+    "sonar_evidence": {
+      "sonar_run_id": 34040947266,
+      "tested_head": "c7c1e4e49ef7a2a7230093c52a55360251848646",
+      "scanner_status": "PASS",
+      "quality_gate_status": "PASSED",
+      "quality_gate_source": "CI scanner log",
+      "timestamp": "2026-09-06T15:39:15.076574+00:00",
+      "evidence_url_or_location": "https://github.com/mopayment1-commits/blackdark/actions/runs/34040947266",
+      "sonar_gate_evidence_ambiguous": []
+    }
+  },
+  "performance_evidence_identity": {
+    "component_path": {
+      "default_warmup_iterations": 8,
+      "default_measurement_iterations": 80,
+      "class_profiles": {
+        "CLASS_A_DIRECT_LIGHTWEIGHT": {
+          "warmup": 8,
+          "iterations": 80,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "Low-variance synchronous path; half-split p95 delta <= 30%"
+        },
+        "CLASS_B_ANALYSIS": {
+          "warmup": 8,
+          "iterations": 80,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "Analysis path; half-split p95 delta <= 30%"
+        },
+        "CLASS_C_AI_HEAVY": {
+          "warmup": 24,
+          "iterations": 120,
+          "stability_max_rel_delta": 0.5,
+          "stability_rationale": "AI-heavy path exhibits higher tail variance; extended warmup burn-in and n=120 before half-split p95 stability check at 50% rel delta"
+        },
+        "BACKGROUND_JOB": {
+          "warmup": 8,
+          "iterations": 80,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "Background completion probe"
+        },
+        "NO_RUNTIME_PATH": {
+          "warmup": 0,
+          "iterations": 0,
+          "stability_max_rel_delta": 0.3,
+          "stability_rationale": "No local runtime path"
+        },
+        "NEWS_FEED": {
+          "warmup": 32,
+          "iterations": 120,
+          "stability_max_rel_delta": 0.75,
+          "stability_rationale": "RSS/news feed path exhibits high cold-start variance; extended burn-in at 75% rel delta"
+        }
+      },
+      "min_sample_for_p99": 50,
+      "percentile_method": "nearest_rank_on_sorted_samples",
+      "stability_check": "p95 first-half vs second-half relative delta (class-specific max)",
+      "default_stability_max_rel_delta": 0.3,
+      "workload_fixture": "execute_capability per ID sequential + 5-wide concurrency burst",
+      "environment": {
+        "python_version": "3.12.3",
+        "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+        "processor": "x86_64",
+        "cpu_count": 4
+      },
+      "measured_at_utc": "2026-09-06T14:31:25.080568+00:00",
+      "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+      "not_production_evidence": true
+    },
+    "full_path_local": {
+      "warmup": 3,
+      "iterations": 20,
+      "path": "cap646.runtime.execute_capability with entitlement_engine.check",
+      "user_fixture": "pro tier local user dict",
+      "threshold_tier": "FULL_LOCAL_CANONICAL_PATH_PERFORMANCE",
+      "threshold_rationale": "FULL_LOCAL_CANONICAL_PATH includes entitlement_engine.check, cap646 handler routing, and domain_enrichment. Thresholds are BLACKDARK v5 internal project policy targets (CLASS_A=500ms, CLASS_B=2000ms, CLASS_C=5000ms) — not Nielsen Norman or ISO attributions.",
+      "thresholds_ms": {
+        "CLASS_A_DIRECT_LIGHTWEIGHT": 500,
+        "CLASS_B_ANALYSIS": 2000,
+        "CLASS_C_AI_HEAVY": 5000,
+        "NEWS_FEED": 5000,
+        "BACKGROUND_JOB": 30000,
+        "NOT_APPLICABLE": 0
+      }
+    }
+  },
+  "v3_reconciliation": {
+    "state_classification": {
+      "state_counts": {
+        "EXISTING_VERIFIED": 49,
+        "PARTIAL_CANONICAL": 1
+      },
+      "invalid_state_labels_as_primary": [],
+      "state_classification_missing": [],
+      "state_classification_conflicts": []
+    },
+    "duplicate_exhaustive": {
+      "expected_cross_batch_pairs": 17500,
+      "evaluated_cross_batch_pairs": 17500,
+      "omitted_pairs": [],
+      "duplicate_coverage_complete": true
+    },
+    "full_path_entitlement": {
+      "tested": "50/50",
+      "passed": true
+    },
+    "hero_matrix_summary": {
+      "hero_matrix_cells": 300,
+      "feed_count": 0,
+      "context_count": 13,
+      "not_applicable_count": 287,
+      "hero_matrix_missing": [],
+      "duplicate_hero_contributions": 0,
+      "hero_binding_conflicts": [],
+      "unjustified_hero_na": [],
+      "379_no_double_count_with_189": true,
+      "382_no_hero_double_count": true
+    },
+    "event_loop_forensic": {
+      "classification": null,
+      "status": "RESOLVED_OR_PROVEN_NON_ACTIONABLE"
+    },
+    "ssot_reconciliation": {
+      "PROGRESS_826_CANONICAL": {
+        "path": "docs/PROGRESS_826_CANONICAL.json",
+        "active_canonical_role": "ACTIVE_NUMERATOR_SSOT for PRODUCTION-ALIGNED count toward 826",
+        "schema": "numerator/denominator + formula breakdown",
+        "consumers": [
+          "scripts/compute_progress_826.py",
+          "institutional closure reports"
+        ],
+        "computed_at": "2026-09-01T20:03:40.237635+00:00",
+        "batch08_in_numerator": false,
+        "batch08_note": "Batch08 351-400 are PASS_ENGINEERING / LOCAL_COMPLETE — not PRODUCTION-ALIGNED. Numerator unchanged until G6/Railway. Inventory lists batch08 IDs as PENDING/DEFERRED."
+      },
+      "CAPABILITIES_826_INVENTORY": {
+        "path": "docs/CAPABILITIES_826_INVENTORY.json",
+        "active_canonical_role": "ACTIVE per-ID status SSOT feeding PROGRESS_826",
+        "batch08_ids_present": 50,
+        "batch08_status_snapshot": {
+          "PENDING": 41,
+          "NOT_COMPLETE": 9
+        }
+      },
+      "batch08_independent": {
+        "exists": false,
+        "active_canonical_role": "NOT_PRESENT",
+        "replacement_ssot": "docs/BATCH08_FINAL_LOCAL_FREEZE.json + docs/BATCH08_V3_STATE_CLASSIFICATION.json",
+        "note": "No batch08_independent counter required — v3 freeze is batch08 SSOT"
+      }
+    },
+    "canonical_http_entitlement": {
+      "tested": "50/50",
+      "passed": true,
+      "evidence": "docs/BATCH08_CANONICAL_HTTP_ENTITLEMENT.json"
+    },
+    "state_status_dimensions": {
+      "explicit": true,
+      "active_ssot_contradictions": [],
+      "evidence": "docs/BATCH08_STATE_STATUS_DIMENSIONS.json"
+    }
+  },
+  "local_validation": {
+    "failed": [],
+    "partial": [],
+    "material_skipped": [],
+    "known_flaky_unresolved": [],
+    "warnings_local_solvable": [],
+    "known_local_deficiencies": [],
+    "existing_verified_without_full_evidence": [],
+    "pip_audit_actionable_vulnerabilities": 0,
+    "deep_closure": "PASS",
+    "cross_batch_regression": "FULL_PASS",
+    "performance_local_status": "LOCAL_COMPLETE",
+    "full_path_local_status": "LOCAL_COMPLETE",
+    "collective_review_local": "50/50",
+    "unexplained_runtime_warnings": [],
+    "hash_install": "PASS",
+    "postgres_migration_test": "PASS",
+    "regressions_caused_by_micro_reconciliation": []
+  },
+  "freeze_assertions": {
+    "BATCH08_FINAL_LOCAL_FREEZE": true,
+    "LOCAL_GOVERNANCE_COMPLETE": true,
+    "PASS_ENGINEERING": true
+  },
+  "g6_status": "BLOCKED_EXTERNAL_RAILWAY",
+  "g7_status": "G7_LOCAL_PREPARATION_COMPLETE",
+  "deferred_claims": [
+    "PASS_LIVE",
+    "G6 PASS",
+    "LIVE_READY",
+    "G7 PASS",
+    "ASSURANCE_READY",
+    "PRODUCTION_ALIGNED"
+  ],
+  "canonical_definition_source": {
+    "path": "docs/cap646/CAP646_CATALOG.json",
+    "manifest": "scripts/partial_batches/batch_08_351_400.json",
+    "implementation_module": "bd_platform/charting_market_intelligence_layer.py",
+    "range": "351-400",
+    "count": 50
+  },
+  "micro_reconciliation": {
+    "completed_at": "2026-09-06T16:00:34.526010+00:00",
+    "security_codeql": {
+      "security_scan_current_batch08_evidence": true,
+      "codeql_current_batch08_evidence": true,
+      "security_provenance_gap": [],
+      "codeql_provenance_gap": [],
+      "evidence_location": "docs/BATCH08_SECURITY_CODEQL_PROVENANCE.json"
+    },
+    "a11y_interaction": {
+      "locally_testable_a11y_interaction_incomplete": [],
+      "improperly_deferred_local_checks": [],
+      "live_only_items_are_explicit_and_justified": true,
+      "evidence_location": "docs/BATCH08_LOCAL_A11Y_INTERACTION.json"
+    },
+    "duplicate_taxonomy": {
+      "noncanonical_duplicate_labels_unmapped": [],
+      "duplicate_taxonomy_conflicts": [],
+      "cross_batch_unresolved": 0,
+      "evidence_location": "docs/BATCH08_DUPLICATE_TAXONOMY_RECONCILIATION.json"
+    },
+    "sha_provenance": {
+      "sha_transition_chain_complete": true,
+      "unexplained_sha_transitions": [],
+      "production_semantic_drift_unresolved": [],
+      "evidence_location": "docs/BATCH08_SHA_PROVENANCE_CHAIN.json"
+    },
+    "v5_delta": {
+      "v5_delta_local_gaps": [],
+      "v5_delta_requires_batch08_rebuild": false,
+      "evidence_location": "docs/BATCH08_V5_DELTA_RECONCILIATION.json"
+    }
+  },
+  "final_micro_closure": {
+    "completed_at": "2026-09-06T16:44:23.322245+00:00",
+    "head": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+    "codeql": {
+      "workflow_definition": ".github/workflows/security.yml#jobs.codeql",
+      "evidence_mode": "GITHUB_ACTIONS",
+      "tested_sha": "143a53cd39a3bbebfe401e5cfe844f6e37fa7ca0",
+      "branch": "cursor/batch08-351-400-ed16",
+      "result": "PASS",
+      "run_id": 34046238644,
+      "url": "https://github.com/mopayment1-commits/blackdark/actions/runs/34046238644",
+      "jobs": [
+        {
+          "name": "codeql",
+          "conclusion": "success"
+        }
+      ],
+      "actual_codeql_executed": true,
+      "actual_codeql_result": "PASS",
+      "codeql_tested_sha_proven": true,
+      "codeql_evidence_substitution": [],
+      "supporting_bandit_only": false
+    },
+    "batch07_regression": {
+      "batch07_regression_coverage_proven": true,
+      "batch07_regression_result": "PASS",
+      "regression_scope_claim_contradictions": [],
+      "shared_code_regression_gap": [],
+      "proof_mode": "direct_suite_present",
+      "suite_mapping": [
+        {
+          "batch07_scope": "301-350",
+          "suite": "batch07_hero_capabilities",
+          "script": "tests/test_hero_batch_07_capabilities.py",
+          "coverage_type": "direct_hero_execution"
+        }
+      ]
+    },
+    "http_entitlement": "docs/BATCH08_CANONICAL_HTTP_ENTITLEMENT.json",
+    "state_status_dimensions": "docs/BATCH08_STATE_STATUS_DIMENSIONS.json",
+    "false_gap_reconciliation": "docs/BATCH08_FALSE_GAP_RECONCILIATION.json",
+    "sha_chain": "docs/BATCH08_FINAL_MICRO_CLOSURE_SHA_CHAIN.json"
+  }
+}
