@@ -1,0 +1,135 @@
+{
+  "artifact": "TEMPORAL_SOURCE_DRIVEN_FINAL_FREEZE",
+  "generated_at_utc": "2026-09-08T11:22:32.271705+00:00",
+  "branch": "cursor/temporal-phase2-local-closure-ed16",
+  "material_sha": "8c5d389f88ea9c3b70e547330a49bb9396903d78",
+  "source_audit": {
+    "TEMPORAL_SOURCE_TO_LEDGER_COVERAGE": 100.0,
+    "TEMPORAL_SOURCE_ITEMS_MISSING_FROM_LEDGER": [],
+    "TEMPORAL_PARTIAL_LEDGER_MAPPINGS": [],
+    "TEMPORAL_WRONG_LEDGER_CLASSIFICATIONS": [],
+    "TEMPORAL_DUPLICATE_LEDGER_REQUIREMENTS": []
+  },
+  "gated_audit": {
+    "TEMPORAL_FALSE_NOT_APPLICABLE_CLASSIFICATIONS": [],
+    "TEMPORAL_FALSE_GOVERNANCE_ONLY_CLASSIFICATIONS": [],
+    "TEMPORAL_FALSE_MATURITY_DEFERRALS": [],
+    "TEMPORAL_FALSE_LIVE_DEFERRALS": [],
+    "TEMPORAL_FALSE_EXTERNAL_DEFERRALS": []
+  },
+  "universe_verification": {
+    "buildable_total": 242,
+    "verified_ok": 248,
+    "skipped_non_implementation": 143,
+    "failures": [],
+    "ok": true
+  },
+  "rebuild_stats": {
+    "touched": 391,
+    "states": {
+      "NOT_APPLICABLE_WITH_EVIDENCE": 133,
+      "LOCAL_ENGINEERING_COMPLETE": 231,
+      "LIVE_OR_CHRONOLOGICAL_GATED": 7,
+      "MATURITY_GATED": 17,
+      "EXTERNAL_ASSURANCE_GATED": 3
+    }
+  },
+  "arithmetic": {
+    "TEMPORAL_NORMALIZED_TOTAL": 391,
+    "LOCAL_ENGINEERING_COMPLETE": 231,
+    "MATURITY_GATED": 17,
+    "LIVE_OR_CHRONOLOGICAL_GATED": 7,
+    "EXTERNAL_ASSURANCE_GATED": 3,
+    "NOT_APPLICABLE_WITH_EVIDENCE": 133,
+    "TEMPORAL_REMAINING_LOCAL_REQUIREMENTS": 0,
+    "TEMPORAL_PARTIALLY_IMPLEMENTED_LOCAL": 0,
+    "TEMPORAL_FINAL_ARITHMETIC_CONSISTENT": true,
+    "TEMPORAL_UNACCOUNTED_REQUIREMENTS": []
+  },
+  "v4_v2_preservation": {
+    "V4_V2_FINAL_LOCAL_COMPLETION_PRESERVED": true,
+    "V4_V2_REMAINING_LOCAL": 0,
+    "V4_V2_LOCAL_COMPLETE": 644
+  },
+  "pytest": {
+    "ok": true,
+    "suites": [
+      {
+        "label": "temporal_source_driven",
+        "ok": true,
+        "paths": [
+          "tests/test_temporal_source_driven_engineering.py",
+          "tests/test_temporal_source_traceability.py"
+        ]
+      },
+      {
+        "label": "temporal_spine",
+        "ok": true,
+        "paths": [
+          "tests/test_batch13_temporal_spine.py"
+        ]
+      },
+      {
+        "label": "v4_v2_regression",
+        "ok": true,
+        "paths": [
+          "tests/test_v4_v2_source_driven_engineering.py",
+          "tests/test_v4_v2_source_traceability.py"
+        ]
+      },
+      {
+        "label": "batch17_regression",
+        "ok": true,
+        "paths": [
+          "tests/test_batch17_extension_suite.py"
+        ]
+      }
+    ]
+  },
+  "temporal_status": {
+    "version": "temporal_source_driven_v1",
+    "registries": {
+      "canonical_events": {
+        "store": "data/temporal_canonical_events.jsonl",
+        "count": 22
+      },
+      "outcome_factory": {
+        "store": "data/temporal_outcome_factory.jsonl",
+        "count": 49
+      },
+      "evidence_ledger": {
+        "store": "data/temporal_evidence_ledger.jsonl",
+        "count": 957
+      },
+      "forward_shadow": {
+        "store": "data/temporal_forward_shadow.jsonl",
+        "count": 13
+      },
+      "champion_challenger": {
+        "store": "data/temporal_champion_challenger.jsonl",
+        "count": 1
+      },
+      "regime": {
+        "store": "data/temporal_regime_registry.jsonl",
+        "count": 43
+      },
+      "surprise": {
+        "store": "data/temporal_surprise_events.jsonl",
+        "count": 54
+      },
+      "abstention": {
+        "store": "data/temporal_abstention_events.jsonl",
+        "count": 54
+      }
+    },
+    "live_promotion": false,
+    "pass_live_claimed": false
+  },
+  "TEMPORAL_FINAL_LOCAL_COMPLETION": true,
+  "NO_KNOWN_LOCALLY_BUILDABLE_TEMPORAL_WORK_REMAINING": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "INDEPENDENT_ASSURANCE_NOT_CLAIMED": true,
+  "ADAPTIVE_DEDICATED_CLOSURE_NOT_STARTED": true,
+  "BATCH18_NOT_CREATED": true,
+  "RAILWAY_NOT_TOUCHED": true
+}

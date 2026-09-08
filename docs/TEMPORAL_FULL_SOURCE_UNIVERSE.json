@@ -1,0 +1,4629 @@
+{
+  "artifact": "TEMPORAL_FULL_SOURCE_UNIVERSE",
+  "generated_at_utc": "2026-09-08T11:22:32.275664+00:00",
+  "git_head": "8c5d389f88ea9c3b70e547330a49bb9396903d78",
+  "spec_sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+  "source_item_count": 576,
+  "disposition_distribution": {
+    "LOCALLY_BUILDABLE": 424,
+    "NOT_IMPLEMENTATION_INTENDED": 142,
+    "LIVE_OR_CHRONOLOGICAL_GATED": 5,
+    "GOVERNANCE_ONLY": 2,
+    "EXTERNAL_ASSURANCE_GATED": 3
+  },
+  "TEMPORAL_FULL_SOURCE_READ": true,
+  "TEMPORAL_SOURCE_DECOMPOSITION_COMPLETE": true,
+  "TEMPORAL_SOURCE_REQUIREMENT_UNIVERSE_COMPLETE": true,
+  "TEMPORAL_UNPARSED_SOURCE_SECTIONS": [],
+  "TEMPORAL_SOURCE_ITEMS_WITHOUT_DISPOSITION": [],
+  "rows": [
+    {
+      "source_id": "TEMPORAL_SRC_0001_0001",
+      "source_section": "BLACKDARK Temporal Intelligence & Evidence Acceleration System",
+      "source_line": 1,
+      "source_text": "# BLACKDARK Temporal Intelligence & Evidence Acceleration System",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0001",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 1,
+      "source_text": "## 0. Status and Governing Position",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0003",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 3,
+      "source_text": "**Document purpose:** Institutional design and execution specification for accelerating BLACKDARK's accumulation of trustworthy data, experimental experience, learning evidence, replay capability, outcome intelligence, and forward-shadow evidence without fabricating chronological live history.",
+      "implementation_intended": false,
+      "disposition": "LIVE_OR_CHRONOLOGICAL_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0005",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 5,
+      "source_text": "**Governing hierarchy:**",
+      "implementation_intended": false,
+      "disposition": "GOVERNANCE_ONLY"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0006",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 6,
+      "source_text": "1. **BLACKDARK Institutional Standard v6** = highest institutional governing standard.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0007",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 7,
+      "source_text": "2. **BLACKDARK Domain Spec v4_v2** = current subordinate governing domain specification for data, storage, track record, provenance, replay, outcomes, learning, rights, retention, recovery, and related intelligence accumulation.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0008",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 8,
+      "source_text": "3. **This document** = implementation/design addendum subordinate to both v6 and v4_v2.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0010",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 10,
+      "source_text": "If any conflict exists:",
+      "implementation_intended": false,
+      "disposition": "GOVERNANCE_ONLY"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0011",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 11,
+      "source_text": "- v6 prevails.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0012",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 12,
+      "source_text": "- Then v4_v2.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0013",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 13,
+      "source_text": "- Then this document.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0002_0014",
+      "source_section": "0. Status and Governing Position",
+      "source_line": 14,
+      "source_text": "- Historical freeze artifacts are not rewritten retroactively.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0001",
+      "source_section": "1. Governing Objective",
+      "source_line": 1,
+      "source_text": "# 1. Governing Objective",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0003",
+      "source_section": "1. Governing Objective",
+      "source_line": 3,
+      "source_text": "The objective is **not** to make BLACKDARK appear to have operated live for a year.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0005",
+      "source_section": "1. Governing Objective",
+      "source_line": 5,
+      "source_text": "The objective is to:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0007",
+      "source_section": "1. Governing Objective",
+      "source_line": 7,
+      "source_text": "> **Maximize trustworthy experimental, evaluative, and learning experience per unit of real elapsed time, while preserving strict separation between historical knowledge, forward evidence, production evidence, and independent assurance.**",
+      "implementation_intended": false,
+      "disposition": "EXTERNAL_ASSURANCE_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0011",
+      "source_section": "1. Governing Objective",
+      "source_line": 11,
+      "source_text": "**EXPERIENCE COMPRESSION ≠ TIME FABRICATION**",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0013",
+      "source_section": "1. Governing Objective",
+      "source_line": 13,
+      "source_text": "Evidence classes must remain distinct:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0015",
+      "source_section": "1. Governing Objective",
+      "source_line": 15,
+      "source_text": "`HISTORICAL_REPLAY ≠ FORWARD_SHADOW ≠ VERIFIED_PRODUCTION ≠ INDEPENDENT_ASSURANCE`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0003_0017",
+      "source_section": "1. Governing Objective",
+      "source_line": 17,
+      "source_text": "No historical replay, simulation, backtest, or reconstructed result may be represented as live chronological evidence.",
+      "implementation_intended": false,
+      "disposition": "LIVE_OR_CHRONOLOGICAL_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0001",
+      "source_section": "2. System Architecture",
+      "source_line": 1,
+      "source_text": "# 2. System Architecture",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0003",
+      "source_section": "2. System Architecture",
+      "source_line": 3,
+      "source_text": "`Raw Historical + Live Feeds`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0005",
+      "source_section": "2. System Architecture",
+      "source_line": 5,
+      "source_text": "→ `Canonical Historical/Event Store`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0007",
+      "source_section": "2. System Architecture",
+      "source_line": 7,
+      "source_text": "→ `Point-in-Time Reconstruction`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0009",
+      "source_section": "2. System Architecture",
+      "source_line": 9,
+      "source_text": "→ `Temporal Leakage Firewall`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0011",
+      "source_section": "2. System Architecture",
+      "source_line": 11,
+      "source_text": "→ `Feature/Derived Intelligence Layer`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0013",
+      "source_section": "2. System Architecture",
+      "source_line": 13,
+      "source_text": "→ `Deterministic Mass Replay`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0015",
+      "source_section": "2. System Architecture",
+      "source_line": 15,
+      "source_text": "→ `Signal / Prediction / Decision`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0017",
+      "source_section": "2. System Architecture",
+      "source_line": 17,
+      "source_text": "→ `Automated Outcome Factory`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0019",
+      "source_section": "2. System Architecture",
+      "source_line": 19,
+      "source_text": "→ `Evidence Provenance Ledger`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0021",
+      "source_section": "2. System Architecture",
+      "source_line": 21,
+      "source_text": "→ `Failure / Surprise / Abstention Corpus`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0023",
+      "source_section": "2. System Architecture",
+      "source_line": 23,
+      "source_text": "→ `Regime Intelligence`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0025",
+      "source_section": "2. System Architecture",
+      "source_line": 25,
+      "source_text": "→ `Learning Value Prioritization`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0027",
+      "source_section": "2. System Architecture",
+      "source_line": 27,
+      "source_text": "→ `Champion / Challenger Evaluation`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0029",
+      "source_section": "2. System Architecture",
+      "source_line": 29,
+      "source_text": "→ `Forward Shadow Reality Anchor`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0031",
+      "source_section": "2. System Architecture",
+      "source_line": 31,
+      "source_text": "→ `Promotion / Rejection / Recalibration`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0004_0033",
+      "source_section": "2. System Architecture",
+      "source_line": 33,
+      "source_text": "→ `Continuous Evidence Accumulation`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0001",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 1,
+      "source_text": "# 3. Point-in-Time Historical Reconstruction — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0003",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 3,
+      "source_text": "The system must reconstruct what BLACKDARK could actually have known at time `T`.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0005",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 5,
+      "source_text": "Where applicable, every datum must preserve:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0007",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 7,
+      "source_text": "- `event_time`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0008",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 8,
+      "source_text": "- `observed_time`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0009",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 9,
+      "source_text": "- `available_at`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0010",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 10,
+      "source_text": "- `ingested_at`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0011",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 11,
+      "source_text": "- `effective_at`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0012",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 12,
+      "source_text": "- `revised_at`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0014",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 14,
+      "source_text": "- `source_version`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0015",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 15,
+      "source_text": "- `dataset_version`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0016",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 16,
+      "source_text": "- `rights/provenance`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0020",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 20,
+      "source_text": "`available_at > simulated_time => inaccessible`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0022",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 22,
+      "source_text": "The reconstruction layer must prevent:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0024",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 24,
+      "source_text": "- look-ahead leakage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0025",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 25,
+      "source_text": "- revision leakage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0026",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 26,
+      "source_text": "- future-information contamination",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0027",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 27,
+      "source_text": "- post-event corrections being visible before they were actually available",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0028",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 28,
+      "source_text": "- accidental use of current normalized values in historical evaluation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0005_0030",
+      "source_section": "3. Point-in-Time Historical Reconstruction — P0",
+      "source_line": 30,
+      "source_text": "Historical replay is invalid for institutional evidence if this control is not satisfied.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0001",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 1,
+      "source_text": "# 4. Temporal Leakage Firewall — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0003",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 3,
+      "source_text": "Temporal integrity must be enforced technically, not merely by developer convention.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0005",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 5,
+      "source_text": "The replay/evaluation system must reject access to data that was not available at the simulated decision time.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0007",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 7,
+      "source_text": "Tests should include, where applicable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0009",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 9,
+      "source_text": "- delayed publications",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0010",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 10,
+      "source_text": "- revised macroeconomic data",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0011",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 11,
+      "source_text": "- late-arriving market/on-chain data",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0012",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 12,
+      "source_text": "- corrected source values",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0013",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 13,
+      "source_text": "- source/event timestamp mismatch",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0014",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 14,
+      "source_text": "- missing historical timestamps",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0015",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 15,
+      "source_text": "- unavailable historical features",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0016",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 16,
+      "source_text": "- historical source latency",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0006_0018",
+      "source_section": "4. Temporal Leakage Firewall — P0",
+      "source_line": 18,
+      "source_text": "Any leakage detected must invalidate the affected evaluation evidence until corrected and rerun.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0001",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 1,
+      "source_text": "# 5. Canonical Historical Event Store — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0003",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 3,
+      "source_text": "Historical and live information must not become an unstructured file archive.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0005",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 5,
+      "source_text": "BLACKDARK should preserve a canonical path:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0007",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 7,
+      "source_text": "`Raw → Normalized → Entity/Event → Feature → Signal`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0009",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 9,
+      "source_text": "Required controls include:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0011",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 11,
+      "source_text": "- immutable raw-source lineage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0012",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 12,
+      "source_text": "- source identity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0013",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 13,
+      "source_text": "- schema/version history",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0014",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 14,
+      "source_text": "- deduplication",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0015",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 15,
+      "source_text": "- corrections and amendments",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0016",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 16,
+      "source_text": "- source-conflict representation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0017",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 17,
+      "source_text": "- deterministic reconstruction",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0018",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 18,
+      "source_text": "- data rights metadata",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0019",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 19,
+      "source_text": "- retention policy",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0020",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 20,
+      "source_text": "- reproducible transformation lineage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0007_0022",
+      "source_section": "5. Canonical Historical Event Store — P0",
+      "source_line": 22,
+      "source_text": "Raw evidence must not be discarded solely because its current learning priority is low.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0001",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 1,
+      "source_text": "# 6. Deterministic Mass Replay Engine — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0003",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 3,
+      "source_text": "Replay must reproduce the intended decision path:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0005",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 5,
+      "source_text": "`Observation`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0006",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 6,
+      "source_text": "→ `Feature State`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0008",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 8,
+      "source_text": "→ `Prediction`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0009",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 9,
+      "source_text": "→ `Decision`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0010",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 10,
+      "source_text": "→ `Confidence`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0011",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 11,
+      "source_text": "→ `Abstain / Act`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0014",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 14,
+      "source_text": "Replay should support:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0016",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 16,
+      "source_text": "- multiple assets",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0017",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 17,
+      "source_text": "- multiple venues where applicable",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0018",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 18,
+      "source_text": "- multiple time horizons",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0019",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 19,
+      "source_text": "- multiple historical periods",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0020",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 20,
+      "source_text": "- multiple market regimes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0021",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 21,
+      "source_text": "- multiple model/rule/config versions",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0022",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 22,
+      "source_text": "- alternative thresholds",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0023",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 23,
+      "source_text": "- alternative source availability scenarios",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0025",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 25,
+      "source_text": "Replay must be:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0027",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 27,
+      "source_text": "- reproducible",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0028",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 28,
+      "source_text": "- point-in-time correct",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0029",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 29,
+      "source_text": "- provenance-bound",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0030",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 30,
+      "source_text": "- version-bound",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0031",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 31,
+      "source_text": "- deterministic where feasible",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0032",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 32,
+      "source_text": "- comparable across model versions",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0008_0034",
+      "source_section": "6. Deterministic Mass Replay Engine — P0",
+      "source_line": 34,
+      "source_text": "Replay results are evidence of historical evaluation, not proof of live forward performance.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0001",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 1,
+      "source_text": "# 7. Dependence-Aware Experience Multiplication — P1",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0003",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 3,
+      "source_text": "A single historical period may generate many evaluation instances, but those instances must not automatically be treated as statistically independent.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0005",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 5,
+      "source_text": "For every material evaluation family, capture dependence dimensions such as:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0007",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 7,
+      "source_text": "- temporal overlap",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0008",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 8,
+      "source_text": "- shared event",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0009",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 9,
+      "source_text": "- asset correlation",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0010",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 10,
+      "source_text": "- shared label",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0011",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 11,
+      "source_text": "- shared regime",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0012",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 12,
+      "source_text": "- shared source dependency",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0013",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 13,
+      "source_text": "- shared model family",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0015",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 15,
+      "source_text": "Record, where practical:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0018",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 18,
+      "source_text": "- `event_family`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0019",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 19,
+      "source_text": "- `dependence_cluster`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0009_0021",
+      "source_section": "7. Dependence-Aware Experience Multiplication — P1",
+      "source_line": 21,
+      "source_text": "The system may report millions of evaluation instances, but must distinguish this from an effective independent sample count.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0001",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 1,
+      "source_text": "# 8. Walk-Forward Evaluation — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0003",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 3,
+      "source_text": "Historical evaluation must not rely on train-on-all-history/test-on-the-same-history methodology.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0007",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 7,
+      "source_text": "`Past training/fit window`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0009",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 9,
+      "source_text": "→ `Future untouched evaluation window`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0010",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 10,
+      "source_text": "→ `Advance window`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0013",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 13,
+      "source_text": "Apply where relevant:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0017",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 17,
+      "source_text": "- no future-feature leakage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0018",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 18,
+      "source_text": "- immutable evaluation windows",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0019",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 19,
+      "source_text": "- model/version freeze",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0020",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 20,
+      "source_text": "- dataset/version freeze",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0021",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 21,
+      "source_text": "- configuration freeze",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0010_0023",
+      "source_section": "8. Walk-Forward Evaluation — P0",
+      "source_line": 23,
+      "source_text": "Repeated tuning against the same evaluation window must be tracked as evaluation contamination.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0001",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 1,
+      "source_text": "# 9. Automated Outcome Factory — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0003",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 3,
+      "source_text": "Every material Signal, Prediction, or Decision should be linkable to a measurable Outcome Contract.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0005",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 5,
+      "source_text": "Where applicable, record:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0007",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 7,
+      "source_text": "- target definition",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0008",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 8,
+      "source_text": "- evaluation horizon",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0009",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 9,
+      "source_text": "- outcome timestamp",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0010",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 10,
+      "source_text": "- realized result",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0011",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 11,
+      "source_text": "- benchmark result",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0012",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 12,
+      "source_text": "- confidence",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0013",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 13,
+      "source_text": "- calibration error",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0014",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 14,
+      "source_text": "- directional correctness",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0015",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 15,
+      "source_text": "- magnitude error",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0017",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 17,
+      "source_text": "- favorable excursion",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0018",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 18,
+      "source_text": "- adverse excursion",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0020",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 20,
+      "source_text": "- false-positive cost",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0021",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 21,
+      "source_text": "- false-negative cost",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0022",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 22,
+      "source_text": "- abstention quality",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0023",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 23,
+      "source_text": "- market regime",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0024",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 24,
+      "source_text": "- evaluator version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0026",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 26,
+      "source_text": "The outcome evaluator must be logically independent from the prediction logic.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0011_0028",
+      "source_section": "9. Automated Outcome Factory — P0",
+      "source_line": 28,
+      "source_text": "A production prediction function must not validate itself by generating its own expected outcome.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0001",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 1,
+      "source_text": "# 10. Outcome Quality and Label Confidence — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0003",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 3,
+      "source_text": "Not every outcome is perfect ground truth.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0005",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 5,
+      "source_text": "Each evaluated outcome should carry, where relevant:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0007",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 7,
+      "source_text": "- `outcome_quality`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0008",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 8,
+      "source_text": "- `label_confidence`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0009",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 9,
+      "source_text": "- `data_completeness`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0010",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 10,
+      "source_text": "- `evaluation_source`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0011",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 11,
+      "source_text": "- `evaluation_method`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0012",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 12,
+      "source_text": "- `known_limitations`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0014",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 14,
+      "source_text": "Objective market observations may carry high confidence.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0012_0016",
+      "source_section": "10. Outcome Quality and Label Confidence — P0",
+      "source_line": 16,
+      "source_text": "Derived, inferred, or imperfect outcomes must not be presented as equivalent to direct observed truth.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0001",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 1,
+      "source_text": "# 11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0003",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 3,
+      "source_text": "Before the future outcome is known, every material forward-shadow prediction must receive an immutable pre-outcome receipt.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0005",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 5,
+      "source_text": "Minimum fields where applicable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0007",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 7,
+      "source_text": "- `prediction_id`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0008",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 8,
+      "source_text": "- `issued_at`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0009",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 9,
+      "source_text": "- `model_version`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0010",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 10,
+      "source_text": "- `rule/config_version`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0011",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 11,
+      "source_text": "- `dataset_version`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0012",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 12,
+      "source_text": "- `code_version`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0013",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 13,
+      "source_text": "- `input_snapshot_hash`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0014",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 14,
+      "source_text": "- `prediction`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0015",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 15,
+      "source_text": "- `confidence`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0016",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 16,
+      "source_text": "- `abstention_state`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0017",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 17,
+      "source_text": "- `evidence_class=FORWARD_SHADOW`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0019",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 19,
+      "source_text": "The original receipt must not be overwritten after the outcome becomes known.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0013_0021",
+      "source_section": "11. Immutable Forward-Shadow Evidence Receipts — P0",
+      "source_line": 21,
+      "source_text": "Corrections must use append-only amendments with provenance.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0001",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 1,
+      "source_text": "# 12. Evidence Provenance Ledger — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0003",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 3,
+      "source_text": "Evidence classes:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0005",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 5,
+      "source_text": "- `HISTORICAL_BACKTEST`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0006",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 6,
+      "source_text": "- `HISTORICAL_REPLAY`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0007",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 7,
+      "source_text": "- `SIMULATED`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0008",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 8,
+      "source_text": "- `FORWARD_SHADOW`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0009",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 9,
+      "source_text": "- `VERIFIED_PRODUCTION`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0010",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 10,
+      "source_text": "- `INDEPENDENTLY_VERIFIED`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0014",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 14,
+      "source_text": "- no automatic promotion between evidence classes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0015",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 15,
+      "source_text": "- evidence must be version-scoped",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0016",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 16,
+      "source_text": "- evidence must preserve methodology",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0017",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 17,
+      "source_text": "- evidence must preserve timestamps",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0018",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 18,
+      "source_text": "- evidence must preserve evaluator identity/version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0019",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 19,
+      "source_text": "- evidence must preserve source/provenance",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0020",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 20,
+      "source_text": "- evidence must preserve material limitations",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0024",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 24,
+      "source_text": "`Replay ≠ Shadow`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0025",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 25,
+      "source_text": "`Shadow ≠ Production`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0014_0026",
+      "source_section": "12. Evidence Provenance Ledger — P0",
+      "source_line": 26,
+      "source_text": "`Production ≠ Independent Assurance`",
+      "implementation_intended": false,
+      "disposition": "EXTERNAL_ASSURANCE_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0001",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 1,
+      "source_text": "# 13. Forward Shadow Reality Anchor — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0003",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 3,
+      "source_text": "Forward shadow exists to test whether historical assumptions still hold in the current world.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0005",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 5,
+      "source_text": "Monitor, where applicable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0007",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 7,
+      "source_text": "- concept drift",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0008",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 8,
+      "source_text": "- data drift",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0009",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 9,
+      "source_text": "- source drift",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0010",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 10,
+      "source_text": "- latency differences",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0011",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 11,
+      "source_text": "- venue behavior changes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0012",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 12,
+      "source_text": "- market-structure changes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0013",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 13,
+      "source_text": "- regime changes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0014",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 14,
+      "source_text": "- calibration changes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0015",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 15,
+      "source_text": "- unexpected source conflicts",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0017",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 17,
+      "source_text": "Forward shadow is not merely a sample-count generator.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0015_0019",
+      "source_section": "13. Forward Shadow Reality Anchor — P0",
+      "source_line": 19,
+      "source_text": "It is the live reality anchor for all historical evidence.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0001",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 1,
+      "source_text": "# 14. Regime Intelligence Library — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0003",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 3,
+      "source_text": "Evaluation must be decomposable by market regime.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0005",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 5,
+      "source_text": "Possible regimes include, where justified:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0009",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 9,
+      "source_text": "- range-bound",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0010",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 10,
+      "source_text": "- high volatility",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0011",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 11,
+      "source_text": "- low volatility",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0012",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 12,
+      "source_text": "- liquidity stress",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0013",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 13,
+      "source_text": "- liquidation cascade",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0015",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 15,
+      "source_text": "- market-wide crash",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0016",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 16,
+      "source_text": "- idiosyncratic asset shock",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0017",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 17,
+      "source_text": "- exchange outage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0018",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 18,
+      "source_text": "- macro shock",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0019",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 19,
+      "source_text": "- news shock",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0020",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 20,
+      "source_text": "- correlation break",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0021",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 21,
+      "source_text": "- structural break",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0016_0023",
+      "source_section": "14. Regime Intelligence Library — P0",
+      "source_line": 23,
+      "source_text": "Aggregate metrics must not be allowed to hide material regime-specific failure.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0001",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 1,
+      "source_text": "# 15. Failure, Surprise & Abstention Corpus — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0003",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 3,
+      "source_text": "Create a durable corpus of high-learning-value failures and surprises.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0005",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 5,
+      "source_text": "Include, where applicable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0007",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 7,
+      "source_text": "- high-confidence wrong prediction",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0008",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 8,
+      "source_text": "- failure to abstain",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0009",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 9,
+      "source_text": "- unnecessary abstention",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0010",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 10,
+      "source_text": "- missed major event",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0011",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 11,
+      "source_text": "- model disagreement",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0012",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 12,
+      "source_text": "- unexpected regime shift",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0013",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 13,
+      "source_text": "- correlation breakdown",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0014",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 14,
+      "source_text": "- stale source",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0015",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 15,
+      "source_text": "- conflicting sources",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0016",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 16,
+      "source_text": "- missing source",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0017",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 17,
+      "source_text": "- tail event",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0018",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 18,
+      "source_text": "- calibration collapse",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0019",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 19,
+      "source_text": "- prediction instability",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0020",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 20,
+      "source_text": "- source revision",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0021",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 21,
+      "source_text": "- model regression",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0023",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 23,
+      "source_text": "Each material case should be traceable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0026",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 26,
+      "source_text": "→ `Root Cause`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0027",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 27,
+      "source_text": "→ `Affected Capability`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0028",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 28,
+      "source_text": "→ `Model/Rule Version`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0029",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 29,
+      "source_text": "→ `Remediation`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0030",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 30,
+      "source_text": "→ `Regression Test`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0031",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 31,
+      "source_text": "→ `Post-fix Replay`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0017_0033",
+      "source_section": "15. Failure, Surprise & Abstention Corpus — P0",
+      "source_line": 33,
+      "source_text": "This corpus is a strategic proprietary asset.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0018_0001",
+      "source_section": "16. Learning Value Engine — P1",
+      "source_line": 1,
+      "source_text": "# 16. Learning Value Engine — P1",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0018_0003",
+      "source_section": "16. Learning Value Engine — P1",
+      "source_line": 3,
+      "source_text": "Do not treat all observations as equally valuable for learning.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0018_0005",
+      "source_section": "16. Learning Value Engine — P1",
+      "source_line": 5,
+      "source_text": "Maintain two complementary sampling streams:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0019_0001",
+      "source_section": "A. Representative Sampling Stream",
+      "source_line": 1,
+      "source_text": "## A. Representative Sampling Stream",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0019_0003",
+      "source_section": "A. Representative Sampling Stream",
+      "source_line": 3,
+      "source_text": "Used to preserve unbiased/representative coverage.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0001",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 1,
+      "source_text": "## B. High-Information Learning Stream",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0003",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 3,
+      "source_text": "Prioritizes cases using factors such as:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0006",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 6,
+      "source_text": "- uncertainty",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0007",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 7,
+      "source_text": "- model disagreement",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0008",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 8,
+      "source_text": "- failure severity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0009",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 9,
+      "source_text": "- economic materiality",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0010",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 10,
+      "source_text": "- regime rarity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0011",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 11,
+      "source_text": "- data-quality risk",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0013",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 13,
+      "source_text": "A Learning Value Score may be used for prioritization, but it must not replace representative sampling.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0020_0015",
+      "source_section": "B. High-Information Learning Stream",
+      "source_line": 15,
+      "source_text": "Learning priority and storage retention are separate decisions.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0021_0001",
+      "source_section": "17. Data Retention Is Not Learning Priority — P0",
+      "source_line": 1,
+      "source_text": "# 17. Data Retention Is Not Learning Priority — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0021_0003",
+      "source_section": "17. Data Retention Is Not Learning Priority — P0",
+      "source_line": 3,
+      "source_text": "Do not delete raw evidence merely because it currently has low learning value.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0021_0005",
+      "source_section": "17. Data Retention Is Not Learning Priority — P0",
+      "source_line": 5,
+      "source_text": "Use tiered storage according to access, cost, rights, and retention policy:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0022_0002",
+      "source_section": "Hot",
+      "source_line": 2,
+      "source_text": "- live/recent",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0022_0003",
+      "source_section": "Hot",
+      "source_line": 3,
+      "source_text": "- high-frequency",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0022_0004",
+      "source_section": "Hot",
+      "source_line": 4,
+      "source_text": "- active evaluation",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0023_0002",
+      "source_section": "Warm",
+      "source_line": 2,
+      "source_text": "- normalized datasets",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0023_0003",
+      "source_section": "Warm",
+      "source_line": 3,
+      "source_text": "- reusable features",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0023_0004",
+      "source_section": "Warm",
+      "source_line": 4,
+      "source_text": "- frequent replay artifacts",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0002",
+      "source_section": "Cold",
+      "source_line": 2,
+      "source_text": "- historical/raw/archive",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0003",
+      "source_section": "Cold",
+      "source_line": 3,
+      "source_text": "- rare research evidence",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0004",
+      "source_section": "Cold",
+      "source_line": 4,
+      "source_text": "- long-horizon reconstruction",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0008",
+      "source_section": "Cold",
+      "source_line": 8,
+      "source_text": "- compression",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0009",
+      "source_section": "Cold",
+      "source_line": 9,
+      "source_text": "- partitioning",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0010",
+      "source_section": "Cold",
+      "source_line": 10,
+      "source_text": "- deduplication",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0011",
+      "source_section": "Cold",
+      "source_line": 11,
+      "source_text": "- lifecycle policies",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0012",
+      "source_section": "Cold",
+      "source_line": 12,
+      "source_text": "- rights-aware retention",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0013",
+      "source_section": "Cold",
+      "source_line": 13,
+      "source_text": "- deterministic reconstruction",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0024_0014",
+      "source_section": "Cold",
+      "source_line": 14,
+      "source_text": "- reproducible retrieval",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0001",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 1,
+      "source_text": "# 18. Replay Fidelity Profile — P1",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0003",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 3,
+      "source_text": "Not every replay has equal evidentiary quality.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0005",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 5,
+      "source_text": "Maintain separate fidelity dimensions such as:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0007",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 7,
+      "source_text": "- temporal fidelity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0008",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 8,
+      "source_text": "- source coverage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0009",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 9,
+      "source_text": "- source completeness",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0010",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 10,
+      "source_text": "- order-book/depth fidelity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0011",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 11,
+      "source_text": "- latency fidelity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0012",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 12,
+      "source_text": "- transaction-cost fidelity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0013",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 13,
+      "source_text": "- revision integrity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0014",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 14,
+      "source_text": "- venue availability",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0015",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 15,
+      "source_text": "- provenance completeness",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0016",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 16,
+      "source_text": "- rights completeness",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0025_0018",
+      "source_section": "18. Replay Fidelity Profile — P1",
+      "source_line": 18,
+      "source_text": "A composite score may be derived for convenience, but material dimensions must remain visible.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0001",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 1,
+      "source_text": "# 19. Experience Coverage Vector — P1",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0003",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 3,
+      "source_text": "Do not use elapsed time alone as a proxy for experience.",
+      "implementation_intended": false,
+      "disposition": "LIVE_OR_CHRONOLOGICAL_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0007",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 7,
+      "source_text": "- historical span",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0008",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 8,
+      "source_text": "- regime coverage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0009",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 9,
+      "source_text": "- independent event families",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0010",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 10,
+      "source_text": "- effective independent sample count",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0011",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 11,
+      "source_text": "- prediction/outcome pairs",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0012",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 12,
+      "source_text": "- tail-event coverage",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0013",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 13,
+      "source_text": "- asset coverage",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0014",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 14,
+      "source_text": "- venue coverage",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0015",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 15,
+      "source_text": "- source diversity",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0016",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 16,
+      "source_text": "- calibration coverage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0017",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 17,
+      "source_text": "- failure-corpus coverage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0018",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 18,
+      "source_text": "- replay fidelity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0019",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 19,
+      "source_text": "- forward-shadow duration",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0020",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 20,
+      "source_text": "- forward-shadow sample count",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0026_0022",
+      "source_section": "19. Experience Coverage Vector — P1",
+      "source_line": 22,
+      "source_text": "An optional composite **Experience Coverage Index** may summarize the vector, but must not hide weak material dimensions.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0001",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 1,
+      "source_text": "# 20. Champion–Challenger Governance — P1",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0003",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 3,
+      "source_text": "Production learning must not automatically modify the deployed model.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0008",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 8,
+      "source_text": "→ `Candidate Learning`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0009",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 9,
+      "source_text": "→ `Challenger`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0010",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 10,
+      "source_text": "→ `Historical Evaluation`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0011",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 11,
+      "source_text": "→ `Walk-Forward`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0012",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 12,
+      "source_text": "→ `Regime Validation`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0013",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 13,
+      "source_text": "→ `Forward Shadow`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0014",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 14,
+      "source_text": "→ `Stability Review`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0015",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 15,
+      "source_text": "→ `Promotion Decision`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0016",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 16,
+      "source_text": "→ `Champion`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0027_0018",
+      "source_section": "20. Champion–Challenger Governance — P1",
+      "source_line": 18,
+      "source_text": "Promotion/rejection must preserve evidence and version lineage.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0001",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 1,
+      "source_text": "# 21. Controlled Learning — P0/P1",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0003",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 3,
+      "source_text": "BLACKDARK must not currently allow uncontrolled self-modifying production behavior.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0005",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 5,
+      "source_text": "Learning may generate:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0007",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 7,
+      "source_text": "- candidate weights",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0008",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 8,
+      "source_text": "- candidate models",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0009",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 9,
+      "source_text": "- candidate rules",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0010",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 10,
+      "source_text": "- candidate calibration changes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0011",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 11,
+      "source_text": "- candidate thresholds",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0013",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 13,
+      "source_text": "But none become production without the required promotion gate.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0028_0015",
+      "source_section": "21. Controlled Learning — P0/P1",
+      "source_line": 15,
+      "source_text": "True adaptive/online production learning is a later capability and requires its own governance and safety controls.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0001",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 1,
+      "source_text": "# 22. Counterfactual Decision Lab — P1",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0003",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 3,
+      "source_text": "Replay should support counterfactual questions such as:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0005",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 5,
+      "source_text": "- different confidence threshold",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0006",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 6,
+      "source_text": "- alternative abstention threshold",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0007",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 7,
+      "source_text": "- source removed",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0008",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 8,
+      "source_text": "- source delayed",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0009",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 9,
+      "source_text": "- alternate model version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0010",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 10,
+      "source_text": "- alternate rule version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0011",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 11,
+      "source_text": "- higher latency",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0012",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 12,
+      "source_text": "- different costs",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0013",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 13,
+      "source_text": "- alternative regime assumptions",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0029_0015",
+      "source_section": "22. Counterfactual Decision Lab — P1",
+      "source_line": 15,
+      "source_text": "The purpose is to evaluate decision robustness, not merely historical direction accuracy.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0030_0001",
+      "source_section": "23. Market Time Machine — P1 Internal / P2 User-Facing",
+      "source_line": 1,
+      "source_text": "# 23. Market Time Machine — P1 Internal / P2 User-Facing",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0031_0001",
+      "source_section": "Internal Mode — P1",
+      "source_line": 1,
+      "source_text": "## Internal Mode — P1",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0031_0008",
+      "source_section": "Internal Mode — P1",
+      "source_line": 8,
+      "source_text": "- model comparison",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0031_0010",
+      "source_section": "Internal Mode — P1",
+      "source_line": 10,
+      "source_text": "- failure reproduction",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0031_0011",
+      "source_section": "Internal Mode — P1",
+      "source_line": 11,
+      "source_text": "- evidence generation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0031_0012",
+      "source_section": "Internal Mode — P1",
+      "source_line": 12,
+      "source_text": "- root-cause analysis",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0001",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 1,
+      "source_text": "## User-Facing Mode — P2",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0003",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 3,
+      "source_text": "Allow the user to select a historical timestamp/event and see:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0005",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 5,
+      "source_text": "`What was knowable then`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0007",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 7,
+      "source_text": "→ uncertainty",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0008",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 8,
+      "source_text": "→ conflicting sources",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0009",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 9,
+      "source_text": "→ prediction",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0010",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 10,
+      "source_text": "→ confidence",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0013",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 13,
+      "source_text": "→ abstention",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0014",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 14,
+      "source_text": "→ what happened next",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0016",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 16,
+      "source_text": "Mandatory disclosure:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0018",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 18,
+      "source_text": "**Historical Replay**",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0032_0020",
+      "source_section": "User-Facing Mode — P2",
+      "source_line": 20,
+      "source_text": "It must never imply that the historical output was issued live at that time unless there is genuine forward evidence proving that fact.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0001",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 1,
+      "source_text": "# 24. Public Accuracy / Evidence Ledger — P2",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0003",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 3,
+      "source_text": "Build backend evidence foundations early, but do not use a public ledger as a marketing claim until evidence is sufficiently mature.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0005",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 5,
+      "source_text": "Every material public claim should disclose, where applicable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0007",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 7,
+      "source_text": "- evidence class",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0008",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 8,
+      "source_text": "- date range",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0009",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 9,
+      "source_text": "- sample size",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0010",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 10,
+      "source_text": "- effective independent sample count",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0011",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 11,
+      "source_text": "- regime distribution",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0012",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 12,
+      "source_text": "- asset/universe",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0013",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 13,
+      "source_text": "- evaluation horizon",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0014",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 14,
+      "source_text": "- model version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0015",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 15,
+      "source_text": "- abstentions",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0016",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 16,
+      "source_text": "- methodology",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0017",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 17,
+      "source_text": "- uncertainty",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0018",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 18,
+      "source_text": "- exclusions",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0019",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 19,
+      "source_text": "- limitations",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0021",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 21,
+      "source_text": "Controls must address:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0023",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 23,
+      "source_text": "- cherry-picking",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0024",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 24,
+      "source_text": "- survivorship bias",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0025",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 25,
+      "source_text": "- retroactive deletion",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0026",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 26,
+      "source_text": "- selective date-window reporting",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0033_0027",
+      "source_section": "24. Public Accuracy / Evidence Ledger — P2",
+      "source_line": 27,
+      "source_text": "- mixing evidence classes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0001",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 1,
+      "source_text": "# 25. Source & Rights Governance — P0",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0003",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 3,
+      "source_text": "For every material source preserve, where applicable:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0005",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 5,
+      "source_text": "- permitted purpose",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0006",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 6,
+      "source_text": "- historical-use rights",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0007",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 7,
+      "source_text": "- retention rights",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0008",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 8,
+      "source_text": "- derivative-data rights",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0009",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 9,
+      "source_text": "- redistribution rights",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0010",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 10,
+      "source_text": "- model-training rights",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0011",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 11,
+      "source_text": "- provenance",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0012",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 12,
+      "source_text": "- contractual restrictions",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0013",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 13,
+      "source_text": "- expiry/revocation conditions",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0015",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 15,
+      "source_text": "Historical availability does not automatically imply legal or contractual permission to retain, train on, transform, or redistribute the data.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0034_0017",
+      "source_section": "25. Source & Rights Governance — P0",
+      "source_line": 17,
+      "source_text": "No paid vendor is automatically purchased merely because the design references a data dependency.",
+      "implementation_intended": false,
+      "disposition": "EXTERNAL_ASSURANCE_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0001",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 1,
+      "source_text": "# 26. Data Quality & Source Reliability — P0",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0003",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 3,
+      "source_text": "Maintain source reliability evidence, including where applicable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0006",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 6,
+      "source_text": "- completeness",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0008",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 8,
+      "source_text": "- anomaly rate",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0009",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 9,
+      "source_text": "- disagreement rate",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0010",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 10,
+      "source_text": "- revision frequency",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0011",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 11,
+      "source_text": "- outage history",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0012",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 12,
+      "source_text": "- timestamp integrity",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0013",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 13,
+      "source_text": "- historical coverage",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0014",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 14,
+      "source_text": "- schema stability",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0016",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 16,
+      "source_text": "Source quality should influence:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0018",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 18,
+      "source_text": "- confidence",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0019",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 19,
+      "source_text": "- replay fidelity",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0020",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 20,
+      "source_text": "- evidence quality",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0035_0021",
+      "source_section": "26. Data Quality & Source Reliability — P0",
+      "source_line": 21,
+      "source_text": "- degradation behavior",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0001",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 1,
+      "source_text": "# 27. Drift & Structural-Break Detection — P1",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0003",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 3,
+      "source_text": "Monitor, where applicable:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0005",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 5,
+      "source_text": "- feature drift",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0006",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 6,
+      "source_text": "- target drift",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0007",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 7,
+      "source_text": "- calibration drift",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0008",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 8,
+      "source_text": "- source drift",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0009",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 9,
+      "source_text": "- relationship drift",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0010",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 10,
+      "source_text": "- regime transition",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0011",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 11,
+      "source_text": "- structural break",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0013",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 13,
+      "source_text": "The system must be able to conclude:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0015",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 15,
+      "source_text": "**Historical evidence is no longer sufficiently representative of current conditions.**",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0036_0017",
+      "source_section": "27. Drift & Structural-Break Detection — P1",
+      "source_line": 17,
+      "source_text": "Historical scale must never override current invalidation evidence.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0001",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 1,
+      "source_text": "# 28. Evaluation Contamination Registry — P0/P1",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0003",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 3,
+      "source_text": "Track whether datasets/windows have been used for:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0007",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 7,
+      "source_text": "- feature design",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0008",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 8,
+      "source_text": "- threshold selection",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0009",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 9,
+      "source_text": "- hyperparameter selection",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0010",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 10,
+      "source_text": "- evaluation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0011",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 11,
+      "source_text": "- repeated post-hoc investigation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0037_0013",
+      "source_section": "28. Evaluation Contamination Registry — P0/P1",
+      "source_line": 13,
+      "source_text": "Repeated reuse of a supposedly untouched evaluation set must be visible and must reduce the strength of any out-of-sample claim.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0001",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 1,
+      "source_text": "# 29. Reproducibility Manifest — P0",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0003",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 3,
+      "source_text": "For each material replay/evaluation run preserve, where applicable:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0006",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 6,
+      "source_text": "- configuration",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0007",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 7,
+      "source_text": "- dataset snapshot",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0008",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 8,
+      "source_text": "- feature version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0009",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 9,
+      "source_text": "- model version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0010",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 10,
+      "source_text": "- rule version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0011",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 11,
+      "source_text": "- evaluator version",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0012",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 12,
+      "source_text": "- random seed",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0013",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 13,
+      "source_text": "- environment",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0015",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 15,
+      "source_text": "- timestamps",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0016",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 16,
+      "source_text": "- evidence class",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0038_0018",
+      "source_section": "29. Reproducibility Manifest — P0",
+      "source_line": 18,
+      "source_text": "Material results must be reproducible or explicitly marked when full reproducibility is technically impossible.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0001",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 1,
+      "source_text": "# 30. Computational Acceleration Layer — P1",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0003",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 3,
+      "source_text": "To make time compression operationally fast, reuse computation instead of rebuilding everything.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0005",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 5,
+      "source_text": "Use where appropriate:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0007",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 7,
+      "source_text": "- feature caching",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0008",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 8,
+      "source_text": "- immutable feature snapshots",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0009",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 9,
+      "source_text": "- incremental recomputation",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0010",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 10,
+      "source_text": "- columnar storage",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0011",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 11,
+      "source_text": "- partition pruning",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0012",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 12,
+      "source_text": "- event-based replay",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0013",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 13,
+      "source_text": "- parallel execution",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0014",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 14,
+      "source_text": "- reusable intermediate artifacts",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0015",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 15,
+      "source_text": "- workload prioritization",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0016",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 16,
+      "source_text": "- deterministic cache keys",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0039_0018",
+      "source_section": "30. Computational Acceleration Layer — P1",
+      "source_line": 18,
+      "source_text": "Performance optimization must not weaken provenance, temporal integrity, reproducibility, or evidence classification.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0001",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 1,
+      "source_text": "# 31. User Behavioral Learning — Later / Controlled",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0003",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 3,
+      "source_text": "User behavior is not financial ground truth.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0005",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 5,
+      "source_text": "If used later, require:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0007",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 7,
+      "source_text": "- explicit purpose",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0008",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 8,
+      "source_text": "- consent/legal basis where applicable",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0009",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 9,
+      "source_text": "- minimization",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0010",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 10,
+      "source_text": "- retention rules",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0011",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 11,
+      "source_text": "- deletion/rights handling",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0012",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 12,
+      "source_text": "- separation from objective market outcomes",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0013",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 13,
+      "source_text": "- anti-manipulation controls",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0040_0015",
+      "source_section": "31. User Behavioral Learning — Later / Controlled",
+      "source_line": 15,
+      "source_text": "A user action such as clicking Buy must never be treated automatically as proof that Buy was the correct financial decision.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0001",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 1,
+      "source_text": "# 32. Quality and Acceptance Model",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0003",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 3,
+      "source_text": "Relevant institutional quality principles should be applied without falsely attributing BLACKDARK-specific architecture to external standards.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0005",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 5,
+      "source_text": "The design should support:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0007",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 7,
+      "source_text": "- functional correctness",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0008",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 8,
+      "source_text": "- reliability",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0010",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 10,
+      "source_text": "- maintainability",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0011",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 11,
+      "source_text": "- performance efficiency",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0012",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 12,
+      "source_text": "- traceability",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0013",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 13,
+      "source_text": "- reproducibility",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0014",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 14,
+      "source_text": "- testability",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0015",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 15,
+      "source_text": "- auditability",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0016",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 16,
+      "source_text": "- quality-in-use",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0017",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 17,
+      "source_text": "- risk-based monitoring",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0041_0019",
+      "source_section": "32. Quality and Acceptance Model",
+      "source_line": 19,
+      "source_text": "External standards/frameworks guide quality and governance principles; they do not prescribe BLACKDARK-specific components such as Market Time Machine, Failure Corpus, or Experience Coverage Vector.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0042_0001",
+      "source_section": "33. Execution Priority",
+      "source_line": 1,
+      "source_text": "# 33. Execution Priority",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0001",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 1,
+      "source_text": "## P0 — Build / establish immediately",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0003",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 3,
+      "source_text": "1. Evidence taxonomy",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0004",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 4,
+      "source_text": "2. Signal / Prediction / Decision / Outcome ledgers",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0005",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 5,
+      "source_text": "3. Point-in-Time availability model",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0006",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 6,
+      "source_text": "4. Temporal Leakage Firewall",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0007",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 7,
+      "source_text": "5. Canonical Historical Event Store",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0008",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 8,
+      "source_text": "6. Dataset / Model / Rule / Evaluator lineage",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0009",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 9,
+      "source_text": "7. Reproducibility Manifest",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0010",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 10,
+      "source_text": "8. Deterministic Replay",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0011",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 11,
+      "source_text": "9. Walk-Forward Evaluation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0012",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 12,
+      "source_text": "10. Automated Outcome Factory",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0013",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 13,
+      "source_text": "11. Outcome quality / label confidence",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0014",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 14,
+      "source_text": "12. Immutable Forward-Shadow receipts",
+      "implementation_intended": false,
+      "disposition": "LIVE_OR_CHRONOLOGICAL_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0015",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 15,
+      "source_text": "13. Failure / Surprise / Abstention Corpus",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0016",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 16,
+      "source_text": "14. Regime Intelligence Library",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0017",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 17,
+      "source_text": "15. Source quality / reliability",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0018",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 18,
+      "source_text": "16. Source rights / retention controls",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0043_0019",
+      "source_section": "P0 — Build / establish immediately",
+      "source_line": 19,
+      "source_text": "17. Evaluation Contamination Registry",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0001",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 1,
+      "source_text": "## P1 — Build after the P0 spine exists",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0003",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 3,
+      "source_text": "- Learning Value Engine",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0004",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 4,
+      "source_text": "- Experience Coverage Vector",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0005",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 5,
+      "source_text": "- Replay Fidelity Profile",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0006",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 6,
+      "source_text": "- Dependence-Aware Experience Multiplication",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0007",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 7,
+      "source_text": "- Champion / Challenger",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0008",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 8,
+      "source_text": "- Drift Detection",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0009",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 9,
+      "source_text": "- Counterfactual Decision Lab",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0010",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 10,
+      "source_text": "- Internal Market Time Machine",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0044_0011",
+      "source_section": "P1 — Build after the P0 spine exists",
+      "source_line": 11,
+      "source_text": "- Computational Acceleration Layer",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0045_0003",
+      "source_section": "P2",
+      "source_line": 3,
+      "source_text": "- User-facing Market Time Machine",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0045_0004",
+      "source_section": "P2",
+      "source_line": 4,
+      "source_text": "- Public Accuracy / Evidence Ledger",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0045_0005",
+      "source_section": "P2",
+      "source_line": 5,
+      "source_text": "- Behavioral personalization where justified",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0046_0003",
+      "source_section": "Later",
+      "source_line": 3,
+      "source_text": "- Controlled adaptive / online production learning",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0047_0001",
+      "source_section": "34. Fastest Correct Implementation Principle",
+      "source_line": 1,
+      "source_text": "# 34. Fastest Correct Implementation Principle",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0047_0003",
+      "source_section": "34. Fastest Correct Implementation Principle",
+      "source_line": 3,
+      "source_text": "Do **not** begin by training the largest possible model.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0047_0005",
+      "source_section": "34. Fastest Correct Implementation Principle",
+      "source_line": 5,
+      "source_text": "Build the accumulation/evidence spine first:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0047_0010",
+      "source_section": "34. Fastest Correct Implementation Principle",
+      "source_line": 10,
+      "source_text": "→ `Evidence`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0047_0012",
+      "source_section": "34. Fastest Correct Implementation Principle",
+      "source_line": 12,
+      "source_text": "→ `Re-evaluation`",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0047_0014",
+      "source_section": "34. Fastest Correct Implementation Principle",
+      "source_line": 14,
+      "source_text": "Once this spine is reliable, any current or future model can use it.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0047_0016",
+      "source_section": "34. Fastest Correct Implementation Principle",
+      "source_line": 16,
+      "source_text": "Building AI first and evidence/data lineage later creates avoidable rework, weak provenance, leakage risk, and low-quality claims.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0048_0001",
+      "source_section": "35. Final Institutional Position",
+      "source_line": 1,
+      "source_text": "# 35. Final Institutional Position",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0048_0003",
+      "source_section": "35. Final Institutional Position",
+      "source_line": 3,
+      "source_text": "The system is formally defined as:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0001",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 1,
+      "source_text": "## **BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0003",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 3,
+      "source_text": "Its purpose is to make every real day of BLACKDARK operation generate the maximum amount of trustworthy learning and evaluation evidence possible, while leveraging historical data through point-in-time-correct reconstruction and replay.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0005",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 5,
+      "source_text": "It does not shorten real chronological time.",
+      "implementation_intended": false,
+      "disposition": "LIVE_OR_CHRONOLOGICAL_GATED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0007",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 7,
+      "source_text": "It accelerates:",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0009",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 9,
+      "source_text": "- experimental exposure",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0010",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 10,
+      "source_text": "- failure discovery",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0011",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 11,
+      "source_text": "- outcome generation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0012",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 12,
+      "source_text": "- calibration",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0013",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 13,
+      "source_text": "- model comparison",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0014",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 14,
+      "source_text": "- regime coverage",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0015",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 15,
+      "source_text": "- evidence accumulation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0016",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 16,
+      "source_text": "- data-moat formation",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0017",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 17,
+      "source_text": "- decision-quality improvement",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0049_0019",
+      "source_section": "**BLACKDARK Temporal Intelligence & Evidence Acceleration System**",
+      "source_line": 19,
+      "source_text": "while preserving the distinction between historical, shadow, production, and independently verified evidence.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0001",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 1,
+      "source_text": "# 36. Non-Negotiable Integrity Rules",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0003",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 3,
+      "source_text": "1. No fabricated live history.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0004",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 4,
+      "source_text": "2. No evidence-class mixing.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0005",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 5,
+      "source_text": "3. No look-ahead/revision leakage.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0006",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 6,
+      "source_text": "4. No automatic self-validation by production logic.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0007",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 7,
+      "source_text": "5. No uncontrolled self-modifying production model.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0008",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 8,
+      "source_text": "6. No inflated independent-sample claims from correlated replay instances.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0009",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 9,
+      "source_text": "7. No deletion of raw evidence solely due to low current learning priority.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0010",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 10,
+      "source_text": "8. No public accuracy claim without methodology, sample context, and evidence classification.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0011",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 11,
+      "source_text": "9. No training or redistribution assumption without rights/provenance review.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0012",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 12,
+      "source_text": "10. No retrospective rewriting of historical freeze evidence.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0013",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 13,
+      "source_text": "11. No promotion from historical or shadow evidence to production evidence without actual production proof.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0050_0014",
+      "source_section": "36. Non-Negotiable Integrity Rules",
+      "source_line": 14,
+      "source_text": "12. No conflict with v6 or v4_v2; higher governing standards always prevail.",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0001",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 1,
+      "source_text": "# 37. Acceptance Boundary",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0003",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 3,
+      "source_text": "This document defines the approved institutional design and implementation direction.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0005",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 5,
+      "source_text": "Its approval does **not** by itself mean:",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0007",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 7,
+      "source_text": "- `PASS_ENGINEERING`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0008",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 8,
+      "source_text": "- `PASS_LIVE`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0009",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 9,
+      "source_text": "- `ASSURANCE_READY`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0010",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 10,
+      "source_text": "- `PRODUCTION_ALIGNED`",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0011",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 11,
+      "source_text": "- independent verification",
+      "implementation_intended": false,
+      "disposition": "NOT_IMPLEMENTATION_INTENDED"
+    },
+    {
+      "source_id": "TEMPORAL_SRC_0051_0013",
+      "source_section": "37. Acceptance Boundary",
+      "source_line": 13,
+      "source_text": "Those states require their own implementation evidence and gates under the governing standards.",
+      "implementation_intended": true,
+      "disposition": "LOCALLY_BUILDABLE"
+    }
+  ]
+}
