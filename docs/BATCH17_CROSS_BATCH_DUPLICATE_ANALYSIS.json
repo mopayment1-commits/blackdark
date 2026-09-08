@@ -1,0 +1,423 @@
+{
+  "artifact": "BATCH17_CROSS_BATCH_DUPLICATE_ANALYSIS",
+  "generated_at_utc": "2026-09-08T08:56:32.022102+00:00",
+  "git_commit": "168271b5024f85db88c75ce5d97a708269e88c18",
+  "layer_b_cross_batch": {
+    "scope": "Layer B — Batch17 IDs 801-826 vs prior capabilities 1-800",
+    "summary": {
+      "cross_batch_canonical_reuse": 26,
+      "cross_batch_unresolved": 0
+    },
+    "per_id": [
+      {
+        "batch17_id": 801,
+        "capability_name": "Bucketed CVD",
+        "prior_id": 534,
+        "prior_name": "Bucketed CVD",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 802,
+        "capability_name": "Whale vs Retail Flow",
+        "prior_id": 535,
+        "prior_name": "Whale vs Retail Flow",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 803,
+        "capability_name": "Slippage Intelligence",
+        "prior_id": 536,
+        "prior_name": "Slippage Intelligence",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 804,
+        "capability_name": "Global Order Book Metrics",
+        "prior_id": 537,
+        "prior_name": "Global Order Book Metrics",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 805,
+        "capability_name": "Order Book Imbalance",
+        "prior_id": 538,
+        "prior_name": "Order Book Imbalance",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 806,
+        "capability_name": "Liquidity Zones",
+        "prior_id": 539,
+        "prior_name": "Liquidity Zones",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 807,
+        "capability_name": "Bot Activity Detection",
+        "prior_id": 540,
+        "prior_name": "Bot Activity Detection",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 808,
+        "capability_name": "Market Positioning",
+        "prior_id": 541,
+        "prior_name": "Market Positioning",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 809,
+        "capability_name": "Liquidation Pressure Score",
+        "prior_id": 542,
+        "prior_name": "Liquidation Pressure Score",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 810,
+        "capability_name": "Orderflow Anomaly Detection",
+        "prior_id": 543,
+        "prior_name": "Orderflow Anomaly Detection",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 811,
+        "capability_name": "API Indicator Platform",
+        "prior_id": 544,
+        "prior_name": "API Indicator Platform",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 812,
+        "capability_name": "Trader Cohort Intelligence",
+        "prior_id": 545,
+        "prior_name": "Trader Cohort Intelligence",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 813,
+        "capability_name": "Cross-Derivatives Decision Intelligence",
+        "prior_id": 546,
+        "prior_name": "Cross-Derivatives Decision Intelligence",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 814,
+        "capability_name": "High-Resolution Multi-Pane Charts",
+        "prior_id": 547,
+        "prior_name": "High-Resolution Multi-Pane Charts",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 815,
+        "capability_name": "Derivatives Dashboard",
+        "prior_id": 548,
+        "prior_name": "Derivatives Dashboard",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 816,
+        "capability_name": "Funding Rate Intelligence",
+        "prior_id": 549,
+        "prior_name": "Funding Rate Intelligence",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 817,
+        "capability_name": "Open Interest Intelligence",
+        "prior_id": 550,
+        "prior_name": "Open Interest Intelligence",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 818,
+        "capability_name": "Liquidation Intelligence",
+        "prior_id": 551,
+        "prior_name": "Liquidation Intelligence",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 819,
+        "capability_name": "Futures Volume",
+        "prior_id": 552,
+        "prior_name": "Futures Volume",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 820,
+        "capability_name": "Basis Intelligence",
+        "prior_id": 553,
+        "prior_name": "Basis Intelligence",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 821,
+        "capability_name": "Spot Market Data",
+        "prior_id": 554,
+        "prior_name": "Spot Market Data",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 822,
+        "capability_name": "Options Analytics",
+        "prior_id": 555,
+        "prior_name": "Options Analytics",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 823,
+        "capability_name": "Options IV Surface",
+        "prior_id": 556,
+        "prior_name": "Options IV Surface",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 824,
+        "capability_name": "Options Skew",
+        "prior_id": 557,
+        "prior_name": "Options Skew",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 825,
+        "capability_name": "Options Term Structure",
+        "prior_id": 558,
+        "prior_name": "Options Term Structure",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      },
+      {
+        "batch17_id": 826,
+        "capability_name": "TradFi Context",
+        "prior_id": 559,
+        "prior_name": "TradFi Context",
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "cross_batch_decision": "E. CANONICAL_DUPLICATE_REUSE"
+      }
+    ]
+  },
+  "layer_b_exhaustive_coverage": {
+    "expected_cross_batch_pairs": 20800,
+    "evaluated_cross_batch_pairs": 20800,
+    "decision_counts": {
+      "DISTINCT": 20765,
+      "E. CANONICAL_DUPLICATE_REUSE": 26,
+      "SEMANTIC_NAME_MATCH": 9
+    },
+    "material_overlap_count": 35,
+    "true_semantic_duplicates": [
+      {
+        "batch17_id": 801,
+        "prior_id": 534,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 802,
+        "prior_id": 535,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 803,
+        "prior_id": 536,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 804,
+        "prior_id": 537,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 805,
+        "prior_id": 538,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 806,
+        "prior_id": 539,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 807,
+        "prior_id": 540,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 808,
+        "prior_id": 541,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 809,
+        "prior_id": 542,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 810,
+        "prior_id": 543,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 811,
+        "prior_id": 544,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 812,
+        "prior_id": 545,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 813,
+        "prior_id": 546,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 814,
+        "prior_id": 547,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 815,
+        "prior_id": 548,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 816,
+        "prior_id": 549,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 817,
+        "prior_id": 550,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 818,
+        "prior_id": 551,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 819,
+        "prior_id": 552,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 820,
+        "prior_id": 553,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 821,
+        "prior_id": 554,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 822,
+        "prior_id": 555,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 823,
+        "prior_id": 556,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 824,
+        "prior_id": 557,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 825,
+        "prior_id": 558,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      },
+      {
+        "batch17_id": 826,
+        "prior_id": 559,
+        "decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship": "TRUE_SEMANTIC_DUPLICATE",
+        "material": true
+      }
+    ],
+    "pair_decision_digest_sha256": "b31afe81c0ea3060c9b135c192f6f241ea0ba7729b006212a2290a64ffd20263",
+    "unresolved_duplicate_conflicts": 0
+  },
+  "summary": {
+    "expected_cross_batch_pairs": 20800,
+    "evaluated_cross_batch_pairs": 20800,
+    "cross_batch_unresolved": 0
+  }
+}

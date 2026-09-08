@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-08T08:19:04.867946+00:00
-**Branch:** `cursor/batch16-751-800-ed16`
-**HEAD:** `5a34f40986750bdb35d923dfd512e92ae25500a3`
+**Generated:** 2026-09-08T08:56:32.022102+00:00
+**Branch:** `cursor/batch17-801-826-ed16`
+**HEAD:** `168271b5024f85db88c75ce5d97a708269e88c18`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -57,6 +57,14 @@ Batch15 DeFi/risk/data facade layer (701-750) with canonical reuse of Batch09 se
 **Ledger requirements marked BUILT_THIS_BATCH:** 24
 
 Batch16 market/delivery facade layer (751-800) with canonical reuse of prior semantics (484-533), three-spec progression (event store v3, source rights enforcement, outcome quality non-live, mass replay extensions, cost/runtime budget controls, router contract hardening).
+
+
+## 2b. Batch17 closure (801-826)
+
+**Batch17 material SHA:** `168271b5024f85db88c75ce5d97a708269e88c18`
+**Ledger requirements marked BUILT_THIS_BATCH:** 28
+
+Batch17 final-program facade layer (801-826) with canonical reuse of prior semantics (534-559), three-spec progression (evaluation contamination closure, evidence class promotion gates, progressive disclosure safety floor, capability graph completeness, cross-spec reconciliation).
 
 ## 2. Current state through Batch13
 

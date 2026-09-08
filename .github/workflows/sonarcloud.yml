@@ -155,6 +155,15 @@ jobs:
             tests/test_batch16_full_path_entitlement.py \
             tests/test_batch16_canonical_reuse.py \
             tests/test_batch16_three_spec_foundations.py \
+            tests/test_batch17_26_independent_oracles.py \
+            tests/test_batch17_26_semantic_contracts.py \
+            tests/test_batch17_all_26_execution.py \
+            tests/test_batch17_runtime_canonical_binding.py \
+            tests/test_batch17_membership_and_profile.py \
+            tests/test_batch17_consumer_paths.py \
+            tests/test_batch17_full_path_entitlement.py \
+            tests/test_batch17_canonical_reuse.py \
+            tests/test_batch17_three_spec_foundations.py \
             tests/test_defi_yield_intelligence_batch401_500.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
