@@ -948,7 +948,108 @@ async def _ensure_user_profile_columns(db: Any) -> None:
             ("ux_mode_pref", "ALTER TABLE users ADD COLUMN ux_mode_pref TEXT NOT NULL DEFAULT 'beginner'"),
             ("timezone", "ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"),
             ("password_is_set", "ALTER TABLE users ADD COLUMN password_is_set INTEGER NOT NULL DEFAULT 1"),
+            ("user_uuid", "ALTER TABLE users ADD COLUMN user_uuid TEXT"),
+            ("public_user_id", "ALTER TABLE users ADD COLUMN public_user_id TEXT"),
+            ("account_state", "ALTER TABLE users ADD COLUMN account_state TEXT NOT NULL DEFAULT 'ACTIVE'"),
+            ("phone", "ALTER TABLE users ADD COLUMN phone TEXT"),
+            ("phone_verified_at", "ALTER TABLE users ADD COLUMN phone_verified_at TEXT"),
+            ("marketing_consent_at", "ALTER TABLE users ADD COLUMN marketing_consent_at TEXT"),
+            ("terms_accepted_at", "ALTER TABLE users ADD COLUMN terms_accepted_at TEXT"),
+            ("privacy_ack_at", "ALTER TABLE users ADD COLUMN privacy_ack_at TEXT"),
+            ("step_up_at", "ALTER TABLE users ADD COLUMN step_up_at TEXT"),
+            ("password_changed_at", "ALTER TABLE users ADD COLUMN password_changed_at TEXT"),
         ),
+    )
+
+
+async def _ensure_identity_schema(db: Any) -> None:
+    await _ensure_missing_columns(
+        db,
+        "user_sessions",
+        (
+            ("session_row_id", "ALTER TABLE user_sessions ADD COLUMN session_row_id TEXT"),
+            ("auth_method", "ALTER TABLE user_sessions ADD COLUMN auth_method TEXT DEFAULT 'password'"),
+            ("device_label", "ALTER TABLE user_sessions ADD COLUMN device_label TEXT"),
+            ("browser", "ALTER TABLE user_sessions ADD COLUMN browser TEXT"),
+            ("ip_hash", "ALTER TABLE user_sessions ADD COLUMN ip_hash TEXT"),
+            ("country", "ALTER TABLE user_sessions ADD COLUMN country TEXT"),
+            ("last_seen_at", "ALTER TABLE user_sessions ADD COLUMN last_seen_at TEXT"),
+            ("idle_expires_at", "ALTER TABLE user_sessions ADD COLUMN idle_expires_at TEXT"),
+            ("rotated_from", "ALTER TABLE user_sessions ADD COLUMN rotated_from TEXT"),
+            ("revoked_at", "ALTER TABLE user_sessions ADD COLUMN revoked_at TEXT"),
+        ),
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS identity_providers (
+            id TEXT PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            provider TEXT NOT NULL,
+            provider_subject TEXT NOT NULL,
+            verified_at TEXT,
+            linked_at TEXT NOT NULL,
+            last_used_at TEXT,
+            status TEXT NOT NULL DEFAULT 'active',
+            UNIQUE(provider, provider_subject)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS identity_passkeys (
+            id TEXT PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            credential_id TEXT NOT NULL UNIQUE,
+            public_key TEXT NOT NULL,
+            sign_count INTEGER NOT NULL DEFAULT 0,
+            label TEXT,
+            transports TEXT,
+            created_at TEXT NOT NULL,
+            last_used_at TEXT,
+            status TEXT NOT NULL DEFAULT 'active'
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS identity_audit_events (
+            id TEXT PRIMARY KEY,
+            user_id INTEGER,
+            event_type TEXT NOT NULL,
+            actor TEXT,
+            source TEXT,
+            correlation_id TEXT,
+            success INTEGER NOT NULL DEFAULT 1,
+            detail_json TEXT NOT NULL DEFAULT '{}',
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS login_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            method TEXT NOT NULL,
+            device_label TEXT,
+            browser TEXT,
+            country TEXT,
+            status TEXT NOT NULL,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS account_deletion_requests (
+            id TEXT PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            status TEXT NOT NULL DEFAULT 'pending',
+            pending_until TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            finalized_at TEXT
+        )
+        """
     )
 
 
@@ -1142,6 +1243,7 @@ async def _apply_migrations(db: Any) -> None:
     )
 
     await _ensure_user_profile_columns(db)
+    await _ensure_identity_schema(db)
     await db.execute(
         "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users (username) WHERE username IS NOT NULL AND username != ''"
     )
@@ -4899,6 +5001,330 @@ async def delete_user_api_key(user_id: int, exchange: str) -> bool:
             (user_id, exchange.lower()),
         )
         return int(cursor.rowcount or 0) > 0
+
+
+async def fetch_user_by_id(user_id: int) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute("SELECT * FROM users WHERE id = ?", (int(user_id),))
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by id")
+        return None
+
+
+async def set_user_step_up_at(user_id: int, ts: str) -> None:
+    async with get_connection() as db:
+        await db.execute("UPDATE users SET step_up_at = ? WHERE id = ?", (ts, int(user_id)))
+
+
+async def set_user_account_state(user_id: int, state: str) -> None:
+    async with get_connection() as db:
+        await db.execute("UPDATE users SET account_state = ? WHERE id = ?", (state, int(user_id)))
+
+
+async def set_user_phone_verified(user_id: int, phone: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET phone = ?, phone_verified_at = ? WHERE id = ?",
+            (phone, _utcnow_iso(), int(user_id)),
+        )
+
+
+async def insert_identity_session(
+    user_id: int,
+    *,
+    token_hash: str,
+    absolute_expires_at: str,
+    idle_expires_at: str,
+    auth_method: str = "password",
+    device_label: str = "unknown",
+    browser: str = "unknown",
+    ip_hash: str = "",
+    country: str = "",
+    rotated_from: str | None = None,
+) -> str:
+    from uuid import uuid4
+
+    sid = f"sess_{uuid4().hex[:16]}"
+    now = _utcnow_iso()
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO user_sessions (
+                user_id, token, expires_at, created_at, session_row_id, auth_method,
+                device_label, browser, ip_hash, country, last_seen_at, idle_expires_at, rotated_from
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                int(user_id),
+                token_hash,
+                absolute_expires_at,
+                now,
+                sid,
+                auth_method,
+                device_label,
+                browser,
+                ip_hash,
+                country,
+                now,
+                idle_expires_at,
+                rotated_from,
+            ),
+        )
+        await db.execute(
+            "INSERT INTO login_history (user_id, method, device_label, browser, country, status, created_at) VALUES (?, ?, ?, ?, ?, 'success', ?)",
+            (int(user_id), auth_method, device_label, browser, country, now),
+        )
+    return sid
+
+
+async def fetch_identity_sessions(user_id: int) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT session_row_id AS id, auth_method, device_label, browser, country,
+                   created_at, last_seen_at, expires_at
+            FROM user_sessions
+            WHERE user_id = ? AND revoked_at IS NULL AND expires_at > ?
+            ORDER BY created_at DESC
+            """,
+            (int(user_id), _utcnow_iso()),
+        )
+        return [dict(r) for r in await rows.fetchall()]
+
+
+async def fetch_session_by_token_hash(token_hash: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        rows = await db.execute(
+            "SELECT * FROM user_sessions WHERE token = ? AND revoked_at IS NULL AND expires_at > ?",
+            (token_hash, _utcnow_iso()),
+        )
+        result = await rows.fetchone()
+    return dict(result) if result else None
+
+
+async def revoke_identity_session(user_id: int, session_id: str) -> bool:
+    async with get_connection() as db:
+        cur = await db.execute(
+            "UPDATE user_sessions SET revoked_at = ? WHERE user_id = ? AND session_row_id = ? AND revoked_at IS NULL",
+            (_utcnow_iso(), int(user_id), session_id),
+        )
+        return int(cur.rowcount or 0) > 0
+
+
+async def revoke_other_identity_sessions(user_id: int, *, keep_session_id: str | None = None) -> int:
+    async with get_connection() as db:
+        if keep_session_id:
+            cur = await db.execute(
+                "UPDATE user_sessions SET revoked_at = ? WHERE user_id = ? AND session_row_id != ? AND revoked_at IS NULL",
+                (_utcnow_iso(), int(user_id), keep_session_id),
+            )
+        else:
+            cur = await db.execute(
+                "UPDATE user_sessions SET revoked_at = ? WHERE user_id = ? AND revoked_at IS NULL",
+                (_utcnow_iso(), int(user_id)),
+            )
+        return int(cur.rowcount or 0)
+
+
+async def revoke_all_identity_sessions(user_id: int) -> int:
+    return await revoke_other_identity_sessions(user_id, keep_session_id=None)
+
+
+async def insert_provider_link(
+    user_id: int,
+    *,
+    provider: str,
+    provider_subject: str,
+    verified_at: str | None,
+) -> dict[str, Any]:
+    from uuid import uuid4
+
+    pid = f"prov_{uuid4().hex[:12]}"
+    now = _utcnow_iso()
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO identity_providers (id, user_id, provider, provider_subject, verified_at, linked_at, status)
+            VALUES (?, ?, ?, ?, ?, ?, 'active')
+            """,
+            (pid, int(user_id), provider, provider_subject, verified_at or now, now),
+        )
+    return {"id": pid, "provider": provider, "provider_subject": provider_subject}
+
+
+async def fetch_provider_link(provider: str, provider_subject: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        rows = await db.execute(
+            "SELECT * FROM identity_providers WHERE provider = ? AND provider_subject = ? AND status = 'active'",
+            (provider, provider_subject),
+        )
+        result = await rows.fetchone()
+    return dict(result) if result else None
+
+
+async def delete_provider_link(user_id: int, provider: str) -> bool:
+    async with get_connection() as db:
+        cur = await db.execute(
+            "UPDATE identity_providers SET status = 'removed' WHERE user_id = ? AND provider = ? AND status = 'active'",
+            (int(user_id), provider),
+        )
+        return int(cur.rowcount or 0) > 0
+
+
+async def count_user_auth_methods(user_id: int) -> dict[str, Any]:
+    user = await fetch_user_by_id(user_id)
+    passkeys = await list_passkey_credentials(user_id)
+    providers = []
+    async with get_connection() as db:
+        rows = await db.execute(
+            "SELECT provider FROM identity_providers WHERE user_id = ? AND status = 'active'",
+            (int(user_id),),
+        )
+        providers = [str(r["provider"]) for r in await rows.fetchall()]
+    password = bool(user and int(user.get("password_is_set") or 0))
+    total = len(passkeys) + len(providers) + int(password)
+    return {
+        "password": password,
+        "passkeys": len(passkeys),
+        "providers": providers,
+        "phone_verified": bool(user and user.get("phone_verified_at")),
+        "total": total,
+    }
+
+
+async def insert_passkey_credential(
+    user_id: int,
+    *,
+    credential_id: str,
+    public_key: str,
+    sign_count: int,
+    label: str,
+    transports: str,
+) -> str:
+    from uuid import uuid4
+
+    pid = f"pk_{uuid4().hex[:12]}"
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO identity_passkeys (id, user_id, credential_id, public_key, sign_count, label, transports, created_at, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active')
+            """,
+            (pid, int(user_id), credential_id, public_key, sign_count, label, transports, _utcnow_iso()),
+        )
+    return pid
+
+
+async def list_passkey_credentials(user_id: int) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await db.execute(
+            "SELECT * FROM identity_passkeys WHERE user_id = ? AND status = 'active' ORDER BY created_at DESC",
+            (int(user_id),),
+        )
+        return [dict(r) for r in await rows.fetchall()]
+
+
+async def fetch_passkey_by_credential_id(credential_id: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT p.*, u.email FROM identity_passkeys p
+            JOIN users u ON u.id = p.user_id
+            WHERE p.credential_id = ? AND p.status = 'active'
+            """,
+            (credential_id,),
+        )
+        result = await rows.fetchone()
+    return dict(result) if result else None
+
+
+async def update_passkey_sign_count(row_id: str, sign_count: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE identity_passkeys SET sign_count = ?, last_used_at = ? WHERE id = ?",
+            (sign_count, _utcnow_iso(), row_id),
+        )
+
+
+async def rename_passkey_credential(user_id: int, row_id: str, label: str) -> bool:
+    async with get_connection() as db:
+        cur = await db.execute(
+            "UPDATE identity_passkeys SET label = ? WHERE id = ? AND user_id = ? AND status = 'active'",
+            (label, row_id, int(user_id)),
+        )
+        return int(cur.rowcount or 0) > 0
+
+
+async def delete_passkey_credential(user_id: int, row_id: str) -> bool:
+    async with get_connection() as db:
+        cur = await db.execute(
+            "UPDATE identity_passkeys SET status = 'removed' WHERE id = ? AND user_id = ?",
+            (row_id, int(user_id)),
+        )
+        return int(cur.rowcount or 0) > 0
+
+
+async def invalidate_user_reset_tokens(user_id: int) -> int:
+    async with get_connection() as db:
+        cur = await db.execute(
+            "UPDATE auth_tokens SET used_at = ? WHERE user_id = ? AND used_at IS NULL",
+            (_utcnow_iso(), int(user_id)),
+        )
+        return int(cur.rowcount or 0)
+
+
+async def fetch_recent_login_countries(user_id: int, *, limit: int = 5) -> list[str]:
+    async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT DISTINCT country FROM login_history
+            WHERE user_id = ? AND country IS NOT NULL AND country != ''
+            ORDER BY created_at DESC LIMIT ?
+            """,
+            (int(user_id), limit),
+        )
+        return [str(r["country"]) for r in await rows.fetchall()]
+
+
+async def insert_deletion_request(user_id: int, *, pending_until: str) -> str:
+    from uuid import uuid4
+
+    rid = f"del_{uuid4().hex[:12]}"
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO account_deletion_requests (id, user_id, status, pending_until, created_at)
+            VALUES (?, ?, 'pending', ?, ?)
+            """,
+            (rid, int(user_id), pending_until, _utcnow_iso()),
+        )
+    return rid
+
+
+async def cancel_deletion_request(user_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE account_deletion_requests SET status = 'cancelled' WHERE user_id = ? AND status = 'pending'",
+            (int(user_id),),
+        )
+
+
+async def finalize_user_deletion(user_id: int) -> dict[str, Any]:
+    user = await fetch_user_by_id(user_id)
+    if not user:
+        return {"found": False}
+    email = str(user.get("email") or "")
+    result = await erase_user_personal_data(email)
+    await set_user_account_state(user_id, "ANONYMIZED")
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE account_deletion_requests SET status = 'finalized', finalized_at = ? WHERE user_id = ? AND status = 'pending'",
+            (_utcnow_iso(), int(user_id)),
+        )
+    return result
 
 
 if __name__ == "__main__":

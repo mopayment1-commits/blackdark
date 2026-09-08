@@ -655,3 +655,61 @@ async def auth_avatar_get(filename: str):
         ".webp": "image/webp",
     }.get(path.suffix.lower(), "application/octet-stream")
     return RawResponse(content=path.read_bytes(), media_type=media)
+
+
+@router.get("/sessions", responses=COMMON_ERROR_RESPONSES)
+async def auth_list_sessions(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.session_service import list_user_sessions
+
+    return {"sessions": await list_user_sessions(int(user["id"]))}
+
+
+@router.post("/sessions/{session_id}/revoke", responses=COMMON_ERROR_RESPONSES)
+async def auth_revoke_session(session_id: str, user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.session_service import revoke_session
+
+    ok = await revoke_session(int(user["id"]), session_id, actor_user_id=int(user["id"]))
+    if not ok:
+        raise HTTPException(status_code=404, detail="Session not found")
+    return {"revoked": True}
+
+
+@router.post("/secure-account", responses=COMMON_ERROR_RESPONSES)
+async def auth_secure_account(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.secure_account import secure_my_account
+
+    return await secure_my_account(int(user["id"]), actor=user)
+
+
+@router.get("/passkeys", responses=COMMON_ERROR_RESPONSES)
+async def auth_list_passkeys(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.webauthn_service import list_passkeys
+
+    return {"passkeys": await list_passkeys(int(user["id"]))}
+
+
+@router.post("/account/delete", responses=COMMON_ERROR_RESPONSES)
+async def auth_request_deletion(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.account_deletion import request_account_deletion
+
+    return await request_account_deletion(int(user["id"]), actor=user)
+
+
+@router.get("/recovery/options", responses=COMMON_ERROR_RESPONSES)
+async def auth_recovery_options(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.account_recovery import recovery_options
+
+    return await recovery_options(int(user["id"]))
+

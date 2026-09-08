@@ -184,30 +184,16 @@ def _utcnow_iso() -> str:
 
 
 def hash_password(password: str) -> str:
-    salt = secrets.token_hex(16)
-    digest = hashlib.pbkdf2_hmac(
-        "sha256",
-        password.encode("utf-8"),
-        salt.encode("utf-8"),
-        PBKDF2_ITERATIONS,
-    )
-    return f"pbkdf2_sha256${PBKDF2_ITERATIONS}${salt}${digest.hex()}"
+    from identity.password_storage import hash_password as _hash
+
+    return _hash(password)
 
 
 def verify_password(password: str, stored: str) -> bool:
-    try:
-        scheme, iterations, salt, digest_hex = stored.split("$", 3)
-        if scheme != "pbkdf2_sha256":
-            return False
-        expected = hashlib.pbkdf2_hmac(
-            "sha256",
-            password.encode("utf-8"),
-            salt.encode("utf-8"),
-            int(iterations),
-        )
-        return hmac.compare_digest(expected.hex(), digest_hex)
-    except (ValueError, TypeError):
-        return False
+    from identity.password_storage import verify_password as _verify
+
+    ok, _needs = _verify(password, stored)
+    return ok
 
 
 def normalize_email(email: str) -> str:
@@ -251,15 +237,18 @@ async def register_user(
         send_verification_email,
         validate_display_name,
         validate_email,
-        validate_password,
         validate_username,
     )
     from pricing_catalog import normalize_signup_plan, signup_next_after_register
 
+    from identity.breached_passwords import assert_password_not_breached
+    from identity.password_policy import validate_password_policy
+
     if not accepted_terms:
         raise ValueError("You must accept Terms, Privacy, and Risk Disclaimer")
     email = validate_email(email)
-    validate_password(password, email=email)
+    validate_password_policy(password, email=email)
+    assert_password_not_breached(password)
     display = validate_display_name(name)
     handle = validate_username(username) if username.strip() else ""
     selected_plan = normalize_signup_plan(plan)

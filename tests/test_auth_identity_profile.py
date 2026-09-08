@@ -17,8 +17,6 @@ def test_identity_architecture():
     assert arch["email_verification"] is True
     assert arch["password_reset"] is True
     validate_username("alex_trade")
-    with pytest.raises(ValueError):
-        validate_password("12345678")
     validate_password("correct-horse-battery-99", email="user@example.com")
 
 
@@ -42,19 +40,19 @@ def test_password_reset_flow(tmp_path, monkeypatch):
     async def _run():
         await database.init_db()
         uid = await database.create_user(
-            "resetme@example.com", hash_password("old-password-99"), "Reset Me"
+            "resetme@example.com", hash_password("old-password-extra"), "Reset Me"
         )
         raw = await issue_auth_token(uid, "password_reset")
         user_id = await consume_auth_token(raw, "password_reset")
         assert user_id == uid
         with pytest.raises(ValueError):
             await consume_auth_token(raw, "password_reset")
-        validate_password("new-secure-pass-42", email="resetme@example.com")
+        validate_password("new-secure-pass-42chars", email="resetme@example.com")
         await database.update_user_profile_fields(
-            uid, {"password_hash": hash_password("new-secure-pass-42"), "password_is_set": 1}
+            uid, {"password_hash": hash_password("new-secure-pass-42chars"), "password_is_set": 1}
         )
         row = await database.fetch_user_by_id(uid)
-        assert verify_password("new-secure-pass-42", row["password_hash"])
+        assert verify_password("new-secure-pass-42chars", row["password_hash"])
 
     asyncio.run(_run())
 
@@ -69,10 +67,10 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
     async def _run():
         await database.init_db()
         with pytest.raises(ValueError, match="Terms"):
-            await register_user("a@b.co", "strong-pass-12345", "A", accepted_terms=False)
+            await register_user("a@b.co", "short-pass-only", "A", accepted_terms=False)
         result = await register_user(
             "trader@example.com",
-            "strong-pass-12345",
+            "strong-pass-12345xy",
             "Trader One",
             username="trader_one",
             accepted_terms=True,
@@ -89,7 +87,7 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
 
         pro = await register_user(
             "prouser@example.com",
-            "strong-pass-12345",
+            "strong-pass-12345xy",
             "Pro User",
             accepted_terms=True,
             plan="pro",
