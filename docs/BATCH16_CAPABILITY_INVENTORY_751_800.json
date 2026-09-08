@@ -1,0 +1,417 @@
+{
+  "artifact": "BATCH16_CAPABILITY_INVENTORY_751_800",
+  "generated_at_utc": "2026-09-08T08:19:19.671176+00:00",
+  "git_commit": "5a34f40986750bdb35d923dfd512e92ae25500a3",
+  "branch": "cursor/batch16-751-800-ed16",
+  "membership": {
+    "ok": true,
+    "errors": [],
+    "canonical_reuse_count": 50
+  },
+  "summary": {
+    "total_ids": 50,
+    "canonical_duplicate_reuse": 50
+  },
+  "rows": [
+    {
+      "capability_id": 751,
+      "capability": "OHLCV Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 484
+    },
+    {
+      "capability_id": 752,
+      "capability": "Derivatives Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 485
+    },
+    {
+      "capability_id": 753,
+      "capability": "Open Interest Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 486
+    },
+    {
+      "capability_id": 754,
+      "capability": "Funding Rate Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 487
+    },
+    {
+      "capability_id": 755,
+      "capability": "Index Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 488
+    },
+    {
+      "capability_id": 756,
+      "capability": "Reference Pricing",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 489
+    },
+    {
+      "capability_id": 757,
+      "capability": "Exchange Metadata",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 490
+    },
+    {
+      "capability_id": 758,
+      "capability": "Asset Metadata",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 491
+    },
+    {
+      "capability_id": 759,
+      "capability": "Historical Market Archive",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 492
+    },
+    {
+      "capability_id": 760,
+      "capability": "Real-Time Streams",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 493
+    },
+    {
+      "capability_id": 761,
+      "capability": "Market Aggregates",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 494
+    },
+    {
+      "capability_id": 762,
+      "capability": "Liquidity Analytics",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 495
+    },
+    {
+      "capability_id": 763,
+      "capability": "Volatility Analytics",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 496
+    },
+    {
+      "capability_id": 764,
+      "capability": "Market Cap / Supply",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 497
+    },
+    {
+      "capability_id": 765,
+      "capability": "ETF / ETP Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 498
+    },
+    {
+      "capability_id": 766,
+      "capability": "API Coverage Registry",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 499
+    },
+    {
+      "capability_id": 767,
+      "capability": "Data Quality & Normalization",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 500
+    },
+    {
+      "capability_id": 768,
+      "capability": "Institutional Delivery",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 501
+    },
+    {
+      "capability_id": 769,
+      "capability": "Benchmark Administration Metadata",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 502
+    },
+    {
+      "capability_id": 770,
+      "capability": "Cross-Market Data Intelligence",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 503
+    },
+    {
+      "capability_id": 771,
+      "capability": "Unified Exchange Connector Layer",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 504
+    },
+    {
+      "capability_id": 772,
+      "capability": "Tick Trade Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 505
+    },
+    {
+      "capability_id": 773,
+      "capability": "Quote Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 506
+    },
+    {
+      "capability_id": 774,
+      "capability": "OHLCV",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 507
+    },
+    {
+      "capability_id": 775,
+      "capability": "L1 Order Book",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 508
+    },
+    {
+      "capability_id": 776,
+      "capability": "L2 Order Book",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 509
+    },
+    {
+      "capability_id": 777,
+      "capability": "L3 Order Book",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 510
+    },
+    {
+      "capability_id": 778,
+      "capability": "Options Market Data",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 511
+    },
+    {
+      "capability_id": 779,
+      "capability": "Funding / OI / Liquidation Metrics",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 512
+    },
+    {
+      "capability_id": 780,
+      "capability": "Asset & Symbol Metadata",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 513
+    },
+    {
+      "capability_id": 781,
+      "capability": "Historical Flat Files",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 514
+    },
+    {
+      "capability_id": 782,
+      "capability": "REST API",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 515
+    },
+    {
+      "capability_id": 783,
+      "capability": "WebSocket Streaming",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 516
+    },
+    {
+      "capability_id": 784,
+      "capability": "FIX Connectivity",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 517
+    },
+    {
+      "capability_id": 785,
+      "capability": "MCP for AI",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 518
+    },
+    {
+      "capability_id": 786,
+      "capability": "Exchange Rates / VWAP",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 519
+    },
+    {
+      "capability_id": 787,
+      "capability": "Indexes",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 520
+    },
+    {
+      "capability_id": 788,
+      "capability": "Volatility Index",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 521
+    },
+    {
+      "capability_id": 789,
+      "capability": "EMS Integration Boundary",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 522
+    },
+    {
+      "capability_id": 790,
+      "capability": "Data Health / SLA Monitoring",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 523
+    },
+    {
+      "capability_id": 791,
+      "capability": "Symbol Mapping Engine",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 524
+    },
+    {
+      "capability_id": 792,
+      "capability": "Cross-Venue Data Quality Score",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 525
+    },
+    {
+      "capability_id": 793,
+      "capability": "AI Market Data Grounding Layer",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 526
+    },
+    {
+      "capability_id": 794,
+      "capability": "Liquidation Heatmap",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 527
+    },
+    {
+      "capability_id": 795,
+      "capability": "Liquidation Levels",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 528
+    },
+    {
+      "capability_id": 796,
+      "capability": "Liquidation Cascade Model",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 529
+    },
+    {
+      "capability_id": 797,
+      "capability": "Global Liquidation Metrics",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 530
+    },
+    {
+      "capability_id": 798,
+      "capability": "Open Interest",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 531
+    },
+    {
+      "capability_id": 799,
+      "capability": "Funding Rates",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 532
+    },
+    {
+      "capability_id": 800,
+      "capability": "Order Flow Intelligence",
+      "binding_module": "bd_platform.batch16_market_delivery_facade_layer",
+      "binding_function": "execute_batch16_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 533
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "artifact": "BATCH09_CROSS_BATCH_REGRESSION",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "suites": [
+    {
+      "label": "batch09_shared_core_semantics",
+      "command": "pytest tests/test_batch09_shared_core_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 48%]\n........................................................................ [ 97%]\n...                                                                      [100%]\n"
+    },
+    {
+      "label": "batch09_consumer_paths",
+      "command": "pytest tests/test_batch09_consumer_paths.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...........................................................              [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n"
+    },
+    {
+      "label": "batch09_semantic_remediation",
+      "command": "pytest tests/test_batch09_semantic_remediation.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "....                                                                     [100%]\n"
+    },
+    {
+      "label": "batch09_hero",
+      "command": "pytest tests/test_hero_batch_09_capabilities.py -q",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "defi_yield_batch401_500",
+      "command": "pytest tests/test_defi_yield_intelligence_batch401_500.py -q",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    }
+  ],
+  "affected_regression_gap": [],
+  "blast_radius_regression_pass": true
+}

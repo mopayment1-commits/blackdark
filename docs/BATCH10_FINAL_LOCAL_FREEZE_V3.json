@@ -1,0 +1,42 @@
+{
+  "batch": "batch10",
+  "scope": "451-500",
+  "final_material_sha": "a72cf879afa34fb40ca35eb8aa0f9a437f2dfa92",
+  "production_runtime_sha": "bc15dddc1c97bd550afacc6fbed8453104661c76",
+  "closure_remediation_commits": {
+    "stale_test_fix": "fb7aee9ebff34a6a0282b7b4650a5a27b073d324",
+    "ssot_inventory_reconciliation": "a72cf879afa34fb40ca35eb8aa0f9a437f2dfa92"
+  },
+  "cap500": {
+    "active_inventory_status": "PENDING",
+    "active_runtime_binding": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500",
+    "binding_source": "pdf_capability_registry",
+    "historical_option_a_evidence": [
+      "docs/OPTION_A_PRODUCTION_PROOF.json",
+      "docs/OPTION_A_PRODUCTION_ALIGNED_MANIFEST.json"
+    ],
+    "engineering_status": "PASS_ENGINEERING"
+  },
+  "formal_gates": {
+    "gate_tested_sha": "a72cf879afa34fb40ca35eb8aa0f9a437f2dfa92",
+    "Security Scan": {"run_id": 34107161895, "result": "PASS"},
+    "CI Critical Gate Suite": {"run_id": 34107162040, "result": "PASS"},
+    "SonarCloud Analysis": {"run_id": 34107161961, "result": "PASS"},
+    "CAP978 Institutional Gate": {"run_id": 34107161833, "result": "PASS"}
+  },
+  "active_ssot_conflicts": 0,
+  "known_local_deficiencies": [],
+  "pending_verifications": [],
+  "formal_gate_failures": 0,
+  "flags": {
+    "CAP500_STALE_TEST_EXPECTATION_ZERO": true,
+    "CAP500_CURRENT_RUNTIME_EXPECTATION_PROVEN": true,
+    "CAP500_STATUS_TRUTH_RECONCILED": true,
+    "CAP500_STALE_PRODUCTION_CLAIM_ZERO": true,
+    "CAP500_EVIDENCE_CHAIN_COMPLETE": true,
+    "ACTIVE_SSOT_CONFLICTS_ZERO": true,
+    "FORMAL_GATES_BIND_FINAL_MATERIAL_CODE": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true,
+    "BATCH10_FINAL_LOCAL_FREEZE": true
+  }
+}

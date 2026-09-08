@@ -1,0 +1,107 @@
+{
+  "artifact": "BATCH13_CROSS_BATCH_REGRESSION",
+  "generated_at_utc": "2026-09-07T21:27:45.689764+00:00",
+  "git_commit": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+  "suites": [
+    {
+      "label": "batch13_shared_core_semantics",
+      "command": "pytest tests/test_batch13_shared_core_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..................................                                       [100%]\n"
+    },
+    {
+      "label": "batch13_independent_oracle_semantics",
+      "command": "pytest tests/test_batch13_independent_oracle_semantics.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".................................                                        [100%]\n"
+    },
+    {
+      "label": "batch13_50_independent_oracles",
+      "command": "pytest tests/test_batch13_50_independent_oracles.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "batch13_50_semantic_contracts",
+      "command": "pytest tests/test_batch13_50_semantic_contracts.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...................................................                      [100%]\n"
+    },
+    {
+      "label": "batch13_all_50_execution",
+      "command": "pytest tests/test_batch13_all_50_execution.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+    },
+    {
+      "label": "batch13_runtime_canonical_binding",
+      "command": "pytest tests/test_batch13_runtime_canonical_binding.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "....                                                                     [100%]\n"
+    },
+    {
+      "label": "batch13_membership",
+      "command": "pytest tests/test_batch13_membership_and_profile.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..                                                                       [100%]\n"
+    },
+    {
+      "label": "batch13_consumer_paths",
+      "command": "pytest tests/test_batch13_consumer_paths.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 72%]\n............................                                             [100%]\n"
+    },
+    {
+      "label": "batch13_full_path_entitlement",
+      "command": "pytest tests/test_batch13_full_path_entitlement.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "........................................................................ [ 72%]\n............................                                             [100%]\n"
+    },
+    {
+      "label": "batch13_cap613_canonical_reuse",
+      "command": "pytest tests/test_batch13_cap613_canonical_reuse.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "...                                                                      [100%]\n"
+    },
+    {
+      "label": "batch13_extension_providers",
+      "command": "pytest tests/test_batch13_extension_providers.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".........                                                                [100%]\n"
+    },
+    {
+      "label": "batch13_adaptive_spine",
+      "command": "pytest tests/test_batch13_adaptive_spine.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": ".....                                                                    [100%]\n"
+    },
+    {
+      "label": "batch13_temporal_spine",
+      "command": "pytest tests/test_batch13_temporal_spine.py",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "....                                                                     [100%]\n"
+    },
+    {
+      "label": "batch12_blast_regression",
+      "command": "pytest tests/test_batch12_membership_and_profile.py -q",
+      "exit_code": 0,
+      "passed": true,
+      "tail": "..                                                                       [100%]\n"
+    }
+  ],
+  "affected_regression_gap": [],
+  "blast_radius_regression_pass": true
+}

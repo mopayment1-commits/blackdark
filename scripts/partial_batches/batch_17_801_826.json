@@ -1,0 +1,220 @@
+{
+  "batch": 17,
+  "range": "801-826",
+  "count": 26,
+  "capability_ids": [
+    801,
+    802,
+    803,
+    804,
+    805,
+    806,
+    807,
+    808,
+    809,
+    810,
+    811,
+    812,
+    813,
+    814,
+    815,
+    816,
+    817,
+    818,
+    819,
+    820,
+    821,
+    822,
+    823,
+    824,
+    825,
+    826
+  ],
+  "canonical_offset": 267,
+  "facade_module": "bd_platform.batch17_final_program_facade_layer",
+  "facade_entrypoint": "execute_batch17_facade",
+  "capabilities": [
+    {
+      "id": 801,
+      "capability": "Bucketed CVD",
+      "canonical_id": 534,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "bucketed_cvd_534"
+    },
+    {
+      "id": 802,
+      "capability": "Whale vs Retail Flow",
+      "canonical_id": 535,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "whale_vs_retail_flow_535"
+    },
+    {
+      "id": 803,
+      "capability": "Slippage Intelligence",
+      "canonical_id": 536,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "slippage_intelligence_536"
+    },
+    {
+      "id": 804,
+      "capability": "Global Order Book Metrics",
+      "canonical_id": 537,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "global_order_book_metrics_537"
+    },
+    {
+      "id": 805,
+      "capability": "Order Book Imbalance",
+      "canonical_id": 538,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "order_book_imbalance_538"
+    },
+    {
+      "id": 806,
+      "capability": "Liquidity Zones",
+      "canonical_id": 539,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "liquidity_zones_539"
+    },
+    {
+      "id": 807,
+      "capability": "Bot Activity Detection",
+      "canonical_id": 540,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "bot_activity_detection_540"
+    },
+    {
+      "id": 808,
+      "capability": "Market Positioning",
+      "canonical_id": 541,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "market_positioning_541"
+    },
+    {
+      "id": 809,
+      "capability": "Liquidation Pressure Score",
+      "canonical_id": 542,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "liquidation_pressure_score_542"
+    },
+    {
+      "id": 810,
+      "capability": "Orderflow Anomaly Detection",
+      "canonical_id": 543,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "orderflow_anomaly_detection_543"
+    },
+    {
+      "id": 811,
+      "capability": "API Indicator Platform",
+      "canonical_id": 544,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "api_indicator_platform_544"
+    },
+    {
+      "id": 812,
+      "capability": "Trader Cohort Intelligence",
+      "canonical_id": 545,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "trader_cohort_intelligence_545"
+    },
+    {
+      "id": 813,
+      "capability": "Cross-Derivatives Decision Intelligence",
+      "canonical_id": 546,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "cross_derivatives_decision_intelligence_546"
+    },
+    {
+      "id": 814,
+      "capability": "High-Resolution Multi-Pane Charts",
+      "canonical_id": 547,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "high_resolution_multi_pane_charts_547"
+    },
+    {
+      "id": 815,
+      "capability": "Derivatives Dashboard",
+      "canonical_id": 548,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "derivatives_dashboard_548"
+    },
+    {
+      "id": 816,
+      "capability": "Funding Rate Intelligence",
+      "canonical_id": 549,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "funding_rate_intelligence_549"
+    },
+    {
+      "id": 817,
+      "capability": "Open Interest Intelligence",
+      "canonical_id": 550,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "open_interest_intelligence_550"
+    },
+    {
+      "id": 818,
+      "capability": "Liquidation Intelligence",
+      "canonical_id": 551,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "liquidation_intelligence_551"
+    },
+    {
+      "id": 819,
+      "capability": "Futures Volume",
+      "canonical_id": 552,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "futures_volume_552"
+    },
+    {
+      "id": 820,
+      "capability": "Basis Intelligence",
+      "canonical_id": 553,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "basis_intelligence_553"
+    },
+    {
+      "id": 821,
+      "capability": "Spot Market Data",
+      "canonical_id": 554,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "spot_market_data_554"
+    },
+    {
+      "id": 822,
+      "capability": "Options Analytics",
+      "canonical_id": 555,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "options_analytics_555"
+    },
+    {
+      "id": 823,
+      "capability": "Options IV Surface",
+      "canonical_id": 556,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "options_iv_surface_556"
+    },
+    {
+      "id": 824,
+      "capability": "Options Skew",
+      "canonical_id": 557,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "options_skew_557"
+    },
+    {
+      "id": 825,
+      "capability": "Options Term Structure",
+      "canonical_id": 558,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "options_term_structure_558"
+    },
+    {
+      "id": 826,
+      "capability": "TradFi Context",
+      "canonical_id": 559,
+      "canonical_module": "bd_platform.institutional_delivery_intelligence_layer",
+      "canonical_function": "tradfi_context_559"
+    }
+  ]
+}

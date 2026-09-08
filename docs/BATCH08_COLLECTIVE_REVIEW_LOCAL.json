@@ -1,0 +1,964 @@
+{
+  "artifact": "BATCH08_COLLECTIVE_REVIEW_LOCAL",
+  "generated_at": "2026-09-06T14:31:25.077865+00:00",
+  "git_commit": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+  "scope": "Project governance collective_review_local — separate from Pentagonal Column 5",
+  "disclaimer": "collective_review_local is LOCAL automated governance review. It is NOT Pentagonal Column 5 (Readiness & Evidence) and NOT independent human sign-off.",
+  "summary": {
+    "collective_review_local_complete": 50,
+    "total": 50,
+    "collective_review_local_complete_ratio": "50/50"
+  },
+  "rows": [
+    {
+      "capability_id": 351,
+      "capability_name": "Active Users",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=351",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.active_users_351"
+    },
+    {
+      "capability_id": 352,
+      "capability_name": "Core Developers",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=352",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.core_developers_352"
+    },
+    {
+      "capability_id": 353,
+      "capability_name": "Code Commits",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=353",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.code_commits_353"
+    },
+    {
+      "capability_id": 354,
+      "capability_name": "TVL Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=354",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.tvl_intelligence_354"
+    },
+    {
+      "capability_id": 355,
+      "capability_name": "Borrowed / Loans Outstanding",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=355",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.borrowed_loans_outstanding_355"
+    },
+    {
+      "capability_id": 356,
+      "capability_name": "DEX Volume",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=356",
+      "binding_reviewed": "bd_platform.heroes_capability_layer.marketwatch_rss_feeds_356"
+    },
+    {
+      "capability_id": 357,
+      "capability_name": "Stablecoin Supply",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=357",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.stablecoin_supply_357"
+    },
+    {
+      "capability_id": 358,
+      "capability_name": "Valuation Multiples",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=358",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.valuation_multiples_358"
+    },
+    {
+      "capability_id": 359,
+      "capability_name": "Growth Metrics",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=359",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.growth_metrics_359"
+    },
+    {
+      "capability_id": 360,
+      "capability_name": "Margins / Take Rate",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=360",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.margins_take_rate_360"
+    },
+    {
+      "capability_id": 361,
+      "capability_name": "Project Comparables",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=361",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.project_comparables_361"
+    },
+    {
+      "capability_id": 362,
+      "capability_name": "Sector Comparables",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=362",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.sector_comparables_362"
+    },
+    {
+      "capability_id": 363,
+      "capability_name": "Tokenized Asset Coverage",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=363",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.tokenized_asset_coverage_363"
+    },
+    {
+      "capability_id": 364,
+      "capability_name": "Fundamental Screener",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=364",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.fundamental_screener_364"
+    },
+    {
+      "capability_id": 365,
+      "capability_name": "Financial Statement View",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=365",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.financial_statement_view_365"
+    },
+    {
+      "capability_id": 366,
+      "capability_name": "Data Methodology Registry",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=366",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.data_methodology_registry_366"
+    },
+    {
+      "capability_id": 367,
+      "capability_name": "Source Data Provenance",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=367",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.source_data_provenance_367"
+    },
+    {
+      "capability_id": 368,
+      "capability_name": "API / Data Export",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=368",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.api_data_export_368"
+    },
+    {
+      "capability_id": 369,
+      "capability_name": "Cross-Fundamental Decision Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=369",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.cross_fundamental_decision_intelligence_369"
+    },
+    {
+      "capability_id": 370,
+      "capability_name": "SQL On-Chain Query Workspace",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=370",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.sql_on_chain_query_workspace_370"
+    },
+    {
+      "capability_id": 371,
+      "capability_name": "Curated Data Models",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=371",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.curated_data_models_371"
+    },
+    {
+      "capability_id": 372,
+      "capability_name": "Decoded Smart Contract Tables",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=372",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.decoded_smart_contract_tables_372"
+    },
+    {
+      "capability_id": 373,
+      "capability_name": "Cross-Chain Data Warehouse",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=373",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.cross_chain_data_warehouse_373"
+    },
+    {
+      "capability_id": 374,
+      "capability_name": "Visualization Builder",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=374",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.visualization_builder_374"
+    },
+    {
+      "capability_id": 375,
+      "capability_name": "Dashboard Builder",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=375",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.dashboard_builder_375"
+    },
+    {
+      "capability_id": 376,
+      "capability_name": "Public Dashboard Sharing",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=376",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.public_dashboard_sharing_376"
+    },
+    {
+      "capability_id": 377,
+      "capability_name": "Community Discovery",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=377",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.community_discovery_377"
+    },
+    {
+      "capability_id": 378,
+      "capability_name": "Query Forking",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=378",
+      "binding_reviewed": "exchange_currency_status.query_forking_status_378"
+    },
+    {
+      "capability_id": 379,
+      "capability_name": "Data API",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "CLOSED_REUSED_LINK",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=379",
+      "binding_reviewed": "bd_platform.arbitrage_portfolio_ux_layer.analyze_liquidity_capacity_189"
+    },
+    {
+      "capability_id": 380,
+      "capability_name": "Real-Time Feed",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=380",
+      "binding_reviewed": "exchange_currency_status.deposit_currencies_open"
+    },
+    {
+      "capability_id": 381,
+      "capability_name": "Datashare",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=381",
+      "binding_reviewed": "exchange_currency_status.withdrawal_currencies_closed"
+    },
+    {
+      "capability_id": 382,
+      "capability_name": "dbt Connector",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=382",
+      "binding_reviewed": "bd_platform.heroes_capability_layer.single_sentence_financial_button_382"
+    },
+    {
+      "capability_id": 383,
+      "capability_name": "BI Connectors",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=383",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.bi_connectors_383"
+    },
+    {
+      "capability_id": 384,
+      "capability_name": "MCP for AI Agents",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=384",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.mcp_for_ai_agents_384"
+    },
+    {
+      "capability_id": 385,
+      "capability_name": "Prompt-to-SQL Agent",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=385",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.prompt_to_sql_agent_385"
+    },
+    {
+      "capability_id": 386,
+      "capability_name": "Dashboard-from-Prompt",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=386",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.dashboard_from_prompt_386"
+    },
+    {
+      "capability_id": 387,
+      "capability_name": "Scheduled Queries",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=387",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.scheduled_queries_387"
+    },
+    {
+      "capability_id": 388,
+      "capability_name": "Alerts from Query Results",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=388",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.alerts_from_query_results_388"
+    },
+    {
+      "capability_id": 389,
+      "capability_name": "Data Lineage",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=389",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.data_lineage_389"
+    },
+    {
+      "capability_id": 390,
+      "capability_name": "Query Performance Governance",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "VERIFIED_DEEP_NATIVE",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=390",
+      "binding_reviewed": "bd_platform.whales_institutional_layer.build_exchange_health_80"
+    },
+    {
+      "capability_id": 391,
+      "capability_name": "White-Label Embedded Analytics",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=391",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.white_label_embedded_analytics_391"
+    },
+    {
+      "capability_id": 392,
+      "capability_name": "Cross-Domain Decision Layer",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=392",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.cross_domain_decision_layer_392"
+    },
+    {
+      "capability_id": 393,
+      "capability_name": "TVL Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=393",
+      "binding_reviewed": "data_sources_registry.registry_summary"
+    },
+    {
+      "capability_id": 394,
+      "capability_name": "Chain TVL Comparison",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=394",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.chain_tvl_comparison_394"
+    },
+    {
+      "capability_id": 395,
+      "capability_name": "Protocol Directory",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=395",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.protocol_directory_395"
+    },
+    {
+      "capability_id": 396,
+      "capability_name": "Fees & Revenue",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=396",
+      "binding_reviewed": "bd_platform.news_classifier.coindesk_feed"
+    },
+    {
+      "capability_id": 397,
+      "capability_name": "DEX Volume",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=397",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.dex_volume_397"
+    },
+    {
+      "capability_id": 398,
+      "capability_name": "Perps Volume",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=398",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.perps_volume_398"
+    },
+    {
+      "capability_id": 399,
+      "capability_name": "Options Volume",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=399",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.options_volume_399"
+    },
+    {
+      "capability_id": 400,
+      "capability_name": "Stablecoins Intelligence",
+      "review_status": "COLLECTIVE_REVIEW_LOCAL_COMPLETE",
+      "review_type": "LOCAL_COLLECTIVE_REVIEW",
+      "not_independent_human_signoff": true,
+      "semantic_correctness_reviewed": true,
+      "consumer_path_reviewed": true,
+      "data_entitlement_reviewed": true,
+      "duplicate_canonical_decision_reviewed": true,
+      "duplicate_decision": "KEEP_DISTINCT",
+      "review_evidence": [
+        "docs/BATCH08_EXISTING_VERIFIED_EVIDENCE.json",
+        "docs/BATCH08_DUPLICATE_CANONICAL_ANALYSIS.json",
+        "docs/BATCH08_RTM_351_400.json"
+      ],
+      "review_evidence_location": "docs/BATCH08_COLLECTIVE_REVIEW_LOCAL.json#capability_id=400",
+      "binding_reviewed": "bd_platform.charting_market_intelligence_layer.stablecoins_intelligence_400"
+    }
+  ]
+}

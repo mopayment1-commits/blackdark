@@ -1,0 +1,910 @@
+{
+  "artifact": "BATCH10_CONSUMER_PATH_EVIDENCE",
+  "generated_at_utc": "2026-09-07T01:09:57.676301+00:00",
+  "git_commit": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d",
+  "consumer_paths_accounted": "50/50",
+  "generic_gateway_as_sole_evidence": 0,
+  "unresolved_consumer_path_gap": 0,
+  "rows": [
+    {
+      "capability_id": 451,
+      "official_name": "Protocol Dominance",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/451",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_dominance_451",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 452,
+      "official_name": "Aave Multi-Chain Analytics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/452",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.aave_multi_chain_analytics_452",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 453,
+      "official_name": "Risk Curation",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/453",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.risk_curation_453",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 454,
+      "official_name": "Capital Protection Controls",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/454",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.capital_protection_controls_454",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 455,
+      "official_name": "Stress Testing",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/455",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.stress_testing_455",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 456,
+      "official_name": "Cross-Protocol Contagion",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/456",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.cross_protocol_contagion_456",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 457,
+      "official_name": "Protocol Risk Passport",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/457",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_risk_passport_457",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 458,
+      "official_name": "Risk-to-Decision Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/458",
+      "downstream_implementation": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "CANONICAL_DUPLICATE_REUSE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 459,
+      "official_name": "Network Data Pro Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/459",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.network_data_pro_metrics_459",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 460,
+      "official_name": "Atlas Blockchain Search",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/460",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.atlas_blockchain_search_460",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 461,
+      "official_name": "Address/Balance Search",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/461",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.address_balance_search_461",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 462,
+      "official_name": "Transaction Search",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/462",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.transaction_search_462",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 463,
+      "official_name": "Block Search",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/463",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.block_search_463",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 464,
+      "official_name": "Balance Updates",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/464",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.balance_updates_464",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 465,
+      "official_name": "Stablecoin Network Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/465",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_network_metrics_465",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 466,
+      "official_name": "Market Data Feed",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/466",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_feed_466",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 467,
+      "official_name": "Market Data Pro",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/467",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_pro_467",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 468,
+      "official_name": "Reference Rates",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/468",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 469,
+      "official_name": "Indexes",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/469",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.indexes_469",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 470,
+      "official_name": "Realized Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/470",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.realized_metrics_470",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 471,
+      "official_name": "Supply Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/471",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.supply_metrics_471",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 472,
+      "official_name": "Mining/Validator Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/472",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.mining_validator_metrics_472",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 473,
+      "official_name": "Fee Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/473",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.fee_metrics_473",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 474,
+      "official_name": "Activity Metrics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/474",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.activity_metrics_474",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 475,
+      "official_name": "Custom Metric Workbench",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/475",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.custom_metric_workbench_475",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 476,
+      "official_name": "Community Charts/API",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/476",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.community_charts_api_476",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 477,
+      "official_name": "Market + Network Join",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/477",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.market_network_join_477",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 478,
+      "official_name": "Data Quality Methodologies",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/478",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_methodologies_478",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 479,
+      "official_name": "Historical Research Dataset",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/479",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.historical_research_dataset_479",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 480,
+      "official_name": "Institutional APIs",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/480",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_apis_480",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 481,
+      "official_name": "Cross-Network Decision Intelligence",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/481",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.cross_network_decision_intelligence_481",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 482,
+      "official_name": "Institutional Trade Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/482",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_trade_data_482",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 483,
+      "official_name": "Order Book Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/483",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.order_book_data_483",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 484,
+      "official_name": "OHLCV Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/484",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.ohlcv_data_484",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 485,
+      "official_name": "Derivatives Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/485",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.derivatives_data_485",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 486,
+      "official_name": "Open Interest Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/486",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.open_interest_data_486",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 487,
+      "official_name": "Funding Rate Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/487",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.funding_rate_data_487",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 488,
+      "official_name": "Index Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/488",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.index_data_488",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 489,
+      "official_name": "Reference Pricing",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/489",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.reference_pricing_489",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 490,
+      "official_name": "Exchange Metadata",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/490",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.exchange_metadata_490",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 491,
+      "official_name": "Asset Metadata",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/491",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.asset_metadata_491",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 492,
+      "official_name": "Historical Market Archive",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/492",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.historical_market_archive_492",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 493,
+      "official_name": "Real-Time Streams",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/493",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.real_time_streams_493",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 494,
+      "official_name": "Market Aggregates",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/494",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.market_aggregates_494",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 495,
+      "official_name": "Liquidity Analytics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/495",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.liquidity_analytics_495",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 496,
+      "official_name": "Volatility Analytics",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/496",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.volatility_analytics_496",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 497,
+      "official_name": "Market Cap / Supply",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/497",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.market_cap_supply_497",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 498,
+      "official_name": "ETF / ETP Data",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/498",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.etf_etp_data_498",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 499,
+      "official_name": "API Coverage Registry",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/499",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.api_coverage_registry_499",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    },
+    {
+      "capability_id": 500,
+      "official_name": "Data Quality & Normalization",
+      "required_consumer_mode": "API",
+      "actual_runtime_path": "GET /api/cap646/{id} → cap646.runtime.execute_capability → handle_platform_capability → pdf_capability_registry",
+      "entrypoint": "/api/cap646/500",
+      "downstream_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500",
+      "final_consumer_output": "JSON insight payload via dashboard API",
+      "test_evidence": [
+        "tests/test_batch10_consumer_paths.py",
+        "tests/test_defi_yield_intelligence_batch401_500.py"
+      ],
+      "locally_testable": true,
+      "external_blocker": null,
+      "generic_gateway_as_sole_evidence": false,
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE",
+      "tested_sha": "c3af5d46ffaa5c88b61f5c2d737b342f9919c99d"
+    }
+  ]
+}

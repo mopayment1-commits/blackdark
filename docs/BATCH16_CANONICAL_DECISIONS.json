@@ -1,0 +1,462 @@
+{
+  "artifact": "BATCH16_CANONICAL_DECISIONS",
+  "generated_at_utc": "2026-09-08T08:19:04.867946+00:00",
+  "git_commit": "5a34f40986750bdb35d923dfd512e92ae25500a3",
+  "decisions": {
+    "751": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 484,
+      "canonical_name": "OHLCV Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.ohlcv_data_484",
+      "evidence": "CAP978 extension #751 delegates to canonical #484"
+    },
+    "752": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 485,
+      "canonical_name": "Derivatives Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.derivatives_data_485",
+      "evidence": "CAP978 extension #752 delegates to canonical #485"
+    },
+    "753": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 486,
+      "canonical_name": "Open Interest Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.open_interest_data_486",
+      "evidence": "CAP978 extension #753 delegates to canonical #486"
+    },
+    "754": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 487,
+      "canonical_name": "Funding Rate Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.funding_rate_data_487",
+      "evidence": "CAP978 extension #754 delegates to canonical #487"
+    },
+    "755": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 488,
+      "canonical_name": "Index Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.index_data_488",
+      "evidence": "CAP978 extension #755 delegates to canonical #488"
+    },
+    "756": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 489,
+      "canonical_name": "Reference Pricing",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.reference_pricing_489",
+      "evidence": "CAP978 extension #756 delegates to canonical #489"
+    },
+    "757": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 490,
+      "canonical_name": "Exchange Metadata",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.exchange_metadata_490",
+      "evidence": "CAP978 extension #757 delegates to canonical #490"
+    },
+    "758": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 491,
+      "canonical_name": "Asset Metadata",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.asset_metadata_491",
+      "evidence": "CAP978 extension #758 delegates to canonical #491"
+    },
+    "759": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 492,
+      "canonical_name": "Historical Market Archive",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.historical_market_archive_492",
+      "evidence": "CAP978 extension #759 delegates to canonical #492"
+    },
+    "760": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 493,
+      "canonical_name": "Real-Time Streams",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.real_time_streams_493",
+      "evidence": "CAP978 extension #760 delegates to canonical #493"
+    },
+    "761": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 494,
+      "canonical_name": "Market Aggregates",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_aggregates_494",
+      "evidence": "CAP978 extension #761 delegates to canonical #494"
+    },
+    "762": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 495,
+      "canonical_name": "Liquidity Analytics",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.liquidity_analytics_495",
+      "evidence": "CAP978 extension #762 delegates to canonical #495"
+    },
+    "763": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 496,
+      "canonical_name": "Volatility Analytics",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.volatility_analytics_496",
+      "evidence": "CAP978 extension #763 delegates to canonical #496"
+    },
+    "764": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 497,
+      "canonical_name": "Market Cap / Supply",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_cap_supply_497",
+      "evidence": "CAP978 extension #764 delegates to canonical #497"
+    },
+    "765": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 498,
+      "canonical_name": "ETF / ETP Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.etf_etp_data_498",
+      "evidence": "CAP978 extension #765 delegates to canonical #498"
+    },
+    "766": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 499,
+      "canonical_name": "API Coverage Registry",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.api_coverage_registry_499",
+      "evidence": "CAP978 extension #766 delegates to canonical #499"
+    },
+    "767": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 500,
+      "canonical_name": "Data Quality & Normalization",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_normalization_500",
+      "evidence": "CAP978 extension #767 delegates to canonical #500"
+    },
+    "768": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 501,
+      "canonical_name": "Institutional Delivery",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.institutional_delivery_501",
+      "evidence": "CAP978 extension #768 delegates to canonical #501"
+    },
+    "769": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 502,
+      "canonical_name": "Benchmark Administration Metadata",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.benchmark_administration_metadata_502",
+      "evidence": "CAP978 extension #769 delegates to canonical #502"
+    },
+    "770": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 503,
+      "canonical_name": "Cross-Market Data Intelligence",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.cross_market_data_intelligence_503",
+      "evidence": "CAP978 extension #770 delegates to canonical #503"
+    },
+    "771": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 504,
+      "canonical_name": "Unified Exchange Connector Layer",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.unified_exchange_connector_layer_504",
+      "evidence": "CAP978 extension #771 delegates to canonical #504"
+    },
+    "772": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 505,
+      "canonical_name": "Tick Trade Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.tick_trade_data_505",
+      "evidence": "CAP978 extension #772 delegates to canonical #505"
+    },
+    "773": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 506,
+      "canonical_name": "Quote Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.quote_data_506",
+      "evidence": "CAP978 extension #773 delegates to canonical #506"
+    },
+    "774": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 507,
+      "canonical_name": "OHLCV",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.ohlcv_507",
+      "evidence": "CAP978 extension #774 delegates to canonical #507"
+    },
+    "775": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 508,
+      "canonical_name": "L1 Order Book",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.l1_order_book_508",
+      "evidence": "CAP978 extension #775 delegates to canonical #508"
+    },
+    "776": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 509,
+      "canonical_name": "L2 Order Book",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.l2_order_book_509",
+      "evidence": "CAP978 extension #776 delegates to canonical #509"
+    },
+    "777": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 510,
+      "canonical_name": "L3 Order Book",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.l3_order_book_510",
+      "evidence": "CAP978 extension #777 delegates to canonical #510"
+    },
+    "778": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 511,
+      "canonical_name": "Options Market Data",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.options_market_data_511",
+      "evidence": "CAP978 extension #778 delegates to canonical #511"
+    },
+    "779": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 512,
+      "canonical_name": "Funding / OI / Liquidation Metrics",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_oi_liquidation_metrics_512",
+      "evidence": "CAP978 extension #779 delegates to canonical #512"
+    },
+    "780": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 513,
+      "canonical_name": "Asset & Symbol Metadata",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.asset_symbol_metadata_513",
+      "evidence": "CAP978 extension #780 delegates to canonical #513"
+    },
+    "781": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 514,
+      "canonical_name": "Historical Flat Files",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.historical_flat_files_514",
+      "evidence": "CAP978 extension #781 delegates to canonical #514"
+    },
+    "782": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 515,
+      "canonical_name": "REST API",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.rest_api_515",
+      "evidence": "CAP978 extension #782 delegates to canonical #515"
+    },
+    "783": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 516,
+      "canonical_name": "WebSocket Streaming",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.websocket_streaming_516",
+      "evidence": "CAP978 extension #783 delegates to canonical #516"
+    },
+    "784": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 517,
+      "canonical_name": "FIX Connectivity",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.fix_connectivity_517",
+      "evidence": "CAP978 extension #784 delegates to canonical #517"
+    },
+    "785": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 518,
+      "canonical_name": "MCP for AI",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.mcp_for_ai_518",
+      "evidence": "CAP978 extension #785 delegates to canonical #518"
+    },
+    "786": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 519,
+      "canonical_name": "Exchange Rates / VWAP",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.exchange_rates_vwap_519",
+      "evidence": "CAP978 extension #786 delegates to canonical #519"
+    },
+    "787": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 520,
+      "canonical_name": "Indexes",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.indexes_520",
+      "evidence": "CAP978 extension #787 delegates to canonical #520"
+    },
+    "788": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 521,
+      "canonical_name": "Volatility Index",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.volatility_index_521",
+      "evidence": "CAP978 extension #788 delegates to canonical #521"
+    },
+    "789": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 522,
+      "canonical_name": "EMS Integration Boundary",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.ems_integration_boundary_522",
+      "evidence": "CAP978 extension #789 delegates to canonical #522"
+    },
+    "790": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 523,
+      "canonical_name": "Data Health / SLA Monitoring",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.data_health_sla_monitoring_523",
+      "evidence": "CAP978 extension #790 delegates to canonical #523"
+    },
+    "791": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 524,
+      "canonical_name": "Symbol Mapping Engine",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.symbol_mapping_engine_524",
+      "evidence": "CAP978 extension #791 delegates to canonical #524"
+    },
+    "792": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 525,
+      "canonical_name": "Cross-Venue Data Quality Score",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.heroes_capability_layer.strategy_backtesting_525",
+      "evidence": "CAP978 extension #792 delegates to canonical #525"
+    },
+    "793": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 526,
+      "canonical_name": "AI Market Data Grounding Layer",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.ai_market_data_grounding_layer_526",
+      "evidence": "CAP978 extension #793 delegates to canonical #526"
+    },
+    "794": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 527,
+      "canonical_name": "Liquidation Heatmap",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_heatmap_527",
+      "evidence": "CAP978 extension #794 delegates to canonical #527"
+    },
+    "795": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 528,
+      "canonical_name": "Liquidation Levels",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.market_rankings.market_rankings",
+      "evidence": "CAP978 extension #795 delegates to canonical #528"
+    },
+    "796": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 529,
+      "canonical_name": "Liquidation Cascade Model",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.liquidation_cascade_model_529",
+      "evidence": "CAP978 extension #796 delegates to canonical #529"
+    },
+    "797": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 530,
+      "canonical_name": "Global Liquidation Metrics",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.global_liquidation_metrics_530",
+      "evidence": "CAP978 extension #797 delegates to canonical #530"
+    },
+    "798": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 531,
+      "canonical_name": "Open Interest",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.open_interest_531",
+      "evidence": "CAP978 extension #798 delegates to canonical #531"
+    },
+    "799": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 532,
+      "canonical_name": "Funding Rates",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.funding_rates_532",
+      "evidence": "CAP978 extension #799 delegates to canonical #532"
+    },
+    "800": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 533,
+      "canonical_name": "Order Flow Intelligence",
+      "facade_binding": "bd_platform.batch16_market_delivery_facade_layer.execute_batch16_facade",
+      "canonical_implementation": "bd_platform.institutional_delivery_intelligence_layer.order_flow_intelligence_533",
+      "evidence": "CAP978 extension #800 delegates to canonical #533"
+    }
+  },
+  "canonical_duplicate_targets": {
+    "751": 484,
+    "752": 485,
+    "753": 486,
+    "754": 487,
+    "755": 488,
+    "756": 489,
+    "757": 490,
+    "758": 491,
+    "759": 492,
+    "760": 493,
+    "761": 494,
+    "762": 495,
+    "763": 496,
+    "764": 497,
+    "765": 498,
+    "766": 499,
+    "767": 500,
+    "768": 501,
+    "769": 502,
+    "770": 503,
+    "771": 504,
+    "772": 505,
+    "773": 506,
+    "774": 507,
+    "775": 508,
+    "776": 509,
+    "777": 510,
+    "778": 511,
+    "779": 512,
+    "780": 513,
+    "781": 514,
+    "782": 515,
+    "783": 516,
+    "784": 517,
+    "785": 518,
+    "786": 519,
+    "787": 520,
+    "788": 521,
+    "789": 522,
+    "790": 523,
+    "791": 524,
+    "792": 525,
+    "793": 526,
+    "794": 527,
+    "795": 528,
+    "796": 529,
+    "797": 530,
+    "798": 531,
+    "799": 532,
+    "800": 533
+  },
+  "summary": {
+    "canonical_duplicate_reuse_count": 50
+  }
+}

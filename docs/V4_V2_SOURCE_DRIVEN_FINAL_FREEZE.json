@@ -1,0 +1,117 @@
+{
+  "artifact": "V4_V2_SOURCE_DRIVEN_FINAL_FREEZE",
+  "generated_at_utc": "2026-09-08T11:11:04.385395+00:00",
+  "branch": "cursor/v4v2-phase1-local-closure-ed16",
+  "material_sha": "a93ab066872204e19d9f6637eb227974e5d7ef8d",
+  "source_universe": 2786,
+  "source_audit": {
+    "V4_V2_SOURCE_TO_LEDGER_COVERAGE": 100.0,
+    "V4_V2_SOURCE_ITEMS_MISSING_FROM_LEDGER": [],
+    "V4_V2_LEDGER_EXTRA_IDS": [],
+    "V4_V2_PARTIAL_LEDGER_MAPPINGS": [],
+    "V4_V2_WRONG_LEDGER_CLASSIFICATIONS": [],
+    "V4_V2_DUPLICATE_LEDGER_REQUIREMENTS": []
+  },
+  "gated_audit": {
+    "V4_V2_FALSE_NOT_APPLICABLE_CLASSIFICATIONS": [],
+    "V4_V2_FALSE_GOVERNANCE_ONLY_CLASSIFICATIONS": [],
+    "V4_V2_FALSE_EXTERNAL_DEFERRALS": [],
+    "V4_V2_FALSE_MATURITY_DEFERRALS": [],
+    "V4_V2_FALSE_LIVE_DEFERRALS": []
+  },
+  "universe_verification": {
+    "buildable_total": 662,
+    "verified_ok": 662,
+    "skipped_non_implementation": 1184,
+    "failures": [],
+    "ok": true
+  },
+  "rebuild_stats": {
+    "touched": 1846,
+    "states": {
+      "NOT_APPLICABLE_WITH_EVIDENCE": 1145,
+      "LOCAL_ENGINEERING_COMPLETE": 644,
+      "MATURITY_GATED": 42,
+      "EXTERNAL_ASSURANCE_GATED": 13,
+      "LIVE_OR_CHRONOLOGICAL_GATED": 2
+    }
+  },
+  "arithmetic": {
+    "V4_V2_NORMALIZED_TOTAL": 1846,
+    "LOCAL_ENGINEERING_COMPLETE": 644,
+    "MATURITY_GATED": 42,
+    "LIVE_OR_CHRONOLOGICAL_GATED": 2,
+    "EXTERNAL_ASSURANCE_GATED": 13,
+    "NOT_APPLICABLE_WITH_EVIDENCE": 1145,
+    "BUILT_THIS_BATCH": 0,
+    "BUILT_THROUGH_BATCH13": 0,
+    "PARTIALLY_IMPLEMENTED": 0,
+    "V4_V2_REMAINING_LOCAL_REQUIREMENTS": 0,
+    "V4_V2_PARTIALLY_IMPLEMENTED_LOCAL": 0,
+    "V4_V2_FINAL_ARITHMETIC_CONSISTENT": true,
+    "V4_V2_UNACCOUNTED_REQUIREMENTS": []
+  },
+  "pytest": {
+    "ok": true,
+    "suites": [
+      {
+        "label": "source_driven",
+        "ok": true,
+        "paths": [
+          "tests/test_v4_v2_source_driven_engineering.py",
+          "tests/test_v4_v2_source_traceability.py"
+        ]
+      },
+      {
+        "label": "temporal_spine",
+        "ok": true,
+        "paths": [
+          "tests/test_batch13_temporal_spine.py"
+        ]
+      },
+      {
+        "label": "batch17_regression",
+        "ok": true,
+        "paths": [
+          "tests/test_batch17_extension_suite.py"
+        ]
+      },
+      {
+        "label": "batch16_regression",
+        "ok": true,
+        "paths": [
+          "tests/test_batch16_three_spec_foundations.py"
+        ]
+      }
+    ]
+  },
+  "source_driven_status": {
+    "version": "v4_v2_source_driven_v1",
+    "lineage": {
+      "registry": "v4_v2_lineage",
+      "row_count": 4,
+      "store": "data/v4_v2_lineage_registry.jsonl"
+    },
+    "source_rights": {
+      "registry": "v4_v2_source_rights",
+      "row_count": 4,
+      "store": "data/v4_v2_source_rights_registry.jsonl"
+    },
+    "pit": {
+      "registry": "v4_v2_pit_availability",
+      "row_count": 1,
+      "store": "data/v4_v2_pit_availability_index.jsonl"
+    },
+    "implementation_index": "/workspace/docs/V4_V2_IMPLEMENTATION_INDEX.json",
+    "universe": "/workspace/docs/V4_V2_FULL_SOURCE_UNIVERSE.json",
+    "live_promotion": false
+  },
+  "V4_V2_FINAL_LOCAL_COMPLETION": true,
+  "NO_KNOWN_LOCALLY_BUILDABLE_V4_V2_WORK_REMAINING": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "INDEPENDENT_ASSURANCE_NOT_CLAIMED": true,
+  "TEMPORAL_DEDICATED_CLOSURE_NOT_STARTED": true,
+  "ADAPTIVE_DEDICATED_CLOSURE_NOT_STARTED": true,
+  "BATCH18_NOT_CREATED": true,
+  "RAILWAY_NOT_TOUCHED": true
+}

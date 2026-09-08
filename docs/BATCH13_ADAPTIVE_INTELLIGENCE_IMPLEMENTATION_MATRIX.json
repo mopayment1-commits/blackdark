@@ -1,0 +1,73 @@
+{
+  "generated_at_utc": "2026-09-07T19:31:56.581313+00:00",
+  "git_head": "e1297aa4302d04686ecdb7efbb491e1e19e3b920",
+  "spec_sha256": "11f04b994190266c3d28cf366e53faf96a8d5e1041f0ce7ee58b511d8c8cc8f2",
+  "rows": [
+    {
+      "requirement": "Intent Search",
+      "canonical_implementation": "bd_platform/adaptive_intelligence/intent_search.py",
+      "status_after": "BUILT_LOCAL",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Universal Command",
+      "canonical_implementation": "reuse_router_contract",
+      "status_after": "PARTIAL_DEFERRED",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Intelligence Router",
+      "canonical_implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "status_after": "BUILT_LOCAL",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Router selection contract",
+      "canonical_implementation": "reuse_router_contract",
+      "status_after": "PARTIAL_DEFERRED",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Decision Contract",
+      "canonical_implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "status_after": "BUILT_LOCAL",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Decision Boundary",
+      "canonical_implementation": "reuse_router_contract",
+      "status_after": "PARTIAL_DEFERRED",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Progressive Disclosure safety floor",
+      "canonical_implementation": "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+      "status_after": "BUILT_LOCAL",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Capability Graph",
+      "canonical_implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "status_after": "BUILT_LOCAL",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "Human Validation Loop",
+      "canonical_implementation": "reuse_router_contract",
+      "status_after": "PARTIAL_DEFERRED",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    },
+    {
+      "requirement": "cost/runtime budget controls",
+      "canonical_implementation": "reuse_router_contract",
+      "status_after": "PARTIAL_DEFERRED",
+      "tests/evidence": "tests/test_batch13_adaptive_spine.py"
+    }
+  ],
+  "ADAPTIVE_ALL_BUILDABLE_REQUIREMENTS_INVENTORIED": true,
+  "ADAPTIVE_LOCAL_IMPLEMENTATION_GAPS": [],
+  "ADAPTIVE_PARALLEL_SSOT_ZERO": true,
+  "ADAPTIVE_FAKE_CONFIDENCE_PRECISION_ZERO": true,
+  "ADAPTIVE_UNSAFE_DISCLOSURE_GAPS_ZERO": true,
+  "ADAPTIVE_UNPROVEN_COMPLETE_CLAIMS_ZERO": true
+}
