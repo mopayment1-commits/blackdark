@@ -1,10 +1,10 @@
 {
   "artifact": "THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER",
   "version": "1.0.0",
-  "generated_at_utc": "2026-09-08T11:34:00.972495+00:00",
+  "generated_at_utc": "2026-09-08T11:41:59.127876+00:00",
   "repository_baseline": {
-    "CURRENT_BRANCH": "cursor/adaptive-phase3-local-closure-ed16",
-    "CURRENT_HEAD": "747d4945f616a16c3e76679cb3d24b1139140358",
+    "CURRENT_BRANCH": "cursor/three-spec-phase4-final-reconciliation-ed16",
+    "CURRENT_HEAD": "d72c962d05cb7d475080ef5402d6fb13025cf744",
     "BATCH13_FINAL_MATERIAL_SHA": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
     "BATCH13_FINAL_FREEZE_DOCS_HEAD": "be710caf253f39d9833ab5e1a87a2fe6c33f4a02",
     "capability_program_built": "1-826",
@@ -21,7 +21,8 @@
     "V4_V2_PHASE1_FREEZE_DOCS_HEAD": "5eb10ada81647f1373b3010c27ae8f08d3e89805",
     "V4_V2_SOURCE_DRIVEN_MATERIAL_SHA": "a93ab066872204e19d9f6637eb227974e5d7ef8d",
     "TEMPORAL_PHASE2_MATERIAL_SHA": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-    "ADAPTIVE_PHASE3_MATERIAL_SHA": "747d4945f616a16c3e76679cb3d24b1139140358"
+    "ADAPTIVE_PHASE3_MATERIAL_SHA": "747d4945f616a16c3e76679cb3d24b1139140358",
+    "FINAL_THREE_SPEC_MATERIAL_SHA": "d72c962d05cb7d475080ef5402d6fb13025cf744"
   },
   "governing_hierarchy": [
     "v6",
@@ -4698,7 +4699,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -4714,7 +4715,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0078",
@@ -6013,7 +6015,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -6029,7 +6031,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0102",
@@ -6443,7 +6446,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -6459,7 +6462,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0110",
@@ -7188,7 +7192,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -7204,7 +7208,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0122",
@@ -9927,7 +9932,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -9943,7 +9948,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0171",
@@ -12259,7 +12265,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -12275,7 +12281,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0211",
@@ -12723,7 +12730,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -12746,7 +12753,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0218",
@@ -13154,7 +13162,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -13170,7 +13178,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0226",
@@ -13757,7 +13766,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -13773,7 +13782,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0236",
@@ -15006,7 +15016,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -15022,7 +15032,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0260",
@@ -15535,7 +15546,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -15551,7 +15562,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0269",
@@ -16828,7 +16840,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -16844,7 +16856,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0290",
@@ -18396,7 +18409,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -18412,7 +18425,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0318",
@@ -21747,7 +21761,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -21770,7 +21784,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0375",
@@ -24973,7 +24988,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -24989,7 +25004,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0425",
@@ -25191,7 +25207,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -25214,7 +25230,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0429",
@@ -25854,7 +25871,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -25870,7 +25887,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0440",
@@ -26380,7 +26398,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -26396,7 +26414,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0450",
@@ -27796,7 +27815,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -27819,7 +27838,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0473",
@@ -30884,7 +30904,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -30907,7 +30927,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0523",
@@ -31491,7 +31512,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -31514,7 +31535,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0532",
@@ -31640,7 +31662,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -31663,7 +31685,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0534",
@@ -35233,7 +35256,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -35249,7 +35272,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0598",
@@ -38981,7 +39005,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -38997,7 +39021,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0657",
@@ -40969,7 +40994,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -40992,7 +41017,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0692",
@@ -41383,7 +41409,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -41399,7 +41425,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0698",
@@ -47164,7 +47191,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -47187,7 +47214,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0792",
@@ -50695,7 +50723,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -50718,7 +50746,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0848",
@@ -51686,7 +51715,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -51702,7 +51731,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0864",
@@ -52363,7 +52393,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -52379,7 +52409,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0873",
@@ -57019,7 +57050,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -57035,7 +57066,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0950",
@@ -57630,7 +57662,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -57653,7 +57685,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U0961",
@@ -60706,7 +60739,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -60722,7 +60755,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1012",
@@ -61376,7 +61410,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -61392,7 +61426,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1023",
@@ -61618,7 +61653,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -61641,7 +61676,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1027",
@@ -70848,7 +70884,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -70871,7 +70907,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1178",
@@ -70923,7 +70960,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -70946,7 +70983,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1179",
@@ -72563,7 +72601,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -72579,7 +72617,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1206",
@@ -76239,7 +76278,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -76255,7 +76294,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1269",
@@ -76289,7 +76329,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -76305,7 +76345,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1270",
@@ -76339,7 +76380,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -76355,7 +76396,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1271",
@@ -76439,7 +76481,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -76455,7 +76497,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1273",
@@ -78150,7 +78193,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -78173,7 +78216,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1301",
@@ -79478,7 +79522,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -79494,7 +79538,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1323",
@@ -82259,7 +82304,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -82275,7 +82320,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1373",
@@ -86763,7 +86809,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -86786,7 +86832,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1450",
@@ -86970,7 +87017,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -86986,7 +87033,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1454",
@@ -88022,7 +88070,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -88045,7 +88093,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1473",
@@ -91151,7 +91200,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -91167,7 +91216,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1522",
@@ -96561,7 +96611,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -96577,7 +96627,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1610",
@@ -105636,7 +105687,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Local prerequisites complete — calibration/live promotion maturity-gated",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -105659,7 +105710,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1763",
@@ -106469,7 +106521,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -106485,7 +106537,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1776",
@@ -106519,7 +106572,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -106535,7 +106588,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1777",
@@ -107215,7 +107269,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -107231,7 +107285,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1790",
@@ -107265,7 +107320,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -107281,7 +107336,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1791",
@@ -108507,7 +108563,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -108523,7 +108579,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1811",
@@ -108682,7 +108739,7 @@
         "tests/test_v4_v2_source_traceability.py"
       ],
       "last_verified_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -108698,7 +108755,8 @@
         "closed_at_utc": "2026-09-08T11:11:04.385395+00:00",
         "traceability_version": "v4_v2_source_driven_v1",
         "test_paths": []
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "V4V2_U1814",
@@ -111219,7 +111277,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -111233,7 +111291,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0014",
@@ -113089,7 +113148,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -113103,7 +113162,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0047",
@@ -114818,7 +114878,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -114832,7 +114892,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0077",
@@ -115624,7 +115685,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -115638,7 +115699,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0091",
@@ -116346,7 +116408,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -116360,7 +116422,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0104",
@@ -117140,7 +117203,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -117154,7 +117217,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0119",
@@ -117238,7 +117302,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -117252,7 +117316,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0121",
@@ -117294,7 +117359,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -117308,7 +117373,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0122",
@@ -118076,7 +118142,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 1,
       "latest_safe_batch": 13,
       "target_batch_or_window": "1-13",
@@ -118090,7 +118156,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0136",
@@ -118128,7 +118195,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -118142,7 +118209,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0137",
@@ -118884,7 +118952,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -118898,7 +118966,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0151",
@@ -118933,7 +119002,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -118947,7 +119016,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0152",
@@ -119712,7 +119782,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -119732,7 +119802,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0166",
@@ -121468,7 +121539,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -121488,7 +121559,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0198",
@@ -121759,7 +121831,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -121773,7 +121845,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0203",
@@ -122676,7 +122749,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -122690,7 +122763,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0220",
@@ -123304,7 +123378,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -123318,7 +123392,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0232",
@@ -124547,7 +124622,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -124561,7 +124636,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0255",
@@ -124770,7 +124846,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -124790,7 +124866,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0259",
@@ -125486,7 +125563,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -125500,7 +125577,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0272",
@@ -125535,7 +125613,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — external assurance-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -125549,7 +125627,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0273",
@@ -126782,7 +126861,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -126796,7 +126875,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0296",
@@ -127885,7 +127965,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -127905,7 +127985,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0316",
@@ -129131,7 +129212,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -129145,7 +129226,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0338",
@@ -131018,7 +131100,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -131032,7 +131114,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0373",
@@ -131301,7 +131384,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -131321,7 +131404,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0378",
@@ -131457,7 +131541,7 @@
         "temporal_source_driven_sha:aec1e2f421bf6e643e78a0eca52ff580ce1fb31f"
       ],
       "last_verified_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Temporal doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -131471,7 +131555,8 @@
       "temporal_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:23:12.320594+00:00",
         "traceability_version": "temporal_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "TEMPORAL_U0381",
@@ -138917,7 +139002,7 @@
         "adaptive_source_driven_sha:747d4945f616a16c3e76679cb3d24b1139140358"
       ],
       "last_verified_sha": "747d4945f616a16c3e76679cb3d24b1139140358",
-      "remaining_delta": "Local prerequisites complete — maturity-gated per Adaptive doctrine",
+      "remaining_delta": "Local prerequisites complete — maturity-gated per source doctrine",
       "earliest_valid_batch": 15,
       "latest_safe_batch": 17,
       "target_batch_or_window": "15-17",
@@ -138931,7 +139016,8 @@
       "adaptive_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:34:00.972495+00:00",
         "traceability_version": "adaptive_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "ADAPTIVE_U0124",
@@ -142995,7 +143081,7 @@
         "adaptive_source_driven_sha:747d4945f616a16c3e76679cb3d24b1139140358"
       ],
       "last_verified_sha": "747d4945f616a16c3e76679cb3d24b1139140358",
-      "remaining_delta": "Non-implementation source text — disposition recorded",
+      "remaining_delta": "Local prerequisites complete — live/chronological evidence-gated per source doctrine",
       "earliest_valid_batch": "N/A",
       "latest_safe_batch": "N/A",
       "target_batch_or_window": "N/A",
@@ -143009,7 +143095,8 @@
       "adaptive_source_driven_closure": {
         "closed_at_utc": "2026-09-08T11:34:00.972495+00:00",
         "traceability_version": "adaptive_source_driven_v1"
-      }
+      },
+      "local_prerequisites_complete": true
     },
     {
       "requirement_id": "ADAPTIVE_U0195",
@@ -157898,7 +157985,11 @@
     "V4_V2_FINAL_LOCAL_COMPLETION_PRESERVED": true,
     "ADAPTIVE_PHASE3_LOCAL_CLOSURE": true,
     "THREE_SPEC_ADAPTIVE_LOCAL_ENGINEERING_COMPLETE": true,
-    "TEMPORAL_FINAL_LOCAL_COMPLETION_PRESERVED": true
+    "TEMPORAL_FINAL_LOCAL_COMPLETION_PRESERVED": true,
+    "THREE_SPEC_FINAL_LOCAL_COMPLETION": true,
+    "PASS_ENGINEERING": true,
+    "THREE_SPEC_CROSS_SPEC_RECONCILIATION_COMPLETE": true,
+    "INDEPENDENT_ASSURANCE_NOT_CLAIMED": true
   },
   "batch15_mandatory_set": {
     "BATCH15_CAPABILITY_SCOPE": [
