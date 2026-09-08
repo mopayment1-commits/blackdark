@@ -1,10 +1,10 @@
 {
   "artifact": "THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER",
   "version": "1.0.0",
-  "generated_at_utc": "2026-09-08T11:41:04.252622+00:00",
+  "generated_at_utc": "2026-09-08T11:41:59.127876+00:00",
   "repository_baseline": {
     "CURRENT_BRANCH": "cursor/three-spec-phase4-final-reconciliation-ed16",
-    "CURRENT_HEAD": "5caa95588b4ed944b48bdc009746766d64e0b3b9",
+    "CURRENT_HEAD": "d72c962d05cb7d475080ef5402d6fb13025cf744",
     "BATCH13_FINAL_MATERIAL_SHA": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
     "BATCH13_FINAL_FREEZE_DOCS_HEAD": "be710caf253f39d9833ab5e1a87a2fe6c33f4a02",
     "capability_program_built": "1-826",
@@ -22,7 +22,7 @@
     "V4_V2_SOURCE_DRIVEN_MATERIAL_SHA": "a93ab066872204e19d9f6637eb227974e5d7ef8d",
     "TEMPORAL_PHASE2_MATERIAL_SHA": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
     "ADAPTIVE_PHASE3_MATERIAL_SHA": "747d4945f616a16c3e76679cb3d24b1139140358",
-    "FINAL_THREE_SPEC_MATERIAL_SHA": "5caa95588b4ed944b48bdc009746766d64e0b3b9"
+    "FINAL_THREE_SPEC_MATERIAL_SHA": "d72c962d05cb7d475080ef5402d6fb13025cf744"
   },
   "governing_hierarchy": [
     "v6",
