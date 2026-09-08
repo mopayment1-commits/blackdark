@@ -102,15 +102,7 @@ BATCH17_MANDATORY_REQUIREMENT_KEYS = (
 )
 
 PYTEST_SUITES: list[tuple[str, list[str]]] = [
-    ("batch17_membership", ["tests/test_batch17_membership_and_profile.py"]),
-    ("batch17_semantic_contracts", ["tests/test_batch17_26_semantic_contracts.py"]),
-    ("batch17_oracles", ["tests/test_batch17_26_independent_oracles.py"]),
-    ("batch17_execution", ["tests/test_batch17_all_26_execution.py"]),
-    ("batch17_runtime", ["tests/test_batch17_runtime_canonical_binding.py"]),
-    ("batch17_consumer", ["tests/test_batch17_consumer_paths.py"]),
-    ("batch17_entitlement", ["tests/test_batch17_full_path_entitlement.py"]),
-    ("batch17_canonical_reuse", ["tests/test_batch17_canonical_reuse.py"]),
-    ("batch17_three_spec", ["tests/test_batch17_three_spec_foundations.py"]),
+    ("batch17_extension_suite", ["tests/test_batch17_extension_suite.py"]),
 ]
 
 
