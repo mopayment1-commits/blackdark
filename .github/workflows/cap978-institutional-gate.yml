@@ -1,6 +1,12 @@
 name: CAP978 Institutional Gate
 
 on:
+  workflow_dispatch:
+    inputs:
+      ref_note:
+        description: "Optional note for manual CAP978 authoritative run (provenance audit only)"
+        required: false
+        type: string
   push:
     branches: [main, master]
     paths:
@@ -52,7 +58,7 @@ jobs:
           python -m pytest tests/cap646/test_institutional_gate.py tests/cap646/test_soft_launch_closure.py -q --tb=short -m "" -k "not test_institutional_gate_full"
 
   gate-full:
-    if: github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'pull_request'
+    if: github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
