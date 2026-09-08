@@ -1,9 +1,9 @@
 {
   "branch": "cursor/billing-institutional-closure-ed16",
-  "material_sha": "0e008efc3988ee0dd0f1f4a448476d2951515342",
+  "material_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
   "spec_sha256": "d4a3e2e20492ce79bf0aeb0d63c83744c0dcdb62161345419a292bbc87d3be0a",
-  "ledger_sha256": "3fc34319e64d94d7fc09614d7736ac8dae791bcf61bd7d0978d6db14cf53b53e",
-  "closed_at": "2026-09-08T21:26:08.390186+00:00",
+  "ledger_sha256": "fb22e14d969afd9c73ce3c148e816baebff8029f6eb3ad79e60abca0d75125c0",
+  "closed_at": "2026-09-08T21:26:27.627854+00:00",
   "pytest": {
     "ok": true,
     "suites": [
