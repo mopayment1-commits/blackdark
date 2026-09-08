@@ -1,8 +1,0 @@
-{"event_id": "str_cab8438def1a", "ingested_at": "2026-09-07T20:59:36.458576+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
-{"event_id": "str_f92c94ea7194", "ingested_at": "2026-09-07T21:02:56.673824+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
-{"event_id": "str_df859d331423", "ingested_at": "2026-09-08T07:16:39.836399+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
-{"event_id": "str_9f75d7b01b95", "ingested_at": "2026-09-08T07:19:10.006042+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
-{"event_id": "str_730c1fe63ce4", "ingested_at": "2026-09-08T07:23:30.577437+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
-{"event_id": "str_4cb4fdb5c89d", "ingested_at": "2026-09-08T07:27:02.815426+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
-{"event_id": "str_f10378c47dcf", "ingested_at": "2026-09-08T07:31:03.685369+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
-{"event_id": "str_d85ea8d6d922", "ingested_at": "2026-09-08T08:50:22.754792+00:00", "source": "oracle", "payload": {"asset": "BTC"}, "available": true}
