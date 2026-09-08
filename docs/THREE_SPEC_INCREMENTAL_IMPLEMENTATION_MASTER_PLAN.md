@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-08T11:11:04.385395+00:00
-**Branch:** `cursor/v4v2-phase1-local-closure-ed16`
-**HEAD:** `8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b`
+**Generated:** 2026-09-08T11:23:12.320594+00:00
+**Branch:** `cursor/temporal-phase2-local-closure-ed16`
+**HEAD:** `aec1e2f421bf6e643e78a0eca52ff580ce1fb31f`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -84,6 +84,14 @@ Post-capability v4_v2 engineering spine closure via `bd_platform/v4_v2_phase1_en
 **V4_V2_REMAINING_LOCAL_REQUIREMENTS:** 0
 
 Ledger rebuilt from `V4_V2_FULL_SOURCE_UNIVERSE.json` + `V4_V2_IMPLEMENTATION_INDEX.json`. Persistent registries for lineage, source rights, PIT availability.
+
+
+## 2e. Temporal Phase-2 source-driven closure
+
+**Temporal Phase-2 material SHA:** `8c5d389f88ea9c3b70e547330a49bb9396903d78`
+**LOCAL_ENGINEERING_COMPLETE:** 231
+**TEMPORAL_REMAINING_LOCAL_REQUIREMENTS:** 0
+
 
 ## 2. Current state through Batch13
 
