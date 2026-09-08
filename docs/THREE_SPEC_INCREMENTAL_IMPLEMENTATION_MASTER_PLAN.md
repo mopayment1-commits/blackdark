@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-08T00:29:32.721190+00:00
-**Branch:** `cursor/batch15-701-750-ed16`
-**HEAD:** `475c3159df505850351588d7d1be8e2ba48c1555`
+**Generated:** 2026-09-08T08:19:04.867946+00:00
+**Branch:** `cursor/batch16-751-800-ed16`
+**HEAD:** `5a34f40986750bdb35d923dfd512e92ae25500a3`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -49,6 +49,14 @@ Batch14 extension analytics layer (651-700), three-spec foundations, canonical r
 **Ledger requirements marked BUILT_THIS_BATCH:** 23
 
 Batch15 DeFi/risk/data facade layer (701-750) with canonical reuse of Batch09 semantics (434-483, plus 725→458), three-spec progression (walk-forward v2, regime library v2, human validation shadow v2, universal command controlled).
+
+
+## 2b. Batch16 closure (751-800)
+
+**Batch16 material SHA:** `f178029b4a2616ab13e16e826cc110983b768f4f`
+**Ledger requirements marked BUILT_THIS_BATCH:** 24
+
+Batch16 market/delivery facade layer (751-800) with canonical reuse of prior semantics (484-533), three-spec progression (event store v3, source rights enforcement, outcome quality non-live, mass replay extensions, cost/runtime budget controls, router contract hardening).
 
 ## 2. Current state through Batch13
 

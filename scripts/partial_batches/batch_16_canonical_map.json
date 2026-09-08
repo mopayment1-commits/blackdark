@@ -1,0 +1,302 @@
+{
+  "751": [
+    484,
+    "bd_platform.defi_yield_intelligence_layer",
+    "ohlcv_data_484",
+    {}
+  ],
+  "752": [
+    485,
+    "bd_platform.defi_yield_intelligence_layer",
+    "derivatives_data_485",
+    {}
+  ],
+  "753": [
+    486,
+    "bd_platform.defi_yield_intelligence_layer",
+    "open_interest_data_486",
+    {}
+  ],
+  "754": [
+    487,
+    "bd_platform.defi_yield_intelligence_layer",
+    "funding_rate_data_487",
+    {}
+  ],
+  "755": [
+    488,
+    "bd_platform.defi_yield_intelligence_layer",
+    "index_data_488",
+    {}
+  ],
+  "756": [
+    489,
+    "bd_platform.defi_yield_intelligence_layer",
+    "reference_pricing_489",
+    {}
+  ],
+  "757": [
+    490,
+    "bd_platform.defi_yield_intelligence_layer",
+    "exchange_metadata_490",
+    {}
+  ],
+  "758": [
+    491,
+    "bd_platform.defi_yield_intelligence_layer",
+    "asset_metadata_491",
+    {}
+  ],
+  "759": [
+    492,
+    "bd_platform.defi_yield_intelligence_layer",
+    "historical_market_archive_492",
+    {}
+  ],
+  "760": [
+    493,
+    "bd_platform.defi_yield_intelligence_layer",
+    "real_time_streams_493",
+    {}
+  ],
+  "761": [
+    494,
+    "bd_platform.defi_yield_intelligence_layer",
+    "market_aggregates_494",
+    {}
+  ],
+  "762": [
+    495,
+    "bd_platform.defi_yield_intelligence_layer",
+    "liquidity_analytics_495",
+    {}
+  ],
+  "763": [
+    496,
+    "bd_platform.defi_yield_intelligence_layer",
+    "volatility_analytics_496",
+    {}
+  ],
+  "764": [
+    497,
+    "bd_platform.defi_yield_intelligence_layer",
+    "market_cap_supply_497",
+    {}
+  ],
+  "765": [
+    498,
+    "bd_platform.defi_yield_intelligence_layer",
+    "etf_etp_data_498",
+    {}
+  ],
+  "766": [
+    499,
+    "bd_platform.defi_yield_intelligence_layer",
+    "api_coverage_registry_499",
+    {}
+  ],
+  "767": [
+    500,
+    "bd_platform.defi_yield_intelligence_layer",
+    "data_quality_normalization_500",
+    {}
+  ],
+  "768": [
+    501,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "institutional_delivery_501",
+    {}
+  ],
+  "769": [
+    502,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "benchmark_administration_metadata_502",
+    {}
+  ],
+  "770": [
+    503,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "cross_market_data_intelligence_503",
+    {}
+  ],
+  "771": [
+    504,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "unified_exchange_connector_layer_504",
+    {}
+  ],
+  "772": [
+    505,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "tick_trade_data_505",
+    {}
+  ],
+  "773": [
+    506,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "quote_data_506",
+    {}
+  ],
+  "774": [
+    507,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "ohlcv_507",
+    {}
+  ],
+  "775": [
+    508,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "l1_order_book_508",
+    {}
+  ],
+  "776": [
+    509,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "l2_order_book_509",
+    {}
+  ],
+  "777": [
+    510,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "l3_order_book_510",
+    {}
+  ],
+  "778": [
+    511,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "options_market_data_511",
+    {}
+  ],
+  "779": [
+    512,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "funding_oi_liquidation_metrics_512",
+    {}
+  ],
+  "780": [
+    513,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "asset_symbol_metadata_513",
+    {}
+  ],
+  "781": [
+    514,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "historical_flat_files_514",
+    {}
+  ],
+  "782": [
+    515,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "rest_api_515",
+    {}
+  ],
+  "783": [
+    516,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "websocket_streaming_516",
+    {}
+  ],
+  "784": [
+    517,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "fix_connectivity_517",
+    {}
+  ],
+  "785": [
+    518,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "mcp_for_ai_518",
+    {}
+  ],
+  "786": [
+    519,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "exchange_rates_vwap_519",
+    {}
+  ],
+  "787": [
+    520,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "indexes_520",
+    {}
+  ],
+  "788": [
+    521,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "volatility_index_521",
+    {}
+  ],
+  "789": [
+    522,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "ems_integration_boundary_522",
+    {}
+  ],
+  "790": [
+    523,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "data_health_sla_monitoring_523",
+    {}
+  ],
+  "791": [
+    524,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "symbol_mapping_engine_524",
+    {}
+  ],
+  "792": [
+    525,
+    "bd_platform.heroes_capability_layer",
+    "strategy_backtesting_525",
+    {}
+  ],
+  "793": [
+    526,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "ai_market_data_grounding_layer_526",
+    {}
+  ],
+  "794": [
+    527,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "liquidation_heatmap_527",
+    {}
+  ],
+  "795": [
+    528,
+    "bd_platform.market_rankings",
+    "market_rankings",
+    {}
+  ],
+  "796": [
+    529,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "liquidation_cascade_model_529",
+    {}
+  ],
+  "797": [
+    530,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "global_liquidation_metrics_530",
+    {}
+  ],
+  "798": [
+    531,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "open_interest_531",
+    {}
+  ],
+  "799": [
+    532,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "funding_rates_532",
+    {}
+  ],
+  "800": [
+    533,
+    "bd_platform.institutional_delivery_intelligence_layer",
+    "order_flow_intelligence_533",
+    {}
+  ]
+}

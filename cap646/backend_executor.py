@@ -22,7 +22,7 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
     tier = str(params.get("tier") or "pro")
     style = binding.param_style
 
-    if binding.entrypoint == "execute_batch15_facade":
+    if binding.entrypoint in ("execute_batch15_facade", "execute_batch16_facade"):
         kw = {"capability_id": binding.capability_id, "symbol": symbol}
         return fn(**kw) if not inspect.iscoroutinefunction(fn) else await fn(**kw)
 
