@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH17_INTERNAL_DUPLICATE_ANALYSIS",
-  "generated_at_utc": "2026-09-08T08:57:08.595992+00:00",
-  "git_commit": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
+  "generated_at_utc": "2026-09-08T10:02:45.597484+00:00",
+  "git_commit": "b5d531340f3bbbda1f399995a689a10acbb88edc",
   "layer_a_internal": {
     "scope": "Layer A — Batch17 IDs 801-826 vs 801-826 ONLY",
     "summary": {
