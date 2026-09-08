@@ -8,6 +8,7 @@ from pathlib import Path
 from bd_platform.v4_v2_source_driven_engineering import (
     BUILDABLE_CLASSIFICATIONS,
     canonical_binding,
+    close_requirement_source_driven,
     load_implementation_index,
     load_unique_register,
     verify_requirement,
@@ -69,3 +70,38 @@ def test_canonical_binding_enforcement_tiers() -> None:
     b = canonical_binding(buildable["canonical_requirement_id"])
     assert b.enforcement_tier in {"REJECT", "PROBE", "DOCUMENT_ONLY"}
     assert b.implementation_intended is True
+
+
+def test_enforce_provenance_and_temporal_helpers() -> None:
+    from bd_platform.v4_v2_source_driven_engineering import enforce_provenance, enforce_temporal_context
+
+    payload = enforce_provenance({"value": 1}, source_id="trace_test")
+    assert payload.get("v4_v2_enforcement")
+    enforce_temporal_context(
+        event_time="2026-01-01T00:00:00+00:00",
+        cutoff="2026-01-02T00:00:00+00:00",
+        requirement_id="V4V2_U0001",
+    )
+
+
+def test_close_non_implementation_intended_requirement() -> None:
+    row = next(
+        r for r in load_unique_register()["rows"] if r.get("classification") == "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT"
+    )
+    closure = close_requirement_source_driven(row["canonical_requirement_id"])
+    assert closure["closure_state"] == "NOT_IMPLEMENTATION_INTENDED"
+
+
+def test_pit_registry_query_path() -> None:
+    from bd_platform.v4_v2_persistent_registries import pit_registry_status, query_pit_available, register_pit_availability
+
+    register_pit_availability(
+        dataset_id="trace_dataset",
+        event_time="2026-01-01T00:00:00+00:00",
+        observed_time="2026-01-01T00:01:00+00:00",
+        available_time="2026-01-01T00:01:00+00:00",
+        as_of_cutoff="2026-01-02T00:00:00+00:00",
+    )
+    rows = query_pit_available(dataset_id="trace_dataset", as_of="2026-01-02T00:00:00+00:00")
+    assert rows
+    assert pit_registry_status()["row_count"] >= 1
