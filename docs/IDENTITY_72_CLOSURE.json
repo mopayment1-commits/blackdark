@@ -25,13 +25,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -49,13 +49,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -71,13 +71,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -93,13 +93,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -115,13 +115,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -138,13 +138,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -161,7 +161,7 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -169,7 +169,7 @@
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -186,13 +186,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -208,13 +208,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -231,13 +231,13 @@
         "tests/test_spine_database_auth.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -253,13 +253,13 @@
         "tests/test_spine_database_auth.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -275,13 +275,13 @@
         "tests/test_spine_database_auth.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -297,7 +297,7 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -305,7 +305,7 @@
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -322,13 +322,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -345,13 +345,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -367,13 +367,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -389,13 +389,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -411,13 +411,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -433,13 +433,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -456,13 +456,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -479,13 +479,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -502,13 +502,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -525,13 +525,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -547,13 +547,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -569,13 +569,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -591,13 +591,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -614,13 +614,13 @@
         "tests/test_p1_session_hardening.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -636,13 +636,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -658,13 +658,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -681,13 +681,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -703,13 +703,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -726,13 +726,13 @@
         "tests/test_d13_auth_abuse.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -748,13 +748,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -771,13 +771,13 @@
         "tests/test_visible_chrome_critical_surfaces.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -794,13 +794,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -818,13 +818,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -841,13 +841,13 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -864,13 +864,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -887,13 +887,13 @@
         "tests/test_i18n_38_locales.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -909,13 +909,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -931,13 +931,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -951,13 +951,13 @@
       ],
       "tests": [],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": "AI moderation optional per spec"
     },
     {
@@ -974,13 +974,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -996,13 +996,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1019,13 +1019,13 @@
         "tests/test_technical_due_diligence.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1042,13 +1042,13 @@
         "tests/test_technical_due_diligence.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1064,13 +1064,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1086,13 +1086,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1108,7 +1108,7 @@
         "tests/test_technical_due_diligence.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -1116,7 +1116,7 @@
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1130,7 +1130,7 @@
       ],
       "tests": [],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -1138,7 +1138,7 @@
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1155,13 +1155,13 @@
         "tests/test_visible_chrome_critical_surfaces.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1177,13 +1177,13 @@
         "tests/test_sonar_template_js_parse_hygiene.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1199,13 +1199,13 @@
         "tests/test_visible_chrome_critical_surfaces.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1222,13 +1222,13 @@
         "tests/test_auth_identity_profile.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1245,7 +1245,7 @@
         "tests/test_enterprise_sso_auth0.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -1253,7 +1253,7 @@
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1269,13 +1269,13 @@
         "tests/test_p0_authz_hardening.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1291,13 +1291,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1314,13 +1314,13 @@
         "tests/test_billing_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1337,13 +1337,13 @@
         "tests/test_security_hardening.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1360,13 +1360,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1382,13 +1382,13 @@
         "tests/test_d13_auth_abuse.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1402,13 +1402,13 @@
       ],
       "tests": [],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": "Login by email/Google/passkey per spec"
     },
     {
@@ -1424,13 +1424,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1447,13 +1447,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1470,13 +1470,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1493,13 +1493,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1515,13 +1515,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1538,13 +1538,13 @@
         "tests/test_security_max_closure.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1560,13 +1560,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1582,13 +1582,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1604,13 +1604,13 @@
         "tests/test_identity_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     },
     {
@@ -1624,7 +1624,7 @@
       ],
       "tests": [],
       "evidence": [
-        "verified_at_sha:750ac23751a367cd3c96a07e69739c5499ba4658"
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -1632,7 +1632,7 @@
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
       "notes": ""
     }
   ],
@@ -1700,10 +1700,10 @@
   "P0_TEST_MATRIX_GREEN": true,
   "schema_version": "1.0",
   "spec_file": "docs/BLACKDARK_INSTITUTIONAL_IDENTITY_AUTH_PROFILE_SPEC_v1.md",
-  "generated_at": "2026-09-08T23:54:24.328631+00:00",
-  "material_sha": "750ac23751a367cd3c96a07e69739c5499ba4658",
+  "generated_at": "2026-09-08T23:54:39.952967+00:00",
+  "material_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
   "spec_sha256": "f7dfea4690f337200ae23da0e117cfa217d6140996dadacfd78288b2584ce538",
-  "ledger_sha256": "a2b5a294798f2cc9a7ff9bc3dbf6bd77d65256940b15b3464e9900a174b51159",
+  "ledger_sha256": "4c8e1faba3aa0e9625933342cddec2f0c5ff8a68b9d95e6429104747099b9acb",
   "pytest_output": ".................................                                        [100%]\n",
   "pytest_stderr": ""
 }
