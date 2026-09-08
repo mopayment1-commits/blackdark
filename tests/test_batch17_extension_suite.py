@@ -57,7 +57,7 @@ def test_three_spec_foundations() -> None:
     assert status["evaluation_contamination"]["live_promotion"] is False
     assert status["evidence_class_gates"]["verified_production_blocked"] is True
     assert status["progressive_disclosure"]["critical_risk_never_hidden"] is True
-    assert status["router_contract"]["self_modifying"] is False
+    assert status["capability_graph"]["causal_without_evidence_blocked"] is True
 
 
 def test_contracts_26_of_26() -> None:
