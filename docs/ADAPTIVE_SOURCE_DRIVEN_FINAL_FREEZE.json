@@ -1,8 +1,8 @@
 {
   "artifact": "ADAPTIVE_SOURCE_DRIVEN_FINAL_FREEZE",
-  "generated_at_utc": "2026-09-08T11:33:37.653336+00:00",
+  "generated_at_utc": "2026-09-08T11:34:00.972495+00:00",
   "branch": "cursor/adaptive-phase3-local-closure-ed16",
-  "material_sha": "863b8e6e93d7679967c8bb0b5dfaa98e1f90dc27",
+  "material_sha": "747d4945f616a16c3e76679cb3d24b1139140358",
   "source_audit": {
     "ADAPTIVE_SOURCE_TO_LEDGER_COVERAGE": 100.0,
     "ADAPTIVE_SOURCE_ITEMS_MISSING_FROM_LEDGER": [],
@@ -103,35 +103,35 @@
     "registries": {
       "workspaces": {
         "store": "data/adaptive_workspaces.jsonl",
-        "count": 61
+        "count": 133
       },
       "playbooks": {
         "store": "data/adaptive_playbooks.jsonl",
-        "count": 61
+        "count": 133
       },
       "my_stack": {
         "store": "data/adaptive_my_stack.jsonl",
-        "count": 61
+        "count": 133
       },
       "trust_status": {
         "store": "data/adaptive_trust_status.jsonl",
-        "count": 112
+        "count": 246
       },
       "human_validation": {
         "store": "data/adaptive_human_validation.jsonl",
-        "count": 21
+        "count": 45
       },
       "recommendations": {
         "store": "data/adaptive_contextual_recommendations.jsonl",
-        "count": 21
+        "count": 45
       },
       "data_room": {
         "store": "data/adaptive_data_room_access.jsonl",
-        "count": 16
+        "count": 34
       },
       "six_heroes": {
         "store": "data/adaptive_six_heroes_disposition.jsonl",
-        "count": 11
+        "count": 23
       }
     },
     "live_promotion": false,

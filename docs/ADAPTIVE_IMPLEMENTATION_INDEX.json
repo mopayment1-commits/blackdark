@@ -1,7 +1,7 @@
 {
   "artifact": "ADAPTIVE_IMPLEMENTATION_INDEX",
-  "generated_at_utc": "2026-09-08T11:33:37.662417+00:00",
-  "git_head": "863b8e6e93d7679967c8bb0b5dfaa98e1f90dc27",
+  "generated_at_utc": "2026-09-08T11:34:00.981462+00:00",
+  "git_head": "747d4945f616a16c3e76679cb3d24b1139140358",
   "binding_count": 296,
   "bindings": {
     "ADAPTIVE_U0001": {

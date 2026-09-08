@@ -1,7 +1,7 @@
 {
   "artifact": "ADAPTIVE_FULL_SOURCE_UNIVERSE",
-  "generated_at_utc": "2026-09-08T11:33:37.655497+00:00",
-  "git_head": "863b8e6e93d7679967c8bb0b5dfaa98e1f90dc27",
+  "generated_at_utc": "2026-09-08T11:34:00.974636+00:00",
+  "git_head": "747d4945f616a16c3e76679cb3d24b1139140358",
   "spec_sha256": "11f04b994190266c3d28cf366e53faf96a8d5e1041f0ce7ee58b511d8c8cc8f2",
   "source_item_count": 336,
   "disposition_distribution": {
