@@ -1,0 +1,92 @@
+{
+  "branch": "cursor/billing-institutional-closure-ed16",
+  "material_sha": "0e008efc3988ee0dd0f1f4a448476d2951515342",
+  "spec_sha256": "d4a3e2e20492ce79bf0aeb0d63c83744c0dcdb62161345419a292bbc87d3be0a",
+  "ledger_sha256": "3fc34319e64d94d7fc09614d7736ac8dae791bcf61bd7d0978d6db14cf53b53e",
+  "closed_at": "2026-09-08T21:26:08.390186+00:00",
+  "pytest": {
+    "ok": true,
+    "suites": [
+      {
+        "label": "billing_subscription_engine",
+        "ok": true,
+        "paths": [
+          "tests/test_billing_subscription_engine.py"
+        ]
+      },
+      {
+        "label": "billing_p0_matrix",
+        "ok": true,
+        "paths": [
+          "tests/test_billing_p0_test_matrix.py"
+        ]
+      },
+      {
+        "label": "billing_source_driven",
+        "ok": true,
+        "paths": [
+          "tests/test_billing_source_driven_engineering.py"
+        ]
+      },
+      {
+        "label": "payments_security",
+        "ok": true,
+        "paths": [
+          "tests/test_payments_usd_security.py"
+        ]
+      }
+    ]
+  },
+  "VERSION": "billing_source_driven_v1",
+  "SOURCE_SPEC_FULL_READ": true,
+  "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
+  "MISSING_SOURCE_REQUIREMENTS": [],
+  "SILENTLY_IGNORED_REQUIREMENTS": [],
+  "SECOND_SOURCE_PASS_COMPLETE": true,
+  "MISSED_REQUIREMENTS": [],
+  "UNACCOUNTED_SOURCE_STATEMENTS": [],
+  "FALSE_NA_CLASSIFICATIONS": [],
+  "FALSE_EXTERNAL_GATES": [],
+  "SILENT_DEFERRALS": [],
+  "UNRESOLVED_TRUE_DUPLICATES": [],
+  "PARALLEL_BILLING_AUTHORITIES": [],
+  "PARALLEL_ENTITLEMENT_AUTHORITIES": [],
+  "SPLIT_BRAIN_STATE_OWNERSHIP": [],
+  "total_requirements": 62,
+  "state_counts": {
+    "LOCAL_ENGINEERING_COMPLETE": 56,
+    "LIVE_GATED": 3,
+    "EXTERNAL_GATED": 1,
+    "BLOCKED_BY_OWNER_DECISION": 2
+  },
+  "reuse_counts": {
+    "KEEP": 16,
+    "REUSE": 16,
+    "BUILD": 28,
+    "IMPROVE": 2
+  },
+  "LOCAL_BUILDABLE_REQUIREMENTS_REMAINING": 0,
+  "PARTIALLY_IMPLEMENTED_LOCAL_REQUIREMENTS": 0,
+  "UNIMPLEMENTED_LOCAL_REQUIREMENTS": 0,
+  "UNVERIFIED_LOCAL_REQUIREMENTS": 0,
+  "SILENTLY_DEFERRED_REQUIREMENTS": 0,
+  "KNOWN_LOCAL_MATERIAL_GAPS": [],
+  "PASS_ENGINEERING": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "PAYMENT_PROVIDER_ARCHITECTURE_COMPLETE": true,
+  "BILLING_STATE_MACHINE_COMPLETE": true,
+  "ENTITLEMENT_STATE_MACHINE_COMPLETE": true,
+  "DURABLE_EVENT_INBOX_COMPLETE": true,
+  "DB_IDEMPOTENCY_COMPLETE": true,
+  "OUT_OF_ORDER_PROTECTION_COMPLETE": true,
+  "PRODUCT_PRICE_REGISTRY_COMPLETE": true,
+  "UPGRADE_PAYMENT_PROOF_GATE": true,
+  "RECONCILIATION_COMPLETE": true,
+  "REFUND_CORE_COMPLETE": true,
+  "DISPUTE_CORE_COMPLETE": true,
+  "AUDIT_TRAIL_COMPLETE": true,
+  "BREAK_GLASS_CONTROL_COMPLETE": true,
+  "SECURITY_CONTROLS_COMPLETE": true,
+  "P0_OBSERVABILITY_COMPLETE": true,
+  "P0_TEST_MATRIX_GREEN": true
+}

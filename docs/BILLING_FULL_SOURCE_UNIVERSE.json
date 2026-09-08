@@ -1,0 +1,1504 @@
+{
+  "generated_at": "2026-09-08T21:26:02.949684+00:00",
+  "spec_file": "BLACKDARK_INSTITUTIONAL_BILLING_SUBSCRIPTION_ENTITLEMENT_SPEC_v1.md",
+  "spec_sha256": "d4a3e2e20492ce79bf0aeb0d63c83744c0dcdb62161345419a292bbc87d3be0a",
+  "git_head": "0e008efc3988ee0dd0f1f4a448476d2951515342",
+  "total_requirements": 62,
+  "total_atomic_items": 142,
+  "requirements": [
+    {
+      "requirement_id": "BILL-001",
+      "title": "المبادئ غير القابلة للتفاوض",
+      "source_section": "BILL-001 — المبادئ غير القابلة للتفاوض",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-001_L001",
+          "source_text": "1. Billing State ≠ Entitlement State.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L002",
+          "source_text": "2. لا يتم منح Paid Entitlement جديد إلا بعد دليل دفع موثوق صالح.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L003",
+          "source_text": "3. `customer.subscription.updated` وحده لا يكفي لفتح مستوى أعلى.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L004",
+          "source_text": "4. `past_due` وحده لا يؤدي تلقائيًا إلى سحب كل الصلاحيات.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L005",
+          "source_text": "5. entitlement مدفوع ومثبت يظل صالحًا حتى `paid_through` وفق policy.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L006",
+          "source_text": "6. أي entitlement جديد أو غير موثق = Fail-Closed.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L007",
+          "source_text": "7. Free Plan داخلي بالكامل، بدون Stripe Subscription وبدون بطاقة.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L008",
+          "source_text": "8. Stripe لا يصبح SSOT مباشر لصلاحيات المنتج.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L009",
+          "source_text": "9. Webhooks لا تُطبق مباشرة على حساب المستخدم.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L010",
+          "source_text": "10. كل Webhook يُخزن أولًا في Durable Inbox.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L011",
+          "source_text": "11. Idempotency إلزامية على مستوى قاعدة البيانات.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L012",
+          "source_text": "12. Out-of-order protection إلزامي.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L013",
+          "source_text": "13. Reconciliation مع Stripe إلزامي.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L014",
+          "source_text": "14. كل financial calculation يستخدم Decimal أو minor units، وليس float.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L015",
+          "source_text": "15. كل state transition له Audit Trail.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L016",
+          "source_text": "16. كل override يدوي حساس له reason + authorization + audit.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L017",
+          "source_text": "17. لا ادعاء PCI/SOC2/ISO certification بدون الإثبات الخارجي الفعلي.",
+          "live_gate": false,
+          "external_gate": true,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L018",
+          "source_text": "18. لا تخزين PAN/CVC في BLACKDARK.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L019",
+          "source_text": "19. لا client-side payment success يفتح entitlement.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-001_L020",
+          "source_text": "20. لا silent financial corrections.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 20
+    },
+    {
+      "requirement_id": "BILL-002",
+      "title": "Provider Eligibility Gate — قبل Live",
+      "source_section": "BILL-002 — Provider Eligibility Gate — قبل Live",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-002_L001",
+          "source_text": "قبل تشغيل مدفوعات Production يجب التحقق من: دولة الكيان القانوني، أهلية Stripe account، بنك وعملة التسوية، وسائل الدفع المتاحة، merchant pricing، tax residency/registrations، وB2B/B2C jurisdictions.",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-002_L002",
+          "source_text": "الحالة الحاكمة قبل التحقق:",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-002_L003",
+          "source_text": "`PRODUCTION_PAYMENT_PROVIDER_ELIGIBILITY = BLOCKED_UNTIL_VERIFIED`",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-002_L004",
+          "source_text": "تغيير أهلية المزود لاحقًا يغيّر هذا الـgate فقط ولا يعيد تصميم النظام.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 4
+    },
+    {
+      "requirement_id": "BILL-003",
+      "title": "المعمارية الحاكمة",
+      "source_section": "BILL-003 — المعمارية الحاكمة",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-003_L001",
+          "source_text": "المسار الحاكم الوحيد:",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-003_L002",
+          "source_text": "User → Checkout / Customer Portal → Stripe Billing / Payments → Signed Webhook Endpoint → Durable Billing Event Inbox → Signature Verification → Schema Validation → DB-Level Event Deduplication → Out-of-Order / Version Guard → Transactional Event Processor → Canonical Billing Projection → Entitlement Decision Engine → Capability Enforcement Layer → Audit Ledger → Metrics / Alerts.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-003_L003",
+          "source_text": "Reconciliation Worker يقارن دوريًا:",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-003_L004",
+          "source_text": "Stripe ↔ Billing Projection ↔ Entitlement Ledger.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-003_L005",
+          "source_text": "ممنوع:",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-003_L006",
+          "source_text": "- Stripe webhook → مباشرة User Tier.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-003_L007",
+          "source_text": "- Stripe API status → permission check per request.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 7
+    },
+    {
+      "requirement_id": "BILL-004",
+      "title": "قاعدة البيانات",
+      "source_section": "BILL-004 — قاعدة البيانات",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-004_L001",
+          "source_text": "Production: PostgreSQL.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-004_L002",
+          "source_text": "SQLite: Local / test / development only.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-004_L003",
+          "source_text": "متطلبات الإنتاج: ACID، concurrency، row locking، unique constraints، transactional updates، recovery، durable inbox، reconciliation، audit history.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 3
+    },
+    {
+      "requirement_id": "BILL-005",
+      "title": "Billing Event Inbox",
+      "source_section": "BILL-005 — Billing Event Inbox",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-005_L001",
+          "source_text": "كل Stripe event يُحفظ قبل المعالجة.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-005_L002",
+          "source_text": "الحد الأدنى: stripe_event_id, event_type, object_id, stripe_created_at, received_at, payload_hash, processing_status, attempt_count, processed_at, last_error, last_attempt_at.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-005_L003",
+          "source_text": "قيد إلزامي: `UNIQUE(stripe_event_id)`.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 3
+    },
+    {
+      "requirement_id": "BILL-006",
+      "title": "Webhook Security",
+      "source_section": "BILL-006 — Webhook Security",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-006_L001",
+          "source_text": "إلزامي: signature verification، raw request body validation، timestamp tolerance، replay protection، secret rotation، separate test/live webhook secrets، log redaction، ورفض event غير موثق. Retry policy الداخلية configurable.",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-007",
+      "title": "Async Processing",
+      "source_section": "BILL-007 — Async Processing",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-007_L001",
+          "source_text": "Webhook endpoint: verify → persist → ACK بسرعة → process async. ممنوع العمليات الطويلة قبل acknowledgement.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-008",
+      "title": "Out-of-Order Protection",
+      "source_section": "BILL-008 — Out-of-Order Protection",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-008_L001",
+          "source_text": "حفظ ومقارنة event_created_at, object_id, billing_generation/version, last_applied_event_id, last_applied_event_created_at. حدث أقدم لا يعمل rollback لحالة أحدث بدون reconciliation rule صريحة.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-009",
+      "title": "Billing State Model",
+      "source_section": "BILL-009 — Billing State Model",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-009_L001",
+          "source_text": "يشمل على الأقل: FREE, CHECKOUT_PENDING, INCOMPLETE, INCOMPLETE_EXPIRED, TRIALING, ACTIVE, PAST_DUE, UNPAID, PAUSED, CANCEL_AT_PERIOD_END, CANCELED, REFUND_PENDING, PARTIALLY_REFUNDED, REFUNDED, DISPUTE_OPEN, DISPUTE_WON, DISPUTE_LOST. لا يتم نسخ Stripe status حرفيًا؛ يبنى canonical internal billing projection.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-010",
+      "title": "Entitlement State Model",
+      "source_section": "BILL-010 — Entitlement State Model",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-010_L001",
+          "source_text": "مستقل عن Billing ويشمل على الأقل: FREE, PAID_PENDING, PAID_ACTIVE, PAID_RECOVERY, PAID_CANCELING_AT_PERIOD_END, SUSPENDED, REVOKED, MANUAL_TEMPORARY_OVERRIDE.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-010_L002",
+          "source_text": "القرار يعتمد على verified payment proof, paid_through, billing state, tier, price version, recovery policy, refund/dispute state, manual override.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 2
+    },
+    {
+      "requirement_id": "BILL-011",
+      "title": "Paid-Through Semantics",
+      "source_section": "BILL-011 — Paid-Through Semantics",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-011_L001",
+          "source_text": "كل entitlement مدفوع يسجل effective_from, paid_through, tier, payment_reference, subscription_reference, verification_source.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-011_L002",
+          "source_text": "عند Stripe outage: لا grant جديد غير موثق، ولا revoke لحق مدفوع مثبت داخل paid_through لمجرد outage.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 2
+    },
+    {
+      "requirement_id": "BILL-012",
+      "title": "Free Plan",
+      "source_section": "BILL-012 — Free Plan",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-012_L001",
+          "source_text": "Free بدون بطاقة وبدون Stripe Subscription؛ entitlement داخلي، والترقية إلى Paid عبر Checkout.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-013",
+      "title": "Product / Price Registry",
+      "source_section": "BILL-013 — Product / Price Registry",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-013_L001",
+          "source_text": "Registry واحدة: FREE, PRO, ELITE, QUANT, INSTITUTIONAL.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-013_L002",
+          "source_text": "كل record: tier_id, stripe_product_id, stripe_price_id, currency, billing_interval, amount_minor, price_version, effective_from, effective_to, grandfathering_policy, tax_behavior, entitlement_profile, active.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-013_L003",
+          "source_text": "ممنوع scattering للـPrice IDs.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 3
+    },
+    {
+      "requirement_id": "BILL-014",
+      "title": "Price Versioning",
+      "source_section": "BILL-014 — Price Versioning",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-014_L001",
+          "source_text": "دعم price_version, grandfathered, effective_from, migration_policy. أي تغيير سعر لا يغيّر عقود المستخدمين الحاليين بلا قصد.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-015",
+      "title": "Signup",
+      "source_section": "BILL-015 — Signup",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-015_L001",
+          "source_text": "Free: Account → entitlement FREE.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-015_L002",
+          "source_text": "Paid: Account → Checkout → verified payment → Billing Projection → Entitlement.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-015_L003",
+          "source_text": "لا client redirect ولا success page تعتبر payment proof.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 3
+    },
+    {
+      "requirement_id": "BILL-016",
+      "title": "Upgrade",
+      "source_section": "BILL-016 — Upgrade",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-016_L001",
+          "source_text": "Upgrade request → calculate policy/proration → Stripe mutation → required payment confirmation → verified payment success → billing transaction → entitlement upgrade → audit.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-016_L002",
+          "source_text": "إذا الدفع فشل: لا فتح للمستوى الأعلى.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 2
+    },
+    {
+      "requirement_id": "BILL-017",
+      "title": "Downgrade",
+      "source_section": "BILL-017 — Downgrade",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-017_L001",
+          "source_text": "Default: effective at end of current paid period. المستخدم يرى تاريخ نهاية الحالي وبداية الجديد. Immediate downgrade فقط بسياسة صريحة.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-018",
+      "title": "Proration",
+      "source_section": "BILL-018 — Proration",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-018_L001",
+          "source_text": "السياسة تحدد صراحة: upgrade_proration, downgrade_proration, invoice_now, defer_to_next_invoice, credit_behavior. لا نفترض خصمًا فوريًا دائمًا.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-019",
+      "title": "Renewal",
+      "source_section": "BILL-019 — Renewal",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-019_L001",
+          "source_text": "Stripe Billing يدير recurring invoice/payment attempts. تكلفة Billing الفعلية تدخل Cost Model ولا يوصف بأنه مجاني.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-020",
+      "title": "Renewal Reminder",
+      "source_section": "BILL-020 — Renewal Reminder",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-020_L001",
+          "source_text": "سياسة BLACKDARK: تذكير قبل التجديد بـ5 أيام. السجل: renewal_at, estimated_subtotal, estimated_tax, estimated_total, currency, tier, notice_sent_at, delivery_status.",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-021",
+      "title": "Payment Failure / Dunning",
+      "source_section": "BILL-021 — Payment Failure / Dunning",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-021_L001",
+          "source_text": "`past_due` يدخل Recovery. القرار يعتمد على decline category, paid_through, retry policy, billing state, grace policy. لا revoke أعمى عند أول failure. Retry policy configurable.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-022",
+      "title": "Grace Period",
+      "source_section": "BILL-022 — Grace Period",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-022_L001",
+          "source_text": "Configuration حاكمة: grace_enabled, grace_duration, eligible_failure_categories, hard_failure_behavior, access_during_grace, final_revoke_condition.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-022_L002",
+          "source_text": "التوصية: الحق المثبت يستمر حتى paid_through، ثم recovery/grace حسب policy؛ hard cancellation/unpaid يؤدي إلى revoke وفق transition موثق.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 2
+    },
+    {
+      "requirement_id": "BILL-023",
+      "title": "Card Declines",
+      "source_section": "BILL-023 — Card Declines",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-023_L001",
+          "source_text": "UI mapping مثل expired_card, incorrect_number, incorrect_cvc, insufficient_funds, generic_decline, authentication_required، مع generic fallback وعدم كشف تفاصيل داخلية غير مناسبة.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-024",
+      "title": "Payment Methods",
+      "source_section": "BILL-024 — Payment Methods",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-024_L001",
+          "source_text": "حيث يسمح الحساب والبلد: Cards, Apple Pay, Google Pay, Link, ACH, SEPA, Local payment methods. لا تستخدم عبارة مجانية؛ availability/pricing تختلف.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-025",
+      "title": "Customer Portal",
+      "source_section": "BILL-025 — Customer Portal",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-025_L001",
+          "source_text": "حسب policy: update payment method, invoices, cancellation, downgrade, upgrade إن سمح، billing address, tax details. إعدادات Portal version-controlled/auditable.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-026",
+      "title": "Cancellation",
+      "source_section": "BILL-026 — Cancellation",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-026_L001",
+          "source_text": "دعم CANCEL_NOW وCANCEL_AT_PERIOD_END. Self-service واضح وبدون dark patterns.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-027",
+      "title": "Refunds — P0 Core",
+      "source_section": "BILL-027 — Refunds — P0 Core",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-027_L001",
+          "source_text": "دعم FULL_REFUND وPARTIAL_REFUND مع Stripe reference، invoice/credit effect، entitlement effect، duplicate protection، audit، reconciliation.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-028",
+      "title": "Disputes / Chargebacks — P0 Core",
+      "source_section": "BILL-028 — Disputes / Chargebacks — P0 Core",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-028_L001",
+          "source_text": "States: DISPUTE_OPEN, DISPUTE_WON, DISPUTE_LOST. لكل حالة entitlement policy صريحة. لا hard-code network threshold واحد. يمكن استخدام هدف داخلي `<0.5%` للتنبيه فقط.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-029",
+      "title": "Reconciliation Worker",
+      "source_section": "BILL-029 — Reconciliation Worker",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-029_L001",
+          "source_text": "يقارن Stripe truth ↔ Billing Projection ↔ Entitlement Ledger. الناتج MATCH/MISMATCH/UNKNOWN. أي mismatch يولد alert/evidence ولا يُصحح ماليًا بصمت.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-030",
+      "title": "Invoice Handling",
+      "source_section": "BILL-030 — Invoice Handling",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-030_L001",
+          "source_text": "تسجيل invoice_id, invoice_status, subtotal, tax, discount, total, currency, period, paid_at, payment_reference، مع download من Portal حيث متاح.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-031",
+      "title": "Financial Arithmetic",
+      "source_section": "BILL-031 — Financial Arithmetic",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-031_L001",
+          "source_text": "ممنوع float. استخدم Decimal أو integer minor units. دعم rounding rules, zero-decimal currencies, refund/tax/proration rounding.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-032",
+      "title": "Cost Model",
+      "source_section": "BILL-032 — Cost Model",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-032_L001",
+          "source_text": "`SUBSCRIPTION_COST_MODEL` لا يعتمد نسبًا عالمية ثابتة. Inputs: merchant_country, payment_method, customer_country, card_origin, currency, fx_required, billing_product, tax_product, fraud_product, dispute_cost. الأسعار من configuration حديث ومصدر موثوق.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-033",
+      "title": "Taxes",
+      "source_section": "BILL-033 — Taxes",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-033_L001",
+          "source_text": "Tax profile: merchant_jurisdiction, customer_location, B2C/B2B, tax_id, VAT_id, registration_status, tax_exemption, reverse_charge, tax_behavior, invoice_tax_evidence. تفعيل Stripe Tax لا يساوي تلقائيًا اكتمال الالتزام القانوني.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-034",
+      "title": "SCA / 3DS",
+      "source_section": "BILL-034 — SCA / 3DS",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-034_L001",
+          "source_text": "عند انطباق PSD2/SCA: PaymentIntent/SetupIntent flow مناسب، 3DS عند الحاجة، no bypass، وعدم منح entitlement في failure/pending غير الموثق.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-035",
+      "title": "PCI",
+      "source_section": "BILL-035 — PCI",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-035_L001",
+          "source_text": "المرجع: PCI DSS v4.0.1. BLACKDARK لا يخزن PAN/CVC، يستخدم Stripe-hosted/tokenized collection، يقلل PCI scope، ولا يدعي PCI Level 1 لمجرد استخدام Stripe.",
+          "live_gate": false,
+          "external_gate": true,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-036",
+      "title": "Secrets",
+      "source_section": "BILL-036 — Secrets",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-036_L001",
+          "source_text": "separate test/live secrets، restricted keys حيث ينطبق، least privilege، secret rotation، webhook-secret rotation، no secrets in repo/logs، audit access.",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-037",
+      "title": "Audit Trail",
+      "source_section": "BILL-037 — Audit Trail",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-037_L001",
+          "source_text": "كل transition يسجل audit_id, timestamp, actor_type, actor_id, event_source, event_id, old_state, new_state, reason, billing_reference, entitlement_reference, correlation_id.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-038",
+      "title": "Break-Glass",
+      "source_section": "BILL-038 — Break-Glass",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-038_L001",
+          "source_text": "أي manual entitlement override يسجل actor, role, reason, ticket, old_state, new_state, created_at, expires_at, approval_actor. High-risk paid override يتطلب dual approval. لا يغير financial history.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-039",
+      "title": "Admin Billing Console",
+      "source_section": "BILL-039 — Admin Billing Console",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-039_L001",
+          "source_text": "وظائف: subscriptions, event inbox, billing projection, entitlement state, reconciliation, refund workflow, dispute status, audit log, diagnostics. ممنوع uncontrolled manual tier granting.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-040",
+      "title": "Fraud / Abuse",
+      "source_section": "BILL-040 — Fraud / Abuse",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-040_L001",
+          "source_text": "P0: Radar configuration، card testing controls، repeated decline throttling، velocity limits، account/trial abuse، coupon abuse، suspicious upgrade/refund loops. لا تعامل الأسعار والخصائص كأرقام عالمية ثابتة.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-041",
+      "title": "Observability",
+      "source_section": "BILL-041 — Observability",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-041_L001",
+          "source_text": "P0 metrics: payment success/failure, webhook signature failures, processing success/latency/backlog, DLQ_size, reconciliation mismatch, paid_without_entitlement, entitlement_without_payment_proof, refund failures, disputes, invoice failures, tax failures.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-042",
+      "title": "Alerts",
+      "source_section": "BILL-042 — Alerts",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-042_L001",
+          "source_text": "Critical alerts: invalid webhook spike, inbox backlog, DLQ growth, payment/no entitlement, entitlement/no billing proof, reconciliation mismatch, high decline velocity, dispute spike, invoice failures, tax failure.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-043",
+      "title": "B2B / Institutional Architecture",
+      "source_section": "BILL-043 — B2B / Institutional Architecture",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-043_L001",
+          "source_text": "البنية تدعم منذ البداية organization_id, billing_owner/admin, members, seat_count/entitlement, contract_id, custom_price, payment_terms, invoice_billing, PO_reference, tax_id, custom_entitlement_profile, contract_start/end.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-044",
+      "title": "Seat Enforcement",
+      "source_section": "BILL-044 — Seat Enforcement",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-044_L001",
+          "source_text": "Server-side enforcement: paid seats vs active entitled members. ممنوع الاعتماد على UI فقط.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-045",
+      "title": "Enterprise Payment Terms",
+      "source_section": "BILL-045 — Enterprise Payment Terms",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-045_L001",
+          "source_text": "P1 تنفيذ كامل، لكن architecture تستوعب NET_15, NET_30, invoice_due, purchase_order, manual settlement evidence, contract entitlement.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": true
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-046",
+      "title": "Multi-Currency",
+      "source_section": "BILL-046 — Multi-Currency",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-046_L001",
+          "source_text": "لا يطلق افتراضيًا بدون business decision. Architecture جاهزة. عند التفعيل: price_per_currency, currency-specific rounding, invoice/refund currency, FX policy, tax behavior.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": true
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-047",
+      "title": "Legal Compliance Layer",
+      "source_section": "BILL-047 — Legal Compliance Layer",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-047_L001",
+          "source_text": "ملف حاكم: `docs/SUBSCRIPTION_LEGAL_BASIS.md`.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-047_L002",
+          "source_text": "US: ROSCA, FTC Act, applicable state ARL laws, card-network rules.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-047_L003",
+          "source_text": "EEA: PSD2/SCA, GDPR, applicable consumer rules.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-047_L004",
+          "source_text": "باقي الدول: local review حسب الأسواق الفعلية.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-047_L005",
+          "source_text": "لا يوجد قانون عالمي واحد للاشتراكات.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 5
+    },
+    {
+      "requirement_id": "BILL-048",
+      "title": "Consent Evidence",
+      "source_section": "BILL-048 — Consent Evidence",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-048_L001",
+          "source_text": "تسجيل terms_version, renewal_disclosure_version, consent_at, consent_source, user/account_id, price/tier, billing_frequency. لا يلزم consent جديد لكل recurring charge الطبيعي، لكن initial consent وشروط التجديد يجب توثيقها حسب القانون.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-049",
+      "title": "Data Privacy",
+      "source_section": "BILL-049 — Data Privacy",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-049_L001",
+          "source_text": "Payment data ليست تلقائيًا GDPR Article 9 special category. يطبق data minimization, lawful basis, retention schedule, access controls, deletion subject to legal retention obligations, financial retention where required.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-050",
+      "title": "Retention",
+      "source_section": "BILL-050 — Retention",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-050_L001",
+          "source_text": "نفصل product personal data deletion، payment-method removal، subscription cancellation، وlegally required invoice/tax/accounting retention. لا حذف شامل وفوري لكل شيء.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-051",
+      "title": "Customer UX",
+      "source_section": "BILL-051 — Customer UX",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-051_L001",
+          "source_text": "قبل الشراء: price, currency, billing interval, automatic renewal, tax, discount, total, cancellation terms. لا dark patterns.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-052",
+      "title": "Capability Enforcement",
+      "source_section": "BILL-052 — Capability Enforcement",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-052_L001",
+          "source_text": "كل tier مرتبط بـ `entitlement_profile_version`. Capability enforcement server-side. لا client/UI-only gating.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-053",
+      "title": "Subscription-to-Capability Consistency",
+      "source_section": "BILL-053 — Subscription-to-Capability Consistency",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-053_L001",
+          "source_text": "اختبار إلزامي: FREE→Free only، PRO→PRO allowed، ELITE→ELITE allowed، QUANT→QUANT allowed، INSTITUTIONAL→negotiated profile.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": true
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-054",
+      "title": "Failure Safety",
+      "source_section": "BILL-054 — Failure Safety",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-054_L001",
+          "source_text": "اختبارات إلزامية لـStripe outage, DB outage, queue outage, duplicate/delayed/old/malformed event, processing crash, reconciliation mismatch.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-055",
+      "title": "Dead Letter Queue",
+      "source_section": "BILL-055 — Dead Letter Queue",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-055_L001",
+          "source_text": "الأحداث التي تفشل بعد configured attempts تنتقل DLQ وتحفظ event ID, reason, payload reference, attempts, timestamps, replay status.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-056",
+      "title": "Replay",
+      "source_section": "BILL-056 — Replay",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-056_L001",
+          "source_text": "Manual/admin replay يكون permission-controlled, idempotent, auditable, ولا يسبب duplicate financial effect.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-057",
+      "title": "Concurrency",
+      "source_section": "BILL-057 — Concurrency",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-057_L001",
+          "source_text": "اختبار: upgrade+cancellation معًا، two workers same event، two events same subscription، refund أثناء downgrade pending، dispute أثناء renewal.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-058",
+      "title": "Reliability",
+      "source_section": "BILL-058 — Reliability",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-058_L001",
+          "source_text": "كل mutation deterministic، idempotent حيث ينطبق، transaction-safe، retry-safe.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-059",
+      "title": "Core P0 Test Matrix",
+      "source_section": "BILL-059 — Core P0 Test Matrix",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-059_L001",
+          "source_text": "قبل launch: Free/Paid signup، checkout success/failure، card declines، SCA، incomplete payment، renewal success/failure، recovery، past_due/unpaid/canceled، cancel now/period-end، upgrade success/failure، downgrade، proration، duplicate/invalid/out-of-order webhooks، replay، processor crash، Stripe/DB outage، concurrency، refunds، disputes، reconciliation mismatch، invoice، tax success/failure، Portal update، Price version migration، entitlement mismatch، seat enforcement where enabled.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 1
+    },
+    {
+      "requirement_id": "BILL-060",
+      "title": "Acceptance Gates",
+      "source_section": "BILL-060 — Acceptance Gates",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-060_L001",
+          "source_text": "لا `PASS_ENGINEERING` إلا بعد:",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L002",
+          "source_text": "PAYMENT_PROVIDER_ARCHITECTURE_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L003",
+          "source_text": "BILLING_STATE_MACHINE_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L004",
+          "source_text": "ENTITLEMENT_STATE_MACHINE_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L005",
+          "source_text": "DURABLE_EVENT_INBOX_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L006",
+          "source_text": "DB_IDEMPOTENCY_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L007",
+          "source_text": "OUT_OF_ORDER_PROTECTION_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L008",
+          "source_text": "PRODUCT_PRICE_REGISTRY_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L009",
+          "source_text": "UPGRADE_PAYMENT_PROOF_GATE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L010",
+          "source_text": "RECONCILIATION_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L011",
+          "source_text": "REFUND_CORE_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L012",
+          "source_text": "DISPUTE_CORE_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L013",
+          "source_text": "AUDIT_TRAIL_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L014",
+          "source_text": "BREAK_GLASS_CONTROL_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L015",
+          "source_text": "SECURITY_CONTROLS_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L016",
+          "source_text": "P0_OBSERVABILITY_COMPLETE=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L017",
+          "source_text": "P0_TEST_MATRIX_GREEN=true",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-060_L018",
+          "source_text": "KNOWN_LOCAL_MATERIAL_GAPS=[]",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 18
+    },
+    {
+      "requirement_id": "BILL-061",
+      "title": "Live Activation Gate",
+      "source_section": "BILL-061 — Live Activation Gate",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-061_L001",
+          "source_text": "مستقل عن Engineering:",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L002",
+          "source_text": "PROVIDER_ELIGIBILITY_VERIFIED",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L003",
+          "source_text": "LIVE_STRIPE_ACCOUNT_READY",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L004",
+          "source_text": "LIVE_KEYS_CONFIGURED",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L005",
+          "source_text": "LIVE_WEBHOOK_REGISTERED",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L006",
+          "source_text": "LIVE_PAYMENT_METHODS_VERIFIED",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L007",
+          "source_text": "LIVE_TAX_CONFIGURATION_VERIFIED",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L008",
+          "source_text": "LIVE_SCA_PATH_VERIFIED",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L009",
+          "source_text": "LIVE_CHECKOUT_SMOKE_PASS",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L010",
+          "source_text": "LIVE_RENEWAL_EVIDENCE",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L011",
+          "source_text": "LIVE_REFUND_EVIDENCE",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L012",
+          "source_text": "LIVE_RECONCILIATION_PASS",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-061_L013",
+          "source_text": "حتى وقتها: `PASS_LIVE_NOT_CLAIMED=true`.",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 13
+    },
+    {
+      "requirement_id": "BILL-062",
+      "title": "مراحل التنفيذ النهائية",
+      "source_section": "BILL-062 — مراحل التنفيذ النهائية",
+      "atomic_requirements": [
+        {
+          "atomic_id": "BILL-062_L001",
+          "source_text": "Phase 0 — Audit & Reuse: KEEP / REUSE / IMPROVE / REPLACE / BUILD على النظام الموجود.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-062_L002",
+          "source_text": "Phase 1 — P0 Financial Core: PostgreSQL, Inbox, event processing, billing state, entitlement, price registry, audit.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-062_L003",
+          "source_text": "Phase 2 — Stripe Flows: Checkout, renewal, Portal, upgrade, downgrade, cancellation, dunning.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-062_L004",
+          "source_text": "Phase 3 — Financial Correctness: reconciliation, refunds, disputes, proration, taxes, invoices.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-062_L005",
+          "source_text": "Phase 4 — Protection & Operations: Radar/fraud, SCA, observability, alerts, break-glass, security.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-062_L006",
+          "source_text": "Phase 5 — P0 Verification: test matrix, regression, security, billing/entitlement correctness.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": false
+        },
+        {
+          "atomic_id": "BILL-062_L007",
+          "source_text": "Phase 6 — P1 Expansion: advanced B2B, seats UI, enterprise invoice ops, advanced admin, multi-currency, analytics.",
+          "live_gate": false,
+          "external_gate": false,
+          "owner_decision": true
+        },
+        {
+          "atomic_id": "BILL-062_L008",
+          "source_text": "Phase 7 — Live Activation: فقط بعد Provider Eligibility.",
+          "live_gate": true,
+          "external_gate": false,
+          "owner_decision": false
+        }
+      ],
+      "atomic_count": 8
+    }
+  ],
+  "SOURCE_SPEC_FULL_READ": true,
+  "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
+  "MISSING_SOURCE_REQUIREMENTS": [],
+  "SILENTLY_IGNORED_REQUIREMENTS": []
+}
