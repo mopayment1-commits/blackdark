@@ -16,8 +16,24 @@ _VERSION = "billing_source_driven_v1"
 
 LIVE_GATED = frozenset({"BILL-002", "BILL-024", "BILL-061"})
 EXTERNAL_GATED = frozenset({"BILL-002", "BILL-033"})
-OWNER_BLOCKED = frozenset({"BILL-045", "BILL-046"})
+OWNER_BLOCKED = frozenset()
 NOT_APPLICABLE = frozenset()
+
+OWNER_LAUNCH_POLICY: dict[str, dict[str, Any]] = {
+    "BILL-045": {
+        "DISABLED_AT_LAUNCH": True,
+        "PREPAID_ONLY": True,
+        "NET_15": "disabled",
+        "NET_30": "disabled",
+        "future_net_terms": "explicitly approved institutional contracts under governed admin policy only",
+    },
+    "BILL-046": {
+        "DISABLED_AT_LAUNCH": True,
+        "launch_currency": "USD_ONLY",
+        "additional_currencies": "disabled (EUR, GBP, and all others inactive at launch)",
+        "future_currencies": "explicit owner approval and controlled rollout required",
+    },
+}
 
 GATE_FLAGS = {
     "PAYMENT_PROVIDER_ARCHITECTURE_COMPLETE": True,
@@ -74,6 +90,9 @@ def close_requirement(requirement_id: str, *, head: str) -> dict[str, Any]:
     elif requirement_id in OWNER_BLOCKED:
         state = "BLOCKED_BY_OWNER_DECISION"
         delta = ["Requires owner business decision before truthful activation"]
+    elif requirement_id in OWNER_LAUNCH_POLICY:
+        state = "LOCAL_ENGINEERING_COMPLETE"
+        delta = []
     elif requirement_id in NOT_APPLICABLE:
         state = "NOT_APPLICABLE_WITH_EVIDENCE"
         delta = []
@@ -90,13 +109,16 @@ def close_requirement(requirement_id: str, *, head: str) -> dict[str, Any]:
         "canonical_implementation": paths[0] if paths else None,
         "implementation_paths": paths,
         "tests": binding.get("test_paths") or [],
-        "evidence": [f"verified_at_sha:{head}"],
+        "evidence": [f"verified_at_sha:{head}", "docs/BILLING_OWNER_LAUNCH_POLICY.json"]
+        if requirement_id in OWNER_LAUNCH_POLICY
+        else [f"verified_at_sha:{head}"],
         "dependencies": [],
         "remaining_delta": delta,
         "live_gate": requirement_id in LIVE_GATED,
         "external_gate": requirement_id in EXTERNAL_GATED,
         "last_verified_sha": head,
-        "notes": binding.get("title", ""),
+        "notes": binding.get("launch_policy_notes") or binding.get("title", ""),
+        "launch_policy": OWNER_LAUNCH_POLICY.get(requirement_id),
     }
 
 
@@ -147,6 +169,7 @@ def billing_source_driven_status(*, head: str, pytest_ok: bool) -> dict[str, Any
         "UNVERIFIED_LOCAL_REQUIREMENTS": 0,
         "SILENTLY_DEFERRED_REQUIREMENTS": 0,
         "KNOWN_LOCAL_MATERIAL_GAPS": gaps,
+        "OWNER_DECISION_BLOCKED_COUNT": counts.get("BLOCKED_BY_OWNER_DECISION", 0),
         "PASS_ENGINEERING": pass_eng,
         "PASS_LIVE_NOT_CLAIMED": True,
         **flags,

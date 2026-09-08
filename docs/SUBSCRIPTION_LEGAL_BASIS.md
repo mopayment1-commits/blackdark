@@ -62,7 +62,23 @@ Recurring charges within an established subscription do not require re-consent p
 
 ## Institutional / B2B (BILL-043, BILL-045)
 
-Enterprise payment terms (NET_15, NET_30, invoice billing, PO reference) require owner business decisions for activation. Local architecture supports contract reference, custom entitlement profile, and manual settlement evidence without fabricating legal eligibility.
+**Final owner launch policy (recorded in `docs/BILLING_OWNER_LAUNCH_POLICY.json`):**
+
+- Enterprise payment terms: **DISABLED_AT_LAUNCH**, **PREPAID_ONLY**
+- NET_15 and NET_30: **disabled**
+- Future NET terms: enabled only for explicitly approved institutional contracts under governed admin policy
+
+Local architecture preserved: contract reference, custom entitlement profile, manual settlement evidence via `billing/seat_enforcement.py` and `institutional_commerce.py`.
+
+## Multi-Currency (BILL-046)
+
+**Final owner launch policy:**
+
+- Multi-currency: **DISABLED_AT_LAUNCH**
+- Launch currency: **USD_ONLY**
+- EUR, GBP, and all additional currencies remain inactive
+- Multi-currency-ready architecture preserved in `billing/price_versioning.py`
+- Future currencies require explicit owner approval and controlled rollout
 
 ## Live Activation
 

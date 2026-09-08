@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-08T21:26:22.024410+00:00",
-  "git_head": "2a42b1f97d1cb36d07483df8745a94f85849155c",
+  "generated_at": "2026-09-08T21:40:11.079862+00:00",
+  "git_head": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
   "bindings": {
     "BILL-001": {
       "domain": "principles",
@@ -643,10 +643,11 @@
       "domain": "enterprise_terms",
       "module_paths": [
         "billing/seat_enforcement.py",
-        "institutional_commerce.py"
+        "institutional_commerce.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
       ],
       "reuse": "REUSE",
-      "gate": "BLOCKED_BY_OWNER_DECISION",
+      "launch_policy_notes": "DISABLED_AT_LAUNCH; PREPAID_ONLY; NET_15/NET_30 disabled; future NET via governed admin only",
       "requirement_id": "BILL-045",
       "title": "Enterprise Payment Terms",
       "test_paths": [
@@ -658,10 +659,11 @@
     "BILL-046": {
       "domain": "multi_currency",
       "module_paths": [
-        "billing/price_versioning.py"
+        "billing/price_versioning.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
       ],
       "reuse": "REUSE",
-      "gate": "BLOCKED_BY_OWNER_DECISION",
+      "launch_policy_notes": "DISABLED_AT_LAUNCH; USD_ONLY; architecture preserved; future currencies require owner approval",
       "requirement_id": "BILL-046",
       "title": "Multi-Currency",
       "test_paths": [

@@ -1,9 +1,9 @@
 {
   "branch": "cursor/billing-institutional-closure-ed16",
-  "material_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
+  "material_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
   "spec_sha256": "d4a3e2e20492ce79bf0aeb0d63c83744c0dcdb62161345419a292bbc87d3be0a",
-  "ledger_sha256": "fb22e14d969afd9c73ce3c148e816baebff8029f6eb3ad79e60abca0d75125c0",
-  "closed_at": "2026-09-08T21:26:27.627854+00:00",
+  "ledger_sha256": "5c7d2c5a83e880d162e009f4d7f56a64408228a036e9a67a99b539bac709e8cd",
+  "closed_at": "2026-09-08T21:40:16.301661+00:00",
   "pytest": {
     "ok": true,
     "suites": [
@@ -54,10 +54,9 @@
   "SPLIT_BRAIN_STATE_OWNERSHIP": [],
   "total_requirements": 62,
   "state_counts": {
-    "LOCAL_ENGINEERING_COMPLETE": 56,
+    "LOCAL_ENGINEERING_COMPLETE": 58,
     "LIVE_GATED": 3,
-    "EXTERNAL_GATED": 1,
-    "BLOCKED_BY_OWNER_DECISION": 2
+    "EXTERNAL_GATED": 1
   },
   "reuse_counts": {
     "KEEP": 16,
@@ -71,6 +70,7 @@
   "UNVERIFIED_LOCAL_REQUIREMENTS": 0,
   "SILENTLY_DEFERRED_REQUIREMENTS": 0,
   "KNOWN_LOCAL_MATERIAL_GAPS": [],
+  "OWNER_DECISION_BLOCKED_COUNT": 0,
   "PASS_ENGINEERING": true,
   "PASS_LIVE_NOT_CLAIMED": true,
   "PAYMENT_PROVIDER_ARCHITECTURE_COMPLETE": true,

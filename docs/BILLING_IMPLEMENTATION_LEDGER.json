@@ -3,8 +3,8 @@
   "spec_file": "BLACKDARK_INSTITUTIONAL_BILLING_SUBSCRIPTION_ENTITLEMENT_SPEC_v1.md",
   "spec_version": "Final Consolidated & Reconciled v1.0",
   "source_of_truth_rule": "The specification file is authoritative; this ledger is tracking only.",
-  "last_closure_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-  "last_closure_at": "2026-09-08T21:26:27.626908+00:00",
+  "last_closure_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+  "last_closure_at": "2026-09-08T21:40:16.300719+00:00",
   "requirements": [
     {
       "requirement_id": "BILL-001",
@@ -20,14 +20,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "المبادئ غير القابلة للتفاوض"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "المبادئ غير القابلة للتفاوض",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-002",
@@ -42,7 +43,7 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -50,8 +51,9 @@
       ],
       "live_gate": true,
       "external_gate": true,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Provider Eligibility Gate — قبل Live"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Provider Eligibility Gate — قبل Live",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-003",
@@ -68,14 +70,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "المعمارية الحاكمة"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "المعمارية الحاكمة",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-004",
@@ -90,14 +93,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "قاعدة البيانات"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "قاعدة البيانات",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-005",
@@ -112,14 +116,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Billing Event Inbox"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Billing Event Inbox",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-006",
@@ -135,14 +140,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Webhook Security"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Webhook Security",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-007",
@@ -157,14 +163,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Async Processing"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Async Processing",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-008",
@@ -179,14 +186,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Out-of-Order Protection"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Out-of-Order Protection",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-009",
@@ -202,14 +210,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Billing State Model"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Billing State Model",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-010",
@@ -224,14 +233,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Entitlement State Model"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Entitlement State Model",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-011",
@@ -246,14 +256,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Paid-Through Semantics"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Paid-Through Semantics",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-012",
@@ -269,14 +280,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Free Plan"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Free Plan",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-013",
@@ -292,14 +304,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Product / Price Registry"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Product / Price Registry",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-014",
@@ -314,14 +327,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Price Versioning"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Price Versioning",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-015",
@@ -337,14 +351,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Signup"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Signup",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-016",
@@ -359,14 +374,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Upgrade"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Upgrade",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-017",
@@ -382,14 +398,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Downgrade"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Downgrade",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-018",
@@ -404,14 +421,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Proration"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Proration",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-019",
@@ -426,14 +444,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Renewal"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Renewal",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-020",
@@ -448,14 +467,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Renewal Reminder"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Renewal Reminder",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-021",
@@ -470,14 +490,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Payment Failure / Dunning"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Payment Failure / Dunning",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-022",
@@ -493,14 +514,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Grace Period"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Grace Period",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-023",
@@ -515,14 +537,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Card Declines"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Card Declines",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-024",
@@ -538,7 +561,7 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -546,8 +569,9 @@
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Payment Methods"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Payment Methods",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-025",
@@ -563,14 +587,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Customer Portal"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Customer Portal",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-026",
@@ -586,14 +611,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Cancellation"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Cancellation",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-027",
@@ -609,14 +635,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Refunds — P0 Core"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Refunds — P0 Core",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-028",
@@ -631,14 +658,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Disputes / Chargebacks — P0 Core"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Disputes / Chargebacks — P0 Core",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-029",
@@ -654,14 +682,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Reconciliation Worker"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Reconciliation Worker",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-030",
@@ -677,14 +706,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Invoice Handling"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Invoice Handling",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-031",
@@ -699,14 +729,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Financial Arithmetic"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Financial Arithmetic",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-032",
@@ -721,14 +752,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Cost Model"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Cost Model",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-033",
@@ -744,7 +776,7 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -752,8 +784,9 @@
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Taxes"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Taxes",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-034",
@@ -768,14 +801,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "SCA / 3DS"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "SCA / 3DS",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-035",
@@ -790,14 +824,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "PCI"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "PCI",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-036",
@@ -813,14 +848,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Secrets"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Secrets",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-037",
@@ -835,14 +871,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Audit Trail"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Audit Trail",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-038",
@@ -857,14 +894,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Break-Glass"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Break-Glass",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-039",
@@ -879,14 +917,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Admin Billing Console"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Admin Billing Console",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-040",
@@ -901,14 +940,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Fraud / Abuse"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Fraud / Abuse",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-041",
@@ -924,14 +964,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Observability"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Observability",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-042",
@@ -946,14 +987,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Alerts"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Alerts",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-043",
@@ -968,14 +1010,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "B2B / Institutional Architecture"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "B2B / Institutional Architecture",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-044",
@@ -990,63 +1033,77 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Seat Enforcement"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Seat Enforcement",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-045",
-      "current_state": "BLOCKED_BY_OWNER_DECISION",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
       "reuse_disposition": "REUSE",
       "canonical_implementation": "billing/seat_enforcement.py",
       "implementation_paths": [
         "billing/seat_enforcement.py",
-        "institutional_commerce.py"
+        "institutional_commerce.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
       ],
       "tests": [
         "tests/test_billing_p0_test_matrix.py",
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
       ],
       "dependencies": [],
-      "remaining_delta": [
-        "Requires owner business decision before truthful activation"
-      ],
+      "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Enterprise Payment Terms"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "DISABLED_AT_LAUNCH; PREPAID_ONLY; NET_15/NET_30 disabled; future NET via governed admin only",
+      "launch_policy": {
+        "DISABLED_AT_LAUNCH": true,
+        "PREPAID_ONLY": true,
+        "NET_15": "disabled",
+        "NET_30": "disabled",
+        "future_net_terms": "explicitly approved institutional contracts under governed admin policy only"
+      }
     },
     {
       "requirement_id": "BILL-046",
-      "current_state": "BLOCKED_BY_OWNER_DECISION",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
       "reuse_disposition": "REUSE",
       "canonical_implementation": "billing/price_versioning.py",
       "implementation_paths": [
-        "billing/price_versioning.py"
+        "billing/price_versioning.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
       ],
       "tests": [
         "tests/test_billing_p0_test_matrix.py",
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
       ],
       "dependencies": [],
-      "remaining_delta": [
-        "Requires owner business decision before truthful activation"
-      ],
+      "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Multi-Currency"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "DISABLED_AT_LAUNCH; USD_ONLY; architecture preserved; future currencies require owner approval",
+      "launch_policy": {
+        "DISABLED_AT_LAUNCH": true,
+        "launch_currency": "USD_ONLY",
+        "additional_currencies": "disabled (EUR, GBP, and all others inactive at launch)",
+        "future_currencies": "explicit owner approval and controlled rollout required"
+      }
     },
     {
       "requirement_id": "BILL-047",
@@ -1061,14 +1118,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Legal Compliance Layer"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Legal Compliance Layer",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-048",
@@ -1083,14 +1141,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Consent Evidence"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Consent Evidence",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-049",
@@ -1105,14 +1164,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Data Privacy"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Data Privacy",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-050",
@@ -1127,14 +1187,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Retention"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Retention",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-051",
@@ -1150,14 +1211,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Customer UX"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Customer UX",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-052",
@@ -1173,14 +1235,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Capability Enforcement"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Capability Enforcement",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-053",
@@ -1196,14 +1259,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Subscription-to-Capability Consistency"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Subscription-to-Capability Consistency",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-054",
@@ -1219,14 +1283,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Failure Safety"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Failure Safety",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-055",
@@ -1241,14 +1306,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Dead Letter Queue"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Dead Letter Queue",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-056",
@@ -1263,14 +1329,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Replay"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Replay",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-057",
@@ -1286,14 +1353,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Concurrency"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Concurrency",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-058",
@@ -1309,14 +1377,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Reliability"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Reliability",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-059",
@@ -1332,14 +1401,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Core P0 Test Matrix"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Core P0 Test Matrix",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-060",
@@ -1354,14 +1424,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Acceptance Gates"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Acceptance Gates",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-061",
@@ -1376,7 +1447,7 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -1384,8 +1455,9 @@
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "Live Activation Gate"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Live Activation Gate",
+      "launch_policy": null
     },
     {
       "requirement_id": "BILL-062",
@@ -1400,14 +1472,15 @@
         "tests/test_billing_subscription_engine.py"
       ],
       "evidence": [
-        "verified_at_sha:2a42b1f97d1cb36d07483df8745a94f85849155c"
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "2a42b1f97d1cb36d07483df8745a94f85849155c",
-      "notes": "مراحل التنفيذ النهائية"
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "مراحل التنفيذ النهائية",
+      "launch_policy": null
     }
   ]
 }
