@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-08T10:02:45.597484+00:00
-**Branch:** `cursor/batch17-801-826-ed16`
-**HEAD:** `b5d531340f3bbbda1f399995a689a10acbb88edc`
+**Generated:** 2026-09-08T10:50:37.828085+00:00
+**Branch:** `cursor/v4v2-phase1-local-closure-ed16`
+**HEAD:** `b23b6d3917900819958e0e2aa4dbbfb4701e64ba`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -65,6 +65,16 @@ Batch16 market/delivery facade layer (751-800) with canonical reuse of prior sem
 **Ledger requirements marked BUILT_THIS_BATCH:** 28
 
 Batch17 final-program facade layer (801-826) with canonical reuse of prior semantics (534-559), three-spec progression (evaluation contamination closure, evidence class promotion gates, progressive disclosure safety floor, capability graph completeness, cross-spec reconciliation).
+
+
+## 2c. v4_v2 Phase-1 local closure
+
+**Phase-1 material SHA:** `b23b6d3917900819958e0e2aa4dbbfb4701e64ba`
+**Requirements closed locally:** 480
+**Requirements reclassified maturity-gated:** 18
+**V4_V2_REMAINING_LOCAL_REQUIREMENTS:** 0
+
+Post-capability v4_v2 engineering spine closure via `bd_platform/v4_v2_phase1_engineering_spine.py`. Temporal and Adaptive dedicated closure phases NOT started.
 
 ## 2. Current state through Batch13
 
