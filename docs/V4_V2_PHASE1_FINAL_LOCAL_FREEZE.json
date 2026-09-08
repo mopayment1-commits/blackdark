@@ -2,7 +2,7 @@
   "artifact": "V4_V2_PHASE1_FINAL_LOCAL_FREEZE",
   "generated_at_utc": "2026-09-08T10:50:37.828085+00:00",
   "branch": "cursor/v4v2-phase1-local-closure-ed16",
-  "material_sha": "b23b6d3917900819958e0e2aa4dbbfb4701e64ba",
+  "material_sha": "5eb10ada81647f1373b3010c27ae8f08d3e89805",
   "baseline": {
     "V4_V2_REMAINING_LOCAL_REQUIREMENTS": 498,
     "V4_V2_BASELINE_RECONCILED": true,
