@@ -75,13 +75,22 @@ _MANUAL: dict[int, tuple[str, str]] = {
     645: ("bd_platform.batch13_operational_intelligence_layer", "security_verification_evidence_645"),
     635: ("bd_platform.batch13_operational_intelligence_layer", "unified_arbitrage_opportunity_engine_635"),
     646: ("cap646.batch01_production", "cap_646"),
-    702: ("graphql_schema", "graphql_health"),
-    745: ("subscription_analytics", "subscription_analytics_status_745"),
     752: ("institutional_assurance", "backup_status"),
     753: ("institutional_assurance", "ir_program"),
     816: ("dimension_conflict_guard", "dimension_conflict_status"),
     819: ("blackdark.data.db", "data_engine_available"),
 }
+
+_BATCH15_BINDINGS_PATH = ROOT / "scripts/partial_batches/batch_15_pdf_bindings.json"
+
+
+def _load_batch15_bindings() -> dict[int, tuple[str, str]]:
+    if not _BATCH15_BINDINGS_PATH.is_file():
+        return {}
+    import json as _json
+
+    raw = _json.loads(_BATCH15_BINDINGS_PATH.read_text(encoding="utf-8"))
+    return {int(k): (v[0], v[1]) for k, v in raw.items()}
 
 _MODULE_ENTRYPOINTS: dict[str, str] = {
     "net_edge_truth": "compute_net_edge_truth",
@@ -178,6 +187,7 @@ def discover_bindings() -> dict[int, tuple[str, str]]:
                     if cid not in out or rel.startswith("bd_platform"):
                         out[cid] = (rel, f"{fn}_{cid}")
     out.update(_MANUAL)
+    out.update(_load_batch15_bindings())
     return out
 
 
@@ -407,6 +417,8 @@ def _default_kwargs(fn: Callable[..., Any], capability_id: int | None = None) ->
         kwargs.setdefault("source_a_ts_ms", now - 500)
         kwargs.setdefault("source_b_ts_ms", now - 800)
         kwargs.setdefault("server_ts_ms", now)
+    if capability_id is not None and 701 <= capability_id <= 750:
+        kwargs["capability_id"] = capability_id
     return kwargs
 
 

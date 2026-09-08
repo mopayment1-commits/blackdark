@@ -474,6 +474,22 @@ def resolve_binding(capability_id: int) -> BackendBinding:
                 "pdf_capability_registry",
             )
 
+    if 701 <= capability_id <= 750:
+        pdf = _pdf_registry_bindings().get(capability_id)
+        if pdf is not None:
+            mod, entrypoint = pdf
+            row = catalog_by_id()[capability_id]
+            surface = _slug(row["capability"])
+            param_style = _infer_param_style(mod, entrypoint)
+            return BackendBinding(
+                capability_id,
+                mod,
+                entrypoint,
+                surface,
+                param_style,
+                "pdf_capability_registry",
+            )
+
     row = catalog_by_id()[capability_id]
     matrix = matrix_by_id().get(capability_id, {})
     name = row["capability"]

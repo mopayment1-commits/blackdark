@@ -174,6 +174,9 @@ async def execute_capability(
     if 651 <= capability_id <= 700:
         return await handle_platform_capability(capability_id, params=params)
 
+    if 701 <= capability_id <= 750:
+        return await handle_platform_capability(capability_id, params=params)
+
     if is_duplicate(capability_id) and target_id != capability_id:
         canonical = await execute_capability(target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement)
         canonical["duplicate_of"] = target_id
