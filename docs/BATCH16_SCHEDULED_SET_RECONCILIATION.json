@@ -1,0 +1,47 @@
+{
+  "artifact": "BATCH16_SCHEDULED_SET_RECONCILIATION",
+  "generated_at_utc": "2026-09-08T06:55:00+00:00",
+  "purpose": "Post-Batch15 arithmetic reconciliation carried into Batch16 planning",
+  "batch15_material_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
+  "batch15_freeze_docs_head": "f178029b4a2616ab13e16e826cc110983b768f4f",
+  "batch16_mandatory_set": {
+    "v4_v2_scheduled_unique": 10,
+    "temporal_scheduled_unique": 6,
+    "adaptive_scheduled_unique": 6,
+    "shared_foundations_unique": 4,
+    "scheduled_union_unique": 26,
+    "note": "Union of BATCH16_REQUIRED_* keys excluding maturity/external-only"
+  },
+  "v4_v2": {
+    "scheduled_unique_total": 10,
+    "disposition_after_batch16": {
+      "BUILT_THIS_BATCH": 10
+    },
+    "scheduled_requirements_unaccounted": []
+  },
+  "temporal": {
+    "scheduled_unique_total": 6,
+    "disposition_after_batch16": {
+      "BUILT_THIS_BATCH": 6
+    },
+    "scheduled_requirements_unaccounted": []
+  },
+  "adaptive": {
+    "scheduled_unique_total": 6,
+    "disposition_after_batch16": {
+      "BUILT_THIS_BATCH": 6
+    },
+    "scheduled_requirements_unaccounted": []
+  },
+  "flags": {
+    "BATCH16_V4_V2_SCHEDULE_ARITHMETIC_CONSISTENT": true,
+    "BATCH16_TEMPORAL_SCHEDULE_ARITHMETIC_CONSISTENT": true,
+    "BATCH16_ADAPTIVE_SCHEDULE_ARITHMETIC_CONSISTENT": true,
+    "BATCH16_SCHEDULED_REQUIREMENTS_UNACCOUNTED": [],
+    "BATCH16_SCHEDULED_REQUIREMENTS_DOUBLE_COUNTED": []
+  },
+  "p0_pseudo_ids": {
+    "P0_TEMPORAL::Walk-Forward Evaluation": "progressed to walk_forward_v3 in batch16_three_spec_foundations",
+    "P0_TEMPORAL::Regime Intelligence Library": "progressed to regime_intelligence_v3 in batch16_three_spec_foundations"
+  }
+}

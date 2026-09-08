@@ -1,18 +1,20 @@
 {
   "artifact": "THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER",
   "version": "1.0.0",
-  "generated_at_utc": "2026-09-08T00:29:32.721190+00:00",
+  "generated_at_utc": "2026-09-08T06:56:30.670198+00:00",
   "repository_baseline": {
-    "CURRENT_BRANCH": "cursor/batch15-701-750-ed16",
-    "CURRENT_HEAD": "475c3159df505850351588d7d1be8e2ba48c1555",
+    "CURRENT_BRANCH": "cursor/batch16-751-800-ed16",
+    "CURRENT_HEAD": "f178029b4a2616ab13e16e826cc110983b768f4f",
     "BATCH13_FINAL_MATERIAL_SHA": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
     "BATCH13_FINAL_FREEZE_DOCS_HEAD": "be710caf253f39d9833ab5e1a87a2fe6c33f4a02",
-    "capability_program_built": "1-750",
-    "capability_program_remaining": "751-826",
+    "capability_program_built": "1-800",
+    "capability_program_remaining": "801-826",
     "BATCH14_FINAL_MATERIAL_SHA": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
     "BATCH14_FINAL_FREEZE_DOCS_HEAD": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
     "BATCH15_FINAL_MATERIAL_SHA": "475c3159df505850351588d7d1be8e2ba48c1555",
-    "BATCH15_FINAL_FREEZE_DOCS_HEAD": "475c3159df505850351588d7d1be8e2ba48c1555"
+    "BATCH15_FINAL_FREEZE_DOCS_HEAD": "475c3159df505850351588d7d1be8e2ba48c1555",
+    "BATCH16_FINAL_MATERIAL_SHA": "f178029b4a2616ab13e16e826cc110983b768f4f",
+    "BATCH16_FINAL_FREEZE_DOCS_HEAD": "f178029b4a2616ab13e16e826cc110983b768f4f"
   },
   "governing_hierarchy": [
     "v6",
@@ -8183,10 +8185,16 @@
         "bd_platform/batch15_three_spec_foundations.py",
         "bd_platform/batch15_defi_risk_data_facade_layer.py",
         "batch15_closure_sha:4f998527f2a781a4c6d3cce0072bb49f7d05524f",
-        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555"
+        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
-      "remaining_delta": "Batch15 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
       "target_batch_or_window": 14,
@@ -8207,6 +8215,12 @@
         "capability_range": "701-750",
         "closed_at_utc": "2026-09-08T00:29:32.721190+00:00",
         "closure_script": "scripts/batch15_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -10866,10 +10880,16 @@
         "bd_platform/batch15_three_spec_foundations.py",
         "bd_platform/batch15_defi_risk_data_facade_layer.py",
         "batch15_closure_sha:4f998527f2a781a4c6d3cce0072bb49f7d05524f",
-        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555"
+        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
-      "remaining_delta": "Batch15 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
       "target_batch_or_window": 14,
@@ -10890,6 +10910,12 @@
         "capability_range": "701-750",
         "closed_at_utc": "2026-09-08T00:29:32.721190+00:00",
         "closure_script": "scripts/batch15_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -12658,10 +12684,16 @@
         "bd_platform/batch15_three_spec_foundations.py",
         "bd_platform/batch15_defi_risk_data_facade_layer.py",
         "batch15_closure_sha:4f998527f2a781a4c6d3cce0072bb49f7d05524f",
-        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555"
+        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
-      "remaining_delta": "Batch15 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -12682,6 +12714,12 @@
         "capability_range": "701-750",
         "closed_at_utc": "2026-09-08T00:29:32.721190+00:00",
         "closure_script": "scripts/batch15_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -18485,10 +18523,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -18503,6 +18547,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -28171,10 +28221,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -28189,6 +28245,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -29882,10 +29944,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -29900,6 +29968,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -30117,10 +30191,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -30135,6 +30215,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -34938,15 +35024,21 @@
       "required_by_requirements": [],
       "shared_canonical_implementation": "hot_storage.py + data_lake.py",
       "shared_with_specs": [],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -34955,7 +35047,13 @@
       "live_gate": false,
       "why_now_or_later": "Cross-cutting foundation — prevent rework in extension batches",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 1
+      "dependency_depth": 1,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "V4V2_U0908",
@@ -35279,15 +35377,21 @@
       "required_by_requirements": [],
       "shared_canonical_implementation": "signal_registry.py + decision_ledger.py",
       "shared_with_specs": [],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -35296,7 +35400,13 @@
       "live_gate": false,
       "why_now_or_later": "Cross-cutting foundation — prevent rework in extension batches",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 1
+      "dependency_depth": 1,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "V4V2_U0917",
@@ -35503,15 +35613,21 @@
       "required_by_requirements": [],
       "shared_canonical_implementation": "signal_registry.py + decision_ledger.py",
       "shared_with_specs": [],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -35520,7 +35636,13 @@
       "live_gate": false,
       "why_now_or_later": "Cross-cutting foundation — prevent rework in extension batches",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 1
+      "dependency_depth": 1,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "V4V2_U0923",
@@ -47320,15 +47442,21 @@
       "required_by_requirements": [],
       "shared_canonical_implementation": "cap646/evidence_class.py + reproducibility_manifest.py",
       "shared_with_specs": [],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -47337,7 +47465,13 @@
       "live_gate": false,
       "why_now_or_later": "Cross-cutting foundation — prevent rework in extension batches",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 2
+      "dependency_depth": 2,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "V4V2_U1245",
@@ -47968,15 +48102,21 @@
       "required_by_requirements": [],
       "shared_canonical_implementation": "cap646/evidence_class.py + reproducibility_manifest.py",
       "shared_with_specs": [],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -47985,7 +48125,13 @@
       "live_gate": false,
       "why_now_or_later": "Cross-cutting foundation — prevent rework in extension batches",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 2
+      "dependency_depth": 2,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "V4V2_U1263",
@@ -69739,15 +69885,21 @@
       "shared_with_specs": [
         "temporal"
       ],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -69756,7 +69908,13 @@
       "live_gate": false,
       "why_now_or_later": "Insufficient evidence for exact batch — re-evaluate at Batch14 discovery",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 10
+      "dependency_depth": 10,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "TEMPORAL_U0009",
@@ -70293,10 +70451,16 @@
         "bd_platform/batch15_three_spec_foundations.py",
         "bd_platform/batch15_defi_risk_data_facade_layer.py",
         "batch15_closure_sha:4f998527f2a781a4c6d3cce0072bb49f7d05524f",
-        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555"
+        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
-      "remaining_delta": "Batch15 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
       "target_batch_or_window": 14,
@@ -70317,6 +70481,12 @@
         "capability_range": "701-750",
         "closed_at_utc": "2026-09-08T00:29:32.721190+00:00",
         "closure_script": "scripts/batch15_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -70514,10 +70684,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -70532,6 +70708,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -71576,15 +71758,21 @@
       "required_by_requirements": [],
       "shared_canonical_implementation": null,
       "shared_with_specs": [],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -71593,7 +71781,13 @@
       "live_gate": false,
       "why_now_or_later": "Insufficient evidence for exact batch — re-evaluate at Batch14 discovery",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 16
+      "dependency_depth": 16,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "TEMPORAL_U0057",
@@ -71705,10 +71899,16 @@
         "bd_platform/batch15_three_spec_foundations.py",
         "bd_platform/batch15_defi_risk_data_facade_layer.py",
         "batch15_closure_sha:4f998527f2a781a4c6d3cce0072bb49f7d05524f",
-        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555"
+        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
-      "remaining_delta": "Batch15 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
       "target_batch_or_window": 14,
@@ -71729,6 +71929,12 @@
         "capability_range": "701-750",
         "closed_at_utc": "2026-09-08T00:29:32.721190+00:00",
         "closure_script": "scripts/batch15_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -71751,15 +71957,21 @@
       "required_by_requirements": [],
       "shared_canonical_implementation": "temporal_leakage_firewall.py + ml/market_replay_bootstrap.py",
       "shared_with_specs": [],
-      "current_state": "PARTIALLY_BUILT_VALID",
+      "current_state": "BUILT_THIS_BATCH",
       "implementation_paths": [],
       "evidence": [
         "existing module tests",
         "docs/BATCH13_FINAL_LOCAL_FREEZE.json",
-        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f"
+        "material_sha:2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
-      "remaining_delta": "Spine/control layer partial — delta scheduled",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
       "target_batch_or_window": "TARGET_WINDOW_UNRESOLVED",
@@ -71768,7 +71980,13 @@
       "live_gate": false,
       "why_now_or_later": "Insufficient evidence for exact batch — re-evaluate at Batch14 discovery",
       "confidence_level": "REPORTED_BY_CURSOR",
-      "dependency_depth": 9
+      "dependency_depth": 9,
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
+      }
     },
     {
       "requirement_id": "TEMPORAL_U0061",
@@ -93705,10 +93923,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -93723,6 +93947,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -93854,10 +94084,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -93872,6 +94108,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -93908,10 +94150,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -93926,6 +94174,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -94005,10 +94259,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -94023,6 +94283,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -95148,10 +95414,16 @@
         "tests/test_batch14_three_spec_foundations.py",
         "bd_platform/batch14_three_spec_foundations.py",
         "bd_platform/batch14_extension_analytics_layer.py",
-        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359"
+        "batch14_closure_sha:1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
-      "remaining_delta": "Batch14 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -95166,6 +95438,12 @@
         "capability_range": "651-700",
         "closed_at_utc": "2026-09-07T23:04:11.091401+00:00",
         "closure_script": "scripts/batch14_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -95835,10 +96113,16 @@
         "bd_platform/batch15_three_spec_foundations.py",
         "bd_platform/batch15_defi_risk_data_facade_layer.py",
         "batch15_closure_sha:4f998527f2a781a4c6d3cce0072bb49f7d05524f",
-        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555"
+        "batch15_closure_sha:475c3159df505850351588d7d1be8e2ba48c1555",
+        "docs/BATCH16_FINAL_LOCAL_FREEZE.json",
+        "docs/BATCH16_CANONICAL_DECISIONS.json",
+        "batch16_closure_sha:f178029b4a2616ab13e16e826cc110983b768f4f",
+        "tests/test_batch16_three_spec_foundations.py",
+        "bd_platform/batch16_three_spec_foundations.py",
+        "bd_platform/batch16_market_delivery_facade_layer.py"
       ],
-      "last_verified_sha": "475c3159df505850351588d7d1be8e2ba48c1555",
-      "remaining_delta": "Batch15 local closure — PASS_ENGINEERING",
+      "last_verified_sha": "f178029b4a2616ab13e16e826cc110983b768f4f",
+      "remaining_delta": "Batch16 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
       "target_batch_or_window": 14,
@@ -95859,6 +96143,12 @@
         "capability_range": "701-750",
         "closed_at_utc": "2026-09-08T00:29:32.721190+00:00",
         "closure_script": "scripts/batch15_final_closure.py"
+      },
+      "batch16_closure": {
+        "batch": 16,
+        "capability_range": "751-800",
+        "closed_at_utc": "2026-09-08T06:56:30.670198+00:00",
+        "closure_script": "scripts/batch16_final_closure.py"
       }
     },
     {
@@ -105115,7 +105405,9 @@
     "THREE_SPEC_CURRENT_STATE_THROUGH_BATCH14_RECONCILED": true,
     "BATCH14_CAPABILITY_LOCAL_CLOSURE": true,
     "THREE_SPEC_CURRENT_STATE_THROUGH_BATCH15_RECONCILED": true,
-    "BATCH15_CAPABILITY_LOCAL_CLOSURE": true
+    "BATCH15_CAPABILITY_LOCAL_CLOSURE": true,
+    "THREE_SPEC_CURRENT_STATE_THROUGH_BATCH16_RECONCILED": true,
+    "BATCH16_CAPABILITY_LOCAL_CLOSURE": true
   },
   "batch15_mandatory_set": {
     "BATCH15_CAPABILITY_SCOPE": [
@@ -105170,5 +105462,56 @@
       "P0_TEMPORAL::Immutable Forward-Shadow receipts"
     ],
     "BATCH15_EXTERNAL_ONLY_ITEMS": []
+  },
+  "batch16_mandatory_set": {
+    "BATCH16_CAPABILITY_SCOPE": [
+      "751-800"
+    ],
+    "BATCH16_REQUIRED_V4_V2_REQUIREMENTS": [
+      "V4V2_U0907",
+      "V4V2_U0732",
+      "V4V2_U0777",
+      "V4V2_U0783",
+      "V4V2_U0922",
+      "V4V2_U0916",
+      "V4V2_U1244",
+      "V4V2_U1262",
+      "V4V2_U0333",
+      "V4V2_U0483"
+    ],
+    "BATCH16_REQUIRED_TEMPORAL_REQUIREMENTS": [
+      "TEMPORAL_U0056",
+      "TEMPORAL_U0060",
+      "TEMPORAL_U0008",
+      "TEMPORAL_U0027",
+      "P0_TEMPORAL::Walk-Forward Evaluation",
+      "P0_TEMPORAL::Regime Intelligence Library"
+    ],
+    "BATCH16_REQUIRED_ADAPTIVE_REQUIREMENTS": [
+      "ADAPTIVE_U0232",
+      "ADAPTIVE_U0235",
+      "ADAPTIVE_U0236",
+      "ADAPTIVE_U0238",
+      "ADAPTIVE_U0266",
+      "ADAPTIVE_U0282"
+    ],
+    "BATCH16_REQUIRED_SHARED_FOUNDATIONS": [
+      "V4V2_U0214",
+      "V4V2_U0286",
+      "TEMPORAL_U0059",
+      "TEMPORAL_U0022"
+    ],
+    "BATCH16_OVERDUE_CORRECTIONS": [
+      "V4V2_U0907",
+      "V4V2_U0922",
+      "P0_TEMPORAL::Walk-Forward Evaluation",
+      "P0_TEMPORAL::Regime Intelligence Library"
+    ],
+    "BATCH16_MATURITY_GATED_NOT_TO_ACTIVATE": [
+      "P0_TEMPORAL::Automated Outcome Factory",
+      "P0_TEMPORAL::Immutable Forward-Shadow receipts",
+      "ADAPTIVE_U0123"
+    ],
+    "BATCH16_EXTERNAL_ONLY_ITEMS": []
   }
 }
