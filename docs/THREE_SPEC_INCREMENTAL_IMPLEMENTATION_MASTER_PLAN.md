@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-08T10:50:37.828085+00:00
+**Generated:** 2026-09-08T11:11:04.385395+00:00
 **Branch:** `cursor/v4v2-phase1-local-closure-ed16`
-**HEAD:** `b23b6d3917900819958e0e2aa4dbbfb4701e64ba`
+**HEAD:** `8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -75,6 +75,15 @@ Batch17 final-program facade layer (801-826) with canonical reuse of prior seman
 **V4_V2_REMAINING_LOCAL_REQUIREMENTS:** 0
 
 Post-capability v4_v2 engineering spine closure via `bd_platform/v4_v2_phase1_engineering_spine.py`. Temporal and Adaptive dedicated closure phases NOT started.
+
+
+## 2d. v4_v2 source-driven closure
+
+**Source-driven material SHA:** `8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b`
+**LOCAL_ENGINEERING_COMPLETE:** 644
+**V4_V2_REMAINING_LOCAL_REQUIREMENTS:** 0
+
+Ledger rebuilt from `V4_V2_FULL_SOURCE_UNIVERSE.json` + `V4_V2_IMPLEMENTATION_INDEX.json`. Persistent registries for lineage, source rights, PIT availability.
 
 ## 2. Current state through Batch13
 

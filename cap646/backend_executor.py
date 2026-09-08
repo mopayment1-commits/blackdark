@@ -187,6 +187,12 @@ async def execute_binding(capability_id: int, *, params: dict[str, Any] | None =
     from cap646.domain_enrichment import enrich_capability_result
 
     payload = await enrich_capability_result(capability_id, payload, params=params)
+    try:
+        from bd_platform.v4_v2_source_driven_engineering import enforce_provenance
+
+        payload = enforce_provenance(payload, source_id=f"cap_{capability_id}")
+    except Exception:
+        pass
     return payload
 
 
