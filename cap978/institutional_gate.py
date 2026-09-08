@@ -31,7 +31,7 @@ CLOSURE_BASELINE = {
         "EXTERNAL_EVIDENCE_REQUIRED": 1,
     },
     "extension_counts": {
-        "VERIFIED_COMPLETE": 379,
+        "VERIFIED_COMPLETE": 329,
         "CANONICALLY_COVERED": 1,
         "EXTERNAL_BLOCKED": 2,
     },
