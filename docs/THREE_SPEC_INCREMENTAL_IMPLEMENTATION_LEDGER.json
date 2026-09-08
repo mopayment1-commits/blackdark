@@ -1,10 +1,10 @@
 {
   "artifact": "THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER",
   "version": "1.0.0",
-  "generated_at_utc": "2026-09-08T08:56:32.022102+00:00",
+  "generated_at_utc": "2026-09-08T08:57:08.595992+00:00",
   "repository_baseline": {
     "CURRENT_BRANCH": "cursor/batch17-801-826-ed16",
-    "CURRENT_HEAD": "168271b5024f85db88c75ce5d97a708269e88c18",
+    "CURRENT_HEAD": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
     "BATCH13_FINAL_MATERIAL_SHA": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
     "BATCH13_FINAL_FREEZE_DOCS_HEAD": "be710caf253f39d9833ab5e1a87a2fe6c33f4a02",
     "capability_program_built": "1-826",
@@ -15,8 +15,8 @@
     "BATCH15_FINAL_FREEZE_DOCS_HEAD": "475c3159df505850351588d7d1be8e2ba48c1555",
     "BATCH16_FINAL_MATERIAL_SHA": "5a34f40986750bdb35d923dfd512e92ae25500a3",
     "BATCH16_FINAL_FREEZE_DOCS_HEAD": "5a34f40986750bdb35d923dfd512e92ae25500a3",
-    "BATCH17_FINAL_MATERIAL_SHA": "168271b5024f85db88c75ce5d97a708269e88c18",
-    "BATCH17_FINAL_FREEZE_DOCS_HEAD": "168271b5024f85db88c75ce5d97a708269e88c18"
+    "BATCH17_FINAL_MATERIAL_SHA": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
+    "BATCH17_FINAL_FREEZE_DOCS_HEAD": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
   },
   "governing_hierarchy": [
     "v6",
@@ -1784,9 +1784,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -1806,7 +1807,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -2137,9 +2138,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -2159,7 +2161,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -2201,9 +2203,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -2223,7 +2226,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -2473,9 +2476,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -2495,7 +2499,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -2789,9 +2793,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -2811,7 +2816,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -3759,9 +3764,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -3781,7 +3787,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -5130,9 +5136,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -5152,7 +5159,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -6866,9 +6873,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -6888,7 +6896,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -8297,9 +8305,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
@@ -8331,7 +8340,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -11006,9 +11015,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
@@ -11040,7 +11050,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -12824,9 +12834,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -12858,7 +12869,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -18156,9 +18167,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
@@ -18178,7 +18190,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -18689,9 +18701,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 16,
@@ -18717,7 +18730,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -61954,9 +61967,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -61970,7 +61984,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -70014,9 +70028,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -70030,7 +70045,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -70673,9 +70688,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
@@ -70707,7 +70723,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -70792,9 +70808,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -70808,7 +70825,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -72151,9 +72168,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 15,
@@ -72185,7 +72203,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -76264,9 +76282,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -76280,7 +76299,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -77496,9 +77515,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -77512,7 +77532,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -79820,9 +79840,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -79836,7 +79857,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -81985,9 +82006,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -82001,7 +82023,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -88043,9 +88065,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -88065,7 +88088,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -89957,9 +89980,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -89973,7 +89997,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -90119,9 +90143,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -90135,7 +90160,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -93035,9 +93060,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -93051,7 +93077,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -93837,9 +93863,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -93859,7 +93886,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },
@@ -95243,9 +95270,10 @@
         "batch17_closure_sha:168271b5024f85db88c75ce5d97a708269e88c18",
         "tests/test_batch17_three_spec_foundations.py",
         "bd_platform/batch17_three_spec_foundations.py",
-        "bd_platform/batch17_final_program_facade_layer.py"
+        "bd_platform/batch17_final_program_facade_layer.py",
+        "batch17_closure_sha:9cefa13cfc2ca0924bad4bb949deb55cfcb13131"
       ],
-      "last_verified_sha": "168271b5024f85db88c75ce5d97a708269e88c18",
+      "last_verified_sha": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
       "remaining_delta": "Batch17 local closure — PASS_ENGINEERING",
       "earliest_valid_batch": 14,
       "latest_safe_batch": 17,
@@ -95265,7 +95293,7 @@
       "batch17_closure": {
         "batch": 17,
         "capability_range": "801-826",
-        "closed_at_utc": "2026-09-08T08:56:32.022102+00:00",
+        "closed_at_utc": "2026-09-08T08:57:08.595992+00:00",
         "closure_script": "scripts/batch17_final_closure.py"
       }
     },

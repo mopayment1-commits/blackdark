@@ -1,7 +1,7 @@
 {
   "artifact": "BATCH17_CAPABILITY_INVENTORY_801_826",
-  "generated_at_utc": "2026-09-08T08:56:46.065170+00:00",
-  "git_commit": "168271b5024f85db88c75ce5d97a708269e88c18",
+  "generated_at_utc": "2026-09-08T08:57:22.868951+00:00",
+  "git_commit": "9cefa13cfc2ca0924bad4bb949deb55cfcb13131",
   "branch": "cursor/batch17-801-826-ed16",
   "membership": {
     "ok": true,
