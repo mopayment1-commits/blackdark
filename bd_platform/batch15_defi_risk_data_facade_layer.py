@@ -1,8 +1,4 @@
-"""Batch15 DeFi/Risk/Data facade layer — capabilities #701–#750.
-
-Single dispatcher delegates to canonical Batch09 semantics (#434–483; #725→#458).
-No execution endpoints.
-"""
+"""Batch15 DeFi/Risk/Data facade layer — capabilities #701–#750."""
 
 from __future__ import annotations
 
@@ -10,7 +6,6 @@ import importlib
 import inspect
 import json
 import logging
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -18,77 +13,19 @@ from bd_platform.batch15_three_spec_foundations import attach_three_spec_metadat
 
 logger = logging.getLogger("BLACKDARK.Batch15DeFiRiskDataFacade")
 
-_SEED_PATH = Path("data/legal_retail_commercial_seed.json")
-_CANONICAL_MAP: dict[int, tuple[int, str, str, dict[str, Any]]] = {
-    701: (434, 'bd_platform.defi_yield_intelligence_layer', 'revenue_fees_economic_activity_434', {}),
-    702: (435, 'bd_platform.defi_yield_intelligence_layer', 'cross_market_research_copilot_435', {}),
-    703: (436, 'bd_platform.defi_yield_intelligence_layer', 'investment_thesis_scoring_436', {}),
-    704: (437, 'bd_platform.defi_yield_intelligence_layer', 'defi_risk_radar_437', {}),
-    705: (438, 'bd_platform.defi_yield_intelligence_layer', 'lending_market_risk_438', {}),
-    706: (439, 'bd_platform.defi_yield_intelligence_layer', 'collateral_risk_439', {}),
-    707: (440, 'bd_platform.defi_yield_intelligence_layer', 'liquidation_risk_440', {}),
-    708: (441, 'bd_platform.defi_yield_intelligence_layer', 'oracle_risk_441', {}),
-    709: (442, 'bd_platform.defi_yield_intelligence_layer', 'liquidity_risk_442', {}),
-    710: (443, 'bd_platform.defi_yield_intelligence_layer', 'protocol_exploit_intelligence_443', {}),
-    711: (444, 'bd_platform.defi_yield_intelligence_layer', 'stablecoin_risk_intelligence_444', {}),
-    712: (445, 'bd_platform.defi_yield_intelligence_layer', 'defi_strategy_risk_445', {}),
-    713: (446, 'bd_platform.defi_yield_intelligence_layer', 'real_time_risk_alerts_446', {}),
-    714: (447, 'bd_platform.defi_yield_intelligence_layer', 'dao_treasury_risk_447', {}),
-    715: (448, 'bd_platform.defi_yield_intelligence_layer', 'institutional_risk_api_448', {}),
-    716: (449, 'bd_platform.defi_yield_intelligence_layer', 'curated_on_chain_dashboards_449', {}),
-    717: (450, 'bd_platform.defi_yield_intelligence_layer', 'narrative_driven_research_450', {}),
-    718: (451, 'bd_platform.defi_yield_intelligence_layer', 'protocol_dominance_451', {}),
-    719: (452, 'bd_platform.defi_yield_intelligence_layer', 'aave_multi_chain_analytics_452', {}),
-    720: (453, 'bd_platform.defi_yield_intelligence_layer', 'risk_curation_453', {}),
-    721: (454, 'bd_platform.defi_yield_intelligence_layer', 'capital_protection_controls_454', {}),
-    722: (455, 'bd_platform.defi_yield_intelligence_layer', 'stress_testing_455', {}),
-    723: (456, 'bd_platform.defi_yield_intelligence_layer', 'cross_protocol_contagion_456', {}),
-    724: (457, 'bd_platform.defi_yield_intelligence_layer', 'protocol_risk_passport_457', {}),
-    725: (458, 'bd_platform.heroes_capability_layer', 'metric_methodology_registry_458', {'locale': 'en'}),
-    726: (459, 'bd_platform.defi_yield_intelligence_layer', 'network_data_pro_metrics_459', {}),
-    727: (460, 'bd_platform.defi_yield_intelligence_layer', 'atlas_blockchain_search_460', {}),
-    728: (461, 'bd_platform.defi_yield_intelligence_layer', 'address_balance_search_461', {}),
-    729: (462, 'bd_platform.defi_yield_intelligence_layer', 'transaction_search_462', {}),
-    730: (463, 'bd_platform.defi_yield_intelligence_layer', 'block_search_463', {}),
-    731: (464, 'bd_platform.defi_yield_intelligence_layer', 'balance_updates_464', {}),
-    732: (465, 'bd_platform.defi_yield_intelligence_layer', 'stablecoin_network_metrics_465', {}),
-    733: (466, 'bd_platform.defi_yield_intelligence_layer', 'market_data_feed_466', {}),
-    734: (467, 'bd_platform.defi_yield_intelligence_layer', 'market_data_pro_467', {}),
-    735: (468, 'bd_platform.defi_yield_intelligence_layer', 'reference_rates_468', {}),
-    736: (469, 'bd_platform.defi_yield_intelligence_layer', 'indexes_469', {}),
-    737: (470, 'bd_platform.defi_yield_intelligence_layer', 'realized_metrics_470', {}),
-    738: (471, 'bd_platform.defi_yield_intelligence_layer', 'supply_metrics_471', {}),
-    739: (472, 'bd_platform.defi_yield_intelligence_layer', 'mining_validator_metrics_472', {}),
-    740: (473, 'bd_platform.defi_yield_intelligence_layer', 'fee_metrics_473', {}),
-    741: (474, 'bd_platform.defi_yield_intelligence_layer', 'activity_metrics_474', {}),
-    742: (475, 'bd_platform.defi_yield_intelligence_layer', 'custom_metric_workbench_475', {}),
-    743: (476, 'bd_platform.defi_yield_intelligence_layer', 'community_charts_api_476', {}),
-    744: (477, 'bd_platform.defi_yield_intelligence_layer', 'market_network_join_477', {}),
-    745: (478, 'bd_platform.defi_yield_intelligence_layer', 'data_quality_methodologies_478', {}),
-    746: (479, 'bd_platform.defi_yield_intelligence_layer', 'historical_research_dataset_479', {}),
-    747: (480, 'bd_platform.defi_yield_intelligence_layer', 'institutional_apis_480', {}),
-    748: (481, 'bd_platform.defi_yield_intelligence_layer', 'cross_network_decision_intelligence_481', {}),
-    749: (482, 'bd_platform.defi_yield_intelligence_layer', 'institutional_trade_data_482', {}),
-    750: (483, 'bd_platform.defi_yield_intelligence_layer', 'order_book_data_483', {}),
-}
+_MAP_PATH = Path(__file__).resolve().parents[1] / "scripts/partial_batches/batch_15_canonical_map.json"
+
+
+def _load_canonical_map() -> dict[int, tuple[int, str, str, dict[str, Any]]]:
+    raw = json.loads(_MAP_PATH.read_text(encoding="utf-8"))
+    return {int(k): (v[0], v[1], v[2], dict(v[3] or {})) for k, v in raw.items()}
+
+
+_CANONICAL_MAP = _load_canonical_map()
 
 
 def reset_batch15_defi_risk_data_state() -> None:
     return None
-
-
-def _utcnow() -> str:
-    return datetime.now(UTC).isoformat()
-
-
-def _load_seed() -> dict[str, Any]:
-    if not _SEED_PATH.is_file():
-        return {}
-    try:
-        return json.loads(_SEED_PATH.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        logger.warning("batch15 seed load failed: %s", exc)
-        return {}
 
 
 def execute_batch15_facade(
@@ -98,12 +35,13 @@ def execute_batch15_facade(
     seed: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Canonical-reuse dispatcher for CAP978 extension IDs 701-750."""
-    if capability_id not in _CANONICAL_MAP:
+    spec = _CANONICAL_MAP.get(capability_id)
+    if spec is None:
         return {"ok": False, "error": "unknown_batch15_capability", "capability_id": capability_id}
-    canonical_id, mod_path, fn_name, extra_kwargs = _CANONICAL_MAP[capability_id]
+    canonical_id, mod_path, fn_name, extra_kwargs = spec
     mod = importlib.import_module(mod_path)
     canonical_fn = getattr(mod, fn_name)
-    call_kwargs: dict[str, Any] = dict(extra_kwargs or {})
+    call_kwargs: dict[str, Any] = dict(extra_kwargs)
     sig = inspect.signature(canonical_fn)
     if "symbol" in sig.parameters:
         call_kwargs.setdefault("symbol", symbol)
