@@ -1,7 +1,7 @@
 {
   "artifact": "TEMPORAL_IMPLEMENTATION_INDEX",
-  "generated_at_utc": "2026-09-08T11:22:32.282610+00:00",
-  "git_head": "8c5d389f88ea9c3b70e547330a49bb9396903d78",
+  "generated_at_utc": "2026-09-08T11:23:12.332084+00:00",
+  "git_head": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
   "binding_count": 391,
   "bindings": {
     "TEMPORAL_U0001": {

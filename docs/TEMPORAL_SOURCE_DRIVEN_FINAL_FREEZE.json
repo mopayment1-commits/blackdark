@@ -1,8 +1,8 @@
 {
   "artifact": "TEMPORAL_SOURCE_DRIVEN_FINAL_FREEZE",
-  "generated_at_utc": "2026-09-08T11:22:32.271705+00:00",
+  "generated_at_utc": "2026-09-08T11:23:12.320594+00:00",
   "branch": "cursor/temporal-phase2-local-closure-ed16",
-  "material_sha": "8c5d389f88ea9c3b70e547330a49bb9396903d78",
+  "material_sha": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
   "source_audit": {
     "TEMPORAL_SOURCE_TO_LEDGER_COVERAGE": 100.0,
     "TEMPORAL_SOURCE_ITEMS_MISSING_FROM_LEDGER": [],
@@ -91,19 +91,19 @@
     "registries": {
       "canonical_events": {
         "store": "data/temporal_canonical_events.jsonl",
-        "count": 22
+        "count": 40
       },
       "outcome_factory": {
         "store": "data/temporal_outcome_factory.jsonl",
-        "count": 49
+        "count": 90
       },
       "evidence_ledger": {
         "store": "data/temporal_evidence_ledger.jsonl",
-        "count": 957
+        "count": 1755
       },
       "forward_shadow": {
         "store": "data/temporal_forward_shadow.jsonl",
-        "count": 13
+        "count": 24
       },
       "champion_challenger": {
         "store": "data/temporal_champion_challenger.jsonl",
@@ -111,15 +111,15 @@
       },
       "regime": {
         "store": "data/temporal_regime_registry.jsonl",
-        "count": 43
+        "count": 78
       },
       "surprise": {
         "store": "data/temporal_surprise_events.jsonl",
-        "count": 54
+        "count": 99
       },
       "abstention": {
         "store": "data/temporal_abstention_events.jsonl",
-        "count": 54
+        "count": 99
       }
     },
     "live_promotion": false,

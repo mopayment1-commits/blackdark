@@ -1,7 +1,7 @@
 {
   "artifact": "TEMPORAL_FULL_SOURCE_UNIVERSE",
-  "generated_at_utc": "2026-09-08T11:22:32.275664+00:00",
-  "git_head": "8c5d389f88ea9c3b70e547330a49bb9396903d78",
+  "generated_at_utc": "2026-09-08T11:23:12.324369+00:00",
+  "git_head": "aec1e2f421bf6e643e78a0eca52ff580ce1fb31f",
   "spec_sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
   "source_item_count": 576,
   "disposition_distribution": {
