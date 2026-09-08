@@ -2,7 +2,7 @@
   "artifact": "V4_V2_SOURCE_DRIVEN_FINAL_FREEZE",
   "generated_at_utc": "2026-09-08T11:11:04.385395+00:00",
   "branch": "cursor/v4v2-phase1-local-closure-ed16",
-  "material_sha": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
+  "material_sha": "a93ab066872204e19d9f6637eb227974e5d7ef8d",
   "source_universe": 2786,
   "source_audit": {
     "V4_V2_SOURCE_TO_LEDGER_COVERAGE": 100.0,

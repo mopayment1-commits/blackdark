@@ -4,7 +4,7 @@
   "generated_at_utc": "2026-09-08T11:11:04.385395+00:00",
   "repository_baseline": {
     "CURRENT_BRANCH": "cursor/v4v2-phase1-local-closure-ed16",
-    "CURRENT_HEAD": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b",
+    "CURRENT_HEAD": "a93ab066872204e19d9f6637eb227974e5d7ef8d",
     "BATCH13_FINAL_MATERIAL_SHA": "2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f",
     "BATCH13_FINAL_FREEZE_DOCS_HEAD": "be710caf253f39d9833ab5e1a87a2fe6c33f4a02",
     "capability_program_built": "1-826",
@@ -19,7 +19,7 @@
     "BATCH17_FINAL_FREEZE_DOCS_HEAD": "b5d531340f3bbbda1f399995a689a10acbb88edc",
     "V4_V2_PHASE1_MATERIAL_SHA": "5eb10ada81647f1373b3010c27ae8f08d3e89805",
     "V4_V2_PHASE1_FREEZE_DOCS_HEAD": "5eb10ada81647f1373b3010c27ae8f08d3e89805",
-    "V4_V2_SOURCE_DRIVEN_MATERIAL_SHA": "8bae8d93f4460ac7fe3832d3fc7c0abd93ed096b"
+    "V4_V2_SOURCE_DRIVEN_MATERIAL_SHA": "a93ab066872204e19d9f6637eb227974e5d7ef8d"
   },
   "governing_hierarchy": [
     "v6",
