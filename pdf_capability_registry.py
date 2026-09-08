@@ -81,6 +81,7 @@ _MANUAL: dict[int, tuple[str, str]] = {
 
 _BATCH15_BINDINGS_PATH = ROOT / "scripts/partial_batches/batch_15_pdf_bindings.json"
 _BATCH16_BINDINGS_PATH = ROOT / "scripts/partial_batches/batch_16_pdf_bindings.json"
+_BATCH17_BINDINGS_PATH = ROOT / "scripts/partial_batches/batch_17_pdf_bindings.json"
 
 
 def _load_batch15_bindings() -> dict[int, tuple[str, str]]:
@@ -98,6 +99,15 @@ def _load_batch16_bindings() -> dict[int, tuple[str, str]]:
     import json as _json
 
     raw = _json.loads(_BATCH16_BINDINGS_PATH.read_text(encoding="utf-8"))
+    return {int(k): (v[0], v[1]) for k, v in raw.items()}
+
+
+def _load_batch17_bindings() -> dict[int, tuple[str, str]]:
+    if not _BATCH17_BINDINGS_PATH.is_file():
+        return {}
+    import json as _json
+
+    raw = _json.loads(_BATCH17_BINDINGS_PATH.read_text(encoding="utf-8"))
     return {int(k): (v[0], v[1]) for k, v in raw.items()}
 
 _MODULE_ENTRYPOINTS: dict[str, str] = {
@@ -197,6 +207,7 @@ def discover_bindings() -> dict[int, tuple[str, str]]:
     out.update(_MANUAL)
     out.update(_load_batch15_bindings())
     out.update(_load_batch16_bindings())
+    out.update(_load_batch17_bindings())
     return out
 
 
@@ -429,6 +440,8 @@ def _default_kwargs(fn: Callable[..., Any], capability_id: int | None = None) ->
     if capability_id is not None and 701 <= capability_id <= 750:
         kwargs["capability_id"] = capability_id
     if capability_id is not None and 751 <= capability_id <= 800:
+        kwargs["capability_id"] = capability_id
+    if capability_id is not None and 801 <= capability_id <= 826:
         kwargs["capability_id"] = capability_id
     return kwargs
 

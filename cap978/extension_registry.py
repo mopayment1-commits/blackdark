@@ -117,7 +117,7 @@ def _keyword_binding(name: str) -> tuple[str, str, str] | None:
 
 @lru_cache(maxsize=332)
 def resolve_extension_binding(capability_id: int) -> BackendBinding:
-    if 651 <= capability_id <= 800:
+    if 651 <= capability_id <= 826:
         from cap646.backend_registry import resolve_binding
 
         return resolve_binding(capability_id)
