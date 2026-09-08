@@ -3,9 +3,9 @@
 > Planning/governance artifact only. Does not replace governing specifications.
 > Generated from `docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json`.
 
-**Generated:** 2026-09-08T11:23:12.320594+00:00
-**Branch:** `cursor/temporal-phase2-local-closure-ed16`
-**HEAD:** `aec1e2f421bf6e643e78a0eca52ff580ce1fb31f`
+**Generated:** 2026-09-08T11:34:00.972495+00:00
+**Branch:** `cursor/adaptive-phase3-local-closure-ed16`
+**HEAD:** `747d4945f616a16c3e76679cb3d24b1139140358`
 **Batch13 material SHA:** `2b3310bf09ecb6dfb97c7b2a6be09b600a43b20f`  
 **Batch13 freeze docs HEAD:** `be710caf253f39d9833ab5e1a87a2fe6c33f4a02`
 
@@ -87,6 +87,13 @@ Ledger rebuilt from `V4_V2_FULL_SOURCE_UNIVERSE.json` + `V4_V2_IMPLEMENTATION_IN
 
 
 ## 2e. Temporal Phase-2 source-driven closure
+## 2f. Adaptive Phase-3 source-driven closure
+
+**Adaptive Phase-3 material SHA:** `863b8e6e93d7679967c8bb0b5dfaa98e1f90dc27`
+**LOCAL_ENGINEERING_COMPLETE:** 192
+**ADAPTIVE_REMAINING_LOCAL_REQUIREMENTS:** 0
+
+
 
 **Temporal Phase-2 material SHA:** `8c5d389f88ea9c3b70e547330a49bb9396903d78`
 **LOCAL_ENGINEERING_COMPLETE:** 231
