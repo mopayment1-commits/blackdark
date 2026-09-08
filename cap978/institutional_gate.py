@@ -25,7 +25,7 @@ CLOSURE_BASELINE = {
     "verdict": INSTITUTIONAL_GATE_PASS,
     "total": 978,
     "cap978_counts": {
-        "VERIFIED_COMPLETE": 991,
+        "VERIFIED_COMPLETE": 941,
         "CANONICALLY_COVERED": 34,
         "EXTERNAL_BLOCKED": 2,
         "EXTERNAL_EVIDENCE_REQUIRED": 1,
