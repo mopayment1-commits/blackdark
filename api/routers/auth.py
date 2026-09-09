@@ -488,20 +488,27 @@ async def auth_logout_all(user: dict | None = Depends(optional_user)):
 
 
 @router.get("/me")
-async def auth_me(user: dict | None = Depends(optional_user)):
+async def auth_me(request: Request, user: dict | None = Depends(optional_user)):
     from auth_service import client_user_payload, tier_payload
     from database import fetch_active_subscription_for_email, fetch_user_profile
     from identity.public_user_id import default_avatar_url
     from identity_service import avatar_initials, identity_architecture
     from mfa_service import mfa_status_for_user
     from oauth_service import oauth_status
+    from timezone.iana import COMMON_IANA_TIMEZONES
+    from timezone.request_context import resolve_from_request
+    from timezone.resolver import time_context_payload
 
+    resolved = resolve_from_request(request, user=user)
+    time_ctx = time_context_payload(resolved)
     if user is None:
         return {
             "authenticated": False,
             "tier": tier_payload(None),
             "oauth": oauth_status(),
             "identity": identity_architecture(),
+            "time": time_ctx,
+            "timezone_options": list(COMMON_IANA_TIMEZONES),
         }
     sub = await fetch_active_subscription_for_email(user["email"])
     profile = await fetch_user_profile(user["email"]) or {}
@@ -537,6 +544,8 @@ async def auth_me(user: dict | None = Depends(optional_user)):
         "mfa": mfa,
         "oauth": oauth_status(),
         "identity": identity_architecture(),
+        "time": time_ctx,
+        "timezone_options": list(COMMON_IANA_TIMEZONES),
     }
 
 
@@ -552,9 +561,19 @@ async def auth_profile_update(
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    from database import update_user_profile_fields
+    from database import fetch_user_by_id, update_user_profile_fields
+    from timezone.audit import record_timezone_change
 
+    old_row = await fetch_user_by_id(int(user["id"])) or user
     await update_user_profile_fields(int(user["id"]), fields)
+    if "timezone" in fields:
+        await record_timezone_change(
+            int(user["id"]),
+            old_timezone=str(old_row.get("timezone") or "UTC"),
+            new_timezone=str(fields["timezone"]),
+            source="profile",
+            actor=str(user.get("public_user_id") or user["id"]),
+        )
     return {"success": True, "updated": list(fields.keys())}
 
 
@@ -571,7 +590,7 @@ async def _profile_update_fields(
     if body.ux_mode_pref is not None:
         fields["ux_mode_pref"] = body.ux_mode_pref
     if body.timezone is not None:
-        fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+        fields["timezone"] = body.timezone
     return fields
 
 
@@ -669,12 +688,27 @@ async def auth_avatar_get(filename: str):
 
 
 @router.get("/sessions", responses=COMMON_ERROR_RESPONSES)
-async def auth_list_sessions(user: dict | None = Depends(optional_user)):
+async def auth_list_sessions(request: Request, user: dict | None = Depends(optional_user)):
     if not user:
         raise HTTPException(status_code=401, detail="Authentication required")
     from identity.session_service import list_user_sessions
+    from timezone.format import format_activity_log_user_view
+    from timezone.request_context import resolve_from_request
 
-    return {"sessions": await list_user_sessions(int(user["id"]))}
+    resolved = resolve_from_request(request, user=user)
+    lang = str(user.get("ui_lang") or "en")
+    rows = await list_user_sessions(int(user["id"]))
+    sessions = []
+    for row in rows:
+        item = dict(row)
+        for key in ("created_at", "last_seen_at", "expires_at", "idle_expires_at"):
+            if item.get(key):
+                item[f"{key}_display"] = format_activity_log_user_view(
+                    str(item[key]), lang=lang, tz_name=resolved.timezone
+                )
+                item[f"{key}_utc"] = str(item[key])
+        sessions.append(item)
+    return {"sessions": sessions, "display_timezone": resolved.timezone}
 
 
 @router.post("/sessions/{session_id}/revoke", responses=COMMON_ERROR_RESPONSES)
@@ -723,4 +757,29 @@ async def auth_recovery_options(user: dict | None = Depends(optional_user)):
     from identity.account_recovery import recovery_options
 
     return await recovery_options(int(user["id"]))
+
+
+@router.post("/timezone/detect", responses=COMMON_ERROR_RESPONSES)
+async def auth_timezone_detect(body: dict[str, Any]):
+    from timezone.iana import validate_iana_timezone
+    from timezone.request_context import DETECTED_TZ_COOKIE
+
+    raw = str(body.get("detected_timezone") or "").strip()
+    detected = validate_iana_timezone(raw)
+    if detected == "UTC" and raw.upper() != "UTC":
+        raise HTTPException(status_code=400, detail="Invalid detected timezone")
+    resp = JSONResponse({"ok": True, "detected_timezone": detected})
+    resp.set_cookie(DETECTED_TZ_COOKIE, detected, max_age=60 * 60 * 24 * 365, httponly=False, samesite="lax")
+    return resp
+
+
+@router.post("/timezone/session", responses=COMMON_ERROR_RESPONSES)
+async def auth_timezone_session(body: dict[str, Any]):
+    from timezone.iana import validate_iana_timezone
+    from timezone.request_context import SESSION_TZ_COOKIE
+
+    tz = validate_iana_timezone(str(body.get("timezone") or ""))
+    resp = JSONResponse({"ok": True, "session_timezone": tz})
+    resp.set_cookie(SESSION_TZ_COOKIE, tz, max_age=60 * 60 * 24 * 365, httponly=False, samesite="lax")
+    return resp
 

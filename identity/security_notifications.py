@@ -26,12 +26,20 @@ async def notify_security_event(user_id: int, event_key: str, *, actor: dict[str
     if not user:
         return {"sent": False}
     lang = user.get("ui_lang") or "en"
+    tz_name = user.get("timezone") or "UTC"
     keys = _EVENT_KEYS.get(event_key)
     if not keys:
         return {"sent": False, "reason": "unknown_event"}
     title_key, body_key = keys
-    note = localize_notification(lang, title_key, body_key, **kwargs)
-    mail = localize_email(lang, title_key, body_key, **kwargs)
+    fmt_kwargs = dict(kwargs)
+    if fmt_kwargs.get("occurred_at"):
+        from timezone.format import format_email_time
+
+        fmt_kwargs["occurred_at_display"] = format_email_time(
+            str(fmt_kwargs["occurred_at"]), lang=lang, tz_name=tz_name
+        )
+    note = localize_notification(lang, title_key, body_key, **fmt_kwargs)
+    mail = localize_email(lang, title_key, body_key, **fmt_kwargs)
     try:
         from alert_service import dispatch_alert
 

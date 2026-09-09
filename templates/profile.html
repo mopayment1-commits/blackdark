@@ -61,8 +61,9 @@
                 <input id="ui_lang" maxlength="12" placeholder="en">
                 <label for="ux_mode_pref">UX mode</label>
                 <select id="ux_mode_pref"><option value="beginner">Beginner</option><option value="pro">Pro</option></select>
-                <label for="timezone">Timezone</label>
-                <input id="timezone" maxlength="64" placeholder="UTC">
+                <label for="timezone">Timezone (IANA)</label>
+                <select id="timezone"></select>
+                <p class="hint" id="tzMismatch" style="display:none;color:var(--accent);"></p>
                 <label for="telegram_chat_id">Telegram chat ID (alerts)</label>
                 <input id="telegram_chat_id" maxlength="64">
                 <button class="btn-primary" data-bd-call="saveProfile">Save profile</button>
@@ -130,6 +131,9 @@
         document.getElementById('ui_lang').value = p.ui_lang || 'en';
         document.getElementById('ux_mode_pref').value = p.ux_mode_pref || 'beginner';
         document.getElementById('timezone').value = p.timezone || 'UTC';
+        if (window.BD_TIME && d.time && d.time.travel_mismatch) {
+            BD_TIME.showTravelMismatch(d.time);
+        }
         document.getElementById('telegram_chat_id').value = p.telegram_chat_id || '';
         document.getElementById('avatarImg').src = (p.avatar_url || ('/api/auth/avatar/' + u.public_user_id + '.svg')) + '?t=' + Date.now();
         document.getElementById('emailLine').textContent = u.email + (p.email_verified ? ' · verified' : ' · verification pending');
@@ -154,6 +158,18 @@
         else if (planQ === 'free') setMsg('profileMsg', 'Welcome to Proof Pass — open your first Proof Card before any upgrade.', true);
         else setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
     }
+    function populateTimezoneOptions(options, selected) {
+        const sel = document.getElementById('timezone');
+        if (!sel) return;
+        sel.innerHTML = '';
+        (options || ['UTC']).forEach(function (tz) {
+            const opt = document.createElement('option');
+            opt.value = tz;
+            opt.textContent = tz;
+            if (tz === selected) opt.selected = true;
+            sel.appendChild(opt);
+        });
+    }
     async function load() {
         const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
         const d = await res.json();
@@ -163,6 +179,15 @@
         }
         document.getElementById('gate').style.display = 'none';
         document.getElementById('app').style.display = 'grid';
+        populateTimezoneOptions(d.timezone_options, (d.profile || {}).timezone || 'UTC');
+        if (window.BD_TIME) {
+            fetch('/api/auth/timezone/detect', {
+                method: 'POST',
+                headers: authHeaders(),
+                credentials: 'same-origin',
+                body: JSON.stringify({ detected_timezone: BD_TIME.detectBrowserTimezone() })
+            }).catch(function () {});
+        }
         const tierId = fillProfileFields(d);
         await syncNextUpgrade(tierId);
         showWelcomeMessage();

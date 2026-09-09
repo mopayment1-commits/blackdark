@@ -30,8 +30,10 @@ h1{font-family:Syne,sans-serif;font-size:clamp(1.9rem,4.5vw,3rem);margin:0 0 .5r
 <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share the honesty</a>
 </main>
 <script src="/static/js/dom_escape.js"></script>
+<script src="/static/js/bd_time.js"></script>
 <script type="module">
 const { esc, safeUrl } = window.BDDomSafe;
+function fmtTime(iso){return (window.BD_TIME&&BD_TIME.formatApiTimestamp)?BD_TIME.formatApiTimestamp(iso,{withContext:true}):String(iso||'').slice(0,19);}
 async function load(){
   const r=await fetch('/api/public/miss-feed?limit=40'); const d=await r.json();
   document.getElementById('thesis').textContent=d.thesis||'';
@@ -39,7 +41,7 @@ async function load(){
   document.getElementById('list').innerHTML=(d.items||[]).map(x=>`
     <div class="item" data-evidence>
       <div><b>MISS</b> · ${esc(x.asset)} · said ${esc(x.verdict)} · ${esc(x.label)}</div>
-      <div class="meta">${esc((x.timestamp||'').slice(0,19))} · ${esc(x.lesson||'')} · <a href="${esc(safeUrl(x.verify_href)||'/oracle-accuracy')}" style="color:var(--accent)">verify</a></div>
+      <div class="meta">${esc(fmtTime(x.timestamp))} · ${esc(x.lesson||'')} · <a href="${esc(safeUrl(x.verify_href)||'/oracle-accuracy')}" style="color:var(--accent)">verify</a></div>
     </div>`).join('') || '<div class="item">Feed armed — misses publish as outcomes resolve.</div>';
   document.getElementById('share').href=safeUrl(d.share_urls?.x)||'#';
 }

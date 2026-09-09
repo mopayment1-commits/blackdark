@@ -145,13 +145,10 @@ def format_percent(value: float, *, lang: str | None = None) -> str:
     return f"{value:.1f}%"
 
 
-def format_locale_datetime(dt: datetime, *, lang: str | None = None) -> str:
-    code = normalize_lang(lang)
-    if code in {"ja", "ko", "zh-CN", "zh-TW"}:
-        return dt.strftime("%Y/%m/%d %H:%M")
-    if code in {"de", "fr", "es", "it", "pt-PT", "pt-BR", "nl", "pl", "cs", "ro", "hu", "sv", "ru", "uk"}:
-        return dt.strftime("%d.%m.%Y %H:%M")
-    return dt.strftime("%Y-%m-%d %H:%M")
+def format_locale_datetime(dt: datetime, *, lang: str | None = None, tz_name: str | None = None) -> str:
+    from timezone.format import format_user_datetime
+
+    return format_user_datetime(dt, lang=lang, tz_name=tz_name)
 
 
 def audit_i18n_coverage() -> dict[str, Any]:

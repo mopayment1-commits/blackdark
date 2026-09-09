@@ -285,6 +285,7 @@
 </main>
 
 <script src="/static/js/dom_escape.js"></script>
+<script src="/static/js/bd_time.js"></script>
 <script type="module">
 const { escapeHtml, esc, safeUrl, setText } = window.BDDomSafe;
 const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, {maximumFractionDigits: d});
@@ -361,6 +362,11 @@ function initChart() {
         wickUpColor: '#22c55e', wickDownColor: '#ef4444',
     });
     new ResizeObserver(() => chart.applyOptions({ width: el.clientWidth })).observe(el);
+    if (window.BD_TIME && BD_TIME.fetchTimeContext) {
+        BD_TIME.fetchTimeContext().then(function (ctx) {
+            BD_TIME.applyChartTimezone(chart, ctx);
+        });
+    }
 }
 
 async function loadChart() {

@@ -31,9 +31,14 @@ async def export_user_data(email: str) -> dict[str, Any]:
 
     return {
         "exported_at": datetime.now(UTC).isoformat(),
+        "exported_at_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "subject_email": normalized,
         "found": user is not None,
         "profile": profile,
+        "timezone_metadata": {
+            "account_timezone": (user or {}).get("timezone") or "UTC",
+            "export_display_note": "Canonical timestamps remain UTC; account timezone is metadata only.",
+        },
         "account": {
             "public_user_id": user.get("public_user_id") if user else None,
             "email": user.get("email") if user else normalized,
