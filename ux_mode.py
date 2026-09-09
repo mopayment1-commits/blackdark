@@ -30,6 +30,9 @@ _BEGINNER_KEYS = {
     "explanation",
     "oracle",
     "narrative",
+    "decision_truth",
+    "admission_state",
+    "decision_truth_state",
 }
 
 
@@ -67,6 +70,8 @@ def _beginner_payload(out: dict[str, Any], persona: dict[str, Any], personas: di
             "half_life_seconds": half.get("expected_half_life_seconds"),
             "remaining_seconds": half.get("remaining_seconds"),
             "regime": out.get("market_regime"),
+            "decision_state": (out.get("decision_truth") or {}).get("contract", {}).get("decision_state"),
+            "admission_state": out.get("admission_state"),
         },
     }
     return slim
