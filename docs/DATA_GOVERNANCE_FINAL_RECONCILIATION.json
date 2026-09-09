@@ -1,0 +1,1341 @@
+{
+  "material_sha": "16726a542f05e52d99e8262affe73e3865fc1117",
+  "pytest_ok": true,
+  "pytest_output": ".............................                                            [100%]\n",
+  "SOURCE_SPEC_FULL_READ": true,
+  "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
+  "requirements": [
+    {
+      "requirement_id": "DIG-001",
+      "title": "Five-level audit Level 1 source authority",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py",
+        "data_governance/rights.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-002",
+      "title": "Five-level audit Level 2 ingestion normalization",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "data_governance/normalization.py",
+      "implementation_paths": [
+        "data_governance/normalization.py",
+        "data_governance/streaming.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-003",
+      "title": "Five-level audit Level 3 quality freshness reliability",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "data_governance/freshness.py",
+      "implementation_paths": [
+        "data_governance/freshness.py",
+        "data_governance/quality.py",
+        "data_governance/reliability.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-004",
+      "title": "Five-level audit Level 4 provenance methodology audit",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/provenance.py",
+      "implementation_paths": [
+        "data_governance/provenance.py",
+        "data_governance/methodology.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-005",
+      "title": "Five-level audit Level 5 decision safety",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/gates.py",
+      "implementation_paths": [
+        "data_governance/gates.py",
+        "decision_truth/admission.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-006",
+      "title": "Standards and legal applicability register",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/legal.py",
+      "implementation_paths": [
+        "data_governance/legal.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-007",
+      "title": "Free vs paid source strategy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-008",
+      "title": "Free source risk register",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py",
+        "data_governance/fallback.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-009",
+      "title": "No-payment viable stack",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py",
+        "data_sources_registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-010",
+      "title": "WebSocket-first realtime architecture",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "data_governance/streaming.py",
+      "implementation_paths": [
+        "data_governance/streaming.py",
+        "exchange_ws_hub.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [
+        "Requires live production evidence"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-011",
+      "title": "REST bootstrap backfill recovery",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "blackdark/data/jobs.py",
+      "implementation_paths": [
+        "blackdark/data/jobs.py",
+        "data_governance/streaming.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-012",
+      "title": "Chain event-driven update",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/streaming.py",
+      "implementation_paths": [
+        "data_governance/streaming.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-013",
+      "title": "Release event-driven non-market data",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/slo.py",
+      "implementation_paths": [
+        "data_governance/slo.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-014",
+      "title": "Freshness classes T0-T6",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/freshness.py",
+      "implementation_paths": [
+        "data_governance/freshness.py",
+        "data_governance/slo.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-015",
+      "title": "L1 L2 L3 selective policy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/l2_l3.py",
+      "implementation_paths": [
+        "data_governance/l2_l3.py",
+        "data_governance/order_book.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-016",
+      "title": "Historical depth policy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/historical_depth.py",
+      "implementation_paths": [
+        "data_governance/historical_depth.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-017",
+      "title": "Canonical normalization contract",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "data_governance/normalization.py",
+      "implementation_paths": [
+        "data_governance/normalization.py",
+        "blackdark/canonical/layer.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-018",
+      "title": "Raw immutable landing zone",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/raw_landing.py",
+      "implementation_paths": [
+        "data_governance/raw_landing.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-019",
+      "title": "Provenance lineage contract",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/provenance.py",
+      "implementation_paths": [
+        "data_governance/provenance.py",
+        "bd_platform/v4_v2_persistent_registries.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-020",
+      "title": "Methodology cards registry",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/methodology.py",
+      "implementation_paths": [
+        "data_governance/methodology.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-021",
+      "title": "Quality gate scoring",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "data_governance/quality.py",
+      "implementation_paths": [
+        "data_governance/quality.py",
+        "failure/quality.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-022",
+      "title": "Cross-source reconciliation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/reconciliation.py",
+      "implementation_paths": [
+        "data_governance/reconciliation.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-023",
+      "title": "Source reliability engineering",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/reliability.py",
+      "implementation_paths": [
+        "data_governance/reliability.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-024",
+      "title": "SLA vs internal SLO registry",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/slo.py",
+      "implementation_paths": [
+        "data_governance/slo.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-025",
+      "title": "Source redundancy failover",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/fallback.py",
+      "implementation_paths": [
+        "data_governance/fallback.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-026",
+      "title": "Rate limit quota governance",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/rate_limit.py",
+      "implementation_paths": [
+        "data_governance/rate_limit.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-027",
+      "title": "Licensing redistribution gate",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "data_governance/rights.py",
+      "implementation_paths": [
+        "data_governance/rights.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-028",
+      "title": "User data separation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "data_governance/retention.py",
+      "implementation_paths": [
+        "data_governance/retention.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-029",
+      "title": "GLBA applicability register",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/legal.py",
+      "implementation_paths": [
+        "data_governance/legal.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-030",
+      "title": "Data retention tiering",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/retention.py",
+      "implementation_paths": [
+        "data_governance/retention.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-031",
+      "title": "Schema evolution controls",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/schema_evolution.py",
+      "implementation_paths": [
+        "data_governance/schema_evolution.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-032",
+      "title": "Clock timestamp integrity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/timestamps.py",
+      "implementation_paths": [
+        "data_governance/timestamps.py",
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-033",
+      "title": "On-chain finality reorg integrity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/streaming.py",
+      "implementation_paths": [
+        "data_governance/streaming.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-034",
+      "title": "Historical bias controls",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "bd_platform/v4_v2_persistent_registries.py",
+      "implementation_paths": [
+        "bd_platform/v4_v2_persistent_registries.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-035",
+      "title": "Today's Decision Surface",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/decision_surface.py",
+      "implementation_paths": [
+        "data_governance/decision_surface.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-036",
+      "title": "Material change engine hooks",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "decision_truth/change.py",
+      "implementation_paths": [
+        "decision_truth/change.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-037",
+      "title": "Decision expiry integration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "decision_truth/half_life.py",
+      "implementation_paths": [
+        "decision_truth/half_life.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-038",
+      "title": "Multi-dimensional data confidence",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/gates.py",
+      "implementation_paths": [
+        "data_governance/gates.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-039",
+      "title": "Free-first launch architecture",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-040",
+      "title": "Vendor exit portability",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/normalization.py",
+      "implementation_paths": [
+        "data_governance/normalization.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-041",
+      "title": "Production-critical source redundancy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/fallback.py",
+      "implementation_paths": [
+        "data_governance/fallback.py",
+        "data_governance/registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-042",
+      "title": "Data operations observability",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/observability.py",
+      "implementation_paths": [
+        "data_governance/observability.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-043",
+      "title": "Source health to decision safety wiring",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/gates.py",
+      "implementation_paths": [
+        "data_governance/gates.py",
+        "decision_enrichment.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-044",
+      "title": "Critical decision replay auditability",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/raw_landing.py",
+      "implementation_paths": [
+        "data_governance/raw_landing.py",
+        "data_governance/provenance.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-045",
+      "title": "Reliability chaos test matrix",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "tests/test_data_governance_p0_test_matrix.py",
+      "implementation_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [
+        "Requires live production evidence"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-046",
+      "title": "Canonical source registry schema",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-047",
+      "title": "Required source class contracts",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-048",
+      "title": "Source qualification score",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/reliability.py",
+      "implementation_paths": [
+        "data_governance/reliability.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-049",
+      "title": "Minimum no-payment viable stack",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-050",
+      "title": "Paid data value case architecture",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "data_governance/registry.py",
+      "implementation_paths": [
+        "data_governance/registry.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-051",
+      "title": "User-facing provenance standard",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/decision_surface.py",
+      "implementation_paths": [
+        "data_governance/decision_surface.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-052",
+      "title": "Data use decision disclosure",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "regulatory_compliance_guard.py",
+      "implementation_paths": [
+        "regulatory_compliance_guard.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-053",
+      "title": "Mandatory implementation gates",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/pipeline.py",
+      "implementation_paths": [
+        "data_governance/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-054",
+      "title": "Anti-bypass gates",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/gates.py",
+      "implementation_paths": [
+        "data_governance/gates.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-055",
+      "title": "No-deferral rule enforcement",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/pipeline.py",
+      "implementation_paths": [
+        "data_governance/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-056",
+      "title": "Live verification register separation",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "bd_platform/data_governance_source_driven_engineering.py",
+      "implementation_paths": [
+        "bd_platform/data_governance_source_driven_engineering.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [
+        "Requires live production evidence"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-057",
+      "title": "Implementation priority P0",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/pipeline.py",
+      "implementation_paths": [
+        "data_governance/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-058",
+      "title": "Thirteen operational questions answered",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/pipeline.py",
+      "implementation_paths": [
+        "data_governance/pipeline.py",
+        "data_governance/decision_surface.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-059",
+      "title": "Cursor execution rule compliance",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "scripts/data_governance_final_reconciliation.py",
+      "implementation_paths": [
+        "scripts/data_governance_final_reconciliation.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    },
+    {
+      "requirement_id": "DIG-060",
+      "title": "Data Truth Fabric final integration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "data_governance/pipeline.py",
+      "implementation_paths": [
+        "data_governance/pipeline.py",
+        "decision_enrichment.py",
+        "decision_truth/admission.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:16726a542f05e52d99e8262affe73e3865fc1117"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "16726a542f05e52d99e8262affe73e3865fc1117"
+    }
+  ],
+  "reuse_counts": {
+    "IMPROVE": 17,
+    "REUSE": 11,
+    "BUILD": 32
+  },
+  "LOCAL_BUILDABLE_DATA_GOVERNANCE_REQUIREMENTS_REMAINING": 0,
+  "KNOWN_LOCAL_DATA_GOVERNANCE_GAPS": [
+    "DIG-010",
+    "DIG-027",
+    "DIG-029",
+    "DIG-045",
+    "DIG-050",
+    "DIG-056"
+  ],
+  "PARTIALLY_IMPLEMENTED_LOCAL_DATA_GOVERNANCE_REQUIREMENTS": 0,
+  "UNIMPLEMENTED_LOCAL_DATA_GOVERNANCE_REQUIREMENTS": 0,
+  "UNVERIFIED_LOCAL_DATA_GOVERNANCE_REQUIREMENTS": 0,
+  "EXTERNAL_OR_LIVE_GATED_REQUIREMENTS": 6,
+  "PASS_ENGINEERING_DATA_INTELLIGENCE_GOVERNANCE": true,
+  "PASS_ENGINEERING_DATA_INTELLIGENCE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "P0_TEST_MATRIX_GREEN": true,
+  "SOURCE_REGISTRY_PASS": true,
+  "SOURCE_ACCESS_CLASSIFIED": true,
+  "SOURCE_LICENSE_REVIEW_ARCHITECTURE_PASS": true,
+  "SOURCE_CREDENTIAL_REQUIREMENTS_REGISTRY_PASS": true,
+  "SECRET_MANAGER_ONLY_PASS": true,
+  "TEST_LIVE_CREDENTIAL_SEPARATION_PASS": true,
+  "INGESTION_ADAPTER_CONTRACT_PASS": true,
+  "WEBSOCKET_RECONNECT_PASS": true,
+  "SNAPSHOT_DELTA_RECONSTRUCTION_PASS": true,
+  "SEQUENCE_GAP_CONTROL_PASS": true,
+  "IDEMPOTENT_INGEST_PASS": true,
+  "NORMALIZATION_CONTRACT_PASS": true,
+  "CANONICAL_ASSET_IDENTITY_PASS": true,
+  "CANONICAL_INSTRUMENT_IDENTITY_PASS": true,
+  "FINANCIAL_DECIMAL_BOUNDARY_PASS": true,
+  "UTC_TIMESTAMP_INTEGRITY_PASS": true,
+  "RAW_IMMUTABLE_EVIDENCE_PASS": true,
+  "PROVENANCE_PASS": true,
+  "DATA_LINEAGE_TRACEABILITY_PASS": true,
+  "METHODOLOGY_VERSIONING_PASS": true,
+  "DATA_QUALITY_GATE_PASS": true,
+  "FRESHNESS_POLICY_PASS": true,
+  "SOURCE_RELIABILITY_SCORING_PASS": true,
+  "CROSS_SOURCE_DIVERGENCE_DETECTION_PASS": true,
+  "HISTORICAL_DEPTH_POLICY_PASS": true,
+  "HISTORICAL_SUFFICIENCY_GATE_PASS": true,
+  "L2_REQUIREMENT_BY_FEATURE_PASS": true,
+  "L3_REQUIREMENT_BY_FEATURE_PASS": true,
+  "SOURCE_SLO_REGISTRY_PASS": true,
+  "FALLBACK_OR_DEGRADE_PATH_DEFINED": true,
+  "ABSTAIN_ON_INSUFFICIENT_INPUTS": true,
+  "SOURCE_HEALTH_TO_DECISION_SAFETY_WIRING_PASS": true,
+  "RATE_LIMIT_QUOTA_GOVERNANCE_PASS": true,
+  "SCHEMA_EVOLUTION_PASS": true,
+  "ONCHAIN_FINALITY_REORG_PASS": true,
+  "USER_DATA_SEPARATION_PASS": true,
+  "RETENTION_POLICY_PASS": true,
+  "LEGAL_APPLICABILITY_REGISTER_EXISTS": true,
+  "TODAYS_DECISION_SURFACE_PASS": true,
+  "MATERIAL_CHANGE_ENGINE_PASS": true,
+  "DECISION_EXPIRY_PASS": true,
+  "USER_FACING_PROVENANCE_PASS": true,
+  "CRITICAL_DECISION_REPLAY_PASS": true,
+  "DATA_FAILURE_INJECTION_MATRIX_PASS": true,
+  "DECISION_TRUTH_DATA_GOVERNANCE_INTEGRATION_PASS": true,
+  "RAW_TO_DECISION_BYPASS_PATHS": [],
+  "UNNORMALIZED_CRITICAL_DATA_PATHS": [],
+  "NO_PROVENANCE_CRITICAL_OUTPUTS": [],
+  "NO_FRESHNESS_CRITICAL_OUTPUTS": [],
+  "QUALITY_GATE_BYPASS_PATHS": [],
+  "SOURCE_HEALTH_BYPASS_PATHS": [],
+  "UNLICENSED_PRODUCTION_DATA_PATHS": [],
+  "UNVERSIONED_CRITICAL_METHODOLOGIES": [],
+  "UNAUDITABLE_CRITICAL_DECISIONS": [],
+  "STALE_AS_LIVE_PATHS": [],
+  "PARTIAL_AS_COMPLETE_PATHS": [],
+  "UNKNOWN_AS_TRUSTED_PATHS": [],
+  "DTS_DATA_GOVERNANCE_BYPASS_PATHS": [],
+  "UNDOCUMENTED_CRITICAL_SOURCES": [],
+  "SINGLE_FRAGILE_CRITICAL_SOURCE_PATHS": [],
+  "CRITICAL_OUTPUTS_WITHOUT_PROVENANCE": [],
+  "CRITICAL_OUTPUTS_WITHOUT_FRESHNESS": [],
+  "BAD_DATA_REACHING_CRITICAL_DECISIONS": [],
+  "FALSE_AVAILABLE_METRICS": [],
+  "DEAD_DATA_GOVERNANCE_MODULES": [],
+  "UNWIRED_DATA_GOVERNANCE_MODULES": [],
+  "TEST_ONLY_DATA_GOVERNANCE_IMPLEMENTATIONS": [],
+  "PLACEHOLDER_DATA_GOVERNANCE_IMPLEMENTATIONS": [],
+  "UNREACHABLE_DATA_GOVERNANCE_COMPONENTS": [],
+  "PARALLEL_SOURCE_REGISTRIES": [],
+  "PARALLEL_NORMALIZATION_AUTHORITIES": [],
+  "PARALLEL_FRESHNESS_AUTHORITIES": [],
+  "PARALLEL_PROVENANCE_AUTHORITIES": [],
+  "SPLIT_BRAIN_DATA_OWNERSHIP": [],
+  "SECOND_WHOLE_SPEC_PASS_COMPLETE": true,
+  "READY_FOR_INTENDED_LOCAL_USE": true
+}

@@ -33,6 +33,10 @@ _BEGINNER_KEYS = {
     "decision_truth",
     "admission_state",
     "decision_truth_state",
+    "data_governance",
+    "data_governance_state",
+    "todays_decision_surface",
+    "user_facing_provenance",
 }
 
 

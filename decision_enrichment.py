@@ -335,6 +335,14 @@ def enrich_oracle_decision(
     _record_platform_compounding(out, asset, verdict, user_id=user_id, tier=tier, surface=surface)
 
     try:
+        from data_governance.pipeline import evaluate_data_governance
+
+        out = evaluate_data_governance(out, symbol=asset, source_id="oracle", slo_class="T0", lang=lang)
+    except Exception:
+        logger.debug("data governance pipeline failed", exc_info=True)
+        out["data_governance"] = {"error": "unavailable"}
+
+    try:
         from constitution_gates import apply_constitution_gates_to_scan
 
         apply_constitution_gates_to_scan(out)

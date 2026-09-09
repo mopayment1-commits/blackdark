@@ -763,6 +763,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.data_governance import router as data_governance_router
+
+    app.include_router(data_governance_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.billing import router as billing_router
 
     app.include_router(billing_router)
