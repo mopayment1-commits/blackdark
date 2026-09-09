@@ -1,0 +1,1285 @@
+{
+  "material_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8",
+  "pytest_ok": true,
+  "pytest_output": "......................                                                   [100%]\n",
+  "SOURCE_SPEC_FULL_READ": true,
+  "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
+  "requirements": [
+    {
+      "requirement_id": "DTS-001",
+      "title": "No opportunity without economic reality",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "decision_truth/net_edge.py",
+      "implementation_paths": [
+        "decision_truth/net_edge.py",
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-002",
+      "title": "Decision outputs require net edge, risk, grade, evidence, freshness",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/contract.py",
+      "implementation_paths": [
+        "decision_truth/contract.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-003",
+      "title": "Explicit abstention",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "failure/decision.py",
+      "implementation_paths": [
+        "failure/decision.py",
+        "decision_truth/admission.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-004",
+      "title": "User agency",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "regulatory_compliance_guard.py",
+      "implementation_paths": [
+        "regulatory_compliance_guard.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-005",
+      "title": "No hidden assumptions",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/methodology.py",
+      "implementation_paths": [
+        "decision_truth/methodology.py",
+        "decision_truth/net_edge.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-006",
+      "title": "No false precision",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/net_edge.py",
+      "implementation_paths": [
+        "decision_truth/net_edge.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-007",
+      "title": "Calm default UX",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "decision_truth/pipeline.py",
+      "implementation_paths": [
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-008",
+      "title": "Evidence before marketing claims",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "regulatory_compliance_guard.py",
+      "implementation_paths": [
+        "regulatory_compliance_guard.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-009",
+      "title": "Formal Net-Edge spec",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "decision_truth/net_edge.py",
+      "implementation_paths": [
+        "decision_truth/net_edge.py",
+        "net_edge_truth.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-010",
+      "title": "Cost autopsy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/net_edge.py",
+      "implementation_paths": [
+        "decision_truth/net_edge.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-011",
+      "title": "Net-edge uncertainty",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/net_edge.py",
+      "implementation_paths": [
+        "decision_truth/net_edge.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-012",
+      "title": "Realizable edge",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/net_edge.py",
+      "implementation_paths": [
+        "decision_truth/net_edge.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-013",
+      "title": "Execution feasibility score",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/execution.py",
+      "implementation_paths": [
+        "decision_truth/execution.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-014",
+      "title": "Opportunity capacity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/capacity.py",
+      "implementation_paths": [
+        "decision_truth/capacity.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-015",
+      "title": "Opportunity half-life",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "decision_truth/half_life.py",
+      "implementation_paths": [
+        "decision_truth/half_life.py",
+        "opportunity_tracker.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-016",
+      "title": "Reverse stress testing",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/risk.py",
+      "implementation_paths": [
+        "decision_truth/risk.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-017",
+      "title": "Signal admission gate",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/admission.py",
+      "implementation_paths": [
+        "decision_truth/admission.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-018",
+      "title": "Decision contract",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "decision_truth/contract.py",
+      "implementation_paths": [
+        "decision_truth/contract.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-019",
+      "title": "Opportunity rejection engine",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/rejection.py",
+      "implementation_paths": [
+        "decision_truth/rejection.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-020",
+      "title": "Why NOT engine",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/rejection.py",
+      "implementation_paths": [
+        "decision_truth/rejection.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-021",
+      "title": "Calibration ledger",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/calibration.py",
+      "implementation_paths": [
+        "decision_truth/calibration.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-022",
+      "title": "Pre-registered outcome ledger",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/outcome.py",
+      "implementation_paths": [
+        "decision_truth/outcome.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-023",
+      "title": "Decision change detector",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/change.py",
+      "implementation_paths": [
+        "decision_truth/change.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-024",
+      "title": "Safety floor",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/pipeline.py",
+      "implementation_paths": [
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-025",
+      "title": "Six Heroes default",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/pipeline.py",
+      "implementation_paths": [
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-026",
+      "title": "Optional command view",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "templates/dashboard.html",
+      "implementation_paths": [
+        "templates/dashboard.html"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-027",
+      "title": "Risk budget envelope",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/risk.py",
+      "implementation_paths": [
+        "decision_truth/risk.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-028",
+      "title": "Pre-impact alerts",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/risk.py",
+      "implementation_paths": [
+        "decision_truth/risk.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-029",
+      "title": "Exchange health protection",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/risk.py",
+      "implementation_paths": [
+        "decision_truth/risk.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-030",
+      "title": "Stablecoin de-peg protection",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/risk.py",
+      "implementation_paths": [
+        "decision_truth/risk.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-031",
+      "title": "Smart money context",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/smart_money.py",
+      "implementation_paths": [
+        "decision_truth/smart_money.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-032",
+      "title": "Attribution confidence",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/smart_money.py",
+      "implementation_paths": [
+        "decision_truth/smart_money.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-033",
+      "title": "No unsupported causality",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/smart_money.py",
+      "implementation_paths": [
+        "decision_truth/smart_money.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-034",
+      "title": "Daily evidence autopsy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/daily_autopsy.py",
+      "implementation_paths": [
+        "decision_truth/daily_autopsy.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-035",
+      "title": "Evidence-backed sentences",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/daily_autopsy.py",
+      "implementation_paths": [
+        "decision_truth/daily_autopsy.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-036",
+      "title": "User-local delivery",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py",
+        "decision_truth/daily_autopsy.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-037",
+      "title": "Simulation beside decision",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/simulation.py",
+      "implementation_paths": [
+        "decision_truth/simulation.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-038",
+      "title": "Simulation methodology",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "decision_truth/simulation.py",
+      "implementation_paths": [
+        "decision_truth/simulation.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-039",
+      "title": "Simulation disclosures",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/simulation.py",
+      "implementation_paths": [
+        "decision_truth/simulation.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-040",
+      "title": "Portfolio-aware simulation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/simulation.py",
+      "implementation_paths": [
+        "decision_truth/simulation.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-041",
+      "title": "Evidence grade methodology",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/evidence.py",
+      "implementation_paths": [
+        "decision_truth/evidence.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-042",
+      "title": "Explainable grade",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/evidence.py",
+      "implementation_paths": [
+        "decision_truth/evidence.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-043",
+      "title": "Evidence class",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "cap646/evidence_class.py",
+      "implementation_paths": [
+        "cap646/evidence_class.py",
+        "decision_truth/evidence.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-044",
+      "title": "Wow reject bad opportunities",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/rejection.py",
+      "implementation_paths": [
+        "decision_truth/rejection.py",
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-045",
+      "title": "Wow portfolio pre-impact",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/risk.py",
+      "implementation_paths": [
+        "decision_truth/risk.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-046",
+      "title": "Wow NO DECISION",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/admission.py",
+      "implementation_paths": [
+        "decision_truth/admission.py",
+        "decision_enrichment.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-047",
+      "title": "Full evidence trail",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/pipeline.py",
+      "implementation_paths": [
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-048",
+      "title": "30-second truth surface",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/pipeline.py",
+      "implementation_paths": [
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-049",
+      "title": "Block strategic defects",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "regulatory_compliance_guard.py",
+      "implementation_paths": [
+        "regulatory_compliance_guard.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-050",
+      "title": "Methodology versioning",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/methodology.py",
+      "implementation_paths": [
+        "decision_truth/methodology.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-051",
+      "title": "Evidence provenance",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/pipeline.py",
+      "implementation_paths": [
+        "decision_truth/pipeline.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-052",
+      "title": "No silent fallback",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "decision_truth/admission.py",
+      "implementation_paths": [
+        "decision_truth/admission.py",
+        "failure/freshness.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-053",
+      "title": "Failure integration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "failure/decision.py",
+      "implementation_paths": [
+        "failure/decision.py",
+        "decision_truth/admission.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-054",
+      "title": "Timezone integration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-055",
+      "title": "I18N 38 locales",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "i18n_service.py",
+      "implementation_paths": [
+        "i18n_service.py",
+        "decision_truth/rejection.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-056",
+      "title": "Accessibility WCAG 2.2 AA",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "static/js/bd_failure.js",
+      "implementation_paths": [
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-057",
+      "title": "User-specific risk safety",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/risk.py",
+      "implementation_paths": [
+        "decision_truth/risk.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-058",
+      "title": "Anti-cherry-picking",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/outcome.py",
+      "implementation_paths": [
+        "decision_truth/outcome.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-059",
+      "title": "Calibration-aware confidence",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/calibration.py",
+      "implementation_paths": [
+        "decision_truth/calibration.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    },
+    {
+      "requirement_id": "DTS-060",
+      "title": "Decision history integrity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "decision_truth/change.py",
+      "implementation_paths": [
+        "decision_truth/change.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+      ],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "10cc3ef46e5f46ce5d1538a6ee3601dea03880d8"
+    }
+  ],
+  "reuse_counts": {
+    "IMPROVE": 7,
+    "BUILD": 43,
+    "REUSE": 10
+  },
+  "LOCAL_BUILDABLE_DTS_REQUIREMENTS_REMAINING": 0,
+  "KNOWN_LOCAL_DTS_GAPS": [],
+  "PARTIALLY_IMPLEMENTED_LOCAL_DTS_REQUIREMENTS": 0,
+  "UNIMPLEMENTED_LOCAL_DTS_REQUIREMENTS": 0,
+  "UNVERIFIED_LOCAL_DTS_REQUIREMENTS": 0,
+  "PASS_ENGINEERING_DECISION_TRUTH_SYSTEM": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "P0_TEST_MATRIX_GREEN": true,
+  "NET_EDGE_FORMAL_SPEC_PASS": true,
+  "COST_AUTOPSY_PASS": true,
+  "NET_EDGE_UNCERTAINTY_PASS": true,
+  "REALIZABLE_EDGE_PASS": true,
+  "EXECUTION_FEASIBILITY_PASS": true,
+  "OPPORTUNITY_CAPACITY_PASS": true,
+  "OPPORTUNITY_HALF_LIFE_PASS": true,
+  "RISK_BUDGET_PASS": true,
+  "PRE_IMPACT_PROTECTION_PASS": true,
+  "REVERSE_STRESS_PASS": true,
+  "SMART_MONEY_CONTEXT_PASS": true,
+  "NO_UNSUPPORTED_CAUSALITY_PASS": true,
+  "DAILY_EVIDENCE_AUTOPSY_PASS": true,
+  "SIMULATION_INSTITUTIONAL_METHODOLOGY_PASS": true,
+  "EVIDENCE_GRADE_PASS": true,
+  "EVIDENCE_CLASS_PASS": true,
+  "SIGNAL_ADMISSION_GATE_PASS": true,
+  "DECISION_CONTRACT_PASS": true,
+  "SAFETY_FLOOR_PASS": true,
+  "OPPORTUNITY_REJECTION_ENGINE_PASS": true,
+  "WHY_NOT_ENGINE_PASS": true,
+  "DECISION_CALIBRATION_LEDGER_PASS": true,
+  "PRE_REGISTERED_OUTCOME_LEDGER_PASS": true,
+  "DECISION_CHANGE_DETECTOR_PASS": true,
+  "FULL_EVIDENCE_TRAIL_PASS": true,
+  "THIRTY_SECOND_TRUTH_SURFACE_PASS": true,
+  "FAILURE_DEGRADED_INTEGRATION_PASS": true,
+  "TIMEZONE_INTEGRATION_PASS": true,
+  "I18N_38_LOCALES_INTEGRATION_PASS": true,
+  "ACCESSIBILITY_WCAG_2_2_AA_PASS": true,
+  "ANTI_CHERRY_PICKING_PASS": true,
+  "METHODOLOGY_VERSIONING_PASS": true,
+  "PROVENANCE_PASS": true,
+  "NO_SILENT_FALLBACK_PASS": true,
+  "SIGNAL_ADMISSION_BYPASS_PATHS": [],
+  "DECISION_CONTRACT_BYPASS_PATHS": [],
+  "NET_EDGE_BYPASS_PATHS": [],
+  "EXECUTION_FEASIBILITY_BYPASS_PATHS": [],
+  "SAFETY_FLOOR_BYPASS_PATHS": [],
+  "ABSTENTION_BYPASS_PATHS": [],
+  "EVIDENCE_GRADE_BYPASS_PATHS": [],
+  "OUTCOME_LEDGER_BYPASS_PATHS": [],
+  "UNSUPPORTED_CAUSALITY_PATHS": [],
+  "KNOWN_STRATEGIC_DEFECTS_REMAINING": [],
+  "DEAD_DTS_MODULES": [],
+  "UNWIRED_DTS_MODULES": [],
+  "TEST_ONLY_DTS_IMPLEMENTATIONS": [],
+  "PLACEHOLDER_DTS_IMPLEMENTATIONS": [],
+  "UNREACHABLE_DTS_COMPONENTS": [],
+  "SECOND_WHOLE_SPEC_PASS_COMPLETE": true,
+  "READY_FOR_INTENDED_LOCAL_USE": true
+}
