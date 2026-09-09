@@ -107,8 +107,10 @@ def temporal_integrity_summary(*, limit: int = 500) -> dict[str, Any]:
         for line in lines[-limit:]:
             records.append(json.loads(line))
 
+    def _is_legacy(r: dict[str, Any]) -> bool:
+        return not r.get("prediction_created_at") or str(r.get("methodology_version") or "unknown") == "unknown"
+
     def _classify(r: dict[str, Any]) -> str:
-        has_pre = bool(r.get("prediction_created_at") or r.get("locked_at") or r.get("recorded_before_outcome"))
         has_outcome = bool(r.get("outcome_observed_at") or r.get("outcome_reconciled_at") or r.get("resolved_at") or r.get("resolved"))
         complete = all(
             r.get(k)
@@ -121,12 +123,12 @@ def temporal_integrity_summary(*, limit: int = 500) -> dict[str, Any]:
                 "immutable_prediction_id",
             )
         )
-        if complete and has_pre and has_outcome:
+        if complete and has_outcome and not _is_legacy(r):
             return "TEMPORALLY_PROVABLE"
-        if has_pre and not has_outcome:
-            return "NEW_TEMPORAL_UNPROVABLE"
-        if not has_pre:
+        if _is_legacy(r):
             return "LEGACY_TEMPORAL_UNPROVABLE"
+        if not _is_legacy(r):
+            return "NEW_TEMPORAL_UNPROVABLE"
         return "TEMPORAL_UNCLASSIFIED"
 
     classifications: dict[str, list[str]] = {

@@ -2,11 +2,11 @@
   "governing_spec_hash": "7074cf247213215829ec1f5286d91c6fb539e396a68f90eb574b0885fa3d361e",
   "branch": "cursor/anonymous-visitor-public-intelligence-closure-ed16",
   "base_sha": "7b316e283738af4c79f9cf59cf09a13d6b384b69",
-  "implementation_sha": "b2461c3e8fddfaadfdc289d83755ec49ef9a618c",
-  "material_sha": "b2461c3e8fddfaadfdc289d83755ec49ef9a618c",
-  "evidence_generated_from_sha": "b2461c3e8fddfaadfdc289d83755ec49ef9a618c",
+  "implementation_sha": "ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9",
+  "material_sha": "ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9",
+  "evidence_generated_from_sha": "ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9",
   "artifact_commit_sha": null,
-  "reconciliation_generated_from_sha": "b2461c3e8fddfaadfdc289d83755ec49ef9a618c",
+  "reconciliation_generated_from_sha": "ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9",
   "reconciliation_sha": null,
   "total_requirements": 30,
   "pass": 27,
@@ -1286,7 +1286,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av08_public_accuracy"
         ],
         "evidence": [
-          "{'TOTAL_RECORDS': 3664, 'TOTAL_ELIGIBLE_FOR_SCORING': 500, 'TOTAL_MATURED': 262, 'TOTAL_RESOLVED': 262, 'TOTAL_UNRESOLVED': 238, 'TOTAL_ABSTAINED': 0, 'TOTAL_CORRECT': 116, 'TOTAL_INCORRECT': 146, 'LEGACY_TEMPORAL_PROOF_UNAVAILABLE': 494, 'TEMPORALLY_PROVABLE_PREDICTIONS': 0, 'PREDICTIONS_RECORDED_BEFORE_OUTCOME': 6, 'OUTCOME_RECONCILIATION_COUNT': 262, 'ACCURACY_NUMERATOR': 116, 'ACCURACY_DENOMINATOR': 262, 'ACCURACY_DENOMINATOR_DEFINITION': 'resolved_predictions_with_outcome_label', 'ACCURACY_RATE': 44.27, 'EARLIEST_TIMESTAMP': '2026-08-29T15:24:39.629501+00:00', 'LATEST_TIMESTAMP': '2026-09-09T21:45:03.676661+00:00', 'integrity': {'valid': True, 'records': 3664, 'broken_at_seq': None, 'chain_path': 'data/oracle_audit_chain.jsonl'}, 'MUTABLE_RECORDS': [], 'HIDDEN_FAILURES': [], 'RETROACTIVE_EDITS': [], 'METHODOLOGY_VERSION_GAPS': []}"
+          "{'TOTAL_RECORDS': 3660, 'TOTAL_ELIGIBLE_FOR_SCORING': 500, 'TOTAL_MATURED': 266, 'TOTAL_RESOLVED': 266, 'TOTAL_UNRESOLVED': 234, 'TOTAL_ABSTAINED': 0, 'TOTAL_CORRECT': 117, 'TOTAL_INCORRECT': 149, 'LEGACY_TEMPORAL_PROOF_UNAVAILABLE': 500, 'TEMPORALLY_PROVABLE_PREDICTIONS': 0, 'PREDICTIONS_RECORDED_BEFORE_OUTCOME': 0, 'OUTCOME_RECONCILIATION_COUNT': 266, 'ELIGIBLE_IDS_COUNT': 500, 'LEGACY_TEMPORAL_UNPROVABLE_IDS_COUNT': 500, 'NEW_TEMPORAL_UNPROVABLE_IDS_COUNT': 0, 'TEMPORALLY_PROVABLE_IDS_COUNT': 0, 'TEMPORAL_CLASSIFICATION_SUM': 500, 'TEMPORAL_UNCLASSIFIED_IDS': [], 'NEW_TEMPORAL_UNPROVABLE_IDS': [], 'TEMPORAL_ORDER_VIOLATIONS': [], 'NEW_RECORDS_WITH_COMPLETE_TEMPORAL_FIELDS': 2, 'NEW_MATURED_RECORDS': 266, 'NEW_MATURED_TEMPORALLY_PROVABLE': 0, 'ALL_NEW_MATURED_PREDICTIONS_TEMPORALLY_PROVABLE': False, 'ACCURACY_NUMERATOR': 117, 'ACCURACY_DENOMINATOR': 266, 'ACCURACY_DENOMINATOR_DEFINITION': 'resolved_predictions_with_outcome_label', 'ACCURACY_RATE': 43.98, 'EARLIEST_TIMESTAMP': '2026-08-29T15:24:36.369498+00:00', 'LATEST_TIMESTAMP': '2026-09-09T22:44:38.290267+00:00', 'integrity': {'valid': True, 'records': 3660, 'broken_at_seq': None, 'chain_path': 'data/oracle_audit_chain.jsonl'}, 'MUTABLE_RECORDS': [], 'HIDDEN_FAILURES': [], 'RETROACTIVE_EDITS': [], 'METHODOLOGY_VERSION_GAPS': [], 'PRE_OUTCOME_RECORD_IDS': []}"
         ],
         "blocker": "Legacy records lack pre-outcome timestamps until forward-only fields populate"
       },
@@ -1609,7 +1609,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av30_machine_verifiable_closure"
         ],
         "evidence": [
-          "{'valid': False, 'head': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'implementation_sha': '5499ac7b5f4a17467cdd7aaf3444ad8358e4f2dd', 'evidence_generated_from_sha': '5499ac7b5f4a17467cdd7aaf3444ad8358e4f2dd', 'artifact_commit_sha': None, 'stale_fields': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha'], 'self_referential': False, 'RECONCILIATION_SHA_SEMANTICS_VALID': False, 'SELF_REFERENTIAL_COMMIT_HASH': False, 'STALE_RECONCILIATION_FIELDS': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha']}"
+          "{'valid': False, 'CURRENT_HEAD': 'ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9', 'IMPLEMENTATION_SHA': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'EVIDENCE_GENERATED_FROM_SHA': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'ARTIFACT_COMMIT_SHA': None, 'HEAD_IS_EVIDENCE_ONLY_COMMIT': False, 'CERTIFIED_CODE_SHA': 'ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9', 'head': 'ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9', 'implementation_sha': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'evidence_generated_from_sha': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'artifact_commit_sha': None, 'stale_fields': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha'], 'self_referential': False, 'RECONCILIATION_SHA_SEMANTICS_VALID': False, 'SELF_REFERENTIAL_COMMIT_HASH': False, 'STALE_RECONCILIATION_FIELDS': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha']}"
         ],
         "blocker": "Reconciliation SHA semantics invalid/stale"
       }
@@ -1678,7 +1678,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av08_public_accuracy"
         ],
         "evidence": [
-          "{'TOTAL_RECORDS': 3664, 'TOTAL_ELIGIBLE_FOR_SCORING': 500, 'TOTAL_MATURED': 262, 'TOTAL_RESOLVED': 262, 'TOTAL_UNRESOLVED': 238, 'TOTAL_ABSTAINED': 0, 'TOTAL_CORRECT': 116, 'TOTAL_INCORRECT': 146, 'LEGACY_TEMPORAL_PROOF_UNAVAILABLE': 494, 'TEMPORALLY_PROVABLE_PREDICTIONS': 0, 'PREDICTIONS_RECORDED_BEFORE_OUTCOME': 6, 'OUTCOME_RECONCILIATION_COUNT': 262, 'ACCURACY_NUMERATOR': 116, 'ACCURACY_DENOMINATOR': 262, 'ACCURACY_DENOMINATOR_DEFINITION': 'resolved_predictions_with_outcome_label', 'ACCURACY_RATE': 44.27, 'EARLIEST_TIMESTAMP': '2026-08-29T15:24:39.629501+00:00', 'LATEST_TIMESTAMP': '2026-09-09T21:45:03.676661+00:00', 'integrity': {'valid': True, 'records': 3664, 'broken_at_seq': None, 'chain_path': 'data/oracle_audit_chain.jsonl'}, 'MUTABLE_RECORDS': [], 'HIDDEN_FAILURES': [], 'RETROACTIVE_EDITS': [], 'METHODOLOGY_VERSION_GAPS': []}"
+          "{'TOTAL_RECORDS': 3660, 'TOTAL_ELIGIBLE_FOR_SCORING': 500, 'TOTAL_MATURED': 266, 'TOTAL_RESOLVED': 266, 'TOTAL_UNRESOLVED': 234, 'TOTAL_ABSTAINED': 0, 'TOTAL_CORRECT': 117, 'TOTAL_INCORRECT': 149, 'LEGACY_TEMPORAL_PROOF_UNAVAILABLE': 500, 'TEMPORALLY_PROVABLE_PREDICTIONS': 0, 'PREDICTIONS_RECORDED_BEFORE_OUTCOME': 0, 'OUTCOME_RECONCILIATION_COUNT': 266, 'ELIGIBLE_IDS_COUNT': 500, 'LEGACY_TEMPORAL_UNPROVABLE_IDS_COUNT': 500, 'NEW_TEMPORAL_UNPROVABLE_IDS_COUNT': 0, 'TEMPORALLY_PROVABLE_IDS_COUNT': 0, 'TEMPORAL_CLASSIFICATION_SUM': 500, 'TEMPORAL_UNCLASSIFIED_IDS': [], 'NEW_TEMPORAL_UNPROVABLE_IDS': [], 'TEMPORAL_ORDER_VIOLATIONS': [], 'NEW_RECORDS_WITH_COMPLETE_TEMPORAL_FIELDS': 2, 'NEW_MATURED_RECORDS': 266, 'NEW_MATURED_TEMPORALLY_PROVABLE': 0, 'ALL_NEW_MATURED_PREDICTIONS_TEMPORALLY_PROVABLE': False, 'ACCURACY_NUMERATOR': 117, 'ACCURACY_DENOMINATOR': 266, 'ACCURACY_DENOMINATOR_DEFINITION': 'resolved_predictions_with_outcome_label', 'ACCURACY_RATE': 43.98, 'EARLIEST_TIMESTAMP': '2026-08-29T15:24:36.369498+00:00', 'LATEST_TIMESTAMP': '2026-09-09T22:44:38.290267+00:00', 'integrity': {'valid': True, 'records': 3660, 'broken_at_seq': None, 'chain_path': 'data/oracle_audit_chain.jsonl'}, 'MUTABLE_RECORDS': [], 'HIDDEN_FAILURES': [], 'RETROACTIVE_EDITS': [], 'METHODOLOGY_VERSION_GAPS': [], 'PRE_OUTCOME_RECORD_IDS': []}"
         ],
         "blocker": "Legacy records lack pre-outcome timestamps until forward-only fields populate"
       },
@@ -1707,7 +1707,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av30_machine_verifiable_closure"
         ],
         "evidence": [
-          "{'valid': False, 'head': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'implementation_sha': '5499ac7b5f4a17467cdd7aaf3444ad8358e4f2dd', 'evidence_generated_from_sha': '5499ac7b5f4a17467cdd7aaf3444ad8358e4f2dd', 'artifact_commit_sha': None, 'stale_fields': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha'], 'self_referential': False, 'RECONCILIATION_SHA_SEMANTICS_VALID': False, 'SELF_REFERENTIAL_COMMIT_HASH': False, 'STALE_RECONCILIATION_FIELDS': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha']}"
+          "{'valid': False, 'CURRENT_HEAD': 'ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9', 'IMPLEMENTATION_SHA': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'EVIDENCE_GENERATED_FROM_SHA': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'ARTIFACT_COMMIT_SHA': None, 'HEAD_IS_EVIDENCE_ONLY_COMMIT': False, 'CERTIFIED_CODE_SHA': 'ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9', 'head': 'ae3a54d7a83cf4ea85dba9acb6148b8d343e6da9', 'implementation_sha': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'evidence_generated_from_sha': 'b2461c3e8fddfaadfdc289d83755ec49ef9a618c', 'artifact_commit_sha': None, 'stale_fields': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha'], 'self_referential': False, 'RECONCILIATION_SHA_SEMANTICS_VALID': False, 'SELF_REFERENTIAL_COMMIT_HASH': False, 'STALE_RECONCILIATION_FIELDS': ['implementation_sha', 'material_sha', 'evidence_generated_from_sha']}"
         ],
         "blocker": "Reconciliation SHA semantics invalid/stale"
       }
