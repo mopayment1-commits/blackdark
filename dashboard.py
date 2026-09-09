@@ -770,6 +770,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.financial_data_security import router as financial_data_security_router
+
+    app.include_router(financial_data_security_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.billing import router as billing_router
 
     app.include_router(billing_router)
@@ -4763,6 +4770,7 @@ async def checkout_post(tier: str = "pro", user: dict | None = Depends(optional_
 @app.post("/webhook", responses=COMMON_ERROR_RESPONSES)
 async def stripe_webhook(request: Request):
     from billing_service import handle_stripe_webhook_event
+    from financial_data_security.webhooks import record_webhook_signature_failure
 
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature", "")
@@ -4776,6 +4784,7 @@ async def stripe_webhook(request: Request):
     except ValueError as exc:
         raise HTTPException(status_code=400, detail="Invalid payload") from exc
     except stripe.SignatureVerificationError as exc:
+        await record_webhook_signature_failure(provider="stripe", reason="invalid_signature")
         raise HTTPException(status_code=400, detail="Invalid signature") from exc
 
     result = await handle_stripe_webhook_event(event)

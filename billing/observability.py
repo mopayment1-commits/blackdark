@@ -72,6 +72,26 @@ async def collect_p0_metrics() -> dict[str, Any]:
     return metrics
 
 
+async def record_webhook_signature_failure_metric(*, provider: str, reason: str) -> None:
+    from datetime import UTC, datetime
+
+    from database import get_connection
+
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO billing_fraud_events (email, event_type, detail, created_at)
+            VALUES (?, 'webhook_signature_failure', ?, ?)
+            """,
+            (
+                "system@internal",
+                f"{provider}:{reason[:480]}",
+                datetime.now(UTC).isoformat(),
+            ),
+        )
+        await db.commit()
+
+
 def evaluate_critical_alerts(metrics: dict[str, Any]) -> list[dict[str, str]]:
     alerts: list[dict[str, str]] = []
     if metrics.get("inbox_pending", 0) > 100:
