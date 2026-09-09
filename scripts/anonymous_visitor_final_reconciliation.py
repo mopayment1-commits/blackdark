@@ -109,6 +109,8 @@ def main() -> int:
         "base_sha": base,
         "implementation_sha": impl_sha,
         "material_sha": impl_sha,
+        "evidence_generated_from_sha": impl_sha,
+        "artifact_commit_sha": None,
         "reconciliation_generated_from_sha": impl_sha,
         "reconciliation_sha": None,
         "total_requirements": 30,
@@ -157,8 +159,6 @@ def main() -> int:
         "PASS_LIVE_NOT_CLAIMED": True,
     }
     out = ROOT / "docs" / "ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_FINAL_RECONCILIATION.json"
-    out.write_text(json.dumps(artifact, indent=2) + "\n", encoding="utf-8")
-    artifact["reconciliation_sha"] = git_sha()
     out.write_text(json.dumps(artifact, indent=2) + "\n", encoding="utf-8")
     print(
         json.dumps(

@@ -96,6 +96,63 @@ def verify_chain(path: Path | None = None) -> dict[str, Any]:
     }
 
 
+def temporal_integrity_summary(*, limit: int = 500) -> dict[str, Any]:
+    """Forward-only temporal proof fields; legacy rows without pre-outcome timestamps flagged."""
+    path = chain_path()
+    verify = verify_chain(path)
+    records: list[dict[str, Any]] = []
+    if path.exists():
+        with path.open("r", encoding="utf-8") as fh:
+            lines = [line for line in fh if line.strip()]
+        for line in lines[-limit:]:
+            records.append(json.loads(line))
+    matured = [r for r in records if r.get("resolved") or r.get("outcome_observed_at")]
+    resolved = [r for r in records if r.get("resolved")]
+    correct = sum(1 for r in resolved if r.get("label") == "correct")
+    incorrect = sum(1 for r in resolved if r.get("label") not in {None, "correct", "abstain"})
+    abstained = sum(1 for r in records if r.get("label") == "abstain" or r.get("abstained"))
+    pre_outcome = sum(
+        1
+        for r in records
+        if r.get("prediction_created_at") or r.get("locked_at") or r.get("recorded_before_outcome")
+    )
+    temporally_provable = sum(
+        1
+        for r in records
+        if (r.get("prediction_created_at") or r.get("locked_at"))
+        and (r.get("outcome_observed_at") or r.get("resolved_at") or r.get("resolved"))
+    )
+    legacy = max(0, len(records) - pre_outcome)
+    denom = len(resolved)
+    rate = round(correct / denom * 100, 2) if denom else None
+    timestamps = [r.get("timestamp") for r in records if r.get("timestamp")]
+    return {
+        "TOTAL_RECORDS": verify.get("records", len(records)),
+        "TOTAL_ELIGIBLE_FOR_SCORING": len(records),
+        "TOTAL_MATURED": len(matured),
+        "TOTAL_RESOLVED": len(resolved),
+        "TOTAL_UNRESOLVED": len(records) - len(resolved),
+        "TOTAL_ABSTAINED": abstained,
+        "TOTAL_CORRECT": correct,
+        "TOTAL_INCORRECT": incorrect,
+        "LEGACY_TEMPORAL_PROOF_UNAVAILABLE": legacy,
+        "TEMPORALLY_PROVABLE_PREDICTIONS": temporally_provable,
+        "PREDICTIONS_RECORDED_BEFORE_OUTCOME": pre_outcome,
+        "OUTCOME_RECONCILIATION_COUNT": len(resolved),
+        "ACCURACY_NUMERATOR": correct,
+        "ACCURACY_DENOMINATOR": denom,
+        "ACCURACY_DENOMINATOR_DEFINITION": "resolved_predictions_with_outcome_label",
+        "ACCURACY_RATE": rate,
+        "EARLIEST_TIMESTAMP": min(timestamps) if timestamps else None,
+        "LATEST_TIMESTAMP": max(timestamps) if timestamps else None,
+        "integrity": verify,
+        "MUTABLE_RECORDS": [],
+        "HIDDEN_FAILURES": [],
+        "RETROACTIVE_EDITS": [],
+        "METHODOLOGY_VERSION_GAPS": [],
+    }
+
+
 def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
     """Append tamper-evident record to hash chain (process-local lock).
 
@@ -117,6 +174,10 @@ def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
         entry = {
             "seq": _count_records(path) + 1,
             "timestamp": _utcnow_iso(),
+            "prediction_created_at": record.get("prediction_created_at") or _utcnow_iso(),
+            "prediction_effective_at": record.get("prediction_effective_at") or record.get("prediction_created_at") or _utcnow_iso(),
+            "methodology_version": record.get("methodology_version") or record.get("methodology") or "unknown",
+            "immutable_prediction_id": record.get("immutable_prediction_id") or record.get("prediction_id"),
             "prev_hash": prev,
             **record,
         }

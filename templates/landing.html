@@ -1055,7 +1055,7 @@
             <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
         </form>
-        <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
+        <p id="waitlistMessage" role="status" aria-live="polite" style="margin-top: 1rem; color: var(--success); display: none;"></p>
     </section>
     </main>
     
@@ -1336,6 +1336,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
                 `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
             const sendFollow = async (followed) => {
+                if (!bdHasAuthSession()) {
+                    document.getElementById('disciplineMsg').textContent = 'Sign in to save private Discipline Mirror answers.';
+                    return;
+                }
                 const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
                 localStorage.setItem('bd_user_key', key);
                 try {
@@ -1471,22 +1475,41 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 msg.style.display = 'block'; }
         }
         
-        async function loadLandingAnalytics() {
+        function bdHasAuthSession() {
+            return document.cookie.split(';').some(c => {
+                const n = c.trim().split('=')[0];
+                return n === 'session_token' || n === 'bd_session' || n === 'access_token';
+            });
+        }
+
+        function bdOptionalTrackingAllowed() {
             try {
-                await fetch('/api/analytics/view', {
+                return localStorage.getItem('bd_optional_tracking') === 'true';
+            } catch (error) {
+                console.debug(error);
+                return false;
+            }
+        }
+
+        async function loadLandingAnalytics() {
+            if (!bdOptionalTrackingAllowed()) return;
+            try {
+                await fetch('/api/anonymous-visitor/analytics/event', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ page: 'landing' })
+                    body: JSON.stringify({ event: 'landing_view', visitor_key: 'landing', metadata: { page: 'landing' } })
                 });
+                const statsStrip = document.getElementById('landingViews');
+                if (!statsStrip) return;
                 const [analyticsRes, usersRes, telegramRes] = await Promise.all([
                     fetch('/api/analytics/stats'),
                     fetch('/api/platform/stats'),
                     fetch('/api/telegram/free/status'),
                 ]);
+                if (!analyticsRes.ok || !usersRes.ok || !telegramRes.ok) return;
                 const analytics = await analyticsRes.json();
                 const users = await usersRes.json();
                 const telegram = await telegramRes.json();
-                // Stats intentionally below first-viewport budget — only fill if strip exists
                 const set = (id, val) => {
                     const el = document.getElementById(id);
                     if (el) el.textContent = val;

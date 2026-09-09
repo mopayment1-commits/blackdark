@@ -10,29 +10,21 @@ from anonymous_visitor.allowlist import (
     is_anonymous_allowed,
     is_anonymous_denied,
     match_allowlist_entry,
+    path_is_canonical_public_surface,
 )
-
-
-def _legacy_public_prefix(path: str) -> bool:
-    try:
-        from public_api_docs import path_is_public
-
-        return path_is_public(path)
-    except Exception:
-        return False
 
 
 def classify_route(method: str, path: str) -> dict[str, Any]:
     entry = match_allowlist_entry(method, path)
     denied = is_anonymous_denied(path)
-    legacy_public = _legacy_public_prefix(path)
-    allowed = is_anonymous_allowed(method, path) or legacy_public
-    explicit = entry is not None or denied or legacy_public or path.startswith("/api/auth/")
+    allowed = is_anonymous_allowed(method, path)
+    canonical_public = path_is_canonical_public_surface(path)
+    explicit = entry is not None or denied or path.startswith("/api/auth/") or canonical_public
     return {
         "method": method.upper(),
         "path": path,
-        "expected_auth_state": "AUTHENTICATED" if denied else ("ANONYMOUS" if allowed else "AUTHENTICATED"),
-        "public_allowed": allowed and not denied,
+        "expected_auth_state": "AUTHENTICATED" if denied else ("ANONYMOUS" if canonical_public else "AUTHENTICATED"),
+        "public_allowed": canonical_public and not denied,
         "explicit_classification": explicit,
         "deny_prefix_hit": denied,
         "entry": None

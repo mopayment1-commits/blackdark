@@ -53,7 +53,7 @@ def test_av01_tier_canonical_mapping():
     from anonymous_visitor.states import ProductAuthState, resolve_product_state
 
     assert resolve_product_state({"tier": "whale"}) == ProductAuthState.PAID_INDIVIDUAL
-    assert resolve_product_state({"tier": "enterprise"}) == ProductAuthState.FREE_ACCOUNT
+    assert resolve_product_state({"tier": "enterprise"}) == ProductAuthState.INSTITUTIONAL
     assert resolve_product_state({"tier": "institutional"}) == ProductAuthState.INSTITUTIONAL
 
 

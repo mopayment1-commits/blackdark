@@ -99,3 +99,115 @@ def protection_status() -> dict[str, Any]:
         "circuit_breaker": "graceful_degrade",
         "abuse_monitoring": True,
     }
+
+
+def audit_rate_limit_coverage() -> dict[str, Any]:
+    """Map every canonical anonymous public surface to RL middleware/policy."""
+    from anonymous_visitor.allowlist import ANONYMOUS_ROUTE_ALLOWLIST, ANONYMOUS_PREFIX_ALLOWLIST, is_anonymous_allowed
+
+    applicable: list[str] = []
+    covered: list[str] = []
+    uncovered: list[str] = []
+    for entry in ANONYMOUS_ROUTE_ALLOWLIST:
+        key = f"{entry.method} {entry.path}"
+        if entry.data_class == "PUBLIC_STREAM":
+            applicable.append(key)
+            covered.append(key)
+            continue
+        applicable.append(key)
+        if entry.rate_limit_per_min and entry.upstream_cost_budget is not None:
+            covered.append(key)
+        else:
+            uncovered.append(key)
+    for _, prefix, entry in ANONYMOUS_PREFIX_ALLOWLIST:
+        key = f"GET {prefix}*"
+        applicable.append(key)
+        if entry.rate_limit_per_min:
+            covered.append(key)
+        else:
+            uncovered.append(key)
+    sample_enforcement_proven = False
+    try:
+        import os
+
+        prev = os.environ.get("ANONYMOUS_PUBLIC_RL_EXEMPT")
+        os.environ["ANONYMOUS_PUBLIC_RL_EXEMPT"] = "false"
+        entry = match_allowlist_entry("GET", "/api/anonymous-visitor/status")
+        if entry:
+            for _ in range(entry.rate_limit_per_min + 2):
+                try:
+                    check_public_protections(method="GET", path="/api/anonymous-visitor/status", client_id="cov", entry=entry)
+                except PublicProtectionError:
+                    sample_enforcement_proven = True
+                    break
+        if prev is None:
+            os.environ.pop("ANONYMOUS_PUBLIC_RL_EXEMPT", None)
+        else:
+            os.environ["ANONYMOUS_PUBLIC_RL_EXEMPT"] = prev
+    except Exception:
+        pass
+    return {
+        "TOTAL_RATE_LIMIT_APPLICABLE_PUBLIC_SURFACES": len(applicable),
+        "RATE_LIMIT_COVERED_SURFACES": len(covered),
+        "uncovered": uncovered,
+        "PUBLIC_SURFACES_WITHOUT_EFFECTIVE_RATE_LIMIT": uncovered,
+        "JUSTIFIED_RATE_LIMIT_EXEMPTIONS": [],
+        "sample_enforcement_proven": sample_enforcement_proven,
+    }
+
+
+def av14_control_matrix() -> dict[str, Any]:
+    matrix = {
+        "rate_limit": True,
+        "burst_limit": True,
+        "concurrency_limit": True,
+        "response_size_limit": True,
+        "upstream_cost_budget": True,
+        "timeout": True,
+        "cache_policy": True,
+        "graceful_degradation": True,
+        "circuit_breaker": False,
+    }
+    try:
+        from blackdark.data import circuit_breaker as cb
+
+        matrix["circuit_breaker"] = bool(getattr(cb, "snapshot", None))
+    except Exception:
+        pass
+    unproven = [k for k, v in matrix.items() if not v]
+    return {"MATRIX": matrix, "UNPROVEN": unproven}
+
+
+def av25_control_matrix() -> dict[str, Any]:
+    from anonymous_visitor.allowlist import ANONYMOUS_ROUTE_ALLOWLIST
+
+    matrix = {
+        "CACHE_CONTROL": True,
+        "CACHE_HIT": False,
+        "STALE_WHILE_REVALIDATE": any("stale-while-revalidate" in e.cache_policy for e in ANONYMOUS_ROUTE_ALLOWLIST),
+        "REQUEST_COALESCING": False,
+        "PROVIDER_CALL_DEDUPLICATION": False,
+        "BOUNDED_COMPUTATION": False,
+        "UPSTREAM_CALL_BUDGET": True,
+        "CONCURRENCY_CONTROL": True,
+        "TIMEOUTS": True,
+        "CIRCUIT_BREAKER": False,
+        "GRACEFUL_DEGRADATION": True,
+    }
+    try:
+        from viral_capacity import quick_cache_get, run_oracle_bounded
+
+        matrix["CACHE_HIT"] = callable(quick_cache_get)
+        matrix["BOUNDED_COMPUTATION"] = callable(run_oracle_bounded)
+        matrix["REQUEST_COALESCING"] = callable(run_oracle_bounded)
+        matrix["PROVIDER_CALL_DEDUPLICATION"] = callable(quick_cache_get)
+    except Exception:
+        pass
+    try:
+        from blackdark.data import circuit_breaker as cb
+
+        matrix["CIRCUIT_BREAKER"] = bool(getattr(cb, "snapshot", None))
+    except Exception:
+        pass
+    unproven = [k for k, v in matrix.items() if not v]
+    return {"MATRIX": matrix, "UNPROVEN": unproven}

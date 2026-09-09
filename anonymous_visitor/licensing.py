@@ -26,17 +26,31 @@ class PublicSourceLicense:
     review_date: str
     evidence_source: str
     status: str
+    upstream_raw_providers: tuple[str, ...] = ()
+    upstream_raw_providers_proven: bool = False
+    public_display_mode: str = "VERIFIED_SOURCE_ONLY"
+
+    @property
+    def production_public_display_pass(self) -> bool:
+        return (
+            self.license_public_display_allowed
+            and self.upstream_raw_providers_proven
+            and self.status == "VERIFIED_LOCALLY"
+        )
 
     @property
     def license_public_display_pass(self) -> bool:
-        return self.license_public_display_allowed and self.status == "VERIFIED_LOCALLY"
+        if self.public_display_mode == "BLOCK":
+            return False
+        if self.public_display_mode == "VERIFIED_SOURCE_ONLY":
+            return self.license_public_display_allowed and self.status == "VERIFIED_LOCALLY"
+        return self.production_public_display_pass
 
 
 def _today() -> str:
     return datetime.now(UTC).date().isoformat()
 
 
-# Honest local register — no fabricated commercial approval.
 PUBLIC_SOURCE_LICENSES: dict[str, PublicSourceLicense] = {
     "oracle_unified": PublicSourceLicense(
         source_id="oracle_unified",
@@ -56,6 +70,9 @@ PUBLIC_SOURCE_LICENSES: dict[str, PublicSourceLicense] = {
         review_date=_today(),
         evidence_source="internal_methodology+oracle_audit_chain",
         status="VERIFIED_LOCALLY",
+        upstream_raw_providers=("binance", "internal_oracle_pipeline"),
+        upstream_raw_providers_proven=False,
+        public_display_mode="VERIFIED_SOURCE_ONLY",
     ),
     "oracle_audit_chain": PublicSourceLicense(
         source_id="oracle_audit_chain",
@@ -75,6 +92,9 @@ PUBLIC_SOURCE_LICENSES: dict[str, PublicSourceLicense] = {
         review_date=_today(),
         evidence_source="oracle_audit_chain.jsonl",
         status="VERIFIED_LOCALLY",
+        upstream_raw_providers=("internal_ledger",),
+        upstream_raw_providers_proven=False,
+        public_display_mode="VERIFIED_SOURCE_ONLY",
     ),
     "data_governance_registry": PublicSourceLicense(
         source_id="data_governance_registry",
@@ -94,6 +114,9 @@ PUBLIC_SOURCE_LICENSES: dict[str, PublicSourceLicense] = {
         review_date=_today(),
         evidence_source="data_governance/registry.py",
         status="VERIFIED_LOCALLY",
+        upstream_raw_providers=("multiple_upstream_feeds",),
+        upstream_raw_providers_proven=False,
+        public_display_mode="VERIFIED_SOURCE_ONLY",
     ),
     "market_context": PublicSourceLicense(
         source_id="market_context",
@@ -113,6 +136,9 @@ PUBLIC_SOURCE_LICENSES: dict[str, PublicSourceLicense] = {
         review_date=_today(),
         evidence_source="market_context module",
         status="VERIFIED_LOCALLY",
+        upstream_raw_providers=("binance",),
+        upstream_raw_providers_proven=False,
+        public_display_mode="VERIFIED_SOURCE_ONLY",
     ),
 }
 
@@ -132,11 +158,22 @@ def assert_license_public_display(source_id: str | None) -> dict[str, Any]:
             "license_public_display_pass": False,
             "reason": "unknown_source",
         }
+    if lic.public_display_mode == "BLOCK":
+        return {
+            "ok": False,
+            "source_id": lic.source_id,
+            "license_public_display_pass": False,
+            "reason": "blocked_pending_license",
+        }
     passed = lic.license_public_display_pass
     return {
         "ok": passed,
         "source_id": lic.source_id,
         "license_public_display_pass": passed,
+        "production_public_display_pass": lic.production_public_display_pass,
+        "public_display_mode": lic.public_display_mode,
+        "upstream_license_pending": not lic.upstream_raw_providers_proven,
+        "upstream_raw_providers": list(lic.upstream_raw_providers),
         "attribution_required": lic.attribution_required,
         "attribution_text": lic.attribution_text if lic.attribution_required else None,
         "attribution_url": lic.attribution_url if lic.attribution_required else None,
@@ -153,6 +190,10 @@ def licensing_register_export() -> list[dict[str, Any]]:
                 "provider_name": lic.provider_name,
                 "LICENSE_PUBLIC_DISPLAY_ALLOWED": lic.license_public_display_allowed,
                 "LICENSE_PUBLIC_DISPLAY_PASS": lic.license_public_display_pass,
+                "PRODUCTION_PUBLIC_DISPLAY_PASS": lic.production_public_display_pass,
+                "PUBLIC_DISPLAY_MODE": lic.public_display_mode,
+                "UPSTREAM_RAW_PROVIDERS": list(lic.upstream_raw_providers),
+                "UPSTREAM_RAW_PROVIDERS_PROVEN": lic.upstream_raw_providers_proven,
                 "COMMERCIAL_USE_ALLOWED": lic.commercial_use_allowed,
                 "ATTRIBUTION_REQUIRED": lic.attribution_required,
                 "ATTRIBUTION_TEXT": lic.attribution_text,

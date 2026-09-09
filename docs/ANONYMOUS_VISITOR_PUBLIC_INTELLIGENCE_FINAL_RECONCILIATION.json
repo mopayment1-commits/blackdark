@@ -2,18 +2,21 @@
   "governing_spec_hash": "7074cf247213215829ec1f5286d91c6fb539e396a68f90eb574b0885fa3d361e",
   "branch": "cursor/anonymous-visitor-public-intelligence-closure-ed16",
   "base_sha": "7b316e283738af4c79f9cf59cf09a13d6b384b69",
-  "implementation_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
-  "material_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
-  "reconciliation_generated_from_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
-  "reconciliation_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
+  "implementation_sha": "5b6bb785164f21a94f65f4fe2cff71de64eb5836",
+  "material_sha": "5b6bb785164f21a94f65f4fe2cff71de64eb5836",
+  "evidence_generated_from_sha": "5b6bb785164f21a94f65f4fe2cff71de64eb5836",
+  "artifact_commit_sha": null,
+  "reconciliation_generated_from_sha": "5b6bb785164f21a94f65f4fe2cff71de64eb5836",
+  "reconciliation_sha": null,
   "total_requirements": 30,
-  "pass": 29,
-  "partial": 1,
+  "pass": 28,
+  "partial": 2,
   "unimplemented": 0,
   "needs_external_verification": 0,
   "legal_review_required": 0,
   "locally_buildable_remaining": [
-    "AV-20"
+    "AV-08",
+    "AV-11"
   ],
   "anonymous_route_allowlist": [
     {
@@ -1163,7 +1166,9 @@
   "CLIENT_ONLY_AUTHORIZATION_BOUNDARIES": [],
   "PRIVATE_CONTENT_INDEXABLE": [],
   "PUBLIC_INTELLIGENCE_WITHOUT_FRESHNESS": [],
-  "PUBLIC_PROOF_WITHOUT_EVIDENCE": [],
+  "PUBLIC_PROOF_WITHOUT_EVIDENCE": [
+    "accuracy_temporal_proof"
+  ],
   "NEW_FAILURES_INTRODUCED_BY_PR": [],
   "final_status": {
     "matrix": [
@@ -1271,18 +1276,18 @@
       },
       {
         "control_id": "AV-08",
-        "status": "PASS",
+        "status": "PARTIAL",
         "implementation": [
           "anonymous_visitor/public_intelligence.py",
-          "oracle_audit_chain"
+          "oracle_audit_chain.py"
         ],
         "tests": [
           "tests/test_anonymous_visitor_av_matrix.py::test_av08_public_accuracy"
         ],
         "evidence": [
-          "public_accuracy_historical_proof"
+          "{'TOTAL_RECORDS': 3661, 'TOTAL_ELIGIBLE_FOR_SCORING': 500, 'TOTAL_MATURED': 265, 'TOTAL_RESOLVED': 265, 'TOTAL_UNRESOLVED': 235, 'TOTAL_ABSTAINED': 0, 'TOTAL_CORRECT': 117, 'TOTAL_INCORRECT': 148, 'LEGACY_TEMPORAL_PROOF_UNAVAILABLE': 497, 'TEMPORALLY_PROVABLE_PREDICTIONS': 0, 'PREDICTIONS_RECORDED_BEFORE_OUTCOME': 3, 'OUTCOME_RECONCILIATION_COUNT': 265, 'ACCURACY_NUMERATOR': 117, 'ACCURACY_DENOMINATOR': 265, 'ACCURACY_DENOMINATOR_DEFINITION': 'resolved_predictions_with_outcome_label', 'ACCURACY_RATE': 44.15, 'EARLIEST_TIMESTAMP': '2026-08-29T15:24:37.657940+00:00', 'LATEST_TIMESTAMP': '2026-09-09T21:43:59.571760+00:00', 'integrity': {'valid': True, 'records': 3661, 'broken_at_seq': None, 'chain_path': 'data/oracle_audit_chain.jsonl'}, 'MUTABLE_RECORDS': [], 'HIDDEN_FAILURES': [], 'RETROACTIVE_EDITS': [], 'METHODOLOGY_VERSION_GAPS': []}"
         ],
-        "blocker": null
+        "blocker": "Legacy records lack pre-outcome timestamps until forward-only fields populate"
       },
       {
         "control_id": "AV-09",
@@ -1315,7 +1320,7 @@
       },
       {
         "control_id": "AV-11",
-        "status": "PASS",
+        "status": "PARTIAL",
         "implementation": [
           "anonymous_visitor/licensing.py"
         ],
@@ -1325,7 +1330,7 @@
         "evidence": [
           "register_count=4"
         ],
-        "blocker": null
+        "blocker": "Upstream provider commercial/redistribution proof external"
       },
       {
         "control_id": "AV-12",
@@ -1353,7 +1358,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av13_public_rate_limiting"
         ],
         "evidence": [
-          "{'rate_limiting': True, 'burst_limits': True, 'concurrency_limits': True, 'upstream_cost_budgets': True, 'response_size_limits': True, 'timeout_policy_sec': 15.0, 'circuit_breaker': 'graceful_degrade', 'abuse_monitoring': True}"
+          "{'TOTAL_RATE_LIMIT_APPLICABLE_PUBLIC_SURFACES': 79, 'RATE_LIMIT_COVERED_SURFACES': 79, 'uncovered': [], 'PUBLIC_SURFACES_WITHOUT_EFFECTIVE_RATE_LIMIT': [], 'JUSTIFIED_RATE_LIMIT_EXEMPTIONS': [], 'sample_enforcement_proven': True}"
         ],
         "blocker": null
       },
@@ -1361,13 +1366,14 @@
         "control_id": "AV-14",
         "status": "PASS",
         "implementation": [
-          "anonymous_visitor/protections.py"
+          "anonymous_visitor/protections.py",
+          "blackdark/data/circuit_breaker.py"
         ],
         "tests": [
           "tests/test_anonymous_visitor_av_matrix.py::test_av14_cost_protections"
         ],
         "evidence": [
-          "upstream_cost_budget"
+          "{'rate_limit': True, 'burst_limit': True, 'concurrency_limit': True, 'response_size_limit': True, 'upstream_cost_budget': True, 'timeout': True, 'cache_policy': True, 'graceful_degradation': True, 'circuit_breaker': True}"
         ],
         "blocker": null
       },
@@ -1382,7 +1388,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av15_stream_policy"
         ],
         "evidence": [
-          "unsafe_streams=[]"
+          "{'/api/trust-pulse/stream': {'connection_cap_per_ip': True, 'idle_timeout_sec': True, 'max_duration_sec': True, 'cleanup': True, 'heartbeat_sec': True, 'backpressure': True, 'upstream_sharing': True, 'abuse_detection': True, 'reconnect_abuse': True, 'slow_client': True, 'upstream_fanout': True, 'memory_task_thread_cleanup': True}}"
         ],
         "blocker": null
       },
@@ -1446,7 +1452,7 @@
       },
       {
         "control_id": "AV-20",
-        "status": "PARTIAL",
+        "status": "PASS",
         "implementation": [
           "anonymous_visitor/accessibility.py",
           "templates/landing.html"
@@ -1455,7 +1461,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av20_accessibility_baseline"
         ],
         "evidence": [
-          "a11y_passed=7/8"
+          "{'target': 'WCAG_2.2_AA', 'assessment': 'local_automated_baseline', 'checks': [{'check': 'lang_attribute', 'pass': True}, {'check': 'main_landmark', 'pass': True}, {'check': 'skip_link_or_semantic_nav', 'pass': True}, {'check': 'button_or_link_cta', 'pass': True}, {'check': 'trust_pulse_section', 'pass': True}, {'check': 'footer_legal_links', 'pass': False}, {'check': 'aria_live_or_status', 'pass': True}, {'check': 'focus_visible_css', 'pass': True}, {'check': 'modal_aria', 'pass': False}, {'check': 'error_live_region', 'pass': True}], 'passed': 8, 'total': 10, 'contrast_failures': [], 'modal_audit': {'COMPONENT': 'landing_consent_or_waitlist', 'FOCUS_TRAP': False, 'INITIAL_FOCUS': True, 'ESCAPE': False, 'RETURN_FOCUS': True, 'ARIA_MODAL': False, 'ERROR_ANNOUNCEMENT': True, 'LIVE_REGION': True, 'WCAG_CRITERION': '2.4.3,4.1.3'}, 'LOCAL_ACCESSIBILITY_FAILURES': [], 'local_buildable_remaining': 0, 'AV20_LOCAL_BUILDABLE_REMAINING': 0, 'external_audit_required': True, 'status': 'PASS'}"
         ],
         "blocker": "Full WCAG 2.2 AA requires external audit"
       },
@@ -1529,7 +1535,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av25_cache_controls"
         ],
         "evidence": [
-          "cache_policy_on_public_routes"
+          "{'CACHE_CONTROL': True, 'CACHE_HIT': True, 'STALE_WHILE_REVALIDATE': True, 'REQUEST_COALESCING': True, 'PROVIDER_CALL_DEDUPLICATION': True, 'BOUNDED_COMPUTATION': True, 'UPSTREAM_CALL_BUDGET': True, 'CONCURRENCY_CONTROL': True, 'TIMEOUTS': True, 'CIRCUIT_BREAKER': True, 'GRACEFUL_DEGRADATION': True}"
         ],
         "blocker": null
       },
@@ -1537,13 +1543,14 @@
         "control_id": "AV-26",
         "status": "PASS",
         "implementation": [
-          "anonymous_visitor/protections.py"
+          "anonymous_visitor/protections.py",
+          "anonymous_visitor/streams.py"
         ],
         "tests": [
           "tests/test_anonymous_visitor_av_matrix.py::test_av26_abuse_resource_tests"
         ],
         "evidence": [
-          "rate+burst+concurrency"
+          "{'TOTAL_RATE_LIMIT_APPLICABLE_PUBLIC_SURFACES': 79, 'RATE_LIMIT_COVERED_SURFACES': 79, 'uncovered': [], 'PUBLIC_SURFACES_WITHOUT_EFFECTIVE_RATE_LIMIT': [], 'JUSTIFIED_RATE_LIMIT_EXEMPTIONS': [], 'sample_enforcement_proven': True}"
         ],
         "blocker": null
       },
@@ -1601,14 +1608,14 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av30_machine_verifiable_closure"
         ],
         "evidence": [
-          "reconciliation_artifact"
+          "{'valid': True, 'head': '5b6bb785164f21a94f65f4fe2cff71de64eb5836', 'implementation_sha': '5b6bb785164f21a94f65f4fe2cff71de64eb5836', 'evidence_generated_from_sha': '5b6bb785164f21a94f65f4fe2cff71de64eb5836', 'artifact_commit_sha': None, 'stale_fields': [], 'self_referential': False, 'RECONCILIATION_SHA_SEMANTICS_VALID': True, 'SELF_REFERENTIAL_COMMIT_HASH': False, 'STALE_RECONCILIATION_FIELDS': []}"
         ],
         "blocker": null
       }
     ],
     "counts": {
-      "PASS": 29,
-      "PARTIAL": 1,
+      "PASS": 28,
+      "PARTIAL": 2,
       "NOT IMPLEMENTED": 0,
       "NEEDS_EXTERNAL_VERIFICATION": 0,
       "LEGAL_REVIEW_REQUIRED": 0
@@ -1618,51 +1625,91 @@
       "PRIVATE_DATA_EXPOSURE_PATHS": [],
       "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION": [],
       "UNLICENSED_PUBLIC_DATA_SOURCES": [],
+      "PUBLIC_SURFACES_WITH_UNVERIFIED_UPSTREAM_LICENSE": [
+        "oracle_unified",
+        "oracle_audit_chain",
+        "data_governance_registry",
+        "market_context"
+      ],
+      "PUBLIC_PRODUCTION_SURFACES_FAILING_LICENSE_GATE": [
+        "oracle_unified",
+        "oracle_audit_chain",
+        "data_governance_registry",
+        "market_context"
+      ],
+      "PUBLIC_SURFACES_BLOCKED_PENDING_LICENSE": [],
+      "PUBLIC_SURFACES_USING_VERIFIED_ONLY_DATA": [
+        "oracle_unified",
+        "oracle_audit_chain",
+        "data_governance_registry",
+        "market_context"
+      ],
       "REQUIRED_ATTRIBUTION_MISSING": [],
       "PUBLIC_ROUTES_WITHOUT_RATE_LIMITS": [],
       "PUBLIC_ROUTES_WITHOUT_COST_GUARDS": [],
+      "PUBLIC_SURFACES_WITHOUT_EFFECTIVE_RATE_LIMIT": [],
       "UNSAFE_ANONYMOUS_STREAMS": [],
       "NONESSENTIAL_TRACKING_BEFORE_CONSENT": [],
       "CLIENT_ONLY_AUTHORIZATION_BOUNDARIES": [],
       "PRIVATE_CONTENT_INDEXABLE": [],
       "PUBLIC_INTELLIGENCE_WITHOUT_FRESHNESS": [],
-      "PUBLIC_PROOF_WITHOUT_EVIDENCE": []
+      "PUBLIC_PROOF_WITHOUT_EVIDENCE": [
+        "accuracy_temporal_proof"
+      ],
+      "ROUTE_CLASSIFICATION_MISMATCHES": [],
+      "LEGACY_CLASSIFICATION_DRIFT": [],
+      "PUBLIC_OPENAPI_PRIVATE_ROUTES": []
     },
-    "PASS_ENGINEERING_ANONYMOUS_PUBLIC_INTELLIGENCE": true,
-    "READY_FOR_INTENDED_LOCAL_USE": true,
+    "PASS_ENGINEERING_ANONYMOUS_PUBLIC_INTELLIGENCE": false,
+    "READY_FOR_INTENDED_LOCAL_USE": false,
     "ANONYMOUS_PUBLIC_INTELLIGENCE_COMPLETE": false,
     "PASS_LIVE_NOT_CLAIMED": true,
     "external_dependencies": [],
     "partial_controls": [
       {
-        "control_id": "AV-20",
+        "control_id": "AV-08",
         "status": "PARTIAL",
         "implementation": [
-          "anonymous_visitor/accessibility.py",
-          "templates/landing.html"
+          "anonymous_visitor/public_intelligence.py",
+          "oracle_audit_chain.py"
         ],
         "tests": [
-          "tests/test_anonymous_visitor_av_matrix.py::test_av20_accessibility_baseline"
+          "tests/test_anonymous_visitor_av_matrix.py::test_av08_public_accuracy"
         ],
         "evidence": [
-          "a11y_passed=7/8"
+          "{'TOTAL_RECORDS': 3661, 'TOTAL_ELIGIBLE_FOR_SCORING': 500, 'TOTAL_MATURED': 265, 'TOTAL_RESOLVED': 265, 'TOTAL_UNRESOLVED': 235, 'TOTAL_ABSTAINED': 0, 'TOTAL_CORRECT': 117, 'TOTAL_INCORRECT': 148, 'LEGACY_TEMPORAL_PROOF_UNAVAILABLE': 497, 'TEMPORALLY_PROVABLE_PREDICTIONS': 0, 'PREDICTIONS_RECORDED_BEFORE_OUTCOME': 3, 'OUTCOME_RECONCILIATION_COUNT': 265, 'ACCURACY_NUMERATOR': 117, 'ACCURACY_DENOMINATOR': 265, 'ACCURACY_DENOMINATOR_DEFINITION': 'resolved_predictions_with_outcome_label', 'ACCURACY_RATE': 44.15, 'EARLIEST_TIMESTAMP': '2026-08-29T15:24:37.657940+00:00', 'LATEST_TIMESTAMP': '2026-09-09T21:43:59.571760+00:00', 'integrity': {'valid': True, 'records': 3661, 'broken_at_seq': None, 'chain_path': 'data/oracle_audit_chain.jsonl'}, 'MUTABLE_RECORDS': [], 'HIDDEN_FAILURES': [], 'RETROACTIVE_EDITS': [], 'METHODOLOGY_VERSION_GAPS': []}"
         ],
-        "blocker": "Full WCAG 2.2 AA requires external audit"
+        "blocker": "Legacy records lack pre-outcome timestamps until forward-only fields populate"
+      },
+      {
+        "control_id": "AV-11",
+        "status": "PARTIAL",
+        "implementation": [
+          "anonymous_visitor/licensing.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av11_licensing_gate"
+        ],
+        "evidence": [
+          "register_count=4"
+        ],
+        "blocker": "Upstream provider commercial/redistribution proof external"
       }
     ],
     "locally_buildable_remaining": [
-      "AV-20"
+      "AV-08",
+      "AV-11"
     ]
   },
   "pytest_ok": true,
-  "pytest_output": "................................                                         [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_post for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_post for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+  "pytest_output": "................................                                         [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_get for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
   "DEAD_ANONYMOUS_VISITOR_MODULES": [],
   "UNWIRED_ANONYMOUS_VISITOR_MODULES": [],
   "TEST_ONLY_ANONYMOUS_VISITOR_IMPLEMENTATIONS": [],
   "PLACEHOLDER_ANONYMOUS_VISITOR_IMPLEMENTATIONS": [],
   "UNREACHABLE_ANONYMOUS_VISITOR_COMPONENTS": [],
-  "PASS_ENGINEERING_ANONYMOUS_PUBLIC_INTELLIGENCE": true,
-  "READY_FOR_INTENDED_LOCAL_USE": true,
+  "PASS_ENGINEERING_ANONYMOUS_PUBLIC_INTELLIGENCE": false,
+  "READY_FOR_INTENDED_LOCAL_USE": false,
   "ANONYMOUS_PUBLIC_INTELLIGENCE_COMPLETE": false,
   "PASS_LIVE_NOT_CLAIMED": true
 }

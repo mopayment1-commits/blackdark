@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import Any
 
 from anonymous_visitor.allowlist import (
+    is_anonymous_allowed,
     is_anonymous_denied,
     match_allowlist_entry,
 )
@@ -108,14 +109,10 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
 
 
 def path_is_public(path: str) -> bool:
-    """Delegate to canonical anonymous allowlist — no parallel registry."""
-    if is_anonymous_denied(path):
-        return False
-    if path in PUBLIC_PATH_EXACT:
-        return True
-    if any(path.startswith(prefix) for prefix in PUBLIC_PATH_PREFIXES):
-        return True
-    return match_allowlist_entry("GET", path) is not None or match_allowlist_entry("POST", path) is not None
+    """Canonical owner: anonymous_visitor.allowlist strict surface registry."""
+    from anonymous_visitor.allowlist import path_is_canonical_public_surface
+
+    return path_is_canonical_public_surface(path)
 
 
 def filter_openapi_for_public(schema: dict[str, Any]) -> dict[str, Any]:

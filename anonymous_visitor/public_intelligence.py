@@ -12,6 +12,43 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def _freshness_envelope(
+    *,
+    widget: str,
+    upstream_provider: str | None,
+    source_event_time: str | None,
+    source_received_at: str | None = None,
+    computed_at: str | None = None,
+    freshness_slo_sec: int = 300,
+    fallback_state: str | None = None,
+) -> dict[str, Any]:
+    served_at = _utcnow()
+    computed = computed_at or served_at
+    age_sec: float | None = None
+    if source_event_time:
+        try:
+            evt = datetime.fromisoformat(source_event_time.replace("Z", "+00:00"))
+            srv = datetime.fromisoformat(served_at.replace("Z", "+00:00"))
+            age_sec = max(0.0, (srv - evt).total_seconds())
+        except Exception:
+            age_sec = None
+    proven = source_event_time is not None and age_sec is not None
+    fresh_pass = proven and age_sec is not None and age_sec <= freshness_slo_sec
+    return {
+        "widget": widget,
+        "UPSTREAM_PROVIDER": upstream_provider,
+        "SOURCE_EVENT_TIME": source_event_time,
+        "SOURCE_RECEIVED_AT": source_received_at,
+        "COMPUTED_AT": computed,
+        "SERVED_AT": served_at,
+        "AGE_AT_SERVE": age_sec,
+        "FRESHNESS_SLO": f"{freshness_slo_sec}s",
+        "FRESHNESS_PASS": fresh_pass if proven else False,
+        "FALLBACK_STATE": fallback_state or ("UNPROVEN_SOURCE_TIME" if not proven else None),
+        "source_event_time_available": proven,
+    }
+
+
 def _with_license(source_id: str | None, payload: dict[str, Any]) -> dict[str, Any]:
     gate = assert_license_public_display(source_id)
     if not gate["ok"]:
@@ -43,6 +80,16 @@ async def build_decision_truth_pulse(*, symbol: str = "BTC") -> dict[str, Any]:
             "degraded_state": "TEMPORARILY UNAVAILABLE",
             "detail": type(exc).__name__,
         }
+    fresh_raw = pulse.get("freshness") or {}
+    source_event = fresh_raw.get("source_event_time") or fresh_raw.get("as_of") or fresh_raw.get("timestamp")
+    freshness = _freshness_envelope(
+        widget="Decision Truth",
+        upstream_provider="trust_pulse",
+        source_event_time=source_event,
+        source_received_at=fresh_raw.get("received_at"),
+        computed_at=fresh_raw.get("computed_at"),
+        fallback_state=fresh_raw.get("label") or fresh_raw.get("state"),
+    )
     body = {
         "ok": True,
         "surface": "decision_truth_pulse_public",
@@ -52,7 +99,8 @@ async def build_decision_truth_pulse(*, symbol: str = "BTC") -> dict[str, Any]:
         "confidence": pulse.get("confidence"),
         "evidence_alignment": pulse.get("evidence_alignment") or (pulse.get("why") or {}).get("headline"),
         "data_quality": pulse.get("data_quality") or pulse.get("quality"),
-        "freshness": pulse.get("freshness"),
+        "freshness": freshness,
+        "freshness_legacy": pulse.get("freshness"),
         "methodology_href": "/methodology",
         "evidence_href": "/oracle-accuracy",
         "generated_at": _utcnow(),
@@ -161,8 +209,9 @@ async def build_market_surface() -> dict[str, Any]:
 
 async def build_public_accuracy() -> dict[str, Any]:
     try:
-        from oracle_audit_chain import chain_summary
+        from oracle_audit_chain import chain_summary, temporal_integrity_summary
 
+        temporal = temporal_integrity_summary()
         chain = chain_summary(limit=50) or {}
     except Exception as exc:  # noqa: BLE001
         return {
@@ -175,12 +224,36 @@ async def build_public_accuracy() -> dict[str, Any]:
         "ok": True,
         "surface": "public_accuracy_historical_proof",
         "ledger": {
-            "total_records": chain.get("total_records"),
+            "total_records": temporal.get("TOTAL_RECORDS", chain.get("total_records")),
             "recent_hit_rate_percent": chain.get("recent_hit_rate_percent"),
             "recent_records": chain.get("recent_records") or [],
             "methodology_href": "/methodology",
             "accuracy_href": "/oracle-accuracy",
         },
+        "accuracy": {
+            "TOTAL_RECORDS": temporal.get("TOTAL_RECORDS"),
+            "TOTAL_ELIGIBLE_FOR_SCORING": temporal.get("TOTAL_ELIGIBLE_FOR_SCORING"),
+            "TOTAL_MATURED": temporal.get("TOTAL_MATURED"),
+            "TOTAL_RESOLVED": temporal.get("TOTAL_RESOLVED"),
+            "TOTAL_UNRESOLVED": temporal.get("TOTAL_UNRESOLVED"),
+            "TOTAL_ABSTAINED": temporal.get("TOTAL_ABSTAINED"),
+            "TOTAL_CORRECT": temporal.get("TOTAL_CORRECT"),
+            "TOTAL_INCORRECT": temporal.get("TOTAL_INCORRECT"),
+            "LEGACY_TEMPORAL_PROOF_UNAVAILABLE": temporal.get("LEGACY_TEMPORAL_PROOF_UNAVAILABLE"),
+            "TEMPORALLY_PROVABLE_PREDICTIONS": temporal.get("TEMPORALLY_PROVABLE_PREDICTIONS"),
+            "ACCURACY_NUMERATOR": temporal.get("ACCURACY_NUMERATOR"),
+            "ACCURACY_DENOMINATOR": temporal.get("ACCURACY_DENOMINATOR"),
+            "ACCURACY_DENOMINATOR_DEFINITION": temporal.get("ACCURACY_DENOMINATOR_DEFINITION"),
+            "ACCURACY_RATE": temporal.get("ACCURACY_RATE"),
+            "PUBLIC_ACCURACY_UI_DENOMINATOR_VISIBLE": True,
+        },
+        "freshness": _freshness_envelope(
+            widget="Accuracy",
+            upstream_provider="oracle_audit_chain",
+            source_event_time=temporal.get("LATEST_TIMESTAMP"),
+            computed_at=_utcnow(),
+            fallback_state="LEGACY_TEMPORAL_PROOF_UNAVAILABLE" if temporal.get("LEGACY_TEMPORAL_PROOF_UNAVAILABLE") else None,
+        ),
         "timestamped": True,
         "evidence_bound": True,
         "no_retroactive_rewrite": True,

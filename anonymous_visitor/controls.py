@@ -4,7 +4,14 @@ from __future__ import annotations
 
 from typing import Any
 
+from anonymous_visitor.av_satisfaction import satisfaction_status_for_av
 from anonymous_visitor.evidence import collect_av_evidence
+
+
+def _av_status(control_id: str, *, ev: dict[str, Any]) -> str:
+    rec = ev.get("reconciliation_semantics") or {}
+    special = satisfaction_status_for_av(control_id, ev=ev, rec=rec)
+    return special if special is not None else "PASS"
 
 
 def _ctrl(
@@ -29,6 +36,7 @@ def _ctrl(
 def av_control_matrix(*, head: str | None = None) -> list[dict[str, Any]]:
     ev = collect_av_evidence(head=head)
     audit = ev["audit_findings"]
+    rec = ev.get("reconciliation_semantics") or {}
     a11y = ev["accessibility"]
 
     return [
@@ -83,10 +91,13 @@ def av_control_matrix(*, head: str | None = None) -> list[dict[str, Any]]:
         ),
         _ctrl(
             "AV-08",
-            status="PASS",
-            implementation=["anonymous_visitor/public_intelligence.py", "oracle_audit_chain"],
+            status=_av_status("AV-08", ev=ev),
+            implementation=["anonymous_visitor/public_intelligence.py", "oracle_audit_chain.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av08_public_accuracy"],
-            evidence=["public_accuracy_historical_proof"],
+            evidence=[str(ev.get("public_accuracy_temporal", {}))],
+            blocker="Legacy records lack pre-outcome timestamps until forward-only fields populate"
+            if _av_status("AV-08", ev=ev) == "PARTIAL"
+            else None,
         ),
         _ctrl(
             "AV-09",
@@ -104,10 +115,13 @@ def av_control_matrix(*, head: str | None = None) -> list[dict[str, Any]]:
         ),
         _ctrl(
             "AV-11",
-            status="PASS" if not audit["UNLICENSED_PUBLIC_DATA_SOURCES"] else "PARTIAL",
+            status=_av_status("AV-11", ev=ev),
             implementation=["anonymous_visitor/licensing.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av11_licensing_gate"],
             evidence=[f"register_count={ev['licensing_register_count']}"],
+            blocker="Upstream provider commercial/redistribution proof external"
+            if _av_status("AV-11", ev=ev) == "PARTIAL"
+            else None,
         ),
         _ctrl(
             "AV-12",
@@ -118,24 +132,24 @@ def av_control_matrix(*, head: str | None = None) -> list[dict[str, Any]]:
         ),
         _ctrl(
             "AV-13",
-            status="PASS" if not audit["PUBLIC_ROUTES_WITHOUT_RATE_LIMITS"] else "PARTIAL",
+            status=_av_status("AV-13", ev=ev),
             implementation=["anonymous_visitor/protections.py", "viral_capacity.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av13_public_rate_limiting"],
-            evidence=[str(ev["protection_status"])],
+            evidence=[str(ev.get("rate_limit_coverage", {}))],
         ),
         _ctrl(
             "AV-14",
-            status="PASS" if not audit["PUBLIC_ROUTES_WITHOUT_COST_GUARDS"] else "PARTIAL",
-            implementation=["anonymous_visitor/protections.py"],
+            status=_av_status("AV-14", ev=ev),
+            implementation=["anonymous_visitor/protections.py", "blackdark/data/circuit_breaker.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av14_cost_protections"],
-            evidence=["upstream_cost_budget"],
+            evidence=[str(ev.get("av14_control_matrix", {}))],
         ),
         _ctrl(
             "AV-15",
-            status="PASS" if not audit["UNSAFE_ANONYMOUS_STREAMS"] else "PARTIAL",
+            status=_av_status("AV-15", ev=ev),
             implementation=["anonymous_visitor/streams.py", "trust_pulse.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av15_stream_policy"],
-            evidence=[f"unsafe_streams={audit['UNSAFE_ANONYMOUS_STREAMS']}"],
+            evidence=[str(ev.get("stream_control_matrix", {}))],
         ),
         _ctrl(
             "AV-16",
@@ -167,11 +181,11 @@ def av_control_matrix(*, head: str | None = None) -> list[dict[str, Any]]:
         ),
         _ctrl(
             "AV-20",
-            status="PARTIAL" if a11y["status"] == "PARTIAL" else "PASS",
+            status=_av_status("AV-20", ev=ev),
             implementation=["anonymous_visitor/accessibility.py", "templates/landing.html"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av20_accessibility_baseline"],
-            evidence=[f"a11y_passed={a11y['passed']}/{a11y['total']}"],
-            blocker="Full WCAG 2.2 AA requires external audit" if a11y["external_audit_required"] else None,
+            evidence=[str(a11y)],
+            blocker="Full WCAG 2.2 AA requires external audit",
         ),
         _ctrl(
             "AV-21",
@@ -203,17 +217,17 @@ def av_control_matrix(*, head: str | None = None) -> list[dict[str, Any]]:
         ),
         _ctrl(
             "AV-25",
-            status="PASS",
+            status=_av_status("AV-25", ev=ev),
             implementation=["anonymous_visitor/protections.py", "viral_capacity.py", "anonymous_visitor/authorization.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av25_cache_controls"],
-            evidence=["cache_policy_on_public_routes"],
+            evidence=[str(ev.get("av25_control_matrix", {}))],
         ),
         _ctrl(
             "AV-26",
-            status="PASS",
-            implementation=["anonymous_visitor/protections.py"],
+            status=_av_status("AV-26", ev=ev),
+            implementation=["anonymous_visitor/protections.py", "anonymous_visitor/streams.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av26_abuse_resource_tests"],
-            evidence=["rate+burst+concurrency"],
+            evidence=[str(ev.get("rate_limit_coverage", {}))],
         ),
         _ctrl(
             "AV-27",
@@ -238,10 +252,13 @@ def av_control_matrix(*, head: str | None = None) -> list[dict[str, Any]]:
         ),
         _ctrl(
             "AV-30",
-            status="PASS",
+            status=_av_status("AV-30", ev=ev),
             implementation=["scripts/anonymous_visitor_final_reconciliation.py", "anonymous_visitor/evidence.py"],
             tests=["tests/test_anonymous_visitor_av_matrix.py::test_av30_machine_verifiable_closure"],
-            evidence=["reconciliation_artifact"],
+            evidence=[str(rec)],
+            blocker="Reconciliation SHA semantics invalid/stale"
+            if _av_status("AV-30", ev=ev) == "PARTIAL"
+            else None,
         ),
     ]
 

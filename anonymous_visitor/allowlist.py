@@ -256,6 +256,15 @@ def path_is_anonymous_public(path: str) -> bool:
     return not p.startswith("/api/")
 
 
+def path_is_canonical_public_surface(path: str) -> bool:
+    """Strict allowlist-only classification (no implicit HTML public fallback)."""
+    if is_anonymous_denied(path):
+        return False
+    if match_allowlist_entry("GET", path) or match_allowlist_entry("POST", path):
+        return True
+    return any(path.startswith(prefix) for _, prefix, _ in ANONYMOUS_PREFIX_ALLOWLIST)
+
+
 def allowlist_export() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for entry in ANONYMOUS_ROUTE_ALLOWLIST:
