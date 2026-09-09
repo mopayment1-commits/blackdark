@@ -5,9 +5,11 @@ from __future__ import annotations
 import json
 
 import stripe
-from fastapi import APIRouter, Body, Depends, HTTPException, Request
+from fastapi import APIRouter, Body, Depends, Header, HTTPException, Request
+from fastapi.responses import JSONResponse
 
 from api.deps import optional_user
+from failure.idempotency import check_idempotency, store_idempotency
 
 
 def _is_valid_email(email: str) -> bool:
@@ -109,7 +111,11 @@ async def billing_refund_policy():
 async def billing_checkout(
     data: dict = Body(default={}),
     user: dict | None = Depends(optional_user),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
+    is_dup, cached = check_idempotency(idempotency_key)
+    if is_dup and cached:
+        return JSONResponse(status_code=cached["status_code"], content=cached["body"])
     from billing_service import (
         BILLING_CURRENCY,
         billing_configured,
@@ -130,7 +136,7 @@ async def billing_checkout(
 
     ls_url = lemon_squeezy_checkout_url(tier)
     if ls_url:
-        return {
+        payload = {
             "url": ls_url,
             "provider": "lemon_squeezy",
             "tier": tier,
@@ -140,6 +146,8 @@ async def billing_checkout(
             "pci_note": "Card data collected only on Lemon Squeezy-hosted Checkout.",
             "trial_days": SELF_SERVE_SKUS[tier].get("trial_days") or 0,
         }
+        store_idempotency(idempotency_key, 200, payload)
+        return payload
     if not billing_configured():
         raise HTTPException(status_code=503, detail="Billing not configured")
     email = user.get("email") if user else None
@@ -148,6 +156,7 @@ async def billing_checkout(
         payload = create_checkout_session(tier, customer_email=email, user_id=user_id)
         payload["amount_usd"] = SELF_SERVE_SKUS[tier]["amount_usd"]
         payload["name"] = SELF_SERVE_SKUS[tier]["name"]
+        store_idempotency(idempotency_key, 200, payload)
         return payload
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -156,7 +165,13 @@ async def billing_checkout(
 
 
 @router.post("/portal", responses=COMMON_ERROR_RESPONSES)
-async def billing_portal(user: dict | None = Depends(optional_user)):
+async def billing_portal(
+    user: dict | None = Depends(optional_user),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
+):
+    is_dup, cached = check_idempotency(idempotency_key)
+    if is_dup and cached:
+        return JSONResponse(status_code=cached["status_code"], content=cached["body"])
     from billing_service import (
         create_billing_portal_session,
         lemon_squeezy_portal_url,
@@ -169,11 +184,13 @@ async def billing_portal(user: dict | None = Depends(optional_user)):
 
     lemon_portal = lemon_squeezy_portal_url()
     if lemon_portal:
-        return {
+        payload = {
             "url": lemon_portal,
             "provider": "lemon_squeezy",
             "currency": "USD",
         }
+        store_idempotency(idempotency_key, 200, payload)
+        return payload
 
     if not stripe_configured():
         raise HTTPException(
@@ -187,6 +204,7 @@ async def billing_portal(user: dict | None = Depends(optional_user)):
         payload = create_billing_portal_session(customer_id)
         payload["provider"] = "stripe"
         payload["currency"] = "USD"
+        store_idempotency(idempotency_key, 200, payload)
         return payload
     except stripe.StripeError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc

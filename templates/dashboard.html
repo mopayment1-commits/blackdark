@@ -403,6 +403,16 @@
         }
         function esc(s) { return escapeHtml(s); }
 
+        function bdWidgetFail(el, opts) {
+            if (!el) return;
+            opts = opts || {};
+            if (window.BDFailure && window.BDFailure.handleWidgetFailure) {
+                window.BDFailure.handleWidgetFailure(el, opts);
+                return;
+            }
+            el.innerHTML = '<div class="empty" role="alert">' + esc(opts.fallback || i18nT('error.widget.unavailable', {}) || 'Unavailable') + '</div>';
+        }
+
         function currentLang() {
             return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
         }
@@ -1017,7 +1027,7 @@
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
                 renderMarketAssets(data.assets || []);
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.widget.unavailable', fallback: 'Unavailable' }); }
         }
 
         async function loadDailyReport() {
@@ -1052,7 +1062,7 @@
                     + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
                     + bulletHtml
                     + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.component.degraded', fallback: 'Daily report unavailable' }); }
         }
 
         async function loadSubscriberValue() {
@@ -1076,7 +1086,7 @@
                     <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}
                     ${esc(coversPlanBit(v))}</div>
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.component.degraded', fallback: 'Value digest unavailable' }); }
         }
 
         let dashEs = null;
@@ -1141,7 +1151,7 @@
                 el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
                     rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
                         <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.widget.unavailable', fallback: 'Unavailable' }); }
         }
 
         async function loadArbitrage(refresh) {
@@ -1169,7 +1179,7 @@
                     <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
                     <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.data.partial', fallback: 'Scan failed' }); }
         }
 
         async function loadInbox() {
@@ -1188,7 +1198,7 @@
                         <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc(formatAlertTime(a.created_at))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.widget.unavailable', fallback: 'Inbox unavailable' }); }
         }
 
         async function markInboxRead(id) {
@@ -1231,7 +1241,7 @@
                 if (foot) {
                     foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
                 }
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.widget.unavailable', fallback: 'Unavailable' }); }
         }
 
         function coversPlanBit(v) {
@@ -1291,7 +1301,7 @@
                     `<div class="arb-card"><strong>${i + 1}. ${esc(x.title)}</strong><div style="margin-top:.3rem;color:#a1a1aa">${esc(x.detail)}</div>
                      <a href="${safeShareUrl(x.href) || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
                 ).join('') || '<div class="empty">No deltas yet</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.component.degraded', fallback: 'Continuity unavailable' }); }
         }
 
         async function loadHalfLifeClock() {
@@ -1361,7 +1371,7 @@
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
                         <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${esc(c.disclaimer||'')}</div>
                     </div>`;
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.component.degraded', fallback: 'Report unavailable' }); }
         }
         function copyMevShare() {
             if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
@@ -1410,7 +1420,7 @@
                     + planBit + sliceTable
                     + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
                     + esc(d.disclaimer||'') + '</div></div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.ai.presentation', fallback: 'Advisor unavailable' }); }
         }
 
         let portfolioAssets = [];
@@ -1464,7 +1474,7 @@
                     '<div class="arb-card"><strong>Portfolio AI</strong>' + riskBit +
                     '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + esc(d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
                     scenarioBit + valueBit + recHtml + footBit + '</div>';
-            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
+            } catch (error) { console.debug(error); bdWidgetFail(el, { message_key: 'error.ai.presentation', fallback: 'Portfolio AI unavailable' }); }
         }
 
         async function loadTgStatus() {
