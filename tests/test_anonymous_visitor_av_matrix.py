@@ -34,6 +34,27 @@ def test_av02_route_inventory(av_client):
     allow = av_client.get("/api/anonymous-visitor/allowlist")
     assert allow.status_code == 200
     assert allow.json()["single_canonical_registry"] is True
+    inv = av_client.get("/api/anonymous-visitor/route-inventory")
+    assert inv.status_code == 200
+    data = inv.json()
+    assert data.get("sanitized") is True
+    assert "routes" not in data
+    assert data.get("TOTAL_UNCLASSIFIED", 1) == 0
+
+
+def test_av02_openapi_not_public(av_client):
+    assert av_client.get("/openapi.json").status_code == 401
+    assert av_client.get("/api/docs/openapi.json").status_code == 401
+    pub = av_client.get("/api/docs/public-openapi.json")
+    assert pub.status_code == 200
+
+
+def test_av01_tier_canonical_mapping():
+    from anonymous_visitor.states import ProductAuthState, resolve_product_state
+
+    assert resolve_product_state({"tier": "whale"}) == ProductAuthState.PAID_INDIVIDUAL
+    assert resolve_product_state({"tier": "enterprise"}) == ProductAuthState.FREE_ACCOUNT
+    assert resolve_product_state({"tier": "institutional"}) == ProductAuthState.INSTITUTIONAL
 
 
 def test_av03_deny_by_default(av_client):

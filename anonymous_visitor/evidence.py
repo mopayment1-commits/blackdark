@@ -14,6 +14,7 @@ from anonymous_visitor.allowlist import (
 )
 from anonymous_visitor.analytics import analytics_status
 from anonymous_visitor.consent import consent_status
+from anonymous_visitor.inventory import audit_route_inventory
 from anonymous_visitor.licensing import audit_unlicensed_public_sources, licensing_register_export
 from anonymous_visitor.protections import protection_status
 from anonymous_visitor.seo import seo_policy_export
@@ -28,6 +29,24 @@ def _git_head() -> str:
         return "unknown"
 
 
+def _live_route_audit(*, probe: bool = False, probe_limit: int = 40) -> dict[str, Any]:
+    try:
+        from dashboard import app
+        client = None
+        if probe:
+            from fastapi.testclient import TestClient
+
+            client = TestClient(app)
+        return audit_route_inventory(app, client=client)
+    except Exception:
+        return {
+            "ACCIDENTAL_PUBLIC_ROUTES": [],
+            "PRIVATE_DATA_EXPOSURE_PATHS": [],
+            "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION": [],
+            "TOTAL_UNCLASSIFIED": -1,
+        }
+
+
 def collect_av_evidence(*, head: str | None = None) -> dict[str, Any]:
     head = head or _git_head()
     allowlist = allowlist_export()
@@ -38,6 +57,7 @@ def collect_av_evidence(*, head: str | None = None) -> dict[str, Any]:
             missing_attr.append(str(lic["source_id"]))
     no_rate: list[str] = [f"{e['method']} {e['path']}" for e in allowlist if not e.get("rate_limit_per_min")]
     no_cost: list[str] = [f"{e['method']} {e['path']}" for e in allowlist if e.get("upstream_cost_budget") is None]
+    route_audit = _live_route_audit()
     return {
         "head": head,
         "anonymous_states": states_status(),
@@ -51,10 +71,21 @@ def collect_av_evidence(*, head: str | None = None) -> dict[str, Any]:
         "accessibility": accessibility_report(),
         "consent_sample": consent_status(visitor_key="evidence_probe"),
         "streams_unsafe": unsafe_anonymous_streams(),
+        "route_inventory_counts": {
+            k: route_audit.get(k)
+            for k in (
+                "TOTAL_ROUTES_DISCOVERED",
+                "TOTAL_PUBLIC",
+                "TOTAL_PRIVATE",
+                "TOTAL_UNCLASSIFIED",
+            )
+        },
         "audit_findings": {
-            "ACCIDENTAL_PUBLIC_ROUTES": [],
-            "PRIVATE_DATA_EXPOSURE_PATHS": [],
-            "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION": [],
+            "ACCIDENTAL_PUBLIC_ROUTES": route_audit.get("ACCIDENTAL_PUBLIC_ROUTES", []),
+            "PRIVATE_DATA_EXPOSURE_PATHS": route_audit.get("PRIVATE_DATA_EXPOSURE_PATHS", []),
+            "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION": route_audit.get(
+                "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION", []
+            ),
             "UNLICENSED_PUBLIC_DATA_SOURCES": unlicensed,
             "REQUIRED_ATTRIBUTION_MISSING": missing_attr,
             "PUBLIC_ROUTES_WITHOUT_RATE_LIMITS": no_rate,

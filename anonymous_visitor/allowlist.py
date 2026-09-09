@@ -84,7 +84,7 @@ ANONYMOUS_ROUTE_ALLOWLIST: tuple[AnonymousRouteEntry, ...] = (
     _e("GET", "/api/anonymous-visitor/status", data_class="OPERATIONAL", rate=120),
     _e("GET", "/api/anonymous-visitor/states", data_class="OPERATIONAL", rate=120),
     _e("GET", "/api/anonymous-visitor/allowlist", data_class="OPERATIONAL", rate=60),
-    _e("GET", "/api/anonymous-visitor/route-inventory", data_class="OPERATIONAL", rate=30),
+    _e("GET", "/api/anonymous-visitor/route-inventory", data_class="OPERATIONAL", rate=30, owner="governance"),
     _e("GET", "/api/anonymous-visitor/matrix", data_class="OPERATIONAL", rate=60),
     _e("GET", "/api/anonymous-visitor/evidence", data_class="OPERATIONAL", rate=60),
     _e("GET", "/api/anonymous-visitor/public-intelligence/decision-truth-pulse", data_class="PUBLIC_INTELLIGENCE", rate=60, license_source_id="oracle_unified"),
@@ -115,6 +115,17 @@ ANONYMOUS_ROUTE_ALLOWLIST: tuple[AnonymousRouteEntry, ...] = (
     _e("GET", "/api/due-diligence/evidence-pack/public-summary", data_class="PUBLIC_EVIDENCE", rate=60, owner="observability"),
     _e("GET", "/api/due-diligence/corpus-passport/public", data_class="PUBLIC_EVIDENCE", rate=60, owner="observability"),
     _e("GET", "/api/docs/public-openapi.json", data_class="PUBLIC_UTILITY", rate=30, owner="public_api_docs"),
+    # Landing page public surfaces (explicit classification + RL guards)
+    _e("GET", "/api/pricing", data_class="PUBLIC_MARKETING", rate=60, owner="billing"),
+    _e("GET", "/api/billing/payments", data_class="PUBLIC_MARKETING", rate=60, owner="billing"),
+    _e("POST", "/api/billing/institutional-inquiry", data_class="PUBLIC_UTILITY", rate=30, owner="billing"),
+    _e("POST", "/api/analytics/view", data_class="PUBLIC_UTILITY", rate=120, owner="analytics"),
+    _e("GET", "/api/analytics/stats", data_class="PUBLIC_UTILITY", rate=60, owner="analytics"),
+    _e("GET", "/api/platform/stats", data_class="PUBLIC_UTILITY", rate=60, owner="platform"),
+    _e("GET", "/api/telegram/free/status", data_class="PUBLIC_UTILITY", rate=60, owner="telegram"),
+    _e("GET", "/api/audience/entry", data_class="PUBLIC_UTILITY", rate=60, owner="audience"),
+    _e("POST", "/api/discipline-mirror/answer", data_class="PUBLIC_UTILITY", rate=30, owner="discipline_mirror"),
+    _e("POST", "/join-waitlist", data_class="PUBLIC_UTILITY", rate=30, owner="landing"),
     # Oracle HTML + API prefix reads
     _e("GET", "/oracle/{symbol}", data_class="PUBLIC_INTELLIGENCE", rate=60, owner="oracle"),
     _e("GET", "/oracle/{symbol}/quick", data_class="PUBLIC_INTELLIGENCE", rate=60, owner="oracle"),
@@ -144,6 +155,14 @@ ANONYMOUS_DENY_PREFIXES: tuple[str, ...] = (
     "/api/institutional",
     "/api/v1/admin",
     "/metrics",
+)
+
+# Full OpenAPI schema — authenticated/ops only; public filtered schema stays allowlisted.
+ANONYMOUS_DENY_EXACT: frozenset[str] = frozenset(
+    {
+        "/openapi.json",
+        "/api/docs/openapi.json",
+    }
 )
 
 # Explicit anonymous exceptions to hard deny prefixes.
@@ -181,6 +200,8 @@ def is_anonymous_denied(path: str) -> bool:
     p = _normalize_path(path)
     if p in ANONYMOUS_DENY_EXCEPTIONS:
         return False
+    if p in ANONYMOUS_DENY_EXACT:
+        return True
     return any(p == pref or p.startswith(pref.rstrip("/") + "/") or p.startswith(pref) for pref in ANONYMOUS_DENY_PREFIXES)
 
 

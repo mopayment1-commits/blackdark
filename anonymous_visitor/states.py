@@ -16,10 +16,12 @@ class ProductAuthState(StrEnum):
 def resolve_product_state(user: dict[str, Any] | None) -> ProductAuthState:
     if user is None:
         return ProductAuthState.ANONYMOUS
-    tier = str(user.get("tier") or "free").lower().strip()
-    if tier in {"institutional", "whale", "enterprise"}:
+    from auth_service import normalize_tier
+
+    tier = normalize_tier(user.get("tier"))
+    if tier == "institutional":
         return ProductAuthState.INSTITUTIONAL
-    if tier in {"pro", "elite", "quant", "paid"}:
+    if tier in {"pro", "elite", "quant", "whale"}:
         return ProductAuthState.PAID_INDIVIDUAL
     return ProductAuthState.FREE_ACCOUNT
 

@@ -61,9 +61,12 @@ async def anonymous_visitor_allowlist() -> dict[str, Any]:
 
 @router.get("/route-inventory")
 async def anonymous_visitor_route_inventory(request: Request) -> dict[str, Any]:
-    from anonymous_visitor.inventory import audit_route_inventory
+    from anonymous_visitor.authorization import has_authenticated_session
+    from anonymous_visitor.inventory import audit_route_inventory, sanitized_route_inventory_summary
 
     app = request.app
+    if not await has_authenticated_session(request):
+        return sanitized_route_inventory_summary(app)
     return {"ok": True, **audit_route_inventory(app, client=None)}
 
 

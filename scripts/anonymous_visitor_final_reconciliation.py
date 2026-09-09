@@ -78,6 +78,7 @@ def main() -> int:
     wiring = audit_runtime_wiring()
     evaluation = evaluate_av_controls(head=head)
     audit = evaluation["audit_findings"]
+    impl_sha = head
     closure_empty = all(len(audit.get(k, [])) == 0 for k in (
         "ACCIDENTAL_PUBLIC_ROUTES",
         "PRIVATE_DATA_EXPOSURE_PATHS",
@@ -106,8 +107,10 @@ def main() -> int:
         "governing_spec_hash": spec_hash(),
         "branch": subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip(),
         "base_sha": base,
-        "implementation_sha": head,
-        "reconciliation_sha": head,
+        "implementation_sha": impl_sha,
+        "material_sha": impl_sha,
+        "reconciliation_generated_from_sha": impl_sha,
+        "reconciliation_sha": None,
         "total_requirements": 30,
         "pass": evaluation["counts"]["PASS"],
         "partial": evaluation["counts"]["PARTIAL"],
@@ -154,6 +157,8 @@ def main() -> int:
         "PASS_LIVE_NOT_CLAIMED": True,
     }
     out = ROOT / "docs" / "ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_FINAL_RECONCILIATION.json"
+    out.write_text(json.dumps(artifact, indent=2) + "\n", encoding="utf-8")
+    artifact["reconciliation_sha"] = git_sha()
     out.write_text(json.dumps(artifact, indent=2) + "\n", encoding="utf-8")
     print(
         json.dumps(

@@ -95,7 +95,7 @@ async def enforce_anonymous_boundary(request: Request, call_next) -> Response:
     path = request.url.path or ""
     method = request.method.upper()
 
-    # Only enforce on API paths and explicitly denied prefixes.
+    # Enforce on API paths, hard-deny prefixes, and ops-only schema exports.
     enforce = path.startswith("/api/") or is_anonymous_denied(path)
     if not enforce:
         return await call_next(request)
