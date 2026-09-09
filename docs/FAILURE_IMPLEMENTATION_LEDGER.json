@@ -1,0 +1,1139 @@
+{
+  "schema_version": "1.0",
+  "spec_file": "docs/BLACKDARK_INSTITUTIONAL_FAILURE_DEGRADED_MODE_ERROR_MESSAGING_RECOVERY_SPEC_v1.md",
+  "source_of_truth_rule": "The specification is authoritative; this ledger is tracking/evidence only.",
+  "generated_at": "2026-09-09T09:26:21.709968+00:00",
+  "material_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+  "spec_sha256": "9a3b518799508603a0285dddcb8227e763cdc20c5f9e4c6f6e28bff602e84f6d",
+  "ledger_sha256": "",
+  "requirements": [
+    {
+      "requirement_id": "ERR-001",
+      "title": "Unified failure state model",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/states.py",
+      "implementation_paths": [
+        "failure/states.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-002",
+      "title": "Failure class, certainty, impact",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/dimensions.py",
+      "implementation_paths": [
+        "failure/dimensions.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-003",
+      "title": "RFC9457 problem contract",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/problem.py",
+      "implementation_paths": [
+        "failure/problem.py",
+        "api/openapi_responses.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-004",
+      "title": "Correlation ID",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/correlation.py",
+      "implementation_paths": [
+        "failure/correlation.py",
+        "failure/middleware.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-005",
+      "title": "Provider internals protected",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "safe_errors.py",
+      "implementation_paths": [
+        "safe_errors.py",
+        "failure/handlers.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-006",
+      "title": "Indeterminate outcomes",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/mutation.py",
+      "implementation_paths": [
+        "failure/mutation.py",
+        "failure/states.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-007",
+      "title": "Idempotency",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "failure/idempotency.py",
+      "implementation_paths": [
+        "failure/idempotency.py",
+        "api/idempotency.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-008",
+      "title": "Retry taxonomy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/retry.py",
+      "implementation_paths": [
+        "failure/retry.py",
+        "failure/dimensions.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-009",
+      "title": "Backoff and jitter",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/retry.py",
+      "implementation_paths": [
+        "failure/retry.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-010",
+      "title": "Circuit breaker",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "failure/circuit.py",
+      "implementation_paths": [
+        "failure/circuit.py",
+        "blackdark/data/circuit_breaker.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-011",
+      "title": "Data freshness model",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "failure/freshness.py",
+      "implementation_paths": [
+        "failure/freshness.py",
+        "data_freshness.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-012",
+      "title": "Data quality model",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/quality.py",
+      "implementation_paths": [
+        "failure/quality.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-013",
+      "title": "Decision safety",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/decision.py",
+      "implementation_paths": [
+        "failure/decision.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-014",
+      "title": "AI failure decomposition",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/ai.py",
+      "implementation_paths": [
+        "failure/ai.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-015",
+      "title": "Graceful partial rendering",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "static/js/bd_failure.js",
+      "implementation_paths": [
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-016",
+      "title": "Incident aggregation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/incident.py",
+      "implementation_paths": [
+        "failure/incident.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-017",
+      "title": "User action contract",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/user_action.py",
+      "implementation_paths": [
+        "failure/user_action.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-018",
+      "title": "Retry button safety",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/user_action.py",
+      "implementation_paths": [
+        "failure/user_action.py",
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-019",
+      "title": "Internal severity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/dimensions.py",
+      "implementation_paths": [
+        "failure/dimensions.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-020",
+      "title": "User impact",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/dimensions.py",
+      "implementation_paths": [
+        "failure/dimensions.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-021",
+      "title": "Structured failure logging",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/logging.py",
+      "implementation_paths": [
+        "failure/logging.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-022",
+      "title": "Secret redaction",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "failure/logging.py",
+      "implementation_paths": [
+        "failure/logging.py",
+        "safe_errors.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-023",
+      "title": "Observability SLI",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "failure/observability.py",
+      "implementation_paths": [
+        "failure/observability.py",
+        "observability.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-024",
+      "title": "Component status model",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "failure/incident.py",
+      "implementation_paths": [
+        "failure/incident.py",
+        "site_services.py",
+        "api/routers/failure.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-025",
+      "title": "Global incident banner",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/incident.py",
+      "implementation_paths": [
+        "failure/incident.py",
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-026",
+      "title": "Maintenance messaging",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/incident.py",
+      "implementation_paths": [
+        "failure/incident.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-027",
+      "title": "Rate limit UX",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/registry.py",
+      "implementation_paths": [
+        "failure/registry.py",
+        "failure/handlers.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-028",
+      "title": "Validation error UX",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/validation.py",
+      "implementation_paths": [
+        "failure/validation.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-029",
+      "title": "Auth enumeration resistance",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "failure/registry.py",
+      "implementation_paths": [
+        "failure/registry.py",
+        "auth_service.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-030",
+      "title": "Authorization privacy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/registry.py",
+      "implementation_paths": [
+        "failure/registry.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-031",
+      "title": "Security block privacy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/registry.py",
+      "implementation_paths": [
+        "failure/registry.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-032",
+      "title": "Payment error mapping",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "failure/payment.py",
+      "implementation_paths": [
+        "failure/payment.py",
+        "billing/reconciliation.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-033",
+      "title": "Error i18n",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "i18n_service.py",
+      "implementation_paths": [
+        "i18n_service.py",
+        "failure/registry.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py",
+        "tests/test_i18n_38_locales.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-034",
+      "title": "Accessible error UX",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "static/js/bd_failure.js",
+      "implementation_paths": [
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-035",
+      "title": "Error flood control",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/flood.py",
+      "implementation_paths": [
+        "failure/flood.py",
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-036",
+      "title": "Offline/network state",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "static/js/bd_failure.js",
+      "implementation_paths": [
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-037",
+      "title": "Cache disclosure",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/freshness.py",
+      "implementation_paths": [
+        "failure/freshness.py",
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-038",
+      "title": "Unknown freshness",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/freshness.py",
+      "implementation_paths": [
+        "failure/freshness.py",
+        "data_freshness.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-039",
+      "title": "Decision evidence context",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/decision.py",
+      "implementation_paths": [
+        "failure/decision.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-040",
+      "title": "Error contract registry",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/registry.py",
+      "implementation_paths": [
+        "failure/registry.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-041",
+      "title": "Stable error codes",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/registry.py",
+      "implementation_paths": [
+        "failure/registry.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-042",
+      "title": "Machine-readable API errors",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/problem.py",
+      "implementation_paths": [
+        "failure/problem.py",
+        "failure/handlers.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-043",
+      "title": "Privacy-safe IDs",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/correlation.py",
+      "implementation_paths": [
+        "failure/correlation.py",
+        "failure/problem.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-044",
+      "title": "Timezone integration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "failure/incident.py",
+      "implementation_paths": [
+        "failure/incident.py",
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-045",
+      "title": "Incident history integrity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/incident.py",
+      "implementation_paths": [
+        "failure/incident.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-046",
+      "title": "Reconciliation lifecycle",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/mutation.py",
+      "implementation_paths": [
+        "failure/mutation.py",
+        "failure/states.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-047",
+      "title": "Truthful user messaging",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/support.py",
+      "implementation_paths": [
+        "failure/support.py",
+        "static/js/bd_failure.js"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-048",
+      "title": "Support handoff",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/support.py",
+      "implementation_paths": [
+        "failure/support.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-049",
+      "title": "Help/status linkage",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/support.py",
+      "implementation_paths": [
+        "failure/support.py",
+        "api/routers/failure.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ERR-050",
+      "title": "Fault injection matrix",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "failure/injection.py",
+      "implementation_paths": [
+        "failure/injection.py"
+      ],
+      "tests": [
+        "tests/test_failure_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:3bdfd22e6db6950300b263fa259fba5277a7aa5c"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "3bdfd22e6db6950300b263fa259fba5277a7aa5c",
+      "notes": ""
+    }
+  ]
+}
