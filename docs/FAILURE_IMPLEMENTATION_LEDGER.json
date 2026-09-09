@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "spec_file": "docs/BLACKDARK_INSTITUTIONAL_FAILURE_DEGRADED_MODE_ERROR_MESSAGING_RECOVERY_SPEC_v1.md",
   "source_of_truth_rule": "The specification is authoritative; this ledger is tracking/evidence only.",
-  "generated_at": "2026-09-09T09:26:40.621307+00:00",
-  "material_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+  "generated_at": "2026-09-09T09:44:33.587520+00:00",
+  "material_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
   "spec_sha256": "9a3b518799508603a0285dddcb8227e763cdc20c5f9e4c6f6e28bff602e84f6d",
   "ledger_sha256": "",
   "requirements": [
@@ -20,13 +20,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -42,13 +42,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -65,13 +65,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -88,13 +88,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -111,13 +111,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -134,13 +134,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -157,13 +157,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -180,13 +180,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -202,13 +202,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -225,13 +225,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -248,13 +248,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -270,13 +270,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -292,13 +292,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -314,13 +314,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -336,13 +336,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -358,13 +358,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -380,13 +380,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -403,13 +403,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -425,13 +425,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -447,13 +447,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -469,13 +469,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -492,13 +492,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -515,13 +515,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -539,13 +539,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -562,13 +562,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -584,13 +584,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -607,13 +607,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -629,13 +629,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -652,13 +652,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -674,13 +674,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -696,13 +696,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -719,13 +719,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -743,13 +743,13 @@
         "tests/test_i18n_38_locales.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -765,13 +765,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -788,13 +788,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -810,13 +810,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -833,13 +833,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -856,13 +856,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -878,13 +878,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -900,13 +900,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -922,13 +922,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -945,13 +945,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -968,13 +968,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -991,13 +991,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -1013,13 +1013,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -1036,13 +1036,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -1059,13 +1059,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -1081,13 +1081,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -1104,13 +1104,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     },
     {
@@ -1126,13 +1126,13 @@
         "tests/test_failure_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:c2ff9e2b48df981df46048e3952d4cca13920dca"
+        "verified_at_sha:f4b78af65abc7e1316c793883ca403bee8eb534b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "c2ff9e2b48df981df46048e3952d4cca13920dca",
+      "last_verified_sha": "f4b78af65abc7e1316c793883ca403bee8eb534b",
       "notes": ""
     }
   ]

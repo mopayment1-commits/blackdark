@@ -297,20 +297,81 @@ async def test_http_exception_handler_problem_json():
         assert resp.headers.get("X-Correlation-ID")
 
 
+def test_decision_abstention_engine_wiring():
+    from failure.decision import DecisionSafetyState
+    from failure.freshness import FreshnessState
+    from failure.quality import DataQualityState
+    from bd_platform.adaptive_intelligence.decision_contract import build_decision_contract
+
+    stale = build_decision_contract(
+        goal="funding",
+        symbol="BTC",
+        candidates=[{"capability_id": 609, "relevance_score": 3.0}],
+        freshness_state=FreshnessState.STALE,
+        quality_state=DataQualityState.CONFLICTING,
+        conflicting=True,
+    )
+    assert stale["abstain"] is True
+    assert stale["decision_safety"] == DecisionSafetyState.ABSTAINED.value
+    assert stale["evidence_context"]["decision_state"] == DecisionSafetyState.ABSTAINED.value
+
+
 @pytest.mark.asyncio
-async def test_failure_api_endpoints():
+async def test_fault_injection_production_safety(monkeypatch):
     from httpx import ASGITransport, AsyncClient
 
     from dashboard import app
 
+    monkeypatch.setenv("SOFT_LAUNCH", "false")
+    monkeypatch.delenv("ENABLE_FAULT_INJECTION", raising=False)
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        anon = await client.get("/api/failure/inject/http_429")
+        assert anon.status_code in {403, 404}
+
+    monkeypatch.setenv("SOFT_LAUNCH", "true")
+    monkeypatch.setenv("ADMIN_API_KEY", "failure-test-admin-key")
+    monkeypatch.setenv("ADMIN_MFA_REQUIRED", "false")
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        denied = await client.get("/api/failure/inject/http_429")
+        assert denied.status_code in {403, 404}
+        allowed = await client.get(
+            "/api/failure/inject/http_429",
+            headers={"X-Admin-Key": "failure-test-admin-key"},
+        )
+        assert allowed.status_code == 200
+        assert allowed.json().get("error_code") == "BD-RATE-001"
+
+
+@pytest.mark.asyncio
+async def test_failure_api_endpoints(monkeypatch):
+    from httpx import ASGITransport, AsyncClient
+
+    from dashboard import app
+
+    monkeypatch.setenv("SOFT_LAUNCH", "true")
+    monkeypatch.setenv("ADMIN_API_KEY", "failure-test-admin-key")
+    monkeypatch.setenv("ADMIN_MFA_REQUIRED", "false")
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
         status = await client.get("/api/failure/status/components")
         assert status.status_code == 200
-        inject = await client.get("/api/failure/inject/http_429")
+        inject = await client.get(
+            "/api/failure/inject/http_429",
+            headers={"X-Admin-Key": "failure-test-admin-key"},
+        )
         assert inject.status_code == 200
         assert inject.json().get("error_code") == "BD-RATE-001"
 
+
+def test_billing_checkout_idempotency():
+    from failure.idempotency import check_idempotency, store_idempotency
+
+    store_idempotency("billing-checkout-test", 200, {"url": "https://example.com/checkout"})
+    dup, cached = check_idempotency("billing-checkout-test")
+    assert dup is True
+    assert cached["body"]["url"] == "https://example.com/checkout"
 
 def test_engineering_closure_module():
     from bd_platform.failure_source_driven_engineering import failure_source_driven_status
