@@ -62,6 +62,21 @@ class AuthProfileUpdateBody(BaseModel):
             raise ValueError("ux_mode_pref must be beginner or pro")
         return v
 
+    @field_validator("timezone")
+    @classmethod
+    def validate_timezone(cls, v: str | None) -> str | None:
+        if v is None:
+            return v
+        from timezone.iana import validate_iana_timezone
+
+        cleaned = v.strip()
+        if not cleaned:
+            return "UTC"
+        validated = validate_iana_timezone(cleaned)
+        if validated == "UTC" and cleaned.upper() != "UTC":
+            raise ValueError("timezone must be a valid IANA identifier such as Africa/Cairo")
+        return validated
+
 
 class ExecutionAutoBody(BaseModel):
     enabled: bool

@@ -1,0 +1,887 @@
+{
+  "VERSION": "timezone_source_driven_v1",
+  "SOURCE_SPEC_FULL_READ": true,
+  "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
+  "SECOND_SOURCE_PASS_COMPLETE": true,
+  "MISSING_SOURCE_REQUIREMENTS": [],
+  "UNACCOUNTED_SOURCE_STATEMENTS": [],
+  "SILENTLY_IGNORED_REQUIREMENTS": [],
+  "MISSED_REQUIREMENTS": [],
+  "FALSE_NA_CLASSIFICATIONS": [],
+  "FALSE_EXTERNAL_GATES": [],
+  "SILENT_DEFERRALS": [],
+  "requirements": [
+    {
+      "requirement_id": "TZ-001",
+      "title": "Canonical internal time",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/canonical.py",
+      "implementation_paths": [
+        "timezone/canonical.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-002",
+      "title": "IANA time zones",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/iana.py",
+      "implementation_paths": [
+        "timezone/iana.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-003",
+      "title": "Automatic detection",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "static/js/bd_time.js",
+      "implementation_paths": [
+        "static/js/bd_time.js",
+        "api/routers/auth.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-004",
+      "title": "Preference precedence",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/resolver.py",
+      "implementation_paths": [
+        "timezone/resolver.py",
+        "timezone/request_context.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-005",
+      "title": "Persistence",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "database.py",
+      "implementation_paths": [
+        "database.py",
+        "auth_service.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-006",
+      "title": "Manual override",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "templates/profile.html",
+      "implementation_paths": [
+        "templates/profile.html",
+        "api/routers/auth.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-007",
+      "title": "Travel/device mismatch",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/resolver.py",
+      "implementation_paths": [
+        "timezone/resolver.py",
+        "templates/profile.html"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-008",
+      "title": "DST correctness",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py",
+        "timezone/dst.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-009",
+      "title": "Language separation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/resolver.py",
+      "implementation_paths": [
+        "timezone/resolver.py",
+        "i18n_enforcement.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-010",
+      "title": "Country separation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/resolver.py",
+      "implementation_paths": [
+        "timezone/resolver.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-011",
+      "title": "Server clock discipline",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/server_discipline.py",
+      "implementation_paths": [
+        "timezone/server_discipline.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires production NTP/clock-sync evidence"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": "Production NTP sync is LIVE_GATED"
+    },
+    {
+      "requirement_id": "TZ-012",
+      "title": "Database semantics",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "timezone/canonical.py",
+      "implementation_paths": [
+        "timezone/canonical.py",
+        "database.py",
+        "blackdark/data/models.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-013",
+      "title": "API contract",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/canonical.py",
+      "implementation_paths": [
+        "timezone/canonical.py",
+        "api/routers/timezone.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-014",
+      "title": "User-facing rendering",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-015",
+      "title": "Locale formatting",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "i18n_enforcement.py",
+      "implementation_paths": [
+        "i18n_enforcement.py",
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-016",
+      "title": "Timezone clarity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-017",
+      "title": "Charts",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "static/js/bd_time.js",
+      "implementation_paths": [
+        "static/js/bd_time.js",
+        "templates/dashboard.html"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-018",
+      "title": "Market/source timestamps",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/market.py",
+      "implementation_paths": [
+        "timezone/market.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-019",
+      "title": "AI outputs",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py",
+        "i18n_enforcement.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-020",
+      "title": "Notifications",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py",
+        "alert_service.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-021",
+      "title": "Email",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "identity/security_notifications.py",
+      "implementation_paths": [
+        "identity/security_notifications.py",
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-022",
+      "title": "Reports and exports",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "gdpr_service.py",
+      "implementation_paths": [
+        "gdpr_service.py",
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-023",
+      "title": "Activity/security logs",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "api/routers/auth.py",
+      "implementation_paths": [
+        "api/routers/auth.py",
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-024",
+      "title": "Billing",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py",
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-025",
+      "title": "Recurring schedules",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/schedule.py",
+      "implementation_paths": [
+        "timezone/schedule.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-026",
+      "title": "DST fold/gap handling",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/dst.py",
+      "implementation_paths": [
+        "timezone/dst.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-027",
+      "title": "Historical integrity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/format.py",
+      "implementation_paths": [
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-028",
+      "title": "Auditability",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/audit.py",
+      "implementation_paths": [
+        "timezone/audit.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-029",
+      "title": "I18N integration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "i18n_enforcement.py",
+      "implementation_paths": [
+        "i18n_enforcement.py",
+        "timezone/format.py"
+      ],
+      "tests": [
+        "tests/test_i18n_38_locales.py",
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-030",
+      "title": "Cross-surface coverage",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/surface_registry.py",
+      "implementation_paths": [
+        "timezone/surface_registry.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-031",
+      "title": "No naive datetime policy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/canonical.py",
+      "implementation_paths": [
+        "timezone/canonical.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-032",
+      "title": "Timezone data updates",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "timezone/iana.py",
+      "implementation_paths": [
+        "timezone/iana.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-033",
+      "title": "Fallback behavior",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/iana.py",
+      "implementation_paths": [
+        "timezone/iana.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-034",
+      "title": "Privacy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/resolver.py",
+      "implementation_paths": [
+        "timezone/resolver.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-035",
+      "title": "Engineering acceptance",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "bd_platform/timezone_source_driven_engineering.py",
+      "implementation_paths": [
+        "bd_platform/timezone_source_driven_engineering.py"
+      ],
+      "tests": [
+        "tests/test_timezone_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": ""
+    },
+    {
+      "requirement_id": "TZ-036",
+      "title": "Live gate",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "timezone/server_discipline.py",
+      "implementation_paths": [
+        "timezone/server_discipline.py"
+      ],
+      "tests": [],
+      "evidence": [
+        "verified_at_sha:566295116a921ce3daade1d6cf6bc45b3e43c8bc"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires live production evidence"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+      "notes": "Requires live production evidence"
+    }
+  ],
+  "reuse_counts": {
+    "BUILD": 23,
+    "REUSE": 3,
+    "IMPROVE": 10
+  },
+  "state_counts": {
+    "LOCAL_ENGINEERING_COMPLETE": 34,
+    "LIVE_GATED": 2
+  },
+  "LOCAL_BUILDABLE_TIMEZONE_REQUIREMENTS_REMAINING": 0,
+  "KNOWN_LOCAL_TIMEZONE_GAPS": [],
+  "UNLOCALIZED_USER_TIMESTAMPS": [],
+  "AMBIGUOUS_TIME_OUTPUTS": [],
+  "MIXED_TIMEZONE_SURFACES": [],
+  "NAIVE_DATETIME_CANONICAL_PATHS": [],
+  "FIXED_OFFSET_TIMEZONE_AUTHORITIES": [],
+  "PARALLEL_TIMEZONE_AUTHORITIES": [],
+  "PARALLEL_DATE_FORMATTING_AUTHORITIES": [],
+  "PARALLEL_USER_TIME_PREFERENCES": [],
+  "SPLIT_BRAIN_TIME_OWNERSHIP": [],
+  "PASS_ENGINEERING_TIMEZONE": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "CANONICAL_UTC_STORAGE_PASS": true,
+  "IANA_TIMEZONE_MODEL_PASS": true,
+  "AUTO_TIMEZONE_DETECTION_PASS": true,
+  "TIMEZONE_PREFERENCE_PERSISTENCE_PASS": true,
+  "MANUAL_TIMEZONE_OVERRIDE_PASS": true,
+  "TIMEZONE_PRECEDENCE_PASS": true,
+  "LANGUAGE_TIMEZONE_SEPARATION_PASS": true,
+  "COUNTRY_TIMEZONE_SEPARATION_PASS": true,
+  "DST_AWARENESS_PASS": true,
+  "DST_FOLD_GAP_PASS": true,
+  "API_TIMESTAMP_CONTRACT_PASS": true,
+  "USER_FACING_TIME_LOCALIZATION_PASS": true,
+  "CHART_TIMEZONE_PASS": true,
+  "MARKET_TIMESTAMP_INTEGRITY_PASS": true,
+  "AI_TIMEZONE_ENFORCEMENT_PASS": true,
+  "NOTIFICATION_TIMEZONE_PASS": true,
+  "EMAIL_TIMEZONE_PASS": true,
+  "REPORT_EXPORT_TIMEZONE_PASS": true,
+  "ACTIVITY_LOG_TIMEZONE_PASS": true,
+  "BILLING_TIMEZONE_DISPLAY_PASS": true,
+  "RECURRING_LOCAL_SCHEDULE_PASS": true,
+  "HISTORICAL_TIMESTAMP_INTEGRITY_PASS": true,
+  "INVALID_TIMEZONE_FALLBACK_PASS": true,
+  "NO_NAIVE_CANONICAL_DATETIMES_PASS": true,
+  "I18N_TIMEZONE_INTEGRATION_PASS": true,
+  "P0_TEST_MATRIX_GREEN": true,
+  "schema_version": "1.0",
+  "spec_file": "docs/BLACKDARK_GLOBAL_TIME_TIMEZONE_SPEC_v1.md",
+  "source_of_truth_rule": "The specification is authoritative; this ledger is tracking/evidence only.",
+  "generated_at": "2026-09-09T09:02:03.058084+00:00",
+  "material_sha": "566295116a921ce3daade1d6cf6bc45b3e43c8bc",
+  "spec_sha256": "922f7a097838b5628bab846e6989827a87495187d6043495cfb5819866276a4c",
+  "ledger_sha256": "e99af3a3c0cd47a7214a423749c169eb896d237580d449602f4f0469d56b34f3",
+  "pytest_output": "........................                                                 [100%]\n",
+  "pytest_stderr": ""
+}

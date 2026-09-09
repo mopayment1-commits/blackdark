@@ -728,6 +728,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.timezone import router as timezone_router
+
+    app.include_router(timezone_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.billing import router as billing_router
 
     app.include_router(billing_router)
