@@ -2,10 +2,10 @@
   "governing_spec_hash": "7074cf247213215829ec1f5286d91c6fb539e396a68f90eb574b0885fa3d361e",
   "branch": "cursor/anonymous-visitor-public-intelligence-closure-ed16",
   "base_sha": "7b316e283738af4c79f9cf59cf09a13d6b384b69",
-  "implementation_sha": "2e5c1186d044b43ddcf0dfb44ae1e0ac25613569",
-  "material_sha": "2e5c1186d044b43ddcf0dfb44ae1e0ac25613569",
-  "reconciliation_generated_from_sha": "2e5c1186d044b43ddcf0dfb44ae1e0ac25613569",
-  "reconciliation_sha": "2e5c1186d044b43ddcf0dfb44ae1e0ac25613569",
+  "implementation_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
+  "material_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
+  "reconciliation_generated_from_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
+  "reconciliation_sha": "959eef450fd2ceb0ebc8af5f100402894f3325ed",
   "total_requirements": 30,
   "pass": 29,
   "partial": 1,
@@ -1309,7 +1309,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av10_account_gate_boundary"
         ],
         "evidence": [
-          "{'registration_not_required_for_basic_public_value': True, 'gate_at_persistence_boundary': True, 'persistence_actions': ['api_credentials', 'create_alert', 'create_watchlist', 'export', 'extended_history', 'follow_decision', 'portfolio_ai', 'private_workspace', 'proprietary_depth', 'save_asset', 'save_layout', 'sync_devices'], 'preferred_cta': 'Create Free Account'}"
+          "{'registration_not_required_for_basic_public_value': True, 'gate_at_persistence_boundary': True, 'persistence_actions': ['api_credentials', 'create_alert', 'create_watchlist', 'export', 'extended_history', 'follow_decision', 'portfolio', 'portfolio_ai', 'private_ai', 'private_workspace', 'proprietary_depth', 'save_asset', 'save_layout', 'sync_devices'], 'preferred_cta': 'Create Free Account'}"
         ],
         "blocker": null
       },
@@ -1655,7 +1655,7 @@
     ]
   },
   "pytest_ok": true,
-  "pytest_output": "................................                                         [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_get for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_get for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+  "pytest_output": "................................                                         [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID oracle_accuracy_page_oracle_accuracy_get for function oracle_accuracy_page at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_maintenance_api_storage_maintenance_post for function storage_maintenance at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\ntests/test_anonymous_visitor_av_matrix.py::test_av02_openapi_not_public\n  /workspace/.venv/lib/python3.12/site-packages/fastapi/openapi/utils.py:303: UserWarning: Duplicate Operation ID storage_legacy_purge_api_storage_legacy_purge_post for function storage_legacy_purge at /workspace/dashboard.py\n    warnings.warn(message, stacklevel=1)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
   "DEAD_ANONYMOUS_VISITOR_MODULES": [],
   "UNWIRED_ANONYMOUS_VISITOR_MODULES": [],
   "TEST_ONLY_ANONYMOUS_VISITOR_IMPLEMENTATIONS": [],
