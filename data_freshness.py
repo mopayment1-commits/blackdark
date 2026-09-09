@@ -22,7 +22,7 @@ def freshness_chip(
         ms = float(age_sec) * 1000.0
     if ms is None:
         return {
-            "label": "Live · age unknown",
+            "label": "Freshness unknown",
             "state": "unknown",
             "freshness_ms": None,
             "age_sec": None,
@@ -66,6 +66,12 @@ def attach_oracle_freshness(payload: dict[str, Any]) -> dict[str, Any]:
     chip = freshness_chip(freshness_ms=ms, age_sec=age)
     out["data_freshness"] = chip
     out["freshness_ms"] = chip.get("freshness_ms")
+    try:
+        from failure.freshness import attach_freshness
+
+        out = attach_freshness(out)
+    except Exception:
+        pass
     try:
         from data_provenance_score import attach_provenance
 

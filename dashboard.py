@@ -573,6 +573,13 @@ app = FastAPI(
     responses=COMMON_ERROR_RESPONSES,
 )
 
+try:
+    from failure.handlers import register_exception_handlers
+
+    register_exception_handlers(app)
+except Exception:
+    logger.exception("failure exception handlers not registered")
+
 # Compress HTML/CSS/JS/JSON for Lighthouse text-compression + faster FCP/LCP.
 app.add_middleware(GZipMiddleware, minimum_size=500, compresslevel=6)
 
@@ -607,6 +614,13 @@ try:
     from security_middleware import SecurityHeadersMiddleware
 
     app.add_middleware(SecurityHeadersMiddleware)
+except Exception:
+    pass
+
+try:
+    from failure.middleware import correlation_middleware
+
+    app.middleware("http")(correlation_middleware)
 except Exception:
     pass
 
@@ -731,6 +745,13 @@ try:
     from api.routers.timezone import router as timezone_router
 
     app.include_router(timezone_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.failure import router as failure_router
+
+    app.include_router(failure_router)
 except ImportError:
     pass
 
