@@ -4,13 +4,15 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, Query, Request
+from fastapi import APIRouter, Depends, Query, Request
 
 from failure.correlation import require_correlation_id
 from failure.incident import component_status_report, global_banner_payload
 from failure.injection import FAULT_MATRIX, FaultKind, inject_fault
+from failure.injection_guard import assert_fault_injection_allowed
 from failure.support import support_handoff
 from i18n_service import resolve_request_lang
+from security_auth import require_admin_dev
 
 router = APIRouter(prefix="/api/failure", tags=["failure"])
 
@@ -54,6 +56,10 @@ async def failure_support(
 
 
 @router.get("/inject/{fault}")
-async def failure_inject(fault: str) -> dict[str, Any]:
+async def failure_inject(
+    fault: str,
+    _admin: dict = Depends(require_admin_dev),
+) -> dict[str, Any]:
+    assert_fault_injection_allowed()
     kind = FaultKind(fault)
     return inject_fault(kind, correlation_id=require_correlation_id())
