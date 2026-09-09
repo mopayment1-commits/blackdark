@@ -250,9 +250,9 @@ async def build_public_accuracy() -> dict[str, Any]:
         "freshness": _freshness_envelope(
             widget="Accuracy",
             upstream_provider="oracle_audit_chain",
-            source_event_time=temporal.get("LATEST_TIMESTAMP"),
+            source_event_time=None,
             computed_at=_utcnow(),
-            fallback_state="LEGACY_TEMPORAL_PROOF_UNAVAILABLE" if temporal.get("LEGACY_TEMPORAL_PROOF_UNAVAILABLE") else None,
+            fallback_state="LEGACY_TEMPORAL_PROOF_UNAVAILABLE",
         ),
         "timestamped": True,
         "evidence_bound": True,
