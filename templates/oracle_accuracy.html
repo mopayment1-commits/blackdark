@@ -332,6 +332,7 @@
     </footer>
 
     <script src="/static/js/dom_escape.js"></script>
+    <script src="/static/js/bd_time.js"></script>
     <script type="module">
         const { esc, safeUrl } = window.BDDomSafe;
         function pillClass(label) {
@@ -399,6 +400,11 @@
                 `<tr><td>${esc(k)}</td><td>${esc(byType[k])}</td></tr>`
             ).join('');
         }
+        function fmtTime(iso) {
+            return (window.BD_TIME && BD_TIME.formatApiTimestamp)
+                ? BD_TIME.formatApiTimestamp(iso, { withContext: true })
+                : String(iso || '').slice(0, 19);
+        }
         function renderPredictionsTable(rows) {
             const tbody = document.getElementById('predictions-body');
             if (!rows.length) {
@@ -408,7 +414,7 @@
             tbody.innerHTML = rows.map(r => `
                 <tr>
                     <td>${esc(r.prediction_id ?? '—')}</td>
-                    <td>${esc((r.timestamp || '').slice(0, 19))}</td>
+                    <td>${esc(fmtTime(r.timestamp))}</td>
                     <td>${esc(r.asset || '—')}</td>
                     <td>${esc(r.verdict || '—')}</td>
                     <td>${esc(Number(r.price_at_prediction || 0).toLocaleString())}</td>
@@ -426,7 +432,7 @@
             }
             list.innerHTML = events.map(e => {
                 const h = e.highlights || {};
-                return `<li><strong>${esc(e.event_type)}</strong> · ${esc(e.timestamp || '')} · ${esc(JSON.stringify(h))}</li>`;
+                return `<li><strong>${esc(e.event_type)}</strong> · ${esc(fmtTime(e.timestamp))} · ${esc(JSON.stringify(h))}</li>`;
             }).join('');
         }
         function renderProofChain(chain) {

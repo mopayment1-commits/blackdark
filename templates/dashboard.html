@@ -963,6 +963,13 @@
             }
         }
 
+        function formatAlertTime(iso) {
+            if (window.BD_TIME && BD_TIME.formatApiTimestamp) {
+                return BD_TIME.formatApiTimestamp(iso, { withContext: true });
+            }
+            return String(iso || '').slice(0, 19);
+        }
+
         function initChart() {
             const el = document.getElementById('chart');
             if (!el || typeof LightweightCharts === 'undefined') return;
@@ -972,6 +979,11 @@
             });
             series = chart.addCandlestickSeries({ upColor: '#22c55e', downColor: '#ef4444', borderVisible: false });
             new ResizeObserver(() => chart.applyOptions({ width: el.clientWidth })).observe(el);
+            if (window.BD_TIME && BD_TIME.fetchTimeContext) {
+                BD_TIME.fetchTimeContext().then(function (ctx) {
+                    BD_TIME.applyChartTimezone(chart, ctx);
+                });
+            }
         }
 
         async function loadChart() {
@@ -1173,7 +1185,7 @@
                     <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
                         <strong>${esc(a.title||'Alert')}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc(formatAlertTime(a.created_at))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }

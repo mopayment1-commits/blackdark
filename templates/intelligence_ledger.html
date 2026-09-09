@@ -111,7 +111,9 @@ th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
     </div>
   </div>
 </main>
+<script src="/static/js/bd_time.js"></script>
 <script>
+function fmtTime(iso){return (window.BD_TIME&&BD_TIME.formatApiTimestamp)?BD_TIME.formatApiTimestamp(iso,{withContext:true}):String(iso||'').slice(0,19);}
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
@@ -153,7 +155,7 @@ async function loadExecution(){
       tbody.appendChild(tr);
     });
     document.getElementById('execAlerts').innerHTML=alertsHtml(d.alerts);
-    document.getElementById('execMeta').textContent=`Sources: ${(d.data_sources||[]).join(', ')} · SLA ${d.sla_met?'met':'missed'} · ${d.timestamp||''}`;
+    document.getElementById('execMeta').textContent=`Sources: ${(d.data_sources||[]).join(', ')} · SLA ${d.sla_met?'met':'missed'} · ${fmtTime(d.timestamp)}`;
     document.getElementById('execResults').style.display='block';
   }catch(e){
     document.getElementById('execError').textContent=e.message;
@@ -190,7 +192,7 @@ async function loadSlippage(){
       metric('Liquidity',o.inputs?.liquidity_usd?('$'+Math.round(o.inputs.liquidity_usd).toLocaleString()):'—')
     ].join('');
     document.getElementById('slipAlerts').innerHTML=alertsHtml(d.alerts);
-    document.getElementById('slipMeta').textContent=`SLA ${d.sla_met?'≤2s met':'missed'} · ${d.latency_ms||'—'} ms · ${d.timestamp||''}`;
+    document.getElementById('slipMeta').textContent=`SLA ${d.sla_met?'≤2s met':'missed'} · ${d.latency_ms||'—'} ms · ${fmtTime(d.timestamp)}`;
     document.getElementById('slipResults').style.display='block';
   }catch(e){
     document.getElementById('slipError').textContent=e.message;

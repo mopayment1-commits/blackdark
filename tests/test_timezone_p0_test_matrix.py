@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 from datetime import UTC, datetime, time
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import pytest
@@ -196,3 +197,39 @@ def test_privacy_note_in_time_context():
 
     payload = time_context_payload(resolve_timezone(account_timezone="Africa/Cairo"))
     assert "preference signal only" in payload["privacy_note"]
+
+
+def test_invalid_timezone_fallback_observability():
+    from observability import observability_status
+    from timezone.iana import validate_iana_timezone
+
+    before = observability_status().get("counters", {}).get("timezone_invalid_fallback_total", 0)
+    assert validate_iana_timezone("Fake/Zone/Name") == "UTC"
+    assert validate_iana_timezone("GMT+3") == "UTC"
+    after = observability_status().get("counters", {}).get("timezone_invalid_fallback_total", 0)
+    assert after > before
+
+
+def test_bd_time_chart_helpers_present():
+    text = (Path(__file__).resolve().parents[1] / "static/js/bd_time.js").read_text(encoding="utf-8")
+    for fn in ("applyChartTimezone", "formatApiTimestamp", "fetchTimeContext", "formatChartUnix"):
+        assert fn in text
+
+
+def test_postgres_models_use_timestamptz():
+    from blackdark.data import models
+
+    for name in ("created_at", "updated_at", "open_time", "close_time", "started_at"):
+        assert name in models.OhlcvData.__table__.columns or name in models.DataSource.__table__.columns or name in models.IngestionRun.__table__.columns
+
+
+def test_final_reconciliation_gates():
+    from scripts import timezone_final_reconciliation as recon
+
+    pg = recon.audit_postgres_timestamp_semantics()
+    charts = recon.audit_chart_timezone_coverage()
+    cross = recon.audit_cross_surface_timestamps()
+    assert pg["POSTGRES_CANONICAL_TIMESTAMP_SEMANTICS_PASS"] is True
+    assert charts["CHART_TIMEZONE_FULL_COVERAGE_PASS"] is True
+    assert cross["CROSS_SURFACE_TIMESTAMP_AUDIT_PASS"] is True
+

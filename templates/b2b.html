@@ -178,6 +178,7 @@
         <p>© 2026 BLACKDARK · <a href="/disclaimer" style="color:var(--accent)">Risk Disclaimer</a> · <a href="/terms" style="color:var(--accent)">Terms</a> · <a href="/privacy" style="color:var(--accent)">Privacy</a></p>
     </footer>
 
+    <script src="/static/js/bd_time.js"></script>
     <script>
         let ws = null;
         const demoKey = document.getElementById('demoKey').textContent.trim();
@@ -191,7 +192,10 @@
 
         function logWs(msg) {
             const el = document.getElementById('wsLog');
-            const line = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            const stamp = (window.BD_TIME && BD_TIME.formatApiTimestamp)
+                ? BD_TIME.formatApiTimestamp(new Date().toISOString(), { withContext: true })
+                : new Date().toLocaleTimeString();
+            const line = `[${stamp}] ${msg}`;
             el.textContent = (el.textContent === 'Events will appear here when connected.' ? '' : el.textContent + '\n') + line;
             el.scrollTop = el.scrollHeight;
         }

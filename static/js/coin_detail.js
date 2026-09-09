@@ -83,6 +83,11 @@
       layout: { background: { color: "#111118" }, textColor: "#a1a1aa" },
       grid: { vertLines: { color: "#2a2a35" }, horzLines: { color: "#2a2a35" } },
     });
+    if (window.BD_TIME && BD_TIME.fetchTimeContext) {
+      BD_TIME.fetchTimeContext().then(function (ctx) {
+        BD_TIME.applyChartTimezone(chart, ctx);
+      });
+    }
     series = chart.addAreaSeries({
       lineColor: "#22d3ee",
       topColor: "rgba(34,211,238,.25)",

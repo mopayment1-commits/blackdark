@@ -52,8 +52,10 @@
     <p class="sub" style="margin-top:1.5rem;font-size:.75rem" id="disc"></p>
 </main>
 <script src="/static/js/dom_escape.js"></script>
+<script src="/static/js/bd_time.js"></script>
 <script type="module">
 const { esc } = window.BDDomSafe;
+function fmtTime(iso){return (window.BD_TIME&&BD_TIME.formatApiTimestamp)?BD_TIME.formatApiTimestamp(iso,{withContext:true}):String(iso||'').slice(0,19);}
 async function load(){
   const r = await fetch('/api/public/kill-rate');
   const d = await r.json();
@@ -66,7 +68,7 @@ async function load(){
   document.getElementById('disc').textContent = d.disclaimer || '';
   const box = document.getElementById('recent');
   box.innerHTML = (d.recent_kills||[]).slice(0,12).map(k =>
-    `<div class="row"><b>${esc(k.source)}</b> · ${esc(k.reason)} <span style="float:right">${esc((k.ts||'').slice(0,19))}</span></div>`
+    `<div class="row"><b>${esc(k.source)}</b> · ${esc(k.reason)} <span style="float:right">${esc(fmtTime(k.ts))}</span></div>`
   ).join('') || '<div class="row">Board armed — kills appear as the engine refuses edges.</div>';
   document.getElementById('share').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(d.share_line||'BLACKDARK Kill-Rate');
 }

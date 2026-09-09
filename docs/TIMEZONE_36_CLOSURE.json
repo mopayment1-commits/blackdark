@@ -25,13 +25,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -47,13 +47,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -70,13 +70,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -93,13 +93,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -116,13 +116,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -139,13 +139,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -162,13 +162,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -185,13 +185,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -208,13 +208,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -230,13 +230,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -252,7 +252,7 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -260,7 +260,7 @@
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": "Production NTP sync is LIVE_GATED"
     },
     {
@@ -278,13 +278,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -301,13 +301,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -323,13 +323,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -346,13 +346,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -368,13 +368,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -391,13 +391,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -413,13 +413,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -436,13 +436,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -459,13 +459,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -482,13 +482,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -505,13 +505,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -528,13 +528,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -551,13 +551,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -573,13 +573,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -595,13 +595,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -617,13 +617,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -639,13 +639,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -663,13 +663,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -685,13 +685,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -707,13 +707,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -729,13 +729,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -751,13 +751,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -773,13 +773,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -795,13 +795,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": ""
     },
     {
@@ -815,7 +815,7 @@
       ],
       "tests": [],
       "evidence": [
-        "verified_at_sha:742ff7139c85b4a73ab2f912cd6319f5f38575d9"
+        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -823,7 +823,7 @@
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
       "notes": "Requires live production evidence"
     }
   ],
@@ -875,13 +875,44 @@
   "NO_NAIVE_CANONICAL_DATETIMES_PASS": true,
   "I18N_TIMEZONE_INTEGRATION_PASS": true,
   "P0_TEST_MATRIX_GREEN": true,
-  "schema_version": "1.0",
-  "spec_file": "docs/BLACKDARK_GLOBAL_TIME_TIMEZONE_SPEC_v1.md",
-  "source_of_truth_rule": "The specification is authoritative; this ledger is tracking/evidence only.",
-  "generated_at": "2026-09-09T09:02:36.308433+00:00",
-  "material_sha": "742ff7139c85b4a73ab2f912cd6319f5f38575d9",
+  "POSTGRES_CANONICAL_TIMESTAMP_SEMANTICS_PASS": true,
+  "POSTGRES_NAIVE_TIMESTAMP_PATHS": [],
+  "POSTGRES_LOCAL_TIME_DEPENDENCIES": [],
+  "POSTGRES_AMBIGUOUS_TIMESTAMP_COLUMNS": [],
+  "POSTGRES_AWARE_TO_NAIVE_CAST_GAPS": [],
+  "POSTGRES_HISTORICAL_SHIFT_RISKS": [],
+  "CHART_TIMEZONE_FULL_COVERAGE_PASS": true,
+  "UNLOCALIZED_CHART_TIME_PATHS": [],
+  "MIXED_TIMEZONE_CHART_SURFACES": [],
+  "CHART_TIMESTAMP_MUTATION_GAPS": [],
+  "CHART_UNLABELED_DECISION_SENSITIVE_TIMES": [],
+  "CHART_ORDERING_INTEGRITY_GAPS": [],
+  "CROSS_SURFACE_TIMESTAMP_AUDIT_PASS": true,
+  "DIRECT_RAW_TIMESTAMP_RENDER_PATHS": [],
+  "UNLABELED_DECISION_SENSITIVE_TIMES": [],
+  "HARDCODED_TIMEZONE_RENDER_PATHS": [],
+  "DUPLICATE_DATETIME_FORMATTING_PATHS": [],
+  "INVALID_TIMEZONE_OBSERVABILITY_PASS": true,
+  "INVALID_TIMEZONE_CRASH_PATHS": [],
+  "INVALID_TIMEZONE_SILENT_ACCEPTANCE": [],
+  "INVALID_TIMEZONE_UNOBSERVED_FALLBACKS": [],
+  "INVALID_TIMEZONE_DATA_CORRUPTION_PATHS": [],
+  "INVALID_TIMEZONE_UNSAFE_COERCIONS": [],
+  "WHOLE_SPEC_FINAL_RECONCILIATION_COMPLETE": true,
+  "REGRESSED_REQUIREMENTS": [],
+  "SILENTLY_NARROWED_REQUIREMENTS": [],
+  "UNVERIFIED_PREVIOUSLY_ACCEPTED_REQUIREMENTS": [],
+  "FALSE_PASS_FLAGS": [],
+  "BROKEN_CROSS_SPEC_INTEGRATIONS": [],
+  "PARALLEL_CHART_TIME_AUTHORITIES": [],
+  "PARALLEL_NOTIFICATION_TIME_AUTHORITIES": [],
+  "PARALLEL_EMAIL_TIME_AUTHORITIES": [],
+  "PARALLEL_AI_TIME_AUTHORITIES": [],
+  "FINAL_MATERIAL_SHA": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+  "PRIOR_ACCEPTED_SHA": "960d1dd",
+  "MATERIAL_SEMANTIC_DRIFT": "Targeted chart/cross-surface timestamp localization + invalid timezone observability metric",
+  "generated_at": "2026-09-09T09:20:11.898391+00:00",
   "spec_sha256": "922f7a097838b5628bab846e6989827a87495187d6043495cfb5819866276a4c",
-  "ledger_sha256": "67d7c73ba578f0fec03feca7f7c8e271757435af1d0790a468827dd084898b83",
-  "pytest_output": "........................                                                 [100%]\n",
+  "pytest_output": "......................                                                   [100%]\n",
   "pytest_stderr": ""
 }

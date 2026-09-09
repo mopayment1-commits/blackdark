@@ -114,8 +114,10 @@ th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
     </div>
   </div>
 </main>
+<script src="/static/js/bd_time.js"></script>
 <script>
 const $=id=>document.getElementById(id);
+function fmtTime(iso){return (window.BD_TIME&&BD_TIME.formatApiTimestamp)?BD_TIME.formatApiTimestamp(iso,{withContext:true}):String(iso||'').slice(0,19);}
 function metric(k,v){return `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`;}
 function params(){return {addr:encodeURIComponent($('addrInput').value.trim()),chain:encodeURIComponent($('chainSelect').value)};}
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
@@ -137,7 +139,7 @@ function renderChart(series){
     const bar=document.createElement('div');
     bar.className='chart-bar';
     bar.style.cssText=`left:${i*(barW+2)}px;width:${barW}px;height:${h}px;opacity:${p.proxy?0.5:1}`;
-    bar.title=`$${(p.total_usd||0).toLocaleString()} · ${p.timestamp||''}`;
+    bar.title=`$${(p.total_usd||0).toLocaleString()} · ${fmtTime(p.timestamp)}`;
     wrap.appendChild(bar);
   });
 }
@@ -184,7 +186,7 @@ async function loadUpdates(){
     const d=await(await fetch(`/api/platform/address-intelligence/updates?address=${addr}&chain=${chain}`)).json();
     if(!d.ok) throw new Error(d.error||'Updates failed');
     $('updHero').textContent=d.headline||'—';
-    const feed=(d.feed||[]).map(u=>`<div class="feed-row"><span>${u.timestamp?.slice(0,19)||'—'}</span><span class="${u.direction==='inflow'?'inflow':'outflow'}">${u.direction} $${Math.abs(u.delta_usd||0).toLocaleString()}</span><span>$${Math.round(u.current_usd||0).toLocaleString()}</span></div>`).join('');
+    const feed=(d.feed||[]).map(u=>`<div class="feed-row"><span>${fmtTime(u.timestamp)}</span><span class="${u.direction==='inflow'?'inflow':'outflow'}">${u.direction} $${Math.abs(u.delta_usd||0).toLocaleString()}</span><span>$${Math.round(u.current_usd||0).toLocaleString()}</span></div>`).join('');
     $('updFeed').innerHTML=feed||'<div class="empty">No updates yet — snapshots accumulate on each poll</div>';
     $('updMeta').textContent=`${d.feed_count} updates · ${d.latency_ms}ms · chain ${d.chain}`;
     $('updResults').style.display='block';

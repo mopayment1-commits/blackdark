@@ -32,17 +32,27 @@ def is_fixed_offset_not_iana(name: str | None) -> bool:
     return bool(name and _FIXED_OFFSET_RE.match(str(name).strip()))
 
 
+def _record_invalid_timezone_fallback(value: str | None, reason: str) -> None:
+    logger.warning("Invalid timezone fallback | value=%s reason=%s", value, reason)
+    try:
+        from observability import increment_metric
+
+        increment_metric("timezone_invalid_fallback_total")
+    except Exception:
+        pass
+
+
 def validate_iana_timezone(name: str | None, *, fallback: str = "UTC") -> str:
     candidate = str(name or fallback or "UTC").strip() or "UTC"
     if is_fixed_offset_not_iana(candidate):
-        logger.warning("Rejected fixed-offset timezone preference | value=%s", candidate)
+        _record_invalid_timezone_fallback(candidate, "fixed_offset_not_iana")
         return fallback
     try:
         ZoneInfo(candidate)
     except Exception:
-        logger.warning("Invalid IANA timezone | value=%s", candidate)
+        _record_invalid_timezone_fallback(candidate, "zoneinfo_error")
         return fallback
     if candidate not in available_timezones() and candidate != "UTC":
-        logger.warning("Unknown IANA timezone | value=%s", candidate)
+        _record_invalid_timezone_fallback(candidate, "unknown_iana")
         return fallback
     return candidate
