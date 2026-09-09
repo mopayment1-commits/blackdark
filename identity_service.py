@@ -50,9 +50,19 @@ TOKEN_TTL_MINUTES = {
     "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "45")),
 }
 
-AVATAR_DIR = Path(os.getenv("IDENTITY_AVATAR_DIR", "data/avatars"))
-AVATAR_MAX_BYTES = int(os.getenv("IDENTITY_AVATAR_MAX_BYTES", str(2 * 1024 * 1024)))
-ALLOWED_AVATAR_TYPES = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": STR_WEBP}
+from identity.avatar_upload import (
+    ALLOWED_AVATAR_TYPES,
+    AVATAR_DIR,
+    AVATAR_MAX_BYTES,
+    MALWARE_CONTROL,
+    delete_all_avatar_files_for_user,
+    delete_avatar_file,
+    reset_avatar_url,
+    resolve_avatar_file,
+    resolve_avatar_file_from_url,
+    save_avatar_bytes,
+)
+from identity.public_user_id import default_avatar_url
 
 
 def _utcnow() -> datetime:
@@ -163,7 +173,12 @@ def identity_architecture() -> dict[str, Any]:
         "email_verification": True,
         "password_reset": True,
         "mfa": "totp_optional",
-        "avatar": {"default": "initials_svg", "upload": True, "max_bytes": AVATAR_MAX_BYTES},
+        "avatar": {
+            "default": "initials_svg",
+            "upload": True,
+            "max_bytes": AVATAR_MAX_BYTES,
+            "malware_control": MALWARE_CONTROL,
+        },
         "oauth": oauth_status(),
         "profile_fields": [
             "email",
@@ -289,35 +304,3 @@ async def validate_oauth_state_async(provider: str, state: str | None) -> None:
     ok = await consume_oauth_state(provider=provider, state=state)
     if not ok:
         raise ValueError("Invalid or expired OAuth state")
-
-
-def save_avatar_bytes(user_id: int, content_type: str, data: bytes) -> str:
-    if content_type not in ALLOWED_AVATAR_TYPES:
-        raise ValueError("Avatar must be JPEG, PNG, or WebP")
-    if len(data) > AVATAR_MAX_BYTES:
-        raise ValueError(f"Avatar must be ≤ {AVATAR_MAX_BYTES} bytes")
-    # Magic-byte sniff
-    if content_type == "image/jpeg" and not data.startswith(b"\xff\xd8"):
-        raise ValueError("Invalid JPEG data")
-    if content_type == "image/png" and not data.startswith(b"\x89PNG\r\n\x1a\n"):
-        raise ValueError("Invalid PNG data")
-    if content_type == "image/webp" and data[0:4] != b"RIFF":
-        raise ValueError("Invalid WebP data")
-    AVATAR_DIR.mkdir(parents=True, exist_ok=True)
-    # Remove prior extensions
-    for ext in (".jpg", ".png", STR_WEBP):
-        old = AVATAR_DIR / f"{user_id}{ext}"
-        if old.exists():
-            old.unlink()
-    ext = ALLOWED_AVATAR_TYPES[content_type]
-    path = AVATAR_DIR / f"{user_id}{ext}"
-    path.write_bytes(data)
-    return f"/api/auth/avatar/{user_id}{ext}"
-
-
-def resolve_avatar_file(user_id: int) -> Path | None:
-    for ext in (".jpg", ".png", STR_WEBP):
-        path = AVATAR_DIR / f"{user_id}{ext}"
-        if path.is_file():
-            return path
-    return None

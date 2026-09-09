@@ -19,6 +19,17 @@ logger = logging.getLogger("BLACKDARK.Auth")
 
 Tier = Literal["free", "pro", "elite", "quant", "institutional", "whale"]
 
+
+def client_user_payload(user: dict[str, Any]) -> dict[str, Any]:
+    from identity.client_user import serialize_user_for_client
+    from identity.public_user_id import default_avatar_url
+
+    public_id = str(user.get("public_user_id") or "")
+    enriched = dict(user)
+    if not enriched.get("avatar_url"):
+        enriched["avatar_url"] = default_avatar_url(public_id)
+    return serialize_user_for_client(enriched)
+
 TIER_RANK: dict[str, int] = {
     "free": 0,
     "pro": 1,
@@ -231,7 +242,7 @@ async def register_user(
     accepted_terms: bool = False,
     plan: str = "free",
 ) -> dict[str, Any]:
-    from database import create_user, fetch_user_by_email, fetch_user_by_username
+    from database import create_user, fetch_user_by_email, fetch_user_by_id, fetch_user_by_username
     from billing.subscription_engine import start_paid_trial
     from identity_service import (
         send_verification_email,
@@ -286,6 +297,12 @@ async def register_user(
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)
     verify = await send_verification_email(user_id, email)
+    user_row = await fetch_user_by_id(user_id) or {
+        "email": email,
+        "name": display,
+        "username": handle or None,
+        "public_user_id": "",
+    }
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
@@ -298,10 +315,7 @@ async def register_user(
             **{k: verify[k] for k in ("debug_token", "debug_link") if k in verify},
         },
         "user": {
-            "id": user_id,
-            "email": email,
-            "name": display,
-            "username": handle or None,
+            **client_user_payload(user_row),
             "tier": tier,
             "email_verified": False,
             "selected_plan": selected_plan,
@@ -357,7 +371,7 @@ def _mfa_challenge_response(user: dict[str, Any], email: str, org_mfa: dict[str,
         "mfa_required": True,
         "mfa_challenge": challenge,
         "org_mfa_enforced": bool(org_mfa.get("org_mfa_enforced")),
-        "user": {"id": user["id"], "email": email, "name": user.get("name") or ""},
+        "user": client_user_payload(user),
     }
 
 
@@ -407,7 +421,7 @@ async def login_user(
         "expires_at": session["expires_at"],
         "mfa_required": False,
         "user": {
-            "id": user["id"],
+            **client_user_payload(user),
             "email": email,
             "name": user.get("name") or "",
             "tier": tier,
@@ -438,11 +452,17 @@ async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
     await touch_user_login(user_id)
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)
+    user_row = await fetch_user_by_id(user_id) or {"email": email, "public_user_id": ""}
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
         "mfa_required": False,
-        "user": {"id": user_id, "email": email, "tier": tier, "mfa_enabled": True},
+        "user": {
+            **client_user_payload(user_row),
+            "email": email,
+            "tier": tier,
+            "mfa_enabled": True,
+        },
     }
 
 
@@ -499,8 +519,12 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
         return None
     email = str(row.get("email") or "")
     tier = await resolve_user_tier(email)
+    public_id = str(row.get("public_user_id") or "")
+    from identity.public_user_id import default_avatar_url
+
     return {
         "id": row["id"],
+        "public_user_id": public_id,
         "email": email,
         "name": row.get("name") or "",
         "username": row.get("username") or None,
@@ -509,7 +533,7 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
         "telegram_chat_id": row.get("telegram_chat_id"),
         "stripe_customer_id": row.get("stripe_customer_id"),
         "email_verified": bool(row.get("email_verified_at")),
-        "avatar_url": row.get("avatar_url") or f"/api/auth/avatar/{row['id']}.svg",
+        "avatar_url": row.get("avatar_url") or default_avatar_url(public_id),
         "ui_lang": row.get("ui_lang") or "en",
         "ux_mode_pref": row.get("ux_mode_pref") or "beginner",
         "timezone": row.get("timezone") or "UTC",

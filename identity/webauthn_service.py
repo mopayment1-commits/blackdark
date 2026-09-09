@@ -131,12 +131,20 @@ async def complete_passkey_authentication(user_id: int, credential: dict[str, An
         credential_current_sign_count=int(stored["sign_count"]),
         require_user_verification=True,
     )
+    from auth_service import client_user_payload, resolve_user_tier
+    from database import fetch_user_by_id
+
     await update_passkey_sign_count(stored["id"], int(verification.new_sign_count))
     await touch_user_login(user_id)
     session = await create_session(user_id)
     tier = await resolve_user_tier(str(stored.get("email") or ""))
     await record_identity_event(event_type="login.success", user_id=user_id, detail={"method": "passkey"})
-    return {"token": session["token"], "expires_at": session["expires_at"], "user": {"id": user_id, "tier": tier}}
+    user_row = await fetch_user_by_id(user_id) or {"public_user_id": ""}
+    return {
+        "token": session["token"],
+        "expires_at": session["expires_at"],
+        "user": {**client_user_payload(user_row), "tier": tier},
+    }
 
 
 async def list_passkeys(user_id: int) -> list[dict[str, Any]]:

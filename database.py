@@ -4093,16 +4093,28 @@ async def mark_email_verified(user_id: int) -> None:
 
 
 async def create_user(email: str, password_hash: str, name: str = "") -> int:
+    from identity.public_user_id import generate_public_user_id, generate_user_uuid
+
+    public_user_id = generate_public_user_id()
+    user_uuid = generate_user_uuid()
     try:
         async with get_connection() as db:
             cursor = await db.execute(
                 """
                 INSERT INTO users (
-                    email, password_hash, name, created_at, password_is_set
+                    email, password_hash, name, created_at, password_is_set,
+                    public_user_id, user_uuid
                 )
-                VALUES (?, ?, ?, ?, 1)
+                VALUES (?, ?, ?, ?, 1, ?, ?)
                 """,
-                (email.strip().lower(), password_hash, name or None, _utcnow_iso()),
+                (
+                    email.strip().lower(),
+                    password_hash,
+                    name or None,
+                    _utcnow_iso(),
+                    public_user_id,
+                    user_uuid,
+                ),
             )
             return int(cursor.lastrowid or 0)
     except Exception as exc:
@@ -4121,10 +4133,51 @@ async def fetch_user_by_email(email: str) -> dict[str, Any] | None:
                 (email.strip().lower(),),
             )
             result = await rows.fetchone()
-        return dict(result) if result else None
+        user = dict(result) if result else None
+        if user:
+            await ensure_user_public_ids(int(user["id"]), existing=user)
+        return user
     except Exception:
         logger.exception("Unable to fetch user")
         return None
+
+
+async def fetch_user_by_public_id(public_user_id: str) -> dict[str, Any] | None:
+    from identity.public_user_id import is_valid_public_user_id
+
+    if not is_valid_public_user_id(public_user_id):
+        return None
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                "SELECT * FROM users WHERE public_user_id = ?",
+                (public_user_id,),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by public id")
+        return None
+
+
+async def ensure_user_public_ids(user_id: int, *, existing: dict[str, Any] | None = None) -> dict[str, str]:
+    from identity.public_user_id import generate_public_user_id, generate_user_uuid, is_valid_public_user_id
+
+    row = existing or await fetch_user_by_id(user_id)
+    if not row:
+        return {"public_user_id": "", "user_uuid": ""}
+    public_user_id = str(row.get("public_user_id") or "")
+    user_uuid = str(row.get("user_uuid") or "")
+    updates: dict[str, str] = {}
+    if not is_valid_public_user_id(public_user_id):
+        public_user_id = generate_public_user_id()
+        updates["public_user_id"] = public_user_id
+    if not user_uuid:
+        user_uuid = generate_user_uuid()
+        updates["user_uuid"] = user_uuid
+    if updates:
+        await update_user_profile_fields(int(user_id), updates)
+    return {"public_user_id": public_user_id, "user_uuid": user_uuid}
 
 
 async def erase_user_personal_data(email: str) -> dict[str, Any]:
@@ -4137,6 +4190,9 @@ async def erase_user_personal_data(email: str) -> dict[str, Any]:
     user_id = int(user["id"])
     deleted = 0
     try:
+        from identity.avatar_upload import delete_all_avatar_files_for_user
+
+        delete_all_avatar_files_for_user(avatar_url=str(user.get("avatar_url") or ""))
         async with get_connection() as db:
             for stmt, params in (
                 ("DELETE FROM journal_entries WHERE user_email = ?", (normalized,)),
@@ -4176,7 +4232,11 @@ async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
                 (token, _utcnow_iso()),
             )
             result = await rows.fetchone()
-        return dict(result) if result else None
+        user = dict(result) if result else None
+        if user:
+            ids = await ensure_user_public_ids(int(user["id"]), existing=user)
+            user.update(ids)
+        return user
     except Exception:
         logger.exception("Unable to fetch user by session")
         return None
@@ -4344,18 +4404,22 @@ async def create_oauth_user(email: str, name: str, provider: str, subject: str) 
     import secrets as _secrets
 
     from auth_service import hash_password
+    from identity.public_user_id import generate_public_user_id, generate_user_uuid
 
     unusable = hash_password(_secrets.token_urlsafe(48))
     now = _utcnow_iso()
+    public_user_id = generate_public_user_id()
+    user_uuid = generate_user_uuid()
     async with get_connection() as db:
         cursor = await db.execute(
             """
             INSERT INTO users (
                 email, password_hash, name, created_at,
                 oauth_provider, oauth_subject,
-                password_is_set, email_verified_at
+                password_is_set, email_verified_at,
+                public_user_id, user_uuid
             )
-            VALUES (?, ?, ?, ?, ?, ?, 0, ?)
+            VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?)
             """,
             (
                 email.strip().lower(),
@@ -4365,6 +4429,8 @@ async def create_oauth_user(email: str, name: str, provider: str, subject: str) 
                 provider.strip().lower(),
                 subject.strip(),
                 now,
+                public_user_id,
+                user_uuid,
             ),
         )
         return int(cursor.lastrowid or 0)
@@ -5008,7 +5074,11 @@ async def fetch_user_by_id(user_id: int) -> dict[str, Any] | None:
         async with get_connection() as db:
             rows = await db.execute("SELECT * FROM users WHERE id = ?", (int(user_id),))
             result = await rows.fetchone()
-        return dict(result) if result else None
+        user = dict(result) if result else None
+        if user:
+            ids = await ensure_user_public_ids(int(user_id), existing=user)
+            user.update(ids)
+        return user
     except Exception:
         logger.exception("Unable to fetch user by id")
         return None

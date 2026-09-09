@@ -69,6 +69,8 @@ async def secure_oauth_login(profile: dict[str, Any], *, linking_user_id: int | 
     if not user or not can_authenticate(user.get("account_state")):
         raise ValueError("Account cannot authenticate")
 
+    from auth_service import client_user_payload, resolve_user_tier
+
     user_id = int(user["id"])
     await touch_user_login(user_id)
     session = await create_session(user_id)
@@ -78,7 +80,7 @@ async def secure_oauth_login(profile: dict[str, Any], *, linking_user_id: int | 
         "token": session["token"],
         "expires_at": session["expires_at"],
         "user": {
-            "id": user_id,
+            **client_user_payload(user),
             "email": email,
             "name": user.get("name") or name,
             "tier": tier,
