@@ -3630,7 +3630,7 @@ async def system_info(request: Request, user: dict | None = Depends(optional_use
         "classification": "internal",
         "product": "BLACKDARK Trust OS",
         "disclaimer": "Not financial advice. Decision evidence only. Four-layer legal shield applies.",
-        "user_id": user.get("id"),
+        "user_id": user.get("public_user_id"),
         "tier": user.get("tier"),
     }
 
