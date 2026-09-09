@@ -7,7 +7,7 @@ from typing import Any
 
 from decision_truth.methodology import METHODOLOGY_VERSIONS
 from failure.decision import DecisionSafetyState, evaluate_decision_safety
-from failure.freshness import FreshnessState, classify_freshness
+from failure.freshness import FreshnessEvidence, FreshnessState, classify_freshness
 from failure.quality import DataQualityState, classify_quality
 
 
@@ -39,14 +39,36 @@ def evaluate_admission_gate(
     risk: dict[str, Any],
     evidence_grade: dict[str, Any],
 ) -> dict[str, Any]:
+    dg = opportunity.get("data_governance") or {}
+    dg_fresh = dg.get("freshness") or {}
+    dg_quality = dg.get("quality") or {}
     age_ms = ((net_edge.get("truth") or {}).get("economics") or {}).get("quote_age_ms")
-    freshness = classify_freshness(age_seconds=float(age_ms) / 1000.0 if age_ms else None)
+    age_sec = dg_fresh.get("age_seconds")
+    if age_sec is None and age_ms:
+        age_sec = float(age_ms) / 1000.0
+    freshness = classify_freshness(age_seconds=float(age_sec) if age_sec is not None else None)
+    if dg_fresh.get("freshness_state"):
+        try:
+            freshness = FreshnessEvidence(
+                state=FreshnessState(dg_fresh["freshness_state"]),
+                age_seconds=freshness.age_seconds,
+                last_successful_update=freshness.last_successful_update,
+            )
+        except Exception:
+            pass
     conflicting = bool((opportunity.get("dimension_conflict") or {}).get("veto"))
     quality = classify_quality(
         partial=bool(opportunity.get("partial_data")),
-        conflicting=conflicting,
+        conflicting=conflicting or bool((dg.get("reconciliation") or {}).get("conflict")),
         source_count=int(opportunity.get("source_count") or 1),
     )
+    if dg_quality.get("quality_state"):
+        try:
+            from failure.quality import DataQuality
+
+            quality = DataQuality(state=DataQualityState(dg_quality["quality_state"]))
+        except Exception:
+            pass
     safety = evaluate_decision_safety(
         freshness=freshness.state,
         quality=quality.state,
@@ -66,6 +88,19 @@ def evaluate_admission_gate(
     gates["risk"] = {"pass": float(pre.get("risk_after") or 0) <= float(pre.get("budget_limit") or 100), "risk_after": pre.get("risk_after")}
     interval = net_edge.get("net_edge_interval") or {}
     gates["uncertainty"] = {"pass": interval.get("method") != "unavailable", "method": interval.get("method")}
+
+    dg_gates = (dg.get("gates") or {})
+    if dg_gates.get("data_governance_state") == "ABSTAINED" or opportunity.get("data_governance_state") == "ABSTAINED":
+        gates["data_governance"] = {"pass": False, "state": "ABSTAINED"}
+    elif dg_gates.get("failed_gates") or opportunity.get("data_governance_failed_gates"):
+        failed_dg = dg_gates.get("failed_gates") or opportunity.get("data_governance_failed_gates") or []
+        gates["data_governance"] = {"pass": False, "failed": failed_dg}
+    else:
+        prov_score = ((dg.get("provenance") or {}).get("provenance_score"))
+        gates["data_governance"] = {
+            "pass": prov_score is None or float(prov_score) >= 40,
+            "provenance_score": prov_score,
+        }
 
     failed = [name for name, g in gates.items() if not g.get("pass")]
     if safety.decision_state == DecisionSafetyState.ABSTAINED:
