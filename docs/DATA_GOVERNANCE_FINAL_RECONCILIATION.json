@@ -1,5 +1,5 @@
 {
-  "material_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384",
+  "material_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b",
   "pytest_ok": true,
   "pytest_output": ".............................                                            [100%]\n",
   "SOURCE_SPEC_FULL_READ": true,
@@ -19,12 +19,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-002",
@@ -40,12 +40,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-003",
@@ -62,12 +62,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-004",
@@ -83,12 +83,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-005",
@@ -104,12 +104,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-006",
@@ -124,12 +124,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-007",
@@ -144,12 +144,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-008",
@@ -165,12 +165,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-009",
@@ -186,12 +186,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-010",
@@ -207,14 +207,14 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [
         "Requires live production evidence"
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-011",
@@ -230,12 +230,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-012",
@@ -250,12 +250,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-013",
@@ -270,12 +270,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-014",
@@ -291,12 +291,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-015",
@@ -312,12 +312,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-016",
@@ -332,12 +332,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-017",
@@ -353,12 +353,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-018",
@@ -373,12 +373,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-019",
@@ -394,12 +394,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-020",
@@ -414,12 +414,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-021",
@@ -435,12 +435,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-022",
@@ -455,12 +455,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-023",
@@ -475,12 +475,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-024",
@@ -495,12 +495,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-025",
@@ -515,12 +515,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-026",
@@ -535,12 +535,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-027",
@@ -555,14 +555,14 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [
         "Requires external provider/legal evidence"
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-028",
@@ -577,12 +577,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-029",
@@ -597,14 +597,14 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [
         "Requires external provider/legal evidence"
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-030",
@@ -619,12 +619,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-031",
@@ -639,12 +639,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-032",
@@ -660,12 +660,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-033",
@@ -680,12 +680,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-034",
@@ -700,12 +700,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-035",
@@ -720,12 +720,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-036",
@@ -740,12 +740,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-037",
@@ -760,12 +760,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-038",
@@ -780,12 +780,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-039",
@@ -800,12 +800,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-040",
@@ -820,12 +820,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-041",
@@ -841,12 +841,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-042",
@@ -861,12 +861,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-043",
@@ -882,12 +882,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-044",
@@ -903,12 +903,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-045",
@@ -923,14 +923,14 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [
         "Requires live production evidence"
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-046",
@@ -945,12 +945,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-047",
@@ -965,12 +965,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-048",
@@ -985,12 +985,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-049",
@@ -1005,12 +1005,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-050",
@@ -1025,14 +1025,14 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [
         "Requires external provider/legal evidence"
       ],
       "live_gate": false,
       "external_gate": true,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-051",
@@ -1047,12 +1047,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-052",
@@ -1067,12 +1067,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-053",
@@ -1087,12 +1087,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-054",
@@ -1107,12 +1107,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-055",
@@ -1127,12 +1127,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-056",
@@ -1147,14 +1147,14 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [
         "Requires live production evidence"
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-057",
@@ -1169,12 +1169,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-058",
@@ -1190,12 +1190,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-059",
@@ -1210,12 +1210,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     },
     {
       "requirement_id": "DIG-060",
@@ -1232,12 +1232,12 @@
         "tests/test_data_governance_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:94f1fe512aad17f1ca99abf910905f7c8228c384"
+        "verified_at_sha:2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
       ],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "94f1fe512aad17f1ca99abf910905f7c8228c384"
+      "last_verified_sha": "2cb9018c4bc440cf206b13163dd8072bfbd8c55b"
     }
   ],
   "reuse_counts": {
