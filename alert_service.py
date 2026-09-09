@@ -118,12 +118,31 @@ async def dispatch_alert(
     *,
     payload: dict[str, Any] | None = None,
     channels: list[str] | None = None,
+    lang: str | None = None,
+    title_key: str | None = None,
+    body_key: str | None = None,
+    **i18n_kwargs: Any,
 ) -> dict[str, Any]:
     """Send alert through configured channels + always persist in-app inbox."""
     from database import fetch_active_alert_subscriptions, insert_alert_delivery_log
     from in_app_alerts import push_in_app_alert
 
-    results: dict[str, Any] = {"title": title, "channels": {}, "subscriptions": []}
+    effective_lang = lang
+    if title_key and body_key:
+        from i18n_enforcement import localize_notification, resolve_effective_locale
+
+        effective_lang = resolve_effective_locale(explicit_lang=lang)
+        loc = localize_notification(effective_lang, title_key, body_key, **i18n_kwargs)
+        title = loc["title"]
+        body = loc["body"]
+        payload = {**(payload or {}), "locale": loc["locale"]}
+
+    results: dict[str, Any] = {
+        "title": title,
+        "locale": effective_lang,
+        "channels": {},
+        "subscriptions": [],
+    }
     full_text = f"{title}\n\n{body}"
 
     if channels is None:
@@ -173,9 +192,22 @@ async def _dispatch_subscription_alert(
     email = sub.get("email")
     if email and sub.get("email_alerts", 1):
         if not os.getenv("SMTP_HOST", "").strip():
-            from email_outbox import enqueue_email
+            alert_lang = (payload or {}).get("locale") or results.get("locale")
+            if alert_lang and payload and payload.get("email_subject_key") and payload.get("email_body_key"):
+                from email_outbox import enqueue_localized_email
 
-            queued = enqueue_email(str(email), title, full_text, payload=payload)
+                queued = enqueue_localized_email(
+                    str(email),
+                    lang=str(alert_lang),
+                    subject_key=str(payload["email_subject_key"]),
+                    body_key=str(payload["email_body_key"]),
+                    payload=payload,
+                    **{k: v for k, v in (payload or {}).items() if k not in {"email_subject_key", "email_body_key", "locale"}},
+                )
+            else:
+                from email_outbox import enqueue_email
+
+                queued = enqueue_email(str(email), title, full_text, payload=payload)
             sub_result["email"] = False
             sub_result["email_status"] = "queued_durable_outbox"
             sub_result["outbox_id"] = queued.get("id")

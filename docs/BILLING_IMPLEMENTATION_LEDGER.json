@@ -1,0 +1,1486 @@
+{
+  "schema_version": "1.0",
+  "spec_file": "BLACKDARK_INSTITUTIONAL_BILLING_SUBSCRIPTION_ENTITLEMENT_SPEC_v1.md",
+  "spec_version": "Final Consolidated & Reconciled v1.0",
+  "source_of_truth_rule": "The specification file is authoritative; this ledger is tracking only.",
+  "last_closure_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+  "last_closure_at": "2026-09-08T21:40:16.300719+00:00",
+  "requirements": [
+    {
+      "requirement_id": "BILL-001",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "billing/entitlement_state.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "المبادئ غير القابلة للتفاوض",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-002",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/ops_readiness.py",
+      "implementation_paths": [
+        "billing/ops_readiness.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires live Stripe/provider evidence per BILL-061"
+      ],
+      "live_gate": true,
+      "external_gate": true,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Provider Eligibility Gate — قبل Live",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-003",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/event_processor.py",
+      "implementation_paths": [
+        "billing/event_processor.py",
+        "billing/webhook_processor.py",
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "المعمارية الحاكمة",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-004",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "database.py",
+      "implementation_paths": [
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "قاعدة البيانات",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-005",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/event_inbox.py",
+      "implementation_paths": [
+        "billing/event_inbox.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Billing Event Inbox",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-006",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing_service.py",
+      "implementation_paths": [
+        "billing_service.py",
+        "dashboard.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Webhook Security",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-007",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/event_processor.py",
+      "implementation_paths": [
+        "billing/event_processor.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Async Processing",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-008",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/out_of_order_guard.py",
+      "implementation_paths": [
+        "billing/out_of_order_guard.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Out-of-Order Protection",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-009",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/billing_states.py",
+      "implementation_paths": [
+        "billing/billing_states.py",
+        "billing/subscription_store.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Billing State Model",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-010",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/entitlement_state.py",
+      "implementation_paths": [
+        "billing/entitlement_state.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Entitlement State Model",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-011",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/entitlement_state.py",
+      "implementation_paths": [
+        "billing/entitlement_state.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Paid-Through Semantics",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-012",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/plan_registry.py",
+      "implementation_paths": [
+        "billing/plan_registry.py",
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Free Plan",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-013",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/plan_registry.py",
+      "implementation_paths": [
+        "billing/plan_registry.py",
+        "billing/price_versioning.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Product / Price Registry",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-014",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/price_versioning.py",
+      "implementation_paths": [
+        "billing/price_versioning.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Price Versioning",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-015",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "api/routers/billing.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Signup",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-016",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Upgrade",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-017",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "billing/sweeper.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Downgrade",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-018",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/financial_arithmetic.py",
+      "implementation_paths": [
+        "billing/financial_arithmetic.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Proration",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-019",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Renewal",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-020",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/renewal_reminder.py",
+      "implementation_paths": [
+        "billing/renewal_reminder.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Renewal Reminder",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-021",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Payment Failure / Dunning",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-022",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "billing/entitlement_state.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Grace Period",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-023",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/card_declines.py",
+      "implementation_paths": [
+        "billing/card_declines.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Card Declines",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-024",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing_service.py",
+      "implementation_paths": [
+        "billing_service.py",
+        "payments_usd.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires live Stripe/provider evidence per BILL-061"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Payment Methods",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-025",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing_service.py",
+      "implementation_paths": [
+        "billing_service.py",
+        "api/routers/billing.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Customer Portal",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-026",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "api/routers/billing.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Cancellation",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-027",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "billing/webhook_resolver.py",
+      "implementation_paths": [
+        "billing/webhook_resolver.py",
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Refunds — P0 Core",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-028",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "billing/webhook_resolver.py",
+      "implementation_paths": [
+        "billing/webhook_resolver.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Disputes / Chargebacks — P0 Core",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-029",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/reconciliation.py",
+      "implementation_paths": [
+        "billing/reconciliation.py",
+        "billing/sweeper.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Reconciliation Worker",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-030",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "institutional_commerce.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Invoice Handling",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-031",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/financial_arithmetic.py",
+      "implementation_paths": [
+        "billing/financial_arithmetic.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Financial Arithmetic",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-032",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "payments_usd.py",
+      "implementation_paths": [
+        "payments_usd.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Cost Model",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-033",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/consent_registry.py",
+      "implementation_paths": [
+        "billing/consent_registry.py",
+        "billing/price_versioning.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires external legal/tax/registration evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Taxes",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-034",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/entitlement_state.py",
+      "implementation_paths": [
+        "billing/entitlement_state.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "SCA / 3DS",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-035",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "payments_usd.py",
+      "implementation_paths": [
+        "payments_usd.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "PCI",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-036",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "production_guard.py",
+      "implementation_paths": [
+        "production_guard.py",
+        "config.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Secrets",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-037",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/audit_ledger.py",
+      "implementation_paths": [
+        "billing/audit_ledger.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Audit Trail",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-038",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/break_glass.py",
+      "implementation_paths": [
+        "billing/break_glass.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Break-Glass",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-039",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "api/routers/admin_billing.py",
+      "implementation_paths": [
+        "api/routers/admin_billing.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Admin Billing Console",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-040",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/fraud_controls.py",
+      "implementation_paths": [
+        "billing/fraud_controls.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Fraud / Abuse",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-041",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/observability.py",
+      "implementation_paths": [
+        "billing/observability.py",
+        "billing/admin_metrics.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Observability",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-042",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/observability.py",
+      "implementation_paths": [
+        "billing/observability.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Alerts",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-043",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/seat_enforcement.py",
+      "implementation_paths": [
+        "billing/seat_enforcement.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "B2B / Institutional Architecture",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-044",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/seat_enforcement.py",
+      "implementation_paths": [
+        "billing/seat_enforcement.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Seat Enforcement",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-045",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/seat_enforcement.py",
+      "implementation_paths": [
+        "billing/seat_enforcement.py",
+        "institutional_commerce.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "DISABLED_AT_LAUNCH; PREPAID_ONLY; NET_15/NET_30 disabled; future NET via governed admin only",
+      "launch_policy": {
+        "DISABLED_AT_LAUNCH": true,
+        "PREPAID_ONLY": true,
+        "NET_15": "disabled",
+        "NET_30": "disabled",
+        "future_net_terms": "explicitly approved institutional contracts under governed admin policy only"
+      }
+    },
+    {
+      "requirement_id": "BILL-046",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/price_versioning.py",
+      "implementation_paths": [
+        "billing/price_versioning.py",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+        "docs/BILLING_OWNER_LAUNCH_POLICY.json"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "DISABLED_AT_LAUNCH; USD_ONLY; architecture preserved; future currencies require owner approval",
+      "launch_policy": {
+        "DISABLED_AT_LAUNCH": true,
+        "launch_currency": "USD_ONLY",
+        "additional_currencies": "disabled (EUR, GBP, and all others inactive at launch)",
+        "future_currencies": "explicit owner approval and controlled rollout required"
+      }
+    },
+    {
+      "requirement_id": "BILL-047",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "docs/SUBSCRIPTION_LEGAL_BASIS.md",
+      "implementation_paths": [
+        "docs/SUBSCRIPTION_LEGAL_BASIS.md"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Legal Compliance Layer",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-048",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/consent_registry.py",
+      "implementation_paths": [
+        "billing/consent_registry.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Consent Evidence",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-049",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "docs/SUBSCRIPTION_LEGAL_BASIS.md",
+      "implementation_paths": [
+        "docs/SUBSCRIPTION_LEGAL_BASIS.md"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Data Privacy",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-050",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "docs/SUBSCRIPTION_LEGAL_BASIS.md",
+      "implementation_paths": [
+        "docs/SUBSCRIPTION_LEGAL_BASIS.md"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Retention",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-051",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "pricing_catalog.py",
+      "implementation_paths": [
+        "pricing_catalog.py",
+        "api/routers/billing.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Customer UX",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-052",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "cap646/entitlements.py",
+      "implementation_paths": [
+        "cap646/entitlements.py",
+        "billing/subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Capability Enforcement",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-053",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "cap646/entitlements.py",
+      "implementation_paths": [
+        "cap646/entitlements.py",
+        "billing/plan_registry.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Subscription-to-Capability Consistency",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-054",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/event_inbox.py",
+      "implementation_paths": [
+        "billing/event_inbox.py",
+        "billing/reconciliation.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Failure Safety",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-055",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/event_inbox.py",
+      "implementation_paths": [
+        "billing/event_inbox.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Dead Letter Queue",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-056",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/event_inbox.py",
+      "implementation_paths": [
+        "billing/event_inbox.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Replay",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-057",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "billing/out_of_order_guard.py",
+      "implementation_paths": [
+        "billing/out_of_order_guard.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Concurrency",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-058",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "billing/event_inbox.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Reliability",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-059",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "tests/test_billing_p0_test_matrix.py",
+      "implementation_paths": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Core P0 Test Matrix",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-060",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "scripts/billing_source_driven_final_closure.py",
+      "implementation_paths": [
+        "scripts/billing_source_driven_final_closure.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Acceptance Gates",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-061",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "KEEP",
+      "canonical_implementation": "billing/ops_readiness.py",
+      "implementation_paths": [
+        "billing/ops_readiness.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires live Stripe/provider evidence per BILL-061"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "Live Activation Gate",
+      "launch_policy": null
+    },
+    {
+      "requirement_id": "BILL-062",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "scripts/billing_source_driven_final_closure.py",
+      "implementation_paths": [
+        "scripts/billing_source_driven_final_closure.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py",
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "4c203cc14e4f55cbf30d6ae60d9e302f5b81df4f",
+      "notes": "مراحل التنفيذ النهائية",
+      "launch_policy": null
+    }
+  ]
+}

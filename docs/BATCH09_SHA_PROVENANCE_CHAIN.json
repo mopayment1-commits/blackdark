@@ -1,0 +1,32 @@
+{
+  "artifact": "BATCH09_SHA_PROVENANCE_CHAIN",
+  "generated_at_utc": "2026-09-06T23:05:51.265507+00:00",
+  "git_commit": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+  "unexplained_sha": 0,
+  "provenance_graph_complete": true,
+  "nodes": {
+    "intermediate_docs_33bf5f3": {
+      "sha": "33bf5f3cfb417db9de5b337c428e65deb36f1f5d",
+      "role": "SUPERSEDED_INTERMEDIATE",
+      "description": "docs(batch09): superseding reopening delta remediation closure artifacts",
+      "superseded_by": [
+        "40769dd2cd0a91ea8d463843c2305004192da136",
+        "b5bf380001774837c6dff0c96fc9c775092a8ef0",
+        "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+      ]
+    },
+    "reopening_remediation_head_b5bf380": {
+      "sha": "b5bf380001774837c6dff0c96fc9c775092a8ef0",
+      "role": "PRIOR_MATERIAL_REMEDIATION_HEAD",
+      "description": "#437/#441 semantic remediation + reopening artifacts before micro-remediation semantic engine"
+    },
+    "final_code_head": "29214c1f3070713584dfb5a317d6552da0cb4f9f",
+    "gate_tested_sha": "29214c1f3070713584dfb5a317d6552da0cb4f9f"
+  },
+  "relationships": [
+    "33bf5f3cfb417db9de5b337c428e65deb36f1f5d is ancestor of 29214c1f3070713584dfb5a317d6552da0cb4f9f — intermediate artifact binding superseded",
+    "b5bf380001774837c6dff0c96fc9c775092a8ef0 is ancestor of 29214c1f3070713584dfb5a317d6552da0cb4f9f — micro-remediation semantic engine extends material code",
+    "Formal gates bound to 29214c1f3070713584dfb5a317d6552da0cb4f9f with code_delta=0 vs final_code_sha"
+  ],
+  "evidence_artifact_binding_correct": true
+}

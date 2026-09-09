@@ -1,0 +1,1634 @@
+{
+  "schema_version": "1.0",
+  "spec_file": "docs/BLACKDARK_INSTITUTIONAL_IDENTITY_AUTH_PROFILE_SPEC_v1.md",
+  "generated_at": "2026-09-08T23:54:39.952967+00:00",
+  "material_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+  "spec_sha256": "f7dfea4690f337200ae23da0e117cfa217d6140996dadacfd78288b2584ce538",
+  "ledger_sha256": "",
+  "requirements": [
+    {
+      "requirement_id": "ID-001",
+      "title": "Immutable internal identity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "database.py",
+      "implementation_paths": [
+        "database.py",
+        "identity/account_states.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-002",
+      "title": "P0 login methods",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "auth_service.py",
+      "implementation_paths": [
+        "auth_service.py",
+        "oauth_service.py",
+        "identity/webauthn_service.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-003",
+      "title": "Password policy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "identity/password_policy.py",
+      "implementation_paths": [
+        "identity/password_policy.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-004",
+      "title": "Unicode passwords NFC",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/password_policy.py",
+      "implementation_paths": [
+        "identity/password_policy.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-005",
+      "title": "Breached password protection",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/breached_passwords.py",
+      "implementation_paths": [
+        "identity/breached_passwords.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-006",
+      "title": "Argon2id storage",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REPLACE",
+      "canonical_implementation": "identity/password_storage.py",
+      "implementation_paths": [
+        "identity/password_storage.py",
+        "auth_service.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-007",
+      "title": "Google OIDC",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "oauth_service.py",
+      "implementation_paths": [
+        "oauth_service.py",
+        "identity/account_linking.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-008",
+      "title": "Secure account linking",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/account_linking.py",
+      "implementation_paths": [
+        "identity/account_linking.py",
+        "identity/provider_registry.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-009",
+      "title": "Passkeys/WebAuthn",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/webauthn_service.py",
+      "implementation_paths": [
+        "identity/webauthn_service.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-010",
+      "title": "MFA hierarchy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "mfa_service.py",
+      "implementation_paths": [
+        "mfa_service.py",
+        "identity/webauthn_service.py"
+      ],
+      "tests": [
+        "tests/test_spine_database_auth.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-011",
+      "title": "TOTP lifecycle",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "mfa_service.py",
+      "implementation_paths": [
+        "mfa_service.py"
+      ],
+      "tests": [
+        "tests/test_spine_database_auth.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-012",
+      "title": "Recovery codes",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "mfa_service.py",
+      "implementation_paths": [
+        "mfa_service.py"
+      ],
+      "tests": [
+        "tests/test_spine_database_auth.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-013",
+      "title": "SMS/phone fallback",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/phone_otp.py",
+      "implementation_paths": [
+        "identity/phone_otp.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-014",
+      "title": "Progressive registration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "auth_service.py",
+      "implementation_paths": [
+        "auth_service.py",
+        "identity_service.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-015",
+      "title": "Email verification",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-016",
+      "title": "Email validation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-017",
+      "title": "Username model",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "identity/username_policy.py",
+      "implementation_paths": [
+        "identity/username_policy.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-018",
+      "title": "Username confusables",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/username_policy.py",
+      "implementation_paths": [
+        "identity/username_policy.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-019",
+      "title": "Username length",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "identity/username_policy.py",
+      "implementation_paths": [
+        "identity/username_policy.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-020",
+      "title": "Account lifecycle",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/account_states.py",
+      "implementation_paths": [
+        "identity/account_states.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-021",
+      "title": "Forgot password",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py",
+        "identity/login_abuse.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-022",
+      "title": "Password reset token",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-023",
+      "title": "Reset completion",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "api/routers/auth.py",
+      "implementation_paths": [
+        "api/routers/auth.py",
+        "identity/security_notifications.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-024",
+      "title": "Full account recovery",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/account_recovery.py",
+      "implementation_paths": [
+        "identity/account_recovery.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-025",
+      "title": "Account compromise mode",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/secure_account.py",
+      "implementation_paths": [
+        "identity/secure_account.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-026",
+      "title": "Step-up authentication",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/step_up.py",
+      "implementation_paths": [
+        "identity/step_up.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-027",
+      "title": "Session architecture",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "auth_service.py",
+      "implementation_paths": [
+        "auth_service.py",
+        "security_middleware.py"
+      ],
+      "tests": [
+        "tests/test_p1_session_hardening.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-028",
+      "title": "Session lifetime",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/session_service.py",
+      "implementation_paths": [
+        "identity/session_service.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-029",
+      "title": "Session rotation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/session_service.py",
+      "implementation_paths": [
+        "identity/session_service.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-030",
+      "title": "Active sessions",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/session_service.py",
+      "implementation_paths": [
+        "identity/session_service.py",
+        "api/routers/auth.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-031",
+      "title": "Risk-based authentication",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/risk_auth.py",
+      "implementation_paths": [
+        "identity/risk_auth.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-032",
+      "title": "Login abuse protection",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "identity/login_abuse.py",
+      "implementation_paths": [
+        "identity/login_abuse.py",
+        "security_auth.py"
+      ],
+      "tests": [
+        "tests/test_d13_auth_abuse.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-033",
+      "title": "CAPTCHA/bot protection",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/bot_protection.py",
+      "implementation_paths": [
+        "identity/bot_protection.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-034",
+      "title": "Public profile",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "templates/profile.html",
+      "implementation_paths": [
+        "templates/profile.html",
+        "api/routers/auth.py"
+      ],
+      "tests": [
+        "tests/test_visible_chrome_critical_surfaces.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-035",
+      "title": "Private profile identity",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "api/routers/auth.py",
+      "implementation_paths": [
+        "api/routers/auth.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-036",
+      "title": "Profile security",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "mfa_service.py",
+      "implementation_paths": [
+        "mfa_service.py",
+        "identity/webauthn_service.py",
+        "api/routers/auth.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-037",
+      "title": "Profile subscription",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "billing/subscription_engine.py",
+      "implementation_paths": [
+        "billing/subscription_engine.py",
+        "api/routers/auth.py"
+      ],
+      "tests": [
+        "tests/test_billing_subscription_engine.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-038",
+      "title": "Profile preferences",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "database.py",
+      "implementation_paths": [
+        "database.py",
+        "api/routers/auth.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-039",
+      "title": "I18N integration",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "i18n_enforcement.py",
+      "implementation_paths": [
+        "i18n_enforcement.py",
+        "identity/security_notifications.py"
+      ],
+      "tests": [
+        "tests/test_i18n_38_locales.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-040",
+      "title": "Avatar sources",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-041",
+      "title": "Avatar upload security",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-042",
+      "title": "Avatar moderation",
+      "current_state": "NOT_APPLICABLE_WITH_EVIDENCE",
+      "reuse_disposition": "NOT_APPLICABLE_WITH_EVIDENCE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py"
+      ],
+      "tests": [],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": "AI moderation optional per spec"
+    },
+    {
+      "requirement_id": "ID-043",
+      "title": "Audit trail",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/identity_audit.py",
+      "implementation_paths": [
+        "identity/identity_audit.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-044",
+      "title": "Security notifications",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/security_notifications.py",
+      "implementation_paths": [
+        "identity/security_notifications.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-045",
+      "title": "Data privacy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "gdpr_service.py",
+      "implementation_paths": [
+        "gdpr_service.py",
+        "identity/retention_registry.py"
+      ],
+      "tests": [
+        "tests/test_technical_due_diligence.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-046",
+      "title": "GDPR export",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "gdpr_service.py",
+      "implementation_paths": [
+        "gdpr_service.py",
+        "api/routers/privacy.py"
+      ],
+      "tests": [
+        "tests/test_technical_due_diligence.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-047",
+      "title": "Account deletion",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/account_deletion.py",
+      "implementation_paths": [
+        "identity/account_deletion.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-048",
+      "title": "Retention registry",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/retention_registry.py",
+      "implementation_paths": [
+        "identity/retention_registry.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-049",
+      "title": "CCPA/CPRA architecture",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "api/routers/privacy.py",
+      "implementation_paths": [
+        "api/routers/privacy.py"
+      ],
+      "tests": [
+        "tests/test_technical_due_diligence.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-050",
+      "title": "Cookie consent architecture",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "templates/privacy.html",
+      "implementation_paths": [
+        "templates/privacy.html"
+      ],
+      "tests": [],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-051",
+      "title": "Accessibility WCAG",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "templates/login.html",
+      "implementation_paths": [
+        "templates/login.html",
+        "templates/profile.html"
+      ],
+      "tests": [
+        "tests/test_visible_chrome_critical_surfaces.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-052",
+      "title": "Native HTML before ARIA",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "templates/login.html",
+      "implementation_paths": [
+        "templates/login.html"
+      ],
+      "tests": [
+        "tests/test_sonar_template_js_parse_hygiene.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-053",
+      "title": "Accessible password UX",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "templates/login.html",
+      "implementation_paths": [
+        "templates/login.html"
+      ],
+      "tests": [
+        "tests/test_visible_chrome_critical_surfaces.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-054",
+      "title": "UX validation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "templates/login.html",
+      "implementation_paths": [
+        "templates/login.html",
+        "security_models.py"
+      ],
+      "tests": [
+        "tests/test_auth_identity_profile.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-055",
+      "title": "Enterprise identity readiness",
+      "current_state": "EXTERNAL_GATED",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/enterprise_readiness.py",
+      "implementation_paths": [
+        "identity/enterprise_readiness.py",
+        "enterprise_sso.py"
+      ],
+      "tests": [
+        "tests/test_enterprise_sso_auth0.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires external provider/legal evidence"
+      ],
+      "live_gate": false,
+      "external_gate": true,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-056",
+      "title": "Organization security policy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "org_mfa_policy.py",
+      "implementation_paths": [
+        "org_mfa_policy.py"
+      ],
+      "tests": [
+        "tests/test_p0_authz_hardening.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-057",
+      "title": "Fail-closed",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/step_up.py",
+      "implementation_paths": [
+        "identity/step_up.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-058",
+      "title": "Authorization separation",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "auth_service.py",
+      "implementation_paths": [
+        "auth_service.py",
+        "billing/entitlement_state.py"
+      ],
+      "tests": [
+        "tests/test_billing_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-059",
+      "title": "Security headers",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "security_middleware.py",
+      "implementation_paths": [
+        "security_middleware.py",
+        "security_auth.py"
+      ],
+      "tests": [
+        "tests/test_security_hardening.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-060",
+      "title": "Logging privacy",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "identity/identity_audit.py",
+      "implementation_paths": [
+        "identity/identity_audit.py",
+        "email_outbox.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-061",
+      "title": "Recovery anti-abuse",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "identity/login_abuse.py",
+      "implementation_paths": [
+        "identity/login_abuse.py"
+      ],
+      "tests": [
+        "tests/test_d13_auth_abuse.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-062",
+      "title": "Username recovery",
+      "current_state": "NOT_APPLICABLE_WITH_EVIDENCE",
+      "reuse_disposition": "NOT_APPLICABLE_WITH_EVIDENCE",
+      "canonical_implementation": "identity_service.py",
+      "implementation_paths": [
+        "identity_service.py"
+      ],
+      "tests": [],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": "Login by email/Google/passkey per spec"
+    },
+    {
+      "requirement_id": "ID-063",
+      "title": "Sensitive action recent auth",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/step_up.py",
+      "implementation_paths": [
+        "identity/step_up.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-064",
+      "title": "Prevent lockout",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/webauthn_service.py",
+      "implementation_paths": [
+        "identity/webauthn_service.py",
+        "identity/provider_registry.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-065",
+      "title": "Provider registry",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/provider_registry.py",
+      "implementation_paths": [
+        "identity/provider_registry.py",
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-066",
+      "title": "Authenticator registry",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "identity/webauthn_service.py",
+      "implementation_paths": [
+        "identity/webauthn_service.py",
+        "mfa_service.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-067",
+      "title": "Login history",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "database.py",
+      "implementation_paths": [
+        "database.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-068",
+      "title": "Admin identity operations",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "REUSE",
+      "canonical_implementation": "admin_mfa.py",
+      "implementation_paths": [
+        "admin_mfa.py",
+        "identity/identity_audit.py"
+      ],
+      "tests": [
+        "tests/test_security_max_closure.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-069",
+      "title": "Enumeration resistance",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "IMPROVE",
+      "canonical_implementation": "identity/login_abuse.py",
+      "implementation_paths": [
+        "identity/login_abuse.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-070",
+      "title": "Testing evidence",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "tests/test_identity_p0_test_matrix.py",
+      "implementation_paths": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-071",
+      "title": "P0 acceptance gate",
+      "current_state": "LOCAL_ENGINEERING_COMPLETE",
+      "reuse_disposition": "BUILD",
+      "canonical_implementation": "bd_platform/identity_source_driven_engineering.py",
+      "implementation_paths": [
+        "bd_platform/identity_source_driven_engineering.py"
+      ],
+      "tests": [
+        "tests/test_identity_p0_test_matrix.py"
+      ],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [],
+      "live_gate": false,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    },
+    {
+      "requirement_id": "ID-072",
+      "title": "Live gate",
+      "current_state": "LIVE_GATED",
+      "reuse_disposition": "LIVE_GATED",
+      "canonical_implementation": "docs/BLACKDARK_INSTITUTIONAL_IDENTITY_AUTH_PROFILE_SPEC_v1.md",
+      "implementation_paths": [
+        "docs/BLACKDARK_INSTITUTIONAL_IDENTITY_AUTH_PROFILE_SPEC_v1.md"
+      ],
+      "tests": [],
+      "evidence": [
+        "verified_at_sha:cfa20e96c01c460323dabfc44bbde38e11b110b9"
+      ],
+      "dependencies": [],
+      "remaining_delta": [
+        "Requires live production evidence per ID-072"
+      ],
+      "live_gate": true,
+      "external_gate": false,
+      "last_verified_sha": "cfa20e96c01c460323dabfc44bbde38e11b110b9",
+      "notes": ""
+    }
+  ]
+}

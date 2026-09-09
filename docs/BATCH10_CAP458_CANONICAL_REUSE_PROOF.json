@@ -1,0 +1,18 @@
+{
+  "artifact": "BATCH10_CAP458_CANONICAL_REUSE_PROOF",
+  "generated_at_utc": "2026-09-07T08:40:59.884939+00:00",
+  "git_commit": "58aa9c9d36764b606b6cac1e47a7049bb9f3567a",
+  "cap458_canonical_reuse_fully_proven": true,
+  "cap458_uncovered_requirement": [],
+  "cap458_parallel_implementation_created": false,
+  "canonical_capability_id": 86,
+  "canonical_inventory_status": "PRODUCTION-ALIGNED",
+  "facade": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
+  "canonical_implementation": "bd_platform.whales_institutional_layer.build_methodology_docs_86",
+  "semantic_equivalence_evidence": "tests/test_batch10_cap458_canonical_reuse.py",
+  "consumer_mapping": "hero_surface — Hero methodology registry",
+  "entitlement_mapping": "cap646.runtime entitlement on gateway path; all Batch10 IDs free-tier locally",
+  "limitations": "No distinct Batch10 semantic rule; counts via canonical #86 only",
+  "adr_required_by_v6": false,
+  "v6_note": "Duplicate decision documented in BATCH10_CANONICAL_DECISIONS.json — separate ADR not mandated by current v6 for verified reuse"
+}

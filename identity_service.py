@@ -50,9 +50,19 @@ TOKEN_TTL_MINUTES = {
     "password_reset": int(os.getenv("IDENTITY_RESET_TTL_MIN", "45")),
 }
 
-AVATAR_DIR = Path(os.getenv("IDENTITY_AVATAR_DIR", "data/avatars"))
-AVATAR_MAX_BYTES = int(os.getenv("IDENTITY_AVATAR_MAX_BYTES", str(2 * 1024 * 1024)))
-ALLOWED_AVATAR_TYPES = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": STR_WEBP}
+from identity.avatar_upload import (
+    ALLOWED_AVATAR_TYPES,
+    AVATAR_DIR,
+    AVATAR_MAX_BYTES,
+    MALWARE_CONTROL,
+    delete_all_avatar_files_for_user,
+    delete_avatar_file,
+    reset_avatar_url,
+    resolve_avatar_file,
+    resolve_avatar_file_from_url,
+    save_avatar_bytes,
+)
+from identity.public_user_id import default_avatar_url
 
 
 def _utcnow() -> datetime:
@@ -95,51 +105,17 @@ def validate_email(email: str) -> str:
 
 
 def validate_password(password: str, *, email: str = "") -> None:
-    if len(password) < 10:
-        raise ValueError("Password must be at least 10 characters")
-    if len(password) > 128:
-        raise ValueError("Password too long")
-    lowered = password.lower().strip()
-    blocked = set(_COMMON_PASSWORDS)
-    extra = os.getenv("IDENTITY_BLOCKED_PASSWORDS", "")
-    if extra:
-        blocked.update(x.strip().lower() for x in extra.split(",") if x.strip())
-    if lowered in blocked:
-        raise ValueError("Password is too common — choose a stronger one")
-    local = (email or "").split("@")[0].lower()
-    if local and len(local) >= 4 and local in lowered:
-        raise ValueError("Password must not contain your email local-part")
-    # Reject all-numeric
-    if password.isdigit():
-        raise ValueError("Password must not be only numbers")
+    from identity.breached_passwords import assert_password_not_breached
+    from identity.password_policy import validate_password_policy
+
+    validate_password_policy(password, email=email)
+    assert_password_not_breached(password)
 
 
 def validate_username(username: str) -> str:
-    u = (username or "").strip().lower()
-    if not USERNAME_RE.match(u):
-        raise ValueError(
-            "Username must be 3–24 chars, start with a letter, and use a-z, 0-9, underscore"
-        )
-    reserved = {
-        "admin",
-        "api",
-        "support",
-        "blackdark",
-        "oracle",
-        "whale",
-        "system",
-        "root",
-        "null",
-        "undefined",
-        "login",
-        "signup",
-        "profile",
-        "billing",
-        "security",
-    }
-    if u in reserved:
-        raise ValueError("Username is reserved")
-    return u
+    from identity.username_policy import validate_username as _validate
+
+    return _validate(username)
 
 
 def validate_display_name(name: str) -> str:
@@ -179,7 +155,7 @@ def identity_architecture() -> dict[str, Any]:
     return {
         "product": "BLACKDARK Trust OS",
         "primary_authenticator": "email",
-        "login_methods": ["email_password", "google_oauth", "github_oauth"],
+        "login_methods": ["email_password", "google_oauth", "github_oauth", "passkey_webauthn"],
         "phone_auth": False,
         "username": {
             "login": False,
@@ -187,15 +163,22 @@ def identity_architecture() -> dict[str, Any]:
             "pattern": USERNAME_RE.pattern,
         },
         "password_policy": {
-            "min_length": 10,
+            "min_length": 15,
             "max_length": 128,
             "block_common": True,
-            "hash": "pbkdf2_sha256",
+            "breached_check": True,
+            "hash": "argon2id",
+            "unicode_nfc": True,
         },
         "email_verification": True,
         "password_reset": True,
         "mfa": "totp_optional",
-        "avatar": {"default": "initials_svg", "upload": True, "max_bytes": AVATAR_MAX_BYTES},
+        "avatar": {
+            "default": "initials_svg",
+            "upload": True,
+            "max_bytes": AVATAR_MAX_BYTES,
+            "malware_control": MALWARE_CONTROL,
+        },
         "oauth": oauth_status(),
         "profile_fields": [
             "email",
@@ -321,35 +304,3 @@ async def validate_oauth_state_async(provider: str, state: str | None) -> None:
     ok = await consume_oauth_state(provider=provider, state=state)
     if not ok:
         raise ValueError("Invalid or expired OAuth state")
-
-
-def save_avatar_bytes(user_id: int, content_type: str, data: bytes) -> str:
-    if content_type not in ALLOWED_AVATAR_TYPES:
-        raise ValueError("Avatar must be JPEG, PNG, or WebP")
-    if len(data) > AVATAR_MAX_BYTES:
-        raise ValueError(f"Avatar must be ≤ {AVATAR_MAX_BYTES} bytes")
-    # Magic-byte sniff
-    if content_type == "image/jpeg" and not data.startswith(b"\xff\xd8"):
-        raise ValueError("Invalid JPEG data")
-    if content_type == "image/png" and not data.startswith(b"\x89PNG\r\n\x1a\n"):
-        raise ValueError("Invalid PNG data")
-    if content_type == "image/webp" and data[0:4] != b"RIFF":
-        raise ValueError("Invalid WebP data")
-    AVATAR_DIR.mkdir(parents=True, exist_ok=True)
-    # Remove prior extensions
-    for ext in (".jpg", ".png", STR_WEBP):
-        old = AVATAR_DIR / f"{user_id}{ext}"
-        if old.exists():
-            old.unlink()
-    ext = ALLOWED_AVATAR_TYPES[content_type]
-    path = AVATAR_DIR / f"{user_id}{ext}"
-    path.write_bytes(data)
-    return f"/api/auth/avatar/{user_id}{ext}"
-
-
-def resolve_avatar_file(user_id: int) -> Path | None:
-    for ext in (".jpg", ".png", STR_WEBP):
-        path = AVATAR_DIR / f"{user_id}{ext}"
-        if path.is_file():
-            return path
-    return None

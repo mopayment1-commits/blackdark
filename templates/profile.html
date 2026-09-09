@@ -131,7 +131,7 @@
         document.getElementById('ux_mode_pref').value = p.ux_mode_pref || 'beginner';
         document.getElementById('timezone').value = p.timezone || 'UTC';
         document.getElementById('telegram_chat_id').value = p.telegram_chat_id || '';
-        document.getElementById('avatarImg').src = (p.avatar_url || ('/api/auth/avatar/' + u.id + '.svg')) + '?t=' + Date.now();
+        document.getElementById('avatarImg').src = (p.avatar_url || ('/api/auth/avatar/' + u.public_user_id + '.svg')) + '?t=' + Date.now();
         document.getElementById('emailLine').textContent = u.email + (p.email_verified ? ' · verified' : ' · verification pending');
         document.getElementById('verifyHint').textContent = p.email_verified ? 'Email verified.' : 'Verify your email to harden account recovery.';
         const tier = (d.tier && d.tier.label) || u.tier || 'free';

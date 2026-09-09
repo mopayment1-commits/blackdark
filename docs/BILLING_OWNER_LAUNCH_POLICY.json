@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "status": "FINAL_OWNER_DECISIONS",
+  "recorded_at": "2026-09-08T21:39:00+00:00",
+  "decisions": {
+    "BILL-045": {
+      "requirement_id": "BILL-045",
+      "title": "Enterprise Payment Terms",
+      "launch_policy": {
+        "DISABLED_AT_LAUNCH": true,
+        "PREPAID_ONLY": true,
+        "NET_15": "disabled",
+        "NET_30": "disabled",
+        "future_net_terms": "enabled only for explicitly approved institutional contracts under governed admin policy"
+      },
+      "architecture_preserved": [
+        "billing/seat_enforcement.py",
+        "institutional_commerce.py"
+      ],
+      "engineering_state": "LOCAL_ENGINEERING_COMPLETE"
+    },
+    "BILL-046": {
+      "requirement_id": "BILL-046",
+      "title": "Multi-Currency",
+      "launch_policy": {
+        "DISABLED_AT_LAUNCH": true,
+        "launch_currency": "USD_ONLY",
+        "additional_currencies": "disabled — EUR, GBP, and all others inactive at launch",
+        "future_currencies": "require explicit owner approval and controlled rollout"
+      },
+      "architecture_preserved": [
+        "billing/price_versioning.py",
+        "billing/plan_registry.py"
+      ],
+      "engineering_state": "LOCAL_ENGINEERING_COMPLETE"
+    }
+  },
+  "OWNER_DECISION_BLOCKED_COUNT": 0
+}

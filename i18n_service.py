@@ -1,5 +1,5 @@
 """
-BLACKDARK — Public UI i18n (25 locales).
+BLACKDARK — Public UI i18n (38 locales).
 
 English is the default and source of truth. Locale catalogs live in locales/*.json.
 RTL: Arabic, Hebrew, Urdu, Persian/Farsi.
@@ -21,30 +21,43 @@ STR_TRY_ORACLE_FREE = 'Try Oracle Free'
 # code -> metadata
 LOCALES: dict[str, dict[str, str]] = {
     "en": {"code": "en", "name": "English", "native": "English", "dir": "ltr", "group": "core"},
-    "es": {"code": "es", "name": "Spanish", "native": "Español", "dir": "ltr", "group": "core"},
-    "ar": {"code": "ar", "name": "Arabic", "native": "العربية", "dir": "rtl", "group": "core"},
-    "pt": {"code": "pt", "name": "Portuguese (Brazilian)", "native": "Português (Brasil)", "dir": "ltr", "group": "core"},
-    "fr": {"code": "fr", "name": "French", "native": "Français", "dir": "ltr", "group": "core"},
-    "de": {"code": "de", "name": "German", "native": "Deutsch", "dir": "ltr", "group": "core"},
     "zh-CN": {"code": "zh-CN", "name": "Chinese (Simplified)", "native": "简体中文", "dir": "ltr", "group": "core"},
     "zh-TW": {"code": "zh-TW", "name": "Chinese (Traditional)", "native": "繁體中文", "dir": "ltr", "group": "core"},
+    "es": {"code": "es", "name": "Spanish", "native": "Español", "dir": "ltr", "group": "core"},
+    "ar": {"code": "ar", "name": "Arabic", "native": "العربية", "dir": "rtl", "group": "core"},
+    "hi": {"code": "hi", "name": "Hindi", "native": "हिन्दी", "dir": "ltr", "group": "core"},
+    "pt-BR": {"code": "pt-BR", "name": "Portuguese (Brazilian)", "native": "Português (Brasil)", "dir": "ltr", "group": "core"},
+    "fr": {"code": "fr", "name": "French", "native": "Français", "dir": "ltr", "group": "core"},
+    "de": {"code": "de", "name": "German", "native": "Deutsch", "dir": "ltr", "group": "core"},
     "ja": {"code": "ja", "name": "Japanese", "native": "日本語", "dir": "ltr", "group": "core"},
     "ko": {"code": "ko", "name": "Korean", "native": "한국어", "dir": "ltr", "group": "core"},
-    "hi": {"code": "hi", "name": "Hindi", "native": "हिन्दी", "dir": "ltr", "group": "core"},
-    "tr": {"code": "tr", "name": "Turkish", "native": "Türkçe", "dir": "ltr", "group": "edge"},
-    "ru": {"code": "ru", "name": "Russian", "native": "Русский", "dir": "ltr", "group": "edge"},
+    "ru": {"code": "ru", "name": "Russian", "native": "Русский", "dir": "ltr", "group": "core"},
     "id": {"code": "id", "name": "Indonesian", "native": "Bahasa Indonesia", "dir": "ltr", "group": "edge"},
     "vi": {"code": "vi", "name": "Vietnamese", "native": "Tiếng Việt", "dir": "ltr", "group": "edge"},
-    "th": {"code": "th", "name": "Thai", "native": "ไทย", "dir": "ltr", "group": "edge"},
-    "fil": {"code": "fil", "name": "Filipino", "native": "Filipino", "dir": "ltr", "group": "edge"},
+    "tr": {"code": "tr", "name": "Turkish", "native": "Türkçe", "dir": "ltr", "group": "edge"},
     "it": {"code": "it", "name": "Italian", "native": "Italiano", "dir": "ltr", "group": "edge"},
     "bn": {"code": "bn", "name": "Bengali", "native": "বাংলা", "dir": "ltr", "group": "edge"},
     "ur": {"code": "ur", "name": "Urdu", "native": "اردو", "dir": "rtl", "group": "edge"},
     "fa": {"code": "fa", "name": "Persian / Farsi", "native": "فارسی", "dir": "rtl", "group": "edge"},
+    "th": {"code": "th", "name": "Thai", "native": "ไทย", "dir": "ltr", "group": "edge"},
+    "fil": {"code": "fil", "name": "Filipino / Tagalog", "native": "Filipino", "dir": "ltr", "group": "edge"},
     "ms": {"code": "ms", "name": "Malay", "native": "Bahasa Melayu", "dir": "ltr", "group": "edge"},
     "pl": {"code": "pl", "name": "Polish", "native": "Polski", "dir": "ltr", "group": "edge"},
     "nl": {"code": "nl", "name": "Dutch", "native": "Nederlands", "dir": "ltr", "group": "edge"},
     "he": {"code": "he", "name": "Hebrew", "native": "עברית", "dir": "rtl", "group": "edge"},
+    "uk": {"code": "uk", "name": "Ukrainian", "native": "Українська", "dir": "ltr", "group": "extended"},
+    "sw": {"code": "sw", "name": "Swahili", "native": "Kiswahili", "dir": "ltr", "group": "extended"},
+    "ta": {"code": "ta", "name": "Tamil", "native": "தமிழ்", "dir": "ltr", "group": "extended"},
+    "te": {"code": "te", "name": "Telugu", "native": "తెలుగు", "dir": "ltr", "group": "extended"},
+    "mr": {"code": "mr", "name": "Marathi", "native": "मराठी", "dir": "ltr", "group": "extended"},
+    "jv": {"code": "jv", "name": "Javanese", "native": "Basa Jawa", "dir": "ltr", "group": "extended"},
+    "cs": {"code": "cs", "name": "Czech", "native": "Čeština", "dir": "ltr", "group": "extended"},
+    "sv": {"code": "sv", "name": "Swedish", "native": "Svenska", "dir": "ltr", "group": "extended"},
+    "ro": {"code": "ro", "name": "Romanian", "native": "Română", "dir": "ltr", "group": "extended"},
+    "el": {"code": "el", "name": "Greek", "native": "Ελληνικά", "dir": "ltr", "group": "extended"},
+    "pt-PT": {"code": "pt-PT", "name": "Portuguese (European)", "native": "Português (Portugal)", "dir": "ltr", "group": "extended"},
+    "hu": {"code": "hu", "name": "Hungarian", "native": "Magyar", "dir": "ltr", "group": "extended"},
+    "pcm": {"code": "pcm", "name": "Nigerian Pidgin", "native": "Naija Pidgin", "dir": "ltr", "group": "extended"},
 }
 
 DEFAULT_LANG = "en"
@@ -56,9 +69,20 @@ _ALIASES = {
     "zh-tw": "zh-TW",
     "zh_tw": "zh-TW",
     "zh-hant": "zh-TW",
-    "pt-br": "pt",
-    "pt_br": "pt",
-    "pt-pt": "pt",
+    "pt-br": "pt-BR",
+    "pt_br": "pt-BR",
+    "pt": "pt-BR",
+    "pt-pt": "pt-PT",
+    "pt_pt": "pt-PT",
+    "pcm-ng": "pcm",
+    "pidgin": "pcm",
+    "naija": "pcm",
+    "uk": "uk",
+    "ukr": "uk",
+    "swa": "sw",
+    "cs-cz": "cs",
+    "el-gr": "el",
+    "hu-hu": "hu",
     "en-us": "en",
     "en-gb": "en",
     "ara": "ar",
@@ -409,6 +433,61 @@ EN: dict[str, str] = {
     "ui.asset": "Asset",
     "ui.oi": "OI",
     "ui.funding": "Funding",
+    # Billing / subscription UI (USD-only launch; language separate from currency)
+    "billing.status.title": "Billing & Subscription",
+    "billing.checkout": "Checkout",
+    "billing.portal": "Customer portal",
+    "billing.manage": "Manage subscription",
+    "billing.plan.active": "Your plan is active.",
+    "billing.plan.past_due": "Payment past due — update your payment method.",
+    "billing.payment.success": "Payment successful.",
+    "billing.payment.failed": "Payment failed.",
+    "billing.invoice": "Invoice",
+    "billing.refund.policy": "Refund policy",
+    "billing.currency.usd_only": "All prices shown in USD.",
+    "billing.upgrade": "Upgrade plan",
+    "billing.downgrade": "Downgrade plan",
+    "billing.cancel": "Cancel subscription",
+    # Notifications
+    "notification.oracle.title": "Oracle alert",
+    "notification.oracle.body": "New Oracle signal for {asset}.",
+    "notification.payment_failed.title": "Payment failed",
+    "notification.payment_failed.body": "We could not renew your subscription. Update billing to keep access.",
+    "notification.renewal_reminder.title": "Renewal reminder",
+    "notification.renewal_reminder.body": "Your plan renews in {days} days for {amount} USD.",
+    # Email
+    "email.welcome.subject": "Welcome to BLACKDARK",
+    "email.welcome.body": "Your account is ready. Start with one clear Act/Wait decision.",
+    "email.reset.subject": "Reset your passcode",
+    "email.reset.body": "Use this link to reset your passcode. If you did not request this, ignore this email.",
+    "email.billing_receipt.subject": "Your BLACKDARK receipt",
+    "email.billing_receipt.body": "Thank you. Amount charged: {amount} USD. Manage billing anytime in your portal.",
+    # Identity security notifications
+    "notification.new_device.title": "New sign-in detected",
+    "notification.new_device.body": "Your account signed in from a new device. If this was not you, secure your account.",
+    "notification.password_changed.title": "Password changed",
+    "notification.password_changed.body": "Your passcode was changed. If you did not make this change, secure your account immediately.",
+    "notification.email_changed.title": "Email changed",
+    "notification.email_changed.body": "Your account email was updated.",
+    "notification.mfa_changed.title": "MFA settings changed",
+    "notification.mfa_changed.body": "Multi-factor authentication settings on your account were updated.",
+    "notification.passkey_added.title": "Passkey added",
+    "notification.passkey_added.body": "A new passkey was added to your account.",
+    "notification.passkey_removed.title": "Passkey removed",
+    "notification.passkey_removed.body": "A passkey was removed from your account.",
+    "notification.provider_linked.title": "Sign-in provider linked",
+    "notification.provider_linked.body": "A new sign-in provider was linked to your account.",
+    "notification.provider_unlinked.title": "Sign-in provider unlinked",
+    "notification.provider_unlinked.body": "A sign-in provider was removed from your account.",
+    "notification.deletion_requested.title": "Account deletion requested",
+    "notification.deletion_requested.body": "Your account is scheduled for deletion. Sign in to cancel if this was a mistake.",
+    "notification.compromise_response.title": "Account secured",
+    "notification.compromise_response.body": "We revoked active sessions and reset recovery tokens on your account.",
+    # AI user-facing outputs
+    "ai.summary.lead": "Summary",
+    "ai.recommendation.lead": "Recommendation",
+    "ai.risk.message": "Risk note: verify on the Public Accuracy Ledger before acting.",
+    "ai.explanation.lead": "Explanation",
 }
 
 
@@ -534,6 +613,12 @@ def _build_all() -> dict[str, dict[str, str]]:
 _CATALOGS: dict[str, dict[str, str]] | None = None
 
 
+def invalidate_catalogs() -> None:
+    """Clear cached catalogs after locales/*.json refresh."""
+    global _CATALOGS
+    _CATALOGS = None
+
+
 def catalogs() -> dict[str, dict[str, str]]:
     global _CATALOGS
     if _CATALOGS is None:
@@ -627,5 +712,5 @@ def i18n_manifest() -> dict[str, Any]:
         "locales": list_locales(),
         "count": len(LOCALES),
         "rtl": [c for c, m in LOCALES.items() if m["dir"] == "rtl"],
-        "note": "25 locales; catalogs in locales/*.json; RTL for ar, he, ur, fa.",
+        "note": "38 locales; catalogs in locales/*.json; RTL for ar, he, ur, fa.",
     }

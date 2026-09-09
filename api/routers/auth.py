@@ -284,6 +284,10 @@ async def auth_reset_password(body: AuthResetPasswordBody):
         session = await create_session(user_id)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    from auth_service import client_user_payload
+    from database import fetch_user_by_id
+
+    user_row = await fetch_user_by_id(user_id) or user
     resp = JSONResponse(
         _session_response_body(
             {
@@ -291,7 +295,7 @@ async def auth_reset_password(body: AuthResetPasswordBody):
                 "message": "Password updated. You are signed in.",
                 "token": session["token"],
                 "expires_at": session["expires_at"],
-                "user": {"id": user_id, "email": email, "name": user.get("name") or ""},
+                "user": client_user_payload(user_row),
             }
         )
     )
@@ -485,8 +489,9 @@ async def auth_logout_all(user: dict | None = Depends(optional_user)):
 
 @router.get("/me")
 async def auth_me(user: dict | None = Depends(optional_user)):
-    from auth_service import tier_payload
+    from auth_service import client_user_payload, tier_payload
     from database import fetch_active_subscription_for_email, fetch_user_profile
+    from identity.public_user_id import default_avatar_url
     from identity_service import avatar_initials, identity_architecture
     from mfa_service import mfa_status_for_user
     from oauth_service import oauth_status
@@ -518,11 +523,12 @@ async def auth_me(user: dict | None = Depends(optional_user)):
     profile_out["initials"] = avatar_initials(
         str(profile.get("name") or ""), str(profile.get("email") or user["email"])
     )
-    profile_out["avatar_url"] = profile.get("avatar_url") or f"/api/auth/avatar/{user['id']}.svg"
+    profile_out["avatar_url"] = profile.get("avatar_url") or default_avatar_url(str(user.get("public_user_id") or ""))
     profile_out["email_verified"] = bool(profile.get("email_verified_at"))
+    profile_out.pop("id", None)
     return {
         "authenticated": True,
-        "user": user,
+        "user": client_user_payload(user),
         "profile": profile_out,
         "tier": tier_payload(user, sub),
         "subscription": sub,
@@ -598,13 +604,18 @@ async def auth_avatar_upload(
 ):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
-    from database import update_user_profile_fields
+    from database import fetch_user_by_id, update_user_profile_fields
     from identity_service import save_avatar_bytes
 
+    row = await fetch_user_by_id(int(user["id"])) or user
     content_type = (file.content_type or "").split(";")[0].strip().lower()
     data = await file.read()
     try:
-        url = save_avatar_bytes(int(user["id"]), content_type, data)
+        url = save_avatar_bytes(
+            content_type=content_type,
+            data=data,
+            previous_avatar_url=str(row.get("avatar_url") or ""),
+        )
         await update_user_profile_fields(int(user["id"]), {"avatar_url": url})
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -615,43 +626,101 @@ async def auth_avatar_upload(
 async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
-    from database import update_user_profile_fields
-    from identity_service import AVATAR_DIR
+    from database import fetch_user_by_id, update_user_profile_fields
+    from identity_service import delete_avatar_file, reset_avatar_url
 
     uid = int(user["id"])
-    for ext in (".jpg", ".png", ".webp"):
-        path = AVATAR_DIR / f"{uid}{ext}"
-        if path.is_file():
-            path.unlink()
-    url = f"/api/auth/avatar/{uid}.svg"
+    row = await fetch_user_by_id(uid) or user
+    delete_avatar_file(str(row.get("avatar_url") or ""))
+    url = reset_avatar_url(str(row.get("public_user_id") or user.get("public_user_id") or ""))
     await update_user_profile_fields(uid, {"avatar_url": url})
     return {"ok": True, "avatar_url": url}
 
 
 @router.get("/avatar/{filename}", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_get(filename: str):
+    from database import fetch_user_by_public_id
+    from identity.public_user_id import is_valid_public_user_id
     from identity_service import default_avatar_svg, resolve_avatar_file
 
-    # filename: "{id}.svg" or "{id}.jpg"
+    suffix = Path(filename).suffix.lower()
     stem = Path(filename).stem
-    try:
-        user_id = int(stem)
-    except ValueError as exc:
-        raise HTTPException(status_code=404, detail="Not found") from exc
-    if filename.endswith(".svg"):
-        from database import fetch_user_by_id
-
-        row = await fetch_user_by_id(user_id)
+    if suffix == ".svg":
+        if not is_valid_public_user_id(stem):
+            raise HTTPException(status_code=404, detail="Not found")
+        row = await fetch_user_by_public_id(stem)
+        if not row:
+            raise HTTPException(status_code=404, detail="Not found")
         name = (row or {}).get("name") or ""
         email = (row or {}).get("email") or "user"
         svg = default_avatar_svg(str(name), str(email))
         return RawResponse(content=svg, media_type="image/svg+xml")
-    path = resolve_avatar_file(user_id)
+    if suffix not in {".jpg", ".png", ".webp"}:
+        raise HTTPException(status_code=404, detail="Not found")
+    path = resolve_avatar_file(stem, suffix)
     if not path:
         raise HTTPException(status_code=404, detail="Avatar not found")
     media = {
         ".jpg": "image/jpeg",
         ".png": "image/png",
         ".webp": "image/webp",
-    }.get(path.suffix.lower(), "application/octet-stream")
+    }.get(suffix, "application/octet-stream")
     return RawResponse(content=path.read_bytes(), media_type=media)
+
+
+@router.get("/sessions", responses=COMMON_ERROR_RESPONSES)
+async def auth_list_sessions(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.session_service import list_user_sessions
+
+    return {"sessions": await list_user_sessions(int(user["id"]))}
+
+
+@router.post("/sessions/{session_id}/revoke", responses=COMMON_ERROR_RESPONSES)
+async def auth_revoke_session(session_id: str, user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.session_service import revoke_session
+
+    ok = await revoke_session(int(user["id"]), session_id, actor_user_id=int(user["id"]))
+    if not ok:
+        raise HTTPException(status_code=404, detail="Session not found")
+    return {"revoked": True}
+
+
+@router.post("/secure-account", responses=COMMON_ERROR_RESPONSES)
+async def auth_secure_account(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.secure_account import secure_my_account
+
+    return await secure_my_account(int(user["id"]), actor=user)
+
+
+@router.get("/passkeys", responses=COMMON_ERROR_RESPONSES)
+async def auth_list_passkeys(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.webauthn_service import list_passkeys
+
+    return {"passkeys": await list_passkeys(int(user["id"]))}
+
+
+@router.post("/account/delete", responses=COMMON_ERROR_RESPONSES)
+async def auth_request_deletion(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.account_deletion import request_account_deletion
+
+    return await request_account_deletion(int(user["id"]), actor=user)
+
+
+@router.get("/recovery/options", responses=COMMON_ERROR_RESPONSES)
+async def auth_recovery_options(user: dict | None = Depends(optional_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from identity.account_recovery import recovery_options
+
+    return await recovery_options(int(user["id"]))
+

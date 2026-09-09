@@ -49,7 +49,10 @@ async def test_institutional_delivery_capability(capability_id: int, seed: dict)
     if mod_path.endswith("institutional_delivery_intelligence_layer"):
         mod = importlib.import_module(mod_path)
         fn = getattr(mod, fn_name)
-        out = _call_capability(fn, seed)
+        if inspect.iscoroutinefunction(fn):
+            out = await fn(symbol="BTC") if "symbol" in inspect.signature(fn).parameters else await fn()
+        else:
+            out = _call_capability(fn, seed)
         assert out.get("capability_id") == capability_id
         if "analysis_only" in out:
             assert out["analysis_only"] is True

@@ -1,0 +1,462 @@
+{
+  "artifact": "BATCH15_CANONICAL_DECISIONS",
+  "generated_at_utc": "2026-09-08T00:29:32.721190+00:00",
+  "git_commit": "475c3159df505850351588d7d1be8e2ba48c1555",
+  "decisions": {
+    "701": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 434,
+      "canonical_name": "Revenue / Fees / Economic Activity",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.revenue_fees_economic_activity_434",
+      "evidence": "CAP978 extension #701 delegates to canonical #434"
+    },
+    "702": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 435,
+      "canonical_name": "Cross-Market Research Copilot",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.cross_market_research_copilot_435",
+      "evidence": "CAP978 extension #702 delegates to canonical #435"
+    },
+    "703": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 436,
+      "canonical_name": "Investment Thesis Scoring",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.investment_thesis_scoring_436",
+      "evidence": "CAP978 extension #703 delegates to canonical #436"
+    },
+    "704": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 437,
+      "canonical_name": "DeFi Risk Radar",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.defi_risk_radar_437",
+      "evidence": "CAP978 extension #704 delegates to canonical #437"
+    },
+    "705": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 438,
+      "canonical_name": "Lending Market Risk",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.lending_market_risk_438",
+      "evidence": "CAP978 extension #705 delegates to canonical #438"
+    },
+    "706": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 439,
+      "canonical_name": "Collateral Risk",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.collateral_risk_439",
+      "evidence": "CAP978 extension #706 delegates to canonical #439"
+    },
+    "707": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 440,
+      "canonical_name": "Liquidation Risk",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.liquidation_risk_440",
+      "evidence": "CAP978 extension #707 delegates to canonical #440"
+    },
+    "708": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 441,
+      "canonical_name": "Oracle Risk",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.oracle_risk_441",
+      "evidence": "CAP978 extension #708 delegates to canonical #441"
+    },
+    "709": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 442,
+      "canonical_name": "Liquidity Risk",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.liquidity_risk_442",
+      "evidence": "CAP978 extension #709 delegates to canonical #442"
+    },
+    "710": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 443,
+      "canonical_name": "Protocol Exploit Intelligence",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_exploit_intelligence_443",
+      "evidence": "CAP978 extension #710 delegates to canonical #443"
+    },
+    "711": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 444,
+      "canonical_name": "Stablecoin Risk Intelligence",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_risk_intelligence_444",
+      "evidence": "CAP978 extension #711 delegates to canonical #444"
+    },
+    "712": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 445,
+      "canonical_name": "DeFi Strategy Risk",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.defi_strategy_risk_445",
+      "evidence": "CAP978 extension #712 delegates to canonical #445"
+    },
+    "713": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 446,
+      "canonical_name": "Real-Time Risk Alerts",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.real_time_risk_alerts_446",
+      "evidence": "CAP978 extension #713 delegates to canonical #446"
+    },
+    "714": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 447,
+      "canonical_name": "DAO Treasury Risk",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.dao_treasury_risk_447",
+      "evidence": "CAP978 extension #714 delegates to canonical #447"
+    },
+    "715": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 448,
+      "canonical_name": "Institutional Risk API",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_risk_api_448",
+      "evidence": "CAP978 extension #715 delegates to canonical #448"
+    },
+    "716": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 449,
+      "canonical_name": "Curated On-Chain Dashboards",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.curated_on_chain_dashboards_449",
+      "evidence": "CAP978 extension #716 delegates to canonical #449"
+    },
+    "717": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 450,
+      "canonical_name": "Narrative-Driven Research",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.narrative_driven_research_450",
+      "evidence": "CAP978 extension #717 delegates to canonical #450"
+    },
+    "718": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 451,
+      "canonical_name": "Protocol Dominance",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_dominance_451",
+      "evidence": "CAP978 extension #718 delegates to canonical #451"
+    },
+    "719": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 452,
+      "canonical_name": "Aave Multi-Chain Analytics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.aave_multi_chain_analytics_452",
+      "evidence": "CAP978 extension #719 delegates to canonical #452"
+    },
+    "720": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 453,
+      "canonical_name": "Risk Curation",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.risk_curation_453",
+      "evidence": "CAP978 extension #720 delegates to canonical #453"
+    },
+    "721": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 454,
+      "canonical_name": "Capital Protection Controls",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.capital_protection_controls_454",
+      "evidence": "CAP978 extension #721 delegates to canonical #454"
+    },
+    "722": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 455,
+      "canonical_name": "Stress Testing",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.stress_testing_455",
+      "evidence": "CAP978 extension #722 delegates to canonical #455"
+    },
+    "723": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 456,
+      "canonical_name": "Cross-Protocol Contagion",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.cross_protocol_contagion_456",
+      "evidence": "CAP978 extension #723 delegates to canonical #456"
+    },
+    "724": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 457,
+      "canonical_name": "Protocol Risk Passport",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.protocol_risk_passport_457",
+      "evidence": "CAP978 extension #724 delegates to canonical #457"
+    },
+    "725": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 458,
+      "canonical_name": "Risk-to-Decision Intelligence",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.heroes_capability_layer.metric_methodology_registry_458",
+      "evidence": "CAP978 extension #725 delegates to canonical #458"
+    },
+    "726": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 459,
+      "canonical_name": "Network Data Pro Metrics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.network_data_pro_metrics_459",
+      "evidence": "CAP978 extension #726 delegates to canonical #459"
+    },
+    "727": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 460,
+      "canonical_name": "Atlas Blockchain Search",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.atlas_blockchain_search_460",
+      "evidence": "CAP978 extension #727 delegates to canonical #460"
+    },
+    "728": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 461,
+      "canonical_name": "Address/Balance Search",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.address_balance_search_461",
+      "evidence": "CAP978 extension #728 delegates to canonical #461"
+    },
+    "729": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 462,
+      "canonical_name": "Transaction Search",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.transaction_search_462",
+      "evidence": "CAP978 extension #729 delegates to canonical #462"
+    },
+    "730": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 463,
+      "canonical_name": "Block Search",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.block_search_463",
+      "evidence": "CAP978 extension #730 delegates to canonical #463"
+    },
+    "731": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 464,
+      "canonical_name": "Balance Updates",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.balance_updates_464",
+      "evidence": "CAP978 extension #731 delegates to canonical #464"
+    },
+    "732": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 465,
+      "canonical_name": "Stablecoin Network Metrics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.stablecoin_network_metrics_465",
+      "evidence": "CAP978 extension #732 delegates to canonical #465"
+    },
+    "733": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 466,
+      "canonical_name": "Market Data Feed",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_feed_466",
+      "evidence": "CAP978 extension #733 delegates to canonical #466"
+    },
+    "734": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 467,
+      "canonical_name": "Market Data Pro",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_data_pro_467",
+      "evidence": "CAP978 extension #734 delegates to canonical #467"
+    },
+    "735": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 468,
+      "canonical_name": "Reference Rates",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.reference_rates_468",
+      "evidence": "CAP978 extension #735 delegates to canonical #468"
+    },
+    "736": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 469,
+      "canonical_name": "Indexes",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.indexes_469",
+      "evidence": "CAP978 extension #736 delegates to canonical #469"
+    },
+    "737": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 470,
+      "canonical_name": "Realized Metrics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.realized_metrics_470",
+      "evidence": "CAP978 extension #737 delegates to canonical #470"
+    },
+    "738": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 471,
+      "canonical_name": "Supply Metrics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.supply_metrics_471",
+      "evidence": "CAP978 extension #738 delegates to canonical #471"
+    },
+    "739": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 472,
+      "canonical_name": "Mining/Validator Metrics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.mining_validator_metrics_472",
+      "evidence": "CAP978 extension #739 delegates to canonical #472"
+    },
+    "740": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 473,
+      "canonical_name": "Fee Metrics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.fee_metrics_473",
+      "evidence": "CAP978 extension #740 delegates to canonical #473"
+    },
+    "741": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 474,
+      "canonical_name": "Activity Metrics",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.activity_metrics_474",
+      "evidence": "CAP978 extension #741 delegates to canonical #474"
+    },
+    "742": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 475,
+      "canonical_name": "Custom Metric Workbench",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.custom_metric_workbench_475",
+      "evidence": "CAP978 extension #742 delegates to canonical #475"
+    },
+    "743": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 476,
+      "canonical_name": "Community Charts/API",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.community_charts_api_476",
+      "evidence": "CAP978 extension #743 delegates to canonical #476"
+    },
+    "744": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 477,
+      "canonical_name": "Market + Network Join",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.market_network_join_477",
+      "evidence": "CAP978 extension #744 delegates to canonical #477"
+    },
+    "745": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 478,
+      "canonical_name": "Data Quality Methodologies",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.data_quality_methodologies_478",
+      "evidence": "CAP978 extension #745 delegates to canonical #478"
+    },
+    "746": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 479,
+      "canonical_name": "Historical Research Dataset",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.historical_research_dataset_479",
+      "evidence": "CAP978 extension #746 delegates to canonical #479"
+    },
+    "747": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 480,
+      "canonical_name": "Institutional APIs",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_apis_480",
+      "evidence": "CAP978 extension #747 delegates to canonical #480"
+    },
+    "748": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 481,
+      "canonical_name": "Cross-Network Decision Intelligence",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.cross_network_decision_intelligence_481",
+      "evidence": "CAP978 extension #748 delegates to canonical #481"
+    },
+    "749": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 482,
+      "canonical_name": "Institutional Trade Data",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.institutional_trade_data_482",
+      "evidence": "CAP978 extension #749 delegates to canonical #482"
+    },
+    "750": {
+      "decision": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_capability_id": 483,
+      "canonical_name": "Order Book Data",
+      "facade_binding": "bd_platform.batch15_defi_risk_data_facade_layer.execute_batch15_facade",
+      "canonical_implementation": "bd_platform.defi_yield_intelligence_layer.order_book_data_483",
+      "evidence": "CAP978 extension #750 delegates to canonical #483"
+    }
+  },
+  "canonical_duplicate_targets": {
+    "701": 434,
+    "702": 435,
+    "703": 436,
+    "704": 437,
+    "705": 438,
+    "706": 439,
+    "707": 440,
+    "708": 441,
+    "709": 442,
+    "710": 443,
+    "711": 444,
+    "712": 445,
+    "713": 446,
+    "714": 447,
+    "715": 448,
+    "716": 449,
+    "717": 450,
+    "718": 451,
+    "719": 452,
+    "720": 453,
+    "721": 454,
+    "722": 455,
+    "723": 456,
+    "724": 457,
+    "725": 458,
+    "726": 459,
+    "727": 460,
+    "728": 461,
+    "729": 462,
+    "730": 463,
+    "731": 464,
+    "732": 465,
+    "733": 466,
+    "734": 467,
+    "735": 468,
+    "736": 469,
+    "737": 470,
+    "738": 471,
+    "739": 472,
+    "740": 473,
+    "741": 474,
+    "742": 475,
+    "743": 476,
+    "744": 477,
+    "745": 478,
+    "746": 479,
+    "747": 480,
+    "748": 481,
+    "749": 482,
+    "750": 483
+  },
+  "summary": {
+    "canonical_duplicate_reuse_count": 50
+  }
+}

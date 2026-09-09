@@ -1,0 +1,147 @@
+{
+  "artifact": "ADAPTIVE_SOURCE_DRIVEN_FINAL_FREEZE",
+  "generated_at_utc": "2026-09-08T11:34:00.972495+00:00",
+  "branch": "cursor/adaptive-phase3-local-closure-ed16",
+  "material_sha": "747d4945f616a16c3e76679cb3d24b1139140358",
+  "source_audit": {
+    "ADAPTIVE_SOURCE_TO_LEDGER_COVERAGE": 100.0,
+    "ADAPTIVE_SOURCE_ITEMS_MISSING_FROM_LEDGER": [],
+    "ADAPTIVE_PARTIAL_LEDGER_MAPPINGS": [],
+    "ADAPTIVE_WRONG_LEDGER_CLASSIFICATIONS": [],
+    "ADAPTIVE_DUPLICATE_LEDGER_REQUIREMENTS": []
+  },
+  "gated_audit": {
+    "ADAPTIVE_FALSE_NOT_APPLICABLE_CLASSIFICATIONS": [],
+    "ADAPTIVE_FALSE_GOVERNANCE_ONLY_CLASSIFICATIONS": [],
+    "ADAPTIVE_FALSE_MATURITY_DEFERRALS": [],
+    "ADAPTIVE_FALSE_LIVE_DEFERRALS": [],
+    "ADAPTIVE_FALSE_EXTERNAL_DEFERRALS": []
+  },
+  "universe_verification": {
+    "buildable_total": 193,
+    "verified_ok": 193,
+    "skipped_non_implementation": 103,
+    "failures": [],
+    "ok": true
+  },
+  "rebuild_stats": {
+    "touched": 296,
+    "states": {
+      "NOT_APPLICABLE_WITH_EVIDENCE": 102,
+      "LOCAL_ENGINEERING_COMPLETE": 192,
+      "MATURITY_GATED": 1,
+      "LIVE_OR_CHRONOLOGICAL_GATED": 1
+    }
+  },
+  "arithmetic": {
+    "ADAPTIVE_NORMALIZED_TOTAL": 296,
+    "LOCAL_ENGINEERING_COMPLETE": 192,
+    "MATURITY_GATED": 1,
+    "LIVE_OR_CHRONOLOGICAL_GATED": 1,
+    "EXTERNAL_ASSURANCE_GATED": 0,
+    "NOT_APPLICABLE_WITH_EVIDENCE": 102,
+    "ADAPTIVE_REMAINING_LOCAL_REQUIREMENTS": 0,
+    "ADAPTIVE_PARTIALLY_IMPLEMENTED_LOCAL": 0,
+    "ADAPTIVE_FINAL_ARITHMETIC_CONSISTENT": true,
+    "ADAPTIVE_UNACCOUNTED_REQUIREMENTS": []
+  },
+  "v4_v2_preservation": {
+    "V4_V2_FINAL_LOCAL_COMPLETION_PRESERVED": true,
+    "V4_V2_REMAINING_LOCAL": 0,
+    "V4_V2_LOCAL_COMPLETE": 644
+  },
+  "temporal_preservation": {
+    "TEMPORAL_FINAL_LOCAL_COMPLETION_PRESERVED": true,
+    "TEMPORAL_REMAINING_LOCAL": 0,
+    "TEMPORAL_LOCAL_COMPLETE": 231
+  },
+  "pytest": {
+    "ok": true,
+    "suites": [
+      {
+        "label": "adaptive_source_driven",
+        "ok": true,
+        "paths": [
+          "tests/test_adaptive_source_driven_engineering.py",
+          "tests/test_adaptive_source_traceability.py"
+        ]
+      },
+      {
+        "label": "adaptive_spine",
+        "ok": true,
+        "paths": [
+          "tests/test_batch13_adaptive_spine.py"
+        ]
+      },
+      {
+        "label": "temporal_regression",
+        "ok": true,
+        "paths": [
+          "tests/test_temporal_source_driven_engineering.py",
+          "tests/test_temporal_source_traceability.py"
+        ]
+      },
+      {
+        "label": "v4_v2_regression",
+        "ok": true,
+        "paths": [
+          "tests/test_v4_v2_source_driven_engineering.py",
+          "tests/test_v4_v2_source_traceability.py"
+        ]
+      },
+      {
+        "label": "batch17_regression",
+        "ok": true,
+        "paths": [
+          "tests/test_batch17_extension_suite.py"
+        ]
+      }
+    ]
+  },
+  "adaptive_status": {
+    "version": "adaptive_source_driven_v1",
+    "registries": {
+      "workspaces": {
+        "store": "data/adaptive_workspaces.jsonl",
+        "count": 133
+      },
+      "playbooks": {
+        "store": "data/adaptive_playbooks.jsonl",
+        "count": 133
+      },
+      "my_stack": {
+        "store": "data/adaptive_my_stack.jsonl",
+        "count": 133
+      },
+      "trust_status": {
+        "store": "data/adaptive_trust_status.jsonl",
+        "count": 246
+      },
+      "human_validation": {
+        "store": "data/adaptive_human_validation.jsonl",
+        "count": 45
+      },
+      "recommendations": {
+        "store": "data/adaptive_contextual_recommendations.jsonl",
+        "count": 45
+      },
+      "data_room": {
+        "store": "data/adaptive_data_room_access.jsonl",
+        "count": 34
+      },
+      "six_heroes": {
+        "store": "data/adaptive_six_heroes_disposition.jsonl",
+        "count": 23
+      }
+    },
+    "live_promotion": false,
+    "pass_live_claimed": false,
+    "calibrated_promotion": false
+  },
+  "ADAPTIVE_FINAL_LOCAL_COMPLETION": true,
+  "NO_KNOWN_LOCALLY_BUILDABLE_ADAPTIVE_WORK_REMAINING": true,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "INDEPENDENT_ASSURANCE_NOT_CLAIMED": true,
+  "BATCH18_NOT_CREATED": true,
+  "RAILWAY_NOT_TOUCHED": true
+}

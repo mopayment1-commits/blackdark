@@ -1,0 +1,280 @@
+{
+  "artifact": "V4_V2_PHASE1_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-08T10:50:37.828085+00:00",
+  "branch": "cursor/v4v2-phase1-local-closure-ed16",
+  "material_sha": "5eb10ada81647f1373b3010c27ae8f08d3e89805",
+  "baseline": {
+    "V4_V2_REMAINING_LOCAL_REQUIREMENTS": 498,
+    "V4_V2_BASELINE_RECONCILED": true,
+    "V4_V2_UNEXPLAINED_COUNT_DELTA": []
+  },
+  "ledger_stats": {
+    "touched_local_complete": 480,
+    "touched_maturity_gated": 18,
+    "touched_total": 498
+  },
+  "arithmetic": {
+    "V4_V2_NORMALIZED_TOTAL": 1846,
+    "LOCAL_ENGINEERING_COMPLETE": 480,
+    "BUILT_THIS_BATCH": 136,
+    "BUILT_THROUGH_BATCH13": 28,
+    "MATURITY_GATED": 42,
+    "LIVE_OR_CHRONOLOGICAL_GATED": 2,
+    "EXTERNAL_ASSURANCE_GATED": 13,
+    "NOT_APPLICABLE_WITH_EVIDENCE": 1145,
+    "PARTIALLY_BUILT_VALID": 0,
+    "V4_V2_FINAL_ARITHMETIC_CONSISTENT": true,
+    "V4_V2_UNACCOUNTED_REQUIREMENTS": [],
+    "V4_V2_REMAINING_LOCAL_REQUIREMENTS": 0,
+    "V4_V2_POST_CAPABILITY_LOCAL_CLOSURE_REQUIRED_COUNT": 0
+  },
+  "domain_handlers": {
+    "ok": true,
+    "failures": [],
+    "domain_count": 20
+  },
+  "pytest": {
+    "suites": [
+      {
+        "label": "v4_v2_phase1_engineering_spine",
+        "paths": [
+          "tests/test_v4_v2_phase1_engineering_spine.py"
+        ],
+        "returncode": 0,
+        "ok": true,
+        "stdout_tail": "......                                                                   [100%]\n",
+        "stderr_tail": ""
+      },
+      {
+        "label": "batch17_regression",
+        "paths": [
+          "tests/test_batch17_extension_suite.py"
+        ],
+        "returncode": 0,
+        "ok": true,
+        "stdout_tail": "........................................................................ [ 65%]\n......................................                                   [100%]\n",
+        "stderr_tail": ""
+      },
+      {
+        "label": "batch16_regression",
+        "paths": [
+          "tests/test_batch16_three_spec_foundations.py"
+        ],
+        "returncode": 0,
+        "ok": true,
+        "stdout_tail": ".                                                                        [100%]\n",
+        "stderr_tail": ""
+      }
+    ],
+    "ok": true
+  },
+  "phase1_foundation_status": {
+    "foundation_version": "v4_v2_phase1_v1",
+    "domain_order": [
+      "storage_foundation",
+      "provenance",
+      "source_rights",
+      "source_quality",
+      "lineage",
+      "pit_temporal",
+      "correction_revision",
+      "registry",
+      "data_quality",
+      "evidence",
+      "decision_signal",
+      "audit_retention",
+      "reliability",
+      "privacy_security",
+      "runtime_enforcement",
+      "capability_coupled",
+      "cross_cutting",
+      "maturity_prerequisite"
+    ],
+    "maturity_gated_count": 18,
+    "sample_domains": [
+      {
+        "domain": "storage_foundation",
+        "closure_state": "LOCAL_ENGINEERING_COMPLETE",
+        "implementation_paths": [
+          "hot_storage.py",
+          "data_lake.py",
+          "bd_platform/v4_v2_phase1_engineering_spine.py"
+        ],
+        "runtime_verified": true,
+        "checks": {
+          "hot_storage": {
+            "module": "hot_storage",
+            "pipeline_active": false,
+            "stats": {
+              "enqueued": 0,
+              "dropped": 0,
+              "flushed": 0,
+              "flush_errors": 0,
+              "buffer_depth": 0,
+              "last_flush_at": null,
+              "active_backends": []
+            }
+          },
+          "data_lake": {
+            "module": "data_lake",
+            "import_ok": false
+          },
+          "requirement_id": "V4V2_STATUS"
+        },
+        "cross_spec_overlap": "DISTINCT_REQUIREMENTS_SHARED_INFRASTRUCTURE",
+        "live_promotion": false,
+        "verified_at_utc": "2026-09-08T10:50:47.365081+00:00"
+      },
+      {
+        "domain": "provenance",
+        "closure_state": "LOCAL_ENGINEERING_COMPLETE",
+        "implementation_paths": [
+          "data_provenance_score.py",
+          "reproducibility_manifest.py",
+          "blackdark/data/provenance.py",
+          "bd_platform/v4_v2_phase1_engineering_spine.py"
+        ],
+        "runtime_verified": true,
+        "checks": {
+          "provenance_score": {
+            "surface": "data_provenance_score",
+            "generated_at": "2026-09-08T10:50:47.365111+00:00",
+            "symbol": "BTC",
+            "score": 78.0,
+            "band": "caution",
+            "posture": "Decide with caution — some inputs soft or thin",
+            "components": {
+              "freshness": {
+                "score": 40.0,
+                "state": "fresh",
+                "freshness_ms": 120.0
+              },
+              "venue_depth": {
+                "score": 17.0,
+                "live_venues": 3,
+                "max_component": 35
+              },
+              "source_diversity": {
+                "score": 11.0,
+                "categories": [
+                  "derivatives",
+                  "prices"
+                ]
+              },
+              "executable_gate": {
+                "score": 10.0,
+                "executable": true
+              }
+            },
+            "live_ingestion_ready_ids": [
+              "binance",
+              "okx",
+              "bybit",
+              "coinbase",
+              "kucoin",
+              "bitget",
+              "gateio",
+              "mexc",
+              "kraken",
+              "htx",
+              "cryptocom",
+              "bingx",
+              "lbank",
+              "xt",
+              "coinw",
+              "upbit",
+              "bithumb",
+              "bitfinex",
+              "bitstamp",
+              "whitebit"
+            ],
+            "honesty": "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+            "api": "/api/oracle/provenance-score",
+            "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture."
+          },
+          "manifest_verified": true,
+          "payload_keys": [
+            "data_provenance",
+            "provenance_band",
+            "provenance_score",
+            "symbol",
+            "value"
+          ]
+        },
+        "cross_spec_overlap": "TRUE_SHARED_REQUIREMENT",
+        "live_promotion": false,
+        "verified_at_utc": "2026-09-08T10:50:47.365184+00:00"
+      },
+      {
+        "domain": "pit_temporal",
+        "closure_state": "LOCAL_ENGINEERING_COMPLETE",
+        "implementation_paths": [
+          "temporal_leakage_firewall.py",
+          "bd_platform/batch14_three_spec_foundations.py"
+        ],
+        "runtime_verified": true,
+        "checks": {
+          "pit": {
+            "model": "pit_availability_v1",
+            "as_of": "2026-09-08T10:50:47.365188+00:00",
+            "semantics": "knowledge_time_vs_event_time_separated",
+            "leakage_firewall": "temporal_leakage_firewall.py",
+            "promotion_gate": "shadow_only",
+            "live_promotion": false
+          },
+          "pit_rows": 1
+        },
+        "cross_spec_overlap": "TRUE_SHARED_REQUIREMENT",
+        "live_promotion": false,
+        "verified_at_utc": "2026-09-08T10:50:47.365197+00:00"
+      },
+      {
+        "domain": "decision_signal",
+        "closure_state": "LOCAL_ENGINEERING_COMPLETE",
+        "implementation_paths": [
+          "decision_ledger.py",
+          "signal_registry.py",
+          "bd_platform/adaptive_intelligence/decision_contract.py",
+          "bd_platform/adaptive_intelligence/progressive_disclosure.py"
+        ],
+        "runtime_verified": true,
+        "checks": {
+          "decision_id": "dec_27d47e11022a4756",
+          "contract_selected": 801
+        },
+        "cross_spec_overlap": "TRUE_SHARED_REQUIREMENT",
+        "live_promotion": false,
+        "verified_at_utc": "2026-09-08T10:50:47.365393+00:00"
+      },
+      {
+        "domain": "evidence",
+        "closure_state": "LOCAL_ENGINEERING_COMPLETE",
+        "implementation_paths": [
+          "evaluation_contamination_registry.py",
+          "cap646/evidence_class.py",
+          "bd_platform/batch17_three_spec_foundations.py"
+        ],
+        "runtime_verified": true,
+        "checks": {
+          "contamination_registry": {
+            "module": "evaluation_contamination_registry",
+            "status": "ACTIVE_LOCAL",
+            "event_count": 3,
+            "store": "data/evaluation_contamination_registry.jsonl"
+          },
+          "evidence_class": "SHADOW_LIVE_FORWARD"
+        },
+        "cross_spec_overlap": "TRUE_SHARED_REQUIREMENT",
+        "live_promotion": false,
+        "verified_at_utc": "2026-09-08T10:50:47.365430+00:00"
+      }
+    ],
+    "live_promotion": false
+  },
+  "V4_V2_FINAL_LOCAL_COMPLETION": true,
+  "TEMPORAL_DEDICATED_CLOSURE_NOT_STARTED": true,
+  "ADAPTIVE_DEDICATED_CLOSURE_NOT_STARTED": true,
+  "BATCH18_NOT_CREATED": true,
+  "RAILWAY_NOT_TOUCHED": true,
+  "PASS_LIVE_NOT_CLAIMED": true
+}

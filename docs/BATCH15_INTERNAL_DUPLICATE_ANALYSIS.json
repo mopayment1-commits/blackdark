@@ -1,0 +1,532 @@
+{
+  "artifact": "BATCH15_INTERNAL_DUPLICATE_ANALYSIS",
+  "generated_at_utc": "2026-09-08T00:29:32.721190+00:00",
+  "git_commit": "475c3159df505850351588d7d1be8e2ba48c1555",
+  "layer_a_internal": {
+    "scope": "Layer A — Batch15 IDs 701-750 vs 701-750 ONLY",
+    "summary": {
+      "internal_pairs_reviewed": 1225,
+      "internal_true_duplicates": 0,
+      "internal_partial_overlaps": 1,
+      "internal_unresolved": 0,
+      "canonical_reuse_facades": 50
+    },
+    "per_id": [
+      {
+        "capability_id": 701,
+        "capability_name": "Revenue / Fees / Economic Activity",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 434
+      },
+      {
+        "capability_id": 702,
+        "capability_name": "Cross-Market Research Copilot",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 435
+      },
+      {
+        "capability_id": 703,
+        "capability_name": "Investment Thesis Scoring",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 436
+      },
+      {
+        "capability_id": 704,
+        "capability_name": "DeFi Risk Radar",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 437
+      },
+      {
+        "capability_id": 705,
+        "capability_name": "Lending Market Risk",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 438
+      },
+      {
+        "capability_id": 706,
+        "capability_name": "Collateral Risk",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 439
+      },
+      {
+        "capability_id": 707,
+        "capability_name": "Liquidation Risk",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 440
+      },
+      {
+        "capability_id": 708,
+        "capability_name": "Oracle Risk",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 441
+      },
+      {
+        "capability_id": 709,
+        "capability_name": "Liquidity Risk",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 442
+      },
+      {
+        "capability_id": 710,
+        "capability_name": "Protocol Exploit Intelligence",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 443
+      },
+      {
+        "capability_id": 711,
+        "capability_name": "Stablecoin Risk Intelligence",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 444
+      },
+      {
+        "capability_id": 712,
+        "capability_name": "DeFi Strategy Risk",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 445
+      },
+      {
+        "capability_id": 713,
+        "capability_name": "Real-Time Risk Alerts",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 446
+      },
+      {
+        "capability_id": 714,
+        "capability_name": "DAO Treasury Risk",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 447
+      },
+      {
+        "capability_id": 715,
+        "capability_name": "Institutional Risk API",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 448
+      },
+      {
+        "capability_id": 716,
+        "capability_name": "Curated On-Chain Dashboards",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 449
+      },
+      {
+        "capability_id": 717,
+        "capability_name": "Narrative-Driven Research",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 450
+      },
+      {
+        "capability_id": 718,
+        "capability_name": "Protocol Dominance",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 451
+      },
+      {
+        "capability_id": 719,
+        "capability_name": "Aave Multi-Chain Analytics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 452
+      },
+      {
+        "capability_id": 720,
+        "capability_name": "Risk Curation",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 453
+      },
+      {
+        "capability_id": 721,
+        "capability_name": "Capital Protection Controls",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 454
+      },
+      {
+        "capability_id": 722,
+        "capability_name": "Stress Testing",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 455
+      },
+      {
+        "capability_id": 723,
+        "capability_name": "Cross-Protocol Contagion",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 456
+      },
+      {
+        "capability_id": 724,
+        "capability_name": "Protocol Risk Passport",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 457
+      },
+      {
+        "capability_id": 725,
+        "capability_name": "Risk-to-Decision Intelligence",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 458
+      },
+      {
+        "capability_id": 726,
+        "capability_name": "Network Data Pro Metrics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 459
+      },
+      {
+        "capability_id": 727,
+        "capability_name": "Atlas Blockchain Search",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 460
+      },
+      {
+        "capability_id": 728,
+        "capability_name": "Address/Balance Search",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 461
+      },
+      {
+        "capability_id": 729,
+        "capability_name": "Transaction Search",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 462
+      },
+      {
+        "capability_id": 730,
+        "capability_name": "Block Search",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 463
+      },
+      {
+        "capability_id": 731,
+        "capability_name": "Balance Updates",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 464
+      },
+      {
+        "capability_id": 732,
+        "capability_name": "Stablecoin Network Metrics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 465
+      },
+      {
+        "capability_id": 733,
+        "capability_name": "Market Data Feed",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 466
+      },
+      {
+        "capability_id": 734,
+        "capability_name": "Market Data Pro",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 467
+      },
+      {
+        "capability_id": 735,
+        "capability_name": "Reference Rates",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 468
+      },
+      {
+        "capability_id": 736,
+        "capability_name": "Indexes",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 469
+      },
+      {
+        "capability_id": 737,
+        "capability_name": "Realized Metrics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 470
+      },
+      {
+        "capability_id": 738,
+        "capability_name": "Supply Metrics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 471
+      },
+      {
+        "capability_id": 739,
+        "capability_name": "Mining/Validator Metrics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 472
+      },
+      {
+        "capability_id": 740,
+        "capability_name": "Fee Metrics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 473
+      },
+      {
+        "capability_id": 741,
+        "capability_name": "Activity Metrics",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 474
+      },
+      {
+        "capability_id": 742,
+        "capability_name": "Custom Metric Workbench",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 475
+      },
+      {
+        "capability_id": 743,
+        "capability_name": "Community Charts/API",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 476
+      },
+      {
+        "capability_id": 744,
+        "capability_name": "Market + Network Join",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 477
+      },
+      {
+        "capability_id": 745,
+        "capability_name": "Data Quality Methodologies",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 478
+      },
+      {
+        "capability_id": 746,
+        "capability_name": "Historical Research Dataset",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 479
+      },
+      {
+        "capability_id": 747,
+        "capability_name": "Institutional APIs",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 480
+      },
+      {
+        "capability_id": 748,
+        "capability_name": "Cross-Network Decision Intelligence",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 481
+      },
+      {
+        "capability_id": 749,
+        "capability_name": "Institutional Trade Data",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 482
+      },
+      {
+        "capability_id": 750,
+        "capability_name": "Order Book Data",
+        "binding_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "binding_function": "execute_batch15_facade",
+        "internal_decision": "E. CANONICAL_DUPLICATE_REUSE",
+        "relationship_type": "FACADE_CANONICAL_REUSE",
+        "canonical_owner": 483
+      }
+    ],
+    "shared_core_overlaps": [
+      {
+        "shared_module": "bd_platform.batch15_defi_risk_data_facade_layer",
+        "capability_ids": [
+          701,
+          702,
+          703,
+          704,
+          705,
+          706,
+          707,
+          708,
+          709,
+          710,
+          711,
+          712,
+          713,
+          714,
+          715,
+          716,
+          717,
+          718,
+          719,
+          720,
+          721,
+          722,
+          723,
+          724,
+          725,
+          726,
+          727,
+          728,
+          729,
+          730,
+          731,
+          732,
+          733,
+          734,
+          735,
+          736,
+          737,
+          738,
+          739,
+          740,
+          741,
+          742,
+          743,
+          744,
+          745,
+          746,
+          747,
+          748,
+          749,
+          750
+        ],
+        "relationship": "DISTINCT_CAPABILITIES_SHARED_INFRASTRUCTURE"
+      }
+    ]
+  },
+  "summary": {
+    "internal_pairs_reviewed": 1225,
+    "internal_true_duplicates": 0,
+    "internal_partial_overlaps": 1,
+    "internal_unresolved": 0,
+    "canonical_reuse_facades": 50
+  }
+}

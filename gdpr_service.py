@@ -35,7 +35,7 @@ async def export_user_data(email: str) -> dict[str, Any]:
         "found": user is not None,
         "profile": profile,
         "account": {
-            "id": user.get("id") if user else None,
+            "public_user_id": user.get("public_user_id") if user else None,
             "email": user.get("email") if user else normalized,
             "tier": user.get("tier") if user else None,
             "created_at": user.get("created_at") if user else None,

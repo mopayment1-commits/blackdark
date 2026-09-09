@@ -1,0 +1,822 @@
+{
+  "machine_assertions": {
+    "expected_ids": 50,
+    "unique_ids": 50,
+    "missing": [],
+    "duplicate_ids": [],
+    "unresolved_duplicate_conflicts": 0,
+    "col10_prepared": 50,
+    "col10_complete": 50
+  },
+  "artifact": "BATCH09_PENTAGONAL_COL10_PREPARATION",
+  "generated_at": "2026-09-06T20:16:44.215584+00:00",
+  "git_commit": "cbfef02702849c96c55ff41767767b8f4c2e0544",
+  "scope": "Pentagonal column 10 preparation — per-ID second review slots",
+  "status": "LOCAL_PREPARATION_COMPLETE",
+  "summary": {
+    "local_preparation_complete": 50,
+    "total": 50
+  },
+  "rows": [
+    {
+      "capability_id": 401,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 402,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 403,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 404,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 405,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 406,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 407,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 408,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 409,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 410,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 411,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 412,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 413,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 414,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 415,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 416,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 417,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 418,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 419,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 420,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 421,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 422,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 423,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 424,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 425,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 426,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 427,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 428,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 429,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 430,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 431,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 432,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 433,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 434,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 435,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 436,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 437,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 438,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 439,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 440,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 441,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 442,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 443,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 444,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 445,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 446,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 447,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 448,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 449,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    },
+    {
+      "capability_id": 450,
+      "col10_status": "LOCAL_PREPARATION_COMPLETE",
+      "review_type": "INSTITUTIONAL_SECOND_REVIEW",
+      "sections": {
+        "A_evidence_completeness": "COMPLETE_LOCAL",
+        "B_traceability_chain": "COMPLETE_LOCAL",
+        "C_exceptions_residual_risk": "DOCUMENTED",
+        "D_independent_review_readiness": "PREPARED_AWAITING_HUMAN"
+      },
+      "blocked_by": [
+        "G6 PRODUCTION_VALIDATION",
+        "12207 Validation sign-off"
+      ],
+      "checklist_ref": "docs/BATCH09_PENTAGONAL_TEMPLATE_401_450.json"
+    }
+  ]
+}

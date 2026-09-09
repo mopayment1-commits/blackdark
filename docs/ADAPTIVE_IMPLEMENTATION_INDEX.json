@@ -1,0 +1,5329 @@
+{
+  "artifact": "ADAPTIVE_IMPLEMENTATION_INDEX",
+  "generated_at_utc": "2026-09-08T11:34:00.981462+00:00",
+  "git_head": "747d4945f616a16c3e76679cb3d24b1139140358",
+  "binding_count": 296,
+  "bindings": {
+    "ADAPTIVE_U0001": {
+      "unique_id": "ADAPTIVE_U0001",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0002_0001",
+        "ADAPTIVE_0004_0003",
+        "ADAPTIVE_0008_0003",
+        "ADAPTIVE_0015_0005",
+        "ADAPTIVE_0017_0005",
+        "ADAPTIVE_0018_0005",
+        "ADAPTIVE_0029_0003",
+        "ADAPTIVE_0031_0007",
+        "ADAPTIVE_0036_0005",
+        "ADAPTIVE_0039_0003",
+        "ADAPTIVE_0040_0003",
+        "ADAPTIVE_0040_0005",
+        "ADAPTIVE_0043_0003",
+        "ADAPTIVE_0044_0011",
+        "ADAPTIVE_0045_0003"
+      ]
+    },
+    "ADAPTIVE_U0002": {
+      "unique_id": "ADAPTIVE_U0002",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0003_0001"
+      ]
+    },
+    "ADAPTIVE_U0003": {
+      "unique_id": "ADAPTIVE_U0003",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0001"
+      ]
+    },
+    "ADAPTIVE_U0004": {
+      "unique_id": "ADAPTIVE_U0004",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0001"
+      ]
+    },
+    "ADAPTIVE_U0005": {
+      "unique_id": "ADAPTIVE_U0005",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0001"
+      ]
+    },
+    "ADAPTIVE_U0006": {
+      "unique_id": "ADAPTIVE_U0006",
+      "domain": "intent_search",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0007"
+      ]
+    },
+    "ADAPTIVE_U0007": {
+      "unique_id": "ADAPTIVE_U0007",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0007"
+      ]
+    },
+    "ADAPTIVE_U0008": {
+      "unique_id": "ADAPTIVE_U0008",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0025"
+      ]
+    },
+    "ADAPTIVE_U0009": {
+      "unique_id": "ADAPTIVE_U0009",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0016_0001"
+      ]
+    },
+    "ADAPTIVE_U0010": {
+      "unique_id": "ADAPTIVE_U0010",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0001"
+      ]
+    },
+    "ADAPTIVE_U0011": {
+      "unique_id": "ADAPTIVE_U0011",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0018_0001"
+      ]
+    },
+    "ADAPTIVE_U0012": {
+      "unique_id": "ADAPTIVE_U0012",
+      "domain": "entitlement_role_tenant",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0020_0001"
+      ]
+    },
+    "ADAPTIVE_U0013": {
+      "unique_id": "ADAPTIVE_U0013",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0001"
+      ]
+    },
+    "ADAPTIVE_U0014": {
+      "unique_id": "ADAPTIVE_U0014",
+      "domain": "contextual_recommendations",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0022_0001"
+      ]
+    },
+    "ADAPTIVE_U0015": {
+      "unique_id": "ADAPTIVE_U0015",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0023_0001"
+      ]
+    },
+    "ADAPTIVE_U0016": {
+      "unique_id": "ADAPTIVE_U0016",
+      "domain": "capability_graph",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0001"
+      ]
+    },
+    "ADAPTIVE_U0017": {
+      "unique_id": "ADAPTIVE_U0017",
+      "domain": "data_room_institutional",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0025_0001"
+      ]
+    },
+    "ADAPTIVE_U0018": {
+      "unique_id": "ADAPTIVE_U0018",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0008_0001"
+      ]
+    },
+    "ADAPTIVE_U0019": {
+      "unique_id": "ADAPTIVE_U0019",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0009"
+      ]
+    },
+    "ADAPTIVE_U0020": {
+      "unique_id": "ADAPTIVE_U0020",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0008"
+      ]
+    },
+    "ADAPTIVE_U0021": {
+      "unique_id": "ADAPTIVE_U0021",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0026_0001"
+      ]
+    },
+    "ADAPTIVE_U0022": {
+      "unique_id": "ADAPTIVE_U0022",
+      "domain": "accessibility_usability",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0027_0001"
+      ]
+    },
+    "ADAPTIVE_U0023": {
+      "unique_id": "ADAPTIVE_U0023",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0001"
+      ]
+    },
+    "ADAPTIVE_U0024": {
+      "unique_id": "ADAPTIVE_U0024",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0028_0001"
+      ]
+    },
+    "ADAPTIVE_U0025": {
+      "unique_id": "ADAPTIVE_U0025",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0001"
+      ]
+    },
+    "ADAPTIVE_U0026": {
+      "unique_id": "ADAPTIVE_U0026",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0031_0001"
+      ]
+    },
+    "ADAPTIVE_U0027": {
+      "unique_id": "ADAPTIVE_U0027",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0001"
+      ]
+    },
+    "ADAPTIVE_U0028": {
+      "unique_id": "ADAPTIVE_U0028",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0033_0001"
+      ]
+    },
+    "ADAPTIVE_U0029": {
+      "unique_id": "ADAPTIVE_U0029",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0034_0001"
+      ]
+    },
+    "ADAPTIVE_U0030": {
+      "unique_id": "ADAPTIVE_U0030",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0035_0001"
+      ]
+    },
+    "ADAPTIVE_U0031": {
+      "unique_id": "ADAPTIVE_U0031",
+      "domain": "human_validation",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0001"
+      ]
+    },
+    "ADAPTIVE_U0032": {
+      "unique_id": "ADAPTIVE_U0032",
+      "domain": "entitlement_role_tenant",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0011"
+      ]
+    },
+    "ADAPTIVE_U0033": {
+      "unique_id": "ADAPTIVE_U0033",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0009"
+      ]
+    },
+    "ADAPTIVE_U0034": {
+      "unique_id": "ADAPTIVE_U0034",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0009_0001"
+      ]
+    },
+    "ADAPTIVE_U0035": {
+      "unique_id": "ADAPTIVE_U0035",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0037_0001"
+      ]
+    },
+    "ADAPTIVE_U0036": {
+      "unique_id": "ADAPTIVE_U0036",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0001"
+      ]
+    },
+    "ADAPTIVE_U0037": {
+      "unique_id": "ADAPTIVE_U0037",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0001"
+      ]
+    },
+    "ADAPTIVE_U0038": {
+      "unique_id": "ADAPTIVE_U0038",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0001"
+      ]
+    },
+    "ADAPTIVE_U0039": {
+      "unique_id": "ADAPTIVE_U0039",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0001"
+      ]
+    },
+    "ADAPTIVE_U0040": {
+      "unique_id": "ADAPTIVE_U0040",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0001"
+      ]
+    },
+    "ADAPTIVE_U0041": {
+      "unique_id": "ADAPTIVE_U0041",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0043_0001"
+      ]
+    },
+    "ADAPTIVE_U0042": {
+      "unique_id": "ADAPTIVE_U0042",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0044_0001"
+      ]
+    },
+    "ADAPTIVE_U0043": {
+      "unique_id": "ADAPTIVE_U0043",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0013"
+      ]
+    },
+    "ADAPTIVE_U0044": {
+      "unique_id": "ADAPTIVE_U0044",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0010"
+      ]
+    },
+    "ADAPTIVE_U0045": {
+      "unique_id": "ADAPTIVE_U0045",
+      "domain": "six_heroes_disposition",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0010_0001"
+      ]
+    },
+    "ADAPTIVE_U0046": {
+      "unique_id": "ADAPTIVE_U0046",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0015"
+      ]
+    },
+    "ADAPTIVE_U0047": {
+      "unique_id": "ADAPTIVE_U0047",
+      "domain": "human_validation",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0011"
+      ]
+    },
+    "ADAPTIVE_U0048": {
+      "unique_id": "ADAPTIVE_U0048",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0001"
+      ]
+    },
+    "ADAPTIVE_U0049": {
+      "unique_id": "ADAPTIVE_U0049",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0012"
+      ]
+    },
+    "ADAPTIVE_U0050": {
+      "unique_id": "ADAPTIVE_U0050",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0017"
+      ]
+    },
+    "ADAPTIVE_U0051": {
+      "unique_id": "ADAPTIVE_U0051",
+      "domain": "intent_search",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0001"
+      ]
+    },
+    "ADAPTIVE_U0052": {
+      "unique_id": "ADAPTIVE_U0052",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0034_0003"
+      ]
+    },
+    "ADAPTIVE_U0053": {
+      "unique_id": "ADAPTIVE_U0053",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0002_0011"
+      ]
+    },
+    "ADAPTIVE_U0054": {
+      "unique_id": "ADAPTIVE_U0054",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0019"
+      ]
+    },
+    "ADAPTIVE_U0055": {
+      "unique_id": "ADAPTIVE_U0055",
+      "domain": "decision_boundary",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0013"
+      ]
+    },
+    "ADAPTIVE_U0056": {
+      "unique_id": "ADAPTIVE_U0056",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0013_0001"
+      ]
+    },
+    "ADAPTIVE_U0057": {
+      "unique_id": "ADAPTIVE_U0057",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0045_0017"
+      ]
+    },
+    "ADAPTIVE_U0058": {
+      "unique_id": "ADAPTIVE_U0058",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0001"
+      ]
+    },
+    "ADAPTIVE_U0059": {
+      "unique_id": "ADAPTIVE_U0059",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0021"
+      ]
+    },
+    "ADAPTIVE_U0060": {
+      "unique_id": "ADAPTIVE_U0060",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0023"
+      ]
+    },
+    "ADAPTIVE_U0061": {
+      "unique_id": "ADAPTIVE_U0061",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0001"
+      ]
+    },
+    "ADAPTIVE_U0062": {
+      "unique_id": "ADAPTIVE_U0062",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0045_0001"
+      ]
+    },
+    "ADAPTIVE_U0063": {
+      "unique_id": "ADAPTIVE_U0063",
+      "domain": "accessibility_usability",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0023"
+      ]
+    },
+    "ADAPTIVE_U0064": {
+      "unique_id": "ADAPTIVE_U0064",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0025"
+      ]
+    },
+    "ADAPTIVE_U0065": {
+      "unique_id": "ADAPTIVE_U0065",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0031_0005"
+      ]
+    },
+    "ADAPTIVE_U0066": {
+      "unique_id": "ADAPTIVE_U0066",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0018_0003"
+      ]
+    },
+    "ADAPTIVE_U0067": {
+      "unique_id": "ADAPTIVE_U0067",
+      "domain": "human_validation",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0044_0003"
+      ]
+    },
+    "ADAPTIVE_U0068": {
+      "unique_id": "ADAPTIVE_U0068",
+      "domain": "contextual_recommendations",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0022_0003"
+      ]
+    },
+    "ADAPTIVE_U0069": {
+      "unique_id": "ADAPTIVE_U0069",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0011"
+      ]
+    },
+    "ADAPTIVE_U0070": {
+      "unique_id": "ADAPTIVE_U0070",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0019"
+      ]
+    },
+    "ADAPTIVE_U0071": {
+      "unique_id": "ADAPTIVE_U0071",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0009"
+      ]
+    },
+    "ADAPTIVE_U0072": {
+      "unique_id": "ADAPTIVE_U0072",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0013"
+      ]
+    },
+    "ADAPTIVE_U0073": {
+      "unique_id": "ADAPTIVE_U0073",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0001"
+      ]
+    },
+    "ADAPTIVE_U0074": {
+      "unique_id": "ADAPTIVE_U0074",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0003_0003"
+      ]
+    },
+    "ADAPTIVE_U0075": {
+      "unique_id": "ADAPTIVE_U0075",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0001_0001"
+      ]
+    },
+    "ADAPTIVE_U0076": {
+      "unique_id": "ADAPTIVE_U0076",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0003"
+      ]
+    },
+    "ADAPTIVE_U0077": {
+      "unique_id": "ADAPTIVE_U0077",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0009"
+      ]
+    },
+    "ADAPTIVE_U0078": {
+      "unique_id": "ADAPTIVE_U0078",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0019"
+      ]
+    },
+    "ADAPTIVE_U0079": {
+      "unique_id": "ADAPTIVE_U0079",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0025_0005"
+      ]
+    },
+    "ADAPTIVE_U0080": {
+      "unique_id": "ADAPTIVE_U0080",
+      "domain": "capability_graph",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0015"
+      ]
+    },
+    "ADAPTIVE_U0081": {
+      "unique_id": "ADAPTIVE_U0081",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0003"
+      ]
+    },
+    "ADAPTIVE_U0082": {
+      "unique_id": "ADAPTIVE_U0082",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0016_0003"
+      ]
+    },
+    "ADAPTIVE_U0083": {
+      "unique_id": "ADAPTIVE_U0083",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0013"
+      ]
+    },
+    "ADAPTIVE_U0084": {
+      "unique_id": "ADAPTIVE_U0084",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0023"
+      ]
+    },
+    "ADAPTIVE_U0085": {
+      "unique_id": "ADAPTIVE_U0085",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0027"
+      ]
+    },
+    "ADAPTIVE_U0086": {
+      "unique_id": "ADAPTIVE_U0086",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0014"
+      ]
+    },
+    "ADAPTIVE_U0087": {
+      "unique_id": "ADAPTIVE_U0087",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0012"
+      ]
+    },
+    "ADAPTIVE_U0088": {
+      "unique_id": "ADAPTIVE_U0088",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0007"
+      ]
+    },
+    "ADAPTIVE_U0089": {
+      "unique_id": "ADAPTIVE_U0089",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0031_0011"
+      ]
+    },
+    "ADAPTIVE_U0090": {
+      "unique_id": "ADAPTIVE_U0090",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0013"
+      ]
+    },
+    "ADAPTIVE_U0091": {
+      "unique_id": "ADAPTIVE_U0091",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0009"
+      ]
+    },
+    "ADAPTIVE_U0092": {
+      "unique_id": "ADAPTIVE_U0092",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0009"
+      ]
+    },
+    "ADAPTIVE_U0093": {
+      "unique_id": "ADAPTIVE_U0093",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0031_0003"
+      ]
+    },
+    "ADAPTIVE_U0094": {
+      "unique_id": "ADAPTIVE_U0094",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0008"
+      ]
+    },
+    "ADAPTIVE_U0095": {
+      "unique_id": "ADAPTIVE_U0095",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0045_0013"
+      ]
+    },
+    "ADAPTIVE_U0096": {
+      "unique_id": "ADAPTIVE_U0096",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0033"
+      ]
+    },
+    "ADAPTIVE_U0097": {
+      "unique_id": "ADAPTIVE_U0097",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0013"
+      ]
+    },
+    "ADAPTIVE_U0098": {
+      "unique_id": "ADAPTIVE_U0098",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0021"
+      ]
+    },
+    "ADAPTIVE_U0099": {
+      "unique_id": "ADAPTIVE_U0099",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0017"
+      ]
+    },
+    "ADAPTIVE_U0100": {
+      "unique_id": "ADAPTIVE_U0100",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0015"
+      ]
+    },
+    "ADAPTIVE_U0101": {
+      "unique_id": "ADAPTIVE_U0101",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0015"
+      ]
+    },
+    "ADAPTIVE_U0102": {
+      "unique_id": "ADAPTIVE_U0102",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0015"
+      ]
+    },
+    "ADAPTIVE_U0103": {
+      "unique_id": "ADAPTIVE_U0103",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0017"
+      ]
+    },
+    "ADAPTIVE_U0104": {
+      "unique_id": "ADAPTIVE_U0104",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0015"
+      ]
+    },
+    "ADAPTIVE_U0105": {
+      "unique_id": "ADAPTIVE_U0105",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0009"
+      ]
+    },
+    "ADAPTIVE_U0106": {
+      "unique_id": "ADAPTIVE_U0106",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0002_0009"
+      ]
+    },
+    "ADAPTIVE_U0107": {
+      "unique_id": "ADAPTIVE_U0107",
+      "domain": "universal_command",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0009_0003"
+      ]
+    },
+    "ADAPTIVE_U0108": {
+      "unique_id": "ADAPTIVE_U0108",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0009"
+      ]
+    },
+    "ADAPTIVE_U0109": {
+      "unique_id": "ADAPTIVE_U0109",
+      "domain": "data_room_institutional",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0045_0011"
+      ]
+    },
+    "ADAPTIVE_U0110": {
+      "unique_id": "ADAPTIVE_U0110",
+      "domain": "data_room_institutional",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0027"
+      ]
+    },
+    "ADAPTIVE_U0111": {
+      "unique_id": "ADAPTIVE_U0111",
+      "domain": "data_room_institutional",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0025_0003"
+      ]
+    },
+    "ADAPTIVE_U0112": {
+      "unique_id": "ADAPTIVE_U0112",
+      "domain": "data_room_institutional",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0021"
+      ]
+    },
+    "ADAPTIVE_U0113": {
+      "unique_id": "ADAPTIVE_U0113",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0019"
+      ]
+    },
+    "ADAPTIVE_U0114": {
+      "unique_id": "ADAPTIVE_U0114",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0011"
+      ]
+    },
+    "ADAPTIVE_U0115": {
+      "unique_id": "ADAPTIVE_U0115",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0011"
+      ]
+    },
+    "ADAPTIVE_U0116": {
+      "unique_id": "ADAPTIVE_U0116",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0045_0015"
+      ]
+    },
+    "ADAPTIVE_U0117": {
+      "unique_id": "ADAPTIVE_U0117",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0017"
+      ]
+    },
+    "ADAPTIVE_U0118": {
+      "unique_id": "ADAPTIVE_U0118",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0011"
+      ]
+    },
+    "ADAPTIVE_U0119": {
+      "unique_id": "ADAPTIVE_U0119",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0015"
+      ]
+    },
+    "ADAPTIVE_U0120": {
+      "unique_id": "ADAPTIVE_U0120",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0015"
+      ]
+    },
+    "ADAPTIVE_U0121": {
+      "unique_id": "ADAPTIVE_U0121",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0011"
+      ]
+    },
+    "ADAPTIVE_U0122": {
+      "unique_id": "ADAPTIVE_U0122",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0002_0007"
+      ]
+    },
+    "ADAPTIVE_U0123": {
+      "unique_id": "ADAPTIVE_U0123",
+      "domain": "maturity_prerequisite",
+      "source_classification": "EXPLICITLY_LATER_BY_SOURCE",
+      "implementation_intended": false,
+      "enforcement_tier": "MATURITY_GATED",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0003"
+      ]
+    },
+    "ADAPTIVE_U0124": {
+      "unique_id": "ADAPTIVE_U0124",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0009"
+      ]
+    },
+    "ADAPTIVE_U0125": {
+      "unique_id": "ADAPTIVE_U0125",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0003"
+      ]
+    },
+    "ADAPTIVE_U0126": {
+      "unique_id": "ADAPTIVE_U0126",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0005"
+      ]
+    },
+    "ADAPTIVE_U0127": {
+      "unique_id": "ADAPTIVE_U0127",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0011"
+      ]
+    },
+    "ADAPTIVE_U0128": {
+      "unique_id": "ADAPTIVE_U0128",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0008_0007"
+      ]
+    },
+    "ADAPTIVE_U0129": {
+      "unique_id": "ADAPTIVE_U0129",
+      "domain": "entitlement_role_tenant",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0017"
+      ]
+    },
+    "ADAPTIVE_U0130": {
+      "unique_id": "ADAPTIVE_U0130",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0025"
+      ]
+    },
+    "ADAPTIVE_U0131": {
+      "unique_id": "ADAPTIVE_U0131",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0009"
+      ]
+    },
+    "ADAPTIVE_U0132": {
+      "unique_id": "ADAPTIVE_U0132",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0019"
+      ]
+    },
+    "ADAPTIVE_U0133": {
+      "unique_id": "ADAPTIVE_U0133",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0027"
+      ]
+    },
+    "ADAPTIVE_U0134": {
+      "unique_id": "ADAPTIVE_U0134",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0031_0009"
+      ]
+    },
+    "ADAPTIVE_U0135": {
+      "unique_id": "ADAPTIVE_U0135",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0021"
+      ]
+    },
+    "ADAPTIVE_U0136": {
+      "unique_id": "ADAPTIVE_U0136",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0019"
+      ]
+    },
+    "ADAPTIVE_U0137": {
+      "unique_id": "ADAPTIVE_U0137",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0011"
+      ]
+    },
+    "ADAPTIVE_U0138": {
+      "unique_id": "ADAPTIVE_U0138",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0015"
+      ]
+    },
+    "ADAPTIVE_U0139": {
+      "unique_id": "ADAPTIVE_U0139",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0025"
+      ]
+    },
+    "ADAPTIVE_U0140": {
+      "unique_id": "ADAPTIVE_U0140",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0023"
+      ]
+    },
+    "ADAPTIVE_U0141": {
+      "unique_id": "ADAPTIVE_U0141",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0017"
+      ]
+    },
+    "ADAPTIVE_U0142": {
+      "unique_id": "ADAPTIVE_U0142",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0011"
+      ]
+    },
+    "ADAPTIVE_U0143": {
+      "unique_id": "ADAPTIVE_U0143",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0009"
+      ]
+    },
+    "ADAPTIVE_U0144": {
+      "unique_id": "ADAPTIVE_U0144",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0009"
+      ]
+    },
+    "ADAPTIVE_U0145": {
+      "unique_id": "ADAPTIVE_U0145",
+      "domain": "capability_graph",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0017"
+      ]
+    },
+    "ADAPTIVE_U0146": {
+      "unique_id": "ADAPTIVE_U0146",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0033_0003"
+      ]
+    },
+    "ADAPTIVE_U0147": {
+      "unique_id": "ADAPTIVE_U0147",
+      "domain": "capability_graph",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0010_0003"
+      ]
+    },
+    "ADAPTIVE_U0148": {
+      "unique_id": "ADAPTIVE_U0148",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0041"
+      ]
+    },
+    "ADAPTIVE_U0149": {
+      "unique_id": "ADAPTIVE_U0149",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0021"
+      ]
+    },
+    "ADAPTIVE_U0150": {
+      "unique_id": "ADAPTIVE_U0150",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0019"
+      ]
+    },
+    "ADAPTIVE_U0151": {
+      "unique_id": "ADAPTIVE_U0151",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0013"
+      ]
+    },
+    "ADAPTIVE_U0152": {
+      "unique_id": "ADAPTIVE_U0152",
+      "domain": "human_validation",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0010"
+      ]
+    },
+    "ADAPTIVE_U0153": {
+      "unique_id": "ADAPTIVE_U0153",
+      "domain": "human_validation",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0025"
+      ]
+    },
+    "ADAPTIVE_U0154": {
+      "unique_id": "ADAPTIVE_U0154",
+      "domain": "human_validation",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0019"
+      ]
+    },
+    "ADAPTIVE_U0155": {
+      "unique_id": "ADAPTIVE_U0155",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0002_0003"
+      ]
+    },
+    "ADAPTIVE_U0156": {
+      "unique_id": "ADAPTIVE_U0156",
+      "domain": "data_room_institutional",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0023_0011"
+      ]
+    },
+    "ADAPTIVE_U0157": {
+      "unique_id": "ADAPTIVE_U0157",
+      "domain": "intent_search",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0005"
+      ]
+    },
+    "ADAPTIVE_U0158": {
+      "unique_id": "ADAPTIVE_U0158",
+      "domain": "intent_search",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0007_0003"
+      ]
+    },
+    "ADAPTIVE_U0159": {
+      "unique_id": "ADAPTIVE_U0159",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0021"
+      ]
+    },
+    "ADAPTIVE_U0160": {
+      "unique_id": "ADAPTIVE_U0160",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0019"
+      ]
+    },
+    "ADAPTIVE_U0161": {
+      "unique_id": "ADAPTIVE_U0161",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0009"
+      ]
+    },
+    "ADAPTIVE_U0162": {
+      "unique_id": "ADAPTIVE_U0162",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0003"
+      ]
+    },
+    "ADAPTIVE_U0163": {
+      "unique_id": "ADAPTIVE_U0163",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0007"
+      ]
+    },
+    "ADAPTIVE_U0164": {
+      "unique_id": "ADAPTIVE_U0164",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0029"
+      ]
+    },
+    "ADAPTIVE_U0165": {
+      "unique_id": "ADAPTIVE_U0165",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0017"
+      ]
+    },
+    "ADAPTIVE_U0166": {
+      "unique_id": "ADAPTIVE_U0166",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0011"
+      ]
+    },
+    "ADAPTIVE_U0167": {
+      "unique_id": "ADAPTIVE_U0167",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0013"
+      ]
+    },
+    "ADAPTIVE_U0168": {
+      "unique_id": "ADAPTIVE_U0168",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0019"
+      ]
+    },
+    "ADAPTIVE_U0169": {
+      "unique_id": "ADAPTIVE_U0169",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0003_0013"
+      ]
+    },
+    "ADAPTIVE_U0170": {
+      "unique_id": "ADAPTIVE_U0170",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0015"
+      ]
+    },
+    "ADAPTIVE_U0171": {
+      "unique_id": "ADAPTIVE_U0171",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0021"
+      ]
+    },
+    "ADAPTIVE_U0172": {
+      "unique_id": "ADAPTIVE_U0172",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0043_0007"
+      ]
+    },
+    "ADAPTIVE_U0173": {
+      "unique_id": "ADAPTIVE_U0173",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0043_0009"
+      ]
+    },
+    "ADAPTIVE_U0174": {
+      "unique_id": "ADAPTIVE_U0174",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0043_0011"
+      ]
+    },
+    "ADAPTIVE_U0175": {
+      "unique_id": "ADAPTIVE_U0175",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0043_0013"
+      ]
+    },
+    "ADAPTIVE_U0176": {
+      "unique_id": "ADAPTIVE_U0176",
+      "domain": "entitlement_role_tenant",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0043_0015"
+      ]
+    },
+    "ADAPTIVE_U0177": {
+      "unique_id": "ADAPTIVE_U0177",
+      "domain": "human_validation",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0043_0017"
+      ]
+    },
+    "ADAPTIVE_U0178": {
+      "unique_id": "ADAPTIVE_U0178",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0018_0009"
+      ]
+    },
+    "ADAPTIVE_U0179": {
+      "unique_id": "ADAPTIVE_U0179",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0018_0011"
+      ]
+    },
+    "ADAPTIVE_U0180": {
+      "unique_id": "ADAPTIVE_U0180",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0018_0013"
+      ]
+    },
+    "ADAPTIVE_U0181": {
+      "unique_id": "ADAPTIVE_U0181",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0018_0015"
+      ]
+    },
+    "ADAPTIVE_U0182": {
+      "unique_id": "ADAPTIVE_U0182",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/progressive_disclosure.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0018_0017"
+      ]
+    },
+    "ADAPTIVE_U0183": {
+      "unique_id": "ADAPTIVE_U0183",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0013_0005"
+      ]
+    },
+    "ADAPTIVE_U0184": {
+      "unique_id": "ADAPTIVE_U0184",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0003"
+      ]
+    },
+    "ADAPTIVE_U0185": {
+      "unique_id": "ADAPTIVE_U0185",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0023"
+      ]
+    },
+    "ADAPTIVE_U0186": {
+      "unique_id": "ADAPTIVE_U0186",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0017"
+      ]
+    },
+    "ADAPTIVE_U0187": {
+      "unique_id": "ADAPTIVE_U0187",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0037"
+      ]
+    },
+    "ADAPTIVE_U0188": {
+      "unique_id": "ADAPTIVE_U0188",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0025"
+      ]
+    },
+    "ADAPTIVE_U0189": {
+      "unique_id": "ADAPTIVE_U0189",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0035_0003"
+      ]
+    },
+    "ADAPTIVE_U0190": {
+      "unique_id": "ADAPTIVE_U0190",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0019_0003"
+      ]
+    },
+    "ADAPTIVE_U0191": {
+      "unique_id": "ADAPTIVE_U0191",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0009"
+      ]
+    },
+    "ADAPTIVE_U0192": {
+      "unique_id": "ADAPTIVE_U0192",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0025"
+      ]
+    },
+    "ADAPTIVE_U0193": {
+      "unique_id": "ADAPTIVE_U0193",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0015"
+      ]
+    },
+    "ADAPTIVE_U0194": {
+      "unique_id": "ADAPTIVE_U0194",
+      "domain": "intelligence_router",
+      "source_classification": "CHRONOLOGICAL_EVIDENCE_PENDING",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0017"
+      ]
+    },
+    "ADAPTIVE_U0195": {
+      "unique_id": "ADAPTIVE_U0195",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0015"
+      ]
+    },
+    "ADAPTIVE_U0196": {
+      "unique_id": "ADAPTIVE_U0196",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0017"
+      ]
+    },
+    "ADAPTIVE_U0197": {
+      "unique_id": "ADAPTIVE_U0197",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0013"
+      ]
+    },
+    "ADAPTIVE_U0198": {
+      "unique_id": "ADAPTIVE_U0198",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0017"
+      ]
+    },
+    "ADAPTIVE_U0199": {
+      "unique_id": "ADAPTIVE_U0199",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0020_0003"
+      ]
+    },
+    "ADAPTIVE_U0200": {
+      "unique_id": "ADAPTIVE_U0200",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0023_0007"
+      ]
+    },
+    "ADAPTIVE_U0201": {
+      "unique_id": "ADAPTIVE_U0201",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0031"
+      ]
+    },
+    "ADAPTIVE_U0202": {
+      "unique_id": "ADAPTIVE_U0202",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0021"
+      ]
+    },
+    "ADAPTIVE_U0203": {
+      "unique_id": "ADAPTIVE_U0203",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0019"
+      ]
+    },
+    "ADAPTIVE_U0204": {
+      "unique_id": "ADAPTIVE_U0204",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0007"
+      ]
+    },
+    "ADAPTIVE_U0205": {
+      "unique_id": "ADAPTIVE_U0205",
+      "domain": "universal_command",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0009"
+      ]
+    },
+    "ADAPTIVE_U0206": {
+      "unique_id": "ADAPTIVE_U0206",
+      "domain": "contextual_recommendations",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0011"
+      ]
+    },
+    "ADAPTIVE_U0207": {
+      "unique_id": "ADAPTIVE_U0207",
+      "domain": "human_validation",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0023"
+      ]
+    },
+    "ADAPTIVE_U0208": {
+      "unique_id": "ADAPTIVE_U0208",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0013"
+      ]
+    },
+    "ADAPTIVE_U0209": {
+      "unique_id": "ADAPTIVE_U0209",
+      "domain": "taxonomy_discovery",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0015"
+      ]
+    },
+    "ADAPTIVE_U0210": {
+      "unique_id": "ADAPTIVE_U0210",
+      "domain": "data_room_institutional",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0039_0017"
+      ]
+    },
+    "ADAPTIVE_U0211": {
+      "unique_id": "ADAPTIVE_U0211",
+      "domain": "contextual_recommendations",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0021"
+      ]
+    },
+    "ADAPTIVE_U0212": {
+      "unique_id": "ADAPTIVE_U0212",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0015"
+      ]
+    },
+    "ADAPTIVE_U0213": {
+      "unique_id": "ADAPTIVE_U0213",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0015"
+      ]
+    },
+    "ADAPTIVE_U0214": {
+      "unique_id": "ADAPTIVE_U0214",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0003"
+      ]
+    },
+    "ADAPTIVE_U0215": {
+      "unique_id": "ADAPTIVE_U0215",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0005"
+      ]
+    },
+    "ADAPTIVE_U0216": {
+      "unique_id": "ADAPTIVE_U0216",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0031"
+      ]
+    },
+    "ADAPTIVE_U0217": {
+      "unique_id": "ADAPTIVE_U0217",
+      "domain": "intent_search",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0003"
+      ]
+    },
+    "ADAPTIVE_U0218": {
+      "unique_id": "ADAPTIVE_U0218",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0009"
+      ]
+    },
+    "ADAPTIVE_U0219": {
+      "unique_id": "ADAPTIVE_U0219",
+      "domain": "human_validation",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0029"
+      ]
+    },
+    "ADAPTIVE_U0220": {
+      "unique_id": "ADAPTIVE_U0220",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0003"
+      ]
+    },
+    "ADAPTIVE_U0221": {
+      "unique_id": "ADAPTIVE_U0221",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0005"
+      ]
+    },
+    "ADAPTIVE_U0222": {
+      "unique_id": "ADAPTIVE_U0222",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0015"
+      ]
+    },
+    "ADAPTIVE_U0223": {
+      "unique_id": "ADAPTIVE_U0223",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0045_0007"
+      ]
+    },
+    "ADAPTIVE_U0224": {
+      "unique_id": "ADAPTIVE_U0224",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0009"
+      ]
+    },
+    "ADAPTIVE_U0225": {
+      "unique_id": "ADAPTIVE_U0225",
+      "domain": "contextual_recommendations",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0019"
+      ]
+    },
+    "ADAPTIVE_U0226": {
+      "unique_id": "ADAPTIVE_U0226",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0023"
+      ]
+    },
+    "ADAPTIVE_U0227": {
+      "unique_id": "ADAPTIVE_U0227",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0017"
+      ]
+    },
+    "ADAPTIVE_U0228": {
+      "unique_id": "ADAPTIVE_U0228",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0011"
+      ]
+    },
+    "ADAPTIVE_U0229": {
+      "unique_id": "ADAPTIVE_U0229",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0013"
+      ]
+    },
+    "ADAPTIVE_U0230": {
+      "unique_id": "ADAPTIVE_U0230",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intent_search.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0012_0017"
+      ]
+    },
+    "ADAPTIVE_U0231": {
+      "unique_id": "ADAPTIVE_U0231",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0019"
+      ]
+    },
+    "ADAPTIVE_U0232": {
+      "unique_id": "ADAPTIVE_U0232",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0006_0005"
+      ]
+    },
+    "ADAPTIVE_U0233": {
+      "unique_id": "ADAPTIVE_U0233",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0007"
+      ]
+    },
+    "ADAPTIVE_U0234": {
+      "unique_id": "ADAPTIVE_U0234",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0007_0001"
+      ]
+    },
+    "ADAPTIVE_U0235": {
+      "unique_id": "ADAPTIVE_U0235",
+      "domain": "intent_search",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0037_0003"
+      ]
+    },
+    "ADAPTIVE_U0236": {
+      "unique_id": "ADAPTIVE_U0236",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0007"
+      ]
+    },
+    "ADAPTIVE_U0237": {
+      "unique_id": "ADAPTIVE_U0237",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0003"
+      ]
+    },
+    "ADAPTIVE_U0238": {
+      "unique_id": "ADAPTIVE_U0238",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0009"
+      ]
+    },
+    "ADAPTIVE_U0239": {
+      "unique_id": "ADAPTIVE_U0239",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0028_0003"
+      ]
+    },
+    "ADAPTIVE_U0240": {
+      "unique_id": "ADAPTIVE_U0240",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0023"
+      ]
+    },
+    "ADAPTIVE_U0241": {
+      "unique_id": "ADAPTIVE_U0241",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0017"
+      ]
+    },
+    "ADAPTIVE_U0242": {
+      "unique_id": "ADAPTIVE_U0242",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0040_0011"
+      ]
+    },
+    "ADAPTIVE_U0243": {
+      "unique_id": "ADAPTIVE_U0243",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0011"
+      ]
+    },
+    "ADAPTIVE_U0244": {
+      "unique_id": "ADAPTIVE_U0244",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0003"
+      ]
+    },
+    "ADAPTIVE_U0245": {
+      "unique_id": "ADAPTIVE_U0245",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0005"
+      ]
+    },
+    "ADAPTIVE_U0246": {
+      "unique_id": "ADAPTIVE_U0246",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0007"
+      ]
+    },
+    "ADAPTIVE_U0247": {
+      "unique_id": "ADAPTIVE_U0247",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0009"
+      ]
+    },
+    "ADAPTIVE_U0248": {
+      "unique_id": "ADAPTIVE_U0248",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0011"
+      ]
+    },
+    "ADAPTIVE_U0249": {
+      "unique_id": "ADAPTIVE_U0249",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0013"
+      ]
+    },
+    "ADAPTIVE_U0250": {
+      "unique_id": "ADAPTIVE_U0250",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0015"
+      ]
+    },
+    "ADAPTIVE_U0251": {
+      "unique_id": "ADAPTIVE_U0251",
+      "domain": "accessibility_usability",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0046_0017"
+      ]
+    },
+    "ADAPTIVE_U0252": {
+      "unique_id": "ADAPTIVE_U0252",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0005"
+      ]
+    },
+    "ADAPTIVE_U0253": {
+      "unique_id": "ADAPTIVE_U0253",
+      "domain": "progressive_disclosure",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0011"
+      ]
+    },
+    "ADAPTIVE_U0254": {
+      "unique_id": "ADAPTIVE_U0254",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0005"
+      ]
+    },
+    "ADAPTIVE_U0255": {
+      "unique_id": "ADAPTIVE_U0255",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0035"
+      ]
+    },
+    "ADAPTIVE_U0256": {
+      "unique_id": "ADAPTIVE_U0256",
+      "domain": "six_heroes_disposition",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0005"
+      ]
+    },
+    "ADAPTIVE_U0257": {
+      "unique_id": "ADAPTIVE_U0257",
+      "domain": "taxonomy_discovery",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0023_0009"
+      ]
+    },
+    "ADAPTIVE_U0258": {
+      "unique_id": "ADAPTIVE_U0258",
+      "domain": "entitlement_role_tenant",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0003"
+      ]
+    },
+    "ADAPTIVE_U0259": {
+      "unique_id": "ADAPTIVE_U0259",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0039"
+      ]
+    },
+    "ADAPTIVE_U0260": {
+      "unique_id": "ADAPTIVE_U0260",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0003_0005"
+      ]
+    },
+    "ADAPTIVE_U0261": {
+      "unique_id": "ADAPTIVE_U0261",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0007"
+      ]
+    },
+    "ADAPTIVE_U0262": {
+      "unique_id": "ADAPTIVE_U0262",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0038_0013"
+      ]
+    },
+    "ADAPTIVE_U0263": {
+      "unique_id": "ADAPTIVE_U0263",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0029_0031"
+      ]
+    },
+    "ADAPTIVE_U0264": {
+      "unique_id": "ADAPTIVE_U0264",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0013"
+      ]
+    },
+    "ADAPTIVE_U0265": {
+      "unique_id": "ADAPTIVE_U0265",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0003"
+      ]
+    },
+    "ADAPTIVE_U0266": {
+      "unique_id": "ADAPTIVE_U0266",
+      "domain": "contextual_recommendations",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0009_0005"
+      ]
+    },
+    "ADAPTIVE_U0267": {
+      "unique_id": "ADAPTIVE_U0267",
+      "domain": "taxonomy_discovery",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0044_0013"
+      ]
+    },
+    "ADAPTIVE_U0268": {
+      "unique_id": "ADAPTIVE_U0268",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0009"
+      ]
+    },
+    "ADAPTIVE_U0269": {
+      "unique_id": "ADAPTIVE_U0269",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0026_0003"
+      ]
+    },
+    "ADAPTIVE_U0270": {
+      "unique_id": "ADAPTIVE_U0270",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0005_0013"
+      ]
+    },
+    "ADAPTIVE_U0271": {
+      "unique_id": "ADAPTIVE_U0271",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0044_0015"
+      ]
+    },
+    "ADAPTIVE_U0272": {
+      "unique_id": "ADAPTIVE_U0272",
+      "domain": "decision_boundary",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_batch13_adaptive_spine.py",
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0011"
+      ]
+    },
+    "ADAPTIVE_U0273": {
+      "unique_id": "ADAPTIVE_U0273",
+      "domain": "entitlement_role_tenant",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0015"
+      ]
+    },
+    "ADAPTIVE_U0274": {
+      "unique_id": "ADAPTIVE_U0274",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0036_0011"
+      ]
+    },
+    "ADAPTIVE_U0275": {
+      "unique_id": "ADAPTIVE_U0275",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0045_0009"
+      ]
+    },
+    "ADAPTIVE_U0276": {
+      "unique_id": "ADAPTIVE_U0276",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0013"
+      ]
+    },
+    "ADAPTIVE_U0277": {
+      "unique_id": "ADAPTIVE_U0277",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0013"
+      ]
+    },
+    "ADAPTIVE_U0278": {
+      "unique_id": "ADAPTIVE_U0278",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0003"
+      ]
+    },
+    "ADAPTIVE_U0279": {
+      "unique_id": "ADAPTIVE_U0279",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0013"
+      ]
+    },
+    "ADAPTIVE_U0280": {
+      "unique_id": "ADAPTIVE_U0280",
+      "domain": "confidence_trust",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0011_0013"
+      ]
+    },
+    "ADAPTIVE_U0281": {
+      "unique_id": "ADAPTIVE_U0281",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_intelligence/capability_graph.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0024_0017"
+      ]
+    },
+    "ADAPTIVE_U0282": {
+      "unique_id": "ADAPTIVE_U0282",
+      "domain": "universal_command",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0008_0005"
+      ]
+    },
+    "ADAPTIVE_U0283": {
+      "unique_id": "ADAPTIVE_U0283",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0042_0003"
+      ]
+    },
+    "ADAPTIVE_U0284": {
+      "unique_id": "ADAPTIVE_U0284",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0002_0005"
+      ]
+    },
+    "ADAPTIVE_U0285": {
+      "unique_id": "ADAPTIVE_U0285",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0021"
+      ]
+    },
+    "ADAPTIVE_U0286": {
+      "unique_id": "ADAPTIVE_U0286",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0023",
+        "ADAPTIVE_0032_0019"
+      ]
+    },
+    "ADAPTIVE_U0287": {
+      "unique_id": "ADAPTIVE_U0287",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0032_0007"
+      ]
+    },
+    "ADAPTIVE_U0288": {
+      "unique_id": "ADAPTIVE_U0288",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0017_0025"
+      ]
+    },
+    "ADAPTIVE_U0289": {
+      "unique_id": "ADAPTIVE_U0289",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0014_0019"
+      ]
+    },
+    "ADAPTIVE_U0290": {
+      "unique_id": "ADAPTIVE_U0290",
+      "domain": "intelligence_router",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "decision_ledger.py",
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0030_0029"
+      ]
+    },
+    "ADAPTIVE_U0291": {
+      "unique_id": "ADAPTIVE_U0291",
+      "domain": "accessibility_usability",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0027_0003"
+      ]
+    },
+    "ADAPTIVE_U0292": {
+      "unique_id": "ADAPTIVE_U0292",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0041_0023"
+      ]
+    },
+    "ADAPTIVE_U0293": {
+      "unique_id": "ADAPTIVE_U0293",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0004_0021"
+      ]
+    },
+    "ADAPTIVE_U0294": {
+      "unique_id": "ADAPTIVE_U0294",
+      "domain": "intelligence_router",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py",
+        "tests/test_batch13_adaptive_spine.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0015_0011"
+      ]
+    },
+    "ADAPTIVE_U0295": {
+      "unique_id": "ADAPTIVE_U0295",
+      "domain": "human_validation",
+      "source_classification": "NON_BUILDABLE_GOVERNANCE_OR_PROCESS_TEXT",
+      "implementation_intended": false,
+      "enforcement_tier": "DOCUMENT_ONLY",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0021_0023"
+      ]
+    },
+    "ADAPTIVE_U0296": {
+      "unique_id": "ADAPTIVE_U0296",
+      "domain": "workspace_playbook_mystack",
+      "source_classification": "BUILDABLE_NOW",
+      "implementation_intended": true,
+      "enforcement_tier": "REJECT",
+      "module_paths": [
+        "bd_platform/adaptive_source_driven_engineering.py",
+        "bd_platform/adaptive_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_adaptive_source_driven_engineering.py"
+      ],
+      "source_aliases": [
+        "ADAPTIVE_0013_0003"
+      ]
+    }
+  }
+}

@@ -1,0 +1,3268 @@
+{
+  "artifact": "BATCH12_DOMAIN_SPEC_APPLICABILITY",
+  "generated_at_utc": "2026-09-07T16:28:49.909108+00:00",
+  "git_commit": "cf539c1070c55dc253c93d682dd031b215a2f56a",
+  "domain_spec_authority": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+  "scope": "Delta-only NOT_APPLICABLE / PARTIALLY_APPLICABLE mapping — institutional_delivery_entity_intelligence 551-600",
+  "capability_type": "institutional_delivery_entity_intelligence",
+  "accumulation_core_delta": {
+    "live_shadow_collection": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+    },
+    "historical_backfill": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+    },
+    "signal_registry": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+    },
+    "prediction_ledger": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+    },
+    "decision_ledger": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "Analytics-only capabilities — no user decision ledger write path"
+    },
+    "automated_outcome_evaluator": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+    },
+    "data_provenance": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+    },
+    "algorithm_model_versioning": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+    },
+    "historical_replay_engine": {
+      "applicability": "NOT_APPLICABLE",
+      "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+    },
+    "market_event_library": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network events may link to event KB — contextual enrichment only"
+    },
+    "failure_registry": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+    },
+    "evidence_store": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+    },
+    "data_freshness": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+    },
+    "data_rights_registry": {
+      "applicability": "PARTIALLY_APPLICABLE",
+      "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+    }
+  },
+  "per_id": [
+    {
+      "capability_id": 551,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "CANONICAL_DUPLICATE_REUSE"
+    },
+    {
+      "capability_id": 552,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 553,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 554,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 555,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 556,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 557,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 558,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 559,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 560,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 561,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 562,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 563,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 564,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 565,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 566,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 567,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 568,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 569,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 570,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 571,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 572,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 573,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 574,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 575,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 576,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 577,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 578,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+    },
+    {
+      "capability_id": 579,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 580,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 581,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 582,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 583,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 584,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "OUTSIDE_SHARED_CORE_MODULE_BINDING"
+    },
+    {
+      "capability_id": 585,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 586,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 587,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 588,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 589,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 590,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 591,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 592,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 593,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 594,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 595,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 596,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 597,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 598,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 599,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    },
+    {
+      "capability_id": 600,
+      "capability_type": "institutional_delivery_entity_intelligence",
+      "domain_spec": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+      "accumulation_core_applicability": {
+        "live_shadow_collection": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network metrics may feed forward-shadow records — not full cross-asset shadow spine per ID"
+        },
+        "historical_backfill": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "OHLCV/archive/search surfaces support historical backfill; not full PIT replay per capability"
+        },
+        "signal_registry": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Batch12 institutional delivery analytics are read-only intelligence — no signal emission registry per ID"
+        },
+        "prediction_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No forward prediction ledger obligation for institutional delivery/search surfaces"
+        },
+        "decision_ledger": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "Analytics-only capabilities — no user decision ledger write path"
+        },
+        "automated_outcome_evaluator": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No automated outcome evaluation loop for read-only institutional delivery payloads"
+        },
+        "data_provenance": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Provider/source lineage required for institutional delivery feeds — module-level provenance"
+        },
+        "algorithm_model_versioning": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Scoring/heuristics versioned at institutional_delivery_intelligence_layer; not per-capability model registry"
+        },
+        "historical_replay_engine": {
+          "applicability": "NOT_APPLICABLE",
+          "rationale": "No PIT replay engine obligation for static institutional delivery analytics surfaces"
+        },
+        "market_event_library": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network events may link to event KB — contextual enrichment only"
+        },
+        "failure_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Data/provider failures degrade payloads — layer failure modes documented"
+        },
+        "evidence_store": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "LOCAL_RUNTIME_EXECUTION + institutional JSON evidence; not production Evidence Vault per ID"
+        },
+        "data_freshness": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Market/network surfaces require freshness semantics — enforced at shared core layer"
+        },
+        "data_rights_registry": {
+          "applicability": "PARTIALLY_APPLICABLE",
+          "rationale": "Third-party institutional data providers require rights tagging — layer policy"
+        }
+      },
+      "classification": "KEEP_DISTINCT_BUT_REUSE_SHARED_CORE"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "artifact": "BATCH14_FINAL_LOCAL_FREEZE",
+  "generated_at_utc": "2026-09-07T23:04:11.091401+00:00",
+  "final_head": "1eca33eefdaf63d8eaa8d3d5a607a7d625d9e359",
+  "branch": "cursor/batch14-651-700-ed16",
+  "capability_range": "651-700",
+  "formal_gate_provenance": "docs/BATCH14_FORMAL_GATE_PROVENANCE.json",
+  "internal_duplicate_analysis": "docs/BATCH14_INTERNAL_DUPLICATE_ANALYSIS.json",
+  "cross_batch_duplicate_analysis": "docs/BATCH14_CROSS_BATCH_DUPLICATE_ANALYSIS.json",
+  "capability_inventory": "docs/BATCH14_CAPABILITY_INVENTORY_651_700.json",
+  "canonical_decisions": "docs/BATCH14_CANONICAL_DECISIONS.json",
+  "flags": {
+    "BATCH14_FINAL_LOCAL_FREEZE": true,
+    "INTERNAL_DUPLICATE_UNRESOLVED_ZERO": true,
+    "CROSS_BATCH_PAIRS_REVIEWED_32500": true,
+    "CROSS_BATCH_UNRESOLVED_ZERO": true,
+    "PASS_ENGINEERING_50_OF_50": true,
+    "CANONICAL_DECISION_660_TO_354": true,
+    "CANONICAL_DECISION_661_TO_394": true,
+    "CANONICAL_DECISION_676_TO_604": true,
+    "FORMAL_GATES_BIND_FINAL_CODE": true,
+    "NO_KNOWN_LOCAL_DEFICIENCIES": true
+  },
+  "preserved_statuses": {
+    "PASS_ENGINEERING": "50/50 locally",
+    "PASS_LIVE": "NOT_CLAIMED",
+    "G6": "BLOCKED_EXTERNAL_RAILWAY",
+    "G7": "PENDING_INDEPENDENT_ASSURANCE",
+    "ASSURANCE_READY": "NOT_CLAIMED",
+    "PRODUCTION_ALIGNED": "NOT_CLAIMED"
+  },
+  "known_local_deficiencies": []
+}

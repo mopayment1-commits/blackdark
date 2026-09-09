@@ -4520,5 +4520,33 @@
     "track_name": "Foundation, Architecture & Reliability",
     "capability": "Chaos / Failure-Injection Resilience Testing",
     "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 647,
+    "track": "T19",
+    "track_name": "978 Extension — Pasted Markdown Scope",
+    "capability": "Real-Time Feed",
+    "name_source": "pdf_978_pasted_markdown"
+  },
+  {
+    "id": 648,
+    "track": "T19",
+    "track_name": "978 Extension — Pasted Markdown Scope",
+    "capability": "Datashare",
+    "name_source": "pdf_978_pasted_markdown"
+  },
+  {
+    "id": 649,
+    "track": "T19",
+    "track_name": "978 Extension — Pasted Markdown Scope",
+    "capability": "dbt Connector",
+    "name_source": "pdf_978_pasted_markdown"
+  },
+  {
+    "id": 650,
+    "track": "T19",
+    "track_name": "978 Extension — Pasted Markdown Scope",
+    "capability": "BI Connectors",
+    "name_source": "pdf_978_pasted_markdown"
   }
 ]

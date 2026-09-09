@@ -2914,15 +2914,21 @@ async def _dispatch_oracle_act_alert_safe(payload: dict[str, Any], asset: str) -
     try:
         from alert_service import dispatch_alert
 
+        alert_lang = payload.get("lang") or payload.get("ui_lang")
         sentence = str(payload.get("decision_sentence") or payload.get("verdict") or "ACT")
         await dispatch_alert(
-            f"Oracle ACT · {asset}",
-            sentence,
+            "",
+            "",
+            lang=str(alert_lang) if alert_lang else None,
+            title_key="notification.oracle.title",
+            body_key="notification.oracle.body",
+            asset=asset,
             payload={
                 "asset": asset,
                 "prediction_id": payload.get("prediction_id"),
                 "opportunity_score": payload.get("opportunity_score"),
                 "verdict": payload.get("verdict"),
+                "decision_sentence": sentence,
                 "source": "oracle_act",
             },
             channels=["in_app"],
@@ -3624,7 +3630,7 @@ async def system_info(request: Request, user: dict | None = Depends(optional_use
         "classification": "internal",
         "product": "BLACKDARK Trust OS",
         "disclaimer": "Not financial advice. Decision evidence only. Four-layer legal shield applies.",
-        "user_id": user.get("id"),
+        "user_id": user.get("public_user_id"),
         "tier": user.get("tier"),
     }
 

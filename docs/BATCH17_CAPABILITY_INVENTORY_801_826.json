@@ -1,0 +1,225 @@
+{
+  "artifact": "BATCH17_CAPABILITY_INVENTORY_801_826",
+  "generated_at_utc": "2026-09-08T10:02:51.226925+00:00",
+  "git_commit": "b5d531340f3bbbda1f399995a689a10acbb88edc",
+  "branch": "cursor/batch17-801-826-ed16",
+  "membership": {
+    "ok": true,
+    "errors": [],
+    "canonical_reuse_count": 26
+  },
+  "summary": {
+    "total_ids": 26,
+    "canonical_duplicate_reuse": 26
+  },
+  "rows": [
+    {
+      "capability_id": 801,
+      "capability": "Bucketed CVD",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 534
+    },
+    {
+      "capability_id": 802,
+      "capability": "Whale vs Retail Flow",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 535
+    },
+    {
+      "capability_id": 803,
+      "capability": "Slippage Intelligence",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 536
+    },
+    {
+      "capability_id": 804,
+      "capability": "Global Order Book Metrics",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 537
+    },
+    {
+      "capability_id": 805,
+      "capability": "Order Book Imbalance",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 538
+    },
+    {
+      "capability_id": 806,
+      "capability": "Liquidity Zones",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 539
+    },
+    {
+      "capability_id": 807,
+      "capability": "Bot Activity Detection",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 540
+    },
+    {
+      "capability_id": 808,
+      "capability": "Market Positioning",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 541
+    },
+    {
+      "capability_id": 809,
+      "capability": "Liquidation Pressure Score",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 542
+    },
+    {
+      "capability_id": 810,
+      "capability": "Orderflow Anomaly Detection",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 543
+    },
+    {
+      "capability_id": 811,
+      "capability": "API Indicator Platform",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 544
+    },
+    {
+      "capability_id": 812,
+      "capability": "Trader Cohort Intelligence",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 545
+    },
+    {
+      "capability_id": 813,
+      "capability": "Cross-Derivatives Decision Intelligence",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 546
+    },
+    {
+      "capability_id": 814,
+      "capability": "High-Resolution Multi-Pane Charts",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 547
+    },
+    {
+      "capability_id": 815,
+      "capability": "Derivatives Dashboard",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 548
+    },
+    {
+      "capability_id": 816,
+      "capability": "Funding Rate Intelligence",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 549
+    },
+    {
+      "capability_id": 817,
+      "capability": "Open Interest Intelligence",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 550
+    },
+    {
+      "capability_id": 818,
+      "capability": "Liquidation Intelligence",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 551
+    },
+    {
+      "capability_id": 819,
+      "capability": "Futures Volume",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 552
+    },
+    {
+      "capability_id": 820,
+      "capability": "Basis Intelligence",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 553
+    },
+    {
+      "capability_id": 821,
+      "capability": "Spot Market Data",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 554
+    },
+    {
+      "capability_id": 822,
+      "capability": "Options Analytics",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 555
+    },
+    {
+      "capability_id": 823,
+      "capability": "Options IV Surface",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 556
+    },
+    {
+      "capability_id": 824,
+      "capability": "Options Skew",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 557
+    },
+    {
+      "capability_id": 825,
+      "capability": "Options Term Structure",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 558
+    },
+    {
+      "capability_id": 826,
+      "capability": "TradFi Context",
+      "binding_module": "bd_platform.batch17_final_program_facade_layer",
+      "binding_function": "execute_batch17_facade",
+      "classification": "E. CANONICAL_DUPLICATE_REUSE",
+      "canonical_owner": 559
+    }
+  ]
+}

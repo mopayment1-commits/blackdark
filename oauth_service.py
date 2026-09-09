@@ -184,12 +184,14 @@ async def login_or_link_oauth_user(profile: dict[str, Any]) -> dict[str, Any]:
     assert user is not None
     await touch_user_login(user_id)
     session = await create_session(user_id)
+    from auth_service import client_user_payload, resolve_user_tier
+
     tier = await resolve_user_tier(email)
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
         "user": {
-            "id": user_id,
+            **client_user_payload(user),
             "email": email,
             "name": user.get("name") or name,
             "tier": tier,
