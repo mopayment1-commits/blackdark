@@ -11,7 +11,7 @@ _HIBP_ENABLED = os.getenv("IDENTITY_HIBP_CHECK", "true").lower() in {"1", "true"
 
 def sha1_prefix_suffix(password: str) -> tuple[str, str]:
     # HIBP k-anonymity range API requires SHA-1 of password (protocol contract, not storage).
-    digest = hashlib.sha1(password.encode("utf-8"), usedforsecurity=False).hexdigest().upper()  # nosec B324
+    digest = hashlib.sha1(password.encode("utf-8"), usedforsecurity=False).hexdigest().upper()
     return digest[:5], digest[5:]
 
 

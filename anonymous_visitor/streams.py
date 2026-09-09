@@ -130,9 +130,17 @@ def audit_stream_runtime_controls() -> dict[str, Any]:
     release_stream_connection(path=path, client_id="audit-reconnect")
     matrix["reconnect_abuse"] = reconnect_ok
 
-    # slow client / fanout / memory: bounded by cap + idle + max duration + cleanup
-    matrix["slow_client"] = matrix["idle_timeout_sec"]
-    matrix["upstream_fanout"] = matrix["upstream_sharing"]
+    # slow client: no events beyond idle threshold closes connection path
+    slow_client = "audit-slow"
+    register_stream_connection(path=path, client_id=slow_client)
+    _STREAM_STATE[f"{path}:{slow_client}"]["last_event_at"] = time.monotonic() - policy["idle_timeout_sec"] - 5
+    matrix["slow_client"] = touch_stream_connection(path=path, client_id=slow_client)["reason"] == "idle_timeout"
+    release_stream_connection(path=path, client_id=slow_client)
+
+    # bounded upstream fanout: policy declares sharing + single declared stream path
+    matrix["upstream_fanout"] = bool(policy.get("upstream_sharing")) and path in STREAM_POLICIES
+
+    # memory/task/thread cleanup: state dict entry removed on zero connections
     matrix["memory_task_thread_cleanup"] = matrix["cleanup"]
 
     for name, ok in matrix.items():

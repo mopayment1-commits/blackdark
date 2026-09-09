@@ -39,7 +39,7 @@ def satisfaction_status_for_av(control_id: str, *, ev: dict[str, Any], rec: dict
             return "PARTIAL"
         return "PASS"
     if control_id == "AV-30":
-        if not rec.get("valid") and not rec.get("RECONCILIATION_SHA_SEMANTICS_VALID"):
+        if not rec.get("RECONCILIATION_SHA_SEMANTICS_VALID"):
             return "PARTIAL"
         return "PASS"
     return None

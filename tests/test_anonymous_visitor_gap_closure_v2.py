@@ -63,8 +63,8 @@ def test_traceability_separate_from_satisfaction():
     from anonymous_visitor.traceability import build_traceability_report
 
     report = build_traceability_report()
-    assert report["TOTAL_SPEC_REQUIREMENTS"] >= 140
-    assert report["TRACEABILITY_ACCOUNTED_COUNT"] == report["TOTAL_SPEC_REQUIREMENTS"]
+    assert report["TOTAL_SPEC_REQUIREMENTS"] == 153
+    assert report["TRACEABILITY_ACCOUNTED_COUNT"] == 153
     assert report["TRACEABILITY_ACCOUNTED_PERCENT"] == 100.0
     assert report["PARTIAL_REQUIREMENTS"] > 0
     assert report["SATISFIED_PERCENT"] < report["TRACEABILITY_ACCOUNTED_PERCENT"]

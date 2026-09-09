@@ -106,26 +106,76 @@ def temporal_integrity_summary(*, limit: int = 500) -> dict[str, Any]:
             lines = [line for line in fh if line.strip()]
         for line in lines[-limit:]:
             records.append(json.loads(line))
+
+    def _classify(r: dict[str, Any]) -> str:
+        has_pre = bool(r.get("prediction_created_at") or r.get("locked_at") or r.get("recorded_before_outcome"))
+        has_outcome = bool(r.get("outcome_observed_at") or r.get("outcome_reconciled_at") or r.get("resolved_at") or r.get("resolved"))
+        complete = all(
+            r.get(k)
+            for k in (
+                "prediction_created_at",
+                "prediction_effective_at",
+                "outcome_observed_at",
+                "outcome_reconciled_at",
+                "methodology_version",
+                "immutable_prediction_id",
+            )
+        )
+        if complete and has_pre and has_outcome:
+            return "TEMPORALLY_PROVABLE"
+        if has_pre and not has_outcome:
+            return "NEW_TEMPORAL_UNPROVABLE"
+        if not has_pre:
+            return "LEGACY_TEMPORAL_UNPROVABLE"
+        return "TEMPORAL_UNCLASSIFIED"
+
+    classifications: dict[str, list[str]] = {
+        "TEMPORALLY_PROVABLE": [],
+        "LEGACY_TEMPORAL_UNPROVABLE": [],
+        "NEW_TEMPORAL_UNPROVABLE": [],
+        "TEMPORAL_UNCLASSIFIED": [],
+    }
+    order_violations: list[str] = []
+    for r in records:
+        cls = _classify(r)
+        rid = str(r.get("immutable_prediction_id") or r.get("prediction_id") or r.get("seq") or "?")
+        classifications[cls].append(rid)
+        eff = r.get("prediction_effective_at") or r.get("prediction_created_at")
+        obs = r.get("outcome_observed_at") or r.get("resolved_at")
+        rec_at = r.get("outcome_reconciled_at")
+        try:
+            if eff and obs and eff > obs:
+                order_violations.append(rid)
+            if obs and rec_at and obs > rec_at:
+                order_violations.append(rid)
+        except TypeError:
+            order_violations.append(rid)
+
     matured = [r for r in records if r.get("resolved") or r.get("outcome_observed_at")]
     resolved = [r for r in records if r.get("resolved")]
     correct = sum(1 for r in resolved if r.get("label") == "correct")
     incorrect = sum(1 for r in resolved if r.get("label") not in {None, "correct", "abstain"})
     abstained = sum(1 for r in records if r.get("label") == "abstain" or r.get("abstained"))
-    pre_outcome = sum(
-        1
-        for r in records
-        if r.get("prediction_created_at") or r.get("locked_at") or r.get("recorded_before_outcome")
-    )
-    temporally_provable = sum(
-        1
-        for r in records
-        if (r.get("prediction_created_at") or r.get("locked_at"))
-        and (r.get("outcome_observed_at") or r.get("resolved_at") or r.get("resolved"))
-    )
-    legacy = max(0, len(records) - pre_outcome)
+    pre_outcome = len(classifications["TEMPORALLY_PROVABLE"]) + len(classifications["NEW_TEMPORAL_UNPROVABLE"])
+    temporally_provable = len(classifications["TEMPORALLY_PROVABLE"])
+    legacy = len(classifications["LEGACY_TEMPORAL_UNPROVABLE"])
     denom = len(resolved)
     rate = round(correct / denom * 100, 2) if denom else None
     timestamps = [r.get("timestamp") for r in records if r.get("timestamp")]
+
+    new_complete = sum(
+        1
+        for r in records
+        if all(r.get(k) for k in ("prediction_created_at", "prediction_effective_at", "methodology_version", "immutable_prediction_id"))
+    )
+    new_matured = sum(1 for r in records if r.get("outcome_observed_at") or r.get("resolved"))
+    new_matured_provable = sum(
+        1
+        for r in records
+        if (r.get("outcome_observed_at") or r.get("resolved"))
+        and _classify(r) == "TEMPORALLY_PROVABLE"
+    )
+
     return {
         "TOTAL_RECORDS": verify.get("records", len(records)),
         "TOTAL_ELIGIBLE_FOR_SCORING": len(records),
@@ -139,6 +189,18 @@ def temporal_integrity_summary(*, limit: int = 500) -> dict[str, Any]:
         "TEMPORALLY_PROVABLE_PREDICTIONS": temporally_provable,
         "PREDICTIONS_RECORDED_BEFORE_OUTCOME": pre_outcome,
         "OUTCOME_RECONCILIATION_COUNT": len(resolved),
+        "ELIGIBLE_IDS_COUNT": len(records),
+        "LEGACY_TEMPORAL_UNPROVABLE_IDS_COUNT": legacy,
+        "NEW_TEMPORAL_UNPROVABLE_IDS_COUNT": len(classifications["NEW_TEMPORAL_UNPROVABLE"]),
+        "TEMPORALLY_PROVABLE_IDS_COUNT": temporally_provable,
+        "TEMPORAL_CLASSIFICATION_SUM": sum(len(v) for v in classifications.values()),
+        "TEMPORAL_UNCLASSIFIED_IDS": classifications["TEMPORAL_UNCLASSIFIED"],
+        "NEW_TEMPORAL_UNPROVABLE_IDS": classifications["NEW_TEMPORAL_UNPROVABLE"],
+        "TEMPORAL_ORDER_VIOLATIONS": order_violations,
+        "NEW_RECORDS_WITH_COMPLETE_TEMPORAL_FIELDS": new_complete,
+        "NEW_MATURED_RECORDS": new_matured,
+        "NEW_MATURED_TEMPORALLY_PROVABLE": new_matured_provable,
+        "ALL_NEW_MATURED_PREDICTIONS_TEMPORALLY_PROVABLE": new_matured == 0 or new_matured_provable == new_matured,
         "ACCURACY_NUMERATOR": correct,
         "ACCURACY_DENOMINATOR": denom,
         "ACCURACY_DENOMINATOR_DEFINITION": "resolved_predictions_with_outcome_label",
@@ -150,6 +212,7 @@ def temporal_integrity_summary(*, limit: int = 500) -> dict[str, Any]:
         "HIDDEN_FAILURES": [],
         "RETROACTIVE_EDITS": [],
         "METHODOLOGY_VERSION_GAPS": [],
+        "PRE_OUTCOME_RECORD_IDS": classifications["NEW_TEMPORAL_UNPROVABLE"],
     }
 
 
