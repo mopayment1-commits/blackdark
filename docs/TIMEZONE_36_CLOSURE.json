@@ -25,13 +25,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -47,13 +47,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -70,13 +70,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -93,13 +93,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -116,13 +116,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -139,13 +139,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -162,13 +162,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -185,13 +185,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -208,13 +208,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -230,13 +230,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -252,7 +252,7 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -260,7 +260,7 @@
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": "Production NTP sync is LIVE_GATED"
     },
     {
@@ -278,13 +278,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -301,13 +301,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -323,13 +323,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -346,13 +346,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -368,13 +368,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -391,13 +391,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -413,13 +413,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -436,13 +436,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -459,13 +459,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -482,13 +482,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -505,13 +505,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -528,13 +528,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -551,13 +551,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -573,13 +573,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -595,13 +595,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -617,13 +617,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -639,13 +639,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -663,13 +663,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -685,13 +685,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -707,13 +707,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -729,13 +729,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -751,13 +751,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -773,13 +773,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -795,13 +795,13 @@
         "tests/test_timezone_p0_test_matrix.py"
       ],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [],
       "live_gate": false,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": ""
     },
     {
@@ -815,7 +815,7 @@
       ],
       "tests": [],
       "evidence": [
-        "verified_at_sha:960d1ddc52ffcdc02c4955bbf8273a8fc867fd26"
+        "verified_at_sha:c9a2a472fe4fd49420dc3044f7d2ad5a2495347b"
       ],
       "dependencies": [],
       "remaining_delta": [
@@ -823,7 +823,7 @@
       ],
       "live_gate": true,
       "external_gate": false,
-      "last_verified_sha": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+      "last_verified_sha": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
       "notes": "Requires live production evidence"
     }
   ],
@@ -908,10 +908,10 @@
   "PARALLEL_NOTIFICATION_TIME_AUTHORITIES": [],
   "PARALLEL_EMAIL_TIME_AUTHORITIES": [],
   "PARALLEL_AI_TIME_AUTHORITIES": [],
-  "FINAL_MATERIAL_SHA": "960d1ddc52ffcdc02c4955bbf8273a8fc867fd26",
+  "FINAL_MATERIAL_SHA": "c9a2a472fe4fd49420dc3044f7d2ad5a2495347b",
   "PRIOR_ACCEPTED_SHA": "960d1dd",
   "MATERIAL_SEMANTIC_DRIFT": "Targeted chart/cross-surface timestamp localization + invalid timezone observability metric",
-  "generated_at": "2026-09-09T09:20:11.898391+00:00",
+  "generated_at": "2026-09-09T09:20:24.841612+00:00",
   "spec_sha256": "922f7a097838b5628bab846e6989827a87495187d6043495cfb5819866276a4c",
   "pytest_output": "......................                                                   [100%]\n",
   "pytest_stderr": ""
