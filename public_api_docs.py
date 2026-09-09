@@ -9,11 +9,16 @@ from __future__ import annotations
 
 from typing import Any
 
+from anonymous_visitor.allowlist import (
+    is_anonymous_denied,
+    match_allowlist_entry,
+)
+
 # Sonar S1192: duplicated string literals
 PATH_API_TRUST_OS = '/api/trust-os'
 PATH_ORACLE_ACCURACY = '/oracle-accuracy'
 
-# Path prefixes allowed in the public developer OpenAPI.
+# Legacy prefix list retained for OpenAPI filtering — canonical owner: anonymous_visitor.allowlist
 PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/health/",
     PATH_API_TRUST_OS,
@@ -57,6 +62,10 @@ PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/api/mev/sandwich-report",
     "/api/fund/emerging-terminal",
     "/api/auth/oauth/status",
+    "/api/trust-pulse",
+    "/api/trust-pulse/stream",
+    "/api/trust-pulse/manifest",
+    "/api/anonymous-visitor/",
     "/oracle/",
 )
 
@@ -99,9 +108,14 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
 
 
 def path_is_public(path: str) -> bool:
+    """Delegate to canonical anonymous allowlist — no parallel registry."""
+    if is_anonymous_denied(path):
+        return False
     if path in PUBLIC_PATH_EXACT:
         return True
-    return any(path.startswith(prefix) for prefix in PUBLIC_PATH_PREFIXES)
+    if any(path.startswith(prefix) for prefix in PUBLIC_PATH_PREFIXES):
+        return True
+    return match_allowlist_entry("GET", path) is not None or match_allowlist_entry("POST", path) is not None
 
 
 def filter_openapi_for_public(schema: dict[str, Any]) -> dict[str, Any]:

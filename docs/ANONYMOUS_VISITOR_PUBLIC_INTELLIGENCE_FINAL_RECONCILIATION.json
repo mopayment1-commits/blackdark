@@ -1,0 +1,1490 @@
+{
+  "governing_spec_hash": "7074cf247213215829ec1f5286d91c6fb539e396a68f90eb574b0885fa3d361e",
+  "branch": "cursor/anonymous-visitor-public-intelligence-closure-ed16",
+  "base_sha": "69789d1fab49134cfc0608fff6c6b47981f692a5",
+  "implementation_sha": "69789d1fab49134cfc0608fff6c6b47981f692a5",
+  "reconciliation_sha": "69789d1fab49134cfc0608fff6c6b47981f692a5",
+  "total_requirements": 30,
+  "pass": 29,
+  "partial": 1,
+  "unimplemented": 0,
+  "needs_external_verification": 0,
+  "legal_review_required": 0,
+  "locally_buildable_remaining": [
+    "AV-20"
+  ],
+  "anonymous_route_allowlist": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 600,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "platform",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/health/live",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 600,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "platform",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/health/ready",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 600,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "platform",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/health/viral",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 600,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "platform",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/security/status",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "security",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/platform/production-readiness",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "platform",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_MARKETING",
+      "rate_limit_per_min": 240,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/capabilities",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_MARKETING",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/compliance",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_MARKETING",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/docs",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_MARKETING",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/docs/public",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_MARKETING",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/oracle-accuracy",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/kill-rate",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/proof-arena",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/methodology",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/accuracy",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/status",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "landing",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/markets",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_MARKET",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "market",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/i18n/locales",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "i18n",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/i18n/catalog",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "i18n",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/oauth/status",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "auth",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/trust-pulse",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_INTELLIGENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 3,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": "oracle_unified",
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/trust-pulse/manifest",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_INTELLIGENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "trust_pulse",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/trust-pulse/stream",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_STREAM",
+      "rate_limit_per_min": 30,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 2,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "trust_pulse",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/status",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/states",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/allowlist",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/route-inventory",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 30,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/matrix",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/evidence",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "OPERATIONAL",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/public-intelligence/decision-truth-pulse",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_INTELLIGENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": "oracle_unified",
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/public-intelligence/evidence-passport",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_INTELLIGENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": "data_governance_registry",
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/public-intelligence/net-edge-proof",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_INTELLIGENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": "oracle_unified",
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/public-intelligence/market-surface",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_MARKET",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": "market_context",
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/public-intelligence/accuracy",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": "oracle_audit_chain",
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/public-intelligence/methodology",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/consent/status",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/anonymous-visitor/consent",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 30,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/anonymous-visitor/analytics/event",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/seo/policy",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/accessibility/report",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 30,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/anonymous-visitor/licensing/register",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "anonymous_visitor",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/trust-os",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/kill-rate",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/miss-feed",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/coverage-honesty",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/brand-coverage-closure",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/cso-priority-closure",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/zero-tolerance-closure",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/changed-mind",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/public/decision-graph",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 120,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "heroes",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/oracle/audit-chain",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "oracle",
+      "license_source_id": "oracle_audit_chain",
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/oracle/half-life",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "oracle",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/oracle/accuracy",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "oracle",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/due-diligence/evidence-pack/public-summary",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "observability",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/due-diligence/corpus-passport/public",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_EVIDENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "observability",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/docs/public-openapi.json",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 30,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "public_api_docs",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/oracle/{symbol}",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_INTELLIGENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "oracle",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/oracle/{symbol}/quick",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_INTELLIGENCE",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "oracle",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    }
+  ],
+  "accidental_public_routes": [],
+  "private_route_leaks": [],
+  "unlicensed_public_sources": [],
+  "missing_attributions": [],
+  "public_routes_without_rate_limits": [],
+  "public_routes_without_cost_controls": [],
+  "public_streams_without_limits": [],
+  "nonessential_tracking_before_consent": [],
+  "accessibility_failures": [],
+  "mobile_critical_failures": [],
+  "seo_gating_failures": [],
+  "public_data_freshness_failures": [],
+  "share_link_failures": [],
+  "new_regression_failures": [],
+  "ACCIDENTAL_PUBLIC_ROUTES": [],
+  "PRIVATE_DATA_EXPOSURE_PATHS": [],
+  "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION": [],
+  "UNLICENSED_PUBLIC_DATA_SOURCES": [],
+  "REQUIRED_ATTRIBUTION_MISSING": [],
+  "PUBLIC_ROUTES_WITHOUT_RATE_LIMITS": [],
+  "PUBLIC_ROUTES_WITHOUT_COST_GUARDS": [],
+  "UNSAFE_ANONYMOUS_STREAMS": [],
+  "NONESSENTIAL_TRACKING_BEFORE_CONSENT": [],
+  "CLIENT_ONLY_AUTHORIZATION_BOUNDARIES": [],
+  "PRIVATE_CONTENT_INDEXABLE": [],
+  "PUBLIC_INTELLIGENCE_WITHOUT_FRESHNESS": [],
+  "PUBLIC_PROOF_WITHOUT_EVIDENCE": [],
+  "NEW_FAILURES_INTRODUCED_BY_PR": [],
+  "final_status": {
+    "matrix": [
+      {
+        "control_id": "AV-01",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/states.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av01_explicit_anonymous_state"
+        ],
+        "evidence": [
+          "{'states': ['ANONYMOUS', 'FREE_ACCOUNT', 'PAID_INDIVIDUAL', 'INSTITUTIONAL'], 'default_anonymous': 'ANONYMOUS', 'real_authorization_states': True}"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-02",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/inventory.py",
+          "anonymous_visitor/allowlist.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av02_route_inventory"
+        ],
+        "evidence": [
+          "allowlist_count=59"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-03",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/allowlist.py",
+          "anonymous_visitor/authorization.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av03_deny_by_default"
+        ],
+        "evidence": [
+          "deny_by_default+explicit_allowlist"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-04",
+        "status": "PASS",
+        "implementation": [
+          "templates/landing.html",
+          "dashboard.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av04_homepage_value"
+        ],
+        "evidence": [
+          "hero+value+cta"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-05",
+        "status": "PASS",
+        "implementation": [
+          "trust_pulse.py",
+          "templates/landing.html"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av05_product_proof_before_signup"
+        ],
+        "evidence": [
+          "trust_pulse_public"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-06",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/public_intelligence.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av06_decision_truth_pulse"
+        ],
+        "evidence": [
+          "decision_truth_pulse_public"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-07",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/public_intelligence.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av07_evidence_passport"
+        ],
+        "evidence": [
+          "evidence_passport_summary"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-08",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/public_intelligence.py",
+          "oracle_audit_chain"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av08_public_accuracy"
+        ],
+        "evidence": [
+          "public_accuracy_historical_proof"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-09",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/authorization.py",
+          "anonymous_visitor/allowlist.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av09_no_private_data_anonymous"
+        ],
+        "evidence": [
+          "server_side_deny_prefixes"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-10",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/account_gate.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av10_account_gate_boundary"
+        ],
+        "evidence": [
+          "{'registration_not_required_for_basic_public_value': True, 'gate_at_persistence_boundary': True, 'persistence_actions': ['api_credentials', 'create_alert', 'create_watchlist', 'export', 'extended_history', 'follow_decision', 'portfolio_ai', 'private_workspace', 'proprietary_depth', 'save_asset', 'save_layout', 'sync_devices'], 'preferred_cta': 'Create Free Account'}"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-11",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/licensing.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av11_licensing_gate"
+        ],
+        "evidence": [
+          "register_count=4"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-12",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/licensing.py",
+          "anonymous_visitor/public_intelligence.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av12_attribution"
+        ],
+        "evidence": [
+          "attribution_on_licensed_surfaces"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-13",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/protections.py",
+          "viral_capacity.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av13_public_rate_limiting"
+        ],
+        "evidence": [
+          "{'rate_limiting': True, 'burst_limits': True, 'concurrency_limits': True, 'upstream_cost_budgets': True, 'response_size_limits': True, 'timeout_policy_sec': 15.0, 'circuit_breaker': 'graceful_degrade', 'abuse_monitoring': True}"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-14",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/protections.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av14_cost_protections"
+        ],
+        "evidence": [
+          "upstream_cost_budget"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-15",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/streams.py",
+          "trust_pulse.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av15_stream_policy"
+        ],
+        "evidence": [
+          "unsafe_streams=[]"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-16",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/consent.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av16_consent_manager"
+        ],
+        "evidence": [
+          "{'ok': True, 'visitor_key': 'evidence_probe', 'preferences': {'essential_only': True, 'optional_analytics': False, 'optional_marketing': False}, 'essential_only_before_consent': True, 'reject_as_easy_as_accept': True, 'no_preticked_optional': True, 'no_browsing_as_consent': True}"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-17",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/analytics.py",
+          "anonymous_visitor/consent.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av17_no_tracking_before_consent"
+        ],
+        "evidence": [
+          "{'consent_aware': True, 'allowed_events': ['account_intent', 'consent_update', 'explore_click', 'intelligence_interaction', 'landing_view', 'signup_start'], 'no_financial_secrets': True, 'no_private_payloads': True, 'retention_policy': 'local_jsonl_operational'}"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-18",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/public_intelligence.py",
+          "templates/landing.html"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av18_public_financial_language"
+        ],
+        "evidence": [
+          "decision_state_language+LEGAL_REVIEW_REQUIRED"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-19",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/public_intelligence.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av19_no_guaranteed_return_claims"
+        ],
+        "evidence": [
+          "no_guaranteed_outcome_flags"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-20",
+        "status": "PARTIAL",
+        "implementation": [
+          "anonymous_visitor/accessibility.py",
+          "templates/landing.html"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av20_accessibility_baseline"
+        ],
+        "evidence": [
+          "a11y_passed=7/8"
+        ],
+        "blocker": "Full WCAG 2.2 AA requires external audit"
+      },
+      {
+        "control_id": "AV-21",
+        "status": "PASS",
+        "implementation": [
+          "templates/landing.html",
+          "anonymous_visitor/accessibility.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av21_mobile_critical_journey"
+        ],
+        "evidence": [
+          "responsive_meta+touch_targets"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-22",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/seo.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av22_seo_policy"
+        ],
+        "evidence": [
+          "{'public_indexable': ['/', '/accuracy', '/capabilities', '/compliance', '/docs', '/docs/public', '/kill-rate', '/markets', '/methodology', '/oracle-accuracy', '/proof-arena', '/status'], 'private_noindex_prefixes': ['/dashboard', '/account', '/billing', '/portfolio', '/settings', '/admin', '/api/'], 'server_side_gating': True, 'no_cloaking': True}"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-23",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/seo.py",
+          "anonymous_visitor/authorization.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av23_gated_structured_data"
+        ],
+        "evidence": [
+          "server_side_gating+robots"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-24",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/authorization.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av24_private_leakage_tests"
+        ],
+        "evidence": [
+          "401_on_private_api_prefixes"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-25",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/protections.py",
+          "viral_capacity.py",
+          "anonymous_visitor/authorization.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av25_cache_controls"
+        ],
+        "evidence": [
+          "cache_policy_on_public_routes"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-26",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/protections.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av26_abuse_resource_tests"
+        ],
+        "evidence": [
+          "rate+burst+concurrency"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-27",
+        "status": "PASS",
+        "implementation": [
+          "templates/landing.html"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av27_legal_footer_links"
+        ],
+        "evidence": [
+          "privacy+methodology+status_links"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-28",
+        "status": "PASS",
+        "implementation": [
+          "trust_pulse.py",
+          "templates/landing.html"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av28_share_links_anonymous"
+        ],
+        "evidence": [
+          "share_urls_in_pulse"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-29",
+        "status": "PASS",
+        "implementation": [
+          "anonymous_visitor/analytics.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av29_privacy_safe_analytics"
+        ],
+        "evidence": [
+          "{'consent_aware': True, 'allowed_events': ['account_intent', 'consent_update', 'explore_click', 'intelligence_interaction', 'landing_view', 'signup_start'], 'no_financial_secrets': True, 'no_private_payloads': True, 'retention_policy': 'local_jsonl_operational'}"
+        ],
+        "blocker": null
+      },
+      {
+        "control_id": "AV-30",
+        "status": "PASS",
+        "implementation": [
+          "scripts/anonymous_visitor_final_reconciliation.py",
+          "anonymous_visitor/evidence.py"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av30_machine_verifiable_closure"
+        ],
+        "evidence": [
+          "reconciliation_artifact"
+        ],
+        "blocker": null
+      }
+    ],
+    "counts": {
+      "PASS": 29,
+      "PARTIAL": 1,
+      "NOT IMPLEMENTED": 0,
+      "NEEDS_EXTERNAL_VERIFICATION": 0,
+      "LEGAL_REVIEW_REQUIRED": 0
+    },
+    "audit_findings": {
+      "ACCIDENTAL_PUBLIC_ROUTES": [],
+      "PRIVATE_DATA_EXPOSURE_PATHS": [],
+      "PUBLIC_ROUTES_WITHOUT_EXPLICIT_CLASSIFICATION": [],
+      "UNLICENSED_PUBLIC_DATA_SOURCES": [],
+      "REQUIRED_ATTRIBUTION_MISSING": [],
+      "PUBLIC_ROUTES_WITHOUT_RATE_LIMITS": [],
+      "PUBLIC_ROUTES_WITHOUT_COST_GUARDS": [],
+      "UNSAFE_ANONYMOUS_STREAMS": [],
+      "NONESSENTIAL_TRACKING_BEFORE_CONSENT": [],
+      "CLIENT_ONLY_AUTHORIZATION_BOUNDARIES": [],
+      "PRIVATE_CONTENT_INDEXABLE": [],
+      "PUBLIC_INTELLIGENCE_WITHOUT_FRESHNESS": [],
+      "PUBLIC_PROOF_WITHOUT_EVIDENCE": []
+    },
+    "PASS_ENGINEERING_ANONYMOUS_PUBLIC_INTELLIGENCE": true,
+    "READY_FOR_INTENDED_LOCAL_USE": true,
+    "ANONYMOUS_PUBLIC_INTELLIGENCE_COMPLETE": false,
+    "PASS_LIVE_NOT_CLAIMED": true,
+    "external_dependencies": [],
+    "partial_controls": [
+      {
+        "control_id": "AV-20",
+        "status": "PARTIAL",
+        "implementation": [
+          "anonymous_visitor/accessibility.py",
+          "templates/landing.html"
+        ],
+        "tests": [
+          "tests/test_anonymous_visitor_av_matrix.py::test_av20_accessibility_baseline"
+        ],
+        "evidence": [
+          "a11y_passed=7/8"
+        ],
+        "blocker": "Full WCAG 2.2 AA requires external audit"
+      }
+    ],
+    "locally_buildable_remaining": [
+      "AV-20"
+    ]
+  },
+  "pytest_ok": true,
+  "pytest_output": "..............................                                           [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/starlette/testclient.py:53\n  /workspace/.venv/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+  "DEAD_ANONYMOUS_VISITOR_MODULES": [],
+  "UNWIRED_ANONYMOUS_VISITOR_MODULES": [],
+  "TEST_ONLY_ANONYMOUS_VISITOR_IMPLEMENTATIONS": [],
+  "PLACEHOLDER_ANONYMOUS_VISITOR_IMPLEMENTATIONS": [],
+  "UNREACHABLE_ANONYMOUS_VISITOR_COMPONENTS": [],
+  "PASS_ENGINEERING_ANONYMOUS_PUBLIC_INTELLIGENCE": true,
+  "READY_FOR_INTENDED_LOCAL_USE": true,
+  "ANONYMOUS_PUBLIC_INTELLIGENCE_COMPLETE": false,
+  "PASS_LIVE_NOT_CLAIMED": true
+}
