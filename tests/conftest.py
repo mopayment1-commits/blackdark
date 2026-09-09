@@ -6,6 +6,11 @@ import asyncio
 import os
 from collections.abc import AsyncIterator
 
+# Full-suite cap646/batch HTTP matrices exceed default viral API RL (120/min).
+os.environ.setdefault("VIRAL_API_RL_PER_MIN", "100000")
+os.environ.setdefault("VIRAL_ORACLE_RL_PER_MIN", "100000")
+os.environ.setdefault("VIRAL_WEB_RL_PER_MIN", "100000")
+
 import aiohttp
 import pytest
 
