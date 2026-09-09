@@ -21,25 +21,29 @@ def _client_id(request: Request) -> str:
     return "anonymous"
 
 
-def _extract_user(request: Request) -> dict[str, Any] | None:
+async def _extract_user(request: Request) -> dict[str, Any] | None:
     auth = request.headers.get("authorization") or ""
     token = None
     if auth.lower().startswith("bearer "):
         token = auth[7:].strip()
     if not token:
-        token = request.cookies.get("bd_token")
+        bd_token = request.cookies.get("bd_token")
+        if bd_token:
+            from security_middleware import cookie_to_session_bearer
+
+            token = cookie_to_session_bearer(bd_token)
     if not token:
         return None
     try:
         from auth_service import get_user_from_token
 
-        return get_user_from_token(token)
+        return await get_user_from_token(token)
     except Exception:
         return None
 
 
-def resolve_request_auth_state(request: Request) -> ProductAuthState:
-    return resolve_product_state(_extract_user(request))
+async def resolve_request_auth_state(request: Request) -> ProductAuthState:
+    return resolve_product_state(await _extract_user(request))
 
 
 def _has_admin_key(request: Request) -> bool:
@@ -52,10 +56,10 @@ def _has_admin_key(request: Request) -> bool:
     return bool(got) and got == expected
 
 
-def has_authenticated_session(request: Request) -> bool:
+async def has_authenticated_session(request: Request) -> bool:
     if _has_admin_key(request):
         return True
-    return resolve_request_auth_state(request) != ProductAuthState.ANONYMOUS
+    return (await resolve_request_auth_state(request)) != ProductAuthState.ANONYMOUS
 
 
 def anonymous_auth_response(*, status_code: int, code: str, detail: str) -> JSONResponse:
@@ -96,7 +100,7 @@ async def enforce_anonymous_boundary(request: Request, call_next) -> Response:
     if not enforce:
         return await call_next(request)
 
-    if has_authenticated_session(request):
+    if await has_authenticated_session(request):
         return await call_next(request)
 
     if is_anonymous_denied(path):

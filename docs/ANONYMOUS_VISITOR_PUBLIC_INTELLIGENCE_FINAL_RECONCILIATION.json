@@ -2,8 +2,8 @@
   "governing_spec_hash": "7074cf247213215829ec1f5286d91c6fb539e396a68f90eb574b0885fa3d361e",
   "branch": "cursor/anonymous-visitor-public-intelligence-closure-ed16",
   "base_sha": "69789d1fab49134cfc0608fff6c6b47981f692a5",
-  "implementation_sha": "69789d1fab49134cfc0608fff6c6b47981f692a5",
-  "reconciliation_sha": "69789d1fab49134cfc0608fff6c6b47981f692a5",
+  "implementation_sha": "c63235aa5b020ad79f15d4cec673f7a18b851d5a",
+  "reconciliation_sha": "c63235aa5b020ad79f15d4cec673f7a18b851d5a",
   "total_requirements": 30,
   "pass": 29,
   "partial": 1,
@@ -347,6 +347,22 @@
       "cache_policy": "public,max-age=45,stale-while-revalidate=120",
       "timeout_sec": 15.0,
       "owner": "auth",
+      "license_source_id": null,
+      "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/institutional/sso/status",
+      "expected_auth_state": "ANONYMOUS",
+      "data_class": "PUBLIC_UTILITY",
+      "rate_limit_per_min": 60,
+      "burst_limit": 30,
+      "concurrency_limit": 20,
+      "upstream_cost_budget": 5,
+      "response_size_limit_kb": 512,
+      "cache_policy": "public,max-age=45,stale-while-revalidate=120",
+      "timeout_sec": 15.0,
+      "owner": "institutional",
       "license_source_id": null,
       "test_evidence": "tests/test_anonymous_visitor_av_matrix.py"
     },
@@ -1014,7 +1030,7 @@
           "tests/test_anonymous_visitor_av_matrix.py::test_av02_route_inventory"
         ],
         "evidence": [
-          "allowlist_count=59"
+          "allowlist_count=60"
         ],
         "blocker": null
       },

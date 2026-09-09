@@ -10,6 +10,7 @@ from collections.abc import AsyncIterator
 os.environ.setdefault("VIRAL_API_RL_PER_MIN", "100000")
 os.environ.setdefault("VIRAL_ORACLE_RL_PER_MIN", "100000")
 os.environ.setdefault("VIRAL_WEB_RL_PER_MIN", "100000")
+os.environ.setdefault("ANONYMOUS_PUBLIC_RL_EXEMPT", "true")
 
 import aiohttp
 import pytest

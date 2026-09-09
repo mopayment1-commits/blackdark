@@ -129,10 +129,11 @@ def test_av13_public_rate_limiting():
     assert status["rate_limiting"] is True
 
 
-def test_av14_cost_protections():
+def test_av14_cost_protections(monkeypatch):
     from anonymous_visitor.allowlist import match_allowlist_entry
     from anonymous_visitor.protections import PublicProtectionError, check_public_protections
 
+    monkeypatch.setenv("ANONYMOUS_PUBLIC_RL_EXEMPT", "false")
     ok = check_public_protections(method="GET", path="/api/anonymous-visitor/status", client_id="t1")
     assert ok["allowed"] is True
     entry = match_allowlist_entry("GET", "/api/anonymous-visitor/status")
@@ -225,10 +226,11 @@ def test_av25_cache_controls(av_client):
     assert r.headers.get("X-BD-Auth-State") == "ANONYMOUS"
 
 
-def test_av26_abuse_resource_tests():
+def test_av26_abuse_resource_tests(monkeypatch):
     from anonymous_visitor.allowlist import match_allowlist_entry
     from anonymous_visitor.protections import PublicProtectionError, check_public_protections
 
+    monkeypatch.setenv("ANONYMOUS_PUBLIC_RL_EXEMPT", "false")
     entry = match_allowlist_entry("GET", "/api/trust-pulse")
     assert entry is not None
     with pytest.raises(PublicProtectionError):
