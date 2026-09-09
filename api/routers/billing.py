@@ -113,6 +113,11 @@ async def billing_checkout(
     user: dict | None = Depends(optional_user),
     idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
+    from financial_data_security.audit_trail import record_financial_audit
+    from financial_data_security.authorization import authorize_billing_action
+    from financial_data_security.scanner import reject_forbidden_financial_payload
+
+    reject_forbidden_financial_payload(data)
     is_dup, cached = check_idempotency(idempotency_key)
     if is_dup and cached:
         return JSONResponse(status_code=cached["status_code"], content=cached["body"])
@@ -133,6 +138,10 @@ async def billing_checkout(
             status_code=400,
             detail="Invalid tier. Self-serve USD SKUs: pro, elite, quant. Institutional is Talk to us.",
         )
+    try:
+        await authorize_billing_action(user=user, action="billing.checkout")
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
 
     ls_url = lemon_squeezy_checkout_url(tier)
     if ls_url:
@@ -147,8 +156,14 @@ async def billing_checkout(
             "trial_days": SELF_SERVE_SKUS[tier].get("trial_days") or 0,
         }
         store_idempotency(idempotency_key, 200, payload)
+        record_financial_audit(
+            actor=f"user:{user['id']}" if user and user.get("id") else "anonymous",
+            action="billing.checkout",
+            resource=f"tier:{tier}",
+            result="redirect_lemon",
+            auth_strength="standard",
+        )
         return payload
-    if not billing_configured():
         raise HTTPException(status_code=503, detail="Billing not configured")
     email = user.get("email") if user else None
     user_id = int(user["id"]) if user and user.get("id") else None
@@ -157,6 +172,13 @@ async def billing_checkout(
         payload["amount_usd"] = SELF_SERVE_SKUS[tier]["amount_usd"]
         payload["name"] = SELF_SERVE_SKUS[tier]["name"]
         store_idempotency(idempotency_key, 200, payload)
+        record_financial_audit(
+            actor=f"user:{user_id}" if user_id else "anonymous",
+            action="billing.checkout",
+            resource=f"tier:{tier}",
+            result="redirect_stripe",
+            auth_strength="standard",
+        )
         return payload
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -169,6 +191,10 @@ async def billing_portal(
     user: dict | None = Depends(optional_user),
     idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
+    from financial_data_security.audit_trail import record_financial_audit
+    from financial_data_security.authorization import authorize_billing_action
+    from financial_data_security.step_up import enforce_billing_step_up
+
     is_dup, cached = check_idempotency(idempotency_key)
     if is_dup and cached:
         return JSONResponse(status_code=cached["status_code"], content=cached["body"])
@@ -181,6 +207,17 @@ async def billing_portal(
 
     if not user:
         raise HTTPException(status_code=401, detail="Login required")
+    try:
+        await authorize_billing_action(
+            user=user,
+            action="billing.portal",
+            resource_owner_id=int(user["id"]),
+        )
+        await enforce_billing_step_up(user, action="billing.sensitive")
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
 
     lemon_portal = lemon_squeezy_portal_url()
     if lemon_portal:
@@ -190,6 +227,13 @@ async def billing_portal(
             "currency": "USD",
         }
         store_idempotency(idempotency_key, 200, payload)
+        record_financial_audit(
+            actor=f"user:{user['id']}",
+            action="billing.portal",
+            resource=f"user:{user['id']}",
+            result="redirect_lemon",
+            auth_strength="step_up",
+        )
         return payload
 
     if not stripe_configured():
@@ -205,6 +249,13 @@ async def billing_portal(
         payload["provider"] = "stripe"
         payload["currency"] = "USD"
         store_idempotency(idempotency_key, 200, payload)
+        record_financial_audit(
+            actor=f"user:{user['id']}",
+            action="billing.portal",
+            resource=f"customer:{customer_id}",
+            result="redirect_stripe",
+            auth_strength="step_up",
+        )
         return payload
     except stripe.StripeError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
@@ -214,8 +265,10 @@ async def billing_portal(
 async def institutional_inquiry(data: dict = Body(default={})):
     """Sales-led Institutional path — USD wire / invoice, not self-serve Checkout."""
     from database import insert_institutional_inquiry
+    from financial_data_security.scanner import reject_forbidden_financial_payload
     from payments_usd import INSTITUTIONAL_WIRE
 
+    reject_forbidden_financial_payload(data)
     email = str(data.get("email") or "").strip().lower()
     if not email or not _is_valid_email(email):
         raise HTTPException(status_code=400, detail="Valid email required")
@@ -258,10 +311,12 @@ async def institutional_inquiry(data: dict = Body(default={})):
 async def lemon_webhook(request: Request):
     """Lemon Squeezy entitlement webhook — HMAC-SHA256 via X-Signature."""
     from billing_service import handle_lemon_webhook_event, verify_lemon_webhook_signature
+    from financial_data_security.webhooks import record_webhook_signature_failure
 
     raw = await request.body()
     sig = request.headers.get("X-Signature") or request.headers.get("x-signature")
     if not verify_lemon_webhook_signature(raw, sig):
+        await record_webhook_signature_failure(provider="lemon_squeezy", reason="invalid_hmac")
         raise HTTPException(status_code=401, detail="Invalid Lemon Squeezy webhook signature")
     try:
         event = json.loads(raw.decode("utf-8") or "{}")
@@ -285,11 +340,32 @@ async def billing_subscription(user: dict | None = Depends(optional_user)):
 @router.post("/cancel")
 async def billing_cancel_auto_renew(user: dict | None = Depends(optional_user)):
     from billing.subscription_engine import schedule_cancel_at_period_end
+    from financial_data_security.audit_trail import record_financial_audit
+    from financial_data_security.authorization import authorize_billing_action
+    from financial_data_security.step_up import enforce_billing_step_up
 
     if not user:
         raise HTTPException(status_code=401, detail="Login required")
     try:
+        await authorize_billing_action(
+            user=user,
+            action="billing.cancel",
+            resource_owner_id=int(user["id"]),
+        )
+        await enforce_billing_step_up(user, action="billing.sensitive")
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    try:
         sub = await schedule_cancel_at_period_end(int(user["id"]), actor=f"user:{user['id']}")
+        record_financial_audit(
+            actor=f"user:{user['id']}",
+            action="billing.cancel",
+            resource=f"user:{user['id']}",
+            result="scheduled",
+            auth_strength="step_up",
+        )
         return {"ok": True, "subscription": sub, "message": "Auto-renewal cancelled at period end."}
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -302,12 +378,35 @@ async def billing_schedule_downgrade(
 ):
     from billing.subscription_engine import schedule_downgrade
     from billing.plan_registry import normalize_plan
+    from financial_data_security.audit_trail import record_financial_audit
+    from financial_data_security.authorization import authorize_billing_action
+    from financial_data_security.scanner import reject_forbidden_financial_payload
+    from financial_data_security.step_up import enforce_billing_step_up
 
+    reject_forbidden_financial_payload(data)
     if not user:
         raise HTTPException(status_code=401, detail="Login required")
+    try:
+        await authorize_billing_action(
+            user=user,
+            action="billing.downgrade",
+            resource_owner_id=int(user["id"]),
+        )
+        await enforce_billing_step_up(user, action="billing.sensitive")
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
     target = normalize_plan(str(data.get("plan") or data.get("tier") or ""))
     try:
         sub = await schedule_downgrade(int(user["id"]), target, actor=f"user:{user['id']}")
+        record_financial_audit(
+            actor=f"user:{user['id']}",
+            action="billing.downgrade",
+            resource=f"user:{user['id']}:plan:{target}",
+            result="scheduled",
+            auth_strength="step_up",
+        )
         return {"ok": True, "subscription": sub, "message": "Downgrade scheduled for period end."}
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

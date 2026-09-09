@@ -146,6 +146,7 @@ async def _openai_reply(message: str, context: dict[str, Any], history: list[dic
             "content": f"Live context JSON:\n{json.dumps(context, default=str)[:3000]}",
         }
     )
+    # context is already scrubbed by prepare_llm_context() before _openai_reply()
     for turn in history[-6:]:
         role = turn.get("role", "user")
         if role in {"user", "assistant"}:
@@ -193,7 +194,10 @@ async def process_chat(
     context = await _gather_market_context(symbol)
     hist = history or []
 
-    reply = await _openai_reply(text, context, hist)
+    from financial_data_security.ai_boundary import prepare_llm_context
+
+    llm_context = prepare_llm_context(context)
+    reply = await _openai_reply(text, llm_context, hist)
     source = "openai" if reply else "blackdark"
     if not reply:
         reply = _rule_based_reply(text, context)
