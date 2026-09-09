@@ -334,6 +334,32 @@ def enrich_oracle_decision(
 
     _record_platform_compounding(out, asset, verdict, user_id=user_id, tier=tier, surface=surface)
 
+    try:
+        from constitution_gates import apply_constitution_gates_to_scan
+
+        apply_constitution_gates_to_scan(out)
+    except Exception:
+        logger.debug("constitution gates on oracle failed", exc_info=True)
+
+    try:
+        from decision_truth.pipeline import evaluate_decision_truth
+
+        prev_state = out.get("decision_truth_state")
+        out = evaluate_decision_truth(out, lang=lang, previous_decision_state=prev_state)
+        dt = out.get("decision_truth") or {}
+        contract = (dt.get("contract") or {})
+        admission = (dt.get("admission") or {})
+        out["decision_truth_state"] = contract.get("decision_state")
+        out["admission_state"] = admission.get("admission_state")
+        if contract.get("decision_state") in {"REJECTED", "ABSTAINED"}:
+            from regulatory_compliance_guard import to_public_verdict
+
+            out["verdict"] = to_public_verdict("Do Not Touch")
+            out["decision_action"] = "NO_DECISION"
+    except Exception:
+        logger.debug("decision truth pipeline failed", exc_info=True)
+        out["decision_truth"] = {"error": "unavailable"}
+
     out = _apply_ux_mode(out, ux_mode, lang)
     out["constitution"] = _constitution_block()
     return out
