@@ -136,6 +136,12 @@ def evaluate_decision_truth(
         }
     }
     opp.update(result)
+    try:
+        from capability_spine.integration import enrich_opportunity_capabilities
+
+        opp = enrich_opportunity_capabilities(opp, portfolio=portfolio)
+    except Exception:
+        pass
     return opp
 
 

@@ -771,6 +771,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.capability_spine import router as capability_spine_router
+
+    app.include_router(capability_spine_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.data_governance import router as data_governance_router
 
     app.include_router(data_governance_router)

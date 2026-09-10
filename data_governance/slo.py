@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from capability_spine.gates import FEATURE_FRESHNESS_SLO
 from data_governance.registry import SourceClass
 
 SLO_REGISTRY: dict[str, dict[str, Any]] = {
@@ -46,5 +47,17 @@ def get_slo(source_class: str) -> dict[str, Any]:
     return SLO_REGISTRY.get(source_class, SLO_REGISTRY[SourceClass.CEX_SPOT.value])
 
 
+def get_feature_slo(source: str, feature: str) -> dict[str, Any]:
+    """Per-source/per-feature freshness SLO (CAP-41)."""
+    key = f"{source}:{feature}"
+    return FEATURE_FRESHNESS_SLO.get(key, {"source": source, "max_age_s": 60, "state_on_breach": "STALE"})
+
+
 def slo_registry_status() -> dict[str, Any]:
-    return {"classes_defined": list(SLO_REGISTRY.keys()), "count": len(SLO_REGISTRY), "false_external_sla_claims": []}
+    return {
+        "classes_defined": list(SLO_REGISTRY.keys()),
+        "feature_keys_defined": list(FEATURE_FRESHNESS_SLO.keys()),
+        "count": len(SLO_REGISTRY),
+        "feature_count": len(FEATURE_FRESHNESS_SLO),
+        "false_external_sla_claims": [],
+    }

@@ -249,3 +249,23 @@ def guard_stats() -> dict[str, Any]:
         "active_alerts": len(_active_alerts),
         "cancelled_total": _cancelled_total,
     }
+
+
+def compute_slippage_impact_vector(
+    book: dict[str, Any],
+    *,
+    notional_usd: float,
+    side: str = "buy",
+    max_book_age_ms: float = 5000.0,
+    book_age_ms: float | None = None,
+) -> dict[str, Any]:
+    """CAP-03 canonical multi-level slippage impact vector."""
+    from capability_spine.execution import slippage_impact_vector
+
+    return slippage_impact_vector(
+        book,
+        notional_usd=notional_usd,
+        side=side,
+        max_book_age_ms=max_book_age_ms,
+        book_age_ms=book_age_ms,
+    )
