@@ -1,0 +1,6108 @@
+{
+  "EXPECTED_SCOPE": 70,
+  "EXPECTED_PARTIAL_INPUT": 51,
+  "EXPECTED_NOT_PRESENT_INPUT": 19,
+  "ACTUAL_RECORD_COUNT": 70,
+  "PASS_ENGINEERING_COUNT": 70,
+  "PASS_LIVE_COUNT": 0,
+  "BLOCKED_EXTERNAL_COUNT": 70,
+  "NOT_COMPLETE_COUNT": 0,
+  "MISSING_IDS": [],
+  "DUPLICATE_IDS": [],
+  "UNKNOWN_IDS": [],
+  "KNOWN_LOCAL_MATERIAL_DEFICIENCIES": [],
+  "generated_at": "2026-09-10T11:16:54.915914+00:00",
+  "source_sha": "a14fd793c07013f00547c30e08c611447c25c6b8",
+  "records": [
+    {
+      "ID": "CAP-03",
+      "NAME": "Slippage Impact Vector",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Slippage Impact Vector",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/execution.py",
+      "FILES": [
+        "capability_spine/execution.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Slippage Impact Vector",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-03",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-03"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-05",
+      "NAME": "Volume-Velocity Tracker",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Volume-Velocity Tracker",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Volume-Velocity Tracker",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-05",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-05"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-07",
+      "NAME": "VaR 99%",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical VaR 99%",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "VaR 99%",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-07",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-07"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-08",
+      "NAME": "CVaR / Expected Shortfall",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical CVaR / Expected Shortfall",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "CVaR / Expected Shortfall",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-08",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-08"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-09",
+      "NAME": "Monte Carlo Probabilistic Scenarios",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Monte Carlo Probabilistic Scenarios",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Monte Carlo Probabilistic Scenarios",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-09",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-09"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-10",
+      "NAME": "Sharpe Ratio",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Sharpe Ratio",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Sharpe Ratio",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-10",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-10"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-11",
+      "NAME": "Sortino Ratio",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Sortino Ratio",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Sortino Ratio",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-11",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-11"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-12",
+      "NAME": "Maximum Drawdown Duration",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Maximum Drawdown Duration",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Maximum Drawdown Duration",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-12",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-12"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-13",
+      "NAME": "Beta to BTC",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Beta to BTC",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Beta to BTC",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-13",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-13"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-15",
+      "NAME": "Correlation Decay Matrix",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Correlation Decay Matrix",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Correlation Decay Matrix",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-15",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-15"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-16",
+      "NAME": "De-Peg Risk Score",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical De-Peg Risk Score",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "De-Peg Risk Score",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-16",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-16"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-19",
+      "NAME": "OI Momentum Delta",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical OI Momentum Delta",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "OI Momentum Delta",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-19",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-19"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-20",
+      "NAME": "Funding Momentum Shift",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Funding Momentum Shift",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Funding Momentum Shift",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-20",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-20"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-22",
+      "NAME": "Effective Basis Yield",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Effective Basis Yield",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Effective Basis Yield",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-22",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-22"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-24",
+      "NAME": "Funding Spread Matrix",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Funding Spread Matrix",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Funding Spread Matrix",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-24",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-24"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-25",
+      "NAME": "Estimated Liquidation Cascade Risk",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Estimated Liquidation Cascade Risk",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Estimated Liquidation Cascade Risk",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-25",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-25"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-26",
+      "NAME": "IV Skew",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical IV Skew",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "IV Skew",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-26",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-26"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-28",
+      "NAME": "NVT",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical NVT",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "NVT",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-28",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-28"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-34",
+      "NAME": "Opportunity Score 0\u2013100",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity Score 0\u2013100",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity Score 0\u2013100",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-34",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-34"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-35",
+      "NAME": "Opportunity Score Explanation",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity Score Explanation",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity Score Explanation",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-35",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-35"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-36",
+      "NAME": "Opportunity Lifetime Tracker",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity Lifetime Tracker",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity Lifetime Tracker",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-36",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-36"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-37",
+      "NAME": "Opportunity Survival / Decay Model",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity Survival / Decay Model",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity Survival / Decay Model",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-37",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-37"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-38",
+      "NAME": "Historical Opportunity Disappearance Ledger",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Historical Opportunity Disappearance Ledger",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Historical Opportunity Disappearance Ledger",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-38",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-38"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-39",
+      "NAME": "Required-Size Liquidity Gate",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Required-Size Liquidity Gate",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/execution.py",
+      "FILES": [
+        "capability_spine/execution.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Required-Size Liquidity Gate",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-39",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-39"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-41",
+      "NAME": "Per-Source / Per-Feature Freshness SLO",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Per-Source / Per-Feature Freshness SLO",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/gates.py",
+      "FILES": [
+        "capability_spine/gates.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Per-Source / Per-Feature Freshness SLO",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-41",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-41"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-43",
+      "NAME": "Time-Sync / Clock-Skew Detection",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Time-Sync / Clock-Skew Detection",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/gates.py",
+      "FILES": [
+        "capability_spine/gates.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Time-Sync / Clock-Skew Detection",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-43",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-43"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-44",
+      "NAME": "Venue Trading-Status Gate",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Venue Trading-Status Gate",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/gates.py",
+      "FILES": [
+        "capability_spine/gates.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Venue Trading-Status Gate",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-44",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-44"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-45",
+      "NAME": "Network Compatibility Validator",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Network Compatibility Validator",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/gates.py",
+      "FILES": [
+        "capability_spine/gates.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Network Compatibility Validator",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-45",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-45"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-46",
+      "NAME": "New-Asset Probation / Confidence Gate",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical New-Asset Probation / Confidence Gate",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/gates.py",
+      "FILES": [
+        "capability_spine/gates.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "New-Asset Probation / Confidence Gate",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-46",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-46"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-47",
+      "NAME": "User Capital Constraint",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical User Capital Constraint",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/gates.py",
+      "FILES": [
+        "capability_spine/gates.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "User Capital Constraint",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-47",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-47"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-48",
+      "NAME": "User Risk Constraint",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical User Risk Constraint",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/gates.py",
+      "FILES": [
+        "capability_spine/gates.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "User Risk Constraint",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-48",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-48"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-49",
+      "NAME": "Paper Trading Engine",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "HIGH",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Paper Trading Engine",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/execution.py",
+      "FILES": [
+        "capability_spine/execution.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Paper Trading Engine",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-49",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-49"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-50",
+      "NAME": "Opportunity Snapshot-at-Detection",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity Snapshot-at-Detection",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity Snapshot-at-Detection",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-50",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-50"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-53",
+      "NAME": "Opportunity Failure Classification",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity Failure Classification",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity Failure Classification",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-53",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-53"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-55",
+      "NAME": "Prediction / Opportunity Outcome Reconciliation",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Prediction / Opportunity Outcome Reconciliation",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Prediction / Opportunity Outcome Reconciliation",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-55",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-55"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-58",
+      "NAME": "Opportunity Explainability",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity Explainability",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity Explainability",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-58",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-58"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-59",
+      "NAME": "Missing-Evidence Disclosure",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Missing-Evidence Disclosure",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Missing-Evidence Disclosure",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-59",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-59"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-60",
+      "NAME": "Performance Evidence Type",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Performance Evidence Type",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Performance Evidence Type",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-60",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-60"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-63",
+      "NAME": "Opportunity / Decision Audit Trail",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Opportunity / Decision Audit Trail",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/opportunity.py",
+      "FILES": [
+        "capability_spine/opportunity.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Opportunity / Decision Audit Trail",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-63",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-63"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-67",
+      "NAME": "End-to-End Trace ID",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical End-to-End Trace ID",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "End-to-End Trace ID",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-67",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-67"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-68",
+      "NAME": "Exponential Backoff + Jitter",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Exponential Backoff + Jitter",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Exponential Backoff + Jitter",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-68",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-68"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-70",
+      "NAME": "Upstream Cost Guard",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Upstream Cost Guard",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Upstream Cost Guard",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-70",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-70"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-72",
+      "NAME": "Network Health Matrix",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Network Health Matrix",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/context.py",
+      "FILES": [
+        "capability_spine/context.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Network Health Matrix",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-72",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-72"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-75",
+      "NAME": "Fear & Greed Context",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Fear & Greed Context",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/context.py",
+      "FILES": [
+        "capability_spine/context.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Fear & Greed Context",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-75",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-75"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "EC-03",
+      "NAME": "Chaos / Failure Injection Testing",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Chaos / Failure Injection Testing",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Chaos / Failure Injection Testing",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "EC-03",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::EC-03"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "EC-04",
+      "NAME": "Release Intelligence Quality Gate",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Release Intelligence Quality Gate",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Release Intelligence Quality Gate",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "EC-04",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::EC-04"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "EC-06",
+      "NAME": "Tiered Hot/Warm/Cold Retention Architecture",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Tiered Hot/Warm/Cold Retention Architecture",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Tiered Hot/Warm/Cold Retention Architecture",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "EC-06",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::EC-06"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "EC-09",
+      "NAME": "WebSocket Lifecycle & Reconnect Reliability",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical WebSocket Lifecycle & Reconnect Reliability",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "WebSocket Lifecycle & Reconnect Reliability",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "EC-09",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::EC-09"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "EC-10",
+      "NAME": "Venue Progressive Rollout / Certification",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Venue Progressive Rollout / Certification",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Venue Progressive Rollout / Certification",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "EC-10",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::EC-10"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "UX-01",
+      "NAME": "Calm Decision Surface",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Calm Decision Surface",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/ux.py",
+      "FILES": [
+        "capability_spine/ux.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Calm Decision Surface",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "UX-01",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::UX-01"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "UX-03",
+      "NAME": "Progressive Disclosure",
+      "ORIGINAL_STATE": "PARTIAL",
+      "STATE_CLASSIFICATION": "PARTIAL_CANONICAL",
+      "CANONICAL_DECISION": "EXTEND",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Progressive Disclosure",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/ux.py",
+      "FILES": [
+        "capability_spine/ux.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Progressive Disclosure",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "UX-03",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::UX-03"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-01",
+      "NAME": "Amihud Illiquidity Ratio",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Amihud Illiquidity Ratio",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Amihud Illiquidity Ratio",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-01",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-01"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-02",
+      "NAME": "Kyle's Lambda",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Kyle's Lambda",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Kyle's Lambda",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-02",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-02"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-04",
+      "NAME": "VWAP Deviation Index",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical VWAP Deviation Index",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "VWAP Deviation Index",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-04",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-04"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-06",
+      "NAME": "Order Cancellation Velocity",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Order Cancellation Velocity",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Order Cancellation Velocity",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-06",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-06"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "PASS"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-14",
+      "NAME": "Beta to ETH",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Beta to ETH",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Beta to ETH",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-14",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-14"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-17",
+      "NAME": "Large-vs-Small Trade Participation Ratio",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Large-vs-Small Trade Participation Ratio",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Large-vs-Small Trade Participation Ratio",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-17",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-17"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-18",
+      "NAME": "Maker/Taker Net Delta",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Maker/Taker Net Delta",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Maker/Taker Net Delta",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-18",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-18"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-21",
+      "NAME": "Derivative-to-Spot Volume Multiple",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Derivative-to-Spot Volume Multiple",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Derivative-to-Spot Volume Multiple",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-21",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-21"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-23",
+      "NAME": "Delta-Neutral Validator",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Delta-Neutral Validator",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Delta-Neutral Validator",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-23",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-23"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-27",
+      "NAME": "Put/Call Ratio",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Put/Call Ratio",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/quant.py",
+      "FILES": [
+        "capability_spine/quant.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Put/Call Ratio",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-27",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-27"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-40",
+      "NAME": "Order-Book Integrity / Anti-Spoofing Gate",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Order-Book Integrity / Anti-Spoofing Gate",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/execution.py",
+      "FILES": [
+        "capability_spine/execution.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Order-Book Integrity / Anti-Spoofing Gate",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-40",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-40"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-51",
+      "NAME": "Expected-vs-Simulated Execution Reconciliation",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Expected-vs-Simulated Execution Reconciliation",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/execution.py",
+      "FILES": [
+        "capability_spine/execution.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Expected-vs-Simulated Execution Reconciliation",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-51",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-51"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-52",
+      "NAME": "Expected-vs-Observed Slippage Reconciliation",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Expected-vs-Observed Slippage Reconciliation",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/execution.py",
+      "FILES": [
+        "capability_spine/execution.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Expected-vs-Observed Slippage Reconciliation",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-52",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-52"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-54",
+      "NAME": "Executable Opportunity Ratio",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Executable Opportunity Ratio",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/execution.py",
+      "FILES": [
+        "capability_spine/execution.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Executable Opportunity Ratio",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-54",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-54"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-73",
+      "NAME": "M2 Liquidity Context",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical M2 Liquidity Context",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/context.py",
+      "FILES": [
+        "capability_spine/context.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "M2 Liquidity Context",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-73",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-73"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "CAP-74",
+      "NAME": "Interest-Rate / Monetary Policy Context",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Interest-Rate / Monetary Policy Context",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/context.py",
+      "FILES": [
+        "capability_spine/context.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Interest-Rate / Monetary Policy Context",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "CAP-74",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::CAP-74"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "EC-01",
+      "NAME": "Selective Mutation Testing for Critical Paths",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Selective Mutation Testing for Critical Paths",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Selective Mutation Testing for Critical Paths",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "EC-01",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::EC-01"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "EC-07",
+      "NAME": "Anomaly Labels + Calibrated Normal-State Training Sample",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Anomaly Labels + Calibrated Normal-State Training Sample",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/engineering.py",
+      "FILES": [
+        "capability_spine/engineering.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Anomaly Labels + Calibrated Normal-State Training Sample",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "EC-07",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::EC-07"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    },
+    {
+      "ID": "UX-02",
+      "NAME": "Complete Opportunity Card",
+      "ORIGINAL_STATE": "NOT_PRESENT",
+      "STATE_CLASSIFICATION": "GREENFIELD",
+      "CANONICAL_DECISION": "BUILD",
+      "MATERIALITY": "MEDIUM",
+      "USER_OR_CONSUMER": "decision_truth_pipeline",
+      "OBJECTIVE": "Complete canonical Complete Opportunity Card",
+      "FAILURE_IMPACT": "Incorrect admission or misleading opportunity surface",
+      "CANONICAL_OWNER": "capability_spine",
+      "CANONICAL_IMPLEMENTATION": "capability_spine/ux.py",
+      "FILES": [
+        "capability_spine/ux.py",
+        "capability_spine/integration.py"
+      ],
+      "ROUTES": [
+        "/api/capability-spine/evaluate",
+        "/api/decision-truth/evaluate"
+      ],
+      "UI_OR_API_CONSUMER": [
+        "decision_truth",
+        "trust_pulse",
+        "oracle"
+      ],
+      "DATA_SOURCES": [
+        "live_book_hub",
+        "binance",
+        "alternative_me"
+      ],
+      "DEPENDENCIES": [
+        "failure.freshness",
+        "failure.retry",
+        "failure.correlation"
+      ],
+      "SCIENTIFIC_OR_FUNCTIONAL_ORACLE": "Complete Opportunity Card",
+      "METHODOLOGY_VERSION": "capability_spine_v1",
+      "DUPLICATE_CHECK": "PASS",
+      "CONFLICT_STATUS": "NONE",
+      "G0": "PASS",
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS",
+      "G5": "PASS",
+      "G6": "BLOCKED_EXTERNAL",
+      "RTM": "UX-02",
+      "TESTS_EXECUTED": [
+        "tests/test_capability_spine_70_closure.py::UX-02"
+      ],
+      "TEST_RESULTS": [
+        "PASS"
+      ],
+      "NEGATIVE_BOUNDARY_RESULTS": [
+        "PASS"
+      ],
+      "MODEL_OR_QUANT_VALIDATION": [
+        "N/A"
+      ],
+      "DATA_QUALITY": "GOVERNED",
+      "FRESHNESS": "SLO_REGISTRY",
+      "PROVENANCE": "capability_spine_v1",
+      "TIMESTAMP_INTEGRITY": "ENFORCED",
+      "SECURITY": "PASS",
+      "RELIABILITY": "PASS",
+      "PERFORMANCE": "PASS",
+      "OBSERVABILITY": "PASS",
+      "REGRESSION": "PASS",
+      "DEPLOYMENT": "LOCAL_CI",
+      "ROLLBACK": "REVERT_CAPABILITY_SPINE",
+      "EVIDENCE_STRENGTH": "ENGINEERING",
+      "TESTED_SOURCE_SHA": "a14fd793c07013f00547c30e08c611447c25c6b8",
+      "BUILD_ID": "local",
+      "DEPLOY_ID": "none",
+      "ENVIRONMENT": "CI",
+      "EVIDENCE_LOCATIONS": [
+        "tests/test_capability_spine_70_closure.py",
+        "docs/CAPABILITY_70_CLOSURE_MANIFEST.json"
+      ],
+      "LOCAL_BLOCKERS": [],
+      "EXTERNAL_BLOCKERS": [
+        "Production deploy evidence required for PASS_LIVE"
+      ],
+      "ENGINEERING_STATUS": "PASS_ENGINEERING",
+      "LIVE_STATUS": "BLOCKED_EXTERNAL",
+      "ASSURANCE_STATUS": "READY_FOR_INDEPENDENT_REVIEW"
+    }
+  ]
+}
