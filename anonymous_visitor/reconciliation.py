@@ -30,7 +30,11 @@ def head_is_evidence_only_commit(ref: str = "HEAD") -> bool:
     files = _commit_touched_files(ref)
     if not files:
         return False
-    allowed = {"docs/ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_FINAL_RECONCILIATION.json"}
+    allowed = {
+        "docs/ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_FINAL_RECONCILIATION.json",
+        "docs/ANONYMOUS_VISITOR_STRICT_EVIDENCE_RECONCILIATION.json",
+        "docs/ANONYMOUS_BROWSER_E2E_EVIDENCE.json",
+    }
     return set(files).issubset(allowed)
 
 
