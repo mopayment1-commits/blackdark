@@ -51,19 +51,29 @@ def _norm_action(raw: str | None) -> str:
     return "WAIT"
 
 
-def _freshness(age_sec: float | None, *, stale: bool) -> dict[str, Any]:
+def _freshness(
+    age_sec: float | None,
+    *,
+    stale: bool,
+    source_event_time: str | None = None,
+) -> dict[str, Any]:
+    """Compute-age freshness — never claim market LIVE without proven source_event_time."""
+    proven_source = bool(source_event_time)
     if stale:
         status = "stale"
         label = "Stale — not live"
     elif age_sec is None:
         status = "unknown"
         label = "Freshness unknown"
-    elif age_sec <= 30:
+    elif proven_source and age_sec <= 30:
         status = "live"
-        label = f"Updated {int(age_sec)}s ago"
-    elif age_sec <= STALE_AFTER_SEC:
+        label = f"Source event · {int(age_sec)}s ago"
+    elif proven_source and age_sec <= STALE_AFTER_SEC:
         status = "warm"
-        label = f"Updated {int(age_sec)}s ago"
+        label = f"Source event · {int(age_sec)}s ago"
+    elif age_sec <= STALE_AFTER_SEC:
+        status = "computed"
+        label = f"Computed {int(age_sec)}s ago"
     else:
         status = "stale"
         label = f"Stale · {int(age_sec)}s ago"
@@ -73,6 +83,9 @@ def _freshness(age_sec: float | None, *, stale: bool) -> dict[str, Any]:
         "age_seconds": None if age_sec is None else round(age_sec, 1),
         "stale": status == "stale",
         "heartbeat_sec": HEARTBEAT_SEC,
+        "source_event_time": source_event_time,
+        "source_event_time_available": proven_source,
+        "live_claim_allowed": proven_source and status in {"live", "warm"},
     }
 
 
@@ -442,14 +455,16 @@ def _zero_tolerance_input(
 
 
 def _demote_live_freshness_if_needed(result: dict[str, Any], freshness: dict[str, Any]) -> None:
-    if result.get("live_claim_allowed") or freshness.get("status") != "live":
+    if result.get("live_claim_allowed") or freshness.get("live_claim_allowed"):
         return
+    demoted_status = freshness.get("status")
+    if demoted_status == "live":
+        demoted_status = "computed"
     result["freshness"] = {
         **freshness,
-        "status": "unknown" if freshness.get("age_seconds") is None else freshness.get("status"),
-        "label": freshness.get("label")
-        if freshness.get("status") != "live"
-        else f"Updated {int(freshness.get('age_seconds') or 0)}s ago",
+        "status": demoted_status,
+        "label": freshness.get("label") or "Source time unverified",
+        "live_claim_allowed": False,
     }
 
 
@@ -482,7 +497,10 @@ def _shape_pulse(
     meta = payload.get("_pulse_meta") or {}
     fetched_at = float(meta.get("fetched_at") or time.time())
     age = max(0.0, time.time() - fetched_at)
-    freshness = _freshness(age, stale=age > STALE_AFTER_SEC)
+    df = payload.get("data_freshness") if isinstance(payload.get("data_freshness"), dict) else {}
+    nested_fresh = payload.get("freshness") if isinstance(payload.get("freshness"), dict) else {}
+    source_event_time = df.get("source_event_time") or nested_fresh.get("source_event_time")
+    freshness = _freshness(age, stale=age > STALE_AFTER_SEC, source_event_time=source_event_time)
     action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
     why = payload.get("oqs_why") or {}
     factors = _pulse_factors(payload, why)

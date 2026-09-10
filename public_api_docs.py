@@ -7,13 +7,20 @@ execution, billing webhooks, admin, and key-management write paths.
 
 from __future__ import annotations
 
+import threading
 from typing import Any
+
+from anonymous_visitor.allowlist import (
+    is_anonymous_allowed,
+    is_anonymous_denied,
+    match_allowlist_entry,
+)
 
 # Sonar S1192: duplicated string literals
 PATH_API_TRUST_OS = '/api/trust-os'
 PATH_ORACLE_ACCURACY = '/oracle-accuracy'
 
-# Path prefixes allowed in the public developer OpenAPI.
+# Legacy prefix list retained for OpenAPI filtering — canonical owner: anonymous_visitor.allowlist
 PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/health/",
     PATH_API_TRUST_OS,
@@ -57,6 +64,10 @@ PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/api/mev/sandwich-report",
     "/api/fund/emerging-terminal",
     "/api/auth/oauth/status",
+    "/api/trust-pulse",
+    "/api/trust-pulse/stream",
+    "/api/trust-pulse/manifest",
+    "/api/anonymous-visitor/",
     "/oracle/",
 )
 
@@ -99,38 +110,48 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
 
 
 def path_is_public(path: str) -> bool:
-    if path in PUBLIC_PATH_EXACT:
-        return True
-    return any(path.startswith(prefix) for prefix in PUBLIC_PATH_PREFIXES)
+    """Canonical owner: anonymous_visitor.allowlist strict surface registry."""
+    from anonymous_visitor.allowlist import path_is_canonical_public_surface
+
+    return path_is_canonical_public_surface(path)
+
+
+_PUBLIC_OPENAPI_CACHE: dict[str, Any] | None = None
+_PUBLIC_OPENAPI_LOCK = threading.Lock()
 
 
 def filter_openapi_for_public(schema: dict[str, Any]) -> dict[str, Any]:
     """Return a copy of OpenAPI limited to evidence/read surfaces."""
-    out = dict(schema)
-    paths = schema.get("paths") or {}
-    public_paths = {p: spec for p, spec in paths.items() if path_is_public(p)}
-    out["paths"] = public_paths
-    out["info"] = {
-        **(schema.get("info") or {}),
-        "title": "BLACKDARK Public Evidence API",
-        "description": (
-            "Read/evidence endpoints only. Not a full execution platform. "
-            "Analytical tool — not financial advice. Verify on /oracle-accuracy."
-        ),
-    }
-    out["x-blackdark"] = {
-        "surface": "public_developer_docs",
-        "policy": "evidence_and_read_only",
-        "not_included": [
-            "admin",
-            "billing_webhooks",
-            "user_api_key_write",
-            "live_execution_orders",
-            "secrets",
-        ],
-        "verify": PATH_ORACLE_ACCURACY,
-    }
-    return out
+    global _PUBLIC_OPENAPI_CACHE
+    with _PUBLIC_OPENAPI_LOCK:
+        if _PUBLIC_OPENAPI_CACHE is not None:
+            return _PUBLIC_OPENAPI_CACHE
+        out = dict(schema)
+        paths = schema.get("paths") or {}
+        public_paths = {p: spec for p, spec in paths.items() if path_is_public(p)}
+        out["paths"] = public_paths
+        out["info"] = {
+            **(schema.get("info") or {}),
+            "title": "BLACKDARK Public Evidence API",
+            "description": (
+                "Read/evidence endpoints only. Not a full execution platform. "
+                "Analytical tool — not financial advice. Verify on /oracle-accuracy."
+            ),
+        }
+        out["x-blackdark"] = {
+            "surface": "public_developer_docs",
+            "policy": "evidence_and_read_only",
+            "not_included": [
+                "admin",
+                "billing_webhooks",
+                "user_api_key_write",
+                "live_execution_orders",
+                "secrets",
+            ],
+            "verify": PATH_ORACLE_ACCURACY,
+        }
+        _PUBLIC_OPENAPI_CACHE = out
+        return out
 
 
 def public_docs_manifest() -> dict[str, Any]:

@@ -9,7 +9,7 @@
  * Doc: docs/TRUST_OS_DESIGN_SYSTEM.md
  */
 
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap");
+/* Self-hosted/system stack — no third-party font requests on public surfaces. */
 
 :root {
   /* Palette */

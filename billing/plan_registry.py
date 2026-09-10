@@ -27,6 +27,7 @@ PLAN_ALIASES: dict[str, str] = {
     "whale": "elite",
     "desk": "elite",
     "decision_desk": "elite",
+    "enterprise": "institutional",
     "inst": "institutional",
     "trust_os_institutional": "institutional",
 }

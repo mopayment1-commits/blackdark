@@ -690,6 +690,14 @@ async def wave_00_hardening_middleware(request: Request, call_next):
 
 
 @app.middleware("http")
+async def anonymous_visitor_auth_middleware(request: Request, call_next):
+    """AV §18 — server-side anonymous authorization boundary."""
+    from anonymous_visitor.authorization import enforce_anonymous_boundary
+
+    return await enforce_anonymous_boundary(request, call_next)
+
+
+@app.middleware("http")
 async def institutional_audit_middleware(request: Request, call_next):
     """Phase 1 — persist immutable audit log for every /api/ request."""
     path = request.url.path or ""
@@ -773,6 +781,13 @@ try:
     from api.routers.financial_data_security import router as financial_data_security_router
 
     app.include_router(financial_data_security_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.anonymous_visitor import router as anonymous_visitor_router
+
+    app.include_router(anonymous_visitor_router)
 except ImportError:
     pass
 

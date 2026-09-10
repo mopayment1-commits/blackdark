@@ -134,12 +134,13 @@ def detect_fake_precision(text: str | None) -> dict[str, Any]:
 
 
 def live_label_allowed(freshness: dict[str, Any] | None) -> dict[str, Any]:
-    """LIVE is forbidden when freshness missing or stale."""
+    """LIVE is forbidden when freshness missing, stale, or source event time unproven."""
     fr = freshness or {}
     state = str(fr.get("state") or fr.get("status") or "").lower()
     stale = bool(fr.get("stale")) or state == "stale"
     unknown = state in {"unknown", ""} and fr.get("freshness_ms") is None and fr.get("age_sec") is None and fr.get("age_seconds") is None
-    allowed = (not stale) and (not unknown)
+    proven_source = bool(fr.get("source_event_time") or fr.get("source_event_time_available"))
+    allowed = (not stale) and (not unknown) and (state != "live" or proven_source)
     return {
         "defect": "stale_data",
         "live_label_allowed": allowed,
