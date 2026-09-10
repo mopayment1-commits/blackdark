@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import os
 from collections.abc import AsyncIterator
+from pathlib import Path
 
 # Full-suite HTTP matrices (cap646/batch11/FDS) exceed default viral API RL (120/min).
 os.environ.setdefault("VIRAL_API_RL_PER_MIN", "100000")
@@ -57,6 +59,42 @@ def _bootstrap_signed_capacity():
             notes="SIGNED: pytest bootstrap — staging keeps CAP-644 registry slot deterministic",
         )
     yield
+
+
+_CANONICAL_GUARD_PATHS: tuple[Path, ...] = (Path("data/oracle_audit_chain.jsonl"),)
+
+
+def _sha256_file(path: Path) -> str | None:
+    if not path.is_file():
+        return None
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _isolate_canonical_mutable_data(tmp_path_factory):
+    """Redirect append-only ledgers to ephemeral paths — never mutate repo data/."""
+    import oracle_audit_chain as chain
+
+    root = tmp_path_factory.mktemp("canonical_isolation")
+    chain_path = root / "oracle_audit_chain.jsonl"
+    chain.CHAIN_PATH = chain_path
+    os.environ["ORACLE_AUDIT_CHAIN_PATH"] = str(chain_path)
+    yield
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _guard_canonical_data_unchanged_by_tests():
+    """Fail the session if tests mutate canonical production-like data files."""
+    before = {p: _sha256_file(p) for p in _CANONICAL_GUARD_PATHS}
+    yield
+    after = {p: _sha256_file(p) for p in _CANONICAL_GUARD_PATHS}
+    changed = [str(p) for p in _CANONICAL_GUARD_PATHS if before.get(p) != after.get(p)]
+    if changed:
+        raise AssertionError(
+            "Canonical data mutated during pytest session: "
+            + ", ".join(changed)
+            + ". Use tmp_path/monkeypatch for ledger writes."
+        )
 
 
 @pytest.fixture(scope="session", autouse=True)

@@ -753,7 +753,7 @@
                 <div class="tp-mini-inner bd-trust-pulse">
                     <div class="tp-mini-top">
                         <span class="tp-mini-label">{{ t('pulse.label') }}</span>
-                        <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">{{ t('pulse.live') }}</span></span>
+                        <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">{{ t('pulse.loading') }}</span></span>
                     </div>
                     <div class="tp-mini-action bd-tp-action WAIT" id="lpAction">—</div>
                     <div class="tp-mini-sym" id="lpSym">{{ t('pulse.loading') }}</div>
@@ -1277,10 +1277,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (!freshChip) return;
             const state = String(fresh.state || fresh.status || '').toLowerCase();
             const stale = fresh.stale === true || state === 'stale';
-            const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+            const provenSource = fresh.source_event_time_available === true || Boolean(fresh.source_event_time);
+            const knownFresh = provenSource && (state === 'fresh' || state === 'ok' || state === 'live');
             freshChip.textContent = stale
                 ? (fresh.label || 'Stale — not live')
-                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+                : (fresh.label || (knownFresh ? 'Live' : 'Source time unverified'));
             const wrap = document.getElementById('oracleFreshnessChip');
             if (!wrap) return;
             wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
@@ -1594,10 +1595,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (fl) {
                 const state = String(fresh.state || fresh.status || '').toLowerCase();
                 const stale = fresh.stale === true || state === 'stale';
-                const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+                const provenSource = fresh.source_event_time_available === true || Boolean(fresh.source_event_time);
+                const knownFresh = provenSource && (state === 'fresh' || state === 'ok' || state === 'live');
                 fl.textContent = stale
                     ? (fresh.label || 'Stale — not live')
-                    : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+                    : (fresh.label || (knownFresh ? 'Live' : 'Source time unverified'));
             }
             _lpRenderProof(p);
         }

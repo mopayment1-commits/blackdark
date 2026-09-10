@@ -1,8 +1,7 @@
 {
   "REAL_BROWSER_E2E_RERUN": true,
-  "PUBLIC_BROWSER_CONSOLE_ERRORS": [
-    "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
-  ],
+  "PUBLIC_BROWSER_CONSOLE_ERRORS": [],
+  "PUBLIC_BROWSER_HTTP_ERROR_RESPONSES": [],
   "PUBLIC_BROWSER_WARNINGS": [],
   "PUBLIC_BROWSER_UNEXPECTED_NETWORK_ERRORS": [],
   "ANONYMOUS_PAGE_PRIVATE_API_REQUESTS": [],

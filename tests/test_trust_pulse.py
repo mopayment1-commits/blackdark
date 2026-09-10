@@ -22,7 +22,11 @@ def test_norm_action_and_freshness():
     assert _norm_action("wait") == "WAIT"
     assert _norm_action("SELL") == "CAUTION"
     live = _freshness(8.0, stale=False)
-    assert live["status"] == "live"
+    assert live["status"] == "computed"
+    assert live["live_claim_allowed"] is False
+    proven = _freshness(8.0, stale=False, source_event_time="2026-09-10T08:00:00+00:00")
+    assert proven["status"] == "live"
+    assert proven["live_claim_allowed"] is True
     stale = _freshness(200.0, stale=True)
     assert stale["stale"] is True
 

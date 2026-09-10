@@ -7,6 +7,7 @@ execution, billing webhooks, admin, and key-management write paths.
 
 from __future__ import annotations
 
+import threading
 from typing import Any
 
 from anonymous_visitor.allowlist import (
@@ -115,33 +116,42 @@ def path_is_public(path: str) -> bool:
     return path_is_canonical_public_surface(path)
 
 
+_PUBLIC_OPENAPI_CACHE: dict[str, Any] | None = None
+_PUBLIC_OPENAPI_LOCK = threading.Lock()
+
+
 def filter_openapi_for_public(schema: dict[str, Any]) -> dict[str, Any]:
     """Return a copy of OpenAPI limited to evidence/read surfaces."""
-    out = dict(schema)
-    paths = schema.get("paths") or {}
-    public_paths = {p: spec for p, spec in paths.items() if path_is_public(p)}
-    out["paths"] = public_paths
-    out["info"] = {
-        **(schema.get("info") or {}),
-        "title": "BLACKDARK Public Evidence API",
-        "description": (
-            "Read/evidence endpoints only. Not a full execution platform. "
-            "Analytical tool — not financial advice. Verify on /oracle-accuracy."
-        ),
-    }
-    out["x-blackdark"] = {
-        "surface": "public_developer_docs",
-        "policy": "evidence_and_read_only",
-        "not_included": [
-            "admin",
-            "billing_webhooks",
-            "user_api_key_write",
-            "live_execution_orders",
-            "secrets",
-        ],
-        "verify": PATH_ORACLE_ACCURACY,
-    }
-    return out
+    global _PUBLIC_OPENAPI_CACHE
+    with _PUBLIC_OPENAPI_LOCK:
+        if _PUBLIC_OPENAPI_CACHE is not None:
+            return _PUBLIC_OPENAPI_CACHE
+        out = dict(schema)
+        paths = schema.get("paths") or {}
+        public_paths = {p: spec for p, spec in paths.items() if path_is_public(p)}
+        out["paths"] = public_paths
+        out["info"] = {
+            **(schema.get("info") or {}),
+            "title": "BLACKDARK Public Evidence API",
+            "description": (
+                "Read/evidence endpoints only. Not a full execution platform. "
+                "Analytical tool — not financial advice. Verify on /oracle-accuracy."
+            ),
+        }
+        out["x-blackdark"] = {
+            "surface": "public_developer_docs",
+            "policy": "evidence_and_read_only",
+            "not_included": [
+                "admin",
+                "billing_webhooks",
+                "user_api_key_write",
+                "live_execution_orders",
+                "secrets",
+            ],
+            "verify": PATH_ORACLE_ACCURACY,
+        }
+        _PUBLIC_OPENAPI_CACHE = out
+        return out
 
 
 def public_docs_manifest() -> dict[str, Any]:

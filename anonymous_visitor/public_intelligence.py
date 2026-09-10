@@ -81,7 +81,7 @@ async def build_decision_truth_pulse(*, symbol: str = "BTC") -> dict[str, Any]:
             "detail": type(exc).__name__,
         }
     fresh_raw = pulse.get("freshness") or {}
-    source_event = fresh_raw.get("source_event_time") or fresh_raw.get("as_of") or fresh_raw.get("timestamp")
+    source_event = fresh_raw.get("source_event_time")
     freshness = _freshness_envelope(
         widget="Decision Truth",
         upstream_provider="trust_pulse",
@@ -194,7 +194,7 @@ async def build_market_surface() -> dict[str, Any]:
 
         pack = await fetch_binance_market_overview_pack(limit=8) or {}
         surface["assets"] = pack.get("overview") or pack.get("movers") or []
-        surface["freshness"] = pack.get("freshness") or {"status": "live"}
+        surface["freshness"] = pack.get("freshness") or {"status": "unknown", "label": "Source time unverified"}
     except Exception:
         surface["degraded_state"] = "DATA DELAYED"
     body = {

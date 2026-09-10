@@ -70,9 +70,10 @@ def test_stream_controls_explicit_list():
 
 def test_bandit_sha1_usedforsecurity_only():
     import subprocess
+    import sys
 
     proc = subprocess.run(
-        ["bandit", "-q", "-ll", "identity/breached_passwords.py"],
+        [sys.executable, "-m", "bandit", "-q", "-ll", "identity/breached_passwords.py"],
         capture_output=True,
         text=True,
     )
