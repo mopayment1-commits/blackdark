@@ -24,10 +24,21 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
 
     if style == "none":
         return fn() if not inspect.iscoroutinefunction(fn) else await fn()
+    if style == "asset":
+        return fn(asset=symbol) if not inspect.iscoroutinefunction(fn) else await fn(asset=symbol)
+    if style == "query":
+        return fn(query=symbol) if not inspect.iscoroutinefunction(fn) else await fn(query=symbol)
+    if style == "raw":
+        chain = params.get("chain")
+        if chain is not None:
+            return fn(symbol, chain=chain) if not inspect.iscoroutinefunction(fn) else await fn(symbol, chain=chain)
+        return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
     if style == "symbol":
         sig = inspect.signature(fn)
         if "symbol" in sig.parameters:
             return fn(symbol=symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol=symbol)
+        if "asset" in sig.parameters:
+            return fn(asset=symbol) if not inspect.iscoroutinefunction(fn) else await fn(asset=symbol)
         if "limit" in sig.parameters:
             return fn(limit=int(params.get("limit") or 5)) if not inspect.iscoroutinefunction(fn) else await fn(limit=int(params.get("limit") or 5))
         return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
@@ -55,7 +66,11 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         email = str(params.get("email") or "anonymous")
         return await fn(user_email=email) if "user_email" in inspect.signature(fn).parameters else fn(email)
     if style == "assets":
-        return await fn(assets=[symbol], min_samples=1)
+        sig = inspect.signature(fn)
+        kw: dict[str, Any] = {"assets": [symbol]}
+        if "min_samples" in sig.parameters:
+            kw["min_samples"] = int(params.get("min_samples") or 1)
+        return await fn(**kw) if inspect.iscoroutinefunction(fn) else fn(**kw)
     if style == "books":
         sig = inspect.signature(fn)
         if len(sig.parameters) == 0:
