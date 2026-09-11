@@ -1,0 +1,690 @@
+{
+  "schema_version": "1.0",
+  "spec_file": "docs/BLACKDARK_INSTITUTIONAL_DATA_INTELLIGENCE_GOVERNANCE_SPEC_2026_FINAL_v1.md",
+  "requirements": [
+    "DIG-001",
+    "DIG-002",
+    "DIG-003",
+    "DIG-004",
+    "DIG-005",
+    "DIG-006",
+    "DIG-007",
+    "DIG-008",
+    "DIG-009",
+    "DIG-010",
+    "DIG-011",
+    "DIG-012",
+    "DIG-013",
+    "DIG-014",
+    "DIG-015",
+    "DIG-016",
+    "DIG-017",
+    "DIG-018",
+    "DIG-019",
+    "DIG-020",
+    "DIG-021",
+    "DIG-022",
+    "DIG-023",
+    "DIG-024",
+    "DIG-025",
+    "DIG-026",
+    "DIG-027",
+    "DIG-028",
+    "DIG-029",
+    "DIG-030",
+    "DIG-031",
+    "DIG-032",
+    "DIG-033",
+    "DIG-034",
+    "DIG-035",
+    "DIG-036",
+    "DIG-037",
+    "DIG-038",
+    "DIG-039",
+    "DIG-040",
+    "DIG-041",
+    "DIG-042",
+    "DIG-043",
+    "DIG-044",
+    "DIG-045",
+    "DIG-046",
+    "DIG-047",
+    "DIG-048",
+    "DIG-049",
+    "DIG-050",
+    "DIG-051",
+    "DIG-052",
+    "DIG-053",
+    "DIG-054",
+    "DIG-055",
+    "DIG-056",
+    "DIG-057",
+    "DIG-058",
+    "DIG-059",
+    "DIG-060"
+  ],
+  "bindings": {
+    "DIG-001": {
+      "reuse": "IMPROVE",
+      "title": "Five-level audit Level 1 source authority",
+      "module_paths": [
+        "data_governance/registry.py",
+        "data_governance/rights.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-002": {
+      "reuse": "REUSE",
+      "title": "Five-level audit Level 2 ingestion normalization",
+      "module_paths": [
+        "data_governance/normalization.py",
+        "data_governance/streaming.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-003": {
+      "reuse": "REUSE",
+      "title": "Five-level audit Level 3 quality freshness reliability",
+      "module_paths": [
+        "data_governance/freshness.py",
+        "data_governance/quality.py",
+        "data_governance/reliability.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-004": {
+      "reuse": "IMPROVE",
+      "title": "Five-level audit Level 4 provenance methodology audit",
+      "module_paths": [
+        "data_governance/provenance.py",
+        "data_governance/methodology.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-005": {
+      "reuse": "IMPROVE",
+      "title": "Five-level audit Level 5 decision safety",
+      "module_paths": [
+        "data_governance/gates.py",
+        "decision_truth/admission.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-006": {
+      "reuse": "BUILD",
+      "title": "Standards and legal applicability register",
+      "module_paths": [
+        "data_governance/legal.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-007": {
+      "reuse": "IMPROVE",
+      "title": "Free vs paid source strategy",
+      "module_paths": [
+        "data_governance/registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-008": {
+      "reuse": "BUILD",
+      "title": "Free source risk register",
+      "module_paths": [
+        "data_governance/registry.py",
+        "data_governance/fallback.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-009": {
+      "reuse": "IMPROVE",
+      "title": "No-payment viable stack",
+      "module_paths": [
+        "data_governance/registry.py",
+        "data_sources_registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-010": {
+      "reuse": "REUSE",
+      "title": "WebSocket-first realtime architecture",
+      "module_paths": [
+        "data_governance/streaming.py",
+        "exchange_ws_hub.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-011": {
+      "reuse": "REUSE",
+      "title": "REST bootstrap backfill recovery",
+      "module_paths": [
+        "blackdark/data/jobs.py",
+        "data_governance/streaming.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-012": {
+      "reuse": "IMPROVE",
+      "title": "Chain event-driven update",
+      "module_paths": [
+        "data_governance/streaming.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-013": {
+      "reuse": "IMPROVE",
+      "title": "Release event-driven non-market data",
+      "module_paths": [
+        "data_governance/slo.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-014": {
+      "reuse": "BUILD",
+      "title": "Freshness classes T0-T6",
+      "module_paths": [
+        "data_governance/freshness.py",
+        "data_governance/slo.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-015": {
+      "reuse": "BUILD",
+      "title": "L1 L2 L3 selective policy",
+      "module_paths": [
+        "data_governance/l2_l3.py",
+        "data_governance/order_book.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-016": {
+      "reuse": "BUILD",
+      "title": "Historical depth policy",
+      "module_paths": [
+        "data_governance/historical_depth.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-017": {
+      "reuse": "REUSE",
+      "title": "Canonical normalization contract",
+      "module_paths": [
+        "data_governance/normalization.py",
+        "blackdark/canonical/layer.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-018": {
+      "reuse": "BUILD",
+      "title": "Raw immutable landing zone",
+      "module_paths": [
+        "data_governance/raw_landing.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-019": {
+      "reuse": "IMPROVE",
+      "title": "Provenance lineage contract",
+      "module_paths": [
+        "data_governance/provenance.py",
+        "bd_platform/v4_v2_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-020": {
+      "reuse": "BUILD",
+      "title": "Methodology cards registry",
+      "module_paths": [
+        "data_governance/methodology.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-021": {
+      "reuse": "REUSE",
+      "title": "Quality gate scoring",
+      "module_paths": [
+        "data_governance/quality.py",
+        "failure/quality.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-022": {
+      "reuse": "BUILD",
+      "title": "Cross-source reconciliation",
+      "module_paths": [
+        "data_governance/reconciliation.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-023": {
+      "reuse": "BUILD",
+      "title": "Source reliability engineering",
+      "module_paths": [
+        "data_governance/reliability.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-024": {
+      "reuse": "BUILD",
+      "title": "SLA vs internal SLO registry",
+      "module_paths": [
+        "data_governance/slo.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-025": {
+      "reuse": "BUILD",
+      "title": "Source redundancy failover",
+      "module_paths": [
+        "data_governance/fallback.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-026": {
+      "reuse": "BUILD",
+      "title": "Rate limit quota governance",
+      "module_paths": [
+        "data_governance/rate_limit.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-027": {
+      "reuse": "REUSE",
+      "title": "Licensing redistribution gate",
+      "module_paths": [
+        "data_governance/rights.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-028": {
+      "reuse": "REUSE",
+      "title": "User data separation",
+      "module_paths": [
+        "data_governance/retention.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-029": {
+      "reuse": "BUILD",
+      "title": "GLBA applicability register",
+      "module_paths": [
+        "data_governance/legal.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-030": {
+      "reuse": "BUILD",
+      "title": "Data retention tiering",
+      "module_paths": [
+        "data_governance/retention.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-031": {
+      "reuse": "BUILD",
+      "title": "Schema evolution controls",
+      "module_paths": [
+        "data_governance/schema_evolution.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-032": {
+      "reuse": "BUILD",
+      "title": "Clock timestamp integrity",
+      "module_paths": [
+        "data_governance/timestamps.py",
+        "timezone/format.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-033": {
+      "reuse": "IMPROVE",
+      "title": "On-chain finality reorg integrity",
+      "module_paths": [
+        "data_governance/streaming.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-034": {
+      "reuse": "REUSE",
+      "title": "Historical bias controls",
+      "module_paths": [
+        "bd_platform/v4_v2_persistent_registries.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-035": {
+      "reuse": "BUILD",
+      "title": "Today's Decision Surface",
+      "module_paths": [
+        "data_governance/decision_surface.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-036": {
+      "reuse": "IMPROVE",
+      "title": "Material change engine hooks",
+      "module_paths": [
+        "decision_truth/change.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-037": {
+      "reuse": "REUSE",
+      "title": "Decision expiry integration",
+      "module_paths": [
+        "decision_truth/half_life.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-038": {
+      "reuse": "IMPROVE",
+      "title": "Multi-dimensional data confidence",
+      "module_paths": [
+        "data_governance/gates.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-039": {
+      "reuse": "IMPROVE",
+      "title": "Free-first launch architecture",
+      "module_paths": [
+        "data_governance/registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-040": {
+      "reuse": "IMPROVE",
+      "title": "Vendor exit portability",
+      "module_paths": [
+        "data_governance/normalization.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-041": {
+      "reuse": "BUILD",
+      "title": "Production-critical source redundancy",
+      "module_paths": [
+        "data_governance/fallback.py",
+        "data_governance/registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-042": {
+      "reuse": "BUILD",
+      "title": "Data operations observability",
+      "module_paths": [
+        "data_governance/observability.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-043": {
+      "reuse": "BUILD",
+      "title": "Source health to decision safety wiring",
+      "module_paths": [
+        "data_governance/gates.py",
+        "decision_enrichment.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-044": {
+      "reuse": "IMPROVE",
+      "title": "Critical decision replay auditability",
+      "module_paths": [
+        "data_governance/raw_landing.py",
+        "data_governance/provenance.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-045": {
+      "reuse": "BUILD",
+      "title": "Reliability chaos test matrix",
+      "module_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-046": {
+      "reuse": "IMPROVE",
+      "title": "Canonical source registry schema",
+      "module_paths": [
+        "data_governance/registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-047": {
+      "reuse": "BUILD",
+      "title": "Required source class contracts",
+      "module_paths": [
+        "data_governance/registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-048": {
+      "reuse": "BUILD",
+      "title": "Source qualification score",
+      "module_paths": [
+        "data_governance/reliability.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-049": {
+      "reuse": "IMPROVE",
+      "title": "Minimum no-payment viable stack",
+      "module_paths": [
+        "data_governance/registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-050": {
+      "reuse": "IMPROVE",
+      "title": "Paid data value case architecture",
+      "module_paths": [
+        "data_governance/registry.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-051": {
+      "reuse": "BUILD",
+      "title": "User-facing provenance standard",
+      "module_paths": [
+        "data_governance/decision_surface.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-052": {
+      "reuse": "REUSE",
+      "title": "Data use decision disclosure",
+      "module_paths": [
+        "regulatory_compliance_guard.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-053": {
+      "reuse": "BUILD",
+      "title": "Mandatory implementation gates",
+      "module_paths": [
+        "data_governance/pipeline.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-054": {
+      "reuse": "BUILD",
+      "title": "Anti-bypass gates",
+      "module_paths": [
+        "data_governance/gates.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-055": {
+      "reuse": "BUILD",
+      "title": "No-deferral rule enforcement",
+      "module_paths": [
+        "data_governance/pipeline.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-056": {
+      "reuse": "BUILD",
+      "title": "Live verification register separation",
+      "module_paths": [
+        "bd_platform/data_governance_source_driven_engineering.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-057": {
+      "reuse": "BUILD",
+      "title": "Implementation priority P0",
+      "module_paths": [
+        "data_governance/pipeline.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-058": {
+      "reuse": "BUILD",
+      "title": "Thirteen operational questions answered",
+      "module_paths": [
+        "data_governance/pipeline.py",
+        "data_governance/decision_surface.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-059": {
+      "reuse": "BUILD",
+      "title": "Cursor execution rule compliance",
+      "module_paths": [
+        "scripts/data_governance_final_reconciliation.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    },
+    "DIG-060": {
+      "reuse": "BUILD",
+      "title": "Data Truth Fabric final integration",
+      "module_paths": [
+        "data_governance/pipeline.py",
+        "decision_enrichment.py",
+        "decision_truth/admission.py"
+      ],
+      "test_paths": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ]
+    }
+  }
+}
