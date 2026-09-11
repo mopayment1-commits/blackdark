@@ -72,9 +72,15 @@ def rebuild_ledger(closed_through: int) -> dict[str, Any]:
             per = rtms[batch_num].get("per_id", {}).get(str(cid))
             if per:
                 legacy = per.get("legacy_status") or per.get("status") or legacy
-                eng = per.get("engineering_status", eng)
-                live = per.get("live_status", live)
-                ass = per.get("assurance_status", ass)
+                if per.get("engineering_status"):
+                    eng = per.get("engineering_status", eng)
+                    live = per.get("live_status", live)
+                    ass = per.get("assurance_status", ass)
+                else:
+                    tri = legacy_status_to_v6(legacy, batch_closed=True, runtime_success=True)
+                    eng = tri["engineering_status"]
+                    live = tri["live_status"]
+                    ass = tri["assurance_status"]
         elif batch_num <= closed_through:
             tri = legacy_status_to_v6("NOT_COMPLETE", batch_closed=False)
             eng, live, ass = tri["engineering_status"], tri["live_status"], tri["assurance_status"]
