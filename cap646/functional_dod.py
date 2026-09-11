@@ -100,6 +100,16 @@ async def verify_functional(
         params={"symbol": "BTC", "tier": "whale"},
     )
 
+    binding_source = result.get("binding_source") or ""
+    if binding_source in {"batch_range_production_spine", "track_default"}:
+        return {
+            "id": capability_id,
+            "capability": name,
+            "verdict": "FUNCTIONALLY_INCOMPLETE",
+            "checks": {"domain_logic": False},
+            "failure_reason": f"generic_binding:{binding_source}",
+        }
+
     failover_reason = _reject_failover(result)
     domain_reason = _domain_check(capability_id, name, row.get("track", ""), result)
     ui = user_surface_for(capability_id) if capability_id in USER_FACING else None

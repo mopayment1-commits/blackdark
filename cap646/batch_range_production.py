@@ -47,10 +47,8 @@ def batch_range_entrypoint(capability_id: int) -> str:
 
 def _stamp(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
     batch = official_batch_name(capability_id)
-    result["backend_module"] = "cap646.batch_range_production"
-    result["backend_entrypoint"] = batch_range_entrypoint(capability_id)
-    result["binding_source"] = "batch_range_production_spine"
-    result["production_spine"] = batch
+    # Preserve semantic binding from execute_binding — do not mask with generic spine (v6 §2.1.3)
+    result.setdefault("production_spine", batch)
     result.setdefault("official_batch", batch)
     return result
 
@@ -75,12 +73,9 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
     result = await execute_binding(capability_id, params=params)
 
+    # v6: keyword_fallback rescue is NOT PASS_ENGINEERING — do not mask failures
     if not result.get("success"):
-        from cap646.batch_failure_rescue import rescue_capability
-
-        rescued = await rescue_capability(capability_id, params=params, prior=result)
-        if rescued.get("success"):
-            result = rescued
+        result.setdefault("error", "binding_execution_failed")
 
     result.setdefault("capability", row["capability"])
     result.setdefault("track", row["track"])

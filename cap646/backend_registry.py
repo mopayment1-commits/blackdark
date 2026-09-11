@@ -135,30 +135,6 @@ def _register_batch03_bindings() -> None:
 _register_batch03_bindings()
 
 
-def _register_batch_range_bindings() -> None:
-    from cap646.batch_range_production import BATCH_RANGE_IDS, batch_range_entrypoint
-
-    skip = frozenset({55, 56, 59, 60, 103, 129})  # routed via batch01/02 overlap spines
-    for cid in BATCH_RANGE_IDS:
-        if cid in skip or cid in _EXPLICIT_BINDINGS:
-            continue
-        row = catalog_by_id().get(cid)
-        if not row:
-            continue
-        surface = _slug(row.get("capability", f"cap_{cid}"))
-        _EXPLICIT_BINDINGS[cid] = BackendBinding(
-            cid,
-            "cap646.batch_range_production",
-            batch_range_entrypoint(cid),
-            surface,
-            "symbol",
-            "batch_range_production_spine",
-        )
-
-
-_register_batch_range_bindings()
-
-
 # Map gap-matrix component stems → canonical import path + entrypoint
 _COMPONENT_BINDINGS: dict[str, tuple[str, str, str]] = {
     "market_context.py": ("market_context", "probe_price_sources", "symbol"),
@@ -310,14 +286,6 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
 )
 
 
-def _keyword_binding(name: str) -> tuple[str, str, str] | None:
-    nl = name.lower()
-    for keys, binding in _KEYWORD_RULES:
-        if any(k in nl for k in keys):
-            return binding
-    return None
-
-
 def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
     for raw in components:
         stem = raw.strip()
@@ -327,6 +295,51 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
         if base in _COMPONENT_BINDINGS:
             return _COMPONENT_BINDINGS[base]
     return None
+
+
+def _keyword_binding(name: str) -> tuple[str, str, str] | None:
+    nl = name.lower()
+    for keys, binding in _KEYWORD_RULES:
+        if any(k in nl for k in keys):
+            return binding
+    return None
+
+
+def _semantic_binding_for(capability_id: int) -> BackendBinding:
+    """Resolve goal-specific binding — never the generic batch_range wrapper (v6 §2.1.3)."""
+    row = catalog_by_id()[capability_id]
+    matrix = matrix_by_id().get(capability_id, {})
+    name = row["capability"]
+    track = row["track"]
+    surface = _slug(name)
+
+    comp = _component_binding(matrix.get("existing_code_components") or [])
+    if comp:
+        mod, ep, ps = comp
+        return BackendBinding(capability_id, mod, ep, surface, ps, "gap_matrix_component")
+
+    kw = _keyword_binding(name)
+    if kw:
+        mod, ep, ps = kw
+        return BackendBinding(capability_id, mod, ep, surface, ps, "capability_keyword")
+
+    mod, ep, ps = _TRACK_DEFAULTS.get(track, _TRACK_DEFAULTS["T04"])
+    return BackendBinding(capability_id, mod, ep, surface, ps, "track_default")
+
+
+def _register_batch_range_bindings() -> None:
+    from cap646.batch_range_production import BATCH_RANGE_IDS
+
+    skip = frozenset({55, 56, 59, 60, 103, 129})
+    for cid in BATCH_RANGE_IDS:
+        if cid in skip or cid in _EXPLICIT_BINDINGS:
+            continue
+        if not catalog_by_id().get(cid):
+            continue
+        _EXPLICIT_BINDINGS[cid] = _semantic_binding_for(cid)
+
+
+_register_batch_range_bindings()
 
 
 @lru_cache(maxsize=978)
