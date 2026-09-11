@@ -329,9 +329,25 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
     return None
 
 
-@lru_cache(maxsize=646)
+@lru_cache(maxsize=978)
 def resolve_binding(capability_id: int) -> BackendBinding:
     from cap646.extension_capabilities import is_extension_id
+
+    if 647 <= capability_id <= 826:
+        try:
+            from cap978.extension_registry import resolve_extension_binding
+
+            ext = resolve_extension_binding(capability_id)
+            return BackendBinding(
+                ext.capability_id,
+                ext.module,
+                ext.entrypoint,
+                ext.surface,
+                ext.param_style,
+                ext.source or "cap978_extension_registry",
+            )
+        except Exception:
+            pass
 
     if is_extension_id(capability_id):
         return BackendBinding(

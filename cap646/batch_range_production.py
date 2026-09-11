@@ -59,11 +59,20 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
     if capability_id not in BATCH_RANGE_IDS:
         raise ValueError(f"capability {capability_id} is not in batch04–17 production spine")
 
-    from cap646.backend_executor import execute_binding
     from cap646.catalog import catalog_by_id
 
     params = dict(params or {})
     row = catalog_by_id()[capability_id]
+
+    if capability_id >= 647:
+        from cap978.verify import execute_extension
+
+        result = await execute_extension(capability_id, params=params)
+        if result.get("success"):
+            return _stamp(result, capability_id)
+
+    from cap646.backend_executor import execute_binding
+
     result = await execute_binding(capability_id, params=params)
 
     if not result.get("success"):

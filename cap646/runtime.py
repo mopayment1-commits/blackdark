@@ -96,8 +96,20 @@ async def execute_capability(
 ) -> dict[str, Any]:
     params = dict(params or {})
     row = catalog_by_id().get(capability_id)
+    if not row and 647 <= capability_id <= 826:
+        try:
+            from cap978.catalog import catalog_by_id as catalog978_by_id
+
+            row = catalog978_by_id().get(capability_id)
+        except Exception:
+            row = None
     if not row:
         return ai_compliance_footer({"success": False, "error": "unknown_capability_id", "capability_id": capability_id})
+
+    if capability_id >= 647 and capability_id <= 826 and capability_id not in BATCH_RANGE_IDS:
+        from cap978.verify import execute_extension
+
+        return await execute_extension(capability_id, user=user, params=params)
 
     if is_external(capability_id):
         return ai_compliance_footer(
