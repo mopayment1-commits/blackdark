@@ -1,15 +1,14 @@
 {
-  "generated_at": "2026-09-11T22:00:27.945346+00:00",
+  "generated_at": "2026-09-11T22:12:14.358764+00:00",
   "governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
   "run": "Run 021 — continuous batch closure",
   "scope": "IDs 1–826",
   "row_count": 826,
-  "closed_batches_through": 16,
+  "closed_batches_through": 17,
   "summary": {
     "engineering_status": {
-      "PARTIAL": 774,
-      "PASS_ENGINEERING": 26,
-      "NOT_COMPLETE": 26
+      "PARTIAL": 800,
+      "PASS_ENGINEERING": 26
     },
     "live_status": {
       "NOT_CLAIMED": 826
@@ -7228,8 +7227,8 @@
       "id": 801,
       "capability": "CAP-801",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7237,8 +7236,8 @@
       "id": 802,
       "capability": "CAP-802",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7246,8 +7245,8 @@
       "id": 803,
       "capability": "CAP-803",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7255,8 +7254,8 @@
       "id": 804,
       "capability": "CAP-804",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7264,8 +7263,8 @@
       "id": 805,
       "capability": "CAP-805",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7273,8 +7272,8 @@
       "id": 806,
       "capability": "CAP-806",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7282,8 +7281,8 @@
       "id": 807,
       "capability": "CAP-807",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7291,8 +7290,8 @@
       "id": 808,
       "capability": "CAP-808",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7300,8 +7299,8 @@
       "id": 809,
       "capability": "CAP-809",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7309,8 +7308,8 @@
       "id": 810,
       "capability": "CAP-810",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7318,8 +7317,8 @@
       "id": 811,
       "capability": "CAP-811",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7327,8 +7326,8 @@
       "id": 812,
       "capability": "CAP-812",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7336,8 +7335,8 @@
       "id": 813,
       "capability": "CAP-813",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7345,8 +7344,8 @@
       "id": 814,
       "capability": "CAP-814",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7354,8 +7353,8 @@
       "id": 815,
       "capability": "CAP-815",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7363,8 +7362,8 @@
       "id": 816,
       "capability": "CAP-816",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7372,8 +7371,8 @@
       "id": 817,
       "capability": "CAP-817",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7381,8 +7380,8 @@
       "id": 818,
       "capability": "CAP-818",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7390,8 +7389,8 @@
       "id": 819,
       "capability": "CAP-819",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7399,8 +7398,8 @@
       "id": 820,
       "capability": "CAP-820",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7408,8 +7407,8 @@
       "id": 821,
       "capability": "CAP-821",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7417,8 +7416,8 @@
       "id": 822,
       "capability": "CAP-822",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7426,8 +7425,8 @@
       "id": 823,
       "capability": "CAP-823",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7435,8 +7434,8 @@
       "id": 824,
       "capability": "CAP-824",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7444,8 +7443,8 @@
       "id": 825,
       "capability": "CAP-825",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -7453,8 +7452,8 @@
       "id": 826,
       "capability": "CAP-826",
       "official_batch": "batch17",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     }
