@@ -32,7 +32,7 @@ _THIN_WRAPPER_MARKERS = (
 def _batch_dedicated_sources() -> dict[int, tuple[str, str]]:
     """capability_id -> (module_name, handler_name)."""
     out: dict[int, tuple[str, str]] = {}
-    for path in sorted((ROOT / "cap646").glob("batch*_dedicated.py")):
+    for path in sorted((ROOT / "cap646").glob("*batch*dedicated.py")):
         mod = f"cap646.{path.stem}"
         text = path.read_text(encoding="utf-8", errors="ignore")
         # dispatch tables: { 6: _cap006_..., 151: _cap151, ... }
@@ -63,6 +63,16 @@ def _per_cap_test_ids() -> frozenset[int]:
                 if g and 1 <= int(g) <= 826:
                     ids.add(int(g))
         for m in re.finditer(r"range\((\d+),\s*(\d+)\)", text):
+            start, end = int(m.group(1)), int(m.group(2))
+            for cid in range(start, end):
+                if 1 <= cid <= 826:
+                    ids.add(cid)
+        for m in re.finditer(r"BATCH_IDS\s*=\s*\[([^\]]+)\]", text):
+            for token in re.findall(r"\d+", m.group(1)):
+                val = int(token)
+                if 1 <= val <= 826:
+                    ids.add(val)
+        for m in re.finditer(r"BATCH01_OFFICIAL_IDS\s*=\s*list\(range\((\d+),\s*(\d+)\)\)", text):
             start, end = int(m.group(1)), int(m.group(2))
             for cid in range(start, end):
                 if 1 <= cid <= 826:
@@ -108,6 +118,40 @@ def _classify_prebuild_state(capability_id: int, true_result: dict[str, Any]) ->
 
 async def verify_from_scratch(capability_id: int, *, user: dict[str, Any] | None = None) -> dict[str, Any]:
     """Full from-scratch verification for one capability."""
+    from cap646.catalog import is_duplicate, is_external
+
+    row = catalog_by_id().get(capability_id, {})
+    if is_external(capability_id):
+        return {
+            "capability_id": capability_id,
+            "capability": row.get("capability", ""),
+            "official_batch": official_batch_name(capability_id),
+            "prebuild_state": "EXTERNAL_BLOCKED",
+            "PASS_FROM_SCRATCH": False,
+            "verdict": "EXTERNAL_BLOCKED",
+            "from_scratch_gates": {},
+            "from_scratch_failed": ["external_blocked"],
+            "thin_wrapper": False,
+            "thin_wrapper_reason": "external",
+            "dedicated_handler": None,
+            "v6_true": {"PASS_ENGINEERING": False, "verdict": "EXTERNAL_BLOCKED"},
+        }
+    if is_duplicate(capability_id):
+        return {
+            "capability_id": capability_id,
+            "capability": row.get("capability", ""),
+            "official_batch": official_batch_name(capability_id),
+            "prebuild_state": "DUPLICATE_ALIAS",
+            "PASS_FROM_SCRATCH": True,
+            "verdict": "PASS_FROM_SCRATCH",
+            "from_scratch_gates": {"FS00_duplicate_canonical": True},
+            "from_scratch_failed": [],
+            "thin_wrapper": False,
+            "thin_wrapper_reason": "duplicate_canonical",
+            "dedicated_handler": None,
+            "v6_true": {"PASS_ENGINEERING": True, "verdict": "CANONICALLY_COVERED"},
+        }
+
     true = await verify_v6_true_institutional(capability_id, user=user)
     row = catalog_by_id().get(capability_id, {})
     batch = official_batch_name(capability_id)

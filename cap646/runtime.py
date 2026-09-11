@@ -19,9 +19,7 @@ from cap646.handlers.market import handle_market_capability
 from cap646.handlers.onchain import handle_onchain_capability
 from cap646.handlers.platform import handle_platform_capability
 from cap646.handlers.verified import handle_verified_capability
-from cap646.batch01_production import BATCH01_IDS
-from cap646.batch02_production import BATCH02_IDS
-from cap646.batch03_production import BATCH03_IDS
+from cap646.batch_constants import TOTAL_CAPABILITIES
 from cap646.batch_range_production import BATCH_RANGE_IDS
 from cap646.batch_spine import execute_and_enrich_batch
 from cap646.handlers.batch01 import handle_batch01_capability
@@ -31,7 +29,7 @@ from cap646.handlers.batch_range import handle_batch_range_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
-OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS | BATCH_RANGE_IDS
+OPTION_A_IDS = frozenset(range(1, TOTAL_CAPABILITIES + 1))
 WAVE_D_SET = set(WAVE_D)
 
 
@@ -139,21 +137,6 @@ async def execute_capability(
 
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
-    if capability_id in BATCH01_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch01_capability, capability_id, row=row, params=params
-        )
-
-    if capability_id in BATCH02_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch02_capability, capability_id, row=row, params=params
-        )
-
-    if capability_id in BATCH03_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch03_capability, capability_id, row=row, params=params
-        )
-
     if is_duplicate(capability_id) and target_id != capability_id:
         canonical = await execute_capability(
             target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement
@@ -163,13 +146,17 @@ async def execute_capability(
         canonical["classification"] = "DUPLICATE/ALREADY_COVERED"
         return canonical
 
+    if 1 <= capability_id <= TOTAL_CAPABILITIES:
+        from cap646.handlers.official_batch import handle_official_batch_capability
+
+        return await execute_and_enrich_batch(
+            handle_official_batch_capability, capability_id, row=row, params=params
+        )
+
     if capability_id in BATCH_RANGE_IDS:
         return await execute_and_enrich_batch(
             handle_batch_range_capability, capability_id, row=row, params=params
         )
-
-    # Batch spine is reached only via direct BATCH0x_IDS (L112-125) or duplicate
-    # recursion (L128-133). No further target_id batch delegation exists in catalog.
 
     if capability_id in FREE_TIER_BASE_IDS:
         free_result = await execute_free_tier_capability(capability_id, params=params)

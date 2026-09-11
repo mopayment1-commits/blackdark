@@ -460,6 +460,29 @@ _register_batch_range_dedicated_bindings()
 _register_batch01_legacy_extension_bindings()
 
 
+def _register_official_batch_bindings() -> None:
+    """SSOT: all 826 capabilities route through official 25-cap batch production spine."""
+    from cap646.batch_constants import TOTAL_CAPABILITIES
+    from cap646.official_batch_production import official_entrypoint
+
+    for cid in range(1, TOTAL_CAPABILITIES + 1):
+        row = catalog_by_id().get(cid)
+        if not row:
+            continue
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.official_batch_production",
+            official_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
+
+
+_register_official_batch_bindings()
+
+
 @lru_cache(maxsize=978)
 def resolve_semantic_backend_binding(capability_id: int) -> BackendBinding:
     """Underlying semantic module binding — used by dedicated wrappers only."""
@@ -475,7 +498,7 @@ def resolve_semantic_backend_binding(capability_id: int) -> BackendBinding:
         from cap978.extension_registry import resolve_extension_binding
 
         return resolve_extension_binding(capability_id)
-    return resolve_binding(capability_id)
+    return _semantic_binding_for(capability_id)
 
 
 @lru_cache(maxsize=978)
