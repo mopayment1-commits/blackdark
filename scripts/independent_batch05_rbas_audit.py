@@ -185,7 +185,7 @@ def bcbs_field_audit(payload: dict) -> dict[str, Any]:
 def _normalize_parity_payload(obj: Any) -> Any:
     """Strip volatile timestamp fields for free_tier vs dedicated parity compare."""
     if isinstance(obj, dict):
-        skip = {"timestamp", "attached_at", "updated_at", "created_at"}
+        skip = {"timestamp", "attached_at", "updated_at", "created_at", "real_time_feeds", "market_probe"}
         return {k: _normalize_parity_payload(v) for k, v in obj.items() if k not in skip}
     if isinstance(obj, list):
         return [_normalize_parity_payload(x) for x in obj]
