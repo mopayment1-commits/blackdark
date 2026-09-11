@@ -24,3 +24,8 @@ ABORT Batch12: closure failed exit=1
 === START Batch 13 (601-650) ===
 Batch12 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16012 | ThreeWay=OK
 === DONE Batch 12 tag=batch12-closure-verified ===
+ABORT Batch13: closure failed exit=1
+=== START Batch 13 (601-650) ===
+=== START Batch 13 (601-650) ===
+ABORT Batch13: closure failed exit=1
+=== PAUSED Run021 — keyword_fallback reconciliation 2026-09-11T20:03:18Z ===
