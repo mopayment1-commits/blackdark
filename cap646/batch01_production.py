@@ -13,15 +13,10 @@ OFFICIAL_BATCH01_IDS: frozenset[int] = frozenset(range(1, 51))
 
 LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
     {
-        55,
-        56,
-        59,
-        60,
-        103,
-        129,
-        175,
-        214,
-        245,
+        # 55, 56, 59, 60 removed Run 007 — official batch02; see CROSS-SPINE-001
+        # 103, 129 removed Run 008 — official batch03 (101–150); see CROSS-SPINE-001
+        # 175 removed Run 011 — official batch04 (151–200); see CROSS-SPINE-001 / RBAS-001
+        # 214, 245 removed Run 013 — official batch05 (201–250); see CROSS-SPINE-001 / WF-027
         584,
         629,
         630,
@@ -35,13 +30,13 @@ LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
 BATCH01_IDS: frozenset[int] = OFFICIAL_BATCH01_IDS | LEGACY_BATCH01_EXTENSION_IDS
 
 _BATCH01_FREE_TIER = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45})
-_BATCH01_ALERTS = frozenset({60, 629, 245})
-_BATCH01_MARKET = frozenset({47, 129, 214})
+_BATCH01_ALERTS = frozenset({629})
+_BATCH01_MARKET = frozenset({47})
 _BATCH01_DERIVATIVES = frozenset({48, 49})
 _BATCH01_DATA = frozenset({630, 631})
-_BATCH01_AI = frozenset({175, 34, 59, 642})
+_BATCH01_AI = frozenset({34, 642})
 _BATCH01_ONCHAIN = frozenset({5})
-_BATCH01_INSTITUTIONAL = frozenset({103, 644, 646})
+_BATCH01_INSTITUTIONAL = frozenset({644, 646})
 _BATCH01_VERIFIED = frozenset({49})
 
 
