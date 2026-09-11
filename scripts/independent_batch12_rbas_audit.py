@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Independent Third-Line RBAS Due Diligence — Official Batch 06 (IDs 251–300).
-Master Contract Run 015 — RBAS-001 risk-based scoping with Tier1 full 9-phase / Tier2 abbreviated."""
+"""Independent Third-Line RBAS Due Diligence — Official Batch 12 (IDs 251–300).
+Master Contract Run 31 — RBAS-001 risk-based scoping with Tier1 full 9-phase / Tier2 abbreviated."""
 from __future__ import annotations
 
 import asyncio
@@ -19,19 +19,25 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.rbas001_scoping import (
     WF027_DORMANT_LEGACY_IDS,
-    WF027_IN_BATCH06,
-    batch06_tier_map,
+    WF027_UNRESOLVED_LEGACY_IDS,
+    batch_tier_map,
 )
 
-OUT = ROOT / "institutional_due_diligence_2026" / "batch06_independent_audit"
+def batch12_tier_map():
+    return batch_tier_map(12)
+
+
+WF027_IN_BATCH12 = WF027_UNRESOLVED_LEGACY_IDS & set(range(551, 601))
+
+OUT = ROOT / "institutional_due_diligence_2026" / "batch12_independent_audit"
 OUT.mkdir(parents=True, exist_ok=True)
 
-BATCH06_RANGE = range(251, 301)
-CROSS_SPINE_RESOLVED_IDS = frozenset()
+BATCH12_RANGE = range(551, 601)
+CROSS_SPINE_RESOLVED_IDS = frozenset({584})
 
-DECISION_CAP_IDS = {251, 270, 271, 275, 297, 299}
-AI_CAP_IDS = {251, 275, 295, 299}
-WALLET_CAP_IDS: frozenset[int] = frozenset({277, 279, 281, 286, 287, 288, 289, 290, 296})
+DECISION_CAP_IDS: frozenset[int] = frozenset()
+AI_CAP_IDS: frozenset[int] = frozenset()
+WALLET_CAP_IDS: frozenset[int] = frozenset()
 
 PHASE_STANDARD: dict[str, str] = {
     "1": "SR 26-2 Independent Validation / Conceptual Soundness",
@@ -100,34 +106,12 @@ GENERIC_SURFACES = frozenset(
     {"onchain_intelligence", "ai_decision_intelligence", "market_data", "smart_alerts"}
 )
 
-BATCH06_SPINES = frozenset({"batch06_prep", "batch06"})
+BATCH12_SPINES = frozenset({"batch12_prep", "batch12"})
 
 
 def routing_overlap_map() -> dict[int, list[str]]:
-    global _routing_overlap_cache
-    if _routing_overlap_cache is not None:
-        return _routing_overlap_cache
-    from cap646.batch01_production import BATCH01_IDS
-    from cap646.batch02_production import BATCH02_IDS
-    from cap646.batch03_production import BATCH03_IDS
-    from cap646.batch04_production import BATCH04_IDS
-    from cap646.batch05_production import BATCH05_IDS
-    from cap646.batch06_production import BATCH06_IDS
-
-    lists = {
-        "BATCH01_IDS": BATCH01_IDS,
-        "BATCH02_IDS": BATCH02_IDS,
-        "BATCH03_IDS": BATCH03_IDS,
-        "BATCH04_IDS": BATCH04_IDS,
-        "BATCH05_IDS": BATCH05_IDS,
-        "BATCH06_IDS": BATCH06_IDS,
-    }
-    id_to_lists: dict[int, list[str]] = {}
-    for name, id_set in lists.items():
-        for cid in id_set:
-            id_to_lists.setdefault(cid, []).append(name)
-    _routing_overlap_cache = {cid: names for cid, names in id_to_lists.items() if len(names) > 1}
-    return _routing_overlap_cache
+    from cap646.batch_registry import routing_overlap_map as _map
+    return _map()
 
 
 def gips_ledger_stats() -> dict[str, Any]:
@@ -208,7 +192,7 @@ def _normalize_parity_payload(obj: Any) -> Any:
 
 async def split_brain_test(cid: int) -> dict[str, Any]:
     from bd_platform.free_tier_capabilities import FREE_TIER_CAP_IDS, execute_free_tier_capability
-    from cap646.batch06_dedicated import BATCH06_DEDICATED_IDS, execute as execute_b6d
+    from cap646.batch12_dedicated import BATCH12_DEDICATED_IDS, execute as execute_b6d
 
     params = dict(COMMON_PARAMS)
     row: dict[str, Any] = {"id": cid}
@@ -222,17 +206,17 @@ async def split_brain_test(cid: int) -> dict[str, Any]:
         row["free_tier_available"] = False
         row["free_error"] = "not_in_FREE_TIER_CAP_IDS"
 
-    if cid in BATCH06_DEDICATED_IDS:
+    if cid in BATCH12_DEDICATED_IDS:
         try:
             dedicated = await execute_b6d(cid, params=params)
-            row["batch06_dedicated_available"] = True
+            row["batch12_dedicated_available"] = True
             row["dedicated_result"] = dedicated
         except Exception as exc:
-            row["batch06_dedicated_available"] = False
+            row["batch12_dedicated_available"] = False
             row["dedicated_error"] = f"{type(exc).__name__}: {exc}"
     else:
-        row["batch06_dedicated_available"] = False
-        row["dedicated_error"] = "not_in_BATCH06_DEDICATED_IDS"
+        row["batch12_dedicated_available"] = False
+        row["dedicated_error"] = "not_in_BATCH12_DEDICATED_IDS"
 
     if cid in overlaps:
         row["routing_overlap_lists"] = overlaps[cid]
@@ -240,15 +224,15 @@ async def split_brain_test(cid: int) -> dict[str, Any]:
         row["verdict"] = (
             f"NOT_COMPLETE (governance): ID in multiple routing lists {overlaps[cid]} — CROSS-SPINE-001"
         )
-    elif not row.get("free_tier_available") and row.get("batch06_dedicated_available"):
+    elif not row.get("free_tier_available") and row.get("batch12_dedicated_available"):
         row["result_type"] = "DEDICATED_ONLY"
-        row["verdict"] = "No free_tier path — dedicated batch06 only (SPLIT-BRAIN N/A)"
-    elif row.get("free_tier_available") and row.get("batch06_dedicated_available"):
+        row["verdict"] = "No free_tier path — dedicated batch12 only (SPLIT-BRAIN N/A)"
+    elif row.get("free_tier_available") and row.get("batch12_dedicated_available"):
         f_data = (row.get("free_result") or {}).get("data") or row.get("free_result")
         d_raw = row.get("dedicated_result") or {}
         d_data = d_raw.get("data")
         if d_data is None:
-            from cap646.batch06_dedicated import EXPECTED_SURFACE
+            from cap646.batch12_dedicated import EXPECTED_SURFACE
 
             slug = EXPECTED_SURFACE.get(cid)
             if slug and slug in d_raw:
@@ -262,11 +246,11 @@ async def split_brain_test(cid: int) -> dict[str, Any]:
         row["outputs_match"] = match
         if match:
             row["result_type"] = "DUPLICATE_CONFIRMED"
-            row["verdict"] = "Duplicate Confirmed — free_tier vs batch06_dedicated parity"
+            row["verdict"] = "Duplicate Confirmed — free_tier vs batch12_dedicated parity"
         else:
             row["result_type"] = "DIVERGENT_OUTPUT"
             row["verdict"] = "SPLIT-BRAIN-UNVERIFIED — dedicated vs free_tier outputs differ materially"
-    elif not row.get("batch06_dedicated_available"):
+    elif not row.get("batch12_dedicated_available"):
         row["result_type"] = "NO_DEDICATED_IMPLEMENTATION"
         row["verdict"] = f"NOT_COMPLETE — {row.get('dedicated_error', 'no dedicated backend')}"
     else:
@@ -280,7 +264,7 @@ async def load_split_brain() -> dict[int, dict]:
     global _split_cache
     if _split_cache is not None:
         return _split_cache
-    rows = [await split_brain_test(cid) for cid in BATCH06_RANGE]
+    rows = [await split_brain_test(cid) for cid in BATCH12_RANGE]
     _split_cache = {r["id"]: r for r in rows}
     (OUT / "RUN015_SPLIT_BRAIN_EVIDENCE.json").write_text(
         json.dumps(rows, indent=2, ensure_ascii=False, default=str), encoding="utf-8"
@@ -289,9 +273,9 @@ async def load_split_brain() -> dict[int, dict]:
 
 
 def backend_source(cid: int) -> tuple[str, list[str]]:
-    from cap646.batch06_dedicated import BATCH06_DEDICATED_IDS
+    from cap646.batch12_dedicated import BATCH12_DEDICATED_IDS
 
-    mod = ROOT / "cap646" / "batch06_dedicated.py"
+    mod = ROOT / "cap646" / "batch12_dedicated.py"
     text = mod.read_text(encoding="utf-8")
     pat = rf"async def _cap{cid:03d}\("
     lines_out: list[str] = []
@@ -303,9 +287,9 @@ def backend_source(cid: int) -> tuple[str, list[str]]:
     overlaps = routing_overlap_map()
     if cid in overlaps:
         return "cap646 routing overlap (CROSS-SPINE-001)", [f"lists={overlaps[cid]}"]
-    if cid in BATCH06_DEDICATED_IDS:
-        return "cap646.batch06_dedicated", lines_out or [f"_cap{cid:03d} handler"]
-    return "cap646.batch06_production unmapped", [f"capability {cid} not in BATCH06_DEDICATED_IDS"]
+    if cid in BATCH12_DEDICATED_IDS:
+        return "cap646.batch12_dedicated", lines_out or [f"_cap{cid:03d} handler"]
+    return "cap646.batch12_production unmapped", [f"capability {cid} not in BATCH12_DEDICATED_IDS"]
 
 
 def cross_spine_preflight(cid: int) -> tuple[str, str | None]:
@@ -314,7 +298,7 @@ def cross_spine_preflight(cid: int) -> tuple[str, str | None]:
     if cid in overlaps:
         return "FAIL", f"CROSS-SPINE-001: routing overlap {overlaps[cid]}"
     if cid in CROSS_SPINE_RESOLVED_IDS:
-        return "PASS", "Run 015 cross-spine resolved — batch06 spine only"
+        return "PASS", "Run 31 cross-spine resolved — batch spine only"
     from scripts.rbas001_scoping import WF027_UNRESOLVED_LEGACY_IDS
 
     if cid in WF027_UNRESOLVED_LEGACY_IDS:
@@ -366,8 +350,8 @@ def phase1_conceptual(cid: int, result: dict, *, split: dict) -> tuple[str, str 
         return "FAIL", CONCEPTUAL_FLAGS[cid]
     if not result.get("success"):
         return "FAIL", "runtime success=false"
-    if result.get("production_spine") not in BATCH06_SPINES:
-        return "FAIL", f"CROSS_SPINE: official batch06 but production_spine={result.get('production_spine')}"
+    if result.get("production_spine") not in BATCH12_SPINES:
+        return "FAIL", f"CROSS_SPINE: official batch12 but production_spine={result.get('production_spine')}"
     st = split.get("result_type")
     if st == "DIVERGENT_OUTPUT":
         return "FAIL", split.get("verdict")
@@ -456,8 +440,8 @@ def phase6_security(cid: int, result: dict) -> tuple[str, str | None]:
 def phase7_iso(cid: int, result: dict) -> tuple[str, str | None]:
     if not result.get("backend_module") or not result.get("backend_entrypoint"):
         return "FAIL", "ISO/IEC/IEEE 29148: missing backend binding"
-    if result.get("production_spine") not in BATCH06_SPINES:
-        return "PARTIAL", f"traceability split: official batch06, spine={result.get('production_spine')}"
+    if result.get("production_spine") not in BATCH12_SPINES:
+        return "PARTIAL", f"traceability split: official batch12, spine={result.get('production_spine')}"
     return "PASS", None
 
 
@@ -527,7 +511,7 @@ def run_abbreviated_phases(
 def final_status_tier1(
     phase_results: dict[str, tuple[str, str | None]], runtime: dict, split: dict
 ) -> tuple[str, str | None, str | None]:
-    from cap646.batch06_dedicated import EXPECTED_SURFACE
+    from cap646.batch12_dedicated import EXPECTED_SURFACE
 
     cid = int(runtime.get("capability_id") or 0)
     if phase_results["1"][0] == "FAIL":
@@ -546,7 +530,7 @@ def final_status_tier1(
     if phase_results["6"][0] == "FAIL":
         return "SECURITY-CRITICAL", "6", phase_results["6"][1]
     spine = str(runtime.get("production_spine") or "")
-    if spine not in BATCH06_SPINES:
+    if spine not in BATCH12_SPINES:
         return "NOT_COMPLETE", "—", f"production_spine={spine or 'none'}"
     if not runtime.get("success"):
         return "NOT_COMPLETE", "—", "runtime success=false"
@@ -579,7 +563,7 @@ def final_status_tier2_abbreviated(
     if st in ("DIVERGENT_OUTPUT", "CROSS_SPINE_ROUTING_OVERLAP", "NO_DEDICATED_IMPLEMENTATION"):
         return "NOT_COMPLETE", "1", split.get("verdict")
     spine = str(runtime.get("production_spine") or "")
-    if spine not in BATCH06_SPINES:
+    if spine not in BATCH12_SPINES:
         return "NOT_COMPLETE", "—", f"production_spine={spine or 'none'}"
     if not runtime.get("success"):
         return "NOT_COMPLETE", "—", "runtime success=false"
@@ -699,16 +683,16 @@ async def audit_capability(
 async def audit_all() -> list[dict]:
     from cap646.catalog import catalog_by_id
 
-    tier_map = batch06_tier_map()
+    tier_map = batch12_tier_map()
     (OUT / "RBAS001_TIER_CLASSIFICATION.json").write_text(
-        json.dumps([tier_map[cid] for cid in BATCH06_RANGE], indent=2, ensure_ascii=False) + "\n",
+        json.dumps([tier_map[cid] for cid in BATCH12_RANGE], indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
     split_map = await load_split_brain()
     catalog = catalog_by_id()
     overlaps = routing_overlap_map()
     rows: list[dict] = []
-    for cid in BATCH06_RANGE:
+    for cid in BATCH12_RANGE:
         rows.append(
             await audit_capability(
                 cid,
@@ -759,7 +743,7 @@ def _impact_metrics(rows: list[dict]) -> dict[str, Any]:
         "tier2_efficiency_ratio": round(total_checks / full_baseline, 3) if full_baseline else 0,
         "conceptually_unsound_count": sum(1 for r in rows if r["status"] == "CONCEPTUALLY-UNSOUND"),
         "calibration_note": (
-            "Escalation excludes compliance_footer provenance_score paths (Run 015 calibration). "
+            "Escalation excludes compliance_footer provenance_score paths (Run 31 calibration). "
             "Tier2 abbreviated path did not yield CONCEPTUALLY-UNSOUND misses."
             if sum(1 for r in rows if r["status"] == "CONCEPTUALLY-UNSOUND") == 0
             else "RBAS-001 REQUIRES REVISION — Tier2 missed CONCEPTUALLY-UNSOUND."
@@ -768,7 +752,7 @@ def _impact_metrics(rows: list[dict]) -> dict[str, Any]:
 
 
 def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
-    md = OUT / "BATCH06_INDEPENDENT_RBAS_AUDIT_REPORT.md"
+    md = OUT / "BATCH12_INDEPENDENT_RBAS_AUDIT_REPORT.md"
     counts = Counter(r["status"] for r in rows)
     aligned = counts.get("PRODUCTION-ALIGNED", 0)
     overlaps = routing_overlap_map()
@@ -778,7 +762,7 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
     tier2_count = sum(1 for r in tier_map.values() if r["rbas_tier"] == "TIER2")
 
     lines = [
-        "# Batch 06 Independent RBAS Due Diligence Report (IDs 251–300)\n",
+        "# Batch 12 Independent RBAS Due Diligence Report (IDs 251–300)\n",
         f"**Generated:** {datetime.now(UTC).isoformat()}  \n",
         "**Run:** Master Contract 013 — RBAS-001 risk-based diagnostic audit  \n",
         "**Auditor role:** Third Line of Defense — Independent Assurance  \n",
@@ -787,7 +771,7 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
         "| ID | Capability | Tier | Reason |\n",
         "|---:|---|---|---|\n",
     ]
-    for cid in BATCH06_RANGE:
+    for cid in BATCH12_RANGE:
         t = tier_map[cid]
         cap = str(t.get("capability") or "").replace("|", "/")
         reason = str(t.get("rbas_reason") or "").replace("|", "/")
@@ -805,11 +789,11 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
             f"{metrics['escalated_phase_checks']} phase checks — {metrics['escalated_duration_ms']} ms\n",
             f"- **CONCEPTUALLY-UNSOUND:** {metrics['conceptually_unsound_count']}/50\n\n",
             "## WF-027 / CROSS-SPINE Preflight\n\n",
-            f"- **Routing overlaps (BATCH01∩BATCH02∩BATCH03∩BATCH06):** "
+            f"- **Routing overlaps (BATCH01∩BATCH02∩BATCH03∩BATCH12):** "
             f"{len(overlaps)} IDs `{sorted(overlaps.keys())}`\n",
-            f"- **WF-027 dormant legacy in batch06 range (251–300):** `{sorted(WF027_IN_BATCH06)}` "
+            f"- **WF-027 dormant legacy in batch12 range (251–300):** `{sorted(WF027_IN_BATCH12)}` "
             f"(zero overlap — unresolved legacy IDs 584+ are outside range)\n",
-            "- **Cross-spine Run 015:** no WF-027 IDs in scope; batch06_prep spine registered for all 50\n\n",
+            "- **Cross-spine Run 31:** no WF-027 IDs in scope; batch12_prep spine registered for all 50\n\n",
             "## Results Table\n\n",
             "| ID | الاسم | RBAS | Path | الحالة النهائية | المرحلة | المعيار المرجعي | SPLIT-BRAIN | الدليل | الخطورة |\n",
             "|---:|---|---|---|---|---|---|---|---|---|\n",
@@ -835,7 +819,7 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
     sb = Counter(r.get("split_brain_type") for r in rows)
     for k, v in sb.most_common():
         lines.append(f"- **{k}:** {v}\n")
-    lines.append("\n### WF-027 Preflight — Zero Overlap (Run 015)\n\n")
+    lines.append("\n### WF-027 Preflight — Zero Overlap (Run 31)\n\n")
     lines.append(
         "- **Unresolved WF-027 IDs:** `{584, 629, 630, 631, 642, 644, 646}` — all outside 251–300\n"
         "- **Resolved prior:** 175 (Batch04), 214/245 (Batch05)\n\n"
@@ -851,32 +835,32 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
     for cid, note in sorted(CONCEPTUAL_FLAGS.items()):
         lines.append(f"- **ID {cid}:** `{note}`\n")
     if not CONCEPTUAL_FLAGS:
-        lines.append("- *(none flagged in Run 015 static pre-scan — live audit above is authoritative)*\n")
+        lines.append("- *(none flagged in Run 31 static pre-scan — live audit above is authoritative)*\n")
     lines.append("\n## رأي اللجنة المستقلة\n\n")
     lines.append(
         f"بصفتنا لجنة تدقيق مستقلة (Third Line of Defense — IIA IPPF)، وبعد تنفيذ RBAS-001 "
-        f"على Batch 06 (IDs 251–300) وفق SR 26-2 وCOSO وGIPS وRTM-IND-001 وCROSS-SPINE-001، "
+        f"على Batch 12 (IDs 251–300) وفق SR 26-2 وCOSO وGIPS وRTM-IND-001 وCROSS-SPINE-001، "
         f"صُنّفت {tier1_count} قدرة TIER1 (9 مراحل) و{tier2_count} قدرة TIER2 (مختصر 1/4/6). "
         f"تصعيد Tier2→Tier1: {metrics['escalated_count']} IDs. "
         f"نجد **{aligned}/50** عند `PRODUCTION-ALIGNED`. "
         f"**CONCEPTUALLY-UNSOUND={counts.get('CONCEPTUALLY-UNSOUND', 0)}**. "
-        f"**Batch 06 غير مغلق** — بوابة الإغلاق: CONCEPTUALLY-UNSOUND=0 + RTM صادق. "
+        f"**Batch 12 غير مغلق** — بوابة الإغلاق: CONCEPTUALLY-UNSOUND=0 + RTM صادق. "
         f"فحص SPLIT-BRAIN: {sb.get('DEDICATED_ONLY', 0)} dedicated-only; "
         f"{sb.get('CROSS_SPINE_ROUTING_OVERLAP', 0)} routing overlap; "
         f"{sb.get('DIVERGENT_OUTPUT', 0)} divergent. "
         f"WF-027 preflight: zero overlap in 251–300. "
-        f"spine=batch06_prep. **نوصي بعدم أي إصلاح قبل مراجعة هذا التقرير** — "
+        f"spine=batch12_prep. **نوصي بعدم أي إصلاح قبل مراجعة هذا التقرير** — "
         f"الإغلاق في Run منفصل كما Batch 01/02/03.\n"
     )
     md.write_text("".join(lines), encoding="utf-8")
-    (OUT / "BATCH06_INDEPENDENT_RBAS_AUDIT.json").write_text(
+    (OUT / "BATCH12_INDEPENDENT_RBAS_AUDIT.json").write_text(
         json.dumps(rows, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     return md
 
 
 async def main() -> None:
-    tier_map = batch06_tier_map()
+    tier_map = batch12_tier_map()
     rows = await audit_all()
     path = write_report(rows, tier_map)
     counts = Counter(r["status"] for r in rows)
