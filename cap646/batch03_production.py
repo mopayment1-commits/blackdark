@@ -1,7 +1,6 @@
 """Batch 03 prep — production spine for official Batch 03 (IDs 101–150).
 
-IDs 103 and 129 were legacy batch01 cherry-pick overlap — removed Run 008 (CROSS-SPINE-001).
-Dedicated handlers for 103/129 pending Batch03 audit; runtime routes batch03 spine only.
+IDs 103 and 129 cross-spine overlap resolved Run 008; dedicated handlers Run 009.
 """
 
 from __future__ import annotations
@@ -38,14 +37,6 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
         result = await execute_dedicated(capability_id, params=params)
         return _stamp_batch03(result, capability_id)
-
-    from cap646.batch03_dedicated import BATCH03_PENDING_DEDICATED_IDS
-
-    if capability_id in BATCH03_PENDING_DEDICATED_IDS:
-        raise ValueError(
-            f"capability {capability_id} is official batch03 — dedicated handler pending Batch03 audit "
-            "(cross-spine resolved Run 008; removed from LEGACY_BATCH01_EXTENSION_IDS)"
-        )
 
     raise ValueError(f"batch03_prep: unmapped capability {capability_id}")
 
