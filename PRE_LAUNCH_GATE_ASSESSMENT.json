@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-11T20:14:13.530626+00:00",
+  "generated_at": "2026-09-11T20:32:00.029243+00:00",
   "program": "PRE_LAUNCH_INSTITUTIONAL_COMPLETION",
-  "pre_launch_ready": true,
-  "pre_launch_ready_automatable": true,
+  "pre_launch_ready": false,
+  "pre_launch_ready_automatable": false,
   "railway_deploy_allowed": false,
   "PASS_LIVE_NOT_CLAIMED": true,
   "blk_002_postgres_separate": false,
@@ -13,22 +13,22 @@
   ],
   "gates": {
     "G1_TRUTH_BASELINE": {
-      "status": "PASS",
-      "production_aligned": 787,
-      "pending_inventory": 35,
-      "mock_or_stub_master": 12,
-      "implemented_master": 787
+      "status": "PARTIAL",
+      "production_aligned": 114,
+      "pending_inventory": 662,
+      "mock_or_stub_master": 307,
+      "implemented_master": 110
     },
     "G2_DEDUPLICATION": {
-      "status": "PASS",
-      "note": "duplicate routing fixed; canonical delegation active"
+      "status": "PARTIAL",
+      "note": "duplicate routing fixed; REUSED-LINK taxonomy open"
     },
     "G3_SPLIT_BRAIN": {
-      "status": "PASS",
-      "note": "pdf→cap646 delegation for 58 IDs; manifest reconciled"
+      "status": "PARTIAL",
+      "note": "pdf→cap646 delegation for 58 IDs; manifest not fully cleared"
     },
     "G4_GOVERNANCE_FULL": {
-      "status": "PASS",
+      "status": "PARTIAL",
       "domains_strict_pass": 13,
       "domains_total": 12,
       "dts": {
@@ -178,7 +178,8 @@
         "PASS_ENGINEERING_AIE": true,
         "PASS_ENGINEERING_AIE_honest": true,
         "methodology_version": "spine-1.0"
-      }
+      },
+      "note": "Catalog spines mark IDs IMPLEMENTED/PARTIAL without per-ID code+test — see HONEST_DEEP_INSTITUTIONAL_AUDIT.json"
     },
     "G5_BATCH_CLOSURE": {
       "status": "PASS",
@@ -187,8 +188,8 @@
       "rescue_tier_rejected": true
     },
     "G6_UI_E2E": {
-      "status": "PARTIAL",
-      "note": "FastAPI TestClient smoke: health, legal, login, monitoring — Playwright full paths pending"
+      "status": "FAIL",
+      "note": "No Playwright/browser E2E for signup/pay/decision paths"
     },
     "G7_CI_GREEN": {
       "status": "PASS"
@@ -209,8 +210,8 @@
   },
   "honest_summary": {
     "runtime_batch_closure": "826/826",
-    "inventory_production_aligned": "787/826",
-    "master_implemented": "787/826",
+    "inventory_production_aligned": "114/826",
+    "master_implemented": "110/826",
     "dts_implemented": 12,
     "dat_implemented": 15,
     "restore_ok": 10,

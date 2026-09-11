@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Reconcile CAPABILITIES_826_INVENTORY from engineering audit evidence."""
+"""Reconcile CAPABILITIES_826_INVENTORY from engineering audit evidence.
+
+WARNING: Only marks PRODUCTION-ALIGNED when gap_type==NONE and no rescue_tier.
+Run scripts/honest_deep_institutional_audit.py first — do not trust audit alone.
+"""
 
 from __future__ import annotations
 
@@ -34,7 +38,9 @@ def reconcile() -> dict:
             continue
         engineering = row.get("engineering_status")
         gap = row.get("gap_type")
-        if engineering == "PASS_ENGINEERING" and gap == "NONE":
+        binding = row.get("binding_source") or ""
+        generic_spine = binding == "batch_range_production_spine"
+        if engineering == "PASS_ENGINEERING" and gap == "NONE" and not generic_spine and not row.get("rescue_tier"):
             if per_id[cid].get("status") != "PRODUCTION-ALIGNED":
                 per_id[cid]["status"] = "PRODUCTION-ALIGNED"
                 per_id[cid]["reconciled_at"] = datetime.now(timezone.utc).isoformat()

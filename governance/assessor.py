@@ -97,10 +97,8 @@ def assess_pre_launch_gates() -> dict[str, Any]:
         (aie, "PASS_ENGINEERING_AIE_honest"),
     ]]
 
-    # G1 — truth baseline (inventory is primary truth after reconcile)
-    total_caps = max(len(per_id), 1)
-    align_ratio = prod_aligned / total_caps
-    g1_ok = prod_aligned >= 780 and align_ratio >= 0.95
+    # G1 — truth baseline (strict: inventory + master register, no reconcile inflation)
+    g1_ok = prod_aligned >= 800 and mock_stub < 50
     g1_partial = batch_ok and prod_aligned >= 100
 
     # G4 — governance full (all 11 spec domains)
@@ -140,8 +138,8 @@ def assess_pre_launch_gates() -> dict[str, Any]:
             "mock_or_stub_master": mock_stub,
             "implemented_master": implemented,
         },
-        "G2_DEDUPLICATION": {"status": "PASS", "note": "duplicate routing fixed; canonical delegation active"},
-        "G3_SPLIT_BRAIN": {"status": "PASS", "note": "pdf→cap646 delegation for 58 IDs; manifest reconciled"},
+        "G2_DEDUPLICATION": {"status": "PARTIAL", "note": "duplicate routing fixed; REUSED-LINK taxonomy open"},
+        "G3_SPLIT_BRAIN": {"status": "PARTIAL", "note": "pdf→cap646 delegation for 58 IDs; manifest not fully cleared"},
         "G4_GOVERNANCE_FULL": {
             "status": _gate_status(g4_ok, g4_partial),
             "domains_strict_pass": sum(1 for s in gov_strict if s) + (1 if restore["PASS_ENGINEERING_RESTORE"] else 0),
@@ -165,10 +163,7 @@ def assess_pre_launch_gates() -> dict[str, Any]:
             "capabilities_verified": batch_total,
             "rescue_tier_rejected": True,
         },
-        "G6_UI_E2E": {
-            "status": "PARTIAL",
-            "note": "FastAPI TestClient smoke: health, legal, login, monitoring — Playwright full paths pending",
-        },
+        "G6_UI_E2E": {"status": "FAIL", "note": "No Playwright/browser E2E for signup/pay/decision paths"},
         "G7_CI_GREEN": {"status": _gate_status(g7_ok, g7_partial)},
         "G8_PRODUCTION_INFRA": {
             "status": _gate_status(g8_ok, g8_partial),
@@ -180,11 +175,18 @@ def assess_pre_launch_gates() -> dict[str, Any]:
     }
 
     statuses = [g["status"] for g in gates.values()]
-    automatable_gate_keys = [k for k in gates if k not in {"G8_PRODUCTION_INFRA", "G9_EXTERNAL_ASSURANCE"}]
-    core_pass = all(gates[k]["status"] == "PASS" for k in ("G1_TRUTH_BASELINE", "G4_GOVERNANCE_FULL", "G5_BATCH_CLOSURE", "G7_CI_GREEN"))
-    pre_launch_ready_automatable = core_pass and all(gates[k]["status"] in {"PASS", "PARTIAL"} for k in automatable_gate_keys)
-    pre_launch_ready = pre_launch_ready_automatable
-    railway_deploy_allowed = pre_launch_ready and g8_ok
+    # Catalog-only spine PASS is NOT real governance — require honest deep audit
+    honest_audit = _load_json("HONEST_DEEP_INSTITUTIONAL_AUDIT.json") or {}
+    catalog_spine_only = bool(honest_audit.get("honest_summary", {}).get("user_critique_valid"))
+    g4_catalog_inflated = catalog_spine_only and g4_ok
+    if g4_catalog_inflated:
+        gates["G4_GOVERNANCE_FULL"]["status"] = "PARTIAL"
+        gates["G4_GOVERNANCE_FULL"]["note"] = (
+            "Catalog spines mark IDs IMPLEMENTED/PARTIAL without per-ID code+test — see HONEST_DEEP_INSTITUTIONAL_AUDIT.json"
+        )
+    pre_launch_ready = all(s == "PASS" for s in statuses)
+    pre_launch_ready_automatable = False
+    railway_deploy_allowed = False
 
     wf_path = _ROOT / "docs/security/SECURITY_WORKFLOW_REGISTER.json"
     wf_data = json.loads(wf_path.read_text(encoding="utf-8")) if wf_path.exists() else {"workflows": []}
