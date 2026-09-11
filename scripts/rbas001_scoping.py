@@ -16,6 +16,8 @@ if str(ROOT) not in sys.path:
 
 WF027_DORMANT_LEGACY_IDS = frozenset({175, 214, 245, 584, 629, 630, 631, 642, 644, 646})
 BATCH04_RANGE = range(151, 201)
+BATCH05_RANGE = range(201, 251)
+WF027_IN_BATCH05 = WF027_DORMANT_LEGACY_IDS & set(BATCH05_RANGE)
 
 Tier = Literal["TIER1", "TIER2"]
 
@@ -98,6 +100,62 @@ _MANUAL_TIER2: dict[int, str] = {
     200: "Token circulation intelligence — supply metric delivery",
 }
 
+_MANUAL_TIER1_BATCH05: dict[int, str] = {
+    214: "WF-027 dormant legacy ID — Watchlists (T11); mandatory full audit",
+    223: "Social-to-On-Chain Confirmation Engine — confirmation/decision output",
+    224: "Narrative Actionability Score — SCORE-IDX surface",
+    225: "Development-to-Market Divergence Detector — divergence signal influences decisions",
+    226: "Cross-Domain Decision Intelligence Layer — explicit decision output",
+    227: "Unified Trading Intelligence Workspace — trading decision workspace",
+    229: "Cross-Exchange Funding Arbitrage Scanner — arbitrage/trading decision surface",
+    230: "Spot-Perp Arbitrage Scanner — arbitrage/trading decision surface",
+    237: "Token Risk Scoring — SCORE-IDX surface",
+    238: "Pump & Dump Detection — detection verdict influences user action",
+    240: "Sector Rotation Intelligence — portfolio allocation decision-adjacent",
+    241: "Sentiment Intelligence — sentiment index (duplicate_of=129; SCORE-IDX pattern)",
+    242: "Price Prediction / Multi-Signal Forecast — AI prediction (NIST AI RMF full path)",
+    245: "WF-027 dormant legacy ID — Market Health & Freshness (T13); mandatory full audit",
+}
+
+_MANUAL_TIER2_BATCH05: dict[int, str] = {
+    201: "Network growth intelligence — on-chain metric delivery (no user verdict score)",
+    202: "Supply distribution intelligence — distribution metric delivery",
+    203: "DEX trading intelligence — market data delivery",
+    204: "DeFi protocol activity intelligence — activity metric delivery",
+    205: "Open Interest Intelligence — derivatives metric delivery",
+    206: "Funding Rate Intelligence — metric delivery (duplicate_of=86)",
+    207: "Price / Volume / Market Metrics — market metric delivery",
+    208: "Metric Correlation Workbench — analysis workbench (no score output)",
+    209: "Custom Chart Builder — chart builder delivery",
+    210: "Custom Dashboards / Layouts — dashboard delivery",
+    211: "Screener — screening tool without scored verdict",
+    212: "Smart Alerts — alert delivery (duplicate_of=17)",
+    213: "Anomaly Detection Alerts — alert feed delivery",
+    215: "Community Explorer — catalog/explorer delivery",
+    216: "Research & Market Insights — research delivery",
+    217: "SanAPI-Style Data Access — data access delivery",
+    218: "Google Sheets Integration — integration delivery",
+    219: "Metric Availability Registry — registry/catalog",
+    220: "Data Stabilization & Mutability Metadata — metadata delivery",
+    221: "Data Quality & Provenance Layer — provenance delivery (duplicate_of=63)",
+    222: "Metric Methodology Registry — methodology registry",
+    228: "Funding Rate Intelligence — metric delivery (duplicate_of=86)",
+    231: "Futures Basis & Term Structure — term structure metric delivery",
+    232: "Open Interest Intelligence — metric delivery (duplicate_of=205)",
+    233: "Liquidation Intelligence — metric delivery (duplicate_of=88)",
+    234: "CVD Intelligence — volume delta metric delivery",
+    235: "Long/Short Ratio Intelligence — ratio metric delivery",
+    236: "DEX Screener — screener delivery",
+    239: "Narrative Tracking — narrative catalog tracking",
+    243: "Correlation Matrix — correlation data tool",
+    244: "New Listings Intelligence — listings feed delivery",
+    246: "Coverage Metadata Registry — coverage registry",
+    247: "Public REST API — API delivery surface",
+    248: "MCP Server for AI Agents — platform delivery",
+    249: "CLI Access — CLI delivery",
+    250: "OpenAPI / SDK Generation — SDK generation delivery",
+}
+
 
 def classify_batch04_capability(
     capability_id: int,
@@ -152,6 +210,64 @@ def batch04_tier_map() -> dict[int, dict[str, Any]]:
 def write_tier_table(path: Path) -> dict[int, dict[str, Any]]:
     tiers = batch04_tier_map()
     rows = [tiers[cid] for cid in BATCH04_RANGE]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(rows, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return tiers
+
+
+def classify_batch05_capability(
+    capability_id: int,
+    *,
+    capability_name: str,
+    track: str = "",
+) -> tuple[Tier, str]:
+    """Return (tier, reason). Default Tier1 when criteria overlap or uncertain."""
+    if capability_id in _MANUAL_TIER1_BATCH05:
+        return "TIER1", _MANUAL_TIER1_BATCH05[capability_id]
+    if capability_id in _MANUAL_TIER2_BATCH05:
+        return "TIER2", _MANUAL_TIER2_BATCH05[capability_id]
+    if capability_id in WF027_DORMANT_LEGACY_IDS:
+        return "TIER1", f"WF-027 dormant legacy ID {capability_id} — mandatory full audit"
+    name = capability_name or ""
+    if _TIER1_ENTITLEMENT_PATTERN.search(name):
+        return "TIER1", "Entitlement/authentication/billing surface (WF-015 pattern)"
+    if _TIER1_SCORE_INDEX_PATTERN.search(name):
+        return "TIER1", "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+    if track in {"T09"} or _TIER1_ONCHAIN_PATTERN.search(name):
+        if any(k in name.lower() for k in ("whale", "wallet", "holder", "inflow", "outflow", "netflow", "address")):
+            return "TIER1", "On-chain address/transaction intelligence (FATF R.16)"
+    if track in {"T12", "T14"} and "ai" in name.lower():
+        return "TIER1", "AI surface — decision/research risk (NIST AI RMF full path)"
+    if _TIER2_DELIVERY_PATTERN.search(name):
+        return "TIER2", "Data-delivery/catalog/registry without direct user decision output"
+    return "TIER1", "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+
+
+def batch05_tier_map() -> dict[int, dict[str, Any]]:
+    from cap646.catalog import catalog_by_id
+
+    catalog = catalog_by_id()
+    out: dict[int, dict[str, Any]] = {}
+    for cid in BATCH05_RANGE:
+        row = catalog.get(cid, {})
+        tier, reason = classify_batch05_capability(
+            cid,
+            capability_name=str(row.get("capability") or ""),
+            track=str(row.get("track") or ""),
+        )
+        out[cid] = {
+            "id": cid,
+            "capability": row.get("capability"),
+            "track": row.get("track"),
+            "rbas_tier": tier,
+            "rbas_reason": reason,
+        }
+    return out
+
+
+def write_batch05_tier_table(path: Path) -> dict[int, dict[str, Any]]:
+    tiers = batch05_tier_map()
+    rows = [tiers[cid] for cid in BATCH05_RANGE]
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(rows, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return tiers
