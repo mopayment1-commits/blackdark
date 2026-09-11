@@ -14,3 +14,13 @@ Batch10 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=1
 === DONE Batch 10 tag=batch10-closure-verified ===
 === START Batch 11 (501-550) ===
 Batch11 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16011 | ThreeWay=OK
+=== DONE Batch 11 tag=batch11-closure-verified ===
+=== START Batch 12 (551-600) ===
+ABORT Batch12: opening failed exit=1
+=== START Batch 12 (551-600) ===
+ABORT Batch12: opening failed exit=1
+=== START Batch 12 (551-600) ===
+ABORT Batch12: closure failed exit=1
+=== START Batch 13 (601-650) ===
+Batch12 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16012 | ThreeWay=OK
+=== DONE Batch 12 tag=batch12-closure-verified ===

@@ -1,14 +1,15 @@
 {
-  "generated_at": "2026-09-11T12:18:36.318806+00:00",
+  "generated_at": "2026-09-11T13:22:22.840881+00:00",
   "governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
   "run": "Run 021 — continuous batch closure",
   "scope": "IDs 1–826",
   "row_count": 826,
-  "closed_batches_through": 11,
+  "closed_batches_through": 12,
   "summary": {
     "engineering_status": {
-      "NOT_COMPLETE": 576,
-      "PARTIAL": 250
+      "PARTIAL": 550,
+      "PASS_ENGINEERING": 50,
+      "NOT_COMPLETE": 226
     },
     "live_status": {
       "NOT_CLAIMED": 826
@@ -17,7 +18,7 @@
       "PENDING_INDEPENDENT_ASSURANCE": 826
     },
     "pass_live_count": 0,
-    "pass_engineering_count": 0,
+    "pass_engineering_count": 50,
     "assurance_ready_count": 0
   },
   "production_deployment_evidence_project_wide": false,
@@ -28,7 +29,7 @@
       "capability": "Smart Money Leaderboard",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -37,7 +38,7 @@
       "capability": "Wallet Profiler",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -46,7 +47,7 @@
       "capability": "Wallet Profiler for Token",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -55,7 +56,7 @@
       "capability": "Smart Money Tracking",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -64,7 +65,7 @@
       "capability": "Smart Money Accumulation / Distribution Detection",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -73,7 +74,7 @@
       "capability": "Smart Money Token Screener",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -82,7 +83,7 @@
       "capability": "Holder Distribution Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -91,7 +92,7 @@
       "capability": "Top Holders Concentration Analysis",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -100,7 +101,7 @@
       "capability": "Distribution Score",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -109,7 +110,7 @@
       "capability": "Wallet PnL Analysis",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -118,7 +119,7 @@
       "capability": "Wallet Historical Performance & Win Rate",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -127,7 +128,7 @@
       "capability": "Wallet Entry / Exit Analysis",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -136,7 +137,7 @@
       "capability": "Wallet Counterparty & Relationship Analysis",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -145,7 +146,7 @@
       "capability": "Entity-Aware Wallet Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -154,7 +155,7 @@
       "capability": "Exchange Flow Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -163,7 +164,7 @@
       "capability": "Candle / Price-Move Investigator",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -172,7 +173,7 @@
       "capability": "Smart Alerts",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -181,7 +182,7 @@
       "capability": "Custom Wallet Labels",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -190,7 +191,7 @@
       "capability": "Wallet & Token Watchlists",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -199,7 +200,7 @@
       "capability": "Multi-Chain Portfolio Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -208,7 +209,7 @@
       "capability": "Transaction Decoder",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -217,7 +218,7 @@
       "capability": "Instant Wallet Due Diligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -226,7 +227,7 @@
       "capability": "Instant Token Due Diligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -235,7 +236,7 @@
       "capability": "AI Research Agent Grounded in Platform Data",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -244,7 +245,7 @@
       "capability": "Signal → Explanation Workflow",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -253,7 +254,7 @@
       "capability": "Price-Move Explanation",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -262,7 +263,7 @@
       "capability": "Smart Money Historical Trend Analysis",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -271,7 +272,7 @@
       "capability": "Smart Money Conviction Engine",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -280,7 +281,7 @@
       "capability": "Cross-Market Decision Intelligence Engine",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -289,7 +290,7 @@
       "capability": "Evidence & Confidence Layer",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -298,7 +299,7 @@
       "capability": "Cross-Signal Confirmation",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -307,7 +308,7 @@
       "capability": "Contradiction Detection",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -316,7 +317,7 @@
       "capability": "Smart Money Actionability Score",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -325,7 +326,7 @@
       "capability": "Beginner Decision Mode",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -334,7 +335,7 @@
       "capability": "Market Compass / Market Regime Engine",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -343,7 +344,7 @@
       "capability": "On-Chain Metrics Library",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -352,7 +353,7 @@
       "capability": "Entity-Adjusted Metrics",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -361,7 +362,7 @@
       "capability": "Cost Basis Distribution",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -370,7 +371,7 @@
       "capability": "Realized Cap & Realized Price Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -379,7 +380,7 @@
       "capability": "MVRV / MVRV Z-Score Suite",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -388,7 +389,7 @@
       "capability": "SOPR / Profitability Intelligence",
       "official_batch": "batch01",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -397,7 +398,7 @@
       "capability": "Holder Cohort Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -406,7 +407,7 @@
       "capability": "Supply Dynamics Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -415,7 +416,7 @@
       "capability": "Exchange Balance & Netflow Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -424,7 +425,7 @@
       "capability": "ETF Flow Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -433,7 +434,7 @@
       "capability": "Digital Asset Treasury Company Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -442,7 +443,7 @@
       "capability": "Spot Market Metrics Suite",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -451,7 +452,7 @@
       "capability": "Futures Intelligence Suite",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -460,7 +461,7 @@
       "capability": "Options Intelligence Suite",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -469,7 +470,7 @@
       "capability": "Order Book Intelligence",
       "official_batch": "batch01",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -478,7 +479,7 @@
       "capability": "Macro & Traditional Finance Integration",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -487,7 +488,7 @@
       "capability": "Cross-Asset Return Breadth",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -496,7 +497,7 @@
       "capability": "BTC-to-Macro Coupling",
       "official_batch": "batch02",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -505,7 +506,7 @@
       "capability": "Global Liquidity Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -514,7 +515,7 @@
       "capability": "NVT Fair-Value Model",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -523,7 +524,7 @@
       "capability": "Token Screener",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -532,7 +533,7 @@
       "capability": "Profitability Map",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -541,7 +542,7 @@
       "capability": "Custom No-Code Charting / Workbench",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -550,7 +551,7 @@
       "capability": "Personalized Research Dashboards",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -559,7 +560,7 @@
       "capability": "Metric-Based Smart Alerts",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -568,7 +569,7 @@
       "capability": "Point-in-Time Immutable Metrics",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -577,7 +578,7 @@
       "capability": "Institutional Backtesting Data Layer",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -586,7 +587,7 @@
       "capability": "Data Quality & Provenance Layer",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -595,7 +596,7 @@
       "capability": "Metric Methodology Registry",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -604,7 +605,7 @@
       "capability": "Research Intelligence Portal",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -613,7 +614,7 @@
       "capability": "Market Regime Written Read",
       "official_batch": "batch02",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -622,7 +623,7 @@
       "capability": "API / CLI / Excel / MCP Data Access",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -631,7 +632,7 @@
       "capability": "Bulk Data & Institutional Delivery",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -640,7 +641,7 @@
       "capability": "Cross-Domain Decision Intelligence Layer",
       "official_batch": "batch02",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -649,7 +650,7 @@
       "capability": "Exchange Reserve Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -658,7 +659,7 @@
       "capability": "Exchange Inflow / Outflow / Netflow",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -667,7 +668,7 @@
       "capability": "Exchange Whale Ratio",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -676,7 +677,7 @@
       "capability": "Exchange Address & Transaction Activity",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -685,7 +686,7 @@
       "capability": "Exchange-to-Exchange Flow Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -694,7 +695,7 @@
       "capability": "Exchange Internal-Flow Filter",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -703,7 +704,7 @@
       "capability": "Stablecoin Exchange Reserve",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -712,7 +713,7 @@
       "capability": "Stablecoin Exchange Flow Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -721,7 +722,7 @@
       "capability": "Stablecoin Supply Ratio Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -730,7 +731,7 @@
       "capability": "Miner Flow Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -739,7 +740,7 @@
       "capability": "Miners' Position Index (MPI)",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -748,7 +749,7 @@
       "capability": "Whale Accumulation / Distribution Intelligence",
       "official_batch": "batch02",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -757,7 +758,7 @@
       "capability": "Coinbase Premium Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -766,7 +767,7 @@
       "capability": "Korea Premium Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -775,7 +776,7 @@
       "capability": "Fund / ETF Data Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -784,7 +785,7 @@
       "capability": "Futures Open Interest Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -793,7 +794,7 @@
       "capability": "Funding Rate Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -802,7 +803,7 @@
       "capability": "Estimated Leverage Ratio",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -811,7 +812,7 @@
       "capability": "Liquidation Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -820,7 +821,7 @@
       "capability": "Taker Buy / Sell Pressure",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -829,7 +830,7 @@
       "capability": "Derivatives Market Sentiment Composite",
       "official_batch": "batch02",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -838,7 +839,7 @@
       "capability": "Inter-Entity Flow Intelligence",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -847,7 +848,7 @@
       "capability": "Address Labels & Cohorts",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -856,7 +857,7 @@
       "capability": "Custom No-Code Analytics / Web3 Analytics",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -865,7 +866,7 @@
       "capability": "Native SQL / Advanced Query Workspace",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -874,7 +875,7 @@
       "capability": "Pro Chart & Multi-Metric Workbench",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -883,7 +884,7 @@
       "capability": "Personal Dashboards",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -892,7 +893,7 @@
       "capability": "Custom Metric Alerts",
       "official_batch": "batch02",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -901,7 +902,7 @@
       "capability": "Whale Movement Alerts",
       "official_batch": "batch02",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -910,7 +911,7 @@
       "capability": "QuickTake / Analyst Insight Feed",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -919,7 +920,7 @@
       "capability": "Research Reports",
       "official_batch": "batch02",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -928,7 +929,7 @@
       "capability": "AI Data Analyst / Ask AI",
       "official_batch": "batch03",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -937,7 +938,7 @@
       "capability": "AI-Generated Reporting",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -946,7 +947,7 @@
       "capability": "API Data Platform",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -955,7 +956,7 @@
       "capability": "High-Resolution / Block-Level Data Delivery",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -964,7 +965,7 @@
       "capability": "Historical Full-Data Layer",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -973,7 +974,7 @@
       "capability": "Data Quality & Provenance Layer",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -982,7 +983,7 @@
       "capability": "Metric Methodology Registry",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -991,7 +992,7 @@
       "capability": "Institutional Data & API Delivery",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1000,7 +1001,7 @@
       "capability": "White-Label Research & Reporting",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1009,7 +1010,7 @@
       "capability": "Cross-Domain Decision Intelligence Layer",
       "official_batch": "batch03",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1018,7 +1019,7 @@
       "capability": "Exchange Flow Actionability Score",
       "official_batch": "batch03",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1027,7 +1028,7 @@
       "capability": "Flow-to-Price Explanation Engine",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1036,7 +1037,7 @@
       "capability": "Asset Intelligence Profiles",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1045,7 +1046,7 @@
       "capability": "Asset Classification & Taxonomy",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1054,7 +1055,7 @@
       "capability": "Asset Screener",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1063,7 +1064,7 @@
       "capability": "Market Pair Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1072,7 +1073,7 @@
       "capability": "Real Volume / Quality-Adjusted Volume",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1081,7 +1082,7 @@
       "capability": "VWAP Price Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1090,7 +1091,7 @@
       "capability": "Market Cap & FDV Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1099,7 +1100,7 @@
       "capability": "Supply Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1108,7 +1109,7 @@
       "capability": "ROI & ATH Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1117,7 +1118,7 @@
       "capability": "Volatility Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1126,7 +1127,7 @@
       "capability": "Sharpe Ratio Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1135,7 +1136,7 @@
       "capability": "Futures Funding Rate Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1144,7 +1145,7 @@
       "capability": "Futures Open Interest Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1153,7 +1154,7 @@
       "capability": "Futures Volume Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1162,7 +1163,7 @@
       "capability": "Multi-Factor Market Overview",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1171,7 +1172,7 @@
       "capability": "Momentum Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1180,7 +1181,7 @@
       "capability": "Sentiment Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1189,7 +1190,7 @@
       "capability": "Mindshare Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1198,7 +1199,7 @@
       "capability": "Narrative & Sector Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1207,7 +1208,7 @@
       "capability": "Mindshare Gainers / Losers",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1216,7 +1217,7 @@
       "capability": "Curated Crypto News Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1225,7 +1226,7 @@
       "capability": "AI News Summaries",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1234,7 +1235,7 @@
       "capability": "Real-Time Industry Event Monitoring",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1243,7 +1244,7 @@
       "capability": "Agentic Monitoring Views",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1252,7 +1253,7 @@
       "capability": "Custom Watchlists",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1261,7 +1262,7 @@
       "capability": "Token Unlock Calendar",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1270,7 +1271,7 @@
       "capability": "Vesting Schedule Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1279,7 +1280,7 @@
       "capability": "Token Allocation Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1288,7 +1289,7 @@
       "capability": "Unlock Impact Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1297,7 +1298,7 @@
       "capability": "Fundraising Rounds Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1306,7 +1307,7 @@
       "capability": "Investor Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1315,7 +1316,7 @@
       "capability": "Fund & Fund-Manager Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1324,7 +1325,7 @@
       "capability": "M&A Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1333,7 +1334,7 @@
       "capability": "Capital Flow & Funding Trend Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1342,7 +1343,7 @@
       "capability": "Comparable Funding & Valuation Analysis",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1351,7 +1352,7 @@
       "capability": "Due Diligence Report Engine",
       "official_batch": "batch03",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1360,7 +1361,7 @@
       "capability": "Automated Risk Scoring from Diligence",
       "official_batch": "batch03",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1369,7 +1370,7 @@
       "capability": "Protocol KPI Intelligence",
       "official_batch": "batch03",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1378,7 +1379,7 @@
       "capability": "Quarterly Protocol Performance Reports",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1387,7 +1388,7 @@
       "capability": "Governance & Proposal Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1396,7 +1397,7 @@
       "capability": "Project Monitoring Coverage Registry",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1405,7 +1406,7 @@
       "capability": "AI Crypto Copilot",
       "official_batch": "batch04",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1414,7 +1415,7 @@
       "capability": "AI Deep Research",
       "official_batch": "batch04",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1423,7 +1424,7 @@
       "capability": "Crypto Knowledge Graph",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1432,7 +1433,7 @@
       "capability": "Research Library",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1441,7 +1442,7 @@
       "capability": "Institutional Research Feed",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1450,7 +1451,7 @@
       "capability": "API Data Platform",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1459,7 +1460,7 @@
       "capability": "Pay-Per-Request Data Access",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1468,7 +1469,7 @@
       "capability": "Institutional Data Delivery & Entitlements",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1477,7 +1478,7 @@
       "capability": "Evidence & Provenance Layer",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1486,7 +1487,7 @@
       "capability": "Cross-Domain Research-to-Decision Intelligence",
       "official_batch": "batch04",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1495,7 +1496,7 @@
       "capability": "Token Unlock Actionability Score",
       "official_batch": "batch04",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1504,7 +1505,7 @@
       "capability": "Fundraising Momentum Score",
       "official_batch": "batch04",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1513,7 +1514,7 @@
       "capability": "Research Confidence Score",
       "official_batch": "batch04",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1522,7 +1523,7 @@
       "capability": "Social Volume Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1531,7 +1532,7 @@
       "capability": "Social Dominance Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1540,7 +1541,7 @@
       "capability": "Unique Social Volume",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1549,7 +1550,7 @@
       "capability": "Trending Words",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1558,7 +1559,7 @@
       "capability": "Trending Coins",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1567,7 +1568,7 @@
       "capability": "Historical Crypto Trends",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1576,7 +1577,7 @@
       "capability": "Key Narratives Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1585,7 +1586,7 @@
       "capability": "Alpha Narratives Intelligence",
       "official_batch": "batch04",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1594,7 +1595,7 @@
       "capability": "Social Sentiment Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1603,7 +1604,7 @@
       "capability": "Weighted Social Sentiment",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1612,7 +1613,7 @@
       "capability": "Social Sentiment Balance",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1621,7 +1622,7 @@
       "capability": "Social Source Breakdown",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1630,7 +1631,7 @@
       "capability": "Development Activity Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1639,7 +1640,7 @@
       "capability": "Development Activity Contributors",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1648,7 +1649,7 @@
       "capability": "Ecosystem Development Dashboard",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1657,7 +1658,7 @@
       "capability": "Developer Activity Change Detection",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1666,7 +1667,7 @@
       "capability": "Whale Transaction Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1675,7 +1676,7 @@
       "capability": "Whale & Shark Holder Cohorts",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1684,7 +1685,7 @@
       "capability": "Top Holders Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1693,7 +1694,7 @@
       "capability": "Historical Wallet Balance Tool",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1702,7 +1703,7 @@
       "capability": "Exchange Inflow Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1711,7 +1712,7 @@
       "capability": "Exchange Outflow Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1720,7 +1721,7 @@
       "capability": "Exchange Netflow Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1729,7 +1730,7 @@
       "capability": "Exchange Supply / Balance Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1738,7 +1739,7 @@
       "capability": "Exchange User Activity",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1747,7 +1748,7 @@
       "capability": "Network Activity Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1756,7 +1757,7 @@
       "capability": "Transaction Volume Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1765,7 +1766,7 @@
       "capability": "NVT Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1774,7 +1775,7 @@
       "capability": "MVRV Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1783,7 +1784,7 @@
       "capability": "Realized Cap / Realized Value Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1792,7 +1793,7 @@
       "capability": "Daily Active Addresses",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1801,7 +1802,7 @@
       "capability": "Age Consumed / Dormancy Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1810,7 +1811,7 @@
       "capability": "Mean Dollar Invested Age",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1819,7 +1820,7 @@
       "capability": "Token Circulation Intelligence",
       "official_batch": "batch04",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1828,7 +1829,7 @@
       "capability": "Network Growth Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1837,7 +1838,7 @@
       "capability": "Supply Distribution Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1846,7 +1847,7 @@
       "capability": "DEX Trading Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1855,7 +1856,7 @@
       "capability": "DeFi Protocol Activity Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1864,7 +1865,7 @@
       "capability": "Open Interest Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1873,7 +1874,7 @@
       "capability": "Funding Rate Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1882,7 +1883,7 @@
       "capability": "Price / Volume / Market Metrics",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1891,7 +1892,7 @@
       "capability": "Metric Correlation Workbench",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1900,7 +1901,7 @@
       "capability": "Custom Chart Builder",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1909,7 +1910,7 @@
       "capability": "Custom Dashboards / Layouts",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1918,7 +1919,7 @@
       "capability": "Screener",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1927,7 +1928,7 @@
       "capability": "Smart Alerts",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1936,7 +1937,7 @@
       "capability": "Anomaly Detection Alerts",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1945,7 +1946,7 @@
       "capability": "Watchlists",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1954,7 +1955,7 @@
       "capability": "Community Explorer",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1963,7 +1964,7 @@
       "capability": "Research & Market Insights",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1972,7 +1973,7 @@
       "capability": "SanAPI-Style Data Access",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1981,7 +1982,7 @@
       "capability": "Google Sheets Integration",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1990,7 +1991,7 @@
       "capability": "Metric Availability Registry",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -1999,7 +2000,7 @@
       "capability": "Data Stabilization & Mutability Metadata",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2008,7 +2009,7 @@
       "capability": "Data Quality & Provenance Layer",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2017,7 +2018,7 @@
       "capability": "Metric Methodology Registry",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2026,7 +2027,7 @@
       "capability": "Social-to-On-Chain Confirmation Engine",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2035,7 +2036,7 @@
       "capability": "Narrative Actionability Score",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2044,7 +2045,7 @@
       "capability": "Development-to-Market Divergence Detector",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2053,7 +2054,7 @@
       "capability": "Cross-Domain Decision Intelligence Layer",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2062,7 +2063,7 @@
       "capability": "Unified Trading Intelligence Workspace",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2071,7 +2072,7 @@
       "capability": "Funding Rate Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2080,7 +2081,7 @@
       "capability": "Cross-Exchange Funding Arbitrage Scanner",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2089,7 +2090,7 @@
       "capability": "Spot-Perp Arbitrage Scanner",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2098,7 +2099,7 @@
       "capability": "Futures Basis & Term Structure",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2107,7 +2108,7 @@
       "capability": "Open Interest Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2116,7 +2117,7 @@
       "capability": "Liquidation Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2125,7 +2126,7 @@
       "capability": "CVD Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2134,7 +2135,7 @@
       "capability": "Long/Short Ratio Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2143,7 +2144,7 @@
       "capability": "DEX Screener",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2152,7 +2153,7 @@
       "capability": "Token Risk Scoring",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2161,7 +2162,7 @@
       "capability": "Pump & Dump Detection",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2170,7 +2171,7 @@
       "capability": "Narrative Tracking",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2179,7 +2180,7 @@
       "capability": "Sector Rotation Intelligence",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2188,7 +2189,7 @@
       "capability": "Sentiment Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2197,7 +2198,7 @@
       "capability": "Price Prediction / Multi-Signal Forecast",
       "official_batch": "batch05",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2206,7 +2207,7 @@
       "capability": "Correlation Matrix",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2215,7 +2216,7 @@
       "capability": "New Listings Intelligence",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2224,7 +2225,7 @@
       "capability": "Market Health & Freshness",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2233,7 +2234,7 @@
       "capability": "Coverage Metadata Registry",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2242,7 +2243,7 @@
       "capability": "Public REST API",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2251,7 +2252,7 @@
       "capability": "MCP Server for AI Agents",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2260,7 +2261,7 @@
       "capability": "CLI Access",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2269,7 +2270,7 @@
       "capability": "OpenAPI / SDK Generation",
       "official_batch": "batch05",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2278,7 +2279,7 @@
       "capability": "Cross-Domain Decision Intelligence",
       "official_batch": "batch06",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2287,7 +2288,7 @@
       "capability": "Liquidation Heatmap",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2296,7 +2297,7 @@
       "capability": "Liquidation Map / Levels",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2305,7 +2306,7 @@
       "capability": "Real-Time Liquidation Events",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2314,7 +2315,7 @@
       "capability": "Open Interest Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2323,7 +2324,7 @@
       "capability": "Funding Rate Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2332,7 +2333,7 @@
       "capability": "Long/Short Ratio Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2341,7 +2342,7 @@
       "capability": "Top Trader Positioning",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2350,7 +2351,7 @@
       "capability": "Futures Basis Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2359,7 +2360,7 @@
       "capability": "Futures Volume Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2368,7 +2369,7 @@
       "capability": "Futures CVD / Taker Flow",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2377,7 +2378,7 @@
       "capability": "Options Open Interest",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2386,7 +2387,7 @@
       "capability": "Options Volume",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2395,7 +2396,7 @@
       "capability": "Options IV / Skew",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2404,7 +2405,7 @@
       "capability": "Max Pain / Gamma Context",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2413,7 +2414,7 @@
       "capability": "Spot Market Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2422,7 +2423,7 @@
       "capability": "Order Book / Market Depth",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2431,7 +2432,7 @@
       "capability": "Historical Derivatives Data",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2440,7 +2441,7 @@
       "capability": "Exchange Comparison",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2449,7 +2450,7 @@
       "capability": "Liquidation Cascade Proximity",
       "official_batch": "batch06",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2458,7 +2459,7 @@
       "capability": "Leverage Pressure Score",
       "official_batch": "batch06",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2467,7 +2468,7 @@
       "capability": "API Data Platform",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2476,7 +2477,7 @@
       "capability": "Multi-Model Liquidation Comparison",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2485,7 +2486,7 @@
       "capability": "Derivatives Alerts",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2494,7 +2495,7 @@
       "capability": "Cross-Domain Decision Intelligence",
       "official_batch": "batch06",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2503,7 +2504,7 @@
       "capability": "Entity Resolution Engine",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2512,7 +2513,7 @@
       "capability": "Address Labeling System",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2521,7 +2522,7 @@
       "capability": "Entity Profiles",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2530,7 +2531,7 @@
       "capability": "Transaction Search",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2539,7 +2540,7 @@
       "capability": "Portfolio Holdings",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2548,7 +2549,7 @@
       "capability": "Balance History",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2557,7 +2558,7 @@
       "capability": "Entity PnL",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2566,7 +2567,7 @@
       "capability": "Exchange Usage Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2575,7 +2576,7 @@
       "capability": "Top Counterparties",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2584,7 +2585,7 @@
       "capability": "Visualizer / Network Graph",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2593,7 +2594,7 @@
       "capability": "Automated Trace / Path Finding",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2602,7 +2603,7 @@
       "capability": "Cross-Chain Trace",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2611,7 +2612,7 @@
       "capability": "Token Top Holders",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2620,7 +2621,7 @@
       "capability": "Token Exchange Flows",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2629,7 +2630,7 @@
       "capability": "Token Transaction Explorer",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2638,7 +2639,7 @@
       "capability": "Custom Dashboards",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2647,7 +2648,7 @@
       "capability": "Custom Alerts",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2656,7 +2657,7 @@
       "capability": "Private Labels",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2665,7 +2666,7 @@
       "capability": "Archive / Historical Portfolio Snapshot",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2674,7 +2675,7 @@
       "capability": "AI Market Insights",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2683,7 +2684,7 @@
       "capability": "Whale Movement Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2692,7 +2693,7 @@
       "capability": "Fraud / Suspicious Activity Intelligence",
       "official_batch": "batch06",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2701,7 +2702,7 @@
       "capability": "API On-Chain Intelligence",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2710,7 +2711,7 @@
       "capability": "Cross-Entity Decision Intelligence",
       "official_batch": "batch06",
       "legacy_status": "PERFORMANCE-UNVERIFIABLE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -2719,7 +2720,7 @@
       "capability": "Advanced Multi-Asset Charting",
       "official_batch": "batch06",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -4977,8 +4978,8 @@
       "id": 551,
       "capability": "Liquidation Intelligence",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -4986,8 +4987,8 @@
       "id": 552,
       "capability": "Futures Volume",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -4995,8 +4996,8 @@
       "id": 553,
       "capability": "Basis Intelligence",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5004,8 +5005,8 @@
       "id": 554,
       "capability": "Spot Market Data",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5013,8 +5014,8 @@
       "id": 555,
       "capability": "Options Analytics",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5022,8 +5023,8 @@
       "id": 556,
       "capability": "Options IV Surface",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5031,8 +5032,8 @@
       "id": 557,
       "capability": "Options Skew",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5040,8 +5041,8 @@
       "id": 558,
       "capability": "Options Term Structure",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5049,8 +5050,8 @@
       "id": 559,
       "capability": "TradFi Context",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5058,8 +5059,8 @@
       "id": 560,
       "capability": "Multi-Indicator Workspace",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5067,8 +5068,8 @@
       "id": 561,
       "capability": "Real-Time Prices",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5076,8 +5077,8 @@
       "id": 562,
       "capability": "Historical Data",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5085,8 +5086,8 @@
       "id": 563,
       "capability": "API Data Access",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5094,8 +5095,8 @@
       "id": 564,
       "capability": "News Context",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5103,8 +5104,8 @@
       "id": 565,
       "capability": "Cross-Asset Correlation",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5112,8 +5113,8 @@
       "id": 566,
       "capability": "Derivatives Regime Engine",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5121,8 +5122,8 @@
       "id": 567,
       "capability": "Cross-Market Decision Intelligence",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5130,8 +5131,8 @@
       "id": 568,
       "capability": "Security_First_Architecture",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5139,8 +5140,8 @@
       "id": 569,
       "capability": "API_Security_Encryption",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5148,8 +5149,8 @@
       "id": 570,
       "capability": "High_Availability_Architecture",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5157,8 +5158,8 @@
       "id": 571,
       "capability": "Infrastructure_Uptime_Shield",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5166,8 +5167,8 @@
       "id": 572,
       "capability": "Institutional_Data_Architecture",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5175,8 +5176,8 @@
       "id": 573,
       "capability": "Flexible_Connector_Microservice",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5184,8 +5185,8 @@
       "id": 574,
       "capability": "Institutional_API_Gateway",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5193,8 +5194,8 @@
       "id": 575,
       "capability": "API_Data_Pipe",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5202,8 +5203,8 @@
       "id": 576,
       "capability": "Developer_SDK",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5211,8 +5212,8 @@
       "id": 577,
       "capability": "Pro_Developer_Sandbox",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5220,8 +5221,8 @@
       "id": 578,
       "capability": "Unified_Portfolio_Dashboard",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5229,8 +5230,8 @@
       "id": 579,
       "capability": "Global_Asset_Tracker",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5238,8 +5239,8 @@
       "id": 580,
       "capability": "Multi_Account_Sync",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5247,8 +5248,8 @@
       "id": 581,
       "capability": "On_Chain_Balance_Monitor",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5256,8 +5257,8 @@
       "id": 582,
       "capability": "Profitability_Analyzer",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5265,8 +5266,8 @@
       "id": 583,
       "capability": "Margin_Risk_Calculator",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5274,8 +5275,8 @@
       "id": 584,
       "capability": "Risk_Management_Shield",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5283,8 +5284,8 @@
       "id": 585,
       "capability": "Volatility_Scoring_System",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5292,8 +5293,8 @@
       "id": 586,
       "capability": "Volatility_Surface_Analyzer",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5301,8 +5302,8 @@
       "id": 587,
       "capability": "Delta_Neutral_Calculator",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5310,8 +5311,8 @@
       "id": 588,
       "capability": "High_Precision_Backtesting",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5319,8 +5320,8 @@
       "id": 589,
       "capability": "Strategy_Vetting_Algorithm",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5328,8 +5329,8 @@
       "id": 590,
       "capability": "AI_Quant_Rating_Engine",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5337,8 +5338,8 @@
       "id": 591,
       "capability": "Sentiment_Analysis_Engine",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5346,8 +5347,8 @@
       "id": 592,
       "capability": "Social_Sentiment_Engine",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5355,8 +5356,8 @@
       "id": 593,
       "capability": "Social_Hype_Analyzer",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5364,8 +5365,8 @@
       "id": 594,
       "capability": "Narrative_Alert_System",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5373,8 +5374,8 @@
       "id": 595,
       "capability": "AI_Digest_Generator",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5382,8 +5383,8 @@
       "id": 596,
       "capability": "AI_Agent_Consultant",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5391,8 +5392,8 @@
       "id": 597,
       "capability": "Natural_Language_Interpreter",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5400,8 +5401,8 @@
       "id": 598,
       "capability": "Wallet_Shadowing",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5409,8 +5410,8 @@
       "id": 599,
       "capability": "Entity_Tagging_System",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
@@ -5418,8 +5419,8 @@
       "id": 600,
       "capability": "Whale_Clustering_Engine",
       "official_batch": "batch12",
-      "legacy_status": "NOT_STARTED",
-      "engineering_status": "NOT_COMPLETE",
+      "legacy_status": "NOT_COMPLETE",
+      "engineering_status": "PARTIAL",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE"
     },
