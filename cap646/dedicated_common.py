@@ -62,6 +62,10 @@ def wrap(
     if isinstance(payload, dict):
         if "provenance" in payload and "data_provenance" not in body:
             body["data_provenance"] = payload.get("provenance")
+    if "data_provenance" not in body and "provenance" not in body:
+        from data_provenance_score import compute_data_provenance_score
+
+        body["data_provenance"] = compute_data_provenance_score(symbol=symbol)
     return ai_compliance_footer(body)
 
 
