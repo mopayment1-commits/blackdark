@@ -200,6 +200,17 @@ def require_authenticated(
     return user
 
 
+def session_user_key(user: dict) -> str:
+    """Stable per-user key from authenticated session — never trust caller-supplied identity."""
+    email = str(user.get("email") or "").strip().lower()
+    if email:
+        return email
+    uid = user.get("id")
+    if uid is not None:
+        return f"user:{uid}"
+    raise HTTPException(status_code=401, detail="Authentication required")
+
+
 def require_whale(
     user: Annotated[dict, Depends(require_authenticated)],
 ) -> dict:
