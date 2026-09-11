@@ -72,7 +72,7 @@ async def _audit_one(cap_id: int) -> dict:
     return _triple_classify(cap_id, functional, runtime)
 
 
-async def _audit_all(concurrency: int = 8) -> list[dict]:
+async def _audit_all(concurrency: int = 4) -> list[dict]:
     sem = asyncio.Semaphore(concurrency)
 
     async def _guarded(cid: int) -> dict:
