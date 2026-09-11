@@ -10,13 +10,14 @@
     10,
     11,
     12,
-    13
+    13,
+    15
   ],
-  "current_batch": 14,
-  "last_completed_at": "2026-09-11T21:23:16.389082+00:00",
-  "run826_started_at": "2026-09-11T21:35:48.944825+00:00",
+  "current_batch": null,
+  "last_completed_at": "2026-09-11T22:00:21.751654+00:00",
+  "run826_started_at": "2026-09-11T21:59:34.041804+00:00",
   "range": [
-    14,
+    15,
     17
   ],
   "resume_note": "Continuous 14-17 after batch_registry cache fix"
