@@ -7,10 +7,11 @@
     7,
     8,
     9,
-    10
+    10,
+    11
   ],
-  "current_batch": 11,
-  "last_completed_at": "2026-09-11T21:19:55.000000+00:00",
+  "current_batch": null,
+  "last_completed_at": "2026-09-11T21:22:25.711290+00:00",
   "run826_started_at": "2026-09-11T21:20:44.502583+00:00",
   "range": [
     11,
