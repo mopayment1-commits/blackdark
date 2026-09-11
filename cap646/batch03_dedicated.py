@@ -1,7 +1,7 @@
 """Batch 03 prep dedicated backends — goal-specific payloads for IDs 101–150.
 
-IDs 103 and 129 are batch01 overlap: no dedicated backend here; runtime routes them to
-``cap646.batch01_production`` (see ``BATCH03_OVERLAP_BATCH01_IDS``).
+Official batch03 = IDs 101–150. Cross-spine overlap 103/129 resolved Run 008;
+dedicated handlers added Run 009 (Batch03 diagnostic audit — fresh classification).
 """
 
 from __future__ import annotations
@@ -16,8 +16,9 @@ from cap646.dedicated_common import seed as _seed
 from cap646.dedicated_common import sym as _sym
 from cap646.evidence_class import ai_compliance_footer
 
-BATCH03_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({103, 129})
-BATCH03_DEDICATED_IDS: frozenset[int] = frozenset(range(101, 151)) - BATCH03_OVERLAP_BATCH01_IDS
+BATCH03_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset()  # resolved Run 008 (103, 129)
+OFFICIAL_BATCH03_IDS: frozenset[int] = frozenset(range(101, 151))
+BATCH03_DEDICATED_IDS: frozenset[int] = OFFICIAL_BATCH03_IDS
 
 GENERIC_SURFACES = frozenset(
     {"onchain_intelligence", "ai_decision_intelligence", "market_data", "smart_alerts"}
@@ -95,6 +96,20 @@ async def _cap102(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     from bd_platform.infra_intelligence_layer import compute_il_vulnerability_102
     payload = compute_il_vulnerability_102(seed=_seed())
     return _wrap(102, symbol=symbol, payload_key="il_vulnerability", payload=payload)
+
+
+async def _cap103(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    """API Data Platform — batch03 dedicated (Run 009); no batch01 classification carry-over."""
+    from hot_storage import get_hot_storage_stats
+
+    hot = get_hot_storage_stats()
+    payload = {
+        "hot_storage": hot.__dict__ if hasattr(hot, "__dict__") else hot,
+        "graphql": "/graphql",
+        "institutional_api": "/api/institutional",
+        "platform_read": "api_data_platform_live",
+    }
+    return _wrap(103, symbol=symbol, payload_key="api_data_platform", payload=payload)
 
 
 async def _cap104(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -282,6 +297,17 @@ async def _cap128(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _wrap(128, symbol=symbol, payload_key="momentum_intelligence", payload=payload)
 
 
+async def _cap129(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    """Sentiment Intelligence — batch03 dedicated (Run 009); fresh audit classification."""
+    from sentiment_engine import build_sentiment_context_safe
+    from sentiment_gate import fetch_asset_sentiment
+
+    ctx = await build_sentiment_context_safe(symbol)
+    gate = await fetch_asset_sentiment(symbol)
+    payload = {"context": ctx, "gate": gate, "sentiment_read": ctx.get("score")}
+    return _wrap(129, symbol=symbol, payload_key="sentiment_intelligence", payload=payload)
+
+
 async def _cap130(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.onchain_platform_layer import transaction_risk_insight_130
     payload = transaction_risk_insight_130(seed=_seed())
@@ -420,6 +446,7 @@ async def _cap150(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     101: _cap101,
     102: _cap102,
+    103: _cap103,
     104: _cap104,
     105: _cap105,
     106: _cap106,
@@ -445,6 +472,7 @@ _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     126: _cap126,
     127: _cap127,
     128: _cap128,
+    129: _cap129,
     130: _cap130,
     131: _cap131,
     132: _cap132,
