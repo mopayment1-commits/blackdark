@@ -1,0 +1,71 @@
+{
+  "remediation": {
+    "generated_at": "2026-09-11T08:52:13.258576+00:00",
+    "items": {
+      "8": {
+        "locked_circulating_supply_proxy": {
+          "non_circulating_supply_pct": 0.0,
+          "locked_supply_pct": 0.0,
+          "circulating_supply": 20082706.0,
+          "total_supply": 20082718.0,
+          "supply_lock_risk": "low",
+          "method": "locked_circulating_supply_proxy",
+          "methodology_status": "NOT_COMPLETE",
+          "methodology_reason": "Requires on-chain top-holder distribution data source; does not measure actual top-10 holder concentration",
+          "data_source_required": "on_chain_top_holder_distribution",
+          "disclaimer": "This metric is a locked/non-circulating supply proxy \u2014 NOT real top-holder concentration analysis"
+        },
+        "methodology_status": "NOT_COMPLETE",
+        "disclaimer": "This metric is a locked/non-circulating supply proxy \u2014 NOT real top-holder concentration analysis",
+        "deprecated_alias": {
+          "deprecated": true,
+          "use_instead": "locked_circulating_supply_proxy",
+          "note": "Renamed Run 005 \u2014 prior top10_proxy_pct mislabeled supply lock as holder concentration"
+        }
+      },
+      "9": {
+        "path": "B",
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "heuristic_formula": "100 - locked_pct * 0.6 + (ls_ratio - 1) * 10",
+        "distribution_score": 100.0
+      },
+      "33": {
+        "path": "B",
+        "heuristic": true,
+        "methodology_status": "NOT_COMPLETE",
+        "heuristic_formula": "min(100, max(0, len(alerts) * 12.5))",
+        "actionability_score": 0.0,
+        "alert_count": 0
+      }
+    },
+    "id8_path_decision": {
+      "chosen_path": "B",
+      "reason": "holder_analytics() uses CoinGecko supply + Binance futures only (bd_platform/free_integrations.py) \u2014 no top-holder distribution API available without paid integration",
+      "holder_analytics_source": "coingecko_binance_free",
+      "available_metrics": [
+        "price_usd",
+        "market_cap_usd",
+        "circulating_supply",
+        "total_supply",
+        "locked_supply_pct",
+        "long_short_ratio",
+        "funding_rate_pct",
+        "open_interest_usd",
+        "taker_buy_sell_ratio"
+      ]
+    }
+  },
+  "audit_counts": {
+    "NOT_COMPLETE": 36,
+    "PERFORMANCE-UNVERIFIABLE": 14
+  },
+  "rtm_summary": {
+    "total": 50,
+    "production_aligned": 0,
+    "not_complete": 36,
+    "performance_unverifiable": 14,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0
+  }
+}

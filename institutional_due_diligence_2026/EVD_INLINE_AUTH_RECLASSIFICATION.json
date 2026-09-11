@@ -1,0 +1,28 @@
+{
+  "procedure_id": "PROC-012",
+  "evidence_id": "EVD-026",
+  "evidence_level": "L0+L1",
+  "inline_auth_count": 3,
+  "sample": [
+    {
+      "file": "api/routers/admin_billing.py",
+      "method": "GET",
+      "path": "/metrics",
+      "auth_class": "INLINE_AUTH"
+    },
+    {
+      "file": "api/routers/admin_billing.py",
+      "method": "GET",
+      "path": "/anomalies",
+      "auth_class": "INLINE_AUTH"
+    },
+    {
+      "file": "api/routers/admin_billing.py",
+      "method": "POST",
+      "path": "/sweep",
+      "auth_class": "INLINE_AUTH"
+    }
+  ],
+  "wf021_note": "192 NO_DECORATOR overstates vulnerability; admin_billing uses inline require_admin_ops",
+  "status": "PARTIAL"
+}

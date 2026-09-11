@@ -1,0 +1,15 @@
+{
+  "evidence_id": "EVD-054",
+  "gips": "GIPS_APPLICABLE",
+  "gips_hits": [
+    "api/routers/oracle.py",
+    "api/routers/compounding.py",
+    "api/routers/oracle.py",
+    "templates/model_card.html",
+    "templates/landing.html",
+    "templates/profile.html",
+    "api/routers/compounding.py",
+    "api/routers/oracle.py"
+  ],
+  "pci": "PCI_SCOPE_REVIEW_REQUIRED"
+}

@@ -1,0 +1,850 @@
+{
+  "score_idx_review": {
+    "reviewed_at": "2026-09-11T09:13:30.464183+00:00",
+    "policy": "SCORE-IDX-001 + RBAS-001 Tier2 non-escalated recheck (Run 014)",
+    "not_complete_scope_count": 39,
+    "tier2_non_escalated_reviewed": [
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      212,
+      213,
+      217,
+      218,
+      220,
+      221,
+      228,
+      231,
+      232,
+      233,
+      234,
+      235,
+      236,
+      243,
+      244,
+      246,
+      247,
+      249,
+      250
+    ],
+    "tier2_non_escalated_count": 28,
+    "hidden_decision_hits": {},
+    "reclassified_to_tier1_full": [],
+    "conclusion": "After supplemental SCORE-IDX-001 review of all 28 Tier2 non-escalated capabilities, no hidden scoring/decision logic requiring Tier1 promotion or CONCEPTUALLY-UNSOUND reclassification was found. CONCEPTUALLY-UNSOUND remains 0/50.",
+    "confirmed_conceptually_unsound_zero": true
+  },
+  "bcbs_remediation": {
+    "generated_at": "2026-09-11T09:13:30.464537+00:00",
+    "fix": "cap646.batch05_dedicated._wrap stamps top-level data_source + timestamp (Run 013; verified Run 014)",
+    "per_id": {
+      "201": {
+        "name": "Network Growth Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 201, \"surface\": \"network_growth_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap201\", \"timestamp\": \"2026-09-11T09:13:30.468411+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "202": {
+        "name": "Supply Distribution Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 202, \"surface\": \"supply_distribution_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap202\", \"timestamp\": \"2026-09-11T09:13:30.469007+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "203": {
+        "name": "DEX Trading Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 203, \"surface\": \"dex_trading_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap203\", \"timestamp\": \"2026-09-11T09:13:30.469192+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "204": {
+        "name": "DeFi Protocol Activity Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 204, \"surface\": \"defi_protocol_activity_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap204\", \"timestamp\": \"2026-09-11T09:13:30.486114+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "205": {
+        "name": "Open Interest Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 205, \"surface\": \"open_interest_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap205\", \"timestamp\": \"2026-09-11T09:13:30.663850+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "206": {
+        "name": "Funding Rate Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 206, \"surface\": \"funding_rate_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap206\", \"timestamp\": \"2026-09-11T09:13:30.846459+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "207": {
+        "name": "Price / Volume / Market Metrics",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 207, \"surface\": \"price_volume_market_metrics\", \"data_source\": \"cap646.batch05_dedicated#cap207\", \"timestamp\": \"2026-09-11T09:13:32.799910+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "208": {
+        "name": "Metric Correlation Workbench",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 208, \"surface\": \"metric_correlation_workbench\", \"data_source\": \"cap646.batch05_dedicated#cap208\", \"timestamp\": \"2026-09-11T09:13:32.800323+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "209": {
+        "name": "Custom Chart Builder",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 209, \"surface\": \"custom_chart_builder\", \"data_source\": \"cap646.batch05_dedicated#cap209\", \"timestamp\": \"2026-09-11T09:13:34.800644+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "210": {
+        "name": "Custom Dashboards / Layouts",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 210, \"surface\": \"custom_dashboards_layouts\", \"data_source\": \"cap646.batch05_dedicated#cap210\", \"timestamp\": \"2026-09-11T09:13:44.577872+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "211": {
+        "name": "Screener",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 211, \"surface\": \"screener\", \"data_source\": \"cap646.batch05_dedicated#cap211\", \"timestamp\": \"2026-09-11T09:13:48.904561+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "212": {
+        "name": "Smart Alerts",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 212, \"surface\": \"smart_alerts\", \"data_source\": \"cap646.batch05_dedicated#cap212\", \"timestamp\": \"2026-09-11T09:13:48.904688+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "213": {
+        "name": "Anomaly Detection Alerts",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 213, \"surface\": \"anomaly_detection_alerts\", \"data_source\": \"cap646.batch05_dedicated#cap213\", \"timestamp\": \"2026-09-11T09:13:48.904765+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "214": {
+        "name": "Watchlists",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 214, \"surface\": \"watchlists\", \"data_source\": \"cap646.batch05_dedicated#cap214\", \"timestamp\": \"2026-09-11T09:13:50.589071+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "215": {
+        "name": "Community Explorer",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 215, \"surface\": \"community_explorer\", \"data_source\": \"cap646.batch05_dedicated#cap215\", \"timestamp\": \"2026-09-11T09:13:54.880890+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "216": {
+        "name": "Research & Market Insights",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 216, \"surface\": \"research_market_insights\", \"data_source\": \"cap646.batch05_dedicated#cap216\", \"timestamp\": \"2026-09-11T09:13:56.898219+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "217": {
+        "name": "SanAPI-Style Data Access",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 217, \"surface\": \"sanapi_style_data_access\", \"data_source\": \"cap646.batch05_dedicated#cap217\", \"timestamp\": \"2026-09-11T09:13:57.040000+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "218": {
+        "name": "Google Sheets Integration",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 218, \"surface\": \"google_sheets_integration\", \"data_source\": \"cap646.batch05_dedicated#cap218\", \"timestamp\": \"2026-09-11T09:13:57.040196+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "219": {
+        "name": "Metric Availability Registry",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 219, \"surface\": \"metric_availability_registry\", \"data_source\": \"cap646.batch05_dedicated#cap219\", \"timestamp\": \"2026-09-11T09:14:01.344758+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "220": {
+        "name": "Data Stabilization & Mutability Metadata",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 220, \"surface\": \"data_stabilization_mutability_metadata\", \"data_source\": \"cap646.batch05_dedicated#cap220\", \"timestamp\": \"2026-09-11T09:14:01.348323+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "221": {
+        "name": "Data Quality & Provenance Layer",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 221, \"surface\": \"data_quality_provenance_layer\", \"data_source\": \"cap646.batch05_dedicated#cap221\", \"timestamp\": \"2026-09-11T09:14:01.349790+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "222": {
+        "name": "Metric Methodology Registry",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 222, \"surface\": \"metric_methodology_registry\", \"data_source\": \"cap646.batch05_dedicated#cap222\", \"timestamp\": \"2026-09-11T09:14:01.352530+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "228": {
+        "name": "Funding Rate Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 228, \"surface\": \"funding_rate_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap228\", \"timestamp\": \"2026-09-11T09:14:01.536451+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "231": {
+        "name": "Futures Basis & Term Structure",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 231, \"surface\": \"futures_basis_term_structure\", \"data_source\": \"cap646.batch05_dedicated#cap231\", \"timestamp\": \"2026-09-11T09:14:01.717734+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "232": {
+        "name": "Open Interest Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 232, \"surface\": \"open_interest_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap232\", \"timestamp\": \"2026-09-11T09:14:01.893434+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "233": {
+        "name": "Liquidation Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 233, \"surface\": \"liquidation_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap233\", \"timestamp\": \"2026-09-11T09:14:02.090431+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "234": {
+        "name": "CVD Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 234, \"surface\": \"cvd_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap234\", \"timestamp\": \"2026-09-11T09:14:02.277491+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "235": {
+        "name": "Long/Short Ratio Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 235, \"surface\": \"long_short_ratio_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap235\", \"timestamp\": \"2026-09-11T09:14:04.254628+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "236": {
+        "name": "DEX Screener",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 236, \"surface\": \"dex_screener\", \"data_source\": \"cap646.batch05_dedicated#cap236\", \"timestamp\": \"2026-09-11T09:14:04.276015+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "239": {
+        "name": "Narrative Tracking",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 239, \"surface\": \"narrative_tracking\", \"data_source\": \"cap646.batch05_dedicated#cap239\", \"timestamp\": \"2026-09-11T09:14:04.276383+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "241": {
+        "name": "Sentiment Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 241, \"surface\": \"sentiment_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap241\", \"timestamp\": \"2026-09-11T09:14:06.399651+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "243": {
+        "name": "Correlation Matrix",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 243, \"surface\": \"correlation_matrix\", \"data_source\": \"cap646.batch05_dedicated#cap243\", \"timestamp\": \"2026-09-11T09:14:06.582262+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "244": {
+        "name": "New Listings Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 244, \"surface\": \"new_listings_intelligence\", \"data_source\": \"cap646.batch05_dedicated#cap244\", \"timestamp\": \"2026-09-11T09:14:08.534819+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "245": {
+        "name": "Market Health & Freshness",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 245, \"surface\": \"market_health_freshness\", \"data_source\": \"cap646.batch05_dedicated#cap245\", \"timestamp\": \"2026-09-11T09:14:08.536873+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "246": {
+        "name": "Coverage Metadata Registry",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 246, \"surface\": \"coverage_metadata_registry\", \"data_source\": \"cap646.batch05_dedicated#cap246\", \"timestamp\": \"2026-09-11T09:14:08.537143+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "247": {
+        "name": "Public REST API",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 247, \"surface\": \"public_rest_api\", \"data_source\": \"cap646.batch05_dedicated#cap247\", \"timestamp\": \"2026-09-11T09:14:08.537202+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "248": {
+        "name": "MCP Server for AI Agents",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 248, \"surface\": \"mcp_server_for_ai_agents\", \"data_source\": \"cap646.batch05_dedicated#cap248\", \"timestamp\": \"2026-09-11T09:14:12.814873+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "249": {
+        "name": "CLI Access",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 249, \"surface\": \"cli_access\", \"data_source\": \"cap646.batch05_dedicated#cap249\", \"timestamp\": \"2026-09-11T09:14:12.815106+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "250": {
+        "name": "OpenAPI / SDK Generation",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 250, \"surface\": \"openapi_sdk_generation\", \"data_source\": \"cap646.batch05_dedicated#cap250\", \"timestamp\": \"2026-09-11T09:14:12.815165+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      }
+    }
+  },
+  "performance_unverifiable": {
+    "generated_at": "2026-09-11T09:14:21.930977+00:00",
+    "ids": [
+      223,
+      224,
+      225,
+      226,
+      227,
+      229,
+      230,
+      237,
+      238,
+      240,
+      242
+    ],
+    "count": 11,
+    "rate_pct": 22.0,
+    "ledger_stats": {
+      "exists": true,
+      "unique_decisions": 75,
+      "simulated_only": true
+    },
+    "per_id": {
+      "223": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "224": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "225": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "226": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "227": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "229": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "230": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "237": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "238": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "240": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      },
+      "242": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 75,
+        "ledger_simulated_only": true,
+        "runtime_success": true,
+        "rbas_tier": "TIER1"
+      }
+    },
+    "reclassification": "none \u2014 retained per GIPS standard",
+    "concentration_analysis": "All 11/11 IDs are native Tier1 decision/score/arbitrage/AI capabilities (GIPS phase-2 FAIL on simulated-only ledger). Batch05 official scope has 14/50 Tier1 (28%) vs Batch04 21/50 (42%) \u2014 higher PERF-UNV *rate* (22% vs 14%) reflects denser decision-output surfaces per Tier1 cap (confirmation engine, arbitrage scanners, token risk scoring, pump detection, sector rotation, price forecast) rather than a different audit threshold. Same GIPS gate as prior batches."
+  },
+  "non_regression": {
+    "generated_at": "2026-09-11T09:22:01.322081+00:00",
+    "met": true,
+    "details": {
+      "batch01": {
+        "run": {
+          "script": "run005_batch01_final_closure.py",
+          "exit_code": 0,
+          "stdout_tail": "Wrote /workspace/institutional_due_diligence_2026/batch01_independent_audit/BATCH01_FINAL_CLOSURE_REPORT.md\nWrote /workspace/docs/BATCH01_OFFICIAL_RTM_1_50.json\nCounts: {'NOT_COMPLETE': 36, 'PERFORMANCE-UNVERIFIABLE': 14}\nClosure gate MET: True",
+          "stderr_tail": ""
+        },
+        "batch": "batch01",
+        "closure_gate": {
+          "conceptually_unsound_zero_required": true,
+          "met": true,
+          "batch01_closed": true
+        },
+        "summary": {
+          "total": 50,
+          "production_aligned": 0,
+          "not_complete": 36,
+          "performance_unverifiable": 14,
+          "conceptually_unsound": 0,
+          "split_brain_unverified": 0
+        }
+      },
+      "batch02": {
+        "run": {
+          "script": "run007_batch02_final_closure.py",
+          "exit_code": 0,
+          "stdout_tail": "Wrote /workspace/institutional_due_diligence_2026/batch02_independent_audit/BATCH02_FINAL_CLOSURE_REPORT.md\nWrote /workspace/docs/BATCH02_OFFICIAL_RTM_51_100.json\nCounts: {'NOT_COMPLETE': 43, 'PERFORMANCE-UNVERIFIABLE': 7}\nClosure gate MET: True",
+          "stderr_tail": "Yahoo macro fetch failed safely | symbol=^GSPC\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo price fetch failed safely | symbol=GC=F"
+        },
+        "batch": "batch02",
+        "closure_gate": {
+          "conceptually_unsound_zero_required": true,
+          "met": true,
+          "batch02_closed": true
+        },
+        "summary": {
+          "total": 50,
+          "production_aligned": 0,
+          "not_complete": 43,
+          "performance_unverifiable": 7,
+          "conceptually_unsound": 0,
+          "split_brain_unverified": 0
+        }
+      },
+      "batch03": {
+        "run": {
+          "script": "run010_batch03_final_closure.py",
+          "exit_code": 0,
+          "stdout_tail": "Wrote /workspace/institutional_due_diligence_2026/batch03_independent_audit/BATCH03_FINAL_CLOSURE_REPORT.md\nWrote /workspace/docs/BATCH03_OFFICIAL_RTM_101_150.json\nCounts: {'PERFORMANCE-UNVERIFIABLE': 5, 'NOT_COMPLETE': 45}\nClosure gate MET: True\nNon-regression MET: True",
+          "stderr_tail": ""
+        },
+        "batch": "batch03",
+        "closure_gate": {
+          "conceptually_unsound_zero_required": true,
+          "met": true,
+          "batch03_closed": true,
+          "honest_rtm_required": true
+        },
+        "summary": {
+          "total": 50,
+          "production_aligned": 0,
+          "not_complete": 45,
+          "performance_unverifiable": 5,
+          "conceptually_unsound": 0,
+          "split_brain_unverified": 0
+        }
+      },
+      "batch04": {
+        "run": {
+          "script": "run012_batch04_final_closure.py",
+          "exit_code": 0,
+          "stdout_tail": "Wrote /workspace/institutional_due_diligence_2026/batch04_independent_audit/BATCH04_FINAL_CLOSURE_REPORT.md\nWrote /workspace/docs/BATCH04_OFFICIAL_RTM_151_200.json\nCounts: {'NOT_COMPLETE': 43, 'PERFORMANCE-UNVERIFIABLE': 7}\nClosure gate MET: True\nNon-regression MET: False",
+          "stderr_tail": "rror='korbit'\n2026-09-11 09:17:31,238 | WARNING | BLACKDARK.WhaleTracker | Trade fetch failed | exchange=korbit symbol=XRP/USDT error='korbit'\n2026-09-11 09:17:31,238 | WARNING | BLACKDARK.WhaleTracker | Trade fetch failed | exchange=korbit symbol=XTZ/USDT error='korbit'\n2026-09-11 09:17:31,238 | WARNING | BLACKDARK.WhaleTracker | Trade fetch failed | exchange=korbit symbol=YFI/USDT error='korbit'"
+        },
+        "batch": "batch04",
+        "closure_gate": {
+          "conceptually_unsound_zero_required": true,
+          "split_brain_unverified_zero_required": true,
+          "met": true,
+          "batch04_closed": true,
+          "honest_rtm_required": true
+        },
+        "summary": {
+          "total": 50,
+          "production_aligned": 0,
+          "not_complete": 43,
+          "performance_unverifiable": 7,
+          "conceptually_unsound": 0,
+          "split_brain_unverified": 0
+        }
+      }
+    }
+  },
+  "audit_counts": {
+    "NOT_COMPLETE": 39,
+    "PERFORMANCE-UNVERIFIABLE": 11
+  },
+  "closure_gate_met": true
+}
