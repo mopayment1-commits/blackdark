@@ -69,6 +69,7 @@ Source: IIA Risk-Based Internal Auditing + SR 26-2 proportionality principle.
 **Tier2 escalation:** Hidden decision/score indicators during abbreviated Phase 1 → immediate promotion to Tier1 full path.
 
 | B04-RUN-011 | W22 | Batch 04 RBAS opening audit (IDs 151–200) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH04_RUN011_OPENING_REPORT.md |
+| B04-CLOSE-012 | W22 | Batch 04 final closure Run 012 (ID 196 split-brain + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH04_FINAL_CLOSURE_REPORT.md |
 
 ## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
 

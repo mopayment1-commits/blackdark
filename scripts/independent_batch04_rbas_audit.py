@@ -193,6 +193,16 @@ def bcbs_field_audit(payload: dict) -> dict[str, Any]:
     return {"present": checks, "missing_fields": missing}
 
 
+def _normalize_parity_payload(obj: Any) -> Any:
+    """Strip volatile timestamp fields for free_tier vs dedicated parity compare."""
+    if isinstance(obj, dict):
+        skip = {"timestamp", "attached_at", "updated_at", "created_at"}
+        return {k: _normalize_parity_payload(v) for k, v in obj.items() if k not in skip}
+    if isinstance(obj, list):
+        return [_normalize_parity_payload(x) for x in obj]
+    return obj
+
+
 async def split_brain_test(cid: int) -> dict[str, Any]:
     from bd_platform.free_tier_capabilities import FREE_TIER_CAP_IDS, execute_free_tier_capability
     from cap646.batch04_dedicated import BATCH04_DEDICATED_IDS, execute as execute_b4d
@@ -232,8 +242,20 @@ async def split_brain_test(cid: int) -> dict[str, Any]:
         row["verdict"] = "No free_tier path — dedicated batch04 only (SPLIT-BRAIN N/A)"
     elif row.get("free_tier_available") and row.get("batch04_dedicated_available"):
         f_data = (row.get("free_result") or {}).get("data") or row.get("free_result")
-        d_data = row.get("dedicated_result")
-        match = json.dumps(f_data, sort_keys=True, default=str) == json.dumps(d_data, sort_keys=True, default=str)
+        d_raw = row.get("dedicated_result") or {}
+        d_data = d_raw.get("data")
+        if d_data is None:
+            from cap646.batch04_dedicated import EXPECTED_SURFACE
+
+            slug = EXPECTED_SURFACE.get(cid)
+            if slug and slug in d_raw:
+                inner = d_raw.get(slug)
+                d_data = inner.get("result") if isinstance(inner, dict) and inner.get("result") else inner
+            else:
+                d_data = d_raw
+        match = json.dumps(_normalize_parity_payload(f_data), sort_keys=True, default=str) == json.dumps(
+            _normalize_parity_payload(d_data), sort_keys=True, default=str
+        )
         row["outputs_match"] = match
         if match:
             row["result_type"] = "DUPLICATE_CONFIRMED"

@@ -277,8 +277,21 @@ async def _cap195(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _wrap(195, symbol=symbol, payload_key="mvrv_intelligence", payload=payload)
 
 async def _cap196(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(196, params={**params, "symbol": symbol})
-    return _wrap(196, symbol=symbol, payload_key="realized_cap_realized_value_intelligence", payload=payload)
+    """FREE_TIER parity — same realized_cap_metrics as free_tier ID 196 (Run 012 split-brain fix)."""
+    from bd_platform.free_tier_capabilities import realized_cap_metrics
+
+    metrics = await realized_cap_metrics(symbol=symbol)
+    return _wrap(
+        196,
+        symbol=symbol,
+        payload_key="realized_cap_realized_value_intelligence",
+        payload=metrics,
+        extra={
+            "data": metrics,
+            "parity_binding": "free_tier.realized_cap_metrics",
+            "methodology": "defillama_market_proxy_realized_cap",
+        },
+    )
 
 async def _cap197(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     payload = await invoke_underlying(197, params={**params, "symbol": symbol})
