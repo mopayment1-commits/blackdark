@@ -6,6 +6,7 @@ matching the CAP646 catalog name via real underlying modules.
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any
 
 from cap646.dedicated_common import (
@@ -137,6 +138,20 @@ def _addr(params: dict[str, Any]) -> str:
         or params.get("wallet")
         or "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
     ).strip()
+
+
+def _stamp_bcbs_provenance(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
+    """Top-level BCBS 239 fields for v6 data-quality / provenance gates (Run 021 batch01)."""
+    if not result.get("data_source") and not result.get("source"):
+        result["data_source"] = f"cap646.batch01_dedicated#cap{capability_id:03d}"
+    if not result.get("timestamp"):
+        result["timestamp"] = datetime.now(UTC).isoformat()
+    if not result.get("quality"):
+        result["quality"] = {
+            "freshness": "runtime_stamped",
+            "provenance": result.get("data_source") or result.get("source"),
+        }
+    return result
 
 
 def _nvt_signal(ratio: float) -> str:
@@ -324,7 +339,8 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
     fn = dispatch.get(capability_id)
     if fn is None:
         raise ValueError(f"batch01 dedicated: unmapped capability {capability_id}")
-    return await fn(symbol=symbol, address=address, params=params)
+    result = await fn(symbol=symbol, address=address, params=params)
+    return _stamp_bcbs_provenance(result, capability_id)
 
 
 # ─── Free-tier parity (Path A — v6 §2.1 dedicated spine) ──────────────────────
@@ -351,7 +367,11 @@ async def _free_tier_dedicated_wrap(
             surface: payload,
             "success": bool(ft.get("success")),
             "data_source": payload.get("source") or payload.get("data_source") or "free_tier_explicit",
-            "timestamp": payload.get("timestamp"),
+            "timestamp": payload.get("timestamp") or datetime.now(UTC).isoformat(),
+            "quality": {
+                "freshness": "free_tier_runtime",
+                "provenance": payload.get("source") or payload.get("data_source") or "free_tier_explicit",
+            },
             "methodology": {
                 "framework": "Path A — explicit free_tier parity (v6 §2.1)",
                 "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",

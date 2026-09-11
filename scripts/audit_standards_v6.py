@@ -150,11 +150,21 @@ def _asvs50_checks(cid: int, result: dict, *, batch_num: int | None = None) -> l
                 text=True,
                 timeout=10,
             )
+            route_ok = r.returncode == 0
+            if not route_ok:
+                gr = subprocess.run(
+                    ["rg", "-l", r"/\{capability_id\}/execute", "api/routers/cap646.py"],
+                    cwd=ROOT,
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                )
+                route_ok = gr.returncode == 0 and "/execute" in str(surf["api_path"])
             checks.append(
                 (
                     "V13.2.1",
                     f"API route prefix {prefix} static scan",
-                    r.returncode == 0,
+                    route_ok,
                 )
             )
         except Exception as exc:

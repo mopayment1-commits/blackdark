@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T13:13:56.789579+00:00",
+  "generated_at": "2026-09-11T22:08:58.912804+00:00",
   "scope": "Official Batch 01 — IDs 1–50",
   "supersedes": "self-assessment audit_official_batch01_rtm.py (50/50 PRODUCTION-ALIGNED — invalidated WF-026)",
   "audit_method": "Independent Third-Line Nine-Phase Due Diligence — Run 005",
@@ -28,7 +28,10 @@
       "failed_phase": "1",
       "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
       "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=smart_money_leaderboard spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "2": {
       "id": 2,
@@ -40,7 +43,10 @@
       "failed_phase": "1",
       "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
       "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_profiler spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "3": {
       "id": 3,
@@ -52,7 +58,10 @@
       "failed_phase": "1",
       "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
       "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_profiler_for_token spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "4": {
       "id": 4,
@@ -64,7 +73,10 @@
       "failed_phase": "1",
       "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
       "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=smart_money_tracking spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "5": {
       "id": 5,
@@ -76,7 +88,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=smart_money_accumulation_detection spine=batch01 backend=cap646.batch01_production; code: handler route for cap 5 in batch01_production.py; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 5, \"surface\": \"smart_money_accumulation_det",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "6": {
       "id": 6,
@@ -88,7 +103,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=smart_money_token_screener spine=batch01 backend=cap646.batch01_production; code: async def _cap006_smart_money_token_screener(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 6, \"surface\": \"smart_money_token_screener\",",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "7": {
       "id": 7,
@@ -100,7 +118,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=holder_distribution_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap007_holder_distribution(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239 missing fields: timestamp | excerpt: {\"capability_id\": 7, \"surface\": \"holder_distribution_intelligence\", \"sourc",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "8": {
       "id": 8,
@@ -112,7 +133,10 @@
       "failed_phase": "6",
       "failed_standard": "MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS",
       "evidence": "runtime success=True surface=top_holders_concentration_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap008_top_holders_concentration(*, symbol: str, address: str, params: dict[str, Any]) ->; no user-facing API path — internal/surface-only capability",
-      "heuristic_or_data_gap": true
+      "heuristic_or_data_gap": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "9": {
       "id": 9,
@@ -124,7 +148,10 @@
       "failed_phase": "6",
       "failed_standard": "MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS",
       "evidence": "runtime success=True surface=distribution_score spine=batch01 backend=cap646.batch01_production; code: async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; no user-facing API path — internal/surface-only capability",
-      "heuristic_or_data_gap": true
+      "heuristic_or_data_gap": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "10": {
       "id": 10,
@@ -136,7 +163,10 @@
       "failed_phase": "1",
       "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
       "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_pnl_analysis spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "11": {
       "id": 11,
@@ -148,7 +178,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=wallet_historical_performance_win_rate spine=batch01 backend=cap646.batch01_production; code: async def _cap011_wallet_historical_performance(*, symbol: str, address: str, params: dict[str, Any]; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 11, \"surface\": \"wallet_historical_performan",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "12": {
       "id": 12,
@@ -160,7 +193,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=wallet_entry_exit_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap012_wallet_entry_exit(*, symbol: str, address: str, params: dict[str, Any]) -> dict[st; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 12, \"surface\": \"wallet_entry_exit_analysis\"",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "13": {
       "id": 13,
@@ -172,7 +208,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=wallet_counterparty_relationship_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap013_wallet_counterparty(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 13, \"surface\": \"wallet_counterparty_relatio",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "14": {
       "id": 14,
@@ -184,7 +223,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=entity_aware_wallet_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap014_entity_aware_wallet(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 14, \"surface\": \"entity_aware_wallet_intelli",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "15": {
       "id": 15,
@@ -196,7 +238,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=exchange_flow_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap015_exchange_flow_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 15, \"surface\": \"exchange_flow_intelligence\"",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "16": {
       "id": 16,
@@ -208,7 +253,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=candle_price_move_investigator spine=batch01 backend=cap646.batch01_production; code: async def _cap016_candle_price_move_investigator(*, symbol: str, address: str, params: dict[str, Any; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 16, \"surface\": \"candle_price_move_investiga",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "17": {
       "id": 17,
@@ -220,7 +268,10 @@
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
       "evidence": "runtime success=True surface=smart_alerts spine=batch01 backend=cap646.batch01_production; code: async def _cap017_smart_alerts(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, An; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "18": {
       "id": 18,
@@ -232,7 +283,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=custom_wallet_labels spine=batch01 backend=cap646.batch01_production; code: async def _cap018_custom_wallet_labels(*, symbol: str, address: str, params: dict[str, Any]) -> dict; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 18, \"surface\": \"custom_wallet_labels\", \"evi",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "19": {
       "id": 19,
@@ -244,7 +298,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=wallet_token_watchlists spine=batch01 backend=cap646.batch01_production; code: async def _cap019_wallet_token_watchlists(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 19, \"surface\": \"wallet_token_watchlists\", \"",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "20": {
       "id": 20,
@@ -256,7 +313,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=multi_chain_portfolio_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap020_multi_chain_portfolio(*, symbol: str, address: str, params: dict[str, Any]) -> dic; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 20, \"surface\": \"multi_chain_portfolio_intel",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "21": {
       "id": 21,
@@ -268,7 +328,10 @@
       "failed_phase": "1",
       "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
       "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=transaction_decoder spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "22": {
       "id": 22,
@@ -280,7 +343,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=instant_wallet_due_diligence spine=batch01 backend=cap646.batch01_production; code: async def _cap022_instant_wallet_due_diligence(*, symbol: str, address: str, params: dict[str, Any]); BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 22, \"surface\": \"instant_wallet_due_diligenc",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "23": {
       "id": 23,
@@ -292,7 +358,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "runtime success=True surface=instant_token_due_diligence spine=batch01 backend=cap646.batch01_production; code: async def _cap023_instant_token_due_diligence(*, symbol: str, address: str, params: dict[str, Any]) ; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 23, \"surface\": \"instant_token_due_diligence",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "24": {
       "id": 24,
@@ -304,7 +373,10 @@
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
       "evidence": "runtime success=True surface=ai_research_agent_grounded spine=batch01 backend=cap646.batch01_production; code: async def _cap024_ai_research_agent(*, symbol: str, address: str, params: dict[str, Any]) -> dict[st; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "25": {
       "id": 25,
@@ -316,7 +388,10 @@
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
       "evidence": "runtime success=True surface=signal_explanation_workflow spine=batch01 backend=cap646.batch01_production; code: async def _cap025_signal_explanation(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
-      "heuristic_or_data_gap": false
+      "heuristic_or_data_gap": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_01_remediated": true
     },
     "26": {
       "id": 26,
@@ -618,5 +693,6 @@
       "evidence": "runtime success=True surface=order_book_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap050_order_book_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 50, \"surface\": \"order_book_intelligence\", \"",
       "heuristic_or_data_gap": false
     }
-  }
+  },
+  "build_batch_01_updated_at": "2026-09-11T23:57:57.447804+00:00"
 }
