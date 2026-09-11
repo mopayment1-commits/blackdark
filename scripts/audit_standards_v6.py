@@ -64,9 +64,14 @@ def phase1_generic_delegate_check(batch_num: int, cid: int) -> tuple[str, str | 
             "reserved_slot",
             "execute_catalog_binding",
             "catalog_binding_executor",
+            "Path A explicit",
+            "Path A — explicit",
+            "methodology_status",
         )
     ):
         return "FAIL", "GENERIC_DELEGATE: invoke_underlying keyword routing — not goal-specific implementation"
+    if "catalog_binding_executor" in src and "Path A explicit" not in src and "Path A — explicit" not in src:
+        return "FAIL", "GENERIC_DELEGATE: catalog_binding_executor without explicit Path A import — use codegen_explicit_path_a_handlers"
     return "PASS", None
 
 
