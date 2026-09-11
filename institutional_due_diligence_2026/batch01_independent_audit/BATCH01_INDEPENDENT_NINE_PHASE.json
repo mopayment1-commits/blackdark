@@ -2,10 +2,10 @@
   {
     "id": 1,
     "name": "Smart Money Leaderboard",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=smart_money_leaderboard spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=smart_money_leaderboard spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -23,10 +23,10 @@
   {
     "id": 2,
     "name": "Wallet Profiler",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_profiler spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_profiler spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -44,10 +44,10 @@
   {
     "id": 3,
     "name": "Wallet Profiler for Token",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_profiler_for_token spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_profiler_for_token spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -65,10 +65,10 @@
   {
     "id": 4,
     "name": "Smart Money Tracking",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=smart_money_tracking spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=smart_money_tracking spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -89,7 +89,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=smart_money_accumulation_detection spine=batch01 backend=cap646.batch01_production; code: handler route for cap 5 in batch01_production.py; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=smart_money_accumulation_detection spine=batch01 backend=cap646.batch01_production; code: handler route for cap 5 in batch01_production.py; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 5, \"surface\": \"smart_money_accumulation_det",
     "severity": "متوسط",
     "backend": "cap646.handlers.onchain",
     "phase_results": {
@@ -110,7 +110,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=smart_money_token_screener spine=batch01 backend=cap646.batch01_production; code: async def _cap006_smart_money_token_screener(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=smart_money_token_screener spine=batch01 backend=cap646.batch01_production; code: async def _cap006_smart_money_token_screener(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 6, \"surface\": \"smart_money_token_screener\",",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -129,16 +129,16 @@
     "id": 7,
     "name": "Holder Distribution Intelligence",
     "status": "NOT_COMPLETE",
-    "failed_phase": "6",
-    "failed_standard": "MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS",
-    "evidence": "runtime success=True surface=holder_distribution_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap007_holder_distribution(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; no user-facing API path — internal/surface-only capability",
+    "failed_phase": "4",
+    "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
+    "evidence": "runtime success=True surface=holder_distribution_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap007_holder_distribution(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239 missing fields: timestamp | excerpt: {\"capability_id\": 7, \"surface\": \"holder_distribution_intelligence\", \"sourc",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
       "1": "PASS",
       "2": "NOT_APPLICABLE",
       "3": "NOT_APPLICABLE",
-      "4": "PASS",
+      "4": "PARTIAL",
       "5": "PASS",
       "6": "PARTIAL",
       "7": "PASS",
@@ -191,10 +191,10 @@
   {
     "id": 10,
     "name": "Wallet PnL Analysis",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_pnl_analysis spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_pnl_analysis spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -215,7 +215,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=wallet_historical_performance_win_rate spine=batch01 backend=cap646.batch01_production; code: async def _cap011_wallet_historical_performance(*, symbol: str, address: str, params: dict[str, Any]; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=wallet_historical_performance_win_rate spine=batch01 backend=cap646.batch01_production; code: async def _cap011_wallet_historical_performance(*, symbol: str, address: str, params: dict[str, Any]; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 11, \"surface\": \"wallet_historical_performan",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -236,7 +236,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=wallet_entry_exit_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap012_wallet_entry_exit(*, symbol: str, address: str, params: dict[str, Any]) -> dict[st; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=wallet_entry_exit_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap012_wallet_entry_exit(*, symbol: str, address: str, params: dict[str, Any]) -> dict[st; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 12, \"surface\": \"wallet_entry_exit_analysis\"",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -257,7 +257,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=wallet_counterparty_relationship_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap013_wallet_counterparty(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=wallet_counterparty_relationship_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap013_wallet_counterparty(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 13, \"surface\": \"wallet_counterparty_relatio",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -278,7 +278,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=entity_aware_wallet_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap014_entity_aware_wallet(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=entity_aware_wallet_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap014_entity_aware_wallet(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 14, \"surface\": \"entity_aware_wallet_intelli",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -299,7 +299,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=exchange_flow_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap015_exchange_flow_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=exchange_flow_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap015_exchange_flow_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 15, \"surface\": \"exchange_flow_intelligence\"",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -320,7 +320,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=candle_price_move_investigator spine=batch01 backend=cap646.batch01_production; code: async def _cap016_candle_price_move_investigator(*, symbol: str, address: str, params: dict[str, Any; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=candle_price_move_investigator spine=batch01 backend=cap646.batch01_production; code: async def _cap016_candle_price_move_investigator(*, symbol: str, address: str, params: dict[str, Any; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 16, \"surface\": \"candle_price_move_investiga",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -341,7 +341,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=smart_alerts spine=batch01 backend=cap646.batch01_production; code: async def _cap017_smart_alerts(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, An; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=smart_alerts spine=batch01 backend=cap646.batch01_production; code: async def _cap017_smart_alerts(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, An; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -362,7 +362,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=custom_wallet_labels spine=batch01 backend=cap646.batch01_production; code: async def _cap018_custom_wallet_labels(*, symbol: str, address: str, params: dict[str, Any]) -> dict; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=custom_wallet_labels spine=batch01 backend=cap646.batch01_production; code: async def _cap018_custom_wallet_labels(*, symbol: str, address: str, params: dict[str, Any]) -> dict; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 18, \"surface\": \"custom_wallet_labels\", \"evi",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -383,7 +383,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=wallet_token_watchlists spine=batch01 backend=cap646.batch01_production; code: async def _cap019_wallet_token_watchlists(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=wallet_token_watchlists spine=batch01 backend=cap646.batch01_production; code: async def _cap019_wallet_token_watchlists(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 19, \"surface\": \"wallet_token_watchlists\", \"",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -404,7 +404,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=multi_chain_portfolio_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap020_multi_chain_portfolio(*, symbol: str, address: str, params: dict[str, Any]) -> dic; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=multi_chain_portfolio_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap020_multi_chain_portfolio(*, symbol: str, address: str, params: dict[str, Any]) -> dic; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 20, \"surface\": \"multi_chain_portfolio_intel",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -422,10 +422,10 @@
   {
     "id": 21,
     "name": "Transaction Decoder",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=transaction_decoder spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=transaction_decoder spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -446,7 +446,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=instant_wallet_due_diligence spine=batch01 backend=cap646.batch01_production; code: async def _cap022_instant_wallet_due_diligence(*, symbol: str, address: str, params: dict[str, Any]); BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=instant_wallet_due_diligence spine=batch01 backend=cap646.batch01_production; code: async def _cap022_instant_wallet_due_diligence(*, symbol: str, address: str, params: dict[str, Any]); BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 22, \"surface\": \"instant_wallet_due_diligenc",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -467,7 +467,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=instant_token_due_diligence spine=batch01 backend=cap646.batch01_production; code: async def _cap023_instant_token_due_diligence(*, symbol: str, address: str, params: dict[str, Any]) ; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=instant_token_due_diligence spine=batch01 backend=cap646.batch01_production; code: async def _cap023_instant_token_due_diligence(*, symbol: str, address: str, params: dict[str, Any]) ; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 23, \"surface\": \"instant_token_due_diligence",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -488,7 +488,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=ai_research_agent_grounded spine=batch01 backend=cap646.batch01_production; code: async def _cap024_ai_research_agent(*, symbol: str, address: str, params: dict[str, Any]) -> dict[st; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=ai_research_agent_grounded spine=batch01 backend=cap646.batch01_production; code: async def _cap024_ai_research_agent(*, symbol: str, address: str, params: dict[str, Any]) -> dict[st; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -509,7 +509,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=signal_explanation_workflow spine=batch01 backend=cap646.batch01_production; code: async def _cap025_signal_explanation(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=signal_explanation_workflow spine=batch01 backend=cap646.batch01_production; code: async def _cap025_signal_explanation(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -530,7 +530,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=price_move_explanation spine=batch01 backend=cap646.batch01_production; code: async def _cap026_price_move_explanation(*, symbol: str, address: str, params: dict[str, Any]) -> di; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=price_move_explanation spine=batch01 backend=cap646.batch01_production; code: async def _cap026_price_move_explanation(*, symbol: str, address: str, params: dict[str, Any]) -> di; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -551,7 +551,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=smart_money_historical_trend_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap027_smart_money_historical_trend(*, symbol: str, address: str, params: dict[str, Any]); PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=smart_money_historical_trend_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap027_smart_money_historical_trend(*, symbol: str, address: str, params: dict[str, Any]); PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -572,7 +572,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=smart_money_conviction_engine spine=batch01 backend=cap646.batch01_production; code: async def _cap028_smart_money_conviction(*, symbol: str, address: str, params: dict[str, Any]) -> di; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=smart_money_conviction_engine spine=batch01 backend=cap646.batch01_production; code: async def _cap028_smart_money_conviction(*, symbol: str, address: str, params: dict[str, Any]) -> di; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -593,7 +593,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=cross_market_decision_intelligence_engine spine=batch01 backend=cap646.batch01_production; code: async def _cap029_cross_market_decision(*, symbol: str, address: str, params: dict[str, Any]) -> dic; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=cross_market_decision_intelligence_engine spine=batch01 backend=cap646.batch01_production; code: async def _cap029_cross_market_decision(*, symbol: str, address: str, params: dict[str, Any]) -> dic; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -614,7 +614,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=evidence_confidence_layer spine=batch01 backend=cap646.batch01_production; code: async def _cap030_evidence_confidence(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=evidence_confidence_layer spine=batch01 backend=cap646.batch01_production; code: async def _cap030_evidence_confidence(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -635,7 +635,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=cross_signal_confirmation spine=batch01 backend=cap646.batch01_production; code: async def _cap031_cross_signal_confirmation(*, symbol: str, address: str, params: dict[str, Any]) ->; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=cross_signal_confirmation spine=batch01 backend=cap646.batch01_production; code: async def _cap031_cross_signal_confirmation(*, symbol: str, address: str, params: dict[str, Any]) ->; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -656,7 +656,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=contradiction_detection spine=batch01 backend=cap646.batch01_production; code: async def _cap032_contradiction_detection(*, symbol: str, address: str, params: dict[str, Any]) -> d; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=contradiction_detection spine=batch01 backend=cap646.batch01_production; code: async def _cap032_contradiction_detection(*, symbol: str, address: str, params: dict[str, Any]) -> d; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -695,14 +695,14 @@
   {
     "id": 34,
     "name": "Beginner Decision Mode",
-    "status": "CONCEPTUALLY-UNSOUND",
-    "failed_phase": "1",
-    "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "batch01_dedicated.py:1206 verdict=params.get('verdict') or 'Neutral' — user-supplied input; runtime success=True surface=beginner_decision_mode spine=batch01 backend=cap646.batch01_production; code: async def _cap034_beginner_decision_mode(*, symbol: str, address: str, params: dict[str, Any]) -> di; batch01_dedicated.py:1206 verdict=params.get('verdict') or 'Neutral' — user-supplied input",
-    "severity": "حرج",
+    "status": "PERFORMANCE-UNVERIFIABLE",
+    "failed_phase": "2",
+    "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
+    "evidence": "runtime success=True surface=beginner_decision_mode spine=batch01 backend=cap646.batch01_production; code: async def _cap034_beginner_decision_mode(*, symbol: str, address: str, params: dict[str, Any]) -> di; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
+    "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
-      "1": "FAIL",
+      "1": "PASS",
       "2": "FAIL",
       "3": "PARTIAL",
       "4": "PARTIAL",
@@ -719,7 +719,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=market_compass_regime_engine spine=batch01 backend=cap646.batch01_production; code: async def _cap035_market_compass_regime(*, symbol: str, address: str, params: dict[str, Any]) -> dic; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=market_compass_regime_engine spine=batch01 backend=cap646.batch01_production; code: async def _cap035_market_compass_regime(*, symbol: str, address: str, params: dict[str, Any]) -> dic; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -740,7 +740,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=on_chain_metrics_library spine=batch01 backend=cap646.batch01_production; code: async def _cap036_on_chain_metrics_library(*, symbol: str, address: str, params: dict[str, Any]) -> ; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=on_chain_metrics_library spine=batch01 backend=cap646.batch01_production; code: async def _cap036_on_chain_metrics_library(*, symbol: str, address: str, params: dict[str, Any]) -> ; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 36, \"surface\": \"on_chain_metrics_library\", ",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -761,7 +761,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=entity_adjusted_metrics spine=batch01 backend=cap646.batch01_production; code: async def _cap037_entity_adjusted_metrics(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=entity_adjusted_metrics spine=batch01 backend=cap646.batch01_production; code: async def _cap037_entity_adjusted_metrics(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 37, \"surface\": \"entity_adjusted_metrics\", \"",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -779,10 +779,10 @@
   {
     "id": 38,
     "name": "Cost Basis Distribution",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=cost_basis_distribution spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=cost_basis_distribution spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -800,10 +800,10 @@
   {
     "id": 39,
     "name": "Realized Cap & Realized Price Intelligence",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=realized_cap_realized_price spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=realized_cap_realized_price spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -824,7 +824,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=mvrv_mvrv_z_score_suite spine=batch01 backend=cap646.batch01_production; code: async def _cap040_mvrv_suite(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=mvrv_mvrv_z_score_suite spine=batch01 backend=cap646.batch01_production; code: async def _cap040_mvrv_suite(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 40, \"surface\": \"mvrv_mvrv_z_score_suite\", \"",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -845,7 +845,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "runtime success=True surface=sopr_profitability_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap041_sopr_profitability(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; PERFORMANCE-UNVERIFIABLE: ledger 60 decisions (2026-09-11T00:30:49.493941+00:00..2026-09-11T01:07:33.374911+00:00) all S",
+    "evidence": "runtime success=True surface=sopr_profitability_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap041_sopr_profitability(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -864,16 +864,16 @@
     "id": 42,
     "name": "Holder Cohort Intelligence",
     "status": "NOT_COMPLETE",
-    "failed_phase": "6",
-    "failed_standard": "MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS",
-    "evidence": "runtime success=True surface=holder_cohort_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap042_holder_cohort_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -; no user-facing API path — internal/surface-only capability",
+    "failed_phase": "4",
+    "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
+    "evidence": "runtime success=True surface=holder_cohort_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap042_holder_cohort_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239 missing fields: timestamp | excerpt: {\"capability_id\": 42, \"surface\": \"holder_cohort_intelligence\", \"source\": \"",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
       "1": "PASS",
       "2": "NOT_APPLICABLE",
       "3": "NOT_APPLICABLE",
-      "4": "PASS",
+      "4": "PARTIAL",
       "5": "PASS",
       "6": "PARTIAL",
       "7": "PASS",
@@ -887,7 +887,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=supply_dynamics_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap043_supply_dynamics_intelligence(*, symbol: str, address: str, params: dict[str, Any]); BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=supply_dynamics_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap043_supply_dynamics_intelligence(*, symbol: str, address: str, params: dict[str, Any]); BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 43, \"surface\": \"supply_dynamics_intelligenc",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -908,7 +908,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=exchange_balance_netflow_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap044_exchange_balance_netflow(*, symbol: str, address: str, params: dict[str, Any]) -> ; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=exchange_balance_netflow_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap044_exchange_balance_netflow(*, symbol: str, address: str, params: dict[str, Any]) -> ; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 44, \"surface\": \"exchange_balance_netflow_in",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -926,10 +926,10 @@
   {
     "id": 45,
     "name": "ETF Flow Intelligence",
-    "status": "SPLIT-BRAIN-UNVERIFIED",
+    "status": "NOT_COMPLETE",
     "failed_phase": "1",
     "failed_standard": "SR 26-2 Independent Validation / Conceptual Soundness",
-    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=etf_flow_intelligence spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); SPLIT routing: RTM claims batch01 dedicated backend but code routes via batch01_production._BATCH01_FREE_TIER → execute_",
+    "evidence": "backend=free_tier via batch01_production.py:76-79; runtime success=True surface=etf_flow_intelligence spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p",
     "severity": "متوسط",
     "backend": "bd_platform.free_tier_capabilities (via batch01_production._BATCH01_FREE_TIER)",
     "phase_results": {
@@ -950,7 +950,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=digital_asset_treasury_company_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap046_treasury_company(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=digital_asset_treasury_company_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap046_treasury_company(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 46, \"surface\": \"digital_asset_treasury_comp",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {
@@ -971,7 +971,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=spot_market_metrics_suite spine=batch01 backend=cap646.batch01_production; code: handler route for cap 47 in batch01_production.py; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=spot_market_metrics_suite spine=batch01 backend=cap646.batch01_production; code: handler route for cap 47 in batch01_production.py; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 47, \"surface\": \"spot_market_metrics_suite\",",
     "severity": "متوسط",
     "backend": "cap646.handlers.market",
     "phase_results": {
@@ -992,7 +992,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=futures_intelligence_suite spine=batch01 backend=cap646.batch01_production; code: handler route for cap 48 in batch01_production.py; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=futures_intelligence_suite spine=batch01 backend=cap646.batch01_production; code: handler route for cap 48 in batch01_production.py; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 48, \"surface\": \"futures_intelligence_suite\"",
     "severity": "متوسط",
     "backend": "cap646.handlers.derivatives",
     "phase_results": {
@@ -1013,7 +1013,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=derivatives_intelligence spine=batch01 backend=cap646.batch01_production; code: handler route for cap 49 in batch01_production.py; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=derivatives_intelligence spine=batch01 backend=cap646.batch01_production; code: handler route for cap 49 in batch01_production.py; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 49, \"surface\": \"derivatives_intelligence\", ",
     "severity": "متوسط",
     "backend": "cap646.handlers.verified",
     "phase_results": {
@@ -1034,7 +1034,7 @@
     "status": "NOT_COMPLETE",
     "failed_phase": "4",
     "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
-    "evidence": "runtime success=True surface=order_book_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap050_order_book_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239: source/timeliness stamp missing on some payloads",
+    "evidence": "runtime success=True surface=order_book_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap050_order_book_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -> d; BCBS 239 missing fields: data_source, timestamp | excerpt: {\"capability_id\": 50, \"surface\": \"order_book_intelligence\", \"",
     "severity": "متوسط",
     "backend": "cap646.batch01_dedicated",
     "phase_results": {

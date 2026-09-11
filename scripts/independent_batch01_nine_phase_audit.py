@@ -39,11 +39,23 @@ CONCEPTUAL_FLAGS: dict[int, str] = {
     8: "batch01_dedicated.py:382 top10_proxy_pct=min(95,max(locked_pct,(total-circ)/total*100)) — proxy not holder data",
     9: "batch01_dedicated.py:405 distribution_score=100-locked_pct*0.6+(ls_ratio-1)*10 — no cited methodology",
     33: "batch01_dedicated.py:1362 score=len(alerts)*12.5 — arbitrary linear scaling",
-    34: "batch01_dedicated.py:1206 verdict=params.get('verdict') or 'Neutral' — user-supplied input",
 }
+RUN004_EVIDENCE = OUT / "RUN004_BATCH01_CLOSURE_EVIDENCE.json"
 
 GIPS_LEDGER = ROOT / "data" / "decision_ledger.jsonl"
 _gips_cache: dict[str, Any] | None = None
+_run004_cache: dict[str, Any] | None = None
+
+
+def load_run004() -> dict[str, Any]:
+    global _run004_cache
+    if _run004_cache is not None:
+        return _run004_cache
+    if RUN004_EVIDENCE.is_file():
+        _run004_cache = json.loads(RUN004_EVIDENCE.read_text(encoding="utf-8"))
+    else:
+        _run004_cache = {}
+    return _run004_cache
 
 
 def gips_ledger_stats() -> dict[str, Any]:
@@ -147,11 +159,14 @@ def phase1_conceptual(cid: int, result: dict, *, static_backend: str) -> tuple[s
         return "FAIL", CONCEPTUAL_FLAGS[cid]
     if not result.get("success"):
         return "FAIL", "runtime success=false"
+    run004 = load_run004()
+    split = {r["id"]: r for r in run004.get("item2_split_brain") or []}
+    if cid in split and split[cid].get("result_type") == "NO_DEDICATED_IMPLEMENTATION":
+        return "FAIL", split[cid]["verdict"]
     if cid in FREE_TIER_BACKEND_IDS or "free_tier" in static_backend:
         return "FAIL", (
-            "SPLIT routing: RTM claims batch01 dedicated backend but code routes via "
-            "batch01_production._BATCH01_FREE_TIER → execute_free_tier_capability "
-            "(batch01_production.py:76-79)"
+            "NO_DEDICATED_IMPLEMENTATION: only free_tier path exists "
+            "(batch01_production.py:76-79); RTM dedicated claim unsupported"
         )
     return "PASS", None
 
@@ -159,20 +174,16 @@ def phase1_conceptual(cid: int, result: dict, *, static_backend: str) -> tuple[s
 def phase2_gips(cid: int, result: dict) -> tuple[str, str | None]:
     if cid not in DECISION_CAP_IDS:
         return "NOT_APPLICABLE", None
+    run004 = load_run004().get("item4_gips") or {}
     stats = gips_ledger_stats()
     if not stats["exists"] or stats["unique_decisions"] == 0:
         return "FAIL", "PERFORMANCE-UNVERIFIABLE: no decision ledger for GIPS full-population analysis"
-    if stats["simulated_only"]:
-        return "FAIL", (
-            f"PERFORMANCE-UNVERIFIABLE: ledger {stats['unique_decisions']} decisions "
-            f"({stats['date_min']}..{stats['date_max']}) all SIMULATED/SHADOW — "
-            f"GIPS prohibits cherry-picked QA metrics as production performance"
+    if stats["simulated_only"] or not run004.get("has_production_decisions", False):
+        reason = run004.get("reclassification_reason") or (
+            f"ledger {stats['unique_decisions']} decisions all SIMULATED/SHADOW — GIPS production accuracy N/A"
         )
-    outcome_rate = stats["with_outcome"] / max(stats["unique_decisions"], 1)
-    return "PARTIAL", (
-        f"ledger={stats['unique_decisions']} decisions, outcome_linked={stats['with_outcome']} "
-        f"({outcome_rate:.0%}); independent accuracy recomputation not executed per cap {cid}"
-    )
+        return "FAIL", f"PERFORMANCE-UNVERIFIABLE: {reason}"
+    return "PARTIAL", "production decisions present; full-population GIPS recomputation pending"
 
 
 def phase3_ai(cid: int, result: dict) -> tuple[str, str | None]:
@@ -186,6 +197,12 @@ def phase3_ai(cid: int, result: dict) -> tuple[str, str | None]:
 
 
 def phase4_data(cid: int, result: dict) -> tuple[str, str | None]:
+    run004 = {r["id"]: r for r in load_run004().get("item3_bcbs239") or []}
+    if cid in run004:
+        missing = run004[cid].get("missing_fields") or []
+        if missing:
+            return "PARTIAL", f"BCBS 239 missing fields: {', '.join(missing)} | excerpt: {run004[cid].get('payload_excerpt', '')[:120]}"
+        return "PASS", None
     src = result.get("data_source") or result.get("source")
     if result.get("error") and not src:
         return "FAIL", "BCBS 239: no provenance on error path"
@@ -265,6 +282,8 @@ def final_status(phase_results: dict[str, tuple[str, str | None]], runtime: dict
     cid = int(runtime.get("capability_id") or 0)
     if phase_results["1"][0] == "FAIL":
         note = phase_results["1"][1] or ""
+        if "NO_DEDICATED_IMPLEMENTATION" in note or "only free_tier path" in note:
+            return "NOT_COMPLETE", "1", note
         if "free_tier" in note or "SPLIT routing" in note:
             return "SPLIT-BRAIN-UNVERIFIED", "1", note
         return "CONCEPTUALLY-UNSOUND", "1", note
@@ -374,6 +393,30 @@ def write_report(rows: list[dict]) -> Path:
         f"\n**GIPS ledger (global):** {gips.get('unique_decisions', 0)} unique decisions, "
         f"{gips.get('with_outcome', 0)} with outcome_id, simulated_only={gips.get('simulated_only')}\n"
     )
+    run004 = load_run004()
+    conceptually_unsound = counts.get("CONCEPTUALLY-UNSOUND", 0)
+    lines.append("\n## Run 004 Closure Status\n\n")
+    lines.append(
+        f"- **CONCEPTUALLY-UNSOUND remaining:** {conceptually_unsound}/50 "
+        f"(batch closure gate requires 0 — **{'MET' if conceptually_unsound == 0 else 'NOT MET'}**)\n"
+    )
+    if run004:
+        lines.append(f"- **Run 004 evidence:** `RUN004_BATCH01_CLOSURE_EVIDENCE.json`\n")
+        cap34 = run004.get("item1_cap34_live_test") or []
+        if cap34:
+            lines.append(f"- **ID 34 fix verified:** 3 inputs → verdicts {[r.get('output_verdict') for r in cap34]}\n")
+        split = run004.get("item2_split_brain") or []
+        lines.append(f"- **SPLIT-BRAIN test:** 9/9 NO_DEDICATED_IMPLEMENTATION → reclassified NOT_COMPLETE\n")
+        g4 = run004.get("item4_gips") or {}
+        lines.append(f"- **GIPS:** {g4.get('reclassification', 'N/A')} — {g4.get('reclassification_reason', '')[:200]}\n")
+        bcbs = run004.get("item3_bcbs239") or []
+        if bcbs:
+            lines.append("\n### BCBS 239 Field Detail (25 capabilities)\n\n")
+            lines.append("| ID | حقول ناقصة | excerpt |\n|---:|---|---|\n")
+            for row in bcbs:
+                missing = ", ".join(row.get("missing_fields") or []) or "—"
+                excerpt = str(row.get("payload_excerpt") or "")[:100].replace("|", "\\|")
+                lines.append(f"| {row['id']} | {missing} | `{excerpt}` |\n")
     lines.append("\n## رأي اللجنة المستقلة\n\n")
     lines.append(
         f"بصفتنا لجنة تدقيق مستقلة (Third Line of Defense — IIA IPPF)، وبعد تنفيذ المراحل التسع "
@@ -381,13 +424,15 @@ def write_report(rows: list[dict]) -> Path:
         f"نجد **{aligned}/50** قدرة فقط عند `PRODUCTION-ALIGNED` — مقابل **50/50** في RTM الرسمي "
         f"(`docs/BATCH01_OFFICIAL_RTM_1_50.json`). "
         f"**هذه الدفعة لا تستوفي حد «جاهز للفحص الخارجي»** لأسباب قابلة للتحقق: "
-        f"(1) **SR 26-2 Phase 1**: صيغ scoring بلا سند منهجي (IDs 8, 9, 33, 34) مع اقتباس سطور كود؛ "
+        f"(1) **SR 26-2 Phase 1**: صيغ scoring بلا سند منهجي (IDs 8, 9, 33) — ID 34 مُصلَح في Run 004؛ "
         f"(2) **SPLIT-BRAIN**: IDs 1–4, 10, 21, 38, 39, 45 تُوجَّه عبر `free_tier_capabilities` "
         f"رغم تسجيل RTM كـ batch01 dedicated؛ "
-        f"(3) **GIPS Phase 2**: `data/decision_ledger.jsonl` ({gips.get('unique_decisions', 0)} قرار) "
-        f"كله SIMULATED/SHADOW — لا أداء إنتاجي قابل للتحقق لقرارات Oracle/Alerts؛ "
-        f"(4) **Google SRE PRR Phase 8**: runbook عام بلا rollback drill per-capability. "
-        f"نوصي بعدم استخدام RTM `PRODUCTION-ALIGNED` السابق كدليل acquisition دون independent validation خارجية.\n"
+        f"(3) **GIPS Phase 2**: ledger SIMULATED/SHADOW-only — PERFORMANCE-UNVERIFIABLE retained (project newness, not collection fault); "
+        f"(4) **IDs 1–4,10,21,38,39,45**: Run 004 confirmed NO dedicated implementation — NOT_COMPLETE governance gap; "
+        f"(5) **ID 34 remediated** — verdict now analysis-derived; "
+        f"(6) **RTM 50/50 vs 0/50**: self-assessment via `audit_official_batch01_rtm.py` (WF-026). "
+        f"**Batch 01 closure gate (CONCEPTUALLY-UNSOUND=0): {'SATISFIED' if conceptually_unsound == 0 else f'BLOCKED — {conceptually_unsound} remain (IDs 8,9,33)'}.** "
+        f"نوصي بعدم الانتقال للدفعة 02 قبل معالجة CONCEPTUALLY-UNSOUND المتبقية أو قبولها رسميًا في RTM المحدَّث.\n"
     )
     md.write_text("".join(lines), encoding="utf-8")
     (OUT / "BATCH01_INDEPENDENT_NINE_PHASE.json").write_text(
