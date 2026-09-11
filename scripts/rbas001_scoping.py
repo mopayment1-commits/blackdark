@@ -17,7 +17,10 @@ if str(ROOT) not in sys.path:
 WF027_DORMANT_LEGACY_IDS = frozenset({175, 214, 245, 584, 629, 630, 631, 642, 644, 646})
 BATCH04_RANGE = range(151, 201)
 BATCH05_RANGE = range(201, 251)
+BATCH06_RANGE = range(251, 301)
 WF027_IN_BATCH05 = WF027_DORMANT_LEGACY_IDS & set(BATCH05_RANGE)
+WF027_UNRESOLVED_LEGACY_IDS = frozenset({584, 629, 630, 631, 642, 644, 646})
+WF027_IN_BATCH06 = WF027_UNRESOLVED_LEGACY_IDS & set(BATCH06_RANGE)
 
 Tier = Literal["TIER1", "TIER2"]
 
@@ -156,6 +159,62 @@ _MANUAL_TIER2_BATCH05: dict[int, str] = {
     250: "OpenAPI / SDK Generation — SDK generation delivery",
 }
 
+_MANUAL_TIER1_BATCH06: dict[int, str] = {
+    251: "Cross-Domain Decision Intelligence — explicit decision output",
+    270: "Liquidation Cascade Proximity — proximity score influences trading decisions (default-on-doubt)",
+    271: "Leverage Pressure Score — SCORE-IDX surface",
+    275: "Cross-Domain Decision Intelligence — decision output (catalog duplicate link)",
+    277: "Address Labeling System — on-chain address labeling (FATF R.16)",
+    279: "Transaction Search — on-chain transaction intelligence (FATF R.16)",
+    281: "Balance History — wallet balance history tool (FATF R.16)",
+    282: "Entity PnL — financial PnL surface",
+    286: "Automated Trace / Path Finding — on-chain trace (FATF R.16)",
+    287: "Cross-Chain Trace — on-chain trace (FATF R.16)",
+    288: "Token Top Holders — holder addresses (FATF R.16)",
+    289: "Token Exchange Flows — exchange flow transaction intelligence",
+    290: "Token Transaction Explorer — transaction explorer (FATF R.16)",
+    295: "AI Market Insights — AI surface (NIST AI RMF full path)",
+    296: "Whale Movement Intelligence — whale/on-chain movement (FATF R.16)",
+    297: "Fraud / Suspicious Activity Intelligence — fraud verdict influences user action",
+    299: "Cross-Entity Decision Intelligence — explicit decision output",
+}
+
+_MANUAL_TIER2_BATCH06: dict[int, str] = {
+    252: "Liquidation Heatmap — liquidation metric delivery",
+    253: "Liquidation Map / Levels — liquidation level delivery",
+    254: "Real-Time Liquidation Events — event feed delivery",
+    255: "Open Interest Intelligence — metric delivery (duplicate_of=205)",
+    256: "Funding Rate Intelligence — metric delivery (duplicate_of=86)",
+    257: "Long/Short Ratio Intelligence — ratio metric delivery (duplicate_of=235)",
+    258: "Top Trader Positioning — positioning metric delivery",
+    259: "Futures Basis Intelligence — basis metric delivery",
+    260: "Futures Volume Intelligence — volume metric delivery (duplicate_of=126)",
+    261: "Futures CVD / Taker Flow — flow metric delivery",
+    262: "Options Open Interest — options metric delivery",
+    263: "Options Volume — options volume delivery",
+    264: "Options IV / Skew — options metric delivery",
+    265: "Max Pain / Gamma Context — options context metric delivery",
+    266: "Spot Market Intelligence — market data delivery",
+    267: "Order Book / Market Depth — order book delivery",
+    268: "Historical Derivatives Data — historical data delivery",
+    269: "Exchange Comparison — comparison delivery",
+    272: "API Data Platform — data platform delivery (duplicate_of=103)",
+    273: "Multi-Model Liquidation Comparison — comparison tool",
+    274: "Derivatives Alerts — alert feed delivery",
+    276: "Entity Resolution Engine — entity reference/registry",
+    278: "Entity Profiles — profile catalog delivery",
+    280: "Portfolio Holdings — holdings delivery",
+    283: "Exchange Usage Intelligence — usage metric delivery",
+    284: "Top Counterparties — counterparty list delivery",
+    285: "Visualizer / Network Graph — visualization delivery",
+    291: "Custom Dashboards — dashboard delivery",
+    292: "Custom Alerts — alert delivery",
+    293: "Private Labels — label management delivery",
+    294: "Archive / Historical Portfolio Snapshot — archive delivery",
+    298: "API On-Chain Intelligence — API delivery surface",
+    300: "Advanced Multi-Asset Charting — charting delivery",
+}
+
 
 def classify_batch04_capability(
     capability_id: int,
@@ -268,6 +327,64 @@ def batch05_tier_map() -> dict[int, dict[str, Any]]:
 def write_batch05_tier_table(path: Path) -> dict[int, dict[str, Any]]:
     tiers = batch05_tier_map()
     rows = [tiers[cid] for cid in BATCH05_RANGE]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(rows, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return tiers
+
+
+def classify_batch06_capability(
+    capability_id: int,
+    *,
+    capability_name: str,
+    track: str = "",
+) -> tuple[Tier, str]:
+    """Return (tier, reason). Default Tier1 when criteria overlap or uncertain."""
+    if capability_id in _MANUAL_TIER1_BATCH06:
+        return "TIER1", _MANUAL_TIER1_BATCH06[capability_id]
+    if capability_id in _MANUAL_TIER2_BATCH06:
+        return "TIER2", _MANUAL_TIER2_BATCH06[capability_id]
+    if capability_id in WF027_DORMANT_LEGACY_IDS:
+        return "TIER1", f"WF-027 dormant legacy ID {capability_id} — mandatory full audit"
+    name = capability_name or ""
+    if _TIER1_ENTITLEMENT_PATTERN.search(name):
+        return "TIER1", "Entitlement/authentication/billing surface (WF-015 pattern)"
+    if _TIER1_SCORE_INDEX_PATTERN.search(name):
+        return "TIER1", "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+    if track in {"T09"} or _TIER1_ONCHAIN_PATTERN.search(name):
+        if any(k in name.lower() for k in ("whale", "wallet", "holder", "inflow", "outflow", "netflow", "address", "trace", "transaction")):
+            return "TIER1", "On-chain address/transaction intelligence (FATF R.16)"
+    if track in {"T12", "T14"} and "ai" in name.lower():
+        return "TIER1", "AI surface — decision/research risk (NIST AI RMF full path)"
+    if _TIER2_DELIVERY_PATTERN.search(name):
+        return "TIER2", "Data-delivery/catalog/registry without direct user decision output"
+    return "TIER1", "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+
+
+def batch06_tier_map() -> dict[int, dict[str, Any]]:
+    from cap646.catalog import catalog_by_id
+
+    catalog = catalog_by_id()
+    out: dict[int, dict[str, Any]] = {}
+    for cid in BATCH06_RANGE:
+        row = catalog.get(cid, {})
+        tier, reason = classify_batch06_capability(
+            cid,
+            capability_name=str(row.get("capability") or ""),
+            track=str(row.get("track") or ""),
+        )
+        out[cid] = {
+            "id": cid,
+            "capability": row.get("capability"),
+            "track": row.get("track"),
+            "rbas_tier": tier,
+            "rbas_reason": reason,
+        }
+    return out
+
+
+def write_batch06_tier_table(path: Path) -> dict[int, dict[str, Any]]:
+    tiers = batch06_tier_map()
+    rows = [tiers[cid] for cid in BATCH06_RANGE]
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(rows, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return tiers
