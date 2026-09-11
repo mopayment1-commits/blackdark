@@ -135,6 +135,30 @@ def _register_batch03_bindings() -> None:
 _register_batch03_bindings()
 
 
+def _register_batch_range_bindings() -> None:
+    from cap646.batch_range_production import BATCH_RANGE_IDS, batch_range_entrypoint
+
+    skip = frozenset({55, 56, 59, 60, 103, 129})  # routed via batch01/02 overlap spines
+    for cid in BATCH_RANGE_IDS:
+        if cid in skip or cid in _EXPLICIT_BINDINGS:
+            continue
+        row = catalog_by_id().get(cid)
+        if not row:
+            continue
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch_range_production",
+            batch_range_entrypoint(cid),
+            surface,
+            "symbol",
+            "batch_range_production_spine",
+        )
+
+
+_register_batch_range_bindings()
+
+
 # Map gap-matrix component stems → canonical import path + entrypoint
 _COMPONENT_BINDINGS: dict[str, tuple[str, str, str]] = {
     "market_context.py": ("market_context", "probe_price_sources", "symbol"),
@@ -305,7 +329,7 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
     return None
 
 
-@lru_cache(maxsize=646)
+@lru_cache(maxsize=978)
 def resolve_binding(capability_id: int) -> BackendBinding:
     from cap646.extension_capabilities import is_extension_id
 
@@ -318,6 +342,22 @@ def resolve_binding(capability_id: int) -> BackendBinding:
             "symbol",
             "extension_registry_remediation",
         )
+
+    if 647 <= capability_id <= 826:
+        try:
+            from cap978.extension_registry import resolve_extension_binding
+
+            ext = resolve_extension_binding(capability_id)
+            return BackendBinding(
+                ext.capability_id,
+                ext.module,
+                ext.entrypoint,
+                ext.surface,
+                ext.param_style,
+                ext.source or "cap978_extension_registry",
+            )
+        except Exception:
+            pass
 
     explicit = _EXPLICIT_BINDINGS.get(capability_id)
     if explicit is not None:

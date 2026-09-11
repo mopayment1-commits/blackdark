@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-11T00:00:00+00:00",
+  "domain": "security_workflows",
+  "workflows": [
+    {
+      "id": "WF-001",
+      "title": "Admin API key brute-force protection",
+      "severity": "CRITICAL",
+      "status": "REMEDIATED",
+      "verification": "tests/test_d13_auth_abuse.py::test_admin_key_rejects_empty",
+      "evidence_module": "security_auth.verify_admin_key"
+    },
+    {
+      "id": "WF-002",
+      "title": "Session token hashing (no plaintext storage)",
+      "severity": "HIGH",
+      "status": "REMEDIATED",
+      "verification": "tests/test_d13_auth_abuse.py::test_session_token_not_reversible",
+      "evidence_module": "security_auth.hash_session_token"
+    },
+    {
+      "id": "WF-003",
+      "title": "Production secrets vault fail-closed",
+      "severity": "CRITICAL",
+      "status": "REMEDIATED",
+      "verification": "secrets_vault.get_vault_key production guard",
+      "evidence_module": "secrets_vault.py"
+    },
+    {
+      "id": "WF-004",
+      "title": "Stripe/credential cleartext logging",
+      "severity": "CRITICAL",
+      "status": "REMEDIATED",
+      "verification": "tests/test_codeql_cleartext_logging_closure.py",
+      "evidence_module": "logging redaction"
+    },
+    {
+      "id": "WF-005",
+      "title": "Cross-tenant org data leakage",
+      "severity": "CRITICAL",
+      "status": "REMEDIATED",
+      "verification": "tests/test_security_workflow_register.py::test_wf005_cross_tenant_org_access",
+      "evidence_module": "org_tenant.assert_org_access"
+    },
+    {
+      "id": "WF-015",
+      "title": "Identity impersonation via spoofed owner_email / actor_email",
+      "severity": "CRITICAL",
+      "status": "REMEDIATED",
+      "verification": "tests/test_security_workflow_register.py::test_wf015_identity_impersonation",
+      "evidence_module": "api/routers/institutional.py",
+      "notes": "Owner/actor always derived from authenticated principal, never request body alone"
+    },
+    {
+      "id": "WF-016",
+      "title": "Unauthenticated org member enumeration",
+      "severity": "CRITICAL",
+      "status": "REMEDIATED",
+      "verification": "tests/test_security_workflow_register.py::test_wf016_org_members_requires_membership",
+      "evidence_module": "api/routers/institutional.org_members"
+    },
+    {
+      "id": "WF-017",
+      "title": "Unauthorized org member injection",
+      "severity": "CRITICAL",
+      "status": "REMEDIATED",
+      "verification": "tests/test_security_workflow_register.py::test_wf017_org_add_member_requires_admin",
+      "evidence_module": "api/routers/institutional.org_add_member"
+    },
+    {
+      "id": "WF-018",
+      "title": "Hardcoded secrets in source",
+      "severity": "CRITICAL",
+      "status": "MONITORED",
+      "verification": "scripts/secrets_hygiene_scan.py",
+      "evidence_module": ".gitignore + .env.example"
+    },
+    {
+      "id": "WF-019",
+      "title": "Production SQLite default (BLK-002)",
+      "severity": "HIGH",
+      "status": "OPEN_PRE_DEPLOY",
+      "verification": "postgres_backend.use_postgres + DATABASE_URL postgresql://",
+      "evidence_module": "docs/ops/DATABASE_PROD_STAGING_AR.md",
+      "blocker_id": "BLK-002"
+    },
+    {
+      "id": "WF-020",
+      "title": "Signed billing webhook verification",
+      "severity": "HIGH",
+      "status": "OPEN_PRE_DEPLOY",
+      "verification": "STRIPE_WEBHOOK_SECRET + LEMON_SQUEEZY_WEBHOOK_SECRET set in staging/prod",
+      "evidence_module": "billing_service.verify_*_webhook_signature"
+    }
+  ]
+}
