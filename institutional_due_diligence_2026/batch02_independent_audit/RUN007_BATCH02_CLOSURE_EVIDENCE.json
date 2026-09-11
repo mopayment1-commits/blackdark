@@ -1,6 +1,6 @@
 {
   "remediation": {
-    "generated_at": "2026-09-11T08:07:20.108558+00:00",
+    "generated_at": "2026-09-11T08:26:49.457201+00:00",
     "conceptual_unsound_remediation": {
       "52": {
         "path": "A",
@@ -11,7 +11,7 @@
           "ok": true,
           "capability_id": 565,
           "symbol": "BTC",
-          "timestamp": "2026-09-11T08:07:20.109484+00:00",
+          "timestamp": "2026-09-11T08:26:49.458123+00:00",
           "disclaimer": "Analysis only \u2014 not financial advice, guarantee, or execution.",
           "analysis_only": true,
           "no_execution": true,
@@ -29,10 +29,10 @@
         "success": true,
         "payload_sample": {
           "btc_symbol": "BTC",
-          "btc_change_24h_pct": -1.188,
+          "btc_change_24h_pct": -1.004,
           "macro_regime": "Neutral",
-          "dxy_score": 0.0235,
-          "spx_score": -0.0283,
+          "dxy_score": -0.3229,
+          "spx_score": -0.1427,
           "coupling_coefficient": null,
           "coupling_window_days": 30,
           "coupling_samples": 0,
@@ -138,7 +138,7 @@
       }
     },
     "cross_spine_scan": {
-      "scan_at": "2026-09-11T08:07:28.165251+00:00",
+      "scan_at": "2026-09-11T08:26:57.480717+00:00",
       "rule": "CROSS-SPINE-001",
       "total_overlapping_ids": 0,
       "overlaps": [],

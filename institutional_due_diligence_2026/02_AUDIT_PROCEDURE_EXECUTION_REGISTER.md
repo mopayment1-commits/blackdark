@@ -55,6 +55,7 @@
 | B02-CLOSE-007 | W22 | Batch 02 final closure Run 007 (IDs 52/53/54/81 + cross-spine + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_FINAL_CLOSURE_REPORT.md |
 | B03-XSPINE-008 | W22 | Cross-spine resolution Run 008 (IDs 103/129 pre-Batch03) | E1 | VERIFIED PASS | 2/2 | EXECUTED | RUN008_CROSS_SPINE_103_129_RESOLUTION.md |
 | B03-RUN-009 | W22 | Batch 03 initial independent nine-phase audit (IDs 101–150) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH03_INDEPENDENT_NINE_PHASE_REPORT.md |
+| B03-CLOSE-010 | W22 | Batch 03 final closure Run 010 (SCORE-IDX confirm + BCBS239 + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH03_FINAL_CLOSURE_REPORT.md |
 
 ## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
 

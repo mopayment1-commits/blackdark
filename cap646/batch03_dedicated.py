@@ -7,6 +7,7 @@ dedicated handlers added Run 009 (Batch03 diagnostic audit — fresh classificat
 from __future__ import annotations
 
 import time
+from datetime import UTC, datetime
 from typing import Any, Awaitable, Callable
 
 from cap646.dedicated_common import addr as _addr
@@ -78,7 +79,46 @@ EXPECTED_SURFACE: dict[int, str] = {
 }
 
 
-_wrap = make_wrap_binding(EXPECTED_SURFACE)
+_base_wrap = make_wrap_binding(EXPECTED_SURFACE)
+
+
+def _wrap(
+    capability_id: int,
+    *,
+    symbol: str,
+    payload_key: str,
+    payload: Any,
+    extra: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Batch03 wrap — BCBS 239 top-level provenance stamping (Run 010)."""
+    merged: dict[str, Any] = dict(extra or {})
+    if isinstance(payload, dict):
+        src = payload.get("data_source") or payload.get("source")
+        prov = payload.get("provenance")
+        if isinstance(prov, dict) and prov.get("source"):
+            src = src or prov.get("source")
+        hot = payload.get("hot_storage")
+        if isinstance(hot, dict) and hot.get("source"):
+            src = src or hot.get("source")
+        if src and not merged.get("data_source") and not merged.get("source"):
+            merged["data_source"] = src
+        ts = payload.get("timestamp") or payload.get("attached_at") or payload.get("updated_at")
+        meta = payload.get("evidence_metadata")
+        if isinstance(meta, dict) and meta.get("attached_at"):
+            ts = ts or meta.get("attached_at")
+        if ts and not merged.get("timestamp"):
+            merged["timestamp"] = ts
+    if not merged.get("data_source") and not merged.get("source"):
+        merged["data_source"] = f"cap646.batch03_dedicated#cap{capability_id:03d}"
+    if not merged.get("timestamp"):
+        merged["timestamp"] = datetime.now(UTC).isoformat()
+    return _base_wrap(
+        capability_id,
+        symbol=symbol,
+        payload_key=payload_key,
+        payload=payload,
+        extra=merged,
+    )
 
 
 async def _cap101(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:

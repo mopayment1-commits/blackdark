@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Independent Third-Line 9-Phase Due Diligence — Official Batch 03 (IDs 101–150).
-Run 009 — initial diagnostic audit (no remediation)."""
+Run 009 — initial diagnostic audit; Run 010 — BCBS239 remediation + closure."""
 from __future__ import annotations
 
 import asyncio
