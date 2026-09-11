@@ -8,7 +8,6 @@ from typing import Any, Awaitable, Callable
 _MAX_BATCH = 17
 
 
-@lru_cache(maxsize=1)
 def batch_id_sets() -> dict[int, frozenset[int]]:
     out: dict[int, frozenset[int]] = {}
     for n in range(1, _MAX_BATCH + 1):
@@ -23,7 +22,6 @@ def batch_id_sets() -> dict[int, frozenset[int]]:
     return out
 
 
-@lru_cache(maxsize=1)
 def all_batch_ids() -> frozenset[int]:
     merged: set[int] = set()
     for ids in batch_id_sets().values():
