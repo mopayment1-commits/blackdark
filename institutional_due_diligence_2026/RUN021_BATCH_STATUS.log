@@ -29,3 +29,4 @@ ABORT Batch13: closure failed exit=1
 === START Batch 13 (601-650) ===
 ABORT Batch13: closure failed exit=1
 === PAUSED Run021 — keyword_fallback reconciliation 2026-09-11T20:03:18Z ===
+Batch13 CLOSED v6 — CS=0 SB=0 NOT_COMPLETE=50 | ASVS5.0+800-218A standards active | Phase1 generic-delegate gate active
