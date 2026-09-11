@@ -117,9 +117,12 @@ def write_dedicated(cfg: BatchRbasConfig) -> Path:
         surface = slug(name)
         expected[cid] = surface
         handlers.append(
-            f"""async def _cap{cid:03d}(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying({cid}, params={{**params, "symbol": symbol}})
-    return _wrap({cid}, symbol=symbol, payload_key="{surface}", payload=payload)"""
+            f'''async def _cap{cid:03d}(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding({cid}, symbol=symbol, address=address, params=params)
+    return _wrap({cid}, symbol=symbol, payload_key="{surface}", payload=payload)'''
         )
         dispatch.append(f"    {cid}: _cap{cid:03d},")
 
@@ -131,7 +134,6 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any, Awaitable, Callable
 
-from cap646.{bn}_underlying import invoke_underlying
 from cap646.dedicated_common import addr as _addr
 from cap646.dedicated_common import execute_dedicated_caps
 from cap646.dedicated_common import make_wrap_binding

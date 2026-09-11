@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T20:15:02.516304+00:00",
+  "generated_at": "2026-09-11T20:31:29.915175+00:00",
   "batch": 13,
   "status_counts": {
     "NOT_COMPLETE": 50
@@ -287,14 +287,14 @@
   "evidence_pack": {
     "batch": "batch13",
     "functions_required": 12,
-    "functions_covered": 11,
-    "coverage_met": false,
+    "functions_covered": 12,
+    "coverage_met": true,
     "per_function": {
       "scope_inventory": true,
       "requirements_traceability": true,
       "semantic_correctness": true,
       "canonical_duplicate_reconciliation": true,
-      "consumer_path_evidence": false,
+      "consumer_path_evidence": true,
       "security_entitlement": true,
       "data_provenance": true,
       "reliability_performance": true,

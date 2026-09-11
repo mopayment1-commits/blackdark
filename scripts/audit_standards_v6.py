@@ -55,7 +55,16 @@ def phase1_generic_delegate_check(batch_num: int, cid: int) -> tuple[str, str | 
     if not src:
         return "PASS", None
     if "invoke_underlying" in src and not any(
-        k in src for k in ("HEURISTIC", "evaluate_execution_risk", "pyth_realtime_feed", "datashare_connector", "reserved_slot")
+        k in src
+        for k in (
+            "HEURISTIC",
+            "evaluate_execution_risk",
+            "pyth_realtime_feed",
+            "datashare_connector",
+            "reserved_slot",
+            "execute_catalog_binding",
+            "catalog_binding_executor",
+        )
     ):
         return "FAIL", "GENERIC_DELEGATE: invoke_underlying keyword routing — not goal-specific implementation"
     return "PASS", None

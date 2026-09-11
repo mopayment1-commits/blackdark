@@ -98,187 +98,325 @@ def _wrap(
 
 
 async def _cap601(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(601, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(601, symbol=symbol, address=address, params=params)
     return _wrap(601, symbol=symbol, payload_key="visual_transaction_graph", payload=payload)
 
 async def _cap602(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(602, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(602, symbol=symbol, address=address, params=params)
     return _wrap(602, symbol=symbol, payload_key="developer_wallet_tracker", payload=payload)
 
 async def _cap603(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(603, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(603, symbol=symbol, address=address, params=params)
     return _wrap(603, symbol=symbol, payload_key="miner_flow_monitor", payload=payload)
 
 async def _cap604(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(604, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(604, symbol=symbol, address=address, params=params)
     return _wrap(604, symbol=symbol, payload_key="token_unlock_forecaster", payload=payload)
 
 async def _cap605(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(605, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(605, symbol=symbol, address=address, params=params)
     return _wrap(605, symbol=symbol, payload_key="governance_sentiment_monitor", payload=payload)
 
 async def _cap606(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(606, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(606, symbol=symbol, address=address, params=params)
     return _wrap(606, symbol=symbol, payload_key="dev_health_score", payload=payload)
 
 async def _cap607(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(607, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(607, symbol=symbol, address=address, params=params)
     return _wrap(607, symbol=symbol, payload_key="financial_health_scoring", payload=payload)
 
 async def _cap608(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(608, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(608, symbol=symbol, address=address, params=params)
     return _wrap(608, symbol=symbol, payload_key="custom_ratio_engine", payload=payload)
 
 async def _cap609(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(609, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(609, symbol=symbol, address=address, params=params)
     return _wrap(609, symbol=symbol, payload_key="funding_rate_listener", payload=payload)
 
 async def _cap610(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(610, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(610, symbol=symbol, address=address, params=params)
     return _wrap(610, symbol=symbol, payload_key="funding_arbitrage_engine", payload=payload)
 
 async def _cap611(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(611, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(611, symbol=symbol, address=address, params=params)
     return _wrap(611, symbol=symbol, payload_key="funding_rate_heatmap_engine", payload=payload)
 
 async def _cap612(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(612, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(612, symbol=symbol, address=address, params=params)
     return _wrap(612, symbol=symbol, payload_key="spread_calculation_engine", payload=payload)
 
 async def _cap613(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(613, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(613, symbol=symbol, address=address, params=params)
     return _wrap(613, symbol=symbol, payload_key="liquidation_screener", payload=payload)
 
 async def _cap614(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(614, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(614, symbol=symbol, address=address, params=params)
     return _wrap(614, symbol=symbol, payload_key="dex_liquidity_listener", payload=payload)
 
 async def _cap615(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(615, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(615, symbol=symbol, address=address, params=params)
     return _wrap(615, symbol=symbol, payload_key="gas_cost_predictor", payload=payload)
 
 async def _cap616(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(616, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(616, symbol=symbol, address=address, params=params)
     return _wrap(616, symbol=symbol, payload_key="yield_delta_listener", payload=payload)
 
 async def _cap617(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(617, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(617, symbol=symbol, address=address, params=params)
     return _wrap(617, symbol=symbol, payload_key="yield_arbitrage_engine", payload=payload)
 
 async def _cap618(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(618, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(618, symbol=symbol, address=address, params=params)
     return _wrap(618, symbol=symbol, payload_key="yield_optimization_module", payload=payload)
 
 async def _cap619(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(619, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(619, symbol=symbol, address=address, params=params)
     return _wrap(619, symbol=symbol, payload_key="trend_metric_collector", payload=payload)
 
 async def _cap620(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(620, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(620, symbol=symbol, address=address, params=params)
     return _wrap(620, symbol=symbol, payload_key="mtf_core_logic", payload=payload)
 
 async def _cap621(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(621, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(621, symbol=symbol, address=address, params=params)
     return _wrap(621, symbol=symbol, payload_key="pattern_recognition_engine", payload=payload)
 
 async def _cap622(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(622, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(622, symbol=symbol, address=address, params=params)
     return _wrap(622, symbol=symbol, payload_key="prediction_trend_analyzer", payload=payload)
 
 async def _cap623(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(623, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(623, symbol=symbol, address=address, params=params)
     return _wrap(623, symbol=symbol, payload_key="execution_latency_monitor", payload=payload)
 
 async def _cap624(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(624, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(624, symbol=symbol, address=address, params=params)
     return _wrap(624, symbol=symbol, payload_key="low_latency_execution_node", payload=payload)
 
 async def _cap625(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(625, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(625, symbol=symbol, address=address, params=params)
     return _wrap(625, symbol=symbol, payload_key="rust_execution_module", payload=payload)
 
 async def _cap626(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(626, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(626, symbol=symbol, address=address, params=params)
     return _wrap(626, symbol=symbol, payload_key="institutional_dashboard", payload=payload)
 
 async def _cap627(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(627, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(627, symbol=symbol, address=address, params=params)
     return _wrap(627, symbol=symbol, payload_key="custom_institutional_data_terminal", payload=payload)
 
 async def _cap628(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(628, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(628, symbol=symbol, address=address, params=params)
     return _wrap(628, symbol=symbol, payload_key="viral_intelligence_distribution_loop", payload=payload)
 
 async def _cap629(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(629, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(629, symbol=symbol, address=address, params=params)
     return _wrap(629, symbol=symbol, payload_key="real_time_wallet_alerts", payload=payload)
 
 async def _cap630(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(630, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(630, symbol=symbol, address=address, params=params)
     return _wrap(630, symbol=symbol, payload_key="real_time_data_freshness_update_assurance", payload=payload)
 
 async def _cap631(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(631, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(631, symbol=symbol, address=address, params=params)
     return _wrap(631, symbol=symbol, payload_key="data_source_ingestion_normalization_provenance_reliability_architecture", payload=payload)
 
 async def _cap632(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(632, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(632, symbol=symbol, address=address, params=params)
     return _wrap(632, symbol=symbol, payload_key="multi_tier_data_storage", payload=payload)
 
 async def _cap633(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(633, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(633, symbol=symbol, address=address, params=params)
     return _wrap(633, symbol=symbol, payload_key="cross_chain_liquidity_flow", payload=payload)
 
 async def _cap634(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(634, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(634, symbol=symbol, address=address, params=params)
     return _wrap(634, symbol=symbol, payload_key="liquidity_full_fill_feasibility", payload=payload)
 
 async def _cap635(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(635, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(635, symbol=symbol, address=address, params=params)
     return _wrap(635, symbol=symbol, payload_key="unified_arbitrage_opportunity_engine", payload=payload)
 
 async def _cap636(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(636, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(636, symbol=symbol, address=address, params=params)
     return _wrap(636, symbol=symbol, payload_key="market_data_drift_monitoring", payload=payload)
 
 async def _cap637(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(637, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(637, symbol=symbol, address=address, params=params)
     return _wrap(637, symbol=symbol, payload_key="scenario_engine_probabilistic_scenarios_not_deterministic_prediction", payload=payload)
 
 async def _cap638(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(638, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(638, symbol=symbol, address=address, params=params)
     return _wrap(638, symbol=symbol, payload_key="claims_prediction_verification_engine", payload=payload)
 
 async def _cap639(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(639, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(639, symbol=symbol, address=address, params=params)
     return _wrap(639, symbol=symbol, payload_key="net_edge_truth_score", payload=payload)
 
 async def _cap640(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(640, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(640, symbol=symbol, address=address, params=params)
     return _wrap(640, symbol=symbol, payload_key="public_accuracy_ledger", payload=payload)
 
 async def _cap641(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(641, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(641, symbol=symbol, address=address, params=params)
     return _wrap(641, symbol=symbol, payload_key="decision_certificate_institutional_dd_export", payload=payload)
 
 async def _cap642(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(642, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(642, symbol=symbol, address=address, params=params)
     return _wrap(642, symbol=symbol, payload_key="ai_output_provenance_compliance_footer", payload=payload)
 
 async def _cap643(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(643, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(643, symbol=symbol, address=address, params=params)
     return _wrap(643, symbol=symbol, payload_key="end_to_end_decision_traceability", payload=payload)
 
 async def _cap644(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(644, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(644, symbol=symbol, address=address, params=params)
     return _wrap(644, symbol=symbol, payload_key="capacity_load_evidence", payload=payload)
 
 async def _cap645(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(645, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(645, symbol=symbol, address=address, params=params)
     return _wrap(645, symbol=symbol, payload_key="security_verification_evidence", payload=payload)
 
 async def _cap646(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    payload = await invoke_underlying(646, params={**params, "symbol": symbol})
+    """Path A — SSOT catalog_binding_executor (backend_registry)."""
+    from cap646.catalog_binding_executor import execute_catalog_binding
+
+    payload = await execute_catalog_binding(646, symbol=symbol, address=address, params=params)
     return _wrap(646, symbol=symbol, payload_key="chaos_failure_injection_resilience_testing", payload=payload)
 
 async def _cap647(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
