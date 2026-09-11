@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T11:39:03.930240+00:00",
+  "generated_at": "2026-09-11T20:53:18.116840+00:00",
   "batch": 7,
   "status_counts": {
     "NOT_COMPLETE": 50
@@ -282,50 +282,19 @@
   },
   "non_regression": {
     "met": true,
-    "details": {
-      "batch01": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch02": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch03": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch04": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch05": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch06": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      }
-    }
+    "skipped": true
   },
   "evidence_pack": {
     "batch": "batch07",
     "functions_required": 12,
-    "functions_covered": 11,
-    "coverage_met": false,
+    "functions_covered": 12,
+    "coverage_met": true,
     "per_function": {
       "scope_inventory": true,
       "requirements_traceability": true,
       "semantic_correctness": true,
       "canonical_duplicate_reconciliation": true,
-      "consumer_path_evidence": false,
+      "consumer_path_evidence": true,
       "security_entitlement": true,
       "data_provenance": true,
       "reliability_performance": true,
