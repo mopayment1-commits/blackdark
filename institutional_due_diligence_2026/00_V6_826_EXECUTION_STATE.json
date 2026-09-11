@@ -3,8 +3,15 @@
   "batches_completed": [
     4,
     5,
-    6
+    6,
+    7
   ],
-  "current_batch": 7,
-  "last_completed_at": "2026-09-11T20:49:50.320847+00:00"
+  "current_batch": 8,
+  "last_completed_at": "2026-09-11T20:52:00.000000+00:00",
+  "run826_started_at": "2026-09-11T20:59:32.325299+00:00",
+  "range": [
+    8,
+    17
+  ],
+  "resume_note": "User approved continuous run 8-17 without pause"
 }

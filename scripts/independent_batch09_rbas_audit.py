@@ -23,11 +23,10 @@ from scripts.rbas001_scoping import (
     batch_tier_map,
 )
 
+def batch09_tier_map():
+    return batch_tier_map(9)
 
-WF027_IN_BATCH09 = WF027_UNRESOLVED_LEGACY_IDS & set(range(401, 451))
 
-
-WF027_IN_BATCH09 = WF027_UNRESOLVED_LEGACY_IDS & set(range(401, 451))
 
 OUT = ROOT / "institutional_due_diligence_2026" / "batch09_independent_audit"
 OUT.mkdir(parents=True, exist_ok=True)

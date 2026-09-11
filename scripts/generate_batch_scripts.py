@@ -55,6 +55,11 @@ def _replace_batch(text: str, cfg: BatchRbasConfig) -> str:
 
 def _fix_audit_imports(text: str, cfg: BatchRbasConfig) -> str:
     n = cfg.batch_num
+    text = re.sub(
+        rf"def batch{n:02d}_tier_map\(\):\n    return batch_tier_map\(\d+\)\n\n",
+        "",
+        text,
+    )
     import_block = f'''from scripts.rbas001_scoping import (
     WF027_DORMANT_LEGACY_IDS,
     WF027_UNRESOLVED_LEGACY_IDS,
@@ -74,18 +79,13 @@ WF027_IN_BATCH{n:02d} = WF027_UNRESOLVED_LEGACY_IDS & set(range({cfg.id_start}, 
         count=1,
         flags=re.S,
     )
-    text = text.replace("batch06_tier_map()", f"batch{n:02d}_tier_map()")
-    text = text.replace("batch07_tier_map()", f"batch{n:02d}_tier_map()")
     text = re.sub(
-        rf"def batch{n:02d}_tier_map\(\):\n    return batch_tier_map\(\d+\)\n\n",
+        rf"WF027_IN_BATCH{n:02d} = WF027_UNRESOLVED_LEGACY_IDS & set\(range\(\d+, \d+\)\)\n\n",
         "",
         text,
     )
-    text = re.sub(
-        rf"(def batch{n:02d}_tier_map\(\):\n    return batch_tier_map\({n}\)\n\n)+",
-        f"def batch{n:02d}_tier_map():\n    return batch_tier_map({n})\n\n",
-        text,
-    )
+    text = text.replace("batch06_tier_map()", f"batch{n:02d}_tier_map()")
+    text = text.replace("batch07_tier_map()", f"batch{n:02d}_tier_map()")
     text = text.replace("BATCH_NUM = 6", f"BATCH_NUM = {n}")
     # Remove stale batch06 decision cap constants — derive from tier map at runtime
     text = re.sub(
