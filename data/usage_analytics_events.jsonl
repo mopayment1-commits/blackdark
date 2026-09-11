@@ -1,2 +1,0 @@
-{"event_id": "evt_fd2c3cbaf3d4", "timestamp": "2026-09-11T11:38:33.124865+00:00", "endpoint": "/api/oracle/evaluate", "event_type": "api_call", "feature": "api", "duration_ms": 0, "error": false, "user_id_hash": "", "internal_only": true, "gdpr_compliant": true}
-{"event_id": "evt_b10aec627e6f", "timestamp": "2026-09-11T11:38:33.124973+00:00", "endpoint": "/radar/exchange-health", "event_type": "api_call", "feature": "radar", "duration_ms": 0, "error": false, "user_id_hash": "", "internal_only": true, "gdpr_compliant": true}
