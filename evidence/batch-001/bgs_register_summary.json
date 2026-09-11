@@ -1,0 +1,68 @@
+{
+  "registered": 12,
+  "present": 12,
+  "fully_read": 12,
+  "gate": "PASS",
+  "sources": [
+    {
+      "id": "BGS-001",
+      "file": "BLACKDARK_Institutional_Capability_Standard_2026_v6(1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-002",
+      "file": "BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2 (1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-003",
+      "file": "BLACKDARK Temporal Intelligence & Evidence Acceleration System (1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-004",
+      "file": "BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4_CURSOR (1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-005",
+      "file": "BLACKDARK_INSTITUTIONAL_BILLING_SUBSCRIPTION_ENTITLEMENT_SPEC_v1(1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-006",
+      "file": "BLACKDARK_INSTITUTIONAL_IDENTITY_AUTH_PROFILE_SPEC_v1(1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-007",
+      "file": "BLACKDARK_GLOBAL_TIME_TIMEZONE_SPEC_v1(1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-008",
+      "file": "BLACKDARK_INSTITUTIONAL_FAILURE_DEGRADED_MODE_ERROR_MESSAGING_RECOVERY_SPEC_v1(1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-009",
+      "file": "BLACKDARK_DECISION_TRUTH_SYSTEM_INSTITUTIONAL_FINAL_v1(1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-010",
+      "file": "BLACKDARK_INSTITUTIONAL_DATA_INTELLIGENCE_GOVERNANCE_SPEC_2026_FINAL_v2_RESTORED(1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-011",
+      "file": "BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL (1).md",
+      "read": true
+    },
+    {
+      "id": "BGS-012",
+      "file": "BLACKDARK_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_EXPERIENCE_2026_FINAL (1).md",
+      "read": true
+    }
+  ]
+}

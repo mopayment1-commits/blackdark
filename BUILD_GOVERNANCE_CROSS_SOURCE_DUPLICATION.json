@@ -1,0 +1,11 @@
+{
+  "artifact": "BUILD_GOVERNANCE_CROSS_SOURCE_DUPLICATION",
+  "canonical_sha": "8b4f03f45e78e7333eade641432ba07b422c7b43",
+  "generated_at_utc": "2026-09-11T10:51:31.689639+00:00",
+  "duplicate_groups": [],
+  "conflict_groups": [],
+  "superseded_decision_groups": [],
+  "notes": [
+    "Cross-source duplication review scheduled during examination batches."
+  ]
+}

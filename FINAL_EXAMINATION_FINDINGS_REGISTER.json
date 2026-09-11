@@ -1,0 +1,128 @@
+[
+  {
+    "id": "FIND-C-001",
+    "sev": "CRITICAL",
+    "domain": "decision_truth",
+    "title": "decision_truth package absent on current SHA",
+    "evidence": "evidence/batch-001/decision_truth_paths.txt (0 files); BGS-009 mandates Decision Truth System"
+  },
+  {
+    "id": "FIND-C-002",
+    "sev": "CRITICAL",
+    "domain": "data_governance",
+    "title": "data_governance package absent; BGS-010 RESTORED bytes lack DATA/RESTORE ID namespaces",
+    "evidence": "BUILD_GOVERNANCE_SOURCE_REGISTER BGS-010 parsing_issues; docs/DATA_GOVERNANCE_IMPLEMENTATION_INDEX.json references missing modules"
+  },
+  {
+    "id": "FIND-C-003",
+    "sev": "CRITICAL",
+    "domain": "capabilities",
+    "title": "87% of 826-ID catalog not production-verified (110 IMPLEMENTED / 826)",
+    "evidence": "CAPABILITY_MASTER_REGISTER.json status_counts"
+  },
+  {
+    "id": "FIND-C-004",
+    "sev": "CRITICAL",
+    "domain": "capabilities",
+    "title": "Registry phantom-success: 7 capability IDs succeeded in audit path but missing from cap646 production registry",
+    "evidence": "docs/REGISTRY_PHANTOM_INCIDENT_REGISTER.md"
+  },
+  {
+    "id": "FIND-C-005",
+    "sev": "CRITICAL",
+    "domain": "testing",
+    "title": "Merge CI gate is subset only; ~20 test failures acknowledged outside critical gate",
+    "evidence": ".github/workflows/ci.yml comment L3-4"
+  },
+  {
+    "id": "FIND-C-006",
+    "sev": "CRITICAL",
+    "domain": "oracle",
+    "title": "Oracle unified runtime path lacks direct computational pytest coverage",
+    "evidence": "tests/test_rc2_oracle_contract.py static-only; no oracle_unified behavioral tests"
+  },
+  {
+    "id": "FIND-H-001",
+    "sev": "HIGH",
+    "domain": "capabilities",
+    "title": "141 SPLIT-BRAIN-UNVERIFIED bindings: audit module ≠ production module",
+    "evidence": "docs/SPLIT_BRAIN_BCD_RECLASSIFICATION_MANIFEST.json"
+  },
+  {
+    "id": "FIND-H-002",
+    "sev": "HIGH",
+    "domain": "testing",
+    "title": "cap646 tests systematically bypass entitlements (skip_entitlement=True)",
+    "evidence": "28 usages across tests/cap646/"
+  },
+  {
+    "id": "FIND-H-003",
+    "sev": "HIGH",
+    "domain": "identity",
+    "title": "Institutional SCIM surface is explicit stub (no live IdP)",
+    "evidence": "b2b_packaging_api.py; api/routers/heroes.py SCIM routes"
+  },
+  {
+    "id": "FIND-H-004",
+    "sev": "HIGH",
+    "domain": "database",
+    "title": "Default runtime DB is SQLite; Postgres path exists but not default production proof",
+    "evidence": "database.py aiosqlite default; postgres via DATABASE_URL"
+  },
+  {
+    "id": "FIND-H-005",
+    "sev": "HIGH",
+    "domain": "security",
+    "title": "Independent pentest / SOC2 / HSM = EXTERNAL_EVIDENCE only",
+    "evidence": "BLACKDARK_CONTEXT.md §1"
+  },
+  {
+    "id": "FIND-H-006",
+    "sev": "HIGH",
+    "domain": "ledger",
+    "title": "THREE_SPEC ledger 1067 LOCAL_ENGINEERING_COMPLETE claims are PRIOR_EVIDENCE_CANDIDATE on SHA delta",
+    "evidence": "PRE_BATCH_CONTINUITY_RECORD.json delta_reconciliation"
+  },
+  {
+    "id": "FIND-H-007",
+    "sev": "HIGH",
+    "domain": "billing",
+    "title": "No end-to-end signed Stripe/Lemon webhook HTTP tests found",
+    "evidence": "billing engine in-process tests only"
+  },
+  {
+    "id": "FIND-H-008",
+    "sev": "HIGH",
+    "domain": "documentation",
+    "title": "Documentation/marketing capability density exceeds verified runtime surface",
+    "evidence": "826 catalog vs 110 IMPLEMENTED; 307 MOCK_OR_STUB"
+  },
+  {
+    "id": "FIND-M-001",
+    "sev": "MEDIUM",
+    "domain": "performance",
+    "title": "Load/HA capacity claims NOT_VERIFIED without signed load-test evidence",
+    "evidence": "docs/LOAD_TEST_RUN_LOG.md referenced; scale_readiness.py"
+  },
+  {
+    "id": "FIND-M-002",
+    "sev": "MEDIUM",
+    "domain": "ai",
+    "title": "AI/LLM paths rely heavily on mocked externals in tests",
+    "evidence": "test patterns in financial/oracle tests"
+  },
+  {
+    "id": "FIND-M-003",
+    "sev": "MEDIUM",
+    "domain": "ui",
+    "title": "40+ Trust OS pages; user-facing verified count = 20 per inventory",
+    "evidence": "docs/CAPABILITIES_826_INVENTORY.json summary.user_facing_count"
+  },
+  {
+    "id": "FIND-L-001",
+    "sev": "LOW",
+    "domain": "ops",
+    "title": "3 slow institutional tests excluded from default pytest marker filter",
+    "evidence": "pytest.ini -m 'not slow'"
+  }
+]

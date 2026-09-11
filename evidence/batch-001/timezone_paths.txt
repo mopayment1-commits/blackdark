@@ -1,0 +1,48 @@
+$ rg -n timezone|UTC|astimezone api database.py security_models.py -g *.py
+
+STDOUT:
+security_models.py:53:    timezone: str | None = Field(default=None, max_length=64)
+database.py:18:from datetime import UTC, datetime, timedelta
+database.py:541:    return datetime.now(UTC).isoformat()
+database.py:805:            ("timezone", "ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"),
+database.py:1326:    return (datetime.now(UTC) - timedelta(hours=age_hours)).isoformat()
+database.py:2034:            datetime.now(UTC).timestamp() - window_seconds
+database.py:2082:    now_ts = datetime.now(UTC).timestamp()
+database.py:2206:    ends_at = (datetime.now(UTC) + timedelta(days=trial_days)).isoformat()
+database.py:2221:    now = datetime.now(UTC)
+database.py:3136:    since = (datetime.now(UTC) - timedelta(days=days)).isoformat()
+database.py:3450:                       timezone, password_is_set, oauth_provider, mfa_enabled
+database.py:3479:    today = datetime.now(UTC).strftime("%Y-%m-%d")
+database.py:3645:        now_dt = datetime.now(UTC)
+database.py:3741:                exp = exp.replace(tzinfo=UTC)
+database.py:3742:            if datetime.now(UTC) > exp:
+database.py:3782:                exp = exp.replace(tzinfo=UTC)
+database.py:3783:            if datetime.now(UTC) > exp:
+database.py:3800:        "timezone",
+database.py:4128:    today = datetime.now(UTC).strftime("%Y-%m-%d")
+database.py:4146:    since = (datetime.now(UTC) - timedelta(days=30)).strftime("%Y-%m-%d")
+database.py:4165:    since = (datetime.now(UTC) - timedelta(days=30)).isoformat()
+database.py:4197:    since = (datetime.now(UTC) - timedelta(days=within_days)).isoformat()
+database.py:4214:    today = datetime.now(UTC).strftime("%Y-%m-%d")
+database.py:4366:    cutoff = (datetime.now(UTC) - timedelta(seconds=max_age_seconds)).isoformat()
+database.py:4536:    cutoff = (datetime.now(UTC) - timedelta(hours=23)).isoformat()
+api/routers/market.py:5:from datetime import UTC, datetime
+api/routers/market.py:63:        "timestamp": datetime.now(UTC).isoformat(),
+api/routers/market.py:76:        "timestamp": datetime.now(UTC).isoformat(),
+api/routers/market.py:132:        "timestamp": datetime.now(UTC).isoformat(),
+api/routers/market.py:184:        "timestamp": datetime.now(UTC).isoformat(),
+api/routers/heroes.py:586:    from datetime import UTC, datetime
+api/routers/heroes.py:593:        event_at=str(body.get("event_at") or datetime.now(UTC).isoformat()),
+api/routers/arbitrage.py:6:from datetime import UTC, datetime
+api/routers/arbitrage.py:167:        "timestamp": datetime.now(UTC).isoformat(),
+api/routers/auth.py:567:    if body.timezone is not None:
+api/routers/auth.py:568:        fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+api/routers/oracle.py:5:from datetime import UTC, datetime
+api/routers/oracle.py:58:        "timestamp": datetime.now(UTC).isoformat(),
+api/routers/oracle.py:130:    payload["timestamp"] = datetime.now(UTC).isoformat()
+
+
+STDERR:
+
+
+EXIT:0

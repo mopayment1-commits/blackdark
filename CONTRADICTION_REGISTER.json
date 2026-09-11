@@ -1,0 +1,31 @@
+[
+  {
+    "contradiction_id": "CONTR-0001",
+    "created_at_utc": "2026-09-11T10:51:31.689639+00:00",
+    "canonical_sha": "8b4f03f45e78e7333eade641432ba07b422c7b43",
+    "type": "LEDGER_SHA_DELTA",
+    "description": "THREE_SPEC ledger baseline d72c962 differs from current canonical SHA; delta reconciliation completed and material changes classified.",
+    "sources": [
+      "docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json",
+      "PRE_BATCH_CONTINUITY_RECORD.json"
+    ],
+    "status": "RESOLVED",
+    "resolution": "Delta-based PRE_BATCH_SHA_RECONCILIATION completed; prior PASS claims remain PRIOR_EVIDENCE_CANDIDATE until batch revalidation.",
+    "delta": {
+      "material_changed_count": 136,
+      "impacted_claims_count": 2533
+    }
+  },
+  {
+    "contradiction_id": "CONTR-0002",
+    "created_at_utc": "2026-09-11T10:51:31.689639+00:00",
+    "canonical_sha": "8b4f03f45e78e7333eade641432ba07b422c7b43",
+    "type": "BGS-010_IDENTITY",
+    "description": "BGS-010 identity resolved to BLACKDARK_INSTITUTIONAL_DATA_INTELLIGENCE_GOVERNANCE_SPEC_2026_FINAL_v2_RESTORED(1).md.",
+    "sources": [
+      "BUILD_GOVERNANCE_SOURCE_REGISTER.json"
+    ],
+    "status": "RESOLVED",
+    "resolution": "Canonical filename registered and population artifact provisioned; no longer treated as missing due to prior naming."
+  }
+]
