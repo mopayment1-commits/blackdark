@@ -3,350 +3,350 @@
     "id": 201,
     "capability": "Network Growth Intelligence",
     "track": "T11",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Network growth intelligence — on-chain metric delivery (no user verdict score)"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 202,
     "capability": "Supply Distribution Intelligence",
     "track": "T01",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Supply distribution intelligence — distribution metric delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 203,
     "capability": "DEX Trading Intelligence",
     "track": "T09",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "DEX trading intelligence — market data delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 204,
     "capability": "DeFi Protocol Activity Intelligence",
     "track": "T17",
     "rbas_tier": "TIER2",
-    "rbas_reason": "DeFi protocol activity intelligence — activity metric delivery"
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
   },
   {
     "id": 205,
     "capability": "Open Interest Intelligence",
     "track": "T10",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Open Interest Intelligence — derivatives metric delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 206,
     "capability": "Funding Rate Intelligence",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Funding Rate Intelligence — metric delivery (duplicate_of=86)"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 207,
     "capability": "Price / Volume / Market Metrics",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Price / Volume / Market Metrics — market metric delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 208,
     "capability": "Metric Correlation Workbench",
     "track": "T09",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Metric Correlation Workbench — analysis workbench (no score output)"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 209,
     "capability": "Custom Chart Builder",
     "track": "T04",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Custom Chart Builder — chart builder delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 210,
     "capability": "Custom Dashboards / Layouts",
     "track": "T14",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Custom Dashboards / Layouts — dashboard delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 211,
     "capability": "Screener",
     "track": "T16",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Screener — screening tool without scored verdict"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 212,
     "capability": "Smart Alerts",
     "track": "T09",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Smart Alerts — alert delivery (duplicate_of=17)"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 213,
     "capability": "Anomaly Detection Alerts",
     "track": "T09",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Anomaly Detection Alerts — alert feed delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 214,
     "capability": "Watchlists",
     "track": "T11",
     "rbas_tier": "TIER1",
-    "rbas_reason": "WF-027 dormant legacy ID — Watchlists (T11); mandatory full audit"
+    "rbas_reason": "WF-027 dormant legacy ID 214 — mandatory full audit"
   },
   {
     "id": 215,
     "capability": "Community Explorer",
     "track": "T16",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Community Explorer — catalog/explorer delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 216,
     "capability": "Research & Market Insights",
     "track": "T02",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Research & Market Insights — research delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 217,
     "capability": "SanAPI-Style Data Access",
     "track": "T17",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "SanAPI-Style Data Access — data access delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 218,
     "capability": "Google Sheets Integration",
     "track": "T02",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Google Sheets Integration — integration delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 219,
     "capability": "Metric Availability Registry",
     "track": "T02",
     "rbas_tier": "TIER2",
-    "rbas_reason": "Metric Availability Registry — registry/catalog"
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
   },
   {
     "id": 220,
     "capability": "Data Stabilization & Mutability Metadata",
     "track": "T03",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Data Stabilization & Mutability Metadata — metadata delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 221,
     "capability": "Data Quality & Provenance Layer",
     "track": "T17",
     "rbas_tier": "TIER2",
-    "rbas_reason": "Data Quality & Provenance Layer — provenance delivery (duplicate_of=63)"
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
   },
   {
     "id": 222,
     "capability": "Metric Methodology Registry",
     "track": "T17",
     "rbas_tier": "TIER2",
-    "rbas_reason": "Metric Methodology Registry — methodology registry"
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
   },
   {
     "id": 223,
     "capability": "Social-to-On-Chain Confirmation Engine",
     "track": "T10",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Social-to-On-Chain Confirmation Engine — confirmation/decision output"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 224,
     "capability": "Narrative Actionability Score",
     "track": "T09",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Narrative Actionability Score — SCORE-IDX surface"
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
   },
   {
     "id": 225,
     "capability": "Development-to-Market Divergence Detector",
     "track": "T09",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Development-to-Market Divergence Detector — divergence signal influences decisions"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 226,
     "capability": "Cross-Domain Decision Intelligence Layer",
     "track": "T09",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Cross-Domain Decision Intelligence Layer — explicit decision output"
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
   },
   {
     "id": 227,
     "capability": "Unified Trading Intelligence Workspace",
     "track": "T09",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Unified Trading Intelligence Workspace — trading decision workspace"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 228,
     "capability": "Funding Rate Intelligence",
     "track": "T15",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Funding Rate Intelligence — metric delivery (duplicate_of=86)"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 229,
     "capability": "Cross-Exchange Funding Arbitrage Scanner",
     "track": "T15",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Cross-Exchange Funding Arbitrage Scanner — arbitrage/trading decision surface"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 230,
     "capability": "Spot-Perp Arbitrage Scanner",
     "track": "T05",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Spot-Perp Arbitrage Scanner — arbitrage/trading decision surface"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 231,
     "capability": "Futures Basis & Term Structure",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Futures Basis & Term Structure — term structure metric delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 232,
     "capability": "Open Interest Intelligence",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Open Interest Intelligence — metric delivery (duplicate_of=205)"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 233,
     "capability": "Liquidation Intelligence",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Liquidation Intelligence — metric delivery (duplicate_of=88)"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 234,
     "capability": "CVD Intelligence",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "CVD Intelligence — volume delta metric delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 235,
     "capability": "Long/Short Ratio Intelligence",
     "track": "T04",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Long/Short Ratio Intelligence — ratio metric delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 236,
     "capability": "DEX Screener",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "DEX Screener — screener delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 237,
     "capability": "Token Risk Scoring",
     "track": "T08",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Token Risk Scoring — SCORE-IDX surface"
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
   },
   {
     "id": 238,
     "capability": "Pump & Dump Detection",
     "track": "T09",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Pump & Dump Detection — detection verdict influences user action"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 239,
     "capability": "Narrative Tracking",
     "track": "T09",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Narrative Tracking — narrative catalog tracking"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 240,
     "capability": "Sector Rotation Intelligence",
     "track": "T17",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Sector Rotation Intelligence — portfolio allocation decision-adjacent"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 241,
     "capability": "Sentiment Intelligence",
     "track": "T04",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Sentiment Intelligence — sentiment index (duplicate_of=129; SCORE-IDX pattern)"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 242,
     "capability": "Price Prediction / Multi-Signal Forecast",
     "track": "T12",
     "rbas_tier": "TIER1",
-    "rbas_reason": "Price Prediction / Multi-Signal Forecast — AI prediction (NIST AI RMF full path)"
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 243,
     "capability": "Correlation Matrix",
     "track": "T05",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Correlation Matrix — correlation data tool"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 244,
     "capability": "New Listings Intelligence",
     "track": "T11",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "New Listings Intelligence — listings feed delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 245,
     "capability": "Market Health & Freshness",
     "track": "T13",
     "rbas_tier": "TIER1",
-    "rbas_reason": "WF-027 dormant legacy ID — Market Health & Freshness (T13); mandatory full audit"
+    "rbas_reason": "WF-027 dormant legacy ID 245 — mandatory full audit"
   },
   {
     "id": 246,
     "capability": "Coverage Metadata Registry",
     "track": "T15",
     "rbas_tier": "TIER2",
-    "rbas_reason": "Coverage Metadata Registry — coverage registry"
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
   },
   {
     "id": 247,
     "capability": "Public REST API",
     "track": "T15",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "Public REST API — API delivery surface"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 248,
     "capability": "MCP Server for AI Agents",
     "track": "T02",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "MCP Server for AI Agents — platform delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 249,
     "capability": "CLI Access",
     "track": "T02",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "CLI Access — CLI delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   },
   {
     "id": 250,
     "capability": "OpenAPI / SDK Generation",
     "track": "T02",
-    "rbas_tier": "TIER2",
-    "rbas_reason": "OpenAPI / SDK Generation — SDK generation delivery"
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
   }
 ]

@@ -53,12 +53,14 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
                 prep_vars.add(var)
             return var
 
-        optional_mapped = {"assets", "chain", "limit", "message", "query"}
+        optional_mapped = {"assets", "chain", "limit", "message", "query", "text", "kind", "opportunity"}
 
         for p in params:
             if p.kind in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD):
                 continue
             name = p.name
+            if name.startswith("_"):
+                continue
             if style == "cert" and name in {"cert", "payload", "request"}:
                 if "_cert" not in prep_vars:
                     prep.extend(
@@ -91,11 +93,41 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
                 )
             elif name == "limit":
                 val = ensure('    _limit = int(params.get("limit") or 50)', "_limit")
-            elif name in {"message", "query"}:
+            elif name in {"message", "query", "text"}:
                 val = ensure(
-                    '    _msg = str(params.get("message") or params.get("query") or symbol or "BTC")',
+                    '    _msg = str(params.get("message") or params.get("text") or params.get("query") or symbol or "status")',
                     "_msg",
                 )
+            elif name == "opportunity":
+                ensure(
+                    '    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")',
+                    "_sym",
+                )
+                if "_opp" not in prep_vars:
+                    prep.extend(
+                        [
+                            "    from types import SimpleNamespace",
+                            "    _opp_raw = params.get('opportunity')",
+                            "    if _opp_raw is None:",
+                            "        _opp = SimpleNamespace(",
+                            "            asset=_sym,",
+                            '            symbol=f"{_sym}/USDT",',
+                            '            exchange="binance",',
+                            "            net_profit_usdt=0.0,",
+                            "            net_profit_percent=0.0,",
+                            "            total_slippage_bps=0.0,",
+                            "            basis_bps=0.0,",
+                            "            quote_amount=1000.0,",
+                            '            direction="long",',
+                            "        )",
+                            "    else:",
+                            "        _opp = _opp_raw",
+                        ]
+                    )
+                    prep_vars.add("_opp")
+                val = "_opp"
+            elif name == "kind":
+                val = ensure('    _kind = str(params.get("kind") or "spot_futures")', "_kind")
             elif p.default is not inspect.Parameter.empty and name not in optional_mapped:
                 continue
             else:
@@ -113,6 +145,9 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
                 "limit",
                 "message",
                 "query",
+                "text",
+                "opportunity",
+                "kind",
             }:
                 call_parts.append(f"{name}={val}")
             else:
@@ -138,8 +173,34 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
         lines.append("    }")
         lines.append(f"    _raw = {ep}(_cert)")
     elif style == "message":
-        lines.append('    _msg = str(params.get("message") or params.get("query") or symbol or "BTC")')
+        lines.append(
+            '    _msg = str(params.get("message") or params.get("text") or params.get("query") or symbol or "status")'
+        )
         lines.append(f"    _raw = {ep}(_msg)")
+    elif style == "opportunity":
+        lines.append('    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")')
+        lines.extend(
+            [
+                "    from types import SimpleNamespace",
+                "    _opp_raw = params.get('opportunity')",
+                "    if _opp_raw is None:",
+                "        _opp = SimpleNamespace(",
+                "            asset=_sym,",
+                '            symbol=f"{_sym}/USDT",',
+                '            exchange="binance",',
+                "            net_profit_usdt=0.0,",
+                "            net_profit_percent=0.0,",
+                "            total_slippage_bps=0.0,",
+                "            basis_bps=0.0,",
+                "            quote_amount=1000.0,",
+                '            direction="long",',
+                "        )",
+                "    else:",
+                "        _opp = _opp_raw",
+                '    _kind = str(params.get("kind") or "spot_futures")',
+                f"    _raw = {ep}(_opp, _kind)",
+            ]
+        )
     elif style == "assets":
         lines.append('    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC")]')
         lines.append(f"    _raw = {ep}(assets=_assets)")

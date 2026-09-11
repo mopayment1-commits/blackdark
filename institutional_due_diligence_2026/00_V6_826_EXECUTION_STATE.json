@@ -1,5 +1,13 @@
 {
   "started_at": "2026-09-11T20:35:12.283655+00:00",
-  "batches_completed": [],
-  "current_batch": 4
+  "batches_completed": [
+    4
+  ],
+  "current_batch": 5,
+  "last_completed_at": "2026-09-11T20:41:21.000000+00:00",
+  "run826_started_at": "2026-09-11T20:41:42.942551+00:00",
+  "range": [
+    5,
+    17
+  ]
 }
