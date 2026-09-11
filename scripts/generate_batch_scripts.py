@@ -74,10 +74,14 @@ WF027_IN_BATCH{n:02d} = WF027_UNRESOLVED_LEGACY_IDS & set(range({cfg.id_start}, 
     )
     text = text.replace("batch06_tier_map()", f"batch{n:02d}_tier_map()")
     text = text.replace("batch07_tier_map()", f"batch{n:02d}_tier_map()")
+    text = text.replace("BATCH_NUM = 6", f"BATCH_NUM = {n}")
     # Remove stale batch06 decision cap constants — derive from tier map at runtime
     text = re.sub(
         r"DECISION_CAP_IDS = \{.*?\}\nAI_CAP_IDS = \{.*?\}\nWALLET_CAP_IDS.*?\n",
-        "DECISION_CAP_IDS: frozenset[int] = frozenset()\nAI_CAP_IDS: frozenset[int] = frozenset()\nWALLET_CAP_IDS: frozenset[int] = frozenset()\n",
+        f"DECISION_CAP_IDS: frozenset[int] = frozenset()\n"
+        f"from scripts.audit_standards_v6 import discover_ai_cap_ids\n"
+        f"AI_CAP_IDS = discover_ai_cap_ids({n})\n"
+        f"WALLET_CAP_IDS: frozenset[int] = frozenset()\n",
         text,
         count=1,
         flags=re.S,

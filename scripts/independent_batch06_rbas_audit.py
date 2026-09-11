@@ -27,6 +27,7 @@ OUT = ROOT / "institutional_due_diligence_2026" / "batch06_independent_audit"
 OUT.mkdir(parents=True, exist_ok=True)
 
 BATCH06_RANGE = range(251, 301)
+BATCH_NUM = 6
 CROSS_SPINE_RESOLVED_IDS = frozenset()
 
 DECISION_CAP_IDS = {251, 270, 271, 275, 297, 299}
@@ -34,12 +35,12 @@ AI_CAP_IDS = {251, 275, 295, 299}
 WALLET_CAP_IDS: frozenset[int] = frozenset({277, 279, 281, 286, 287, 288, 289, 290, 296})
 
 PHASE_STANDARD: dict[str, str] = {
-    "1": "SR 26-2 Independent Validation / Conceptual Soundness",
+    "1": "SR 26-2 Independent Validation / Conceptual Soundness + Phase 1 generic-delegate gate",
     "2": "GIPS (CFA Institute) — full-population performance disclosure",
-    "3": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile",
+    "3": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile + NIST SP 800-218A SSDF AI Profile",
     "4": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
     "5": "COSO Internal Control — Integrated Framework",
-    "6": "MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS",
+    "6": "OWASP ASVS 5.0.0 + MITRE CWE Top 25 + MITRE ATLAS",
     "7": "ISO/IEC 25010 + ISO/IEC/IEEE 12207 + ISO/IEC/IEEE 29148",
     "8": "Google SRE Production Readiness Review (PRR)",
     "9": "FATF Recommendation 16",
@@ -357,6 +358,8 @@ def scan_hidden_decision_indicators(payload: dict[str, Any]) -> list[str]:
 
 
 def phase1_conceptual(cid: int, result: dict, *, split: dict) -> tuple[str, str | None]:
+    from scripts.audit_standards_v6 import phase1_generic_delegate_check
+
     pre, pre_note = cross_spine_preflight(cid)
     if pre == "FAIL":
         return "FAIL", pre_note
@@ -375,6 +378,9 @@ def phase1_conceptual(cid: int, result: dict, *, split: dict) -> tuple[str, str 
         return "FAIL", split.get("verdict")
     if st == "NO_DEDICATED_IMPLEMENTATION":
         return "FAIL", split.get("verdict")
+    gd_st, gd_note = phase1_generic_delegate_check(BATCH_NUM, cid)
+    if gd_st == "FAIL":
+        return "FAIL", gd_note
     return "PASS", pre_note
 
 
@@ -392,12 +398,21 @@ def phase2_gips(cid: int, result: dict) -> tuple[str, str | None]:
     return "PARTIAL", "production decisions present; GIPS recomputation pending"
 
 
-def phase3_ai(cid: int, result: dict) -> tuple[str, str | None]:
+def phase3_ai_legacy(cid: int, result: dict) -> tuple[str, str | None]:
     if cid not in AI_CAP_IDS:
         return "NOT_APPLICABLE", None
     if not (result.get("compliance_footer") or result.get("provenance") or result.get("certificate")):
         return "FAIL", "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
     return "PARTIAL", "ai_compliance_footer present; ISO 42001 lifecycle not verified"
+
+
+def phase3_ai(cid: int, result: dict) -> tuple[str, str | None]:
+    if cid not in AI_CAP_IDS:
+        return "NOT_APPLICABLE", None
+    from scripts.audit_standards_v6 import phase3_ai_rmf_plus_218a
+
+    st, note, _meta = phase3_ai_rmf_plus_218a(cid, result)
+    return st, note
 
 
 def phase4_data(cid: int, result: dict) -> tuple[str, str | None]:
@@ -429,7 +444,7 @@ def phase5_coso(cid: int, result: dict) -> tuple[str, str | None]:
     return "PARTIAL", "COSO: partial automated controls — evidence_class not on all fields"
 
 
-def phase6_security(cid: int, result: dict) -> tuple[str, str | None]:
+def phase6_security_legacy(cid: int, result: dict) -> tuple[str, str | None]:
     from cap646.ui_pages import user_surface_for
 
     surf = user_surface_for(cid)
@@ -451,6 +466,13 @@ def phase6_security(cid: int, result: dict) -> tuple[str, str | None]:
         return "PARTIAL", f"static route hits={hits[:2]}; live HTTP probe not executed (no bound server in audit VM)"
     except Exception as exc:
         return "PARTIAL", f"security scan error: {exc}"
+
+
+def phase6_security(cid: int, result: dict) -> tuple[str, str | None]:
+    from scripts.audit_standards_v6 import phase6_security_asvs50
+
+    st, note, _meta = phase6_security_asvs50(cid, result, batch_num=BATCH_NUM)
+    return st, note
 
 
 def phase7_iso(cid: int, result: dict) -> tuple[str, str | None]:
@@ -538,6 +560,8 @@ def final_status_tier1(
             return "NOT_COMPLETE", "1", note
         if "NO_DEDICATED" in note or split.get("result_type") == "NO_DEDICATED_IMPLEMENTATION":
             return "NOT_COMPLETE", "1", note
+        if "GENERIC_DELEGATE" in note:
+            return "NOT_COMPLETE", "1", note
         return "CONCEPTUALLY-UNSOUND", "1", note
     if phase_results["2"][0] == "FAIL":
         return "PERFORMANCE-UNVERIFIABLE", "2", phase_results["2"][1]
@@ -573,6 +597,8 @@ def final_status_tier2_abbreviated(
         if "CROSS_SPINE" in note or "CROSS_SPINE" in (split.get("verdict") or ""):
             return "NOT_COMPLETE", "1", note
         if "NO_DEDICATED" in note or split.get("result_type") == "NO_DEDICATED_IMPLEMENTATION":
+            return "NOT_COMPLETE", "1", note
+        if "GENERIC_DELEGATE" in note:
             return "NOT_COMPLETE", "1", note
         return "CONCEPTUALLY-UNSOUND", "1", note
     st = split.get("result_type")
