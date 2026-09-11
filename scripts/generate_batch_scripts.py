@@ -34,7 +34,9 @@ def _replace_batch(text: str, cfg: BatchRbasConfig) -> str:
         text = text.replace(f"{prev_cfg.id_start}-{prev_cfg.id_end}", f"{cfg.id_start}-{cfg.id_end}")
         text = text.replace(f"IDs {prev_cfg.id_start}–{prev_cfg.id_end}", f"IDs {cfg.id_start}–{cfg.id_end}")
         text = text.replace(f"({prev_cfg.id_start}–{prev_cfg.id_end})", f"({cfg.id_start}–{cfg.id_end})")
-    text = text.replace(f"batch{prev:02d}_tier_map", f"batch_tier_map({n})")
+    text = text.replace(f"batch{prev:02d}_tier_map()", f"batch{n:02d}_tier_map()")
+    text = text.replace("batch_tier_map(6)", f"batch_tier_map({n})")
+    text = text.replace(f"discover_ai_cap_ids(6)", f"discover_ai_cap_ids({n})")
     text = text.replace(f"write_batch{prev:02d}_tier_table", f"write_batch_tier_table({n},")
     text = text.replace(f"WF027_IN_BATCH{prev:02d}", f"WF027_IN_BATCH{n:02d}")
     # Fix tier map import
@@ -74,6 +76,16 @@ WF027_IN_BATCH{n:02d} = WF027_UNRESOLVED_LEGACY_IDS & set(range({cfg.id_start}, 
     )
     text = text.replace("batch06_tier_map()", f"batch{n:02d}_tier_map()")
     text = text.replace("batch07_tier_map()", f"batch{n:02d}_tier_map()")
+    text = re.sub(
+        rf"def batch{n:02d}_tier_map\(\):\n    return batch_tier_map\(\d+\)\n\n",
+        "",
+        text,
+    )
+    text = re.sub(
+        rf"(def batch{n:02d}_tier_map\(\):\n    return batch_tier_map\({n}\)\n\n)+",
+        f"def batch{n:02d}_tier_map():\n    return batch_tier_map({n})\n\n",
+        text,
+    )
     text = text.replace("BATCH_NUM = 6", f"BATCH_NUM = {n}")
     # Remove stale batch06 decision cap constants — derive from tier map at runtime
     text = re.sub(
