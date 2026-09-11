@@ -45,8 +45,14 @@ async def _verify_id(cap_id: int) -> dict:
         return {"id": cap_id, "ok": False, "error": str(exc)}
 
 
-async def verify_batch(name: str, ids: range) -> dict:
-    results = await asyncio.gather(*[_verify_id(i) for i in ids])
+async def verify_batch(name: str, ids: range, *, concurrency: int = 10) -> dict:
+    sem = asyncio.Semaphore(concurrency)
+
+    async def _guarded(cap_id: int) -> dict:
+        async with sem:
+            return await _verify_id(cap_id)
+
+    results = await asyncio.gather(*[_guarded(i) for i in ids])
     ok_count = sum(1 for r in results if r["ok"])
     return {
         "batch": name,

@@ -333,6 +333,16 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
 def resolve_binding(capability_id: int) -> BackendBinding:
     from cap646.extension_capabilities import is_extension_id
 
+    if is_extension_id(capability_id):
+        return BackendBinding(
+            capability_id,
+            "cap646.extension_capabilities",
+            f"extension_{capability_id}",
+            f"extension_{capability_id}",
+            "symbol",
+            "extension_registry_remediation",
+        )
+
     if 647 <= capability_id <= 826:
         try:
             from cap978.extension_registry import resolve_extension_binding
@@ -348,16 +358,6 @@ def resolve_binding(capability_id: int) -> BackendBinding:
             )
         except Exception:
             pass
-
-    if is_extension_id(capability_id):
-        return BackendBinding(
-            capability_id,
-            "cap646.extension_capabilities",
-            f"extension_{capability_id}",
-            f"extension_{capability_id}",
-            "symbol",
-            "extension_registry_remediation",
-        )
 
     explicit = _EXPLICIT_BINDINGS.get(capability_id)
     if explicit is not None:
