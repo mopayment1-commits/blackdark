@@ -1,0 +1,8 @@
+{
+  "pass_id": "PASS-06",
+  "title": "Runtime/Failure Red Team",
+  "scope": "Challenge error semantics",
+  "evidence_id": "EVD-060",
+  "discrepancies": [],
+  "status": "COMPLETED"
+}

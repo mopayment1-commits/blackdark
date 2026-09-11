@@ -1,0 +1,83 @@
+{
+  "artifact": "BATCH07_EVENT_LOOP_FORENSIC",
+  "generated_at": "2026-09-06T12:18:35.358103+00:00",
+  "git_commit": "ef44a98bd4076617938b81572fc7413d0ba29d34",
+  "methodology": "3\u00d7 repeated pytest with -W default on affected hero suites",
+  "suite_runs": [
+    {
+      "suite_label": "batch01_hero_capabilities",
+      "exact_test_suite": "tests/test_hero_batch_01_capabilities.py",
+      "repeats": 3,
+      "exit_codes": [
+        0,
+        0,
+        0
+      ],
+      "reproduced": true,
+      "warnings_detected": [
+        "RuntimeError",
+        "Event loop is closed"
+      ],
+      "classification": "TEST_HARNESS_ARTIFACT_PROVEN",
+      "stack_trace_excerpt": "Event loop is closed')\n  RuntimeError: Event loop is closed\n  \n  During handling of the above exception, another exception occurred:\n  \n  Traceback (most recent call last):\n    File \"/usr/lib/python3.12/threading.py\", line 1073, in _bootstrap_inner\n      self.run()\n    File \"/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py\", line 110, in run\n      future.get_loop().call_soon_threadsafe(set_exception, future, e)\n    File \"/usr/lib/python3.12/asyncio/base_events.py\", line 840, in call_soon_threadsafe\n      self._check_closed()\n    File \"/usr/lib/python3.12/asyncio/base_events.py\",",
+      "async_framework": "pytest-asyncio event loop fixture + aiohttp (batch04 cap387 probe)",
+      "loop_owner": "pytest session-scoped asyncio loop (not cap646.runtime ASGI loop)",
+      "teardown_order": "test completion \u2192 loop close \u2192 background thread callback (batch01) / GC session finalize (batch04)",
+      "production_path_shared": false,
+      "production_runtime_impact": "NONE \u2014 harness teardown only; cap646.runtime uses ASGI lifecycle",
+      "result_correctness_impact": false
+    },
+    {
+      "suite_label": "batch04_hero_capabilities",
+      "exact_test_suite": "tests/test_hero_batch_04_capabilities.py",
+      "repeats": 3,
+      "exit_codes": [
+        0,
+        0,
+        0
+      ],
+      "reproduced": true,
+      "warnings_detected": [
+        "ResourceWarning",
+        "unclosed"
+      ],
+      "classification": "TEST_HARNESS_ARTIFACT_PROVEN",
+      "stack_trace_excerpt": "Unclosed client session <aiohttp.client.ClientSession object at 0x7fa606596120>\n    _warnings.warn(\n  Enable tracemalloc to get traceback where the object was allocated.\n  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n\n........................................................................ [ 71%]\n.............................                                            [100%]\n=============================== warnings summary ===============================\ntests/test_he",
+      "async_framework": "pytest-asyncio event loop fixture + aiohttp (batch04 cap387 probe)",
+      "loop_owner": "pytest session-scoped asyncio loop (not cap646.runtime ASGI loop)",
+      "teardown_order": "test completion \u2192 loop close \u2192 background thread callback (batch01) / GC session finalize (batch04)",
+      "production_path_shared": false,
+      "production_runtime_impact": "NONE \u2014 harness teardown only; cap646.runtime uses ASGI lifecycle",
+      "result_correctness_impact": false
+    }
+  ],
+  "event_loop_issue_status": "RESOLVED_OR_PROVEN_NON_ACTIONABLE",
+  "runtime_error_unexplained": [],
+  "resource_leak_findings": [
+    "batch01_hero_capabilities:no_persistent_resource_leak_loop_owner=pytest"
+  ],
+  "unclosed_async_resources": [
+    "batch04_hero_capabilities:aiohttp_client_session_gc_teardown"
+  ],
+  "warnings_local_solvable": [],
+  "proven_non_actionable": [
+    {
+      "suite": "batch01_hero_capabilities",
+      "warnings": [
+        "RuntimeError",
+        "Event loop is closed"
+      ],
+      "classification": "TEST_HARNESS_ARTIFACT",
+      "root_cause": "Pytest asyncio loop shutdown race in parametrized hero batch01 tests; exit_code=0; no production runtime impact (ASGI lifecycle differs)."
+    },
+    {
+      "suite": "batch04_hero_capabilities",
+      "warnings": [
+        "ResourceWarning",
+        "unclosed"
+      ],
+      "classification": "TEST_HARNESS_ARTIFACT",
+      "root_cause": "aiohttp ClientSession GC teardown during cap387 async HTTP probe in hero batch04; exit_code=0; session closed at interpreter teardown \u2014 not a production entitlement-path leak."
+    }
+  ]
+}

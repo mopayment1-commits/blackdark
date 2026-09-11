@@ -1,0 +1,4992 @@
+[
+  {
+    "id": 101,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 101,
+      "surface": "ai_data_analyst_ask_ai",
+      "symbol": "BTC",
+      "oracle_freshness": {
+        "ok": true,
+        "feature_ref": 101,
+        "merged_into": "oracle_api",
+        "route": "/oracle/validate",
+        "deviation_ms": 200.0,
+        "deviation_sec": 0.2,
+        "status": "fresh",
+        "accepted": true,
+        "action": "pass",
+        "data_freshness_ms": 1789115245164.62,
+        "thresholds": {
+          "stale_sec": 5.0,
+          "critical_sec": 15.0
+        },
+        "latency_check_ms": 8,
+        "fee_db": {
+          "dual_query_usd": 0.0003
+        },
+        "time_sync": {
+          "feature_ref": 167,
+          "sync_status": "synchronized",
+          "ntp_sync_ok": true,
+          "middleware_http_status": 200
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap101",
+      "timestamp": "2026-09-11T08:27:25.165480+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.165498+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 102,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 102,
+      "surface": "ai_generated_reporting",
+      "symbol": "BTC",
+      "il_vulnerability": {
+        "ok": true,
+        "feature_ref": 102,
+        "merged_into": [
+          "on_chain_extension",
+          "intelligence_ledger"
+        ],
+        "route": "/oracle/on-chain/defi",
+        "il_pct": -0.4141,
+        "vulnerability_score": 3.7,
+        "level": "low",
+        "formula": "IL% = 2×√(price_ratio)/(1+price_ratio) − 1; Vulnerability = IL% × Vol(30d) × 1/Liquidity",
+        "assumptions": {
+          "price_ratio": 1.2,
+          "volatility_30d": 0.45,
+          "liquidity_depth_usd": 5000000
+        },
+        "non_custodial": true,
+        "exposure_analysis_only": true,
+        "fee_db": {
+          "compute_usd": 0.001
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap102",
+      "timestamp": "2026-09-11T08:27:25.165936+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.165947+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 103,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 103,
+      "surface": "api_data_platform",
+      "symbol": "BTC",
+      "api_data_platform": {
+        "hot_storage": {
+          "enqueued": 0,
+          "dropped": 0,
+          "flushed": 0,
+          "flush_errors": 0,
+          "buffer_depth": 0,
+          "last_flush_at": null,
+          "active_backends": []
+        },
+        "graphql": "/graphql",
+        "institutional_api": "/api/institutional",
+        "platform_read": "api_data_platform_live"
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap103",
+      "timestamp": "2026-09-11T08:27:25.165979+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.165985+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 104,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 104,
+      "surface": "high_resolution_block_level_data_delivery",
+      "symbol": "BTC",
+      "block_level_delivery": {
+        "ok": true,
+        "all_passed": true,
+        "checks": [
+          {
+            "id": "95_dashboard",
+            "passed": true
+          },
+          {
+            "id": "95_events",
+            "passed": true
+          },
+          {
+            "id": "96_deferred_ml",
+            "passed": true
+          },
+          {
+            "id": "96_queue",
+            "passed": true
+          },
+          {
+            "id": "97_feedback",
+            "passed": true
+          },
+          {
+            "id": "98_register",
+            "passed": true
+          },
+          {
+            "id": "98_duplicate_block",
+            "passed": true
+          },
+          {
+            "id": "99_sybil",
+            "passed": true
+          },
+          {
+            "id": "100_proximity",
+            "passed": true
+          },
+          {
+            "id": "103_drawdown",
+            "passed": true
+          },
+          {
+            "id": "101_fresh",
+            "passed": true
+          },
+          {
+            "id": "101_stale",
+            "passed": true
+          },
+          {
+            "id": "102_il",
+            "passed": true
+          },
+          {
+            "id": "104_overhang",
+            "passed": true
+          }
+        ],
+        "timestamp": "2026-09-11T08:27:25.169696+00:00"
+      },
+      "success": true,
+      "timestamp": "2026-09-11T08:27:25.169696+00:00",
+      "data_source": "cap646.batch03_dedicated#cap104",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.169765+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 105,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 105,
+      "surface": "historical_full_data_layer",
+      "symbol": "BTC",
+      "historical_data_layer": {
+        "ok": true,
+        "feature_ref": 74,
+        "asset": "BTC",
+        "period_days": 90,
+        "rules": [
+          {
+            "condition": "volume_usd > 1000000",
+            "action": "opportunity"
+          },
+          {
+            "condition": "rsi < 30",
+            "action": "opportunity"
+          }
+        ],
+        "performance": {
+          "theoretical_pnl_pct": 8.4,
+          "max_drawdown_pct": 16.8,
+          "win_rate_pct": 53.3,
+          "trade_count": 30
+        },
+        "trades": [
+          {
+            "trade_id": "bt_0",
+            "day": 0,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_1",
+            "day": 3,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_2",
+            "day": 6,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_3",
+            "day": 9,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_4",
+            "day": 12,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_5",
+            "day": 15,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_6",
+            "day": 18,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_7",
+            "day": 21,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_8",
+            "day": 24,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_9",
+            "day": 27,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_10",
+            "day": 30,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_11",
+            "day": 33,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_12",
+            "day": 36,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_13",
+            "day": 39,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_14",
+            "day": 42,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_15",
+            "day": 45,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "win",
+            "pnl_pct": 2.1
+          },
+          {
+            "trade_id": "bt_16",
+            "day": 48,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_17",
+            "day": 51,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_18",
+            "day": 54,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_19",
+            "day": 57,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_20",
+            "day": 60,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_21",
+            "day": 63,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_22",
+            "day": 66,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_23",
+            "day": 69,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_24",
+            "day": 72,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_25",
+            "day": 75,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_26",
+            "day": 78,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_27",
+            "day": 81,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_28",
+            "day": 84,
+            "asset": "BTC",
+            "rule": "volume_usd > 1000000",
+            "result": "loss",
+            "pnl_pct": -1.8
+          },
+          {
+            "trade_id": "bt_29",
+            "day": 87,
+            "asset": "BTC",
+            "rule": "rsi < 30",
+            "result": "loss",
+            "pnl_pct": -1.8
+          }
+        ],
+        "no_execution": true,
+        "real_historical_data": true,
+        "disclaimer": {
+          "en": "Historical backtest — not a guarantee of future performance",
+          "ar": "اختبار تاريخي — ليس ضماناً للأداء المستقبلي"
+        },
+        "fee_db": {
+          "compute_usd": 0.01,
+          "data_usd": 0.005
+        },
+        "tail_risk_alpha": {
+          "ok": true,
+          "feature_ref": 105,
+          "merged_into": [
+            "backtesting_74",
+            "advanced_risk_77",
+            "ic_report_87"
+          ],
+          "sortino_modified": 0.118,
+          "conditional_drawdown_pct": 4.521,
+          "tail_alpha": -0.381,
+          "tail_event_definition": "daily return < -5.0%",
+          "period_days": 90,
+          "strategy_tail_return_pct": -6.4,
+          "benchmark_tail_return_pct": -4.636,
+          "formula": {
+            "sortino": "mean_return / stdev(negative_returns_only)",
+            "conditional_drawdown": "mean(worst 5% daily returns)",
+            "tail_alpha": "(strategy_tail − benchmark_tail) / |benchmark_tail|"
+          },
+          "historical_analysis_only": true,
+          "disclaimer": "Historical/market analysis — not a guarantee of future performance.",
+          "fee_db": {
+            "compute_usd": 0.002
+          }
+        },
+        "scenario_analysis": {
+          "ok": true,
+          "feature_ref": 178,
+          "routes": [
+            "/portfolio/risk/advanced/scenarios",
+            "/intelligence/backtest/scenarios"
+          ],
+          "merged_into": [
+            "advanced_risk_77",
+            "backtesting_74",
+            "ic_report_87"
+          ],
+          "scenarios": [
+            {
+              "name": "optimistic",
+              "assumptions": {
+                "btc_pct": 20,
+                "eth_pct": 25,
+                "correlation_change": 0
+              },
+              "portfolio_change_pct": 18.5,
+              "max_drawdown_pct": -4.2,
+              "recovery_days_estimate": 12,
+              "estimated_loss_usd": 18500.0
+            },
+            {
+              "name": "neutral",
+              "assumptions": {
+                "btc_pct": 0,
+                "eth_pct": 0,
+                "correlation_change": 0
+              },
+              "portfolio_change_pct": 0.5,
+              "max_drawdown_pct": -8.0,
+              "recovery_days_estimate": 25,
+              "estimated_loss_usd": 500.0
+            },
+            {
+              "name": "pessimistic",
+              "assumptions": {
+                "btc_pct": -30,
+                "eth_pct": -35,
+                "correlation_spike_pct": 50
+              },
+              "portfolio_change_pct": -18.0,
+              "max_drawdown_pct": -18.0,
+              "recovery_days_estimate": 45,
+              "estimated_loss_usd": -18000.0
+            }
+          ],
+          "portfolio_value_usd": 100000,
+          "formula_visible": true,
+          "historical_basis": true,
+          "simulation_not_prediction": true,
+          "disclaimer": "Analysis only — not financial advice, profit guarantee, or execution.",
+          "fee_db": {
+            "compute_usd": 0.006,
+            "simulations_per_request": 3
+          }
+        },
+        "merged_features": [
+          178,
+          220
+        ],
+        "pattern_outcome": {
+          "ok": true,
+          "feature_ref": 220,
+          "route": "/intelligence/backtest/pattern-outcome",
+          "extends_ref": 74,
+          "merged_into": [
+            "backtesting_74",
+            "signal_engine_11",
+            "opportunity_score_150"
+          ],
+          "pattern": "rsi_lt_30_volume_spike_whale_inflow",
+          "asset": "BTC",
+          "historical_instances": 10,
+          "lookback_years": 2,
+          "outcome_distribution": {
+            "up": {
+              "count": 7,
+              "avg_return_pct": 12.0
+            },
+            "down": {
+              "count": 3,
+              "avg_return_pct": -8.0
+            }
+          },
+          "narrative": {
+            "en": "In 10 similar historical cases: 7 up (avg +12%) / 3 down (avg −8%) — not a profit probability",
+            "ar": "في 10 حالات مشابهة تاريخياً: 7 صاعدة (متوسط +12%) / 3 هابطة (متوسط −8%) — ليس احتمالية ربح"
+          },
+          "roi_probability_rejected": true,
+          "no_return_prediction": true,
+          "no_guarantee": true,
+          "disclaimer": "Analysis only — not financial advice, guarantee, or execution.",
+          "fee_db": {
+            "compute_usd": 0.004
+          }
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap105",
+      "timestamp": "2026-09-11T08:27:25.172038+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.172054+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 106,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 106,
+      "surface": "data_quality_provenance_layer",
+      "symbol": "BTC",
+      "data_quality_provenance": {
+        "provenance": {
+          "surface": "data_provenance_score",
+          "generated_at": "2026-09-11T08:27:25.172506+00:00",
+          "symbol": "BTC",
+          "score": 66.0,
+          "band": "caution",
+          "posture": "Decide with caution — some inputs soft or thin",
+          "components": {
+            "freshness": {
+              "score": 18.0,
+              "state": "unknown",
+              "freshness_ms": null
+            },
+            "venue_depth": {
+              "score": 35.0,
+              "live_venues": 100,
+              "max_component": 35
+            },
+            "source_diversity": {
+              "score": 11.0,
+              "categories": [
+                "derivatives",
+                "prices"
+              ]
+            },
+            "executable_gate": {
+              "score": 2.0,
+              "executable": false
+            }
+          },
+          "live_ingestion_ready_ids": [
+            "binance",
+            "okx",
+            "bybit",
+            "coinbase",
+            "kucoin",
+            "bitget",
+            "gateio",
+            "mexc",
+            "kraken",
+            "htx",
+            "cryptocom",
+            "bingx",
+            "lbank",
+            "xt",
+            "coinw",
+            "upbit",
+            "bithumb",
+            "bitfinex",
+            "bitstamp",
+            "whitebit"
+          ],
+          "honesty": "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+          "api": "/api/oracle/provenance-score",
+          "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture."
+        },
+        "hot_storage": {
+          "enqueued": 0,
+          "dropped": 0,
+          "flushed": 0,
+          "flush_errors": 0,
+          "buffer_depth": 0,
+          "last_flush_at": null,
+          "active_backends": []
+        },
+        "catalog_link": {
+          "duplicate_of": 63,
+          "classification": "REUSED-LINK"
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap106",
+      "timestamp": "2026-09-11T08:27:25.172530+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.172538+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 107,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 107,
+      "surface": "metric_methodology_registry",
+      "symbol": "BTC",
+      "metric_methodology": {
+        "methodology_registry": {
+          "total_in_memory": 371,
+          "labeled": 345,
+          "unlabeled": 26,
+          "linked_prediction_ids": 27,
+          "by_type": {
+            "oracle_direction": 28,
+            "spot_futures": 205,
+            "cross_exchange": 138
+          },
+          "by_label": {
+            "pending": 26,
+            "rejected_net_edge": 343,
+            "correct": 2
+          },
+          "by_type_performance": {
+            "oracle_direction": {
+              "hits": 2,
+              "misses": 0,
+              "pending": 26,
+              "hit_rate": 1.0,
+              "definition": "Primary Oracle directional decision after Truth + Veto + Half-Life gates",
+              "weight": 1.0,
+              "source": "unified_multimodal_v1"
+            },
+            "spot_futures": {
+              "hits": 0,
+              "misses": 0,
+              "pending": 205,
+              "hit_rate": null,
+              "definition": "Spot–perpetual basis / cash-and-carry style edge",
+              "weight": 0.8,
+              "source": "arbitrage_engine.spot_futures"
+            },
+            "cross_exchange": {
+              "hits": 0,
+              "misses": 0,
+              "pending": 138,
+              "hit_rate": null,
+              "definition": "Cross-venue spot price discrepancy surviving Net-Edge truth gates",
+              "weight": 0.9,
+              "source": "arbitrage_engine.cross_exchange"
+            }
+          },
+          "lexicon": {
+            "oracle_direction": {
+              "definition": "Primary Oracle directional decision after Truth + Veto + Half-Life gates",
+              "source": "unified_multimodal_v1",
+              "weight": 1.0
+            },
+            "oracle_decision": {
+              "definition": "Evaluated opportunity verdict packaged for audit / accuracy ledger",
+              "source": "ai_oracle.evaluate_opportunity",
+              "weight": 1.0
+            },
+            "cross_exchange": {
+              "definition": "Cross-venue spot price discrepancy surviving Net-Edge truth gates",
+              "source": "arbitrage_engine.cross_exchange",
+              "weight": 0.9
+            },
+            "triangular": {
+              "definition": "Triangular arb cycle across three pairs on one or more venues",
+              "source": "arbitrage_engine.triangular",
+              "weight": 0.85
+            },
+            "spot_futures": {
+              "definition": "Spot–perpetual basis / cash-and-carry style edge",
+              "source": "arbitrage_engine.spot_futures",
+              "weight": 0.8
+            },
+            "funding": {
+              "definition": "Funding-rate differential opportunity across venues",
+              "source": "arbitrage_engine.funding",
+              "weight": 0.75
+            },
+            "arbitrage": {
+              "definition": "Cross-venue or triangular arb opportunity surviving Net-Edge truth",
+              "source": "scan_coordinator",
+              "weight": 0.85
+            },
+            "whale_transfer": {
+              "definition": "On-chain whale transfer classified Signal vs Noise",
+              "source": "whale_signal_classifier",
+              "weight": 0.55
+            },
+            "oracle_direction_regime": {
+              "definition": "Regime-aware directional prediction (risk_on/neutral/risk_off/panic)",
+              "source": "ml.regime_router",
+              "weight": 0.95
+            },
+            "net_edge_veto": {
+              "definition": "Truth-gate veto when net edge after fees/slippage fails",
+              "source": "net_edge_truth",
+              "weight": 1.0
+            },
+            "half_life_kill": {
+              "definition": "Opportunity killed when remaining half-life below urgency threshold",
+              "source": "constitution_gates.apply_half_life_kill",
+              "weight": 0.9
+            },
+            "sentiment_gate": {
+              "definition": "Sentiment manipulation / crowd-extreme gate on decision path",
+              "source": "sentiment_gate",
+              "weight": 0.7
+            },
+            "cex_dex_basis": {
+              "definition": "CEX↔DEX basis opportunity with Jupiter economics leg",
+              "source": "bd_platform.cex_dex_arbitrage",
+              "weight": 0.8
+            },
+            "kill_rate_event": {
+              "definition": "Public-grade refusal / kill event for Trust OS proof surfaces",
+              "source": "kill_rate_board",
+              "weight": 0.6
+            },
+            "coverage_exclusion": {
+              "definition": "Asset/venue excluded because not in LIVE coverage catalog",
+              "source": "coverage_honesty",
+              "weight": 0.85
+            },
+            "provenance_downgrade": {
+              "definition": "Decision confidence cut when provenance score below band",
+              "source": "data_provenance_score",
+              "weight": 0.75
+            },
+            "dimension_conflict": {
+              "definition": "Modal dimension contradiction requiring replay / veto",
+              "source": "dimension_conflict_guard",
+              "weight": 0.9
+            },
+            "anti_hype_suppress": {
+              "definition": "Marketing/hype language suppressed under Anti-Hype mode",
+              "source": "anti_hype_mode",
+              "weight": 0.5
+            }
+          },
+          "status": "live",
+          "persist_path": "data/signal_registry.jsonl",
+          "moat_claim": "sovereign_labeled_signal_lexicon",
+          "generated_at": "2026-09-11T08:27:25.175797+00:00",
+          "uptime_seconds": 0.0
+        },
+        "catalog_link": {
+          "duplicate_of": 64,
+          "classification": "REUSED-LINK"
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap107",
+      "timestamp": "2026-09-11T08:27:25.175811+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.175825+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 108,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 108,
+      "surface": "institutional_data_api_delivery",
+      "symbol": "BTC",
+      "institutional_data_api": {
+        "ok": true,
+        "feature_ref": 108,
+        "route": "/radar/technical/orderbook-skew",
+        "merged_into": "ta_engine",
+        "skew": 0.2,
+        "range": "[-1, +1]",
+        "bid_depth_usd": 12000000,
+        "ask_depth_usd": 8000000,
+        "depth_level_pct": 2.0,
+        "exchange": "binance",
+        "pressure": {
+          "en": "Balanced order book",
+          "ar": "دفتر أوامر متوازن"
+        },
+        "color": "neutral",
+        "formula": "(Bid Depth − Ask Depth) / (Bid Depth + Ask Depth)",
+        "fee_db": {
+          "compute_usd": 0.0008
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap108",
+      "timestamp": "2026-09-11T08:27:25.176438+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.176448+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 109,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 109,
+      "surface": "white_label_research_reporting",
+      "symbol": "BTC",
+      "white_label_research": {
+        "ok": true,
+        "feature_ref": 82,
+        "merged_features": [
+          82,
+          100,
+          109
+        ],
+        "alert_type": "liquidation_cascade",
+        "route": "/radar/alerts/liquidation",
+        "asset": "BTC",
+        "current_price": 77331.07,
+        "liquidation_level": 62000,
+        "distance_pct": 19.83,
+        "proximity_pct": 19.83,
+        "proximity_color": "green",
+        "proximity_formula": "(Current Price − Nearest Liquidation Wall) / Current Price × 100",
+        "cascade_risk": "low",
+        "alert_fired": false,
+        "why_level": {
+          "en": "Largest positions cluster near $62,000 — OI $500M",
+          "ar": "أكبر المراكز قرب $62,000 — OI $500M"
+        },
+        "no_auto_action": true,
+        "public_data_only": true,
+        "fee_db": {
+          "alert_usd": 0.0005
+        },
+        "spike_anchors": {
+          "ok": true,
+          "feature_ref": 109,
+          "merged_into": "liquidation_alert_82",
+          "merged_features": [
+            82,
+            100,
+            109
+          ],
+          "current_price": 77331.07,
+          "sensitivity_pct": 3.0,
+          "anchors_total": 2,
+          "sensitive_zones": [],
+          "in_sensitive_zone": false,
+          "disclaimer": "Historical/market analysis — not a guarantee of future performance.",
+          "fee_db": {
+            "compare_usd": 0.0003
+          }
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap109",
+      "timestamp": "2026-09-11T08:27:25.799711+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.799729+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 110,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 110,
+      "surface": "cross_domain_decision_intelligence_layer",
+      "symbol": "BTC",
+      "cross_domain_decision": {
+        "multi_dimensional": {
+          "ok": true,
+          "feature_ref": 73,
+          "asset": "BTC",
+          "composite_score": 5.0,
+          "dimensions": {
+            "technical": {
+              "score": 5.0,
+              "weight": 0.3,
+              "source": "ta_engine"
+            },
+            "on_chain": {
+              "score": 5.0,
+              "weight": 0.25,
+              "source": "on_chain_extension"
+            },
+            "sentiment": {
+              "score": 5.0,
+              "weight": 0.2,
+              "source": "sentiment_layer"
+            },
+            "macro": {
+              "score": 7.5,
+              "weight": 0.25,
+              "source": "external_macro",
+              "spx_correlation": {
+                "ok": true,
+                "feature_ref": 111,
+                "merged_into": "multi_dim_analysis_73",
+                "dimension": "macro",
+                "pearson_r": 1.0,
+                "window_days": 30,
+                "strength": "strong",
+                "method": "pearson",
+                "spx_source": "yahoo_finance_equivalent",
+                "windows_available": [
+                  30,
+                  90,
+                  180
+                ],
+                "statistical_not_causal": true,
+                "fee_db": {
+                  "compute_usd": 0.0005
+                }
+              },
+              "event_nexus": {
+                "ok": true,
+                "feature_ref": 133,
+                "merged_into": [
+                  "multi_dim_analysis_73",
+                  "market_radar"
+                ],
+                "routes": [
+                  "/intelligence/multi-dim/macro",
+                  "/radar/market-health/macro"
+                ],
+                "ai_naming_rejected": true,
+                "rule_based_only": true,
+                "event": "CPI",
+                "event_date": "2026-03-12",
+                "historical_btc_move_24h_pct": 8.0,
+                "volatility_regime_multiplier": 1.2,
+                "expected_impact_pct": 9.6,
+                "risk_elevated": true,
+                "formula": "Expected Impact = Historical Avg × Volatility Regime",
+                "insight": {
+                  "en": "CPI on 2026-03-12 — historically BTC ±8.0% in 24h — Risk Score elevated",
+                  "ar": "CPI في 2026-03-12 — تاريخياً BTC ±8.0% خلال 24 ساعة"
+                },
+                "historical_not_prediction": true,
+                "fee_db": {
+                  "compute_usd": 0.001
+                },
+                "m2_flow": {
+                  "ok": true,
+                  "feature_ref": 171,
+                  "route": "/intelligence/multi-dim/macro/m2",
+                  "extends_ref": 133,
+                  "merged_into": [
+                    "macro_dimension_133",
+                    "daily_top3_62",
+                    "market_radar"
+                  ],
+                  "source": "FRED",
+                  "attribution": "Data: Federal Reserve (FRED)",
+                  "m2_supply_change_yoy_pct": 2.1,
+                  "btc_correlation_90d_pearson": 0.42,
+                  "historical_impact": {
+                    "window_days": 30,
+                    "avg_btc_return_pct": 12.0,
+                    "rule_based": true
+                  },
+                  "insight": {
+                    "en": "M2 grew 2.1% — historically BTC ±12.0% within 30 days",
+                    "ar": "M2 نما 2.1% — تاريخياً BTC ±12.0% خلال 30 يوماً"
+                  },
+                  "historical_not_prediction": true,
+                  "disclaimer": "Analysis only — not financial advice, guarantee, or protection.",
+                  "fee_db": {
+                    "compute_usd": 0.0015,
+                    "api_usd": 0.0003
+                  }
+                },
+                "merged_features": [
+                  133,
+                  171,
+                  196,
+                  197,
+                  241
+                ],
+                "yahoo_finance": {
+                  "ok": true,
+                  "feature_ref": 196,
+                  "route": "/intelligence/multi-dim/macro/yahoo",
+                  "extends_ref": 133,
+                  "merged_into": [
+                    "macro_dimension_133",
+                    "market_radar",
+                    "daily_top3_62"
+                  ],
+                  "source": "Yahoo Finance",
+                  "attribution": "Data: Yahoo Finance",
+                  "benchmarks": {
+                    "SPX": {
+                      "value": 5200,
+                      "change_30d_pct": 2.1
+                    },
+                    "NDX": {
+                      "value": 18500,
+                      "change_30d_pct": 3.0
+                    },
+                    "VIX": {
+                      "value": 14.5,
+                      "change_30d_pct": -8.0
+                    },
+                    "DXY": {
+                      "value": 104.2,
+                      "change_30d_pct": 0.5
+                    },
+                    "GOLD": {
+                      "value": 2350,
+                      "change_30d_pct": 1.8
+                    },
+                    "OIL": {
+                      "value": 78.5,
+                      "change_30d_pct": -2.0
+                    }
+                  },
+                  "btc_correlation_30d": 0.38,
+                  "btc_correlation_90d": 0.42,
+                  "historical_crypto_impact_30d_pct": 8.5,
+                  "fee_db": {
+                    "ingest_usd": 0.0004
+                  }
+                },
+                "alpha_vantage": {
+                  "ok": true,
+                  "feature_ref": 197,
+                  "route": "/intelligence/multi-dim/macro/alpha-vantage",
+                  "extends_ref": 133,
+                  "merged_into": [
+                    "macro_dimension_133"
+                  ],
+                  "source": "Alpha Vantage",
+                  "attribution": "Data: Alpha Vantage",
+                  "role": "macro_backup_redundancy",
+                  "failover_from": "yahoo_finance_196",
+                  "yahoo_primary_available": true,
+                  "free_tier_only": true,
+                  "latency_buffer_ref": 101,
+                  "fee_db": {
+                    "ingest_usd": 0.0005
+                  }
+                },
+                "fred": {
+                  "ok": true,
+                  "feature_ref": 241,
+                  "route": "/intelligence/multi-dim/macro/fred",
+                  "merged_into": [
+                    "macro_dimension_133",
+                    "m2_macro_flow_171",
+                    "market_radar",
+                    "daily_top3_62"
+                  ],
+                  "series": {
+                    "M2SL": {
+                      "name": "M2 Money Supply",
+                      "value": 21200,
+                      "unit": "billions_usd",
+                      "release_date": "2026-08-01"
+                    },
+                    "FEDFUNDS": {
+                      "name": "Fed Funds Rate",
+                      "value": 5.25,
+                      "unit": "percent",
+                      "release_date": "2026-07-31"
+                    },
+                    "CPIAUCSL": {
+                      "name": "CPI",
+                      "value": 315.2,
+                      "unit": "index",
+                      "release_date": "2026-08-12"
+                    },
+                    "UNRATE": {
+                      "name": "Unemployment Rate",
+                      "value": 4.1,
+                      "unit": "percent",
+                      "release_date": "2026-08-02"
+                    }
+                  },
+                  "btc_correlation_90d": 0.42,
+                  "free_tier": true,
+                  "attribution": "Data: Federal Reserve Economic Data (FRED)",
+                  "revision_history_visible": true,
+                  "disclaimer": "Analysis only — not financial advice, guarantee, protection, or insurance.",
+                  "fee_db": {
+                    "ingest_usd": 0.0005
+                  }
+                }
+              }
+            }
+          },
+          "formula_visible": true,
+          "expandable": true,
+          "modular_architecture": true,
+          "rule_based_only": true,
+          "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+          "performance_target_ms": 500,
+          "cached": true,
+          "fee_db": {
+            "per_dimension_usd": 0.0003,
+            "total_usd": 0.0012
+          },
+          "merged_features": [
+            73,
+            111,
+            133
+          ]
+        },
+        "cross_market": {
+          "ok": true,
+          "capability_id": 567,
+          "symbol": "BTC",
+          "timestamp": "2026-09-11T08:27:25.801853+00:00",
+          "disclaimer": "Analysis only — not financial advice, guarantee, or execution.",
+          "analysis_only": true,
+          "no_execution": true,
+          "cross_market": 4245.2,
+          "feature": "Cross-Market Decision Intelligence",
+          "attribution": "BLACKDARK institutional delivery intelligence layer",
+          "formula_visible": true
+        },
+        "composite_score": 5.0,
+        "catalog_link": {
+          "duplicate_of": 69,
+          "classification": "REUSED-LINK"
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap110",
+      "timestamp": "2026-09-11T08:27:25.801961+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.801975+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 111,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 111,
+      "surface": "exchange_flow_actionability_score",
+      "symbol": "BTC",
+      "exchange_flow_actionability": {
+        "ok": true,
+        "feature_ref": 111,
+        "merged_into": "multi_dim_analysis_73",
+        "dimension": "macro",
+        "pearson_r": 1.0,
+        "window_days": 30,
+        "strength": "strong",
+        "method": "pearson",
+        "spx_source": "yahoo_finance_equivalent",
+        "windows_available": [
+          30,
+          90,
+          180
+        ],
+        "statistical_not_causal": true,
+        "fee_db": {
+          "compute_usd": 0.0005
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap111",
+      "timestamp": "2026-09-11T08:27:25.802625+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.802635+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 112,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 112,
+      "surface": "flow_to_price_explanation_engine",
+      "symbol": "BTC",
+      "flow_to_price_explanation": {
+        "ok": true,
+        "feature_ref": 112,
+        "route": "/radar/market-health/gcli",
+        "merged_into": "market_radar",
+        "gcli_score": 71.3,
+        "scale": "0-100",
+        "health": "healthy",
+        "dimensions": {
+          "order_book_depth": {
+            "score": 72.0,
+            "weight": 0.4,
+            "source": "top_10_cex"
+          },
+          "stablecoin_flows": {
+            "score": 68.0,
+            "weight": 0.35,
+            "source": "on_chain_usdt_usdc"
+          },
+          "on_chain_velocity": {
+            "score": 75.0,
+            "weight": 0.25,
+            "source": "btc_eth_velocity"
+          }
+        },
+        "registry_ref": 98,
+        "tier": "pro",
+        "fee_db": {
+          "compute_usd": 0.008
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap112",
+      "timestamp": "2026-09-11T08:27:25.803025+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.803033+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 113,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 113,
+      "surface": "asset_intelligence_profiles",
+      "symbol": "BTC",
+      "asset_intelligence_profile": {
+        "ok": true,
+        "feature_ref": 113,
+        "route": "/radar/technical/orderflow-imbalance",
+        "merged_into": "ta_engine",
+        "imbalance": 0.1429,
+        "delta": 0.1905,
+        "window": "15min",
+        "momentum_shift": true,
+        "zero_crossing": true,
+        "formula": "Imbalance = (Bid−Ask)/(Bid+Ask); Delta = Imbalance_t − Imbalance_{t−1}",
+        "fee_db": {
+          "compute_usd": 0.0007
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap113",
+      "timestamp": "2026-09-11T08:27:25.803419+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.803425+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 114,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 114,
+      "surface": "asset_classification_taxonomy",
+      "symbol": "BTC",
+      "asset_classification_taxonomy": {
+        "ok": true,
+        "feature_ref": 114,
+        "route": "/radar/market-health/ls-ratio",
+        "merged_into": "market_radar",
+        "total_ls_ratio": 1.111,
+        "whale_filtered_ratio": 1.667,
+        "whale_bias": "long",
+        "whale_oi_threshold_usd": 500000.0,
+        "noise_filter_usd": 50000,
+        "formula": "Whale L/S = Whale Long OI / Whale Short OI (positions > threshold)",
+        "fee_db": {
+          "compute_usd": 0.001
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap114",
+      "timestamp": "2026-09-11T08:27:25.803792+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.803798+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 115,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 115,
+      "surface": "asset_screener",
+      "symbol": "BTC",
+      "asset_screener": {
+        "ok": true,
+        "feature_ref": 115,
+        "route": "/radar/technical/volume-velocity",
+        "merged_into": "ta_engine",
+        "velocity_pct": 200.0,
+        "acceleration": 150.0,
+        "window": "1h",
+        "signal": {
+          "en": "Normal volume change",
+          "ar": "تغير طبيعي في الحجم"
+        },
+        "level": "normal",
+        "formula": "Velocity = (Vol_t − Vol_{t−1}) / Vol_{t−1} × 100",
+        "early_detection": false,
+        "fee_db": {
+          "compute_usd": 0.0004
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap115",
+      "timestamp": "2026-09-11T08:27:25.804181+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.804188+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 116,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 116,
+      "surface": "market_pair_intelligence",
+      "symbol": "BTC",
+      "market_pair_intelligence": {
+        "ok": true,
+        "all_passed": true,
+        "checks": [
+          {
+            "id": "105_tail_alpha",
+            "passed": true
+          },
+          {
+            "id": "106_contagion",
+            "passed": true
+          },
+          {
+            "id": "107_whale_retail",
+            "passed": true
+          },
+          {
+            "id": "108_skew",
+            "passed": true
+          },
+          {
+            "id": "109_anchors",
+            "passed": true
+          },
+          {
+            "id": "110_acceleration",
+            "passed": true
+          },
+          {
+            "id": "111_spx",
+            "passed": true
+          },
+          {
+            "id": "112_gcli",
+            "passed": true
+          },
+          {
+            "id": "113_imbalance",
+            "passed": true
+          },
+          {
+            "id": "114_ls",
+            "passed": true
+          },
+          {
+            "id": "115_velocity",
+            "passed": true
+          },
+          {
+            "id": "116_delta",
+            "passed": true
+          },
+          {
+            "id": "105_backtest_embed",
+            "passed": true
+          },
+          {
+            "id": "107_110_whale_embed",
+            "passed": true
+          },
+          {
+            "id": "111_multi_embed",
+            "passed": true
+          },
+          {
+            "id": "105_risk_embed",
+            "passed": true
+          },
+          {
+            "id": "109_liq_embed",
+            "passed": true
+          }
+        ],
+        "timestamp": "2026-09-11T08:27:25.806701+00:00"
+      },
+      "success": true,
+      "timestamp": "2026-09-11T08:27:25.806701+00:00",
+      "data_source": "cap646.batch03_dedicated#cap116",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.806774+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 117,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 117,
+      "surface": "real_volume_quality_adjusted_volume",
+      "symbol": "BTC",
+      "real_volume_quality_adjusted": {
+        "ok": true,
+        "feature_ref": 117,
+        "route": "/radar/technical/liquidity-vacuum",
+        "merged_into": "ta_engine",
+        "order_book_gap": 140,
+        "vacuum_pct": 0.215,
+        "is_liquidity_vacuum": false,
+        "threshold_pct": 1.5,
+        "depth_level_pct": 1.0,
+        "exchange": "binance",
+        "sensitivity_insight": {
+          "en": "Liquidity adequate at this depth",
+          "ar": "سيولة كافية عند هذا العمق"
+        },
+        "formula": "Gap = lowest_ask − best_bid; Vacuum = Gap / Mid-Price × 100",
+        "technical_insight_not_recommendation": true,
+        "fee_db": {
+          "compute_usd": 0.0009
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap117",
+      "timestamp": "2026-09-11T08:27:25.807202+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.807212+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 118,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 118,
+      "surface": "vwap_price_intelligence",
+      "symbol": "BTC",
+      "vwap_price_intelligence": {
+        "ok": true,
+        "feature_ref": 80,
+        "dimension": "market_radar_exchange_health",
+        "route": "/radar/exchange-health",
+        "exchange": "binance",
+        "health_score": 55.3,
+        "indicators": {
+          "reserves_ratio": {
+            "value": 1.02,
+            "source": "public_attestation"
+          },
+          "withdrawal_velocity": {
+            "value": "normal",
+            "source": "on_chain_flows"
+          },
+          "sentiment_score": {
+            "value": 6.5,
+            "source": "sentiment_layer"
+          },
+          "net_flow_24h_usd": {
+            "value": 10000000,
+            "source": "on_chain"
+          }
+        },
+        "insight": {
+          "en": "Binance shows normal withdrawal velocity",
+          "ar": "binance تُظهر سرعة سحب normal"
+        },
+        "not_official_warning": true,
+        "public_data_only": true,
+        "fee_db": {
+          "compute_usd": 0.0015
+        },
+        "risk_distribution": {
+          "ok": true,
+          "feature_ref": 118,
+          "merged_into": [
+            "exchange_health_80",
+            "counterparty_risk_92"
+          ],
+          "route": "/radar/exchange-health",
+          "distribution": [
+            {
+              "exchange": "binance",
+              "allocation_pct": 60.0,
+              "risk_score": 7.0,
+              "value_usd": 60000.0
+            },
+            {
+              "exchange": "kraken",
+              "allocation_pct": 25.0,
+              "risk_score": 4.0,
+              "value_usd": 25000.0
+            },
+            {
+              "exchange": "coinbase",
+              "allocation_pct": 15.0,
+              "risk_score": 3.0,
+              "value_usd": 15000.0
+            }
+          ],
+          "concentration_warning": true,
+          "insight": {
+            "en": "60.0% on binance (Risk 7.0/10) — high concentration",
+            "ar": "60.0% على binance (مخاطرة 7.0/10) — تركيز مرتفع"
+          },
+          "rebalance_insight_only": true,
+          "no_execution": true,
+          "non_custodial": true,
+          "risk_insight_not_protection": true,
+          "fee_db": {
+            "compute_usd": 0.001
+          }
+        },
+        "merged_features": [
+          80,
+          92,
+          118
+        ]
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap118",
+      "timestamp": "2026-09-11T08:27:25.807980+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:25.807989+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 119,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 119,
+      "surface": "market_cap_fdv_intelligence",
+      "symbol": "BTC",
+      "market_cap_fdv": {
+        "ok": true,
+        "feature_ref": 119,
+        "status": "rejected_execution",
+        "alternative": "gas_spike_alert",
+        "route": "/radar/on-chain/gas-alert",
+        "execution_rejected": true,
+        "current_gwei": 150,
+        "avg_7d_gwei": 50,
+        "spike_pct": 200.0,
+        "estimated_swap_cost_usd": 45,
+        "insight": {
+          "en": "Gas at 150 gwei — +200% above 7-day avg. Typical swap may cost $45 — consider waiting",
+          "ar": "Gas عند 150 gwei — أعلى 200% من متوسط 7 أيام. swap قد يكلف $45 — فكّر بالانتظار"
+        },
+        "educational_only": true,
+        "no_hold_no_execution": true,
+        "fee_db": {
+          "compute_usd": 0.0004
+        },
+        "reference_price": 77331.07
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap119",
+      "timestamp": "2026-09-11T08:27:26.428723+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.428741+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 120,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 120,
+      "surface": "supply_intelligence",
+      "symbol": "BTC",
+      "supply_intelligence": {
+        "ok": true,
+        "feature_ref": 77,
+        "tab": "advanced_risk",
+        "report_type": "risk_insight_not_protection",
+        "exposure": [
+          {
+            "asset": "BTC",
+            "value_usd": 100000.0,
+            "exposure_pct": 100.0,
+            "formula": "exposure_pct = asset_value / total_portfolio * 100"
+          }
+        ],
+        "correlations": [],
+        "stress_scenarios": [
+          {
+            "name": "BTC -20%",
+            "assumption": "Portfolio weighted BTC beta 1.00",
+            "estimated_loss_usd": 20000.0,
+            "formula": "loss = total_value * weighted_beta * abs(shock_pct) / 100"
+          },
+          {
+            "name": "ETH -25%",
+            "assumption": "ETH-heavy positions correlate with ETH move",
+            "estimated_loss_usd": 17000.0,
+            "formula": "rule_based_eth_proxy"
+          }
+        ],
+        "drawdown_lifecycle": {
+          "feature_ref": 103,
+          "merged_into": "advanced_risk_77",
+          "max_drawdown_pct": 0,
+          "duration_days": 0,
+          "recovery_days": null,
+          "formula": "drawdown = (peak − trough) / peak; duration = trough_ts − peak_ts",
+          "historical_analysis_only": true
+        },
+        "tail_risk_alpha": {
+          "ok": true,
+          "feature_ref": 105,
+          "merged_into": [
+            "backtesting_74",
+            "advanced_risk_77",
+            "ic_report_87"
+          ],
+          "sortino_modified": 0.118,
+          "conditional_drawdown_pct": 4.521,
+          "tail_alpha": -0.381,
+          "tail_event_definition": "daily return < -5.0%",
+          "period_days": 90,
+          "strategy_tail_return_pct": -6.4,
+          "benchmark_tail_return_pct": -4.636,
+          "formula": {
+            "sortino": "mean_return / stdev(negative_returns_only)",
+            "conditional_drawdown": "mean(worst 5% daily returns)",
+            "tail_alpha": "(strategy_tail − benchmark_tail) / |benchmark_tail|"
+          },
+          "historical_analysis_only": true,
+          "disclaimer": "Historical/market analysis — not a guarantee of future performance.",
+          "fee_db": {
+            "compute_usd": 0.002
+          }
+        },
+        "merged_features": [
+          77,
+          103,
+          105,
+          120,
+          169,
+          178
+        ],
+        "formula_visible": true,
+        "cached_correlation_key": "aeff141952ace716",
+        "performance_target_ms": 800,
+        "disclaimer": "Risk analysis — warning not protection. Risk Insight not Protection.",
+        "fee_db": {
+          "compute_usd": 0.002
+        },
+        "leverage_risk_analysis": {
+          "ok": true,
+          "feature_ref": 120,
+          "merged_into": [
+            "advanced_risk_77",
+            "intelligence_ledger"
+          ],
+          "optimization_rejected": true,
+          "analysis_type": "leverage_risk_insight",
+          "leverage": 10.0,
+          "volatility_30d_pct": 5.0,
+          "position_size_usd": 50000,
+          "liquidation_probability_24h_pct": 40.0,
+          "insight": {
+            "en": "Your 10x leverage on 5.0% daily volatility asset → ~40% liquidation risk within 24h",
+            "ar": "رافعتك 10x على أصل بتقلب 5.0% يومياً → احتمال تصفية ~40% خلال 24 ساعة"
+          },
+          "formula": "Risk Score = f(Volatility_30d, Position_Size, Leverage)",
+          "no_leverage_recommendation": true,
+          "non_custodial": true,
+          "disclaimer": "Technical/risk analysis — not financial advice or guarantee.",
+          "fee_db": {
+            "compute_usd": 0.001
+          }
+        },
+        "correlation_decay": {
+          "ok": true,
+          "feature_ref": 169,
+          "route": "/portfolio/risk/advanced/correlation-decay",
+          "merged_into": [
+            "advanced_risk_77",
+            "multi_dim_analysis_73",
+            "ic_report_87"
+          ],
+          "matrix": [
+            {
+              "asset": "BTC",
+              "benchmark": "BTC",
+              "rolling_correlation": {
+                "30d": 0.799,
+                "90d": 0.697,
+                "180d": 0.544,
+                "365d": 0.23
+              },
+              "decay_rate_pct": 247.39,
+              "unreliable_if_decay_above_pct": 50.0,
+              "correlation_unreliable": true,
+              "formula": "decay_rate = (corr_30d - corr_365d) / corr_365d × 100"
+            }
+          ],
+          "heatmap_rule_based": true,
+          "formula_visible": true,
+          "disclaimer": "Analysis only — not financial advice, guarantee, or protection.",
+          "fee_db": {
+            "compute_usd": 0.003
+          }
+        },
+        "scenario_analysis": {
+          "ok": true,
+          "feature_ref": 178,
+          "routes": [
+            "/portfolio/risk/advanced/scenarios",
+            "/intelligence/backtest/scenarios"
+          ],
+          "merged_into": [
+            "advanced_risk_77",
+            "backtesting_74",
+            "ic_report_87"
+          ],
+          "scenarios": [
+            {
+              "name": "optimistic",
+              "assumptions": {
+                "btc_pct": 20,
+                "eth_pct": 25,
+                "correlation_change": 0
+              },
+              "portfolio_change_pct": 18.5,
+              "max_drawdown_pct": -4.2,
+              "recovery_days_estimate": 12,
+              "estimated_loss_usd": 18500.0
+            },
+            {
+              "name": "neutral",
+              "assumptions": {
+                "btc_pct": 0,
+                "eth_pct": 0,
+                "correlation_change": 0
+              },
+              "portfolio_change_pct": 0.5,
+              "max_drawdown_pct": -8.0,
+              "recovery_days_estimate": 25,
+              "estimated_loss_usd": 500.0
+            },
+            {
+              "name": "pessimistic",
+              "assumptions": {
+                "btc_pct": -30,
+                "eth_pct": -35,
+                "correlation_spike_pct": 50
+              },
+              "portfolio_change_pct": -18.0,
+              "max_drawdown_pct": -18.0,
+              "recovery_days_estimate": 45,
+              "estimated_loss_usd": -18000.0
+            }
+          ],
+          "portfolio_value_usd": 100000.0,
+          "formula_visible": true,
+          "historical_basis": true,
+          "simulation_not_prediction": true,
+          "disclaimer": "Analysis only — not financial advice, profit guarantee, or execution.",
+          "fee_db": {
+            "compute_usd": 0.006,
+            "simulations_per_request": 3
+          }
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap120",
+      "timestamp": "2026-09-11T08:27:26.429904+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.429917+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 121,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 121,
+      "surface": "roi_ath_intelligence",
+      "symbol": "BTC",
+      "roi_ath_intelligence": {
+        "ok": true,
+        "feature_ref": 76,
+        "tab": "journal",
+        "extends_discipline_ref": 66,
+        "entries": [],
+        "weekly_review_available": true,
+        "monthly_review_available": true,
+        "learning_tool_not_performance_claim": true,
+        "encrypted": true,
+        "disclaimer": "Personal learning journal — not verified investment performance.",
+        "pnl_attribution": {
+          "ok": true,
+          "feature_ref": 121,
+          "merged_into": [
+            "journal_76",
+            "discipline_66",
+            "ic_report_87"
+          ],
+          "route": "/portfolio/journal/attribution",
+          "actual_pnl_usd": 5000,
+          "attribution": {
+            "market_effect_usd": 3600.0,
+            "strategy_effect_usd": 1750.0,
+            "signal_quality_effect_usd": 687.5,
+            "drift_residual_usd": -1037.5
+          },
+          "benchmark": "BTC",
+          "formula": "Drift = Actual PnL − (Market + Strategy + Signal)",
+          "rule_based_only": true,
+          "learning_not_guarantee": true,
+          "non_custodial": true,
+          "disclaimer": "Technical/risk analysis — not financial advice or guarantee.",
+          "fee_db": {
+            "compute_usd": 0.002
+          }
+        },
+        "manual_orders": {
+          "ok": true,
+          "feature_ref": 218,
+          "route": "/portfolio/journal/orders",
+          "extends_ref": 76,
+          "lifecycle_management_rejected": true,
+          "manual_journal_only": true,
+          "order_states": [
+            "Planned",
+            "Submitted",
+            "Filled",
+            "Cancelled"
+          ],
+          "entries": [],
+          "learning_tool_not_oms": true,
+          "disclaimer": "Manual learning journal — not order management"
+        },
+        "merged_features": [
+          76,
+          218
+        ]
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap121",
+      "timestamp": "2026-09-11T08:27:26.430710+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.430718+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 122,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 122,
+      "surface": "volatility_intelligence",
+      "symbol": "BTC",
+      "volatility_intelligence": {
+        "ok": true,
+        "feature_ref": 122,
+        "route": "/radar/technical/structural-break",
+        "merged_into": "ta_engine",
+        "ai_rejected_rule_based_only": true,
+        "chow_f_statistic": 4.62,
+        "cusum_break_index": 50,
+        "break_price_level": 125.0,
+        "confidence_pct": 73.1,
+        "tests": [
+          "chow_test",
+          "cusum",
+          "volatility_regime_proxy"
+        ],
+        "insight": {
+          "en": "Potential structural break at index 50 — statistical confidence 73.1%",
+          "ar": "انكسار هيكلي محتمل عند الفهرس 50 — ثقة إحصائية 73.1%"
+        },
+        "statistical_not_ai": true,
+        "fee_db": {
+          "compute_usd": 0.0015
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap122",
+      "timestamp": "2026-09-11T08:27:26.432625+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.432634+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 123,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 123,
+      "surface": "sharpe_ratio_intelligence",
+      "symbol": "BTC",
+      "sharpe_ratio_intelligence": {
+        "ok": true,
+        "feature_ref": 123,
+        "route": "/radar/technical/volume-profile",
+        "merged_into": "ta_engine",
+        "period": "session",
+        "poc_price": 65000,
+        "poc_volume": 5200,
+        "value_area_prices": [
+          64500,
+          65000,
+          65500
+        ],
+        "value_area_pct": 70,
+        "insight": {
+          "en": "POC at $65,000 — historical area of interest",
+          "ar": "POC عند $65,000 — منطقة اهتمام تاريخية"
+        },
+        "formula": "POC = price with highest cumulative volume; Value Area = 70% volume band",
+        "fee_db": {
+          "compute_usd": 0.001
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap123",
+      "timestamp": "2026-09-11T08:27:26.433023+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.433030+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 124,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 124,
+      "surface": "futures_funding_rate_intelligence",
+      "symbol": "BTC",
+      "futures_funding_rate": {
+        "ok": true,
+        "feature_ref": 124,
+        "route": "/radar/technical/fvg-detector",
+        "merged_into": "ta_engine",
+        "gaps": [
+          {
+            "type": "bullish",
+            "low": 100,
+            "high": 110,
+            "mitigated": false,
+            "validity_candles": 20
+          }
+        ],
+        "unfilled_count": 1,
+        "rules": {
+          "bullish": "Low[Candle_3] > High[Candle_1]",
+          "bearish": "High[Candle_3] < Low[Candle_1]"
+        },
+        "insight": {
+          "en": "1 FVG zone(s) detected — areas of interest, not predictions",
+          "ar": "1 منطقة FVG — مناطق اهتمام وليست توقعات"
+        },
+        "fee_db": {
+          "compute_usd": 0.0008
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap124",
+      "timestamp": "2026-09-11T08:27:26.433440+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.433447+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 125,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 125,
+      "surface": "futures_open_interest_intelligence",
+      "symbol": "BTC",
+      "futures_open_interest": {
+        "derivatives_overview": {
+          "asset": "BTC",
+          "timestamp": "2026-09-11T08:27:26.614832+00:00",
+          "free_tier": {
+            "source": "binance_futures_public",
+            "asset": "BTC",
+            "symbol": "BTCUSDT",
+            "timestamp": "2026-09-11T08:27:26.503722+00:00",
+            "mark_price": 0.0,
+            "funding_rate": 0.0,
+            "funding_rate_pct": 0.0,
+            "open_interest_contracts": 0.0,
+            "open_interest_usd": 0,
+            "change_24h_pct": 0.0,
+            "long_short_ratio": 0.0,
+            "long_account_pct": 0.0,
+            "short_account_pct": 0.0,
+            "taker_buy_sell_ratio": 0.0,
+            "available": false
+          },
+          "coinglass": {
+            "funding": {
+              "available": false,
+              "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+            },
+            "liquidations": {
+              "available": false,
+              "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+            },
+            "open_interest": {
+              "available": false,
+              "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+            },
+            "note": "CoinGlass enhances data when COINGLASS_API_KEY is set"
+          },
+          "deribit_options": {
+            "provider": "deribit",
+            "assets": {
+              "BTC": {
+                "success": true,
+                "exchange": "deribit",
+                "currency": "BTC",
+                "count": 942,
+                "instruments": [
+                  {
+                    "instrument": "BTC-25SEP26-155000-P",
+                    "mark_price": 1.00257268,
+                    "bid": 0.9975,
+                    "ask": 1.0075,
+                    "open_interest": 0.1,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-105000-C",
+                    "mark_price": 0.00016564,
+                    "bid": 0.0001,
+                    "ask": 0.0003,
+                    "open_interest": 1538.7,
+                    "volume": 0.5
+                  },
+                  {
+                    "instrument": "BTC-18SEP26-90000-C",
+                    "mark_price": 0.00041091,
+                    "bid": 0.0003,
+                    "ask": 0.0005,
+                    "open_interest": 728.7,
+                    "volume": 19.8
+                  },
+                  {
+                    "instrument": "BTC-27NOV26-70000-C",
+                    "mark_price": 0.13309227,
+                    "bid": 0.1325,
+                    "ask": 0.1345,
+                    "open_interest": 4.2,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-13SEP26-86000-P",
+                    "mark_price": 0.11254775,
+                    "bid": 0.1095,
+                    "ask": 0.1145,
+                    "open_interest": 0.0,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-12SEP26-77000-C",
+                    "mark_price": 0.0111748,
+                    "bid": 0.0105,
+                    "ask": 0.0115,
+                    "open_interest": 128.0,
+                    "volume": 139.9
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-90000-P",
+                    "mark_price": 0.16947589,
+                    "bid": 0.165,
+                    "ask": 0.1725,
+                    "open_interest": 6.0,
+                    "volume": 0.1
+                  },
+                  {
+                    "instrument": "BTC-25JUN27-105000-P",
+                    "mark_price": 0.36460019,
+                    "bid": 0.355,
+                    "ask": 0.374,
+                    "open_interest": 0.1,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-82000-P",
+                    "mark_price": 0.06890138,
+                    "bid": 0.0665,
+                    "ask": 0.071,
+                    "open_interest": 459.5,
+                    "volume": 0.9
+                  },
+                  {
+                    "instrument": "BTC-26MAR27-112000-P",
+                    "mark_price": 0.4362879,
+                    "bid": 0.4275,
+                    "ask": 0.4455,
+                    "open_interest": 0.1,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25DEC26-58000-C",
+                    "mark_price": 0.27156765,
+                    "bid": 0.2695,
+                    "ask": 0.275,
+                    "open_interest": 40.3,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-79000-C",
+                    "mark_price": 0.04693277,
+                    "bid": 0.0465,
+                    "ask": 0.0475,
+                    "open_interest": 221.7,
+                    "volume": 29.5
+                  },
+                  {
+                    "instrument": "BTC-12SEP26-81000-P",
+                    "mark_price": 0.04844739,
+                    "bid": 0.0465,
+                    "ask": 0.0495,
+                    "open_interest": 25.0,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-66000-P",
+                    "mark_price": 0.00165549,
+                    "bid": 0.0015,
+                    "ask": 0.0018,
+                    "open_interest": 1630.8,
+                    "volume": 69.9
+                  },
+                  {
+                    "instrument": "BTC-25JUN27-90000-C",
+                    "mark_price": 0.09958055,
+                    "bid": 0.099,
+                    "ask": 0.1005,
+                    "open_interest": 766.0,
+                    "volume": 9.0
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-79000-C",
+                    "mark_price": 0.02002154,
+                    "bid": 0.0195,
+                    "ask": 0.0205,
+                    "open_interest": 2350.7,
+                    "volume": 211.6
+                  },
+                  {
+                    "instrument": "BTC-2OCT26-79000-C",
+                    "mark_price": 0.02647896,
+                    "bid": 0.026,
+                    "ask": 0.027,
+                    "open_interest": 3.2,
+                    "volume": 3.3
+                  },
+                  {
+                    "instrument": "BTC-26MAR27-78000-C",
+                    "mark_price": 0.12418875,
+                    "bid": 0.123,
+                    "ask": 0.1255,
+                    "open_interest": 593.9,
+                    "volume": 8.8
+                  },
+                  {
+                    "instrument": "BTC-14SEP26-80000-C",
+                    "mark_price": 0.00242062,
+                    "bid": 0.0023,
+                    "ask": 0.0027,
+                    "open_interest": 2.5,
+                    "volume": 2.5
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-85000-P",
+                    "mark_price": 0.10266629,
+                    "bid": 0.1,
+                    "ask": 0.105,
+                    "open_interest": 454.6,
+                    "volume": 4.2
+                  },
+                  {
+                    "instrument": "BTC-27NOV26-68000-P",
+                    "mark_price": 0.02366843,
+                    "bid": 0.0235,
+                    "ask": 0.024,
+                    "open_interest": 91.2,
+                    "volume": 68.3
+                  },
+                  {
+                    "instrument": "BTC-2OCT26-81000-P",
+                    "mark_price": 0.06332056,
+                    "bid": 0.062,
+                    "ask": 0.064,
+                    "open_interest": 0.0,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-12SEP26-78000-P",
+                    "mark_price": 0.01452229,
+                    "bid": 0.0135,
+                    "ask": 0.015,
+                    "open_interest": 150.6,
+                    "volume": 21.0
+                  },
+                  {
+                    "instrument": "BTC-25DEC26-95000-P",
+                    "mark_price": 0.23623806,
+                    "bid": 0.2295,
+                    "ask": 0.239,
+                    "open_interest": 111.6,
+                    "volume": 0.2
+                  },
+                  {
+                    "instrument": "BTC-27NOV26-81000-P",
+                    "mark_price": 0.09287958,
+                    "bid": 0.092,
+                    "ask": 0.093,
+                    "open_interest": 29.1,
+                    "volume": 0.2
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-125000-P",
+                    "mark_price": 0.61504539,
+                    "bid": 0.61,
+                    "ask": 0.6185,
+                    "open_interest": 21.5,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25JUN27-55000-P",
+                    "mark_price": 0.03164126,
+                    "bid": 0.031,
+                    "ask": 0.032,
+                    "open_interest": 35.9,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-26MAR27-96000-C",
+                    "mark_price": 0.05013931,
+                    "bid": 0.0495,
+                    "ask": 0.051,
+                    "open_interest": 153.5,
+                    "volume": 11.9
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-60000-C",
+                    "mark_price": 0.23321773,
+                    "bid": 0.231,
+                    "ask": 0.2355,
+                    "open_interest": 16.1,
+                    "volume": 0.2
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-76000-P",
+                    "mark_price": 0.04365673,
+                    "bid": 0.043,
+                    "ask": 0.044,
+                    "open_interest": 305.8,
+                    "volume": 3.1
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-45000-C",
+                    "mark_price": 0.42215654,
+                    "bid": 0.4205,
+                    "ask": 0.4245,
+                    "open_interest": 0.1,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-66000-C",
+                    "mark_price": 0.16151292,
+                    "bid": 0.159,
+                    "ask": 0.1645,
+                    "open_interest": 89.5,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25DEC26-70000-P",
+                    "mark_price": 0.03956608,
+                    "bid": 0.039,
+                    "ask": 0.04,
+                    "open_interest": 1484.6,
+                    "volume": 2.0
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-58000-C",
+                    "mark_price": 0.25781877,
+                    "bid": 0.256,
+                    "ask": 0.2605,
+                    "open_interest": 0.0,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-90000-C",
+                    "mark_price": 0.01180751,
+                    "bid": 0.0115,
+                    "ask": 0.012,
+                    "open_interest": 2894.8,
+                    "volume": 186.8
+                  },
+                  {
+                    "instrument": "BTC-27NOV26-98000-C",
+                    "mark_price": 0.01156907,
+                    "bid": 0.011,
+                    "ask": 0.012,
+                    "open_interest": 52.4,
+                    "volume": 0.6
+                  },
+                  {
+                    "instrument": "BTC-25DEC26-125000-C",
+                    "mark_price": 0.00381618,
+                    "bid": 0.0036,
+                    "ask": 0.0041,
+                    "open_interest": 573.1,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25JUN27-40000-P",
+                    "mark_price": 0.01053619,
+                    "bid": 0.01,
+                    "ask": 0.011,
+                    "open_interest": 1227.0,
+                    "volume": 0.2
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-140000-C",
+                    "mark_price": 4.58e-06,
+                    "bid": null,
+                    "ask": 0.0001,
+                    "open_interest": 1208.2,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-30OCT26-94000-P",
+                    "mark_price": 0.21646825,
+                    "bid": 0.212,
+                    "ask": 0.219,
+                    "open_interest": 0.0,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-18SEP26-95000-P",
+                    "mark_price": 0.22818757,
+                    "bid": 0.2255,
+                    "ask": 0.231,
+                    "open_interest": 0.1,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25DEC26-100000-C",
+                    "mark_price": 0.01639413,
+                    "bid": 0.016,
+                    "ask": 0.017,
+                    "open_interest": 6019.4,
+                    "volume": 15.0
+                  },
+                  {
+                    "instrument": "BTC-13SEP26-77500-P",
+                    "mark_price": 0.01140409,
+                    "bid": 0.011,
+                    "ask": 0.0115,
+                    "open_interest": 8.9,
+                    "volume": 12.2
+                  },
+                  {
+                    "instrument": "BTC-26MAR27-62000-P",
+                    "mark_price": 0.03494122,
+                    "bid": 0.0345,
+                    "ask": 0.0355,
+                    "open_interest": 258.1,
+                    "volume": 5.0
+                  },
+                  {
+                    "instrument": "BTC-25SEP26-102000-P",
+                    "mark_price": 0.31800931,
+                    "bid": 0.3145,
+                    "ask": 0.321,
+                    "open_interest": 0.4,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-27NOV26-80000-C",
+                    "mark_price": 0.05992329,
+                    "bid": 0.0595,
+                    "ask": 0.0605,
+                    "open_interest": 960.5,
+                    "volume": 30.6
+                  },
+                  {
+                    "instrument": "BTC-13SEP26-78500-C",
+                    "mark_price": 0.00435036,
+                    "bid": 0.0042,
+                    "ask": 0.0045,
+                    "open_interest": 17.5,
+                    "volume": 3.3
+                  },
+                  {
+                    "instrument": "BTC-2OCT26-76000-C",
+                    "mark_price": 0.04536538,
+                    "bid": 0.0445,
+                    "ask": 0.0465,
+                    "open_interest": 7.3,
+                    "volume": 7.4
+                  },
+                  {
+                    "instrument": "BTC-15SEP26-76000-C",
+                    "mark_price": 0.02518685,
+                    "bid": 0.0225,
+                    "ask": 0.028,
+                    "open_interest": 0.0,
+                    "volume": 0.0
+                  },
+                  {
+                    "instrument": "BTC-25JUN27-94000-P",
+                    "mark_price": 0.25645295,
+                    "bid": 0.254,
+                    "ask": 0.259,
+                    "open_interest": 0.1,
+                    "volume": 0.0
+                  }
+                ]
+              }
+            },
+            "note": "Options intelligence for institutional due diligence — not auto-execution."
+          },
+          "sources": [
+            "Binance Futures (free)",
+            "Deribit",
+            "CoinGlass (optional)"
+          ],
+          "primary_source": "coinglass"
+        },
+        "open_interest_usd": 0,
+        "open_interest_contracts": 0.0,
+        "catalog_link": {
+          "duplicate_of": 85,
+          "classification": "REUSED-LINK"
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap125",
+      "timestamp": "2026-09-11T08:27:26.614851+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.614867+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 126,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 126,
+      "surface": "futures_volume_intelligence",
+      "symbol": "BTC",
+      "futures_volume": {
+        "ok": true,
+        "feature_ref": 126,
+        "status": "rejected_execution",
+        "alternative": "dex_front_running_risk_insight",
+        "route": "/oracle/on-chain/dex-risk",
+        "execution_rejected": true,
+        "pool": "ETH/USDC",
+        "slippage_pct": 3.0,
+        "order_usd": 50000,
+        "mev_bots_active": true,
+        "insight": {
+          "en": "Pool ETH/USDC shows 3.0% slippage on $50,000 order — MEV bots active on this pair. Low slippage tolerance may cause failed transactions",
+          "ar": "مجمع ETH/USDC يُظهر انزلاق 3.0% — بوتات MEV نشطة. slippage منخفض قد يُسبب فشل الصفقة"
+        },
+        "no_shield_no_execution": true,
+        "fee_db": {
+          "compute_usd": 0.001
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap126",
+      "timestamp": "2026-09-11T08:27:26.615348+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.615359+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 127,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 127,
+      "surface": "multi_factor_market_overview",
+      "symbol": "BTC",
+      "multi_factor_market_overview": {
+        "ok": true,
+        "feature_ref": 127,
+        "status": "rejected_exploiter",
+        "alternative": "orderbook_inefficiency_insight",
+        "route": "/radar/technical/orderbook-inefficiency",
+        "exploiter_naming_rejected": true,
+        "exchange": "binance",
+        "pair": "BTC/USDT",
+        "spread_pct": 0.8,
+        "avg_spread_pct": 0.3,
+        "insight": {
+          "en": "binance BTC/USDT shows 0.8% bid/ask gap — above 0.3% average. Thin volume at $65,000 — large order may move price 1.2%",
+          "ar": "فجوة 0.8% في BTC/USDT — حجم ضئيل عند $65,000"
+        },
+        "analysis_not_exploitation": true,
+        "no_execution": true,
+        "fee_db": {
+          "compute_usd": 0.0007
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap127",
+      "timestamp": "2026-09-11T08:27:26.615751+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.615758+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 128,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 128,
+      "surface": "momentum_intelligence",
+      "symbol": "BTC",
+      "momentum_intelligence": {
+        "ok": true,
+        "all_passed": true,
+        "checks": [
+          {
+            "id": "117_vacuum",
+            "passed": true
+          },
+          {
+            "id": "118_distribution",
+            "passed": true
+          },
+          {
+            "id": "119_rejected",
+            "passed": true
+          },
+          {
+            "id": "120_leverage",
+            "passed": true
+          },
+          {
+            "id": "121_pnl",
+            "passed": true
+          },
+          {
+            "id": "122_break",
+            "passed": true
+          },
+          {
+            "id": "123_poc",
+            "passed": true
+          },
+          {
+            "id": "124_fvg",
+            "passed": true
+          },
+          {
+            "id": "125_deferred",
+            "passed": true
+          },
+          {
+            "id": "126_rejected",
+            "passed": true
+          },
+          {
+            "id": "127_rejected",
+            "passed": true
+          },
+          {
+            "id": "128_jargon",
+            "passed": true
+          },
+          {
+            "id": "118_embed",
+            "passed": true
+          },
+          {
+            "id": "121_journal_embed",
+            "passed": true
+          },
+          {
+            "id": "120_risk_embed",
+            "passed": true
+          }
+        ],
+        "timestamp": "2026-09-11T08:27:26.618699+00:00"
+      },
+      "success": true,
+      "timestamp": "2026-09-11T08:27:26.618699+00:00",
+      "data_source": "cap646.batch03_dedicated#cap128",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.618775+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 129,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 129,
+      "surface": "sentiment_intelligence",
+      "symbol": "BTC",
+      "sentiment_intelligence": {
+        "context": {
+          "sentiment_compound_index": {
+            "B": 0.0,
+            "T": 0.0,
+            "C": 0.0
+          },
+          "sentiment_score_adjustments": {
+            "B": 0.0,
+            "T": 0.0,
+            "C": 0.0
+          }
+        },
+        "gate": {
+          "asset": "BTC",
+          "compound_score": 0.0,
+          "source": "database",
+          "fear_threshold": -0.65
+        },
+        "sentiment_read": null
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap129",
+      "timestamp": "2026-09-11T08:27:26.633192+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.633208+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 130,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 130,
+      "surface": "mindshare_intelligence",
+      "symbol": "BTC",
+      "mindshare_intelligence": {
+        "ok": true,
+        "feature_ref": 130,
+        "status": "rejected_execution",
+        "alternative": "transaction_risk_insight",
+        "route": "/oracle/on-chain/tx-risk",
+        "execution_rejected": true,
+        "no_simulation_no_transaction": true,
+        "swap_usd": 10000,
+        "pair": "ETH/USDC",
+        "estimated_slippage_pct": 2.5,
+        "gas_gwei": 45,
+        "estimated_gas_usd": 12,
+        "contract_verified": false,
+        "insights": [
+          {
+            "en": "Swap of $10,000 on ETH/USDC may cause ~2.5% slippage based on current depth",
+            "ar": "swap بقيمة $10,000 على ETH/USDC قد يسبب انزلاق ~2.5%"
+          },
+          {
+            "en": "Gas: 45 gwei — estimated cost $12",
+            "ar": "Gas: 45 gwei — تكلفة تقديرية $12"
+          },
+          {
+            "en": "Target contract unverified — interact with caution",
+            "ar": "العقد غير مُدقَّق — توخَّ الحذر"
+          }
+        ],
+        "fee_db": {
+          "compute_usd": 0.0006
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap130",
+      "timestamp": "2026-09-11T08:27:26.633773+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.633785+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 131,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 131,
+      "surface": "narrative_sector_intelligence",
+      "symbol": "BTC",
+      "narrative_sector_intelligence": {
+        "ok": true,
+        "feature_ref": 131,
+        "status": "rejected_execution",
+        "alternative": "dust_asset_analysis",
+        "route": "/portfolio/dust-analysis",
+        "execution_rejected": true,
+        "no_sweeper_no_automation": true,
+        "dust_asset_count": 3,
+        "total_dust_usd": 8.5,
+        "gas_cost_estimate_usd": 30.0,
+        "uneconomical_to_convert": true,
+        "insight": {
+          "en": "Portfolio has 3 assets under $5.0 each — total $8. Converting to ETH may cost $30 in gas — not economical",
+          "ar": "المحفظة تحتوي 3 أصول أقل من $5.0 — إجمالي $8. التحويل قد يكلف $30 gas"
+        },
+        "non_custodial": true,
+        "fee_db": {
+          "compute_usd": 0.0004
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap131",
+      "timestamp": "2026-09-11T08:27:26.634224+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.634232+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 132,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 132,
+      "surface": "mindshare_gainers_losers",
+      "symbol": "BTC",
+      "mindshare_gainers_losers": {
+        "ok": true,
+        "feature_ref": 132,
+        "route": "/oracle/on-chain/security/flash-loan-scan",
+        "merged_into": "on_chain_extension",
+        "self_patching_rejected": true,
+        "protocol": "aave_v3",
+        "risk_score": 35.0,
+        "alert_triggered": false,
+        "vectors_checked": [
+          "reentrancy",
+          "price_oracle_manipulation",
+          "uncollateralized_borrow"
+        ],
+        "heuristics": "rule_based_pattern_matching",
+        "audit_source": "public_audit_reports + on_chain_analysis",
+        "security_scan_not_guarantee": true,
+        "disclaimer": "Analysis only — not financial advice. For financial questions consult your licensed advisor.",
+        "fee_db": {
+          "compute_usd": 0.003
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap132",
+      "timestamp": "2026-09-11T08:27:26.634617+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.634624+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 133,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 133,
+      "surface": "curated_crypto_news_intelligence",
+      "symbol": "BTC",
+      "curated_crypto_news": {
+        "ok": true,
+        "feature_ref": 73,
+        "asset": "BTC",
+        "composite_score": 5.0,
+        "dimensions": {
+          "technical": {
+            "score": 5.0,
+            "weight": 0.3,
+            "source": "ta_engine"
+          },
+          "on_chain": {
+            "score": 5.0,
+            "weight": 0.25,
+            "source": "on_chain_extension"
+          },
+          "sentiment": {
+            "score": 5.0,
+            "weight": 0.2,
+            "source": "sentiment_layer"
+          },
+          "macro": {
+            "score": 7.5,
+            "weight": 0.25,
+            "source": "external_macro",
+            "spx_correlation": {
+              "ok": true,
+              "feature_ref": 111,
+              "merged_into": "multi_dim_analysis_73",
+              "dimension": "macro",
+              "pearson_r": 1.0,
+              "window_days": 30,
+              "strength": "strong",
+              "method": "pearson",
+              "spx_source": "yahoo_finance_equivalent",
+              "windows_available": [
+                30,
+                90,
+                180
+              ],
+              "statistical_not_causal": true,
+              "fee_db": {
+                "compute_usd": 0.0005
+              }
+            },
+            "event_nexus": {
+              "ok": true,
+              "feature_ref": 133,
+              "merged_into": [
+                "multi_dim_analysis_73",
+                "market_radar"
+              ],
+              "routes": [
+                "/intelligence/multi-dim/macro",
+                "/radar/market-health/macro"
+              ],
+              "ai_naming_rejected": true,
+              "rule_based_only": true,
+              "event": "CPI",
+              "event_date": "2026-03-12",
+              "historical_btc_move_24h_pct": 8.0,
+              "volatility_regime_multiplier": 1.2,
+              "expected_impact_pct": 9.6,
+              "risk_elevated": true,
+              "formula": "Expected Impact = Historical Avg × Volatility Regime",
+              "insight": {
+                "en": "CPI on 2026-03-12 — historically BTC ±8.0% in 24h — Risk Score elevated",
+                "ar": "CPI في 2026-03-12 — تاريخياً BTC ±8.0% خلال 24 ساعة"
+              },
+              "historical_not_prediction": true,
+              "fee_db": {
+                "compute_usd": 0.001
+              },
+              "m2_flow": {
+                "ok": true,
+                "feature_ref": 171,
+                "route": "/intelligence/multi-dim/macro/m2",
+                "extends_ref": 133,
+                "merged_into": [
+                  "macro_dimension_133",
+                  "daily_top3_62",
+                  "market_radar"
+                ],
+                "source": "FRED",
+                "attribution": "Data: Federal Reserve (FRED)",
+                "m2_supply_change_yoy_pct": 2.1,
+                "btc_correlation_90d_pearson": 0.42,
+                "historical_impact": {
+                  "window_days": 30,
+                  "avg_btc_return_pct": 12.0,
+                  "rule_based": true
+                },
+                "insight": {
+                  "en": "M2 grew 2.1% — historically BTC ±12.0% within 30 days",
+                  "ar": "M2 نما 2.1% — تاريخياً BTC ±12.0% خلال 30 يوماً"
+                },
+                "historical_not_prediction": true,
+                "disclaimer": "Analysis only — not financial advice, guarantee, or protection.",
+                "fee_db": {
+                  "compute_usd": 0.0015,
+                  "api_usd": 0.0003
+                }
+              },
+              "merged_features": [
+                133,
+                171,
+                196,
+                197,
+                241
+              ],
+              "yahoo_finance": {
+                "ok": true,
+                "feature_ref": 196,
+                "route": "/intelligence/multi-dim/macro/yahoo",
+                "extends_ref": 133,
+                "merged_into": [
+                  "macro_dimension_133",
+                  "market_radar",
+                  "daily_top3_62"
+                ],
+                "source": "Yahoo Finance",
+                "attribution": "Data: Yahoo Finance",
+                "benchmarks": {
+                  "SPX": {
+                    "value": 5200,
+                    "change_30d_pct": 2.1
+                  },
+                  "NDX": {
+                    "value": 18500,
+                    "change_30d_pct": 3.0
+                  },
+                  "VIX": {
+                    "value": 14.5,
+                    "change_30d_pct": -8.0
+                  },
+                  "DXY": {
+                    "value": 104.2,
+                    "change_30d_pct": 0.5
+                  },
+                  "GOLD": {
+                    "value": 2350,
+                    "change_30d_pct": 1.8
+                  },
+                  "OIL": {
+                    "value": 78.5,
+                    "change_30d_pct": -2.0
+                  }
+                },
+                "btc_correlation_30d": 0.38,
+                "btc_correlation_90d": 0.42,
+                "historical_crypto_impact_30d_pct": 8.5,
+                "fee_db": {
+                  "ingest_usd": 0.0004
+                }
+              },
+              "alpha_vantage": {
+                "ok": true,
+                "feature_ref": 197,
+                "route": "/intelligence/multi-dim/macro/alpha-vantage",
+                "extends_ref": 133,
+                "merged_into": [
+                  "macro_dimension_133"
+                ],
+                "source": "Alpha Vantage",
+                "attribution": "Data: Alpha Vantage",
+                "role": "macro_backup_redundancy",
+                "failover_from": "yahoo_finance_196",
+                "yahoo_primary_available": true,
+                "free_tier_only": true,
+                "latency_buffer_ref": 101,
+                "fee_db": {
+                  "ingest_usd": 0.0005
+                }
+              },
+              "fred": {
+                "ok": true,
+                "feature_ref": 241,
+                "route": "/intelligence/multi-dim/macro/fred",
+                "merged_into": [
+                  "macro_dimension_133",
+                  "m2_macro_flow_171",
+                  "market_radar",
+                  "daily_top3_62"
+                ],
+                "series": {
+                  "M2SL": {
+                    "name": "M2 Money Supply",
+                    "value": 21200,
+                    "unit": "billions_usd",
+                    "release_date": "2026-08-01"
+                  },
+                  "FEDFUNDS": {
+                    "name": "Fed Funds Rate",
+                    "value": 5.25,
+                    "unit": "percent",
+                    "release_date": "2026-07-31"
+                  },
+                  "CPIAUCSL": {
+                    "name": "CPI",
+                    "value": 315.2,
+                    "unit": "index",
+                    "release_date": "2026-08-12"
+                  },
+                  "UNRATE": {
+                    "name": "Unemployment Rate",
+                    "value": 4.1,
+                    "unit": "percent",
+                    "release_date": "2026-08-02"
+                  }
+                },
+                "btc_correlation_90d": 0.42,
+                "free_tier": true,
+                "attribution": "Data: Federal Reserve Economic Data (FRED)",
+                "revision_history_visible": true,
+                "disclaimer": "Analysis only — not financial advice, guarantee, protection, or insurance.",
+                "fee_db": {
+                  "ingest_usd": 0.0005
+                }
+              }
+            }
+          }
+        },
+        "formula_visible": true,
+        "expandable": true,
+        "modular_architecture": true,
+        "rule_based_only": true,
+        "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+        "performance_target_ms": 500,
+        "cached": true,
+        "fee_db": {
+          "per_dimension_usd": 0.0003,
+          "total_usd": 0.0012
+        },
+        "merged_features": [
+          73,
+          111,
+          133
+        ]
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap133",
+      "timestamp": "2026-09-11T08:27:26.635704+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.635715+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 134,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 134,
+      "surface": "ai_news_summaries",
+      "symbol": "BTC",
+      "ai_news_summaries": {
+        "ok": true,
+        "feature_ref": 134,
+        "route": "/radar/derivatives/delta-convergence",
+        "merged_into": "market_radar",
+        "delta_a": 0.52,
+        "delta_b": 0.38,
+        "market_a": "binance_futures",
+        "market_b": "dydx_perps",
+        "convergence_pct": 31.1,
+        "status": "pricing_divergence",
+        "label": {
+          "en": "Pricing divergence 31.1% between binance_futures and dydx_perps",
+          "ar": "تفكك تسعير 31.1%"
+        },
+        "formula": "Convergence = |Delta_A − Delta_B| / Average(Delta_A, Delta_B) × 100",
+        "arbitrage_insight_not_recommendation": true,
+        "no_auto_action": true,
+        "tier": "pro_institution",
+        "fee_db": {
+          "compute_usd": 0.004
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap134",
+      "timestamp": "2026-09-11T08:27:26.636096+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.636103+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 135,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 135,
+      "surface": "real_time_industry_event_monitoring",
+      "symbol": "BTC",
+      "industry_event_monitoring": {
+        "ok": true,
+        "feature_ref": 135,
+        "route": "/radar/market-health/liquidity-vortex",
+        "merged_into": "market_radar",
+        "ai_naming_rejected": true,
+        "rule_based_only": true,
+        "price_level": 65000,
+        "vortex_score": 100.0,
+        "is_vortex": true,
+        "components": {
+          "clustering": 100,
+          "velocity": 100,
+          "persistence": 100
+        },
+        "formula": "Vortex Score = Clustering × Velocity × Persistence",
+        "insight": {
+          "en": "Buy vortex at $65,000 — abnormal depth — may indicate accumulation",
+          "ar": "دوامة شراء عند $65,000 — depth غير طبيعي"
+        },
+        "fee_db": {
+          "compute_usd": 0.002
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap135",
+      "timestamp": "2026-09-11T08:27:26.636473+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.636480+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 136,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 136,
+      "surface": "agentic_monitoring_views",
+      "symbol": "BTC",
+      "agentic_monitoring_views": {
+        "ok": true,
+        "feature_ref": 136,
+        "route": "/support/chat",
+        "broker_advisor_rejected": true,
+        "rule_based_faq": true,
+        "intent": "features",
+        "reply": {
+          "en": "Technical support — see /docs for API documentation.",
+          "ar": "دعم فني — راجع /docs"
+        },
+        "escalate_to_human": false,
+        "no_financial_advice": true,
+        "no_portfolio_data_access": true,
+        "retention_days_max": 30,
+        "gdpr_ref": 58,
+        "disclaimer": "Analysis only — not financial advice. For financial questions consult your licensed advisor.",
+        "fee_db": {
+          "infra_usd": 0.0002
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap136",
+      "timestamp": "2026-09-11T08:27:26.636859+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.636865+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 137,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 137,
+      "surface": "custom_watchlists",
+      "symbol": "BTC",
+      "custom_watchlists": {
+        "ok": true,
+        "feature_ref": 137,
+        "status": "business_development_only",
+        "not_a_technical_feature": true,
+        "wave": 3,
+        "build_blocked_until": "500_active_pro_users",
+        "bd_pipeline": [
+          "outreach",
+          "demo",
+          "trial",
+          "contract_negotiation"
+        ],
+        "uses_existing": [
+          "ic_report_87",
+          "institution_portal_83",
+          "sla_89"
+        ],
+        "no_code_module": true
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap137",
+      "timestamp": "2026-09-11T08:27:26.637220+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.637226+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 138,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 138,
+      "surface": "token_unlock_calendar",
+      "symbol": "BTC",
+      "token_unlock_calendar": {
+        "ok": true,
+        "feature_ref": 138,
+        "status": "wave_3_activation",
+        "not_standalone": true,
+        "merged_into": "institution_portal",
+        "activation_not_build": true,
+        "bundle": {
+          "custom_reports": "ic_report_87",
+          "extended_api": "openapi_docs_85",
+          "dedicated_support": "support_chatbot_136",
+          "sla": "sla_89_deferred",
+          "rbac": "team_rbac_88"
+        },
+        "pricing_route": "/pricing",
+        "same_disclosure_as_retail": true
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap138",
+      "timestamp": "2026-09-11T08:27:26.637578+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.637582+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 139,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 139,
+      "surface": "vesting_schedule_intelligence",
+      "symbol": "BTC",
+      "vesting_schedule_intelligence": {
+        "ok": true,
+        "all_passed": true,
+        "checks": [
+          {
+            "id": "129_cluster",
+            "passed": true
+          },
+          {
+            "id": "130_rejected",
+            "passed": true
+          },
+          {
+            "id": "131_rejected",
+            "passed": true
+          },
+          {
+            "id": "132_scan",
+            "passed": true
+          },
+          {
+            "id": "133_macro",
+            "passed": true
+          },
+          {
+            "id": "134_delta",
+            "passed": true
+          },
+          {
+            "id": "135_vortex",
+            "passed": true
+          },
+          {
+            "id": "136_no_advice",
+            "passed": true
+          },
+          {
+            "id": "137_bd",
+            "passed": true
+          },
+          {
+            "id": "138_wave3",
+            "passed": true
+          },
+          {
+            "id": "139_rejected",
+            "passed": true
+          },
+          {
+            "id": "129_embed",
+            "passed": true
+          },
+          {
+            "id": "133_embed",
+            "passed": true
+          }
+        ],
+        "timestamp": "2026-09-11T08:27:26.638911+00:00"
+      },
+      "success": true,
+      "timestamp": "2026-09-11T08:27:26.638911+00:00",
+      "data_source": "cap646.batch03_dedicated#cap139",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.638973+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 140,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 140,
+      "surface": "token_allocation_intelligence",
+      "symbol": "BTC",
+      "token_allocation_intelligence": {
+        "ok": true,
+        "feature_ref": 140,
+        "status": "deferred",
+        "wave": 3,
+        "build_blocked_until": "1000_active_users",
+        "powered_by_blackdark_required": true,
+        "insights_only_no_execution": true,
+        "legal_review_per_client": true,
+        "duplicate_of": 90,
+        "merged_into": "white_label_90",
+        "not_standalone": true
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap140",
+      "timestamp": "2026-09-11T08:27:26.639680+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.639692+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 141,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 141,
+      "surface": "unlock_impact_intelligence",
+      "symbol": "BTC",
+      "unlock_impact_intelligence": {
+        "ok": true,
+        "feature_ref": 141,
+        "route": "/radar/sentiment/feeds/coindesk",
+        "merged_into": "sentiment_layer",
+        "items": [
+          {
+            "headline": "Bitcoin holds above $65K as ETF inflows continue",
+            "category": "markets",
+            "published": "2026-09-11T08:27:26.640087+00:00",
+            "source": "CoinDesk",
+            "attribution": "Source: CoinDesk",
+            "dedup_key": "accfe4a040d64e6b"
+          },
+          {
+            "headline": "Ethereum upgrade timeline confirmed",
+            "category": "technology",
+            "published": "2026-09-11T08:27:26.640090+00:00",
+            "source": "CoinDesk",
+            "attribution": "Source: CoinDesk",
+            "dedup_key": "87c5d64f82966938"
+          }
+        ],
+        "deduplicated_count": 1,
+        "supplementary_source": true,
+        "fee_db": {
+          "ingest_usd": 0.0003
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap141",
+      "timestamp": "2026-09-11T08:27:26.640143+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.640152+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 142,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 142,
+      "surface": "fundraising_rounds_intelligence",
+      "symbol": "BTC",
+      "fundraising_rounds": {
+        "ok": true,
+        "feature_ref": 142,
+        "routes": [
+          "/radar/sentiment/sources/santiment",
+          "/oracle/on-chain/sources/santiment"
+        ],
+        "asset": "BTC",
+        "metrics": {
+          "network_growth": {
+            "value": 1.02,
+            "source": "Santiment",
+            "tier": "free"
+          },
+          "transaction_volume": {
+            "value": 285000,
+            "source": "Santiment",
+            "tier": "free"
+          },
+          "social_volume": {
+            "value": 12400,
+            "source": "Santiment",
+            "tier": "free"
+          }
+        },
+        "free_tier_only": true,
+        "registry_ref": 98,
+        "cross_check_on_chain": true,
+        "attribution": "Data: Santiment",
+        "fee_db": {
+          "ingest_usd": 0.0005
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap142",
+      "timestamp": "2026-09-11T08:27:26.640551+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.640558+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 143,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 143,
+      "surface": "investor_intelligence",
+      "symbol": "BTC",
+      "investor_intelligence": {
+        "ok": true,
+        "feature_ref": 143,
+        "route": "/radar/events/calendar",
+        "merged_into": [
+          "market_radar",
+          "daily_top3_62"
+        ],
+        "events": [
+          {
+            "type": "token_unlock",
+            "asset": "ARB",
+            "date": "2026-09-16",
+            "value_usd": 45000000
+          },
+          {
+            "type": "governance",
+            "asset": "UNI",
+            "date": "2026-09-23",
+            "value_usd": 0
+          },
+          {
+            "type": "listing",
+            "asset": "NEW",
+            "date": "2026-09-14",
+            "value_usd": 0
+          }
+        ],
+        "upcoming_7d": [
+          {
+            "type": "token_unlock",
+            "asset": "ARB",
+            "date": "2026-09-16",
+            "value_usd": 45000000
+          },
+          {
+            "type": "listing",
+            "asset": "NEW",
+            "date": "2026-09-14",
+            "value_usd": 0
+          }
+        ],
+        "insight": {
+          "en": "Within 7 days: 2 events including unlocks and governance",
+          "ar": "خلال 7 أيام: 2 أحداث تشمل unlocks و governance"
+        },
+        "context_only_not_recommendation": true,
+        "attribution": "Data: CryptoRank",
+        "fee_db": {
+          "ingest_usd": 0.0004
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap143",
+      "timestamp": "2026-09-11T08:27:26.640932+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.640938+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 144,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 144,
+      "surface": "fund_fund_manager_intelligence",
+      "symbol": "BTC",
+      "fund_manager_intelligence": {
+        "ok": true,
+        "feature_ref": 144,
+        "route": "/oracle/on-chain/sources/whale-alert",
+        "merged_into": [
+          "on_chain_extension",
+          "whale_narrative_71"
+        ],
+        "alerts": [
+          {
+            "amount_usd": 25000000,
+            "asset": "BTC",
+            "from": "unknown",
+            "to": "binance",
+            "tx_hash": "0x4fc85da2525b470b"
+          },
+          {
+            "amount_usd": 8000000,
+            "asset": "ETH",
+            "from": "coinbase",
+            "to": "unknown",
+            "tx_hash": "0x3b912ff0f7a648b3"
+          }
+        ],
+        "registry_ref": 98,
+        "cross_validation_on_chain": true,
+        "privacy_first": true,
+        "attribution": "Source: Whale Alert",
+        "fee_db": {
+          "ingest_usd": 0.0006
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap144",
+      "timestamp": "2026-09-11T08:27:26.641311+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:26.641317+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 145,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 145,
+      "surface": "m_a_intelligence",
+      "symbol": "BTC",
+      "ma_intelligence": {
+        "ok": true,
+        "feature_ref": 145,
+        "route": "/oracle/sources/cmc",
+        "merged_into": "oracle_api",
+        "role": "secondary_redundancy",
+        "symbol": "BTC",
+        "price": 77331.07,
+        "market_cap": 1280000000000,
+        "volume_24h": 1178186541.426667,
+        "latency_buffer_ref": 101,
+        "attribution": "Data: CoinMarketCap",
+        "timestamp": "2026-09-11T08:27:27.261939+00:00",
+        "fee_db": {
+          "ingest_usd": 0.0003
+        }
+      },
+      "success": true,
+      "timestamp": "2026-09-11T08:27:27.261939+00:00",
+      "data_source": "cap646.batch03_dedicated#cap145",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:27.261997+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 146,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 146,
+      "surface": "capital_flow_funding_trend_intelligence",
+      "symbol": "BTC",
+      "capital_flow_funding_trends": {
+        "ok": true,
+        "feature_refs": [
+          145,
+          146,
+          101
+        ],
+        "primary_price": 77331.07,
+        "sources": {
+          "cmc": 77331.07,
+          "coinbase": 77323.33689300001
+        },
+        "divergences_pct": {
+          "cmc_pct": 0.0,
+          "coinbase_pct": 0.01
+        },
+        "consensus_accepted": true,
+        "use_fallback": false
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap146",
+      "timestamp": "2026-09-11T08:27:27.894468+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:27.894486+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 147,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 147,
+      "surface": "comparable_funding_valuation_analysis",
+      "symbol": "BTC",
+      "comparable_funding_valuation": {
+        "ok": true,
+        "feature_ref": 147,
+        "status": "rejected_execution",
+        "alternative": "signal_engine_11",
+        "trading_engine_rejected": true,
+        "verdict_format": [
+          "Opportunity",
+          "Neutral",
+          "Risk"
+        ],
+        "no_buy_sell_hold": true,
+        "insight_only": true,
+        "rule_based_sprint_2": true,
+        "disclaimer": "Analysis only — not financial advice. Data source attributed on every point."
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap147",
+      "timestamp": "2026-09-11T08:27:27.894881+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:27.894889+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 148,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 148,
+      "surface": "due_diligence_report_engine",
+      "symbol": "BTC",
+      "due_diligence_report": {
+        "ok": true,
+        "feature_ref": 148,
+        "route": "/oracle/on-chain/sources/blockchain-com",
+        "merged_into": "on_chain_extension",
+        "role": "secondary_rpc_redundancy",
+        "block_height": 850000,
+        "sample_balance_btc": 125.5,
+        "cross_validation_primary_rpc": true,
+        "latency_buffer_ref": 101,
+        "attribution": "Data: Blockchain.com",
+        "timestamp": "2026-09-11T08:27:27.895229+00:00",
+        "fee_db": {
+          "ingest_usd": 0.0005
+        }
+      },
+      "success": true,
+      "timestamp": "2026-09-11T08:27:27.895229+00:00",
+      "data_source": "cap646.batch03_dedicated#cap148",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:27.895268+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 149,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 149,
+      "surface": "automated_risk_scoring_from_diligence",
+      "symbol": "BTC",
+      "automated_risk_scoring": {
+        "ok": true,
+        "feature_ref": 149,
+        "routes": [
+          "/oracle/on-chain/defi/defillama",
+          "/radar/defi"
+        ],
+        "merged_into": [
+          "on_chain_extension",
+          "market_radar"
+        ],
+        "protocol": "aave",
+        "tvl_usd": 12500000000,
+        "yield_apy": 4.2,
+        "registry_ref": 98,
+        "feeds": [
+          "exchange_health_80",
+          "gcli_112",
+          "il_score_102"
+        ],
+        "attribution": "Data: DefiLlama",
+        "timestamp": "2026-09-11T08:27:27.895604+00:00",
+        "fee_db": {
+          "ingest_usd": 0.0005
+        }
+      },
+      "success": true,
+      "timestamp": "2026-09-11T08:27:27.895604+00:00",
+      "data_source": "cap646.batch03_dedicated#cap149",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:27.895641+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 150,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch03_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 150,
+      "surface": "protocol_kpi_intelligence",
+      "symbol": "BTC",
+      "protocol_kpi_intelligence": {
+        "daily_top3": {
+          "ok": true,
+          "feature_ref": 62,
+          "route": "/intelligence/daily-top3",
+          "opportunities": [
+            {
+              "asset": "BTC",
+              "composite_score": 7.625,
+              "risk_score": 6.0,
+              "timeframe": "24h",
+              "confidence_level": 7.6,
+              "methodology": "rule_based_risk_liquidity_volume_momentum",
+              "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+              "why_selected": [
+                "Risk 6.0/10",
+                "Liquidity 9.0/10",
+                "Momentum 7.0/10"
+              ],
+              "no_execution": true,
+              "clear_answer": {
+                "feature_ref": 63,
+                "verdict": "Opportunity",
+                "reasons": [
+                  {
+                    "point": "Risk 6.0/10",
+                    "rule_based": true
+                  },
+                  {
+                    "point": "Liquidity 9.0/10",
+                    "rule_based": true
+                  },
+                  {
+                    "point": "Momentum 7.0/10",
+                    "rule_based": true
+                  }
+                ],
+                "risk_score": 6.0,
+                "one_line": {
+                  "en": "Verdict: Opportunity — Risk 6.0/10; Liquidity 9.0/10; Momentum 7.0/10",
+                  "ar": "قرار: فرصة — Risk 6.0/10; Liquidity 9.0/10; Momentum 7.0/10"
+                },
+                "raw_indicators_expandable": {},
+                "insight_not_recommendation": true,
+                "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+                "fee_db": {
+                  "synthesis_usd": 0.0005,
+                  "logged": true
+                }
+              },
+              "opportunity_score_composite": 71.5,
+              "score_breakdown_ref": 150
+            },
+            {
+              "asset": "SOL",
+              "composite_score": 7.625,
+              "risk_score": 7.0,
+              "timeframe": "24h",
+              "confidence_level": 7.6,
+              "methodology": "rule_based_risk_liquidity_volume_momentum",
+              "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+              "why_selected": [
+                "Risk 7.0/10",
+                "Liquidity 7.0/10",
+                "Momentum 8.5/10"
+              ],
+              "no_execution": true,
+              "clear_answer": {
+                "feature_ref": 63,
+                "verdict": "Opportunity",
+                "reasons": [
+                  {
+                    "point": "Risk 7.0/10",
+                    "rule_based": true
+                  },
+                  {
+                    "point": "Liquidity 7.0/10",
+                    "rule_based": true
+                  },
+                  {
+                    "point": "Momentum 8.5/10",
+                    "rule_based": true
+                  }
+                ],
+                "risk_score": 7.0,
+                "one_line": {
+                  "en": "Verdict: Opportunity — Risk 7.0/10; Liquidity 7.0/10; Momentum 8.5/10",
+                  "ar": "قرار: فرصة — Risk 7.0/10; Liquidity 7.0/10; Momentum 8.5/10"
+                },
+                "raw_indicators_expandable": {},
+                "insight_not_recommendation": true,
+                "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+                "fee_db": {
+                  "synthesis_usd": 0.0005,
+                  "logged": true
+                }
+              },
+              "opportunity_score_composite": 71.5,
+              "score_breakdown_ref": 150
+            },
+            {
+              "asset": "ETH",
+              "composite_score": 7.0,
+              "risk_score": 5.5,
+              "timeframe": "24h",
+              "confidence_level": 7.0,
+              "methodology": "rule_based_risk_liquidity_volume_momentum",
+              "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+              "why_selected": [
+                "Risk 5.5/10",
+                "Liquidity 8.5/10",
+                "Momentum 6.5/10"
+              ],
+              "no_execution": true,
+              "clear_answer": {
+                "feature_ref": 63,
+                "verdict": "Opportunity",
+                "reasons": [
+                  {
+                    "point": "Risk 5.5/10",
+                    "rule_based": true
+                  },
+                  {
+                    "point": "Liquidity 8.5/10",
+                    "rule_based": true
+                  },
+                  {
+                    "point": "Momentum 6.5/10",
+                    "rule_based": true
+                  }
+                ],
+                "risk_score": 5.5,
+                "one_line": {
+                  "en": "Verdict: Opportunity — Risk 5.5/10; Liquidity 8.5/10; Momentum 6.5/10",
+                  "ar": "قرار: فرصة — Risk 5.5/10; Liquidity 8.5/10; Momentum 6.5/10"
+                },
+                "raw_indicators_expandable": {},
+                "insight_not_recommendation": true,
+                "disclaimer": "Analysis only — not financial advice or guaranteed return.",
+                "fee_db": {
+                  "synthesis_usd": 0.0005,
+                  "logged": true
+                }
+              },
+              "opportunity_score_composite": 71.5,
+              "score_breakdown_ref": 150
+            }
+          ],
+          "count": 3,
+          "methodology_visible": true,
+          "backtest_days_required": 90,
+          "user_tier": "free",
+          "fee_db": {
+            "compute_usd": 0.002,
+            "tier": "free"
+          },
+          "generated_at": "2026-09-11T08:27:27.896066+00:00",
+          "composite_score": {
+            "ok": true,
+            "feature_ref": 150,
+            "route": "/intelligence/score",
+            "merged_into": [
+              "intelligence_ledger",
+              "signal_engine_11",
+              "daily_top3_62"
+            ],
+            "opportunity_score": 71.5,
+            "scale": "0-100",
+            "dimensions": {
+              "liquidity": {
+                "score": 75,
+                "weight": 0.2
+              },
+              "news_sentiment": {
+                "score": 68,
+                "weight": 0.15
+              },
+              "whale_flow": {
+                "score": 72,
+                "weight": 0.15
+              },
+              "trend": {
+                "score": 70,
+                "weight": 0.15
+              },
+              "support_resistance": {
+                "score": 65,
+                "weight": 0.1
+              },
+              "funding": {
+                "score": 60,
+                "weight": 0.1
+              },
+              "spread": {
+                "score": 80,
+                "weight": 0.1
+              },
+              "manipulation_absence": {
+                "score": 90,
+                "weight": 0.05
+              }
+            },
+            "formula_visible": true,
+            "registry_ref": 98,
+            "composite_not_guarantee": true,
+            "disclaimer": "Analysis only — not financial advice. Data source attributed on every point.",
+            "fee_db": {
+              "compute_usd": 0.002
+            }
+          }
+        },
+        "opportunity_score": {
+          "ok": true,
+          "feature_ref": 150,
+          "route": "/intelligence/score",
+          "merged_into": [
+            "intelligence_ledger",
+            "signal_engine_11",
+            "daily_top3_62"
+          ],
+          "opportunity_score": 71.5,
+          "scale": "0-100",
+          "dimensions": {
+            "liquidity": {
+              "score": 75,
+              "weight": 0.2
+            },
+            "news_sentiment": {
+              "score": 68,
+              "weight": 0.15
+            },
+            "whale_flow": {
+              "score": 72,
+              "weight": 0.15
+            },
+            "trend": {
+              "score": 70,
+              "weight": 0.15
+            },
+            "support_resistance": {
+              "score": 65,
+              "weight": 0.1
+            },
+            "funding": {
+              "score": 60,
+              "weight": 0.1
+            },
+            "spread": {
+              "score": 80,
+              "weight": 0.1
+            },
+            "manipulation_absence": {
+              "score": 90,
+              "weight": 0.05
+            }
+          },
+          "formula_visible": true,
+          "registry_ref": 98,
+          "composite_not_guarantee": true,
+          "disclaimer": "Analysis only — not financial advice. Data source attributed on every point.",
+          "fee_db": {
+            "compute_usd": 0.002
+          }
+        }
+      },
+      "success": true,
+      "data_source": "cap646.batch03_dedicated#cap150",
+      "timestamp": "2026-09-11T08:27:27.896888+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-11T08:27:27.896898+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch03 only (SPLIT-BRAIN N/A)"
+  }
+]

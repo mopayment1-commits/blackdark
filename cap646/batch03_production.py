@@ -1,7 +1,6 @@
-"""Batch 03 prep — production spine for mis-scoped 826-completion work (IDs 101–150).
+"""Batch 03 prep — production spine for official Batch 03 (IDs 101–150).
 
-Official batch03 = 101–150. This spine preserves prior batch02 branch implementation
-under ``production_spine=batch03_prep`` until official batch03 closure is approved.
+IDs 103 and 129 cross-spine overlap resolved Run 008; dedicated handlers Run 009.
 """
 
 from __future__ import annotations
