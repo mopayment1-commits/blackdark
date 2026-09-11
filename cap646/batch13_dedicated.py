@@ -324,7 +324,11 @@ async def _cap649(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         symbol=symbol,
         payload_key="reserved_slot_649",
         payload=payload,
-        extra={"heuristic": True, "methodology_status": "NOT_COMPLETE"},
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — Path B HEURISTIC",
+        },
     )
 
 async def _cap650(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
@@ -343,7 +347,11 @@ async def _cap650(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
         symbol=symbol,
         payload_key="reserved_slot_650",
         payload=payload,
-        extra={"heuristic": True, "methodology_status": "NOT_COMPLETE"},
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — Path B HEURISTIC",
+        },
     )
 
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {

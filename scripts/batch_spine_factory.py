@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from scripts.batch_dedicated_overrides import overrides_for  # noqa: E402
 from scripts.batch_rbas_config import BatchRbasConfig, batch_id_range  # noqa: E402
 
 
@@ -103,7 +104,14 @@ def write_dedicated(cfg: BatchRbasConfig) -> Path:
     handlers: list[str] = []
     dispatch: list[str] = []
 
+    custom = overrides_for(n)
     for cid in cfg.id_range:
+        if cid in custom:
+            surface, handler_src = custom[cid]
+            expected[cid] = surface
+            handlers.append(handler_src)
+            dispatch.append(f"    {cid}: _cap{cid:03d},")
+            continue
         row = catalog.get(cid, {})
         name = str(row.get("capability") or f"Capability {cid}")
         surface = slug(name)
