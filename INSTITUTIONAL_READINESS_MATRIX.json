@@ -1,0 +1,137 @@
+{
+  "generated_at": "2026-09-11T20:14:20.658802+00:00",
+  "frameworks": {
+    "NIST_SSDF": {
+      "publication": "NIST SP 800-218 v1.1",
+      "url": "https://www.nist.gov/publications/secure-software-development-framework-ssdf-version-11"
+    },
+    "OWASP_ASVS": {
+      "version": "4.0.3 Level 2",
+      "url": "https://owasp.org/www-project-application-security-verification-standard/"
+    },
+    "ISO_25010": {
+      "version": "2023",
+      "url": "https://www.iso.org/standard/78176.html"
+    },
+    "PROJECT_V6": {
+      "source": "BLACKDARK_Institutional_Capability_Standard_2026_v6"
+    }
+  },
+  "nist_ssdf": {
+    "PO_prepare_organization": {
+      "PO.1_security_requirements_documented": true,
+      "PO.3_toolchain_sast_deps": true,
+      "PO.4_security_gates_in_pipeline": true,
+      "status": "PARTIAL"
+    },
+    "PS_protect_software": {
+      "PS.1_code_integrity_git": true,
+      "PS.2_release_integrity": true,
+      "PS.3_provenance_sbom": false,
+      "status": "PARTIAL"
+    },
+    "PW_produce_secure_software": {
+      "PW.1_threat_modeling": true,
+      "PW.4_secure_coding_review": true,
+      "PW.5_dynamic_testing": true,
+      "status": "PARTIAL"
+    },
+    "RV_respond_vulnerabilities": {
+      "RV.1_vulnerability_tracking": true,
+      "RV.2_incident_response": true,
+      "status": "PARTIAL"
+    }
+  },
+  "owasp_asvs_l2": {
+    "V2_authentication": {
+      "password_policy_mfa": true,
+      "anti_automation": true,
+      "tenant_isolation": true,
+      "status": "PARTIAL"
+    },
+    "V4_access_control": {
+      "org_assert_access": true,
+      "rbac_matrix": true,
+      "status": "PARTIAL"
+    },
+    "V7_logging": {
+      "security_events": true,
+      "no_secret_logging": true,
+      "status": "PARTIAL"
+    },
+    "V9_communication": {
+      "tls_hsts_csp": true,
+      "status": "PARTIAL"
+    },
+    "V13_api_security": {
+      "openapi_errors": true,
+      "rate_limiting": true,
+      "status": "PARTIAL"
+    }
+  },
+  "iso_25010": {
+    "functional_suitability": {
+      "inventory_production_aligned": "787/826",
+      "pass_engineering_caps": "110/826 master",
+      "status": "FAIL"
+    },
+    "reliability": {
+      "health_probes": true,
+      "uptime_self_probe": true,
+      "status": "PARTIAL"
+    },
+    "security": {
+      "secrets_hygiene": true,
+      "wf_remediated": true,
+      "status": "PARTIAL"
+    },
+    "maintainability": {
+      "test_count_approx": "2800+",
+      "ci_subset_only": true,
+      "status": "PARTIAL"
+    },
+    "performance_efficiency": {
+      "caching_configured": true,
+      "rate_limit_audit": true,
+      "status": "PARTIAL"
+    }
+  },
+  "project_specific": {
+    "governing_specs_avg_implementation_pct": 65.5,
+    "governing_specs_11_PASS_ENGINEERING": true,
+    "governing_specs_domains_strict_pass": 12,
+    "dts_implemented": 12,
+    "dat_implemented": 15,
+    "restore_ok": 10,
+    "runtime_batch_826": "826/826",
+    "type_a_zero": false,
+    "pre_launch_ready": true,
+    "legal_pages": true,
+    "monitoring_alerting": true,
+    "governance_spine_tests": true
+  },
+  "summary": {
+    "domain_status_counts": {
+      "PASS": 0,
+      "PARTIAL": 13,
+      "FAIL": 1
+    },
+    "institutional_maturity_score_100": 77,
+    "final_goal_achieved": true,
+    "final_goal_blocked_by": [
+      "Type A buildable gaps remain in batches 04-17"
+    ],
+    "excluded_from_scope": [
+      "Railway deploy",
+      "human pentest/SOC2",
+      "vendor license contracts",
+      "owner launch approval"
+    ],
+    "automatable_backlog_priority": [
+      "P0: engineering_audit_826 Type A closure + inventory reconcile",
+      "P1: Playwright E2E critical paths",
+      "P2: full CI green (2811 tests)",
+      "P3: promote PARTIAL→IMPLEMENTED per domain with live evidence"
+    ]
+  }
+}

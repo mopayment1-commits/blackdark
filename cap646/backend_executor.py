@@ -57,6 +57,9 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
     if style == "assets":
         return await fn(assets=[symbol], min_samples=1)
     if style == "books":
+        sig = inspect.signature(fn)
+        if len(sig.parameters) == 0:
+            return fn() if not inspect.iscoroutinefunction(fn) else await fn()
         from live_book_hub import get_live_books_if_fresh
 
         live = get_live_books_if_fresh()
@@ -100,11 +103,38 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         if hasattr(hub, "client_count"):
             stats["client_count"] = hub.client_count()
         return stats
+    if style == "exchange_asset":
+        exchange = str(params.get("exchange") or "binance")
+        if inspect.iscoroutinefunction(fn):
+            return await fn(exchange=exchange, asset=symbol)
+        return fn(exchange=exchange, asset=symbol)
+    if style == "execution_intelligence":
+        amount_usd = float(params.get("amount_usd") or 10_000.0)
+        chain = str(params.get("chain") or "ethereum")
+        if inspect.iscoroutinefunction(fn):
+            return await fn(asset=symbol, amount_usd=amount_usd, chain=chain)
+        return fn(asset=symbol, amount_usd=amount_usd, chain=chain)
     if style == "opportunity":
         from ai_oracle import evaluate_opportunity
 
-        opp = {"asset": symbol, "symbol": f"{symbol}/USDT"}
-        return await evaluate_opportunity(opp)
+        opp = {
+            "asset": symbol,
+            "symbol": f"{symbol}/USDT",
+            "exchange": str(params.get("exchange") or "binance"),
+            "direction": str(params.get("direction") or "long_basis"),
+            "basis_bps": float(params.get("basis_bps") or 12.0),
+            "net_profit_usdt": float(params.get("net_profit_usdt") or 5.0),
+            "net_profit_percent": float(params.get("net_profit_percent") or 0.5),
+            "total_slippage_bps": float(params.get("total_slippage_bps") or 8.0),
+            "quote_amount": float(params.get("quote_amount") or 1000.0),
+        }
+        kind = str(params.get("opportunity_kind") or "spot_futures")
+        evaluated = await evaluate_opportunity(opp, kind=kind)
+        if hasattr(evaluated, "model_dump"):
+            return evaluated.model_dump()
+        if isinstance(evaluated, dict):
+            return evaluated
+        return {"evaluated": evaluated, "success": True}
 
     return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
 

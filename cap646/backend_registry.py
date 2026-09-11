@@ -2,14 +2,22 @@
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 from cap646.catalog import catalog_by_id, matrix_by_id
 
 _GENERIC_SURFACES = frozenset({"platform_codepath", "generic", "unknown"})
+
+# F0 data-truth spine — gap-matrix component probes are insufficient for dedicated wrappers (v6 §2.1.3).
+_F0_DATA_SPINE_SEMANTIC: dict[int, tuple[str, str, str, str]] = {
+    630: ("cap646.data_spine", "freshness_assurance_report", "symbol", "f0_data_spine"),
+    631: ("cap646.data_spine", "ingestion_architecture_report", "none", "f0_data_spine"),
+}
 
 
 @dataclass(frozen=True)
@@ -133,6 +141,38 @@ def _register_batch03_bindings() -> None:
 
 
 _register_batch03_bindings()
+
+
+def _register_batch_range_dedicated_bindings() -> None:
+    """Register explicit_option_a for batch07+ dedicated modules (v6 §2.1, 25-cap batches)."""
+    import importlib
+
+    from cap646.batch_constants import DEDICATED_RANGE_START, batch_number
+    from cap646.batch_range_production import BATCH_RANGE_IDS, batch_range_entrypoint
+
+    dedicated_start_batch = batch_number(DEDICATED_RANGE_START)
+    for cid in BATCH_RANGE_IDS:
+        batch_num = batch_number(cid)
+        if batch_num < dedicated_start_batch:
+            continue
+        mod_name = f"cap646.batch{batch_num:02d}_dedicated"
+        try:
+            mod = importlib.import_module(mod_name)
+        except ImportError:
+            continue
+        dedicated_ids = getattr(mod, f"BATCH{batch_num:02d}_DEDICATED_IDS", frozenset())
+        if cid not in dedicated_ids:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch_range_production",
+            batch_range_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
 
 
 # Map gap-matrix component stems → canonical import path + entrypoint
@@ -262,7 +302,7 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("squeeze", "trigger", "liquidation cluster"), ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol")),
     (("slippage tolerance", "self-optimization", "slippage optimize", "slippage intelligence"), ("bd_platform.slippage_tolerance_optimizer", "optimize_slippage_tolerance", "symbol")),
     (("asymmetric slippage", "directional slippage", "buy sell slippage"), ("bd_platform.slippage_tolerance_optimizer", "compute_asymmetric_slippage_cost", "symbol")),
-    (("intelligence ledger", "execution intelligence", "best execution"), ("bd_platform.intelligence_ledger", "build_execution_intelligence", "symbol")),
+    (("intelligence ledger", "execution intelligence", "best execution"), ("bd_platform.intelligence_ledger", "build_execution_intelligence", "execution_intelligence")),
     (("address intelligence", "address search", "wallet search", "balance history", "balance updates"), ("bd_platform.address_intelligence", "address_intelligence_overview", "address")),
     (("1inch", "dex aggregator"), ("bd_platform.oneinch_connector", "fetch_oneinch_quote", "symbol")),
     (("ranking", "marketcap"), ("bd_platform.market_rankings", "market_rankings", "none")),
@@ -283,15 +323,33 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("telegram", "agent"), ("bd_platform.telegram_agent", "handle_agent_message", "message")),
     (("ifttt", "rule"), ("bd_platform.ifttt_rules", "list_rules", "none")),
     (("strategy marketplace", "marketplace"), ("bd_platform.strategy_marketplace", "list_strategies", "none")),
+    (("quarterly", "protocol performance", "report pack"), ("due_diligence_bundle", "build_full_due_diligence_bundle", "none")),
+    (("governance", "proposal"), ("bd_platform.onchain_hub", "defillama_raises", "none")),
+    (("knowledge graph", "research library"), ("due_diligence_bundle", "build_full_due_diligence_bundle", "none")),
+    (("copilot", "deep research"), ("ai_oracle", "evaluate_opportunity", "opportunity")),
+    (("inflow", "outflow", "netflow"), ("bd_platform.heroes_capability_layer", "exchange_netflow_intelligence_48", "exchange_asset")),
+    (("top holders", "holder intelligence"), ("whale_tracker", "get_latest_whale_alerts", "limit")),
+    (("development activity", "developer activity", "ecosystem development"), ("bd_platform.onchain_hub", "defillama_raises", "none")),
+    (("trending",), ("bd_platform.market_rankings", "market_rankings", "none")),
+    (("historical", "trend"), ("cap646.fallbacks", "resolve_ohlcv_closes", "symbol")),
+    (("transaction volume", "network activity"), ("onchain_tracker", "build_onchain_context_safe", "none")),
+    (("screener",), ("bd_platform.market_rankings", "market_rankings", "none")),
+    (("correlation",), ("bd_platform.alpha_engine", "compute_alpha_signal", "symbol")),
+    (("sector",), ("bd_platform.market_rankings", "market_rankings", "none")),
+    (("workspace",), ("bd_platform.infra_status", "infra_matrix", "none")),
+    (("metadata", "registry"), ("blackdark.canonical.resolver", "resolve_asset", "symbol")),
+    (("monitoring", "coverage"), ("ops.monitoring_alerting", "monitoring_status", "none")),
+    (("entitlement", "data delivery", "pay-per", "pay per"), ("billing_service", "billing_status", "none")),
+    (("fundraising", "confidence score", "momentum score"), ("trust_pulse", "build_trust_pulse", "symbol_tier")),
+    (("cross-domain", "cross domain"), ("cap646.cross_domain_decision", "build_cross_domain_decision_payload", "symbol")),
+    (("realized", "supply", "issuance"), ("bd_platform.onchain_hub", "lookintobitcoin_macro", "none")),
+    (("indicator", "metrics"), ("bd_platform.alpha_engine", "compute_alpha_signal", "symbol")),
+    (("dashboard",), ("bd_platform.infra_status", "infra_matrix", "none")),
+    (("integration", "connector"), ("bd_platform.infra_status", "infra_matrix", "none")),
+    (("liquidity",), ("live_book_hub", "hub_stats", "books")),
+    (("derivatives",), ("bd_platform.derivatives_hub", "derivatives_overview", "symbol")),
+    (("institutional",), ("org_tenant", "org_isolation_status", "none")),
 )
-
-
-def _keyword_binding(name: str) -> tuple[str, str, str] | None:
-    nl = name.lower()
-    for keys, binding in _KEYWORD_RULES:
-        if any(k in nl for k in keys):
-            return binding
-    return None
 
 
 def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
@@ -305,21 +363,158 @@ def _component_binding(components: list[str]) -> tuple[str, str, str] | None:
     return None
 
 
-@lru_cache(maxsize=646)
+def _keyword_binding(name: str) -> tuple[str, str, str] | None:
+    nl = name.lower()
+    for keys, binding in _KEYWORD_RULES:
+        if any(k in nl for k in keys):
+            return binding
+    return None
+
+
+@lru_cache(maxsize=1)
+def _load_semantic_map() -> dict[int, dict[str, Any]]:
+    path = Path(__file__).resolve().parent / "capability_semantic_map.json"
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {int(k): v for k, v in (data.get("generated") or {}).items()}
+
+
+def _semantic_binding_for(capability_id: int) -> BackendBinding:
+    """Resolve goal-specific binding — never the generic batch_range wrapper (v6 §2.1.3)."""
+    row = catalog_by_id()[capability_id]
+    matrix = matrix_by_id().get(capability_id, {})
+    name = row["capability"]
+    track = row["track"]
+    surface = _slug(name)
+
+    f0 = _F0_DATA_SPINE_SEMANTIC.get(capability_id)
+    if f0:
+        mod, ep, ps, src = f0
+        return BackendBinding(capability_id, mod, ep, surface, ps, src)
+
+    override = _load_semantic_map().get(capability_id)
+    if override:
+        return BackendBinding(
+            capability_id,
+            override["module"],
+            override["entrypoint"],
+            surface,
+            override.get("param_style", "symbol"),
+            override.get("source", "capability_semantic_map"),
+        )
+
+    comp = _component_binding(matrix.get("existing_code_components") or [])
+    if comp:
+        mod, ep, ps = comp
+        return BackendBinding(capability_id, mod, ep, surface, ps, "gap_matrix_component")
+
+    kw = _keyword_binding(name)
+    if kw:
+        mod, ep, ps = kw
+        return BackendBinding(capability_id, mod, ep, surface, ps, "capability_keyword")
+
+    mod, ep, ps = _TRACK_DEFAULTS.get(track, _TRACK_DEFAULTS["T04"])
+    return BackendBinding(capability_id, mod, ep, surface, ps, f"semantic_track_{track}")
+
+
+_SEMANTIC_BACKEND_BINDINGS: dict[int, BackendBinding] = {}
+
+
+def _register_batch_range_bindings() -> None:
+    from cap646.batch_range_production import BATCH_RANGE_IDS
+
+    skip = frozenset({55, 56, 59, 60, 103, 129})
+    for cid in BATCH_RANGE_IDS:
+        if cid in skip:
+            continue
+        if not catalog_by_id().get(cid):
+            continue
+        _SEMANTIC_BACKEND_BINDINGS[cid] = _semantic_binding_for(cid)
+        if cid in _EXPLICIT_BINDINGS:
+            continue
+        _EXPLICIT_BINDINGS[cid] = _semantic_binding_for(cid)
+
+
+def _register_batch01_legacy_extension_bindings() -> None:
+    from cap646.batch01_production import LEGACY_BATCH01_EXTENSION_IDS, batch01_entrypoint
+    from cap646.batch_constants import DEDICATED_RANGE_START
+
+    for cid in LEGACY_BATCH01_EXTENSION_IDS:
+        if cid >= DEDICATED_RANGE_START:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch01_production",
+            batch01_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
+
+
+_register_batch_range_bindings()
+_register_batch_range_dedicated_bindings()
+_register_batch01_legacy_extension_bindings()
+
+
+@lru_cache(maxsize=978)
+def resolve_semantic_backend_binding(capability_id: int) -> BackendBinding:
+    """Underlying semantic module binding — used by dedicated wrappers only."""
+    f0 = _F0_DATA_SPINE_SEMANTIC.get(capability_id)
+    if f0:
+        mod, ep, ps, src = f0
+        row = catalog_by_id().get(capability_id, {})
+        surface = _slug(row.get("capability", f"cap_{capability_id}"))
+        return BackendBinding(capability_id, mod, ep, surface, ps, src)
+    if capability_id in _SEMANTIC_BACKEND_BINDINGS:
+        return _SEMANTIC_BACKEND_BINDINGS[capability_id]
+    if 647 <= capability_id <= 826:
+        from cap978.extension_registry import resolve_extension_binding
+
+        return resolve_extension_binding(capability_id)
+    return resolve_binding(capability_id)
+
+
+@lru_cache(maxsize=978)
 def resolve_binding(capability_id: int) -> BackendBinding:
+    explicit = _EXPLICIT_BINDINGS.get(capability_id)
+    if explicit is not None and explicit.source == "explicit_option_a":
+        return explicit
+
     from cap646.extension_capabilities import is_extension_id
 
     if is_extension_id(capability_id):
+        from cap978.extension_registry import resolve_extension_binding
+
+        ext = resolve_extension_binding(capability_id)
         return BackendBinding(
-            capability_id,
-            "cap646.extension_capabilities",
-            f"extension_{capability_id}",
-            f"extension_{capability_id}",
-            "symbol",
-            "extension_registry_remediation",
+            ext.capability_id,
+            ext.module,
+            ext.entrypoint,
+            ext.surface,
+            ext.param_style,
+            ext.source or "cap978_extension_registry",
         )
 
-    explicit = _EXPLICIT_BINDINGS.get(capability_id)
+    if 647 <= capability_id <= 826:
+        try:
+            from cap978.extension_registry import resolve_extension_binding
+
+            ext = resolve_extension_binding(capability_id)
+            return BackendBinding(
+                ext.capability_id,
+                ext.module,
+                ext.entrypoint,
+                ext.surface,
+                ext.param_style,
+                ext.source or "cap978_extension_registry",
+            )
+        except Exception:
+            pass
+
     if explicit is not None:
         return explicit
 

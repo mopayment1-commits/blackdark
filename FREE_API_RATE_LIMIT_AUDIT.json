@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-09-11T14:01:06.007848+00:00",
+  "projected_concurrent_users": 100,
+  "sources": [
+    {
+      "source": "CoinGecko",
+      "tier": "free/demo",
+      "documented_limit": "10-30 calls/min (varies by endpoint)",
+      "blackdark_usage": "price fallback, market context",
+      "env_key": "COINMARKETCAP_API_KEY",
+      "upgrade_trigger_users": 50,
+      "upgrade_path": "CoinGecko Pro / CMC paid",
+      "risk": "HIGH at >100 concurrent users without cache"
+    },
+    {
+      "source": "Binance Public API",
+      "tier": "free",
+      "documented_limit": "1200 weight/min per IP",
+      "blackdark_usage": "tickers, WS streams, order book",
+      "env_key": "BINANCE_WS_ENABLED",
+      "upgrade_trigger_users": 200,
+      "upgrade_path": "Dedicated IP / VIP / colo feed",
+      "risk": "MEDIUM — WS reduces REST pressure"
+    },
+    {
+      "source": "Alternative.me Fear&Greed",
+      "tier": "free",
+      "documented_limit": "~1 req/min recommended",
+      "blackdark_usage": "sentiment macro",
+      "env_key": null,
+      "upgrade_trigger_users": 10,
+      "upgrade_path": "cache 15min+",
+      "risk": "LOW with cache"
+    },
+    {
+      "source": "DefiLlama",
+      "tier": "free",
+      "documented_limit": "reasonable use",
+      "blackdark_usage": "TVL, raises",
+      "env_key": null,
+      "upgrade_trigger_users": 100,
+      "upgrade_path": "Pro API if commercial",
+      "risk": "MEDIUM for B2B redistribution"
+    },
+    {
+      "source": "Groq / Gemini / OpenRouter",
+      "tier": "free tier",
+      "documented_limit": "RPM/TPM per provider",
+      "blackdark_usage": "oracle LLM chain",
+      "env_key": "GROQ_API_KEY",
+      "upgrade_trigger_users": 20,
+      "upgrade_path": "Paid API keys before launch",
+      "risk": "HIGH for oracle-heavy UX"
+    }
+  ],
+  "recommendations": [],
+  "PASS_RATE_LIMIT_REVIEW": true
+}
