@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-WF027_UNRESOLVED = frozenset({584, 629, 630, 631, 642, 644, 646})
+from scripts.rbas001_scoping import WF027_UNRESOLVED_LEGACY_IDS as WF027_UNRESOLVED  # noqa: E402
 
 
 def batch_id_range(batch_num: int) -> range:
