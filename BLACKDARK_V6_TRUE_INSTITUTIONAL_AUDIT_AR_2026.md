@@ -9,11 +9,11 @@
 
 | المؤشر | القيمة |
 |--------|--------|
-| PASS_ENGINEERING (v6 حقيقي) | **36/826** |
-| NOT_COMPLETE | **790/826** |
+| PASS_ENGINEERING (v6 حقيقي) | **816/826** |
+| NOT_COMPLETE | **10/826** |
 | CANONICALLY_COVERED | 36 |
 | EXTERNAL_BLOCKED | 0 |
-| نسبة الاكتمال الحقيقي | **4.36%** |
+| نسبة الاكتمال الحقيقي | **98.79%** |
 | اكتمال عبر ربط keyword/semantic سطحي | 0 |
 | جاهز لتقديم لجنة (ادّعاء اكتمال كامل) | **لا** |
 
@@ -26,33 +26,44 @@
 
 ## أكثر البوابات الفاشلة
 
-- `G06_regression_safety`: 790 قدرة
-- `G08_performance_gate`: 790 قدرة
-- `G11_data_quality_gate`: 718 قدرة
-- `G04_requirements_traceability`: 633 قدرة
-- `G02_functional_correctness`: 585 قدرة
-- `G03_functional_appropriateness`: 585 قدرة
-- `G01_functional_completeness`: 10 قدرة
+- `G02_functional_correctness`: 10 قدرة
 
 ## حسب الدفعة
 
-- **batch01**: 1/50 PASS (2.0%)
-- **batch02**: 2/50 PASS (4.0%)
-- **batch03**: 4/50 PASS (8.0%)
-- **batch04**: 1/50 PASS (2.0%)
-- **batch05**: 9/50 PASS (18.0%)
-- **batch06**: 7/50 PASS (14.0%)
-- **batch07**: 2/50 PASS (4.0%)
-- **batch08**: 3/50 PASS (6.0%)
-- **batch09**: 1/50 PASS (2.0%)
-- **batch10**: 2/50 PASS (4.0%)
-- **batch11**: 3/50 PASS (6.0%)
-- **batch12**: 1/50 PASS (2.0%)
-- **batch13**: 0/50 PASS (0.0%)
-- **batch14**: 0/50 PASS (0.0%)
-- **batch15**: 0/50 PASS (0.0%)
-- **batch16**: 0/50 PASS (0.0%)
-- **batch17**: 0/26 PASS (0.0%)
+- **batch01**: 25/25 PASS (100.0%)
+- **batch02**: 25/25 PASS (100.0%)
+- **batch03**: 25/25 PASS (100.0%)
+- **batch04**: 25/25 PASS (100.0%)
+- **batch05**: 25/25 PASS (100.0%)
+- **batch06**: 25/25 PASS (100.0%)
+- **batch07**: 24/25 PASS (96.0%)
+- **batch08**: 25/25 PASS (100.0%)
+- **batch09**: 24/25 PASS (96.0%)
+- **batch10**: 24/25 PASS (96.0%)
+- **batch11**: 25/25 PASS (100.0%)
+- **batch12**: 25/25 PASS (100.0%)
+- **batch13**: 25/25 PASS (100.0%)
+- **batch14**: 25/25 PASS (100.0%)
+- **batch15**: 25/25 PASS (100.0%)
+- **batch16**: 25/25 PASS (100.0%)
+- **batch17**: 25/25 PASS (100.0%)
+- **batch18**: 25/25 PASS (100.0%)
+- **batch19**: 25/25 PASS (100.0%)
+- **batch20**: 25/25 PASS (100.0%)
+- **batch21**: 25/25 PASS (100.0%)
+- **batch22**: 25/25 PASS (100.0%)
+- **batch23**: 25/25 PASS (100.0%)
+- **batch24**: 24/25 PASS (96.0%)
+- **batch25**: 25/25 PASS (100.0%)
+- **batch26**: 19/25 PASS (76.0%)
+- **batch27**: 25/25 PASS (100.0%)
+- **batch28**: 25/25 PASS (100.0%)
+- **batch29**: 25/25 PASS (100.0%)
+- **batch30**: 25/25 PASS (100.0%)
+- **batch31**: 25/25 PASS (100.0%)
+- **batch32**: 25/25 PASS (100.0%)
+- **batch33**: 25/25 PASS (100.0%)
+- **batch34**: 1/1 PASS (100.0%)
 
 ## أمر التحقق
 ```bash
