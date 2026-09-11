@@ -835,6 +835,20 @@ except Exception:
     logger.exception("Audit registry router unavailable")
 
 try:
+    from api.routers.decision_truth import router as decision_truth_router
+
+    app.include_router(decision_truth_router)
+except Exception:
+    logger.exception("Decision Truth router unavailable")
+
+try:
+    from api.routers.data_governance import router as data_governance_router
+
+    app.include_router(data_governance_router)
+except Exception:
+    logger.exception("Data Governance router unavailable")
+
+try:
     from api.routers.compounding import router as compounding_router
 
     app.include_router(compounding_router)

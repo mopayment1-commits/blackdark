@@ -1,0 +1,29 @@
+{
+  "timestamp_utc": "2026-09-11T11:19:53.348876+00:00",
+  "packages": {
+    "decision_truth": true,
+    "data_governance": true
+  },
+  "phantom_catalog": {
+    "missing": [],
+    "ok": true
+  },
+  "tests": {
+    "decision_truth": {
+      "target": "tests/test_decision_truth_pipeline.py",
+      "exit_code": 0,
+      "tail": "...                                                                      [100%]\n"
+    },
+    "data_governance": {
+      "target": "tests/test_data_governance_p0_test_matrix.py",
+      "exit_code": 0,
+      "tail": ".....                                                                    [100%]\n"
+    },
+    "extension_registry": {
+      "target": "tests/test_war_room_extension_registry.py",
+      "exit_code": 0,
+      "tail": ".....................                                                    [100%]\n"
+    }
+  },
+  "all_green": true
+}
