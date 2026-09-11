@@ -46,6 +46,9 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
     elif style == "assets":
         lines.append('    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC")]')
         lines.append(f"    _raw = {ep}(assets=_assets)")
+    elif style == "limit":
+        lines.append('    _limit = int(params.get("limit") or 50)')
+        lines.append(f"    _raw = {ep}(_limit)")
     else:
         lines.append('    _sym = str(params.get("symbol") or symbol or "BTC").upper()')
         lines.append(f"    _raw = {ep}(_sym)")

@@ -91,9 +91,12 @@ async def process_batch(batch_num: int, *, skip_non_regression: bool = False, fo
         fh.write(f"{datetime.now(UTC).isoformat()} START batch{batch_num:02d}\n")
 
     if batch_num >= 4 or force_reopen:
-        regenerate_path_a(cfg)
+        pass  # explicit Path A after infrastructure generation
 
     generate_infrastructure(cfg)
+
+    if batch_num >= 4 or force_reopen:
+        regenerate_path_a(cfg)
 
     lv = await live_verify_batch(cfg)
     log_status(f"Batch{batch_num:02d} live_verify ok={lv['ok']} fail={lv['fail']}")
