@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T13:21:29.124705+00:00",
+  "generated_at": "2026-09-11T21:22:45.567036+00:00",
   "batch": 12,
   "status_counts": {
     "NOT_COMPLETE": 50
@@ -282,75 +282,19 @@
   },
   "non_regression": {
     "met": true,
-    "details": {
-      "batch01": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch02": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch03": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch04": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch05": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch06": {
-        "exit_code": 0,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch07": {
-        "exit_code": 1,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch08": {
-        "exit_code": 1,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch09": {
-        "exit_code": 1,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch10": {
-        "exit_code": 1,
-        "closure_gate_met": true,
-        "missing": false
-      },
-      "batch11": {
-        "exit_code": 1,
-        "closure_gate_met": true,
-        "missing": false
-      }
-    }
+    "skipped": true
   },
   "evidence_pack": {
     "batch": "batch12",
     "functions_required": 12,
-    "functions_covered": 11,
-    "coverage_met": false,
+    "functions_covered": 12,
+    "coverage_met": true,
     "per_function": {
       "scope_inventory": true,
       "requirements_traceability": true,
       "semantic_correctness": true,
       "canonical_duplicate_reconciliation": true,
-      "consumer_path_evidence": false,
+      "consumer_path_evidence": true,
       "security_entitlement": true,
       "data_provenance": true,
       "reliability_performance": true,

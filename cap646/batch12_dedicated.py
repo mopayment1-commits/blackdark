@@ -15,56 +15,56 @@ OFFICIAL_BATCH12_IDS: frozenset[int] = frozenset(range(551, 601))
 BATCH12_DEDICATED_IDS: frozenset[int] = OFFICIAL_BATCH12_IDS
 
 EXPECTED_SURFACE: dict[int, str] = {
-    551: 'liquidation_intelligence',
-    552: 'futures_volume',
-    553: 'basis_intelligence',
-    554: 'spot_market_data',
-    555: 'options_analytics',
-    556: 'options_iv_surface',
-    557: 'options_skew',
-    558: 'options_term_structure',
-    559: 'tradfi_context',
-    560: 'multi_indicator_workspace',
-    561: 'real_time_prices',
-    562: 'historical_data',
-    563: 'api_data_access',
-    564: 'news_context',
-    565: 'cross_asset_correlation',
-    566: 'derivatives_regime_engine',
-    567: 'cross_market_decision_intelligence',
-    568: 'security_first_architecture',
-    569: 'api_security_encryption',
-    570: 'high_availability_architecture',
-    571: 'infrastructure_uptime_shield',
-    572: 'institutional_data_architecture',
-    573: 'flexible_connector_microservice',
-    574: 'institutional_api_gateway',
-    575: 'api_data_pipe',
-    576: 'developer_sdk',
-    577: 'pro_developer_sandbox',
-    578: 'unified_portfolio_dashboard',
-    579: 'global_asset_tracker',
-    580: 'multi_account_sync',
-    581: 'on_chain_balance_monitor',
-    582: 'profitability_analyzer',
-    583: 'margin_risk_calculator',
-    584: 'risk_management_shield',
-    585: 'volatility_scoring_system',
-    586: 'volatility_surface_analyzer',
-    587: 'delta_neutral_calculator',
-    588: 'high_precision_backtesting',
-    589: 'strategy_vetting_algorithm',
-    590: 'ai_quant_rating_engine',
-    591: 'sentiment_analysis_engine',
-    592: 'social_sentiment_engine',
-    593: 'social_hype_analyzer',
-    594: 'narrative_alert_system',
-    595: 'ai_digest_generator',
-    596: 'ai_agent_consultant',
-    597: 'natural_language_interpreter',
-    598: 'wallet_shadowing',
-    599: 'entity_tagging_system',
-    600: 'whale_clustering_engine',
+    551: 'reserved_slot_551',
+    552: 'reserved_slot_552',
+    553: 'reserved_slot_553',
+    554: 'reserved_slot_554',
+    555: 'reserved_slot_555',
+    556: 'reserved_slot_556',
+    557: 'reserved_slot_557',
+    558: 'reserved_slot_558',
+    559: 'reserved_slot_559',
+    560: 'reserved_slot_560',
+    561: 'reserved_slot_561',
+    562: 'reserved_slot_562',
+    563: 'reserved_slot_563',
+    564: 'reserved_slot_564',
+    565: 'reserved_slot_565',
+    566: 'reserved_slot_566',
+    567: 'reserved_slot_567',
+    568: 'reserved_slot_568',
+    569: 'reserved_slot_569',
+    570: 'reserved_slot_570',
+    571: 'reserved_slot_571',
+    572: 'reserved_slot_572',
+    573: 'reserved_slot_573',
+    574: 'reserved_slot_574',
+    575: 'reserved_slot_575',
+    576: 'reserved_slot_576',
+    577: 'reserved_slot_577',
+    578: 'reserved_slot_578',
+    579: 'reserved_slot_579',
+    580: 'reserved_slot_580',
+    581: 'reserved_slot_581',
+    582: 'reserved_slot_582',
+    583: 'reserved_slot_583',
+    584: 'reserved_slot_584',
+    585: 'reserved_slot_585',
+    586: 'reserved_slot_586',
+    587: 'reserved_slot_587',
+    588: 'reserved_slot_588',
+    589: 'reserved_slot_589',
+    590: 'reserved_slot_590',
+    591: 'reserved_slot_591',
+    592: 'reserved_slot_592',
+    593: 'reserved_slot_593',
+    594: 'reserved_slot_594',
+    595: 'reserved_slot_595',
+    596: 'reserved_slot_596',
+    597: 'reserved_slot_597',
+    598: 'reserved_slot_598',
+    599: 'reserved_slot_599',
+    600: 'reserved_slot_600',
 }
 
 _base_wrap = make_wrap_binding(EXPECTED_SURFACE)
@@ -99,782 +99,1154 @@ def _wrap(
 
 
 async def _cap551(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.liquidation_radar.liquidation_radar (v6 real logic)."""
-    from bd_platform.liquidation_radar import liquidation_radar
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = liquidation_radar(asset=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.liquidation_radar.liquidation_radar",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "gap_matrix_component",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(551, symbol=symbol, payload_key="liquidation_intelligence", payload=payload)
+    return _wrap(
+        551,
+        symbol=symbol,
+        payload_key="reserved_slot_551",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap552(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.derivatives_hub.derivatives_overview (v6 real logic)."""
-    from bd_platform.derivatives_hub import derivatives_overview
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = derivatives_overview(asset=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.derivatives_hub.derivatives_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(552, symbol=symbol, payload_key="futures_volume", payload=payload)
+    return _wrap(
+        552,
+        symbol=symbol,
+        payload_key="reserved_slot_552",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap553(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — market_context.probe_price_sources (v6 real logic)."""
-    from market_context import probe_price_sources
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = probe_price_sources(symbol=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "market_context.probe_price_sources",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(553, symbol=symbol, payload_key="basis_intelligence", payload=payload)
+    return _wrap(
+        553,
+        symbol=symbol,
+        payload_key="reserved_slot_553",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap554(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.derivatives_hub.derivatives_overview (v6 real logic)."""
-    from bd_platform.derivatives_hub import derivatives_overview
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = derivatives_overview(asset=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.derivatives_hub.derivatives_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(554, symbol=symbol, payload_key="spot_market_data", payload=payload)
+    return _wrap(
+        554,
+        symbol=symbol,
+        payload_key="reserved_slot_554",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap555(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — options_fetcher.fetch_options_overview (v6 real logic)."""
-    from options_fetcher import fetch_options_overview
-    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
-    _raw = fetch_options_overview(assets=_assets)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "options_fetcher.fetch_options_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(555, symbol=symbol, payload_key="options_analytics", payload=payload)
+    return _wrap(
+        555,
+        symbol=symbol,
+        payload_key="reserved_slot_555",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap556(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — options_fetcher.fetch_options_overview (v6 real logic)."""
-    from options_fetcher import fetch_options_overview
-    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
-    _raw = fetch_options_overview(assets=_assets)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "options_fetcher.fetch_options_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(556, symbol=symbol, payload_key="options_iv_surface", payload=payload)
+    return _wrap(
+        556,
+        symbol=symbol,
+        payload_key="reserved_slot_556",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap557(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — options_fetcher.fetch_options_overview (v6 real logic)."""
-    from options_fetcher import fetch_options_overview
-    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
-    _raw = fetch_options_overview(assets=_assets)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "options_fetcher.fetch_options_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(557, symbol=symbol, payload_key="options_skew", payload=payload)
+    return _wrap(
+        557,
+        symbol=symbol,
+        payload_key="reserved_slot_557",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap558(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — options_fetcher.fetch_options_overview (v6 real logic)."""
-    from options_fetcher import fetch_options_overview
-    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
-    _raw = fetch_options_overview(assets=_assets)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "options_fetcher.fetch_options_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(558, symbol=symbol, payload_key="options_term_structure", payload=payload)
+    return _wrap(
+        558,
+        symbol=symbol,
+        payload_key="reserved_slot_558",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap559(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — scale_readiness.scale_readiness_report (v6 real logic)."""
-    from scale_readiness import scale_readiness_report
-    _raw = scale_readiness_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "scale_readiness.scale_readiness_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(559, symbol=symbol, payload_key="tradfi_context", payload=payload)
+    return _wrap(
+        559,
+        symbol=symbol,
+        payload_key="reserved_slot_559",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap560(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — product_honesty_api.build_capability_inventory (v6 real logic)."""
-    from product_honesty_api import build_capability_inventory
-    _raw = build_capability_inventory()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "product_honesty_api.build_capability_inventory",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(560, symbol=symbol, payload_key="multi_indicator_workspace", payload=payload)
+    return _wrap(
+        560,
+        symbol=symbol,
+        payload_key="reserved_slot_560",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap561(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — scale_readiness.scale_readiness_report (v6 real logic)."""
-    from scale_readiness import scale_readiness_report
-    _raw = scale_readiness_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "scale_readiness.scale_readiness_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(561, symbol=symbol, payload_key="real_time_prices", payload=payload)
+    return _wrap(
+        561,
+        symbol=symbol,
+        payload_key="reserved_slot_561",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap562(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — market_context.probe_price_sources (v6 real logic)."""
-    from market_context import probe_price_sources
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = probe_price_sources(symbol=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "market_context.probe_price_sources",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(562, symbol=symbol, payload_key="historical_data", payload=payload)
+    return _wrap(
+        562,
+        symbol=symbol,
+        payload_key="reserved_slot_562",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap563(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — market_context.probe_price_sources (v6 real logic)."""
-    from market_context import probe_price_sources
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = probe_price_sources(symbol=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "market_context.probe_price_sources",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(563, symbol=symbol, payload_key="api_data_access", payload=payload)
+    return _wrap(
+        563,
+        symbol=symbol,
+        payload_key="reserved_slot_563",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap564(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.news_classifier.coindesk_feed (v6 real logic)."""
-    from bd_platform.news_classifier import coindesk_feed
-    _limit = int(params.get("limit") or 50)
-    _raw = coindesk_feed(limit=_limit)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.news_classifier.coindesk_feed",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(564, symbol=symbol, payload_key="news_context", payload=payload)
+    return _wrap(
+        564,
+        symbol=symbol,
+        payload_key="reserved_slot_564",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap565(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — data_provenance_score.compute_data_provenance_score (v6 real logic)."""
-    from data_provenance_score import compute_data_provenance_score
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = compute_data_provenance_score(symbol=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "data_provenance_score.compute_data_provenance_score",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(565, symbol=symbol, payload_key="cross_asset_correlation", payload=payload)
+    return _wrap(
+        565,
+        symbol=symbol,
+        payload_key="reserved_slot_565",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap566(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — scale_readiness.scale_readiness_report (v6 real logic)."""
-    from scale_readiness import scale_readiness_report
-    _raw = scale_readiness_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "scale_readiness.scale_readiness_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(566, symbol=symbol, payload_key="derivatives_regime_engine", payload=payload)
+    return _wrap(
+        566,
+        symbol=symbol,
+        payload_key="reserved_slot_566",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap567(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — trust_pulse.build_trust_pulse (v6 real logic)."""
-    from trust_pulse import build_trust_pulse
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = build_trust_pulse(symbol=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "trust_pulse.build_trust_pulse",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(567, symbol=symbol, payload_key="cross_market_decision_intelligence", payload=payload)
+    return _wrap(
+        567,
+        symbol=symbol,
+        payload_key="reserved_slot_567",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap568(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — security_posture.security_posture_report (v6 real logic)."""
-    from security_posture import security_posture_report
-    _raw = security_posture_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "security_posture.security_posture_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "gap_matrix_component",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(568, symbol=symbol, payload_key="security_first_architecture", payload=payload)
+    return _wrap(
+        568,
+        symbol=symbol,
+        payload_key="reserved_slot_568",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap569(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — security_posture.security_posture_report (v6 real logic)."""
-    from security_posture import security_posture_report
-    _raw = security_posture_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "security_posture.security_posture_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(569, symbol=symbol, payload_key="api_security_encryption", payload=payload)
+    return _wrap(
+        569,
+        symbol=symbol,
+        payload_key="reserved_slot_569",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap570(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — security_posture.security_posture_report (v6 real logic)."""
-    from security_posture import security_posture_report
-    _raw = security_posture_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "security_posture.security_posture_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(570, symbol=symbol, payload_key="high_availability_architecture", payload=payload)
+    return _wrap(
+        570,
+        symbol=symbol,
+        payload_key="reserved_slot_570",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap571(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — scale_readiness.scale_readiness_report (v6 real logic)."""
-    from scale_readiness import scale_readiness_report
-    _raw = scale_readiness_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "scale_readiness.scale_readiness_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(571, symbol=symbol, payload_key="infrastructure_uptime_shield", payload=payload)
+    return _wrap(
+        571,
+        symbol=symbol,
+        payload_key="reserved_slot_571",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap572(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — product_honesty_api.build_public_readiness (v6 real logic)."""
-    from product_honesty_api import build_public_readiness
-    _raw = build_public_readiness()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "product_honesty_api.build_public_readiness",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(572, symbol=symbol, payload_key="institutional_data_architecture", payload=payload)
+    return _wrap(
+        572,
+        symbol=symbol,
+        payload_key="reserved_slot_572",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap573(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — product_honesty_api.build_public_readiness (v6 real logic)."""
-    from product_honesty_api import build_public_readiness
-    _raw = build_public_readiness()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "product_honesty_api.build_public_readiness",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(573, symbol=symbol, payload_key="flexible_connector_microservice", payload=payload)
+    return _wrap(
+        573,
+        symbol=symbol,
+        payload_key="reserved_slot_573",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap574(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — security_posture.security_posture_report (v6 real logic)."""
-    from security_posture import security_posture_report
-    _raw = security_posture_report()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "security_posture.security_posture_report",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(574, symbol=symbol, payload_key="institutional_api_gateway", payload=payload)
+    return _wrap(
+        574,
+        symbol=symbol,
+        payload_key="reserved_slot_574",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap575(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — product_honesty_api.build_public_readiness (v6 real logic)."""
-    from product_honesty_api import build_public_readiness
-    _raw = build_public_readiness()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "product_honesty_api.build_public_readiness",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(575, symbol=symbol, payload_key="api_data_pipe", payload=payload)
+    return _wrap(
+        575,
+        symbol=symbol,
+        payload_key="reserved_slot_575",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap576(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — product_honesty_api.build_public_readiness (v6 real logic)."""
-    from product_honesty_api import build_public_readiness
-    _raw = build_public_readiness()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "product_honesty_api.build_public_readiness",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(576, symbol=symbol, payload_key="developer_sdk", payload=payload)
+    return _wrap(
+        576,
+        symbol=symbol,
+        payload_key="reserved_slot_576",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap577(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — product_honesty_api.build_public_readiness (v6 real logic)."""
-    from product_honesty_api import build_public_readiness
-    _raw = build_public_readiness()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "product_honesty_api.build_public_readiness",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(577, symbol=symbol, payload_key="pro_developer_sandbox", payload=payload)
+    return _wrap(
+        577,
+        symbol=symbol,
+        payload_key="reserved_slot_577",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap578(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.portfolio_rebalancer.portfolio_snapshot (v6 real logic)."""
-    from bd_platform.portfolio_rebalancer import portfolio_snapshot
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = portfolio_snapshot(symbol=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.portfolio_rebalancer.portfolio_snapshot",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(578, symbol=symbol, payload_key="unified_portfolio_dashboard", payload=payload)
+    return _wrap(
+        578,
+        symbol=symbol,
+        payload_key="reserved_slot_578",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap579(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — onchain_tracker.build_onchain_context_safe (v6 real logic)."""
-    from onchain_tracker import build_onchain_context_safe
-    _raw = build_onchain_context_safe()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "onchain_tracker.build_onchain_context_safe",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(579, symbol=symbol, payload_key="global_asset_tracker", payload=payload)
+    return _wrap(
+        579,
+        symbol=symbol,
+        payload_key="reserved_slot_579",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap580(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — onchain_tracker.build_onchain_context_safe (v6 real logic)."""
-    from onchain_tracker import build_onchain_context_safe
-    _raw = build_onchain_context_safe()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "onchain_tracker.build_onchain_context_safe",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(580, symbol=symbol, payload_key="multi_account_sync", payload=payload)
+    return _wrap(
+        580,
+        symbol=symbol,
+        payload_key="reserved_slot_580",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap581(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.onchain_hub.dexscreener_pairs (v6 real logic)."""
-    from bd_platform.onchain_hub import dexscreener_pairs
-    _msg = str(params.get("message") or params.get("text") or params.get("query") or symbol or "status")
-    _raw = dexscreener_pairs(query=_msg)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.onchain_hub.dexscreener_pairs",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "gap_matrix_component",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(581, symbol=symbol, payload_key="on_chain_balance_monitor", payload=payload)
+    return _wrap(
+        581,
+        symbol=symbol,
+        payload_key="reserved_slot_581",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap582(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — onchain_tracker.build_onchain_context_safe (v6 real logic)."""
-    from onchain_tracker import build_onchain_context_safe
-    _raw = build_onchain_context_safe()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "onchain_tracker.build_onchain_context_safe",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(582, symbol=symbol, payload_key="profitability_analyzer", payload=payload)
+    return _wrap(
+        582,
+        symbol=symbol,
+        payload_key="reserved_slot_582",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap583(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — risk_manager.risk_status (v6 real logic)."""
-    from risk_manager import risk_status
-    _raw = risk_status()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "risk_manager.risk_status",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(583, symbol=symbol, payload_key="margin_risk_calculator", payload=payload)
+    return _wrap(
+        583,
+        symbol=symbol,
+        payload_key="reserved_slot_583",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap584(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — risk_manager.risk_status (v6 real logic)."""
-    from risk_manager import risk_status
-    _raw = risk_status()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "risk_manager.risk_status",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "gap_matrix_component",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(584, symbol=symbol, payload_key="risk_management_shield", payload=payload)
+    return _wrap(
+        584,
+        symbol=symbol,
+        payload_key="reserved_slot_584",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap585(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — oracle_track_record.public_track_record (v6 real logic)."""
-    from oracle_track_record import public_track_record
-    _raw = public_track_record()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "oracle_track_record.public_track_record",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(585, symbol=symbol, payload_key="volatility_scoring_system", payload=payload)
+    return _wrap(
+        585,
+        symbol=symbol,
+        payload_key="reserved_slot_585",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap586(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.derivatives_hub.derivatives_overview (v6 real logic)."""
-    from bd_platform.derivatives_hub import derivatives_overview
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = derivatives_overview(asset=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.derivatives_hub.derivatives_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(586, symbol=symbol, payload_key="volatility_surface_analyzer", payload=payload)
+    return _wrap(
+        586,
+        symbol=symbol,
+        payload_key="reserved_slot_586",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap587(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — arbitrage_service.scan_arbitrage_opportunities (v6 real logic)."""
-    from arbitrage_service import scan_arbitrage_opportunities
-    _raw = scan_arbitrage_opportunities()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "arbitrage_service.scan_arbitrage_opportunities",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(587, symbol=symbol, payload_key="delta_neutral_calculator", payload=payload)
+    return _wrap(
+        587,
+        symbol=symbol,
+        payload_key="reserved_slot_587",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap588(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — ml.market_replay_bootstrap.bootstrap_market_replay_dataset (v6 real logic)."""
-    from ml.market_replay_bootstrap import bootstrap_market_replay_dataset
-    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
-    _raw = bootstrap_market_replay_dataset(assets=_assets)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "ml.market_replay_bootstrap.bootstrap_market_replay_dataset",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "gap_matrix_component",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(588, symbol=symbol, payload_key="high_precision_backtesting", payload=payload)
+    return _wrap(
+        588,
+        symbol=symbol,
+        payload_key="reserved_slot_588",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap589(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.derivatives_hub.derivatives_overview (v6 real logic)."""
-    from bd_platform.derivatives_hub import derivatives_overview
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = derivatives_overview(asset=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.derivatives_hub.derivatives_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(589, symbol=symbol, payload_key="strategy_vetting_algorithm", payload=payload)
+    return _wrap(
+        589,
+        symbol=symbol,
+        payload_key="reserved_slot_589",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap590(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.derivatives_hub.derivatives_overview (v6 real logic)."""
-    from bd_platform.derivatives_hub import derivatives_overview
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = derivatives_overview(asset=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.derivatives_hub.derivatives_overview",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(590, symbol=symbol, payload_key="ai_quant_rating_engine", payload=payload)
+    return _wrap(
+        590,
+        symbol=symbol,
+        payload_key="reserved_slot_590",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap591(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — sentiment_gate.fetch_asset_sentiment (v6 real logic)."""
-    from sentiment_gate import fetch_asset_sentiment
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = fetch_asset_sentiment(asset=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "sentiment_gate.fetch_asset_sentiment",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "gap_matrix_component",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(591, symbol=symbol, payload_key="sentiment_analysis_engine", payload=payload)
+    return _wrap(
+        591,
+        symbol=symbol,
+        payload_key="reserved_slot_591",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap592(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.onchain_hub.dexscreener_pairs (v6 real logic)."""
-    from bd_platform.onchain_hub import dexscreener_pairs
-    _msg = str(params.get("message") or params.get("text") or params.get("query") or symbol or "status")
-    _raw = dexscreener_pairs(query=_msg)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.onchain_hub.dexscreener_pairs",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "gap_matrix_component",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(592, symbol=symbol, payload_key="social_sentiment_engine", payload=payload)
+    return _wrap(
+        592,
+        symbol=symbol,
+        payload_key="reserved_slot_592",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap593(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — sentiment_engine.build_sentiment_context_safe (v6 real logic)."""
-    from sentiment_engine import build_sentiment_context_safe
-    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
-    _raw = build_sentiment_context_safe(assets=_assets)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "sentiment_engine.build_sentiment_context_safe",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(593, symbol=symbol, payload_key="social_hype_analyzer", payload=payload)
+    return _wrap(
+        593,
+        symbol=symbol,
+        payload_key="reserved_slot_593",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap594(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.whale_story.whale_narrative (v6 real logic)."""
-    from bd_platform.whale_story import whale_narrative
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _limit = int(params.get("limit") or 50)
-    _raw = whale_narrative(symbol=_sym, limit=_limit)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.whale_story.whale_narrative",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(594, symbol=symbol, payload_key="narrative_alert_system", payload=payload)
+    return _wrap(
+        594,
+        symbol=symbol,
+        payload_key="reserved_slot_594",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap595(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — oracle_track_record.public_track_record (v6 real logic)."""
-    from oracle_track_record import public_track_record
-    _raw = public_track_record()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "oracle_track_record.public_track_record",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(595, symbol=symbol, payload_key="ai_digest_generator", payload=payload)
+    return _wrap(
+        595,
+        symbol=symbol,
+        payload_key="reserved_slot_595",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap596(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.telegram_agent.handle_agent_message (v6 real logic)."""
-    from bd_platform.telegram_agent import handle_agent_message
-    _msg = str(params.get("message") or params.get("text") or params.get("query") or symbol or "status")
-    _raw = handle_agent_message(text=_msg)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.telegram_agent.handle_agent_message",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(596, symbol=symbol, payload_key="ai_agent_consultant", payload=payload)
+    return _wrap(
+        596,
+        symbol=symbol,
+        payload_key="reserved_slot_596",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap597(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — trust_pulse.build_trust_pulse (v6 real logic)."""
-    from trust_pulse import build_trust_pulse
-    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
-    _raw = build_trust_pulse(symbol=_sym)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "trust_pulse.build_trust_pulse",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(597, symbol=symbol, payload_key="natural_language_interpreter", payload=payload)
+    return _wrap(
+        597,
+        symbol=symbol,
+        payload_key="reserved_slot_597",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap598(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.onchain_hub.debank_wallet (v6 real logic)."""
-    from bd_platform.onchain_hub import debank_wallet
-    _addr_val = str(params.get("address") or address or "").strip()
-    _raw = debank_wallet(address=_addr_val)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.onchain_hub.debank_wallet",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(598, symbol=symbol, payload_key="wallet_shadowing", payload=payload)
+    return _wrap(
+        598,
+        symbol=symbol,
+        payload_key="reserved_slot_598",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap599(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — onchain_tracker.build_onchain_context_safe (v6 real logic)."""
-    from onchain_tracker import build_onchain_context_safe
-    _raw = build_onchain_context_safe()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "onchain_tracker.build_onchain_context_safe",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(599, symbol=symbol, payload_key="entity_tagging_system", payload=payload)
+    return _wrap(
+        599,
+        symbol=symbol,
+        payload_key="reserved_slot_599",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 async def _cap600(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — whale_tracker.get_latest_whale_alerts (v6 real logic)."""
-    from whale_tracker import get_latest_whale_alerts
-    _limit = int(params.get("limit") or 50)
-    _raw = get_latest_whale_alerts(limit=_limit)
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "whale_tracker.get_latest_whale_alerts",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "capability_keyword",
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
     }
-    return _wrap(600, symbol=symbol, payload_key="whale_clustering_engine", payload=payload)
+    return _wrap(
+        600,
+        symbol=symbol,
+        payload_key="reserved_slot_600",
+        payload=payload,
+        extra={
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        },
+    )
 
 _DISPATCH: dict[int, Callable[..., Awaitable[dict[str, Any]]]] = {
     551: _cap551,
