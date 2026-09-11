@@ -57,6 +57,9 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
     if style == "assets":
         return await fn(assets=[symbol], min_samples=1)
     if style == "books":
+        sig = inspect.signature(fn)
+        if len(sig.parameters) == 0:
+            return fn() if not inspect.iscoroutinefunction(fn) else await fn()
         from live_book_hub import get_live_books_if_fresh
 
         live = get_live_books_if_fresh()

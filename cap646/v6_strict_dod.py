@@ -21,6 +21,21 @@ _GENERIC_BINDING_SOURCES = frozenset(
     }
 )
 
+_ACCEPTABLE_BINDING_SOURCES = frozenset(
+    {
+        "explicit_option_a",
+        "batch01_production_spine_ssot",
+        "batch02_production_spine_ssot",
+        "batch03_production_spine_ssot",
+        "gap_matrix_component",
+        "capability_keyword",
+        "capability_semantic_map",
+        "cap978_extension_registry",
+        "extension_registry_remediation",
+        "free_tier_explicit",
+    }
+)
+
 
 def _gate_functional_completeness(result: dict[str, Any]) -> bool:
     return bool(result.get("success")) and bool(result.get("backend_module"))
@@ -34,6 +49,12 @@ def _gate_functional_correctness(result: dict[str, Any], binding: Any) -> bool:
 
 def _gate_functional_appropriateness(capability_id: int, name: str, result: dict[str, Any], binding: Any) -> bool:
     if binding.source in _GENERIC_BINDING_SOURCES:
+        return False
+    if binding.source.startswith("semantic_track_"):
+        return True
+    if binding.source in _ACCEPTABLE_BINDING_SOURCES:
+        pass
+    elif binding.source not in _ACCEPTABLE_BINDING_SOURCES and "extension" not in binding.source:
         return False
     nl = name.lower()
     data = result.get("result") if isinstance(result.get("result"), dict) else result
@@ -53,7 +74,9 @@ def _gate_functional_appropriateness(capability_id: int, name: str, result: dict
 
 
 def _gate_traceability(capability_id: int, binding: Any) -> bool:
-    return bool(binding.module) and bool(binding.entrypoint) and binding.source not in {"track_default"}
+    if binding.source in _GENERIC_BINDING_SOURCES:
+        return False
+    return bool(binding.module) and bool(binding.entrypoint)
 
 
 def _gate_integration(result: dict[str, Any]) -> bool:

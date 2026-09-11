@@ -101,7 +101,7 @@ async def verify_functional(
     )
 
     binding_source = result.get("binding_source") or ""
-    if binding_source in {"batch_range_production_spine", "track_default"}:
+    if binding_source in {"batch_range_production_spine", "track_default"} and not binding_source.startswith("semantic_track_"):
         return {
             "id": capability_id,
             "capability": name,

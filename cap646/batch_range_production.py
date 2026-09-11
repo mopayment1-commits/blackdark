@@ -1,82 +1,80 @@
-"""Production spine for official batches 04–17 (IDs 151–826)."""
+"""Production spine for capabilities 151–826 — 25-cap institutional batches (batch07+)."""
 
 from __future__ import annotations
 
+import importlib
 from typing import Any, Awaitable, Callable
 
-OFFICIAL_BATCH04_IDS: frozenset[int] = frozenset(range(151, 201))
-OFFICIAL_BATCH05_IDS: frozenset[int] = frozenset(range(201, 251))
-OFFICIAL_BATCH06_IDS: frozenset[int] = frozenset(range(251, 301))
-OFFICIAL_BATCH07_IDS: frozenset[int] = frozenset(range(301, 351))
-OFFICIAL_BATCH08_IDS: frozenset[int] = frozenset(range(351, 401))
-OFFICIAL_BATCH09_IDS: frozenset[int] = frozenset(range(401, 451))
-OFFICIAL_BATCH10_IDS: frozenset[int] = frozenset(range(451, 501))
-OFFICIAL_BATCH11_IDS: frozenset[int] = frozenset(range(501, 551))
-OFFICIAL_BATCH12_IDS: frozenset[int] = frozenset(range(551, 601))
-OFFICIAL_BATCH13_IDS: frozenset[int] = frozenset(range(601, 651))
-OFFICIAL_BATCH14_IDS: frozenset[int] = frozenset(range(651, 701))
-OFFICIAL_BATCH15_IDS: frozenset[int] = frozenset(range(701, 751))
-OFFICIAL_BATCH16_IDS: frozenset[int] = frozenset(range(751, 801))
-OFFICIAL_BATCH17_IDS: frozenset[int] = frozenset(range(801, 827))
-
-BATCH_RANGE_IDS: frozenset[int] = (
-    OFFICIAL_BATCH04_IDS
-    | OFFICIAL_BATCH05_IDS
-    | OFFICIAL_BATCH06_IDS
-    | OFFICIAL_BATCH07_IDS
-    | OFFICIAL_BATCH08_IDS
-    | OFFICIAL_BATCH09_IDS
-    | OFFICIAL_BATCH10_IDS
-    | OFFICIAL_BATCH11_IDS
-    | OFFICIAL_BATCH12_IDS
-    | OFFICIAL_BATCH13_IDS
-    | OFFICIAL_BATCH14_IDS
-    | OFFICIAL_BATCH15_IDS
-    | OFFICIAL_BATCH16_IDS
-    | OFFICIAL_BATCH17_IDS
+from cap646.batch_constants import (
+    BATCH_RANGE_IDS,
+    CAPABILITIES_PER_BATCH,
+    DEDICATED_RANGE_START,
+    batch_number,
+    official_batch_name,
+    total_batch_count,
 )
-
-
-def official_batch_name(capability_id: int) -> str:
-    return f"batch{(capability_id - 1) // 50 + 1:02d}"
 
 
 def batch_range_entrypoint(capability_id: int) -> str:
     return f"cap_{capability_id:03d}"
 
 
-def _stamp(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
+def _stamp(result: dict[str, Any], capability_id: int, *, dedicated: bool = False) -> dict[str, Any]:
     batch = official_batch_name(capability_id)
-    # Preserve semantic binding from execute_binding — do not mask with generic spine (v6 §2.1.3)
     result.setdefault("production_spine", batch)
     result.setdefault("official_batch", batch)
+    result.setdefault("capabilities_per_batch", CAPABILITIES_PER_BATCH)
+    if dedicated:
+        result["backend_module"] = "cap646.batch_range_production"
+        result["backend_entrypoint"] = batch_range_entrypoint(capability_id)
+        result["binding_source"] = "explicit_option_a"
     return result
+
+
+def _dedicated_module(batch_num: int):
+    if batch_num < batch_number(DEDICATED_RANGE_START):
+        return None
+    mod_name = f"cap646.batch{batch_num:02d}_dedicated"
+    try:
+        return importlib.import_module(mod_name)
+    except ImportError:
+        return None
 
 
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
     if capability_id not in BATCH_RANGE_IDS:
-        raise ValueError(f"capability {capability_id} is not in batch04–17 production spine")
+        raise ValueError(f"capability {capability_id} is not in batch07+ production spine (151–826)")
 
     from cap646.catalog import catalog_by_id
 
     params = dict(params or {})
     row = catalog_by_id()[capability_id]
 
-    if capability_id >= 647:
-        from cap978.verify import execute_extension
+    batch_num = batch_number(capability_id)
+    dedicated_mod = _dedicated_module(batch_num)
+    if dedicated_mod is not None:
+        dedicated_ids = getattr(dedicated_mod, f"BATCH{batch_num:02d}_DEDICATED_IDS", frozenset())
+        if capability_id in dedicated_ids:
+            result = await dedicated_mod.execute(capability_id, params=params)
+            result.setdefault("capability", row["capability"])
+            result.setdefault("track", row["track"])
+            return _stamp(result, capability_id, dedicated=True)
 
-        result = await execute_extension(capability_id, params=params)
-        if result.get("success"):
-            return _stamp(result, capability_id)
+    from cap646.batch01_production import LEGACY_BATCH01_EXTENSION_IDS
+
+    if capability_id in LEGACY_BATCH01_EXTENSION_IDS:
+        from cap646.batch01_production import execute as batch01_execute
+
+        result = await batch01_execute(capability_id, params=params)
+        result.setdefault("capability", row["capability"])
+        result.setdefault("track", row["track"])
+        return _stamp(result, capability_id)
 
     from cap646.backend_executor import execute_binding
 
     result = await execute_binding(capability_id, params=params)
-
-    # v6: keyword_fallback rescue is NOT PASS_ENGINEERING — do not mask failures
     if not result.get("success"):
         result.setdefault("error", "binding_execution_failed")
-
     result.setdefault("capability", row["capability"])
     result.setdefault("track", row["track"])
     return _stamp(result, capability_id)

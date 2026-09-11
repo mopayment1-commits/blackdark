@@ -13,6 +13,12 @@ from cap646.catalog import catalog_by_id, matrix_by_id
 
 _GENERIC_SURFACES = frozenset({"platform_codepath", "generic", "unknown"})
 
+# F0 data-truth spine — gap-matrix component probes are insufficient for dedicated wrappers (v6 §2.1.3).
+_F0_DATA_SPINE_SEMANTIC: dict[int, tuple[str, str, str, str]] = {
+    630: ("cap646.data_spine", "freshness_assurance_report", "symbol", "f0_data_spine"),
+    631: ("cap646.data_spine", "ingestion_architecture_report", "none", "f0_data_spine"),
+}
+
 
 @dataclass(frozen=True)
 class BackendBinding:
@@ -135,6 +141,38 @@ def _register_batch03_bindings() -> None:
 
 
 _register_batch03_bindings()
+
+
+def _register_batch_range_dedicated_bindings() -> None:
+    """Register explicit_option_a for batch07+ dedicated modules (v6 §2.1, 25-cap batches)."""
+    import importlib
+
+    from cap646.batch_constants import DEDICATED_RANGE_START, batch_number
+    from cap646.batch_range_production import BATCH_RANGE_IDS, batch_range_entrypoint
+
+    dedicated_start_batch = batch_number(DEDICATED_RANGE_START)
+    for cid in BATCH_RANGE_IDS:
+        batch_num = batch_number(cid)
+        if batch_num < dedicated_start_batch:
+            continue
+        mod_name = f"cap646.batch{batch_num:02d}_dedicated"
+        try:
+            mod = importlib.import_module(mod_name)
+        except ImportError:
+            continue
+        dedicated_ids = getattr(mod, f"BATCH{batch_num:02d}_DEDICATED_IDS", frozenset())
+        if cid not in dedicated_ids:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch_range_production",
+            batch_range_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
 
 
 # Map gap-matrix component stems → canonical import path + entrypoint
@@ -350,6 +388,11 @@ def _semantic_binding_for(capability_id: int) -> BackendBinding:
     track = row["track"]
     surface = _slug(name)
 
+    f0 = _F0_DATA_SPINE_SEMANTIC.get(capability_id)
+    if f0:
+        mod, ep, ps, src = f0
+        return BackendBinding(capability_id, mod, ep, surface, ps, src)
+
     override = _load_semantic_map().get(capability_id)
     if override:
         return BackendBinding(
@@ -375,23 +418,72 @@ def _semantic_binding_for(capability_id: int) -> BackendBinding:
     return BackendBinding(capability_id, mod, ep, surface, ps, f"semantic_track_{track}")
 
 
+_SEMANTIC_BACKEND_BINDINGS: dict[int, BackendBinding] = {}
+
+
 def _register_batch_range_bindings() -> None:
     from cap646.batch_range_production import BATCH_RANGE_IDS
 
     skip = frozenset({55, 56, 59, 60, 103, 129})
     for cid in BATCH_RANGE_IDS:
-        if cid in skip or cid in _EXPLICIT_BINDINGS:
+        if cid in skip:
             continue
         if not catalog_by_id().get(cid):
+            continue
+        _SEMANTIC_BACKEND_BINDINGS[cid] = _semantic_binding_for(cid)
+        if cid in _EXPLICIT_BINDINGS:
             continue
         _EXPLICIT_BINDINGS[cid] = _semantic_binding_for(cid)
 
 
+def _register_batch01_legacy_extension_bindings() -> None:
+    from cap646.batch01_production import LEGACY_BATCH01_EXTENSION_IDS, batch01_entrypoint
+    from cap646.batch_constants import DEDICATED_RANGE_START
+
+    for cid in LEGACY_BATCH01_EXTENSION_IDS:
+        if cid >= DEDICATED_RANGE_START:
+            continue
+        row = catalog_by_id().get(cid, {})
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch01_production",
+            batch01_entrypoint(cid),
+            surface,
+            "symbol",
+            "explicit_option_a",
+        )
+
+
 _register_batch_range_bindings()
+_register_batch_range_dedicated_bindings()
+_register_batch01_legacy_extension_bindings()
+
+
+@lru_cache(maxsize=978)
+def resolve_semantic_backend_binding(capability_id: int) -> BackendBinding:
+    """Underlying semantic module binding — used by dedicated wrappers only."""
+    f0 = _F0_DATA_SPINE_SEMANTIC.get(capability_id)
+    if f0:
+        mod, ep, ps, src = f0
+        row = catalog_by_id().get(capability_id, {})
+        surface = _slug(row.get("capability", f"cap_{capability_id}"))
+        return BackendBinding(capability_id, mod, ep, surface, ps, src)
+    if capability_id in _SEMANTIC_BACKEND_BINDINGS:
+        return _SEMANTIC_BACKEND_BINDINGS[capability_id]
+    if 647 <= capability_id <= 826:
+        from cap978.extension_registry import resolve_extension_binding
+
+        return resolve_extension_binding(capability_id)
+    return resolve_binding(capability_id)
 
 
 @lru_cache(maxsize=978)
 def resolve_binding(capability_id: int) -> BackendBinding:
+    explicit = _EXPLICIT_BINDINGS.get(capability_id)
+    if explicit is not None and explicit.source == "explicit_option_a":
+        return explicit
+
     from cap646.extension_capabilities import is_extension_id
 
     if is_extension_id(capability_id):
@@ -423,7 +515,6 @@ def resolve_binding(capability_id: int) -> BackendBinding:
         except Exception:
             pass
 
-    explicit = _EXPLICIT_BINDINGS.get(capability_id)
     if explicit is not None:
         return explicit
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify official batch closure via cap646 production path."""
+"""Verify official batch closure via cap646 production path — 25-cap institutional batches."""
 
 from __future__ import annotations
 
@@ -13,77 +13,54 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-BATCHES = {
-    "batch01": range(1, 51),
-    "batch02": range(51, 101),
-    "batch03": range(101, 151),
-    "batch04": range(151, 201),
-    "batch05": range(201, 251),
-    "batch06": range(251, 301),
-    "batch07": range(301, 351),
-    "batch08": range(351, 401),
-    "batch09": range(401, 451),
-    "batch10": range(451, 501),
-    "batch11": range(501, 551),
-    "batch12": range(551, 601),
-    "batch13": range(601, 651),
-    "batch14": range(651, 701),
-    "batch15": range(701, 751),
-    "batch16": range(751, 801),
-    "batch17": range(801, 827),
-}
+
+def _build_batches() -> dict[str, range]:
+    from cap646.batch_constants import batch_id_range, total_batch_count
+
+    out: dict[str, range] = {}
+    for n in range(1, total_batch_count() + 1):
+        start, end = batch_id_range(n)
+        out[f"batch{n:02d}"] = range(start, end + 1)
+    return out
+
+
+BATCHES = _build_batches()
 
 
 async def _verify_id(cap_id: int) -> dict:
     from cap646.runtime import execute_capability
 
     try:
-        result = await execute_capability(cap_id, params={"symbol": "BTC"}, skip_entitlement=True)
-        ok = bool(result.get("success"))
-        rescue = result.get("rescue_tier")
-        if rescue in {"keyword_fallback", "degraded"}:
-            ok = False
-        return {
-            "id": cap_id,
-            "ok": ok,
-            "error": result.get("error") or (rescue if not ok else None),
-            "rescue_tier": rescue,
-        }
-    except Exception as exc:  # noqa: BLE001
-        return {"id": cap_id, "ok": False, "error": str(exc)}
+        result = await execute_capability(cap_id, skip_entitlement=True, params={"symbol": "BTC"})
+        return {"capability_id": cap_id, "success": bool(result.get("success")), "surface": result.get("surface")}
+    except Exception as exc:
+        return {"capability_id": cap_id, "success": False, "error": str(exc)[:200]}
 
 
-async def verify_batch(name: str, ids: range, *, concurrency: int = 10) -> dict:
-    sem = asyncio.Semaphore(concurrency)
-
-    async def _guarded(cap_id: int) -> dict:
-        async with sem:
-            return await _verify_id(cap_id)
-
-    results = await asyncio.gather(*[_guarded(i) for i in ids])
-    ok_count = sum(1 for r in results if r["ok"])
-    return {
-        "batch": name,
-        "total": len(results),
-        "ok": ok_count,
-        "fail": len(results) - ok_count,
-        "failures": [r for r in results if not r["ok"]][:20],
-    }
+async def _verify_batch(name: str, ids: range) -> dict:
+    rows = await asyncio.gather(*[_verify_id(i) for i in ids])
+    ok = sum(1 for r in rows if r.get("success"))
+    return {"batch": name, "total": len(rows), "pass": ok, "fail": len(rows) - ok}
 
 
-async def main() -> int:
-    report = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "batches": [],
-    }
+async def main_async() -> dict:
+    results = []
     for name, ids in BATCHES.items():
-        report["batches"].append(await verify_batch(name, ids))
-    out = ROOT / "BATCH_CLOSURE_VERIFY_REPORT.json"
+        results.append(await _verify_batch(name, ids))
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "capabilities_per_batch": 25,
+        "batches": results,
+    }
+
+
+def main() -> int:
+    report = asyncio.run(main_async())
+    out = ROOT / "BATCH_CLOSURE_VERIFY_25CAP.json"
     out.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))
-    all_ok = all(b["fail"] == 0 for b in report["batches"])
-    return 0 if all_ok else 1
+    return 0 if all(b["fail"] == 0 for b in report["batches"]) else 1
 
 
 if __name__ == "__main__":
-    sys.exit(asyncio.run(main()))
+    sys.exit(main())

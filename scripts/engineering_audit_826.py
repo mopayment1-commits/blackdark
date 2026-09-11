@@ -99,7 +99,9 @@ def _batch_summary(rows: list[dict]) -> dict:
     batches: dict[str, dict] = {}
     for row in rows:
         cid = row["capability_id"]
-        batch = f"batch{(cid - 1) // 50 + 1:02d}"
+        from cap646.batch_constants import official_batch_name
+
+        batch = official_batch_name(cid)
         b = batches.setdefault(batch, {"type_a": 0, "pass_engineering": 0, "total": 0})
         b["total"] += 1
         if row.get("gap_type", "").startswith("A"):

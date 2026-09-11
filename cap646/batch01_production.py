@@ -54,10 +54,14 @@ def batch01_entrypoint(capability_id: int) -> str:
 
 
 def _stamp_batch01(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
+    from cap646.batch_constants import CAPABILITIES_PER_BATCH, official_batch_name
+
     result["backend_module"] = "cap646.batch01_production"
     result["backend_entrypoint"] = batch01_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
-    result["production_spine"] = "batch01"
+    result["production_spine"] = official_batch_name(capability_id)
+    result["official_batch"] = official_batch_name(capability_id)
+    result["capabilities_per_batch"] = CAPABILITIES_PER_BATCH
     return result
 
 

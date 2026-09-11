@@ -41,7 +41,9 @@ EXECUTOR = {
 
 
 def _official_batch(cap_id: int) -> str:
-    return f"batch{(cap_id - 1) // 50 + 1:02d}"
+    from cap646.batch_constants import official_batch_name
+
+    return official_batch_name(cap_id)
 
 
 def _phase_for(cap_id: int, inv_status: str, master_status: str) -> tuple[str, str]:
@@ -75,8 +77,9 @@ def _batch_closure_verified_ids() -> frozenset[int]:
             name = str(batch.get("batch") or "")
             if name.startswith("batch") and name[5:].isdigit():
                 n = int(name[5:])
-                start = (n - 1) * 50 + 1
-                end = min(start + 49, 826) if n < 17 else 826
+                from cap646.batch_constants import batch_id_range
+
+                start, end = batch_id_range(n)
                 verified.update(range(start, end + 1))
     return frozenset(verified)
 

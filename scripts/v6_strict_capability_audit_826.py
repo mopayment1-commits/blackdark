@@ -44,7 +44,9 @@ async def _audit_all(concurrency: int = 2) -> list[dict]:
 
 
 def _batch_name(cid: int) -> str:
-    return f"batch{(cid - 1) // 50 + 1:02d}"
+    from cap646.batch_constants import official_batch_name
+
+    return official_batch_name(cid)
 
 
 def _write_markdown(rows: list[dict], summary: dict) -> None:
