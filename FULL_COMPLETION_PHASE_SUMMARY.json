@@ -1,22 +1,23 @@
 {
-  "generated_at": "2026-09-11T13:05:36.522276+00:00",
+  "generated_at": "2026-09-11T13:54:25.637385+00:00",
   "batch_closure_verified_count": 826,
-  "done": 826,
-  "remaining": 0,
-  "automatable_remaining": 0,
-  "human_team_remaining": 0,
+  "done": 108,
+  "remaining": 718,
+  "automatable_remaining": 673,
+  "human_team_remaining": 45,
   "phase_counts": {
     "P0_TRUTH_BASELINE": 0,
-    "P1_DEDUPLICATION": 0,
-    "P2_SPLIT_BRAIN": 0,
+    "P1_DEDUPLICATION": 49,
+    "P2_SPLIT_BRAIN": 21,
     "P3_GOVERNANCE_PACKAGES": 0,
-    "P4_BATCH_CLOSURE": 0,
+    "P4_BATCH_CLOSURE": 648,
     "P5_UI_E2E": 0,
     "P6_PRODUCTION_HARDENING": 0,
     "P7_EXTERNAL_ASSURANCE": 0,
-    "DONE": 826
+    "DONE": 108
   },
   "executor_counts": {
-    "AI_AGENT": 826
+    "AI_AGENT": 781,
+    "ENGINEERING_TEAM": 45
   }
 }

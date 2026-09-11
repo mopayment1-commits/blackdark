@@ -154,17 +154,19 @@ async def execute_capability(
             handle_batch03_capability, capability_id, row=row, params=params
         )
 
-    if capability_id in BATCH_RANGE_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch_range_capability, capability_id, row=row, params=params
-        )
-
     if is_duplicate(capability_id) and target_id != capability_id:
-        canonical = await execute_capability(target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement)
+        canonical = await execute_capability(
+            target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement
+        )
         canonical["duplicate_of"] = target_id
         canonical["requested_capability_id"] = capability_id
         canonical["classification"] = "DUPLICATE/ALREADY_COVERED"
         return canonical
+
+    if capability_id in BATCH_RANGE_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch_range_capability, capability_id, row=row, params=params
+        )
 
     # Batch spine is reached only via direct BATCH0x_IDS (L112-125) or duplicate
     # recursion (L128-133). No further target_id batch delegation exists in catalog.

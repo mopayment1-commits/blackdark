@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-09-11T13:54:26.675221+00:00",
+  "program": "PRE_LAUNCH_INSTITUTIONAL_COMPLETION",
+  "pre_launch_ready": false,
+  "railway_deploy_allowed": false,
+  "PASS_LIVE_NOT_CLAIMED": true,
+  "gates": {
+    "G1_TRUTH_BASELINE": {
+      "status": "PARTIAL",
+      "production_aligned": 114,
+      "pending_inventory": 662,
+      "mock_or_stub_master": 307,
+      "implemented_master": 110
+    },
+    "G2_DEDUPLICATION": {
+      "status": "PARTIAL",
+      "note": "duplicate routing fixed; REUSED-LINK taxonomy open"
+    },
+    "G3_SPLIT_BRAIN": {
+      "status": "PARTIAL",
+      "note": "pdf→cap646 delegation for 58 IDs; manifest not fully cleared"
+    },
+    "G4_GOVERNANCE_FULL": {
+      "status": "PARTIAL",
+      "dts": {
+        "domain": "DTS",
+        "bgs": "BGS-009",
+        "total": 60,
+        "counts": {
+          "IMPLEMENTED": 12,
+          "PARTIAL": 18,
+          "SPEC_ONLY": 30
+        },
+        "PASS_ENGINEERING_DTS": false,
+        "PASS_ENGINEERING_DTS_honest": true,
+        "methodology_version": "dts-spine-1.0"
+      },
+      "dat": {
+        "domain": "DAT",
+        "bgs": "BGS-010",
+        "total": 18,
+        "counts": {
+          "IMPLEMENTED": 5,
+          "PARTIAL": 13,
+          "SPEC_ONLY": 0
+        },
+        "PASS_ENGINEERING_DATA": false,
+        "PASS_ENGINEERING_DATA_honest": true
+      },
+      "restore": {
+        "domain": "RESTORE",
+        "total": 10,
+        "ok": 10,
+        "PASS_ENGINEERING_RESTORE": true
+      }
+    },
+    "G5_BATCH_CLOSURE": {
+      "status": "PASS",
+      "batch_verify_pass": true,
+      "capabilities_verified": 826,
+      "rescue_tier_rejected": true
+    },
+    "G6_UI_E2E": {
+      "status": "FAIL",
+      "note": "No Playwright/browser E2E for signup/pay/decision paths"
+    },
+    "G7_CI_GREEN": {
+      "status": "PASS"
+    },
+    "G8_PRODUCTION_INFRA": {
+      "status": "PARTIAL",
+      "postgresql_configured": false,
+      "railway_ready": false
+    },
+    "G9_EXTERNAL_ASSURANCE": {
+      "status": "FAIL",
+      "note": "Pentest/SOC2/vendor licenses — owner/external"
+    },
+    "G10_LAUNCH_PACK": {
+      "status": "PARTIAL",
+      "note": "Data room partial; discovery freeze not reconciled"
+    }
+  },
+  "honest_summary": {
+    "runtime_batch_closure": "826/826",
+    "inventory_production_aligned": "114/826",
+    "master_implemented": "110/826",
+    "dts_implemented": 12,
+    "dat_implemented": 5,
+    "restore_ok": 10
+  }
+}

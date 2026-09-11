@@ -40,7 +40,15 @@ async def _verify_id(cap_id: int) -> dict:
     try:
         result = await execute_capability(cap_id, params={"symbol": "BTC"}, skip_entitlement=True)
         ok = bool(result.get("success"))
-        return {"id": cap_id, "ok": ok, "error": result.get("error")}
+        rescue = result.get("rescue_tier")
+        if rescue in {"keyword_fallback", "degraded"}:
+            ok = False
+        return {
+            "id": cap_id,
+            "ok": ok,
+            "error": result.get("error") or (rescue if not ok else None),
+            "rescue_tier": rescue,
+        }
     except Exception as exc:  # noqa: BLE001
         return {"id": cap_id, "ok": False, "error": str(exc)}
 

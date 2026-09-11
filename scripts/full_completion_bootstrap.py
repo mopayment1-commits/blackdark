@@ -110,8 +110,13 @@ def main() -> int:
         batch_ok = cap_id in batch_verified
         dedup_resolved = batch_ok and phase == "P1_DEDUPLICATION"
         split_resolved = batch_ok and phase == "P2_SPLIT_BRAIN"
-        if batch_ok and phase not in {"DONE", "P7_EXTERNAL_ASSURANCE"}:
+        production_aligned = inv_status == "PRODUCTION-ALIGNED" and master_status == "IMPLEMENTED"
+        runtime_verified = batch_ok and production_aligned
+        if runtime_verified and phase not in {"P7_EXTERNAL_ASSURANCE"}:
             phase = "DONE"
+            executor = "AI_AGENT"
+        elif batch_ok and phase == "P4_BATCH_CLOSURE":
+            phase = "P4_BATCH_CLOSURE"
             executor = "AI_AGENT"
         phase_counts[phase] = phase_counts.get(phase, 0) + 1
         executor_counts[executor] = executor_counts.get(executor, 0) + 1
@@ -128,6 +133,8 @@ def main() -> int:
                 "target_state": "PRODUCTION_ALIGNED_VERIFIED",
                 "completion_pct": 100 if phase == "DONE" else 0,
                 "batch_closure_verified": batch_ok,
+                "production_aligned": production_aligned,
+                "runtime_verified_done": runtime_verified,
                 "dedup_resolved": dedup_resolved,
                 "split_brain_resolved": split_resolved,
             }
