@@ -1,6 +1,6 @@
 {
   "remediation": {
-    "generated_at": "2026-09-11T07:55:41.898227+00:00",
+    "generated_at": "2026-09-11T08:07:20.108558+00:00",
     "conceptual_unsound_remediation": {
       "52": {
         "path": "A",
@@ -11,7 +11,7 @@
           "ok": true,
           "capability_id": 565,
           "symbol": "BTC",
-          "timestamp": "2026-09-11T07:55:41.899169+00:00",
+          "timestamp": "2026-09-11T08:07:20.109484+00:00",
           "disclaimer": "Analysis only \u2014 not financial advice, guarantee, or execution.",
           "analysis_only": true,
           "no_execution": true,
@@ -29,10 +29,10 @@
         "success": true,
         "payload_sample": {
           "btc_symbol": "BTC",
-          "btc_change_24h_pct": -1.175,
-          "macro_regime": "Risk-On",
-          "dxy_score": -0.332,
-          "spx_score": 0.3612,
+          "btc_change_24h_pct": -1.188,
+          "macro_regime": "Neutral",
+          "dxy_score": 0.0235,
+          "spx_score": -0.0283,
           "coupling_coefficient": null,
           "coupling_window_days": 30,
           "coupling_samples": 0,
@@ -138,58 +138,12 @@
       }
     },
     "cross_spine_scan": {
-      "scan_at": "2026-09-11T07:55:49.893878+00:00",
+      "scan_at": "2026-09-11T08:07:28.165251+00:00",
       "rule": "CROSS-SPINE-001",
-      "total_overlapping_ids": 2,
-      "overlaps": [
-        {
-          "id": 103,
-          "lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ],
-          "all_lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ]
-        },
-        {
-          "id": 129,
-          "lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ],
-          "all_lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ]
-        }
-      ],
+      "total_overlapping_ids": 0,
+      "overlaps": [],
       "batch01_batch02": [],
-      "batch01_batch03": [
-        {
-          "id": 103,
-          "lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ],
-          "all_lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ]
-        },
-        {
-          "id": 129,
-          "lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ],
-          "all_lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ]
-        }
-      ],
+      "batch01_batch03": [],
       "batch02_batch03": [],
       "literal_definitions": {
         "OFFICIAL_BATCH01_IDS": [
@@ -245,8 +199,6 @@
           50
         ],
         "LEGACY_BATCH01_EXTENSION_IDS": [
-          103,
-          129,
           175,
           214,
           245,
@@ -309,8 +261,6 @@
           48,
           49,
           50,
-          103,
-          129,
           175,
           214,
           245,
@@ -438,30 +388,7 @@
         59,
         60
       ],
-      "remaining_findings_outside_batch02": [
-        {
-          "id": 103,
-          "lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ],
-          "all_lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ]
-        },
-        {
-          "id": 129,
-          "lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ],
-          "all_lists": [
-            "BATCH01_IDS",
-            "BATCH03_IDS"
-          ]
-        }
-      ]
+      "remaining_findings_outside_batch02": []
     }
   },
   "audit_counts": {

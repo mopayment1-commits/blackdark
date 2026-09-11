@@ -53,6 +53,7 @@
 | B01-CLOSE-005 | W22 | Batch 01 final closure Run 005 (IDs 8/9/33 + RTM replace) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
 | B02-RUN-006 | W22 | Batch 02 initial independent nine-phase audit (IDs 51–100) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_INDEPENDENT_NINE_PHASE_REPORT.md |
 | B02-CLOSE-007 | W22 | Batch 02 final closure Run 007 (IDs 52/53/54/81 + cross-spine + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_FINAL_CLOSURE_REPORT.md |
+| B03-XSPINE-008 | W22 | Cross-spine resolution Run 008 (IDs 103/129 pre-Batch03) | E1 | VERIFIED PASS | 2/2 | EXECUTED | RUN008_CROSS_SPINE_103_129_RESOLUTION.md |
 
 ## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
 
@@ -77,4 +78,4 @@ Any `capability_id` that appears in **more than one** `BATCH0X_IDS` routing set 
 
 **Runtime order today:** `BATCH01_IDS` → `BATCH02_IDS` → `BATCH03_IDS` (first match wins).
 
-**Known post-Run-007 finding (outside Batch 02 scope):** IDs **103, 129** appear in both `BATCH01_IDS` (legacy extension) and `BATCH03_IDS` — routed batch01 at runtime until remediated in a future batch closure run.
+**Known post-Run-007 finding (outside Batch 02 scope):** IDs **103, 129** appeared in both `BATCH01_IDS` (legacy extension) and `BATCH03_IDS` — **resolved Run 008** (removed from `LEGACY_BATCH01_EXTENSION_IDS`; pending dedicated handlers in Batch03 audit).
