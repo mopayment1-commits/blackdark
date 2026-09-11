@@ -1201,11 +1201,53 @@ async def _cap030_evidence_confidence(*, symbol: str, address: str, params: dict
 
 async def _cap034_beginner_decision_mode(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.retail_intelligence_layer import build_one_clear_answer_63
+    from market_context import fetch_binance_ticker
+    from onchain_tracker import build_onchain_context_safe
+
+    ticker = await fetch_binance_ticker(f"{symbol}USDT")
+    change = float((ticker or {}).get("change_24h") or 0)
+    ctx = await build_onchain_context_safe()
+    asset_ctx = (ctx.get("onchain_by_asset") or {}).get(symbol) or {}
+    netflow = float(asset_ctx.get("exchange_netflow_24h") or asset_ctx.get("netflow_24h") or 0)
+
+    reasons: list[dict[str, Any]] = []
+    if change >= 5.0:
+        verdict: str = "Opportunity"
+        risk_score = max(3.0, min(8.0, 8.0 - change * 0.25))
+        reasons.append({"point": f"24h price change +{change:.1f}%", "weight": 0.45, "rule_based": True})
+    elif change <= -5.0:
+        verdict = "Risk"
+        risk_score = min(9.0, max(5.5, 5.0 + abs(change) * 0.25))
+        reasons.append({"point": f"24h price change {change:.1f}%", "weight": 0.45, "rule_based": True})
+    else:
+        verdict = "Neutral"
+        risk_score = 5.0
+        reasons.append(
+            {
+                "point": f"24h price change {change:.1f}% within neutral band (-5%..+5%)",
+                "weight": 0.35,
+                "rule_based": True,
+            }
+        )
+
+    if netflow < -500:
+        reasons.append({"point": "Exchange net outflow detected", "weight": 0.3, "rule_based": True})
+        if verdict == "Neutral" and change >= 0:
+            verdict = "Opportunity"
+    elif netflow > 500:
+        reasons.append({"point": "Exchange net inflow detected", "weight": 0.3, "rule_based": True})
+        if verdict == "Opportunity":
+            verdict = "Neutral"
 
     answer = build_one_clear_answer_63(
-        verdict=str(params.get("verdict") or "Neutral"),  # type: ignore[arg-type]
-        reasons=[{"point": f"Simplified read for {symbol}", "weight": 1.0, "rule_based": True}],
-        risk_score=float(params.get("risk_score") or 5.0),
+        verdict=verdict,  # type: ignore[arg-type]
+        reasons=reasons[:3],
+        risk_score=risk_score,
+        raw_indicators={
+            "change_24h_pct": change,
+            "exchange_netflow_24h": netflow,
+            "analysis_method": "rule_based_price_netflow",
+        },
     )
     return ai_compliance_footer(
         {
@@ -1214,6 +1256,11 @@ async def _cap034_beginner_decision_mode(*, symbol: str, address: str, params: d
             "symbol": symbol,
             "beginner_mode": True,
             "clear_answer": answer,
+            "analysis_inputs": {
+                "change_24h_pct": change,
+                "exchange_netflow_24h": netflow,
+                "user_verdict_ignored": True,
+            },
             "success": True,
         }
     )
