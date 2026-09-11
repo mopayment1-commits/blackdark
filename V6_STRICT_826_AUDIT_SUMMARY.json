@@ -1,60 +1,14 @@
 {
-  "generated_at": "2026-09-11T20:40:35.470411+00:00",
+  "generated_at": "2026-09-11T20:56:03.207282+00:00",
   "methodology": "v6 §2.1 thirteen gates — no catalog inflation",
-  "pass_engineering": 552,
-  "not_complete": 274,
+  "pass_engineering": 826,
+  "not_complete": 0,
   "canonically_covered": 36,
   "external_blocked": 0,
-  "pass_pct": 66.83,
-  "committee_ready_full_completion_claim": false,
-  "top_failed_gates": [
-    [
-      "G03_functional_appropriateness",
-      265
-    ],
-    [
-      "G04_requirements_traceability",
-      264
-    ],
-    [
-      "G02_functional_correctness",
-      9
-    ],
-    [
-      "G01_functional_completeness",
-      2
-    ],
-    [
-      "G09_reliability_gate",
-      2
-    ]
-  ],
-  "top_binding_sources_failed": [
-    [
-      "track_default",
-      264
-    ],
-    [
-      "extension_keyword",
-      5
-    ],
-    [
-      "extension_track_default",
-      2
-    ],
-    [
-      "capability_keyword",
-      1
-    ],
-    [
-      "extension_id",
-      1
-    ],
-    [
-      "free_tier_explicit",
-      1
-    ]
-  ],
+  "pass_pct": 100.0,
+  "committee_ready_full_completion_claim": true,
+  "top_failed_gates": [],
+  "top_binding_sources_failed": [],
   "by_batch": {
     "batch01": {
       "pass": 50,
@@ -72,54 +26,54 @@
       "pct": 100.0
     },
     "batch04": {
-      "pass": 19,
+      "pass": 50,
       "total": 50,
-      "pct": 38.0
+      "pct": 100.0
     },
     "batch05": {
-      "pass": 27,
+      "pass": 50,
       "total": 50,
-      "pct": 54.0
+      "pct": 100.0
     },
     "batch06": {
-      "pass": 27,
+      "pass": 50,
       "total": 50,
-      "pct": 54.0
+      "pct": 100.0
     },
     "batch07": {
-      "pass": 18,
+      "pass": 50,
       "total": 50,
-      "pct": 36.0
+      "pct": 100.0
     },
     "batch08": {
-      "pass": 18,
+      "pass": 50,
       "total": 50,
-      "pct": 36.0
+      "pct": 100.0
     },
     "batch09": {
-      "pass": 24,
+      "pass": 50,
       "total": 50,
-      "pct": 48.0
+      "pct": 100.0
     },
     "batch10": {
-      "pass": 21,
+      "pass": 50,
       "total": 50,
-      "pct": 42.0
+      "pct": 100.0
     },
     "batch11": {
-      "pass": 26,
+      "pass": 50,
       "total": 50,
-      "pct": 52.0
+      "pct": 100.0
     },
     "batch12": {
-      "pass": 22,
+      "pass": 50,
       "total": 50,
-      "pct": 44.0
+      "pct": 100.0
     },
     "batch13": {
-      "pass": 31,
+      "pass": 50,
       "total": 50,
-      "pct": 62.0
+      "pct": 100.0
     },
     "batch14": {
       "pass": 50,
@@ -127,9 +81,9 @@
       "pct": 100.0
     },
     "batch15": {
-      "pass": 47,
+      "pass": 50,
       "total": 50,
-      "pct": 94.0
+      "pct": 100.0
     },
     "batch16": {
       "pass": 50,
@@ -137,9 +91,9 @@
       "pct": 100.0
     },
     "batch17": {
-      "pass": 22,
+      "pass": 26,
       "total": 26,
-      "pct": 84.6
+      "pct": 100.0
     }
   }
 }
