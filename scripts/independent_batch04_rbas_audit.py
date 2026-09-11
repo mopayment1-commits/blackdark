@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Independent Third-Line RBAS Due Diligence — Official Batch 04 (IDs 151–200).
-Master Contract Run 011 — RBAS-001 risk-based scoping with Tier1 full 9-phase / Tier2 abbreviated."""
+"""Independent Third-Line RBAS Due Diligence — Official Batch 04 (IDs 251–300).
+Master Contract Run 023 — RBAS-001 risk-based scoping with Tier1 full 9-phase / Tier2 abbreviated."""
 from __future__ import annotations
 
 import asyncio
@@ -19,28 +19,35 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.rbas001_scoping import (
     WF027_DORMANT_LEGACY_IDS,
-    batch04_tier_map,
-    classify_batch04_capability,
+    WF027_UNRESOLVED_LEGACY_IDS,
+    batch_tier_map,
 )
+
+def batch04_tier_map():
+    return batch_tier_map(4)
+
+
+WF027_IN_BATCH04 = WF027_UNRESOLVED_LEGACY_IDS & set(range(151, 201))
 
 OUT = ROOT / "institutional_due_diligence_2026" / "batch04_independent_audit"
 OUT.mkdir(parents=True, exist_ok=True)
 
 BATCH04_RANGE = range(151, 201)
-CROSS_SPINE_RESOLVED_IDS = frozenset({175})
-WF027_IN_BATCH04 = WF027_DORMANT_LEGACY_IDS & set(BATCH04_RANGE)
+BATCH_NUM = 4
+CROSS_SPINE_RESOLVED_IDS = frozenset()
 
-DECISION_CAP_IDS = {154, 155, 163, 164, 165, 166, 174}
-AI_CAP_IDS = {152, 154, 155, 163, 174}
-WALLET_CAP_IDS: frozenset[int] = frozenset({183, 184, 185, 186, 187, 188, 189, 190})
+DECISION_CAP_IDS: frozenset[int] = frozenset()
+from scripts.audit_standards_v6 import discover_ai_cap_ids
+AI_CAP_IDS = discover_ai_cap_ids(4)
+WALLET_CAP_IDS: frozenset[int] = frozenset()
 
 PHASE_STANDARD: dict[str, str] = {
-    "1": "SR 26-2 Independent Validation / Conceptual Soundness",
+    "1": "SR 26-2 Independent Validation / Conceptual Soundness + Phase 1 generic-delegate gate",
     "2": "GIPS (CFA Institute) — full-population performance disclosure",
-    "3": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile",
+    "3": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile + NIST SP 800-218A SSDF AI Profile",
     "4": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
     "5": "COSO Internal Control — Integrated Framework",
-    "6": "MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS",
+    "6": "OWASP ASVS 5.0.0 + MITRE CWE Top 25 + MITRE ATLAS",
     "7": "ISO/IEC 25010 + ISO/IEC/IEEE 12207 + ISO/IEC/IEEE 29148",
     "8": "Google SRE Production Readiness Review (PRR)",
     "9": "FATF Recommendation 16",
@@ -56,7 +63,7 @@ _routing_overlap_cache: dict[int, list[str]] | None = None
 COMMON_PARAMS = {
     "symbol": "BTC",
     "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-    "email": "run011-audit@blackdark.local",
+    "email": "run015-audit@blackdark.local",
     "tier": "pro",
 }
 
@@ -105,26 +112,8 @@ BATCH04_SPINES = frozenset({"batch04_prep", "batch04"})
 
 
 def routing_overlap_map() -> dict[int, list[str]]:
-    global _routing_overlap_cache
-    if _routing_overlap_cache is not None:
-        return _routing_overlap_cache
-    from cap646.batch01_production import BATCH01_IDS
-    from cap646.batch02_production import BATCH02_IDS
-    from cap646.batch03_production import BATCH03_IDS
-    from cap646.batch04_production import BATCH04_IDS
-
-    lists = {
-        "BATCH01_IDS": BATCH01_IDS,
-        "BATCH02_IDS": BATCH02_IDS,
-        "BATCH03_IDS": BATCH03_IDS,
-        "BATCH04_IDS": BATCH04_IDS,
-    }
-    id_to_lists: dict[int, list[str]] = {}
-    for name, id_set in lists.items():
-        for cid in id_set:
-            id_to_lists.setdefault(cid, []).append(name)
-    _routing_overlap_cache = {cid: names for cid, names in id_to_lists.items() if len(names) > 1}
-    return _routing_overlap_cache
+    from cap646.batch_registry import routing_overlap_map as _map
+    return _map()
 
 
 def gips_ledger_stats() -> dict[str, Any]:
@@ -205,7 +194,7 @@ def _normalize_parity_payload(obj: Any) -> Any:
 
 async def split_brain_test(cid: int) -> dict[str, Any]:
     from bd_platform.free_tier_capabilities import FREE_TIER_CAP_IDS, execute_free_tier_capability
-    from cap646.batch04_dedicated import BATCH04_DEDICATED_IDS, execute as execute_b4d
+    from cap646.batch04_dedicated import BATCH04_DEDICATED_IDS, execute as execute_b6d
 
     params = dict(COMMON_PARAMS)
     row: dict[str, Any] = {"id": cid}
@@ -221,7 +210,7 @@ async def split_brain_test(cid: int) -> dict[str, Any]:
 
     if cid in BATCH04_DEDICATED_IDS:
         try:
-            dedicated = await execute_b4d(cid, params=params)
+            dedicated = await execute_b6d(cid, params=params)
             row["batch04_dedicated_available"] = True
             row["dedicated_result"] = dedicated
         except Exception as exc:
@@ -279,7 +268,7 @@ async def load_split_brain() -> dict[int, dict]:
         return _split_cache
     rows = [await split_brain_test(cid) for cid in BATCH04_RANGE]
     _split_cache = {r["id"]: r for r in rows}
-    (OUT / "RUN011_SPLIT_BRAIN_EVIDENCE.json").write_text(
+    (OUT / "RUN015_SPLIT_BRAIN_EVIDENCE.json").write_text(
         json.dumps(rows, indent=2, ensure_ascii=False, default=str), encoding="utf-8"
     )
     return _split_cache
@@ -311,9 +300,11 @@ def cross_spine_preflight(cid: int) -> tuple[str, str | None]:
     if cid in overlaps:
         return "FAIL", f"CROSS-SPINE-001: routing overlap {overlaps[cid]}"
     if cid in CROSS_SPINE_RESOLVED_IDS:
-        return "PASS", "Run 011 cross-spine resolved — batch04 spine only"
-    if cid in WF027_DORMANT_LEGACY_IDS:
-        return "FAIL", f"WF-027 dormant legacy ID {cid} — mandatory CROSS-SPINE resolution before audit"
+        return "PASS", "Run 023 cross-spine resolved — batch04 spine only"
+    from scripts.rbas001_scoping import WF027_UNRESOLVED_LEGACY_IDS
+
+    if cid in WF027_UNRESOLVED_LEGACY_IDS:
+        return "FAIL", f"WF-027 unresolved legacy ID {cid} — mandatory CROSS-SPINE resolution before audit"
     return "PASS", None
 
 
@@ -352,6 +343,8 @@ def scan_hidden_decision_indicators(payload: dict[str, Any]) -> list[str]:
 
 
 def phase1_conceptual(cid: int, result: dict, *, split: dict) -> tuple[str, str | None]:
+    from scripts.audit_standards_v6 import phase1_generic_delegate_check
+
     pre, pre_note = cross_spine_preflight(cid)
     if pre == "FAIL":
         return "FAIL", pre_note
@@ -370,6 +363,9 @@ def phase1_conceptual(cid: int, result: dict, *, split: dict) -> tuple[str, str 
         return "FAIL", split.get("verdict")
     if st == "NO_DEDICATED_IMPLEMENTATION":
         return "FAIL", split.get("verdict")
+    gd_st, gd_note = phase1_generic_delegate_check(BATCH_NUM, cid)
+    if gd_st == "FAIL":
+        return "FAIL", gd_note
     return "PASS", pre_note
 
 
@@ -387,12 +383,21 @@ def phase2_gips(cid: int, result: dict) -> tuple[str, str | None]:
     return "PARTIAL", "production decisions present; GIPS recomputation pending"
 
 
-def phase3_ai(cid: int, result: dict) -> tuple[str, str | None]:
+def phase3_ai_legacy(cid: int, result: dict) -> tuple[str, str | None]:
     if cid not in AI_CAP_IDS:
         return "NOT_APPLICABLE", None
     if not (result.get("compliance_footer") or result.get("provenance") or result.get("certificate")):
         return "FAIL", "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
     return "PARTIAL", "ai_compliance_footer present; ISO 42001 lifecycle not verified"
+
+
+def phase3_ai(cid: int, result: dict) -> tuple[str, str | None]:
+    if cid not in AI_CAP_IDS:
+        return "NOT_APPLICABLE", None
+    from scripts.audit_standards_v6 import phase3_ai_rmf_plus_218a
+
+    st, note, _meta = phase3_ai_rmf_plus_218a(cid, result)
+    return st, note
 
 
 def phase4_data(cid: int, result: dict) -> tuple[str, str | None]:
@@ -424,7 +429,7 @@ def phase5_coso(cid: int, result: dict) -> tuple[str, str | None]:
     return "PARTIAL", "COSO: partial automated controls — evidence_class not on all fields"
 
 
-def phase6_security(cid: int, result: dict) -> tuple[str, str | None]:
+def phase6_security_legacy(cid: int, result: dict) -> tuple[str, str | None]:
     from cap646.ui_pages import user_surface_for
 
     surf = user_surface_for(cid)
@@ -446,6 +451,13 @@ def phase6_security(cid: int, result: dict) -> tuple[str, str | None]:
         return "PARTIAL", f"static route hits={hits[:2]}; live HTTP probe not executed (no bound server in audit VM)"
     except Exception as exc:
         return "PARTIAL", f"security scan error: {exc}"
+
+
+def phase6_security(cid: int, result: dict) -> tuple[str, str | None]:
+    from scripts.audit_standards_v6 import phase6_security_asvs50
+
+    st, note, _meta = phase6_security_asvs50(cid, result, batch_num=BATCH_NUM)
+    return st, note
 
 
 def phase7_iso(cid: int, result: dict) -> tuple[str, str | None]:
@@ -533,6 +545,8 @@ def final_status_tier1(
             return "NOT_COMPLETE", "1", note
         if "NO_DEDICATED" in note or split.get("result_type") == "NO_DEDICATED_IMPLEMENTATION":
             return "NOT_COMPLETE", "1", note
+        if "GENERIC_DELEGATE" in note:
+            return "NOT_COMPLETE", "1", note
         return "CONCEPTUALLY-UNSOUND", "1", note
     if phase_results["2"][0] == "FAIL":
         return "PERFORMANCE-UNVERIFIABLE", "2", phase_results["2"][1]
@@ -568,6 +582,8 @@ def final_status_tier2_abbreviated(
         if "CROSS_SPINE" in note or "CROSS_SPINE" in (split.get("verdict") or ""):
             return "NOT_COMPLETE", "1", note
         if "NO_DEDICATED" in note or split.get("result_type") == "NO_DEDICATED_IMPLEMENTATION":
+            return "NOT_COMPLETE", "1", note
+        if "GENERIC_DELEGATE" in note:
             return "NOT_COMPLETE", "1", note
         return "CONCEPTUALLY-UNSOUND", "1", note
     st = split.get("result_type")
@@ -607,7 +623,7 @@ def _build_evidence(
         evidence_parts.append(CONCEPTUAL_FLAGS[cid])
     if cid in CROSS_SPINE_RESOLVED_IDS:
         evidence_parts.append(
-            f"CROSS-SPINE-001 resolved Run011: spine={runtime.get('production_spine')} "
+            f"CROSS-SPINE-001 resolved Run015: spine={runtime.get('production_spine')} "
             f"module={runtime.get('backend_module')}"
         )
     evidence_parts.append(
@@ -754,7 +770,7 @@ def _impact_metrics(rows: list[dict]) -> dict[str, Any]:
         "tier2_efficiency_ratio": round(total_checks / full_baseline, 3) if full_baseline else 0,
         "conceptually_unsound_count": sum(1 for r in rows if r["status"] == "CONCEPTUALLY-UNSOUND"),
         "calibration_note": (
-            "Escalation excludes compliance_footer provenance_score paths (Run 011 calibration). "
+            "Escalation excludes compliance_footer provenance_score paths (Run 023 calibration). "
             "Tier2 abbreviated path did not yield CONCEPTUALLY-UNSOUND misses."
             if sum(1 for r in rows if r["status"] == "CONCEPTUALLY-UNSOUND") == 0
             else "RBAS-001 REQUIRES REVISION — Tier2 missed CONCEPTUALLY-UNSOUND."
@@ -773,9 +789,9 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
     tier2_count = sum(1 for r in tier_map.values() if r["rbas_tier"] == "TIER2")
 
     lines = [
-        "# Batch 04 Independent RBAS Due Diligence Report (IDs 151–200)\n",
+        "# Batch 04 Independent RBAS Due Diligence Report (IDs 251–300)\n",
         f"**Generated:** {datetime.now(UTC).isoformat()}  \n",
-        "**Run:** Master Contract 011 — RBAS-001 risk-based diagnostic audit  \n",
+        "**Run:** Master Contract 013 — RBAS-001 risk-based diagnostic audit  \n",
         "**Auditor role:** Third Line of Defense — Independent Assurance  \n",
         "**Policies:** RTM-IND-001 | SCORE-IDX-001 | CROSS-SPINE-001 | WF-027 | RBAS-001  \n\n",
         "## RBAS-001 Tier Classification (all 50 IDs)\n\n",
@@ -802,9 +818,9 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
             "## WF-027 / CROSS-SPINE Preflight\n\n",
             f"- **Routing overlaps (BATCH01∩BATCH02∩BATCH03∩BATCH04):** "
             f"{len(overlaps)} IDs `{sorted(overlaps.keys())}`\n",
-            f"- **WF-027 dormant legacy in batch04 range (151–200):** `{sorted(WF027_IN_BATCH04)}`\n",
-            f"- **Cross-spine resolved ID 175:** dedicated batch04 handler Run 011; "
-            "classification from scratch (no batch01 carry-over)\n\n",
+            f"- **WF-027 dormant legacy in batch04 range (251–300):** `{sorted(WF027_IN_BATCH04)}` "
+            f"(zero overlap — unresolved legacy IDs 584+ are outside range)\n",
+            "- **Cross-spine Run 023:** no WF-027 IDs in scope; batch04_prep spine registered for all 50\n\n",
             "## Results Table\n\n",
             "| ID | الاسم | RBAS | Path | الحالة النهائية | المرحلة | المعيار المرجعي | SPLIT-BRAIN | الدليل | الخطورة |\n",
             "|---:|---|---|---|---|---|---|---|---|---|\n",
@@ -830,22 +846,27 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
     sb = Counter(r.get("split_brain_type") for r in rows)
     for k, v in sb.most_common():
         lines.append(f"- **{k}:** {v}\n")
-    lines.append("\n### ID 175 — CROSS-SPINE-001 / WF-027 Resolution\n\n")
-    for cid in sorted(CROSS_SPINE_RESOLVED_IDS):
-        r = next(x for x in rows if x["id"] == cid)
-        lines.append(
-            f"- **ID {cid}:** status={r['status']} tier={r['rbas_tier']} path={r['audit_path']}; "
-            f"backend={r['backend']}; split={r.get('split_brain_type')}\n"
-        )
+    lines.append("\n### WF-027 Preflight — Zero Overlap (Run 023)\n\n")
+    lines.append(
+        "- **Unresolved WF-027 IDs:** `{584, 629, 630, 631, 642, 644, 646}` — all outside 251–300\n"
+        "- **Resolved prior:** 175 (Batch04), 214/245 (Batch05)\n\n"
+    )
+    if CROSS_SPINE_RESOLVED_IDS:
+        for cid in sorted(CROSS_SPINE_RESOLVED_IDS):
+            r = next(x for x in rows if x["id"] == cid)
+            lines.append(
+                f"- **ID {cid}:** status={r['status']} tier={r['rbas_tier']} path={r['audit_path']}; "
+                f"backend={r['backend']}; split={r.get('split_brain_type')}\n"
+            )
     lines.append("\n## Critical Code Evidence (SR 26-2)\n\n")
     for cid, note in sorted(CONCEPTUAL_FLAGS.items()):
         lines.append(f"- **ID {cid}:** `{note}`\n")
     if not CONCEPTUAL_FLAGS:
-        lines.append("- *(none flagged in Run 011 static pre-scan — live audit above is authoritative)*\n")
+        lines.append("- *(none flagged in Run 023 static pre-scan — live audit above is authoritative)*\n")
     lines.append("\n## رأي اللجنة المستقلة\n\n")
     lines.append(
         f"بصفتنا لجنة تدقيق مستقلة (Third Line of Defense — IIA IPPF)، وبعد تنفيذ RBAS-001 "
-        f"على Batch 04 (IDs 151–200) وفق SR 26-2 وCOSO وGIPS وRTM-IND-001 وCROSS-SPINE-001، "
+        f"على Batch 04 (IDs 251–300) وفق SR 26-2 وCOSO وGIPS وRTM-IND-001 وCROSS-SPINE-001، "
         f"صُنّفت {tier1_count} قدرة TIER1 (9 مراحل) و{tier2_count} قدرة TIER2 (مختصر 1/4/6). "
         f"تصعيد Tier2→Tier1: {metrics['escalated_count']} IDs. "
         f"نجد **{aligned}/50** عند `PRODUCTION-ALIGNED`. "
@@ -854,7 +875,7 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
         f"فحص SPLIT-BRAIN: {sb.get('DEDICATED_ONLY', 0)} dedicated-only; "
         f"{sb.get('CROSS_SPINE_ROUTING_OVERLAP', 0)} routing overlap; "
         f"{sb.get('DIVERGENT_OUTPUT', 0)} divergent. "
-        f"ID 175: WF-027/CROSS-SPINE-001 resolved Run 011 — handler batch04_dedicated، "
+        f"WF-027 preflight: zero overlap in 251–300. "
         f"spine=batch04_prep. **نوصي بعدم أي إصلاح قبل مراجعة هذا التقرير** — "
         f"الإغلاق في Run منفصل كما Batch 01/02/03.\n"
     )
@@ -871,7 +892,7 @@ async def main() -> None:
     path = write_report(rows, tier_map)
     counts = Counter(r["status"] for r in rows)
     metrics = _impact_metrics(rows)
-    (OUT / "RUN011_RBAS_IMPACT_METRICS.json").write_text(
+    (OUT / "RUN015_RBAS_IMPACT_METRICS.json").write_text(
         json.dumps(metrics, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )

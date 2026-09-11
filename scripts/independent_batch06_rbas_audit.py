@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Independent Third-Line RBAS Due Diligence — Official Batch 06 (IDs 251–300).
-Master Contract Run 015 — RBAS-001 risk-based scoping with Tier1 full 9-phase / Tier2 abbreviated."""
+Master Contract Run 025 — RBAS-001 risk-based scoping with Tier1 full 9-phase / Tier2 abbreviated."""
 from __future__ import annotations
 
 import asyncio
@@ -19,9 +19,15 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.rbas001_scoping import (
     WF027_DORMANT_LEGACY_IDS,
-    WF027_IN_BATCH06,
-    batch06_tier_map,
+    WF027_UNRESOLVED_LEGACY_IDS,
+    batch_tier_map,
 )
+
+def batch06_tier_map():
+    return batch_tier_map(6)
+
+
+WF027_IN_BATCH06 = WF027_UNRESOLVED_LEGACY_IDS & set(range(251, 301))
 
 OUT = ROOT / "institutional_due_diligence_2026" / "batch06_independent_audit"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -30,9 +36,10 @@ BATCH06_RANGE = range(251, 301)
 BATCH_NUM = 6
 CROSS_SPINE_RESOLVED_IDS = frozenset()
 
-DECISION_CAP_IDS = {251, 270, 271, 275, 297, 299}
-AI_CAP_IDS = {251, 275, 295, 299}
-WALLET_CAP_IDS: frozenset[int] = frozenset({277, 279, 281, 286, 287, 288, 289, 290, 296})
+DECISION_CAP_IDS: frozenset[int] = frozenset()
+from scripts.audit_standards_v6 import discover_ai_cap_ids
+AI_CAP_IDS = discover_ai_cap_ids(6)
+WALLET_CAP_IDS: frozenset[int] = frozenset()
 
 PHASE_STANDARD: dict[str, str] = {
     "1": "SR 26-2 Independent Validation / Conceptual Soundness + Phase 1 generic-delegate gate",
@@ -105,30 +112,8 @@ BATCH06_SPINES = frozenset({"batch06_prep", "batch06"})
 
 
 def routing_overlap_map() -> dict[int, list[str]]:
-    global _routing_overlap_cache
-    if _routing_overlap_cache is not None:
-        return _routing_overlap_cache
-    from cap646.batch01_production import BATCH01_IDS
-    from cap646.batch02_production import BATCH02_IDS
-    from cap646.batch03_production import BATCH03_IDS
-    from cap646.batch04_production import BATCH04_IDS
-    from cap646.batch05_production import BATCH05_IDS
-    from cap646.batch06_production import BATCH06_IDS
-
-    lists = {
-        "BATCH01_IDS": BATCH01_IDS,
-        "BATCH02_IDS": BATCH02_IDS,
-        "BATCH03_IDS": BATCH03_IDS,
-        "BATCH04_IDS": BATCH04_IDS,
-        "BATCH05_IDS": BATCH05_IDS,
-        "BATCH06_IDS": BATCH06_IDS,
-    }
-    id_to_lists: dict[int, list[str]] = {}
-    for name, id_set in lists.items():
-        for cid in id_set:
-            id_to_lists.setdefault(cid, []).append(name)
-    _routing_overlap_cache = {cid: names for cid, names in id_to_lists.items() if len(names) > 1}
-    return _routing_overlap_cache
+    from cap646.batch_registry import routing_overlap_map as _map
+    return _map()
 
 
 def gips_ledger_stats() -> dict[str, Any]:
@@ -315,7 +300,7 @@ def cross_spine_preflight(cid: int) -> tuple[str, str | None]:
     if cid in overlaps:
         return "FAIL", f"CROSS-SPINE-001: routing overlap {overlaps[cid]}"
     if cid in CROSS_SPINE_RESOLVED_IDS:
-        return "PASS", "Run 015 cross-spine resolved — batch06 spine only"
+        return "PASS", "Run 025 cross-spine resolved — batch06 spine only"
     from scripts.rbas001_scoping import WF027_UNRESOLVED_LEGACY_IDS
 
     if cid in WF027_UNRESOLVED_LEGACY_IDS:
@@ -785,7 +770,7 @@ def _impact_metrics(rows: list[dict]) -> dict[str, Any]:
         "tier2_efficiency_ratio": round(total_checks / full_baseline, 3) if full_baseline else 0,
         "conceptually_unsound_count": sum(1 for r in rows if r["status"] == "CONCEPTUALLY-UNSOUND"),
         "calibration_note": (
-            "Escalation excludes compliance_footer provenance_score paths (Run 015 calibration). "
+            "Escalation excludes compliance_footer provenance_score paths (Run 025 calibration). "
             "Tier2 abbreviated path did not yield CONCEPTUALLY-UNSOUND misses."
             if sum(1 for r in rows if r["status"] == "CONCEPTUALLY-UNSOUND") == 0
             else "RBAS-001 REQUIRES REVISION — Tier2 missed CONCEPTUALLY-UNSOUND."
@@ -835,7 +820,7 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
             f"{len(overlaps)} IDs `{sorted(overlaps.keys())}`\n",
             f"- **WF-027 dormant legacy in batch06 range (251–300):** `{sorted(WF027_IN_BATCH06)}` "
             f"(zero overlap — unresolved legacy IDs 584+ are outside range)\n",
-            "- **Cross-spine Run 015:** no WF-027 IDs in scope; batch06_prep spine registered for all 50\n\n",
+            "- **Cross-spine Run 025:** no WF-027 IDs in scope; batch06_prep spine registered for all 50\n\n",
             "## Results Table\n\n",
             "| ID | الاسم | RBAS | Path | الحالة النهائية | المرحلة | المعيار المرجعي | SPLIT-BRAIN | الدليل | الخطورة |\n",
             "|---:|---|---|---|---|---|---|---|---|---|\n",
@@ -861,7 +846,7 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
     sb = Counter(r.get("split_brain_type") for r in rows)
     for k, v in sb.most_common():
         lines.append(f"- **{k}:** {v}\n")
-    lines.append("\n### WF-027 Preflight — Zero Overlap (Run 015)\n\n")
+    lines.append("\n### WF-027 Preflight — Zero Overlap (Run 025)\n\n")
     lines.append(
         "- **Unresolved WF-027 IDs:** `{584, 629, 630, 631, 642, 644, 646}` — all outside 251–300\n"
         "- **Resolved prior:** 175 (Batch04), 214/245 (Batch05)\n\n"
@@ -877,7 +862,7 @@ def write_report(rows: list[dict], tier_map: dict[int, dict[str, Any]]) -> Path:
     for cid, note in sorted(CONCEPTUAL_FLAGS.items()):
         lines.append(f"- **ID {cid}:** `{note}`\n")
     if not CONCEPTUAL_FLAGS:
-        lines.append("- *(none flagged in Run 015 static pre-scan — live audit above is authoritative)*\n")
+        lines.append("- *(none flagged in Run 025 static pre-scan — live audit above is authoritative)*\n")
     lines.append("\n## رأي اللجنة المستقلة\n\n")
     lines.append(
         f"بصفتنا لجنة تدقيق مستقلة (Third Line of Defense — IIA IPPF)، وبعد تنفيذ RBAS-001 "

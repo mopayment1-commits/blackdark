@@ -1,6 +1,6 @@
 {
   "score_idx_review": {
-    "reviewed_at": "2026-09-11T11:31:30.974254+00:00",
+    "reviewed_at": "2026-09-11T13:13:37.718949+00:00",
     "policy": "SCORE-IDX-001",
     "scope": "45 NOT_COMPLETE from Run 009",
     "not_complete_ids": [
@@ -61,7 +61,7 @@
     "confirmed_conceptually_unsound_zero": true
   },
   "bcbs_remediation": {
-    "generated_at": "2026-09-11T11:31:31.133346+00:00",
+    "generated_at": "2026-09-11T13:13:37.879057+00:00",
     "fix": "cap646.batch03_dedicated._wrap stamps top-level data_source + timestamp (Run 010)",
     "per_id": {
       "102": {
@@ -77,7 +77,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 102, \"surface\": \"ai_generated_reporting\", \"data_source\": \"cap646.batch03_dedicated#cap102\", \"timestamp\": \"2026-09-11T11:31:31.134338+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 102, \"surface\": \"ai_generated_reporting\", \"data_source\": \"cap646.batch03_dedicated#cap102\", \"timestamp\": \"2026-09-11T13:13:37.880741+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "103": {
@@ -93,7 +93,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 103, \"surface\": \"api_data_platform\", \"data_source\": \"cap646.batch03_dedicated#cap103\", \"timestamp\": \"2026-09-11T11:31:31.134610+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 103, \"surface\": \"api_data_platform\", \"data_source\": \"cap646.batch03_dedicated#cap103\", \"timestamp\": \"2026-09-11T13:13:37.881049+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "104": {
@@ -109,7 +109,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 104, \"surface\": \"high_resolution_block_level_data_delivery\", \"data_source\": \"cap646.batch03_dedicated#cap104\", \"timestamp\": \"2026-09-11T11:31:31.139221+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 104, \"surface\": \"high_resolution_block_level_data_delivery\", \"data_source\": \"cap646.batch03_dedicated#cap104\", \"timestamp\": \"2026-09-11T13:13:37.884927+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "105": {
@@ -125,7 +125,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 105, \"surface\": \"historical_full_data_layer\", \"data_source\": \"cap646.batch03_dedicated#cap105\", \"timestamp\": \"2026-09-11T11:31:31.141470+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 105, \"surface\": \"historical_full_data_layer\", \"data_source\": \"cap646.batch03_dedicated#cap105\", \"timestamp\": \"2026-09-11T13:13:37.887173+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "106": {
@@ -141,7 +141,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 106, \"surface\": \"data_quality_provenance_layer\", \"data_source\": \"cap646.batch03_dedicated#cap106\", \"timestamp\": \"2026-09-11T11:31:31.142021+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 106, \"surface\": \"data_quality_provenance_layer\", \"data_source\": \"cap646.batch03_dedicated#cap106\", \"timestamp\": \"2026-09-11T13:13:37.887700+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "107": {
@@ -157,7 +157,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 107, \"surface\": \"metric_methodology_registry\", \"data_source\": \"cap646.batch03_dedicated#cap107\", \"timestamp\": \"2026-09-11T11:31:31.146756+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 107, \"surface\": \"metric_methodology_registry\", \"data_source\": \"cap646.batch03_dedicated#cap107\", \"timestamp\": \"2026-09-11T13:13:37.893832+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "108": {
@@ -173,7 +173,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 108, \"surface\": \"institutional_data_api_delivery\", \"data_source\": \"cap646.batch03_dedicated#cap108\", \"timestamp\": \"2026-09-11T11:31:31.147461+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 108, \"surface\": \"institutional_data_api_delivery\", \"data_source\": \"cap646.batch03_dedicated#cap108\", \"timestamp\": \"2026-09-11T13:13:37.894528+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "109": {
@@ -189,7 +189,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 109, \"surface\": \"white_label_research_reporting\", \"data_source\": \"cap646.batch03_dedicated#cap109\", \"timestamp\": \"2026-09-11T11:31:31.759254+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 109, \"surface\": \"white_label_research_reporting\", \"data_source\": \"cap646.batch03_dedicated#cap109\", \"timestamp\": \"2026-09-11T13:13:38.493640+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "112": {
@@ -205,7 +205,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 112, \"surface\": \"flow_to_price_explanation_engine\", \"data_source\": \"cap646.batch03_dedicated#cap112\", \"timestamp\": \"2026-09-11T11:31:32.264203+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 112, \"surface\": \"flow_to_price_explanation_engine\", \"data_source\": \"cap646.batch03_dedicated#cap112\", \"timestamp\": \"2026-09-11T13:13:38.652521+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "113": {
@@ -221,7 +221,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 113, \"surface\": \"asset_intelligence_profiles\", \"data_source\": \"cap646.batch03_dedicated#cap113\", \"timestamp\": \"2026-09-11T11:31:32.264689+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 113, \"surface\": \"asset_intelligence_profiles\", \"data_source\": \"cap646.batch03_dedicated#cap113\", \"timestamp\": \"2026-09-11T13:13:38.653007+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "114": {
@@ -237,7 +237,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 114, \"surface\": \"asset_classification_taxonomy\", \"data_source\": \"cap646.batch03_dedicated#cap114\", \"timestamp\": \"2026-09-11T11:31:32.265151+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 114, \"surface\": \"asset_classification_taxonomy\", \"data_source\": \"cap646.batch03_dedicated#cap114\", \"timestamp\": \"2026-09-11T13:13:38.653443+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "115": {
@@ -253,7 +253,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 115, \"surface\": \"asset_screener\", \"data_source\": \"cap646.batch03_dedicated#cap115\", \"timestamp\": \"2026-09-11T11:31:32.265589+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 115, \"surface\": \"asset_screener\", \"data_source\": \"cap646.batch03_dedicated#cap115\", \"timestamp\": \"2026-09-11T13:13:38.653870+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "116": {
@@ -269,7 +269,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 116, \"surface\": \"market_pair_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap116\", \"timestamp\": \"2026-09-11T11:31:32.268609+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 116, \"surface\": \"market_pair_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap116\", \"timestamp\": \"2026-09-11T13:13:38.656857+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "117": {
@@ -285,7 +285,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 117, \"surface\": \"real_volume_quality_adjusted_volume\", \"data_source\": \"cap646.batch03_dedicated#cap117\", \"timestamp\": \"2026-09-11T11:31:32.269185+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 117, \"surface\": \"real_volume_quality_adjusted_volume\", \"data_source\": \"cap646.batch03_dedicated#cap117\", \"timestamp\": \"2026-09-11T13:13:38.657414+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "118": {
@@ -301,7 +301,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 118, \"surface\": \"vwap_price_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap118\", \"timestamp\": \"2026-09-11T11:31:32.270046+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 118, \"surface\": \"vwap_price_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap118\", \"timestamp\": \"2026-09-11T13:13:38.658228+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "119": {
@@ -317,7 +317,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 119, \"surface\": \"market_cap_fdv_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap119\", \"timestamp\": \"2026-09-11T11:31:32.884283+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 119, \"surface\": \"market_cap_fdv_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap119\", \"timestamp\": \"2026-09-11T13:13:39.273849+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "120": {
@@ -333,7 +333,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 120, \"surface\": \"supply_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap120\", \"timestamp\": \"2026-09-11T11:31:32.885564+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 120, \"surface\": \"supply_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap120\", \"timestamp\": \"2026-09-11T13:13:39.275107+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "121": {
@@ -349,7 +349,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 121, \"surface\": \"roi_ath_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap121\", \"timestamp\": \"2026-09-11T11:31:32.886462+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 121, \"surface\": \"roi_ath_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap121\", \"timestamp\": \"2026-09-11T13:13:39.276011+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "122": {
@@ -365,7 +365,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 122, \"surface\": \"volatility_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap122\", \"timestamp\": \"2026-09-11T11:31:32.888436+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 122, \"surface\": \"volatility_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap122\", \"timestamp\": \"2026-09-11T13:13:39.277981+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "123": {
@@ -381,7 +381,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 123, \"surface\": \"sharpe_ratio_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap123\", \"timestamp\": \"2026-09-11T11:31:32.888890+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 123, \"surface\": \"sharpe_ratio_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap123\", \"timestamp\": \"2026-09-11T13:13:39.278428+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "124": {
@@ -397,7 +397,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 124, \"surface\": \"futures_funding_rate_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap124\", \"timestamp\": \"2026-09-11T11:31:32.889322+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 124, \"surface\": \"futures_funding_rate_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap124\", \"timestamp\": \"2026-09-11T13:13:39.278870+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "125": {
@@ -413,7 +413,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 125, \"surface\": \"futures_open_interest_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap125\", \"timestamp\": \"2026-09-11T11:31:33.095642+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 125, \"surface\": \"futures_open_interest_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap125\", \"timestamp\": \"2026-09-11T13:13:39.466564+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "126": {
@@ -429,7 +429,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 126, \"surface\": \"futures_volume_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap126\", \"timestamp\": \"2026-09-11T11:31:33.096185+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 126, \"surface\": \"futures_volume_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap126\", \"timestamp\": \"2026-09-11T13:13:39.467134+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "127": {
@@ -445,7 +445,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 127, \"surface\": \"multi_factor_market_overview\", \"data_source\": \"cap646.batch03_dedicated#cap127\", \"timestamp\": \"2026-09-11T11:31:33.096702+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 127, \"surface\": \"multi_factor_market_overview\", \"data_source\": \"cap646.batch03_dedicated#cap127\", \"timestamp\": \"2026-09-11T13:13:39.467601+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "128": {
@@ -461,7 +461,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 128, \"surface\": \"momentum_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap128\", \"timestamp\": \"2026-09-11T11:31:33.099587+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 128, \"surface\": \"momentum_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap128\", \"timestamp\": \"2026-09-11T13:13:39.470578+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "129": {
@@ -477,7 +477,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 129, \"surface\": \"sentiment_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap129\", \"timestamp\": \"2026-09-11T11:31:33.107705+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 129, \"surface\": \"sentiment_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap129\", \"timestamp\": \"2026-09-11T13:13:39.477598+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "130": {
@@ -493,7 +493,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 130, \"surface\": \"mindshare_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap130\", \"timestamp\": \"2026-09-11T11:31:33.108280+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 130, \"surface\": \"mindshare_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap130\", \"timestamp\": \"2026-09-11T13:13:39.478158+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "131": {
@@ -509,7 +509,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 131, \"surface\": \"narrative_sector_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap131\", \"timestamp\": \"2026-09-11T11:31:33.108822+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 131, \"surface\": \"narrative_sector_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap131\", \"timestamp\": \"2026-09-11T13:13:39.479012+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "132": {
@@ -525,7 +525,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 132, \"surface\": \"mindshare_gainers_losers\", \"data_source\": \"cap646.batch03_dedicated#cap132\", \"timestamp\": \"2026-09-11T11:31:33.197782+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 132, \"surface\": \"mindshare_gainers_losers\", \"data_source\": \"cap646.batch03_dedicated#cap132\", \"timestamp\": \"2026-09-11T13:13:39.620129+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "133": {
@@ -541,7 +541,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 133, \"surface\": \"curated_crypto_news_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap133\", \"timestamp\": \"2026-09-11T11:31:33.198977+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 133, \"surface\": \"curated_crypto_news_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap133\", \"timestamp\": \"2026-09-11T13:13:39.621434+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "134": {
@@ -557,7 +557,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 134, \"surface\": \"ai_news_summaries\", \"data_source\": \"cap646.batch03_dedicated#cap134\", \"timestamp\": \"2026-09-11T11:31:33.297045+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 134, \"surface\": \"ai_news_summaries\", \"data_source\": \"cap646.batch03_dedicated#cap134\", \"timestamp\": \"2026-09-11T13:13:39.728433+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "135": {
@@ -573,7 +573,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 135, \"surface\": \"real_time_industry_event_monitoring\", \"data_source\": \"cap646.batch03_dedicated#cap135\", \"timestamp\": \"2026-09-11T11:31:33.401716+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 135, \"surface\": \"real_time_industry_event_monitoring\", \"data_source\": \"cap646.batch03_dedicated#cap135\", \"timestamp\": \"2026-09-11T13:13:39.828280+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "136": {
@@ -589,7 +589,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 136, \"surface\": \"agentic_monitoring_views\", \"data_source\": \"cap646.batch03_dedicated#cap136\", \"timestamp\": \"2026-09-11T11:31:33.402225+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 136, \"surface\": \"agentic_monitoring_views\", \"data_source\": \"cap646.batch03_dedicated#cap136\", \"timestamp\": \"2026-09-11T13:13:39.828770+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "137": {
@@ -605,7 +605,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 137, \"surface\": \"custom_watchlists\", \"data_source\": \"cap646.batch03_dedicated#cap137\", \"timestamp\": \"2026-09-11T11:31:33.402663+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 137, \"surface\": \"custom_watchlists\", \"data_source\": \"cap646.batch03_dedicated#cap137\", \"timestamp\": \"2026-09-11T13:13:39.829204+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "138": {
@@ -621,7 +621,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 138, \"surface\": \"token_unlock_calendar\", \"data_source\": \"cap646.batch03_dedicated#cap138\", \"timestamp\": \"2026-09-11T11:31:33.403090+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 138, \"surface\": \"token_unlock_calendar\", \"data_source\": \"cap646.batch03_dedicated#cap138\", \"timestamp\": \"2026-09-11T13:13:39.829638+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "139": {
@@ -637,7 +637,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 139, \"surface\": \"vesting_schedule_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap139\", \"timestamp\": \"2026-09-11T11:31:33.404555+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 139, \"surface\": \"vesting_schedule_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap139\", \"timestamp\": \"2026-09-11T13:13:39.830939+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "140": {
@@ -653,7 +653,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 140, \"surface\": \"token_allocation_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap140\", \"timestamp\": \"2026-09-11T11:31:33.414926+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 140, \"surface\": \"token_allocation_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap140\", \"timestamp\": \"2026-09-11T13:13:39.831767+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "141": {
@@ -669,7 +669,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 141, \"surface\": \"unlock_impact_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap141\", \"timestamp\": \"2026-09-11T11:31:33.415659+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 141, \"surface\": \"unlock_impact_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap141\", \"timestamp\": \"2026-09-11T13:13:39.832395+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "142": {
@@ -685,7 +685,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 142, \"surface\": \"fundraising_rounds_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap142\", \"timestamp\": \"2026-09-11T11:31:33.416108+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 142, \"surface\": \"fundraising_rounds_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap142\", \"timestamp\": \"2026-09-11T13:13:39.832827+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "143": {
@@ -701,7 +701,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 143, \"surface\": \"investor_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap143\", \"timestamp\": \"2026-09-11T11:31:33.416575+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 143, \"surface\": \"investor_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap143\", \"timestamp\": \"2026-09-11T13:13:39.833258+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "144": {
@@ -717,7 +717,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 144, \"surface\": \"fund_fund_manager_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap144\", \"timestamp\": \"2026-09-11T11:31:33.417010+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 144, \"surface\": \"fund_fund_manager_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap144\", \"timestamp\": \"2026-09-11T13:13:39.833706+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "145": {
@@ -733,7 +733,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 145, \"surface\": \"m_a_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap145\", \"timestamp\": \"2026-09-11T11:31:34.031151+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 145, \"surface\": \"m_a_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap145\", \"timestamp\": \"2026-09-11T13:13:40.451004+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "146": {
@@ -749,7 +749,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 146, \"surface\": \"capital_flow_funding_trend_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap146\", \"timestamp\": \"2026-09-11T11:31:34.661974+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 146, \"surface\": \"capital_flow_funding_trend_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap146\", \"timestamp\": \"2026-09-11T13:13:41.062747+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "147": {
@@ -765,7 +765,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 147, \"surface\": \"comparable_funding_valuation_analysis\", \"data_source\": \"cap646.batch03_dedicated#cap147\", \"timestamp\": \"2026-09-11T11:31:34.662477+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 147, \"surface\": \"comparable_funding_valuation_analysis\", \"data_source\": \"cap646.batch03_dedicated#cap147\", \"timestamp\": \"2026-09-11T13:13:41.063239+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "150": {
@@ -781,13 +781,13 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 150, \"surface\": \"protocol_kpi_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap150\", \"timestamp\": \"2026-09-11T11:31:34.723047+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 150, \"surface\": \"protocol_kpi_intelligence\", \"data_source\": \"cap646.batch03_dedicated#cap150\", \"timestamp\": \"2026-09-11T13:13:41.141516+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       }
     }
   },
   "performance_unverifiable": {
-    "generated_at": "2026-09-11T11:31:34.728088+00:00",
+    "generated_at": "2026-09-11T13:13:41.146907+00:00",
     "ids": [
       101,
       110,
@@ -797,14 +797,14 @@
     ],
     "ledger_stats": {
       "exists": true,
-      "unique_decisions": 171,
+      "unique_decisions": 218,
       "simulated_only": true
     },
     "per_id": {
       "101": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 171,
+        "ledger_unique_decisions": 218,
         "ledger_simulated_only": true,
         "runtime_success": true,
         "production_spine": "batch03_prep"
@@ -812,7 +812,7 @@
       "110": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 171,
+        "ledger_unique_decisions": 218,
         "ledger_simulated_only": true,
         "runtime_success": true,
         "production_spine": "batch03_prep"
@@ -820,7 +820,7 @@
       "111": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 171,
+        "ledger_unique_decisions": 218,
         "ledger_simulated_only": true,
         "runtime_success": true,
         "production_spine": "batch03_prep"
@@ -828,7 +828,7 @@
       "148": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 171,
+        "ledger_unique_decisions": 218,
         "ledger_simulated_only": true,
         "runtime_success": true,
         "production_spine": "batch03_prep"
@@ -836,7 +836,7 @@
       "149": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 171,
+        "ledger_unique_decisions": 218,
         "ledger_simulated_only": true,
         "runtime_success": true,
         "production_spine": "batch03_prep"
@@ -845,7 +845,7 @@
     "reclassification": "none \u2014 retained per GIPS standard"
   },
   "non_regression": {
-    "generated_at": "2026-09-11T11:32:25.554346+00:00",
+    "generated_at": "2026-09-11T13:14:32.929647+00:00",
     "batch01_closure_gate_met": true,
     "batch02_closure_gate_met": true,
     "met": true,
@@ -877,7 +877,7 @@
           "script": "run007_batch02_final_closure.py",
           "exit_code": 0,
           "stdout_tail": "Wrote /workspace/institutional_due_diligence_2026/batch02_independent_audit/BATCH02_FINAL_CLOSURE_REPORT.md\nWrote /workspace/docs/BATCH02_OFFICIAL_RTM_51_100.json\nCounts: {'NOT_COMPLETE': 43, 'PERFORMANCE-UNVERIFIABLE': 7}\nClosure gate MET: True",
-          "stderr_tail": "Yahoo macro fetch failed safely | symbol=^GSPC\nYahoo price fetch failed safely | symbol=GC=F\nYahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=BTC-USD"
+          "stderr_tail": "Yahoo macro fetch failed safely | symbol=DX-Y.NYB\nYahoo price fetch failed safely | symbol=GC=F\nYahoo price fetch failed safely | symbol=BTC-USD\nYahoo macro fetch failed safely | symbol=^GSPC"
         },
         "batch": "batch02",
         "closure_gate": {

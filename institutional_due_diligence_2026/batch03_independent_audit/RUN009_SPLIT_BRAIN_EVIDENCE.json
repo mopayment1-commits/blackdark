@@ -18,7 +18,7 @@
         "status": "fresh",
         "accepted": true,
         "action": "pass",
-        "data_freshness_ms": 1789126345760.94,
+        "data_freshness_ms": 1789132473134.94,
         "thresholds": {
           "stale_sec": 5.0,
           "critical_sec": 15.0
@@ -36,12 +36,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap101",
-      "timestamp": "2026-09-11T11:32:25.761913+00:00",
+      "timestamp": "2026-09-11T13:14:33.136534+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.761932+00:00",
+        "attached_at": "2026-09-11T13:14:33.136553+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -93,12 +93,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap102",
-      "timestamp": "2026-09-11T11:32:25.762374+00:00",
+      "timestamp": "2026-09-11T13:14:33.136998+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.762385+00:00",
+        "attached_at": "2026-09-11T13:14:33.137009+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -141,12 +141,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap103",
-      "timestamp": "2026-09-11T11:32:25.762416+00:00",
+      "timestamp": "2026-09-11T13:14:33.137040+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.762423+00:00",
+        "attached_at": "2026-09-11T13:14:33.137046+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -234,16 +234,16 @@
             "passed": true
           }
         ],
-        "timestamp": "2026-09-11T11:32:25.766019+00:00"
+        "timestamp": "2026-09-11T13:14:33.140616+00:00"
       },
       "success": true,
-      "timestamp": "2026-09-11T11:32:25.766019+00:00",
+      "timestamp": "2026-09-11T13:14:33.140616+00:00",
       "data_source": "cap646.batch03_dedicated#cap104",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.766100+00:00",
+        "attached_at": "2026-09-11T13:14:33.140688+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -672,12 +672,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap105",
-      "timestamp": "2026-09-11T11:32:25.768996+00:00",
+      "timestamp": "2026-09-11T13:14:33.142843+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.769018+00:00",
+        "attached_at": "2026-09-11T13:14:33.142858+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -707,7 +707,7 @@
       "data_quality_provenance": {
         "provenance": {
           "surface": "data_provenance_score",
-          "generated_at": "2026-09-11T11:32:25.769501+00:00",
+          "generated_at": "2026-09-11T13:14:33.143294+00:00",
           "symbol": "BTC",
           "score": 66.0,
           "band": "caution",
@@ -777,12 +777,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap106",
-      "timestamp": "2026-09-11T11:32:25.769525+00:00",
+      "timestamp": "2026-09-11T13:14:33.143317+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.769534+00:00",
+        "attached_at": "2026-09-11T13:14:33.143326+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -811,18 +811,18 @@
       "symbol": "BTC",
       "metric_methodology": {
         "methodology_registry": {
-          "total_in_memory": 739,
-          "labeled": 713,
+          "total_in_memory": 972,
+          "labeled": 946,
           "unlabeled": 26,
           "linked_prediction_ids": 27,
           "by_type": {
             "oracle_direction": 28,
-            "spot_futures": 412,
-            "cross_exchange": 299
+            "spot_futures": 552,
+            "cross_exchange": 392
           },
           "by_label": {
             "pending": 26,
-            "rejected_net_edge": 711,
+            "rejected_net_edge": 944,
             "correct": 2
           },
           "by_type_performance": {
@@ -838,7 +838,7 @@
             "spot_futures": {
               "hits": 0,
               "misses": 0,
-              "pending": 412,
+              "pending": 552,
               "hit_rate": null,
               "definition": "Spot–perpetual basis / cash-and-carry style edge",
               "weight": 0.8,
@@ -847,7 +847,7 @@
             "cross_exchange": {
               "hits": 0,
               "misses": 0,
-              "pending": 299,
+              "pending": 392,
               "hit_rate": null,
               "definition": "Cross-venue spot price discrepancy surviving Net-Edge truth gates",
               "weight": 0.9,
@@ -949,7 +949,7 @@
           "status": "live",
           "persist_path": "data/signal_registry.jsonl",
           "moat_claim": "sovereign_labeled_signal_lexicon",
-          "generated_at": "2026-09-11T11:32:25.774295+00:00",
+          "generated_at": "2026-09-11T13:14:33.149389+00:00",
           "uptime_seconds": 0.0
         },
         "catalog_link": {
@@ -959,12 +959,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap107",
-      "timestamp": "2026-09-11T11:32:25.774310+00:00",
+      "timestamp": "2026-09-11T13:14:33.149404+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.774325+00:00",
+        "attached_at": "2026-09-11T13:14:33.149421+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1014,12 +1014,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap108",
-      "timestamp": "2026-09-11T11:32:25.774972+00:00",
+      "timestamp": "2026-09-11T13:14:33.150056+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:25.774985+00:00",
+        "attached_at": "2026-09-11T13:14:33.150071+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1057,10 +1057,10 @@
         "alert_type": "liquidation_cascade",
         "route": "/radar/alerts/liquidation",
         "asset": "BTC",
-        "current_price": 76837.74,
+        "current_price": 77698.0,
         "liquidation_level": 62000,
-        "distance_pct": 19.31,
-        "proximity_pct": 19.31,
+        "distance_pct": 20.2,
+        "proximity_pct": 20.2,
         "proximity_color": "green",
         "proximity_formula": "(Current Price − Nearest Liquidation Wall) / Current Price × 100",
         "cascade_risk": "low",
@@ -1083,7 +1083,7 @@
             100,
             109
           ],
-          "current_price": 76837.74,
+          "current_price": 77698.0,
           "sensitivity_pct": 3.0,
           "anchors_total": 2,
           "sensitive_zones": [],
@@ -1096,12 +1096,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap109",
-      "timestamp": "2026-09-11T11:32:26.379894+00:00",
+      "timestamp": "2026-09-11T13:14:33.790184+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.379912+00:00",
+        "attached_at": "2026-09-11T13:14:33.790203+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1372,7 +1372,7 @@
           "ok": true,
           "capability_id": 567,
           "symbol": "BTC",
-          "timestamp": "2026-09-11T11:32:26.382074+00:00",
+          "timestamp": "2026-09-11T13:14:33.792876+00:00",
           "disclaimer": "Analysis only — not financial advice, guarantee, or execution.",
           "analysis_only": true,
           "no_execution": true,
@@ -1389,12 +1389,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap110",
-      "timestamp": "2026-09-11T11:32:26.382172+00:00",
+      "timestamp": "2026-09-11T13:14:33.792969+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.382187+00:00",
+        "attached_at": "2026-09-11T13:14:33.792986+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1443,12 +1443,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap111",
-      "timestamp": "2026-09-11T11:32:26.382856+00:00",
+      "timestamp": "2026-09-11T13:14:33.793678+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.382866+00:00",
+        "attached_at": "2026-09-11T13:14:33.793689+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1508,12 +1508,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap112",
-      "timestamp": "2026-09-11T11:32:26.383275+00:00",
+      "timestamp": "2026-09-11T13:14:33.794097+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.383283+00:00",
+        "attached_at": "2026-09-11T13:14:33.794106+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1557,12 +1557,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap113",
-      "timestamp": "2026-09-11T11:32:26.383667+00:00",
+      "timestamp": "2026-09-11T13:14:33.794484+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.383673+00:00",
+        "attached_at": "2026-09-11T13:14:33.794491+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1606,12 +1606,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap114",
-      "timestamp": "2026-09-11T11:32:26.384048+00:00",
+      "timestamp": "2026-09-11T13:14:33.794861+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.384054+00:00",
+        "attached_at": "2026-09-11T13:14:33.794866+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1659,12 +1659,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap115",
-      "timestamp": "2026-09-11T11:32:26.384423+00:00",
+      "timestamp": "2026-09-11T13:14:33.795231+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.384428+00:00",
+        "attached_at": "2026-09-11T13:14:33.795236+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1764,16 +1764,16 @@
             "passed": true
           }
         ],
-        "timestamp": "2026-09-11T11:32:26.386923+00:00"
+        "timestamp": "2026-09-11T13:14:33.797720+00:00"
       },
       "success": true,
-      "timestamp": "2026-09-11T11:32:26.386923+00:00",
+      "timestamp": "2026-09-11T13:14:33.797720+00:00",
       "data_source": "cap646.batch03_dedicated#cap116",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.386998+00:00",
+        "attached_at": "2026-09-11T13:14:33.797794+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1823,12 +1823,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap117",
-      "timestamp": "2026-09-11T11:32:26.387431+00:00",
+      "timestamp": "2026-09-11T13:14:33.798219+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.387440+00:00",
+        "attached_at": "2026-09-11T13:14:33.798228+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1938,12 +1938,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap118",
-      "timestamp": "2026-09-11T11:32:26.388210+00:00",
+      "timestamp": "2026-09-11T13:14:33.798984+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:26.388218+00:00",
+        "attached_at": "2026-09-11T13:14:33.798992+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1990,16 +1990,16 @@
         "fee_db": {
           "compute_usd": 0.0004
         },
-        "reference_price": 76837.74
+        "reference_price": 77698.01
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap119",
-      "timestamp": "2026-09-11T11:32:27.019688+00:00",
+      "timestamp": "2026-09-11T13:14:34.425551+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.019706+00:00",
+        "attached_at": "2026-09-11T13:14:34.425569+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2224,12 +2224,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap120",
-      "timestamp": "2026-09-11T11:32:27.020864+00:00",
+      "timestamp": "2026-09-11T13:14:34.426702+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.020875+00:00",
+        "attached_at": "2026-09-11T13:14:34.426714+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2317,12 +2317,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap121",
-      "timestamp": "2026-09-11T11:32:27.021751+00:00",
+      "timestamp": "2026-09-11T13:14:34.427548+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.021763+00:00",
+        "attached_at": "2026-09-11T13:14:34.427558+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2375,12 +2375,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap122",
-      "timestamp": "2026-09-11T11:32:27.023792+00:00",
+      "timestamp": "2026-09-11T13:14:34.429467+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.023805+00:00",
+        "attached_at": "2026-09-11T13:14:34.429476+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2432,12 +2432,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap123",
-      "timestamp": "2026-09-11T11:32:27.024242+00:00",
+      "timestamp": "2026-09-11T13:14:34.429865+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.024250+00:00",
+        "attached_at": "2026-09-11T13:14:34.429872+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2493,12 +2493,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap124",
-      "timestamp": "2026-09-11T11:32:27.024642+00:00",
+      "timestamp": "2026-09-11T13:14:34.430279+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.024649+00:00",
+        "attached_at": "2026-09-11T13:14:34.430287+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2528,12 +2528,12 @@
       "futures_open_interest": {
         "derivatives_overview": {
           "asset": "BTC",
-          "timestamp": "2026-09-11T11:32:27.208818+00:00",
+          "timestamp": "2026-09-11T13:14:34.615332+00:00",
           "free_tier": {
             "source": "binance_futures_public",
             "asset": "BTC",
             "symbol": "BTCUSDT",
-            "timestamp": "2026-09-11T11:32:27.096471+00:00",
+            "timestamp": "2026-09-11T13:14:34.503739+00:00",
             "mark_price": 0.0,
             "funding_rate": 0.0,
             "funding_rate_pct": 0.0,
@@ -2568,19 +2568,19 @@
                 "success": true,
                 "exchange": "deribit",
                 "currency": "BTC",
-                "count": 942,
+                "count": 946,
                 "instruments": [
                   {
                     "instrument": "BTC-25SEP26-155000-P",
-                    "mark_price": 1.01549165,
-                    "bid": 1.0095,
-                    "ask": 1.0195,
+                    "mark_price": 0.99345896,
+                    "bid": 0.9885,
+                    "ask": 0.9975,
                     "open_interest": 0.1,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25SEP26-105000-C",
-                    "mark_price": 0.00017929,
+                    "mark_price": 0.00018331,
                     "bid": 0.0001,
                     "ask": 0.0003,
                     "open_interest": 1538.7,
@@ -2588,295 +2588,295 @@
                   },
                   {
                     "instrument": "BTC-18SEP26-90000-C",
-                    "mark_price": 0.00042891,
-                    "bid": 0.0003,
-                    "ask": 0.0006,
-                    "open_interest": 728.2,
-                    "volume": 18.5
+                    "mark_price": 0.00050333,
+                    "bid": 0.0004,
+                    "ask": 0.0007,
+                    "open_interest": 726.2,
+                    "volume": 17.2
                   },
                   {
                     "instrument": "BTC-27NOV26-70000-C",
-                    "mark_price": 0.12818969,
-                    "bid": 0.127,
-                    "ask": 0.1305,
-                    "open_interest": 4.2,
-                    "volume": 0.0
+                    "mark_price": 0.13483398,
+                    "bid": 0.1335,
+                    "ask": 0.1365,
+                    "open_interest": 4.6,
+                    "volume": 0.4
                   },
                   {
                     "instrument": "BTC-13SEP26-86000-P",
-                    "mark_price": 0.11965868,
-                    "bid": 0.1165,
-                    "ask": 0.1215,
+                    "mark_price": 0.10733131,
+                    "bid": 0.105,
+                    "ask": 0.11,
                     "open_interest": 0.0,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-12SEP26-77000-C",
-                    "mark_price": 0.00805528,
-                    "bid": 0.0075,
-                    "ask": 0.0085,
-                    "open_interest": 129.0,
-                    "volume": 140.9
+                    "mark_price": 0.01148828,
+                    "bid": 0.01,
+                    "ask": 0.0125,
+                    "open_interest": 174.9,
+                    "volume": 84.9
                   },
                   {
                     "instrument": "BTC-30OCT26-90000-P",
-                    "mark_price": 0.17617712,
-                    "bid": 0.173,
-                    "ask": 0.1785,
-                    "open_interest": 6.1,
-                    "volume": 0.2
+                    "mark_price": 0.16421808,
+                    "bid": 0.1615,
+                    "ask": 0.1665,
+                    "open_interest": 6.3,
+                    "volume": 0.4
                   },
                   {
                     "instrument": "BTC-25JUN27-105000-P",
-                    "mark_price": 0.37167392,
-                    "bid": 0.3685,
-                    "ask": 0.375,
+                    "mark_price": 0.35904985,
+                    "bid": 0.3565,
+                    "ask": 0.3625,
                     "open_interest": 0.1,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25SEP26-82000-P",
-                    "mark_price": 0.07444848,
-                    "bid": 0.072,
-                    "ask": 0.0765,
+                    "mark_price": 0.06434681,
+                    "bid": 0.062,
+                    "ask": 0.066,
                     "open_interest": 459.5,
                     "volume": 0.9
                   },
                   {
                     "instrument": "BTC-26MAR27-112000-P",
-                    "mark_price": 0.44448528,
-                    "bid": 0.441,
-                    "ask": 0.448,
+                    "mark_price": 0.43025311,
+                    "bid": 0.427,
+                    "ask": 0.4335,
                     "open_interest": 0.1,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25DEC26-58000-C",
-                    "mark_price": 0.2668551,
-                    "bid": 0.265,
-                    "ask": 0.2685,
+                    "mark_price": 0.27381172,
+                    "bid": 0.272,
+                    "ask": 0.2755,
                     "open_interest": 40.3,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-30OCT26-79000-C",
-                    "mark_price": 0.04382176,
-                    "bid": 0.0435,
-                    "ask": 0.0445,
-                    "open_interest": 224.7,
+                    "mark_price": 0.0476851,
+                    "bid": 0.0475,
+                    "ask": 0.0485,
+                    "open_interest": 224.5,
                     "volume": 27.5
                   },
                   {
                     "instrument": "BTC-12SEP26-81000-P",
-                    "mark_price": 0.05510351,
-                    "bid": 0.0535,
-                    "ask": 0.0565,
+                    "mark_price": 0.04320627,
+                    "bid": 0.0415,
+                    "ask": 0.0455,
                     "open_interest": 25.0,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25SEP26-66000-P",
-                    "mark_price": 0.00160786,
-                    "bid": 0.0016,
-                    "ask": 0.0018,
+                    "mark_price": 0.00109204,
+                    "bid": 0.001,
+                    "ask": 0.0011,
                     "open_interest": 1630.8,
-                    "volume": 68.9
+                    "volume": 66.8
                   },
                   {
                     "instrument": "BTC-25JUN27-90000-C",
-                    "mark_price": 0.09737089,
-                    "bid": 0.097,
-                    "ask": 0.0985,
+                    "mark_price": 0.10041768,
+                    "bid": 0.0995,
+                    "ask": 0.1015,
                     "open_interest": 766.0,
-                    "volume": 9.0
+                    "volume": 11.1
                   },
                   {
                     "instrument": "BTC-25SEP26-79000-C",
-                    "mark_price": 0.01749018,
-                    "bid": 0.017,
-                    "ask": 0.018,
-                    "open_interest": 2349.4,
-                    "volume": 215.8
+                    "mark_price": 0.0205925,
+                    "bid": 0.02,
+                    "ask": 0.021,
+                    "open_interest": 2357.1,
+                    "volume": 237.3
                   },
                   {
                     "instrument": "BTC-2OCT26-79000-C",
-                    "mark_price": 0.02378392,
-                    "bid": 0.0235,
-                    "ask": 0.0245,
+                    "mark_price": 0.0271984,
+                    "bid": 0.027,
+                    "ask": 0.0275,
                     "open_interest": 3.2,
-                    "volume": 3.3
+                    "volume": 3.1
                   },
                   {
                     "instrument": "BTC-26MAR27-78000-C",
-                    "mark_price": 0.12049386,
-                    "bid": 0.12,
-                    "ask": 0.1215,
+                    "mark_price": 0.12548174,
+                    "bid": 0.1245,
+                    "ask": 0.1265,
                     "open_interest": 594.3,
-                    "volume": 9.1
+                    "volume": 6.1
                   },
                   {
                     "instrument": "BTC-14SEP26-80000-C",
-                    "mark_price": 0.00180411,
-                    "bid": 0.0016,
-                    "ask": 0.002,
-                    "open_interest": 3.6,
-                    "volume": 2.8
+                    "mark_price": 0.00195669,
+                    "bid": 0.0017,
+                    "ask": 0.0021,
+                    "open_interest": 14.3,
+                    "volume": 13.5
                   },
                   {
                     "instrument": "BTC-25SEP26-85000-P",
-                    "mark_price": 0.10920653,
-                    "bid": 0.1065,
-                    "ask": 0.111,
+                    "mark_price": 0.09783161,
+                    "bid": 0.0955,
+                    "ask": 0.1,
                     "open_interest": 454.6,
-                    "volume": 4.2
+                    "volume": 3.9
                   },
                   {
                     "instrument": "BTC-27NOV26-68000-P",
-                    "mark_price": 0.02452643,
-                    "bid": 0.024,
-                    "ask": 0.025,
-                    "open_interest": 91.5,
-                    "volume": 18.3
+                    "mark_price": 0.02182189,
+                    "bid": 0.0215,
+                    "ask": 0.0225,
+                    "open_interest": 89.5,
+                    "volume": 3.1
                   },
                   {
                     "instrument": "BTC-2OCT26-81000-P",
-                    "mark_price": 0.06806565,
-                    "bid": 0.066,
-                    "ask": 0.0695,
+                    "mark_price": 0.05901235,
+                    "bid": 0.0575,
+                    "ask": 0.06,
                     "open_interest": 0.0,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-12SEP26-78000-P",
-                    "mark_price": 0.01936103,
-                    "bid": 0.018,
-                    "ask": 0.021,
+                    "mark_price": 0.0089004,
+                    "bid": 0.008,
+                    "ask": 0.0095,
                     "open_interest": 150.6,
-                    "volume": 18.4
+                    "volume": 10.2
                   },
                   {
                     "instrument": "BTC-25DEC26-95000-P",
-                    "mark_price": 0.24286289,
-                    "bid": 0.24,
-                    "ask": 0.2455,
+                    "mark_price": 0.23093751,
+                    "bid": 0.228,
+                    "ask": 0.2335,
                     "open_interest": 111.6,
                     "volume": 0.2
                   },
                   {
                     "instrument": "BTC-27NOV26-81000-P",
-                    "mark_price": 0.09655715,
-                    "bid": 0.0955,
-                    "ask": 0.0965,
-                    "open_interest": 29.1,
-                    "volume": 0.2
+                    "mark_price": 0.08877273,
+                    "bid": 0.088,
+                    "ask": 0.089,
+                    "open_interest": 27.3,
+                    "volume": 2.2
                   },
                   {
                     "instrument": "BTC-25SEP26-125000-P",
-                    "mark_price": 0.62545182,
-                    "bid": 0.621,
-                    "ask": 0.629,
+                    "mark_price": 0.60769674,
+                    "bid": 0.6035,
+                    "ask": 0.611,
                     "open_interest": 21.5,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25JUN27-55000-P",
-                    "mark_price": 0.03180192,
-                    "bid": 0.031,
-                    "ask": 0.0325,
+                    "mark_price": 0.03012754,
+                    "bid": 0.0295,
+                    "ask": 0.031,
                     "open_interest": 35.9,
                     "volume": 0.1
                   },
                   {
                     "instrument": "BTC-26MAR27-96000-C",
-                    "mark_price": 0.04859028,
-                    "bid": 0.048,
-                    "ask": 0.0495,
+                    "mark_price": 0.05077281,
+                    "bid": 0.05,
+                    "ask": 0.0515,
                     "open_interest": 153.5,
                     "volume": 11.9
                   },
                   {
                     "instrument": "BTC-30OCT26-60000-C",
-                    "mark_price": 0.22800737,
-                    "bid": 0.2265,
-                    "ask": 0.23,
-                    "open_interest": 16.1,
-                    "volume": 0.0
+                    "mark_price": 0.23579905,
+                    "bid": 0.234,
+                    "ask": 0.238,
+                    "open_interest": 15.9,
+                    "volume": 0.4
                   },
                   {
                     "instrument": "BTC-30OCT26-76000-P",
-                    "mark_price": 0.0460964,
-                    "bid": 0.0455,
-                    "ask": 0.0465,
+                    "mark_price": 0.04009625,
+                    "bid": 0.0395,
+                    "ask": 0.0405,
                     "open_interest": 305.8,
                     "volume": 3.1
                   },
                   {
                     "instrument": "BTC-30OCT26-45000-C",
-                    "mark_price": 0.41831038,
-                    "bid": 0.417,
-                    "ask": 0.42,
+                    "mark_price": 0.424563,
+                    "bid": 0.423,
+                    "ask": 0.4265,
                     "open_interest": 0.1,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-30OCT26-66000-C",
-                    "mark_price": 0.15628876,
-                    "bid": 0.155,
-                    "ask": 0.1585,
+                    "mark_price": 0.16390828,
+                    "bid": 0.1625,
+                    "ask": 0.166,
                     "open_interest": 89.5,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25DEC26-70000-P",
-                    "mark_price": 0.04067074,
-                    "bid": 0.04,
-                    "ask": 0.041,
+                    "mark_price": 0.03724848,
+                    "bid": 0.0365,
+                    "ask": 0.0375,
                     "open_interest": 1485.9,
-                    "volume": 2.4
+                    "volume": 3.4
                   },
                   {
                     "instrument": "BTC-30OCT26-58000-C",
-                    "mark_price": 0.25288319,
-                    "bid": 0.2515,
-                    "ask": 0.255,
+                    "mark_price": 0.26054616,
+                    "bid": 0.259,
+                    "ask": 0.263,
                     "open_interest": 0.0,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-30OCT26-90000-C",
-                    "mark_price": 0.01095375,
-                    "bid": 0.0105,
-                    "ask": 0.0115,
-                    "open_interest": 2894.8,
-                    "volume": 181.3
+                    "mark_price": 0.01179162,
+                    "bid": 0.0115,
+                    "ask": 0.0125,
+                    "open_interest": 2900.0,
+                    "volume": 86.3
                   },
                   {
                     "instrument": "BTC-27NOV26-98000-C",
-                    "mark_price": 0.01061098,
-                    "bid": 0.0105,
-                    "ask": 0.011,
-                    "open_interest": 52.4,
+                    "mark_price": 0.01155908,
+                    "bid": 0.011,
+                    "ask": 0.012,
+                    "open_interest": 52.5,
                     "volume": 2.6
                   },
                   {
                     "instrument": "BTC-25DEC26-125000-C",
-                    "mark_price": 0.00364019,
+                    "mark_price": 0.00375946,
                     "bid": 0.0035,
-                    "ask": 0.0039,
+                    "ask": 0.004,
                     "open_interest": 573.1,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25JUN27-40000-P",
-                    "mark_price": 0.01063719,
-                    "bid": 0.01,
-                    "ask": 0.0115,
+                    "mark_price": 0.00995539,
+                    "bid": 0.0095,
+                    "ask": 0.0105,
                     "open_interest": 1227.0,
                     "volume": 0.1
                   },
                   {
                     "instrument": "BTC-25SEP26-140000-C",
-                    "mark_price": 3.58e-06,
+                    "mark_price": 4.58e-06,
                     "bid": null,
                     "ask": 0.0001,
                     "open_interest": 1208.2,
@@ -2884,90 +2884,90 @@
                   },
                   {
                     "instrument": "BTC-30OCT26-94000-P",
-                    "mark_price": 0.22364843,
-                    "bid": 0.2205,
-                    "ask": 0.226,
+                    "mark_price": 0.2108501,
+                    "bid": 0.208,
+                    "ask": 0.2135,
                     "open_interest": 0.0,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-18SEP26-95000-P",
-                    "mark_price": 0.23615034,
-                    "bid": 0.233,
-                    "ask": 0.2385,
+                    "mark_price": 0.22254874,
+                    "bid": 0.2195,
+                    "ask": 0.2255,
                     "open_interest": 0.1,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-25DEC26-100000-C",
-                    "mark_price": 0.01546939,
-                    "bid": 0.015,
-                    "ask": 0.016,
+                    "mark_price": 0.01656509,
+                    "bid": 0.016,
+                    "ask": 0.017,
                     "open_interest": 6019.4,
-                    "volume": 16.0
+                    "volume": 16.1
                   },
                   {
                     "instrument": "BTC-13SEP26-77500-P",
-                    "mark_price": 0.01524423,
-                    "bid": 0.0145,
-                    "ask": 0.016,
-                    "open_interest": 8.9,
-                    "volume": 12.2
+                    "mark_price": 0.00666281,
+                    "bid": 0.006,
+                    "ask": 0.007,
+                    "open_interest": 12.5,
+                    "volume": 16.2
+                  },
+                  {
+                    "instrument": "BTC-15SEP26-87000-P",
+                    "mark_price": 0.12008233,
+                    "bid": 0.1175,
+                    "ask": 0.1225,
+                    "open_interest": 0.0,
+                    "volume": 0.0
                   },
                   {
                     "instrument": "BTC-26MAR27-62000-P",
-                    "mark_price": 0.03549582,
-                    "bid": 0.035,
-                    "ask": 0.0365,
+                    "mark_price": 0.03330503,
+                    "bid": 0.033,
+                    "ask": 0.034,
                     "open_interest": 258.1,
                     "volume": 5.0
                   },
                   {
                     "instrument": "BTC-25SEP26-102000-P",
-                    "mark_price": 0.32652044,
-                    "bid": 0.323,
-                    "ask": 0.329,
+                    "mark_price": 0.31211832,
+                    "bid": 0.309,
+                    "ask": 0.315,
                     "open_interest": 0.4,
                     "volume": 0.0
                   },
                   {
                     "instrument": "BTC-27NOV26-80000-C",
-                    "mark_price": 0.05657614,
-                    "bid": 0.0565,
-                    "ask": 0.0575,
-                    "open_interest": 971.9,
-                    "volume": 41.0
+                    "mark_price": 0.06062716,
+                    "bid": 0.06,
+                    "ask": 0.0615,
+                    "open_interest": 974.9,
+                    "volume": 29.9
                   },
                   {
                     "instrument": "BTC-13SEP26-78500-C",
-                    "mark_price": 0.00308567,
-                    "bid": 0.0029,
-                    "ask": 0.0034,
-                    "open_interest": 17.5,
-                    "volume": 3.1
+                    "mark_price": 0.00380606,
+                    "bid": 0.0035,
+                    "ask": 0.0039,
+                    "open_interest": 22.1,
+                    "volume": 10.2
                   },
                   {
                     "instrument": "BTC-2OCT26-76000-C",
-                    "mark_price": 0.04152144,
-                    "bid": 0.041,
-                    "ask": 0.042,
+                    "mark_price": 0.04672228,
+                    "bid": 0.046,
+                    "ask": 0.048,
                     "open_interest": 7.3,
-                    "volume": 7.4
+                    "volume": 5.5
                   },
                   {
                     "instrument": "BTC-15SEP26-76000-C",
-                    "mark_price": 0.02027111,
-                    "bid": 0.0195,
-                    "ask": 0.021,
+                    "mark_price": 0.0262309,
+                    "bid": 0.025,
+                    "ask": 0.028,
                     "open_interest": 0.0,
-                    "volume": 0.0
-                  },
-                  {
-                    "instrument": "BTC-25JUN27-94000-P",
-                    "mark_price": 0.26192463,
-                    "bid": 0.2595,
-                    "ask": 0.265,
-                    "open_interest": 0.1,
                     "volume": 0.0
                   }
                 ]
@@ -2991,12 +2991,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap125",
-      "timestamp": "2026-09-11T11:32:27.208834+00:00",
+      "timestamp": "2026-09-11T13:14:34.615347+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.208849+00:00",
+        "attached_at": "2026-09-11T13:14:34.615363+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3045,12 +3045,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap126",
-      "timestamp": "2026-09-11T11:32:27.209355+00:00",
+      "timestamp": "2026-09-11T13:14:34.615858+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.209367+00:00",
+        "attached_at": "2026-09-11T13:14:34.615870+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3100,12 +3100,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap127",
-      "timestamp": "2026-09-11T11:32:27.209798+00:00",
+      "timestamp": "2026-09-11T13:14:34.616282+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.209807+00:00",
+        "attached_at": "2026-09-11T13:14:34.616290+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3197,16 +3197,16 @@
             "passed": true
           }
         ],
-        "timestamp": "2026-09-11T11:32:27.212663+00:00"
+        "timestamp": "2026-09-11T13:14:34.619125+00:00"
       },
       "success": true,
-      "timestamp": "2026-09-11T11:32:27.212663+00:00",
+      "timestamp": "2026-09-11T13:14:34.619125+00:00",
       "data_source": "cap646.batch03_dedicated#cap128",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.212736+00:00",
+        "attached_at": "2026-09-11T13:14:34.619198+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3256,12 +3256,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap129",
-      "timestamp": "2026-09-11T11:32:27.226397+00:00",
+      "timestamp": "2026-09-11T13:14:34.631821+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.226413+00:00",
+        "attached_at": "2026-09-11T13:14:34.631836+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3322,12 +3322,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap130",
-      "timestamp": "2026-09-11T11:32:27.226969+00:00",
+      "timestamp": "2026-09-11T13:14:34.632412+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.226980+00:00",
+        "attached_at": "2026-09-11T13:14:34.632425+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3377,12 +3377,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap131",
-      "timestamp": "2026-09-11T11:32:27.227408+00:00",
+      "timestamp": "2026-09-11T13:14:34.632848+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.227416+00:00",
+        "attached_at": "2026-09-11T13:14:34.632856+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3433,12 +3433,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap132",
-      "timestamp": "2026-09-11T11:32:27.227797+00:00",
+      "timestamp": "2026-09-11T13:14:34.633242+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.227804+00:00",
+        "attached_at": "2026-09-11T13:14:34.633249+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3706,12 +3706,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap133",
-      "timestamp": "2026-09-11T11:32:27.228877+00:00",
+      "timestamp": "2026-09-11T13:14:34.634686+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.228887+00:00",
+        "attached_at": "2026-09-11T13:14:34.634700+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3763,12 +3763,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap134",
-      "timestamp": "2026-09-11T11:32:27.229282+00:00",
+      "timestamp": "2026-09-11T13:14:34.635105+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.229290+00:00",
+        "attached_at": "2026-09-11T13:14:34.635113+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3821,12 +3821,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap135",
-      "timestamp": "2026-09-11T11:32:27.229669+00:00",
+      "timestamp": "2026-09-11T13:14:34.635495+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.229676+00:00",
+        "attached_at": "2026-09-11T13:14:34.635502+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3876,12 +3876,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap136",
-      "timestamp": "2026-09-11T11:32:27.230107+00:00",
+      "timestamp": "2026-09-11T13:14:34.635892+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.230114+00:00",
+        "attached_at": "2026-09-11T13:14:34.635898+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3930,12 +3930,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap137",
-      "timestamp": "2026-09-11T11:32:27.230482+00:00",
+      "timestamp": "2026-09-11T13:14:34.636285+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.230487+00:00",
+        "attached_at": "2026-09-11T13:14:34.636292+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3981,12 +3981,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap138",
-      "timestamp": "2026-09-11T11:32:27.230846+00:00",
+      "timestamp": "2026-09-11T13:14:34.636655+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.230851+00:00",
+        "attached_at": "2026-09-11T13:14:34.636661+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4070,16 +4070,16 @@
             "passed": true
           }
         ],
-        "timestamp": "2026-09-11T11:32:27.232161+00:00"
+        "timestamp": "2026-09-11T13:14:34.646925+00:00"
       },
       "success": true,
-      "timestamp": "2026-09-11T11:32:27.232161+00:00",
+      "timestamp": "2026-09-11T13:14:34.646925+00:00",
       "data_source": "cap646.batch03_dedicated#cap139",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.232232+00:00",
+        "attached_at": "2026-09-11T13:14:34.646999+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4121,12 +4121,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap140",
-      "timestamp": "2026-09-11T11:32:27.232945+00:00",
+      "timestamp": "2026-09-11T13:14:34.647712+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.232956+00:00",
+        "attached_at": "2026-09-11T13:14:34.647724+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4162,7 +4162,7 @@
           {
             "headline": "Bitcoin holds above $65K as ETF inflows continue",
             "category": "markets",
-            "published": "2026-09-11T11:32:27.233307+00:00",
+            "published": "2026-09-11T13:14:34.648095+00:00",
             "source": "CoinDesk",
             "attribution": "Source: CoinDesk",
             "dedup_key": "accfe4a040d64e6b"
@@ -4170,7 +4170,7 @@
           {
             "headline": "Ethereum upgrade timeline confirmed",
             "category": "technology",
-            "published": "2026-09-11T11:32:27.233310+00:00",
+            "published": "2026-09-11T13:14:34.648098+00:00",
             "source": "CoinDesk",
             "attribution": "Source: CoinDesk",
             "dedup_key": "87c5d64f82966938"
@@ -4184,12 +4184,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap141",
-      "timestamp": "2026-09-11T11:32:27.233363+00:00",
+      "timestamp": "2026-09-11T13:14:34.648154+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.233371+00:00",
+        "attached_at": "2026-09-11T13:14:34.648163+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4251,12 +4251,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap142",
-      "timestamp": "2026-09-11T11:32:27.233760+00:00",
+      "timestamp": "2026-09-11T13:14:34.648543+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.233767+00:00",
+        "attached_at": "2026-09-11T13:14:34.648551+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4337,12 +4337,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap143",
-      "timestamp": "2026-09-11T11:32:27.234163+00:00",
+      "timestamp": "2026-09-11T13:14:34.648935+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.234170+00:00",
+        "attached_at": "2026-09-11T13:14:34.648941+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4383,14 +4383,14 @@
             "asset": "BTC",
             "from": "unknown",
             "to": "binance",
-            "tx_hash": "0x668ea547b50b4d86"
+            "tx_hash": "0xe63c3c24a9b141dc"
           },
           {
             "amount_usd": 8000000,
             "asset": "ETH",
             "from": "coinbase",
             "to": "unknown",
-            "tx_hash": "0x40c1af6d97d64072"
+            "tx_hash": "0x40909297fbe34f1c"
           }
         ],
         "registry_ref": 98,
@@ -4403,12 +4403,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap144",
-      "timestamp": "2026-09-11T11:32:27.234552+00:00",
+      "timestamp": "2026-09-11T13:14:34.649332+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.234558+00:00",
+        "attached_at": "2026-09-11T13:14:34.649339+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4442,24 +4442,24 @@
         "merged_into": "oracle_api",
         "role": "secondary_redundancy",
         "symbol": "BTC",
-        "price": 76837.74,
+        "price": 77698.01,
         "market_cap": 1280000000000,
-        "volume_24h": 1139524711.6712103,
+        "volume_24h": 1199144238.9030516,
         "latency_buffer_ref": 101,
         "attribution": "Data: CoinMarketCap",
-        "timestamp": "2026-09-11T11:32:27.842516+00:00",
+        "timestamp": "2026-09-11T13:14:35.255427+00:00",
         "fee_db": {
           "ingest_usd": 0.0003
         }
       },
       "success": true,
-      "timestamp": "2026-09-11T11:32:27.842516+00:00",
+      "timestamp": "2026-09-11T13:14:35.255427+00:00",
       "data_source": "cap646.batch03_dedicated#cap145",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:27.842583+00:00",
+        "attached_at": "2026-09-11T13:14:35.255487+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4493,10 +4493,10 @@
           146,
           101
         ],
-        "primary_price": 76837.75,
+        "primary_price": 77698.01,
         "sources": {
-          "cmc": 76837.75,
-          "coinbase": 76830.066225
+          "cmc": 77698.01,
+          "coinbase": 77690.24019899999
         },
         "divergences_pct": {
           "cmc_pct": 0.0,
@@ -4507,12 +4507,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap146",
-      "timestamp": "2026-09-11T11:32:28.446969+00:00",
+      "timestamp": "2026-09-11T13:14:35.865683+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:28.446997+00:00",
+        "attached_at": "2026-09-11T13:14:35.865701+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4557,12 +4557,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap147",
-      "timestamp": "2026-09-11T11:32:28.447427+00:00",
+      "timestamp": "2026-09-11T13:14:35.866102+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:28.447437+00:00",
+        "attached_at": "2026-09-11T13:14:35.866110+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4600,19 +4600,19 @@
         "cross_validation_primary_rpc": true,
         "latency_buffer_ref": 101,
         "attribution": "Data: Blockchain.com",
-        "timestamp": "2026-09-11T11:32:28.447786+00:00",
+        "timestamp": "2026-09-11T13:14:35.866457+00:00",
         "fee_db": {
           "ingest_usd": 0.0005
         }
       },
       "success": true,
-      "timestamp": "2026-09-11T11:32:28.447786+00:00",
+      "timestamp": "2026-09-11T13:14:35.866457+00:00",
       "data_source": "cap646.batch03_dedicated#cap148",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:28.447829+00:00",
+        "attached_at": "2026-09-11T13:14:35.866501+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4660,19 +4660,19 @@
           "il_score_102"
         ],
         "attribution": "Data: DefiLlama",
-        "timestamp": "2026-09-11T11:32:28.448178+00:00",
+        "timestamp": "2026-09-11T13:14:35.866849+00:00",
         "fee_db": {
           "ingest_usd": 0.0005
         }
       },
       "success": true,
-      "timestamp": "2026-09-11T11:32:28.448178+00:00",
+      "timestamp": "2026-09-11T13:14:35.866849+00:00",
       "data_source": "cap646.batch03_dedicated#cap149",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:28.448221+00:00",
+        "attached_at": "2026-09-11T13:14:35.866892+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4855,7 +4855,7 @@
             "compute_usd": 0.002,
             "tier": "free"
           },
-          "generated_at": "2026-09-11T11:32:28.459974+00:00",
+          "generated_at": "2026-09-11T13:14:35.867349+00:00",
           "composite_score": {
             "ok": true,
             "feature_ref": 150,
@@ -4966,12 +4966,12 @@
       },
       "success": true,
       "data_source": "cap646.batch03_dedicated#cap150",
-      "timestamp": "2026-09-11T11:32:28.460960+00:00",
+      "timestamp": "2026-09-11T13:14:35.868165+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T11:32:28.460976+00:00",
+        "attached_at": "2026-09-11T13:14:35.868174+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {

@@ -1,15 +1,11 @@
-"""Batch 05 prep — production spine for official Batch 05 (IDs 201–250).
-
-IDs 214/245 cross-spine overlap resolved Run 013 (removed from LEGACY_BATCH01_EXTENSION_IDS).
-Catalog duplicates (206→86, 212→17, etc.) — batch05 dedicated handler retained for official RTM scope.
-"""
+"""Batch 05 prep — production spine for official Batch 05 (IDs 201–250)."""
 
 from __future__ import annotations
 
 from typing import Any, Awaitable, Callable
 
 BATCH05_IDS: frozenset[int] = frozenset(range(201, 251))
-BATCH05_PREP_IDS = BATCH05_IDS  # alias
+BATCH05_PREP_IDS = BATCH05_IDS
 
 from cap646.batch05_dedicated import BATCH05_DEDICATED_IDS
 from cap646.evidence_class import ai_compliance_footer
@@ -30,15 +26,11 @@ def _stamp_batch05(result: dict[str, Any], capability_id: int) -> dict[str, Any]
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
     if capability_id not in BATCH05_IDS:
         raise ValueError(f"capability {capability_id} is not in batch05 prep production spine")
-
     params = dict(params or {})
-
     if capability_id in BATCH05_DEDICATED_IDS:
         from cap646.batch05_dedicated import execute as execute_dedicated
-
         result = await execute_dedicated(capability_id, params=params)
         return _stamp_batch05(result, capability_id)
-
     raise ValueError(f"batch05_prep: unmapped capability {capability_id}")
 
 

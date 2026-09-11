@@ -138,7 +138,16 @@ async def process_batch(batch_num: int, *, skip_non_regression: bool = False, fo
     state["last_completed_at"] = datetime.now(UTC).isoformat()
     save_state(state)
 
-    subprocess.run(["git", "add", "-A", "cap646/", "scripts/", "docs/", "institutional_due_diligence_2026/"], cwd=ROOT)
+    stage_paths = [
+        "cap646/",
+        "scripts/",
+        str(cfg.rtm_path.relative_to(ROOT)),
+        str(cfg.audit_dir.relative_to(ROOT)),
+        str(STATE_PATH.relative_to(ROOT)),
+        str(PROGRESS_LOG.relative_to(ROOT)),
+        str(LEDGER_PATH.relative_to(ROOT)),
+    ]
+    subprocess.run(["git", "add", *stage_paths], cwd=ROOT)
     subprocess.run(
         ["git", "commit", "-m", f"Run 826 v6: Batch{batch_num:02d} ({cfg.id_start}-{cfg.id_end}) Path A + closure"],
         cwd=ROOT,

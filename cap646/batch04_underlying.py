@@ -77,7 +77,7 @@ async def invoke_underlying(capability_id: int, *, params: dict[str, Any] | None
         return {"success": False, "error": str(exc), "handler": handler.__name__, "capability_id": capability_id}
 
     if not isinstance(result, dict):
-        return {"success": bool(result), "result": result, "capability_id": capability_id}
+        return {"success": False, "result": result, "capability_id": capability_id}
     result.setdefault("capability_id", capability_id)
     if "success" not in result and not result.get("error"):
         result["success"] = True
