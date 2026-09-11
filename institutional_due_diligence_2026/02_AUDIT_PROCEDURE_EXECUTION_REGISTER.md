@@ -51,6 +51,7 @@
 | SCORE-IDX-001 | W3/W22 | Scoring/index PRODUCTION-ALIGNED gate (Run 005 permanent) | E1 | POLICY ACTIVE | all batches 51–826 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
 | RTM-IND-001 | W0/W22 | RTM self-assessment prohibited; nine-phase independent audit only (WF-026) | E1 | POLICY ACTIVE | batches 51–826 | EXECUTED | WF-026, docs/BATCH01_OFFICIAL_RTM_1_50.json |
 | B01-CLOSE-005 | W22 | Batch 01 final closure Run 005 (IDs 8/9/33 + RTM replace) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
+| B02-RUN-006 | W22 | Batch 02 initial independent nine-phase audit (IDs 51–100) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_INDEPENDENT_NINE_PHASE_REPORT.md |
 
 ## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
 
