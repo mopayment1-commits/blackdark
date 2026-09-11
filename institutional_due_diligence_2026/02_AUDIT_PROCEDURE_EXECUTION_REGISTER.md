@@ -1,6 +1,6 @@
 # 02 — AUDIT PROCEDURE EXECUTION REGISTER
 **Contract:** FINAL-EXECUTION-CONTRACT-2026  
-**Updated:** 2026-09-11T07:45:00Z (Run 005 — Batch 01 closure standards)  
+**Updated:** 2026-09-11T08:30:00Z (Run 007 — Batch 02 closure standards)  
 **HEAD:** `944c4f4d5dfb36d5c11d9eb6984232892a7b5234`
 
 | Proc ID | Domain | Requirement | Min Ev | Result | Coverage | Status | Evidence |
@@ -52,6 +52,7 @@
 | RTM-IND-001 | W0/W22 | RTM self-assessment prohibited; nine-phase independent audit only (WF-026) | E1 | POLICY ACTIVE | batches 51–826 | EXECUTED | WF-026, docs/BATCH01_OFFICIAL_RTM_1_50.json |
 | B01-CLOSE-005 | W22 | Batch 01 final closure Run 005 (IDs 8/9/33 + RTM replace) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
 | B02-RUN-006 | W22 | Batch 02 initial independent nine-phase audit (IDs 51–100) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_INDEPENDENT_NINE_PHASE_REPORT.md |
+| B02-CLOSE-007 | W22 | Batch 02 final closure Run 007 (IDs 52/53/54/81 + cross-spine + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_FINAL_CLOSURE_REPORT.md |
 
 ## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
 
@@ -65,3 +66,15 @@ Any capability classified as a **scoring/index** MUST NOT receive `PRODUCTION-AL
 ## RTM-IND-001 — Independent RTM Policy (WF-026 Remediation)
 
 `scripts/audit_official_batch01_rtm.py` and equivalent self-assessment (success/spine/surface only) are **prohibited** for batches **51–826**. The sole accepted classification method is the **Independent Third-Line Nine-Phase Due Diligence** (`scripts/independent_batch01_nine_phase_audit.py` pattern per batch). No exceptions.
+
+## CROSS-SPINE-001 — Batch Routing Overlap Governance (Run 007 permanent)
+
+Any `capability_id` that appears in **more than one** `BATCH0X_IDS` routing set in `cap646/runtime.py` (or its imported `batch0X_production` modules) is a **governance contradiction** and MUST be:
+
+1. **Detected immediately** when discovered (automated scan in closure runs and audit scripts);
+2. **Recorded** as a separate finding with literal list membership (`BATCH01_IDS`, `BATCH02_IDS`, `BATCH03_IDS`, `LEGACY_BATCH01_EXTENSION_IDS`);
+3. **Resolved** by removing the ID from the non-official list OR reordering runtime checks with documented owner approval — never left silently routed to the wrong batch handler.
+
+**Runtime order today:** `BATCH01_IDS` → `BATCH02_IDS` → `BATCH03_IDS` (first match wins).
+
+**Known post-Run-007 finding (outside Batch 02 scope):** IDs **103, 129** appear in both `BATCH01_IDS` (legacy extension) and `BATCH03_IDS` — routed batch01 at runtime until remediated in a future batch closure run.

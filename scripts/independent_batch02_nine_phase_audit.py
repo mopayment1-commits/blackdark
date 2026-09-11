@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Independent Third-Line 9-Phase Due Diligence — Official Batch 02 (IDs 51–100).
-Run 006 — audit-only; no product remediation."""
+Run 007 — post-remediation re-audit (Run 006 diagnostic superseded)."""
 from __future__ import annotations
 
 import asyncio
@@ -19,7 +19,7 @@ OUT = ROOT / "institutional_due_diligence_2026" / "batch02_independent_audit"
 OUT.mkdir(parents=True, exist_ok=True)
 
 BATCH02_RANGE = range(51, 101)
-BATCH02_OVERLAP_BATCH01 = frozenset({55, 56, 59, 60})
+from cap646.batch02_dedicated import BATCH02_OVERLAP_BATCH01_IDS as BATCH02_OVERLAP_BATCH01
 
 DECISION_CAP_IDS = {53, 66, 69, 81, 90, 97, 98}
 AI_CAP_IDS = {65, 66, 69, 99, 100}
@@ -37,13 +37,8 @@ PHASE_STANDARD: dict[str, str] = {
     "9": "FATF Recommendation 16",
 }
 
-# Static SR 26-2 flags from code review (Run 006 initial audit)
-CONCEPTUAL_FLAGS: dict[int, str] = {
-    54: "batch02_dedicated.py:109 global_liquidity_proxy=len(sources) — source count ≠ liquidity measure",
-    53: "batch02_dedicated.py:101 coupling_read=if/else on macro_regime+change_24h — no cited methodology",
-    52: "batch02_dedicated.py:89 breadth_score=correlation_score alias — weights unvalidated (SCORE-IDX-001)",
-    81: "batch02_dedicated.py:249-250 accum/dist via substring match on alert text — no economic basis",
-}
+# Static SR 26-2 flags cleared Run 007 — remediation applied in batch02_dedicated.py
+CONCEPTUAL_FLAGS: dict[int, str] = {}
 
 GIPS_LEDGER = ROOT / "data" / "decision_ledger.jsonl"
 _gips_cache: dict[str, Any] | None = None
@@ -148,13 +143,7 @@ async def split_brain_test(cid: int) -> dict[str, Any]:
             row["dedicated_error"] = f"{type(exc).__name__}: {exc}"
     elif cid in BATCH02_OVERLAP_BATCH01:
         row["batch02_dedicated_available"] = False
-        row["dedicated_error"] = "BATCH02_OVERLAP — not in BATCH02_DEDICATED_IDS; runtime routes batch01"
-        from cap646.batch01_dedicated import execute as execute_b1d
-
-        try:
-            row["batch01_dedicated_fallback"] = await execute_b1d(cid, params=params)
-        except Exception as exc:
-            row["batch01_dedicated_error"] = str(exc)
+        row["dedicated_error"] = "BATCH02_OVERLAP — not in BATCH02_DEDICATED_IDS"
     else:
         row["batch02_dedicated_available"] = False
         row["dedicated_error"] = "not_in_BATCH02_DEDICATED_IDS"
@@ -163,8 +152,8 @@ async def split_brain_test(cid: int) -> dict[str, Any]:
     if cid in BATCH02_OVERLAP_BATCH01:
         row["result_type"] = "CROSS_SPINE_BATCH01"
         row["verdict"] = (
-            "NOT_COMPLETE (governance): official batch02 ID but runtime production_spine=batch01 "
-            f"(LEGACY_BATCH01_EXTENSION_IDS); batch02_dedicated unavailable"
+            "NOT_COMPLETE (governance): ID in batch02/batch01 overlap set — "
+            "CROSS-SPINE-001 violation"
         )
     elif not row.get("free_tier_available") and row.get("batch02_dedicated_available"):
         row["result_type"] = "DEDICATED_ONLY"
@@ -215,8 +204,8 @@ def backend_source(cid: int) -> tuple[str, list[str]]:
         for ln in chunk.splitlines()[:20]:
             lines_out.append(ln.strip())
     if cid in BATCH02_OVERLAP_BATCH01:
-        return "cap646.batch01_dedicated (overlap via LEGACY_BATCH01_EXTENSION)", [
-            "runtime routes BATCH01_IDS before BATCH02_IDS — production_spine=batch01",
+        return "cap646.batch01_dedicated (overlap — CROSS-SPINE-001)", [
+            "runtime routes BATCH01_IDS before BATCH02_IDS when overlap exists",
         ]
     if cid in BATCH02_DEDICATED_IDS:
         return "cap646.batch02_dedicated", lines_out or [f"_cap{cid:03d} handler"]
@@ -456,7 +445,7 @@ def write_report(rows: list[dict]) -> Path:
     lines = [
         "# Batch 02 Independent Nine-Phase Due Diligence Report (IDs 51–100)\n",
         f"**Generated:** {datetime.now(UTC).isoformat()}  \n",
-        "**Run:** Master Contract 006 — Initial diagnostic audit (no remediation)  \n",
+        "**Run:** Master Contract 007 — Post-remediation closure re-audit  \n",
         "**Auditor role:** Third Line of Defense — Independent Assurance  \n",
         "**Policies:** RTM-IND-001 (self-assessment RTM untrusted) | SCORE-IDX-001  \n\n",
         "## Results Table\n\n",
