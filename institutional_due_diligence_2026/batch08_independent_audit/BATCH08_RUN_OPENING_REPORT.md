@@ -1,6 +1,6 @@
 # Batch 08 RBAS Opening Report (Run 021)
 
-**Generated:** 2026-09-11T12:01:25.306635+00:00  
+**Generated:** 2026-09-11T21:06:18.131842+00:00  
 **Scope:** IDs 351–400  
 
 ## WF-027 Preflight

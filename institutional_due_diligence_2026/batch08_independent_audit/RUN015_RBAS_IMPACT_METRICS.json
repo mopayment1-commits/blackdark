@@ -2,27 +2,27 @@
   "tier1": {
     "ids": 44,
     "phase_checks": 396,
-    "duration_ms": 46129
+    "duration_ms": 5969
   },
   "tier2": {
-    "ids": 4,
-    "phase_checks": 12,
-    "duration_ms": 2134
+    "ids": 5,
+    "phase_checks": 15,
+    "duration_ms": 101
   },
   "tier1_count": 44,
   "tier1_phase_checks": 396,
-  "tier1_duration_ms": 46129,
-  "tier2_count": 4,
-  "tier2_phase_checks": 12,
-  "tier2_duration_ms": 2134,
-  "escalated_count": 2,
-  "escalated_phase_checks": 24,
-  "escalated_duration_ms": 4827,
-  "total_phase_checks": 432,
-  "total_duration_ms": 53090,
+  "tier1_duration_ms": 5969,
+  "tier2_count": 5,
+  "tier2_phase_checks": 15,
+  "tier2_duration_ms": 101,
+  "escalated_count": 1,
+  "escalated_phase_checks": 12,
+  "escalated_duration_ms": 673,
+  "total_phase_checks": 423,
+  "total_duration_ms": 6743,
   "full_nine_phase_baseline_checks": 450,
-  "checks_saved_vs_full_baseline": 18,
-  "tier2_efficiency_ratio": 0.96,
+  "checks_saved_vs_full_baseline": 27,
+  "tier2_efficiency_ratio": 0.94,
   "conceptually_unsound_count": 0,
-  "calibration_note": "Escalation excludes compliance_footer provenance_score paths (Run 027 calibration). Tier2 abbreviated path did not yield CONCEPTUALLY-UNSOUND misses."
+  "calibration_note": "Escalation excludes compliance_footer provenance_score paths (Run 025 calibration). Tier2 abbreviated path did not yield CONCEPTUALLY-UNSOUND misses."
 }
