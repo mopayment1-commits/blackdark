@@ -1,0 +1,3 @@
+{"ts": "2026-09-11T11:19:47.634560+00:00", "source": "net_edge_truth", "reason": "residual_edge_below_threshold", "meta": {"truth_score": 28.36, "asset": "ETH"}}
+{"ts": "2026-09-11T11:19:54.228571+00:00", "source": "net_edge_truth", "reason": "residual_edge_below_threshold", "meta": {"truth_score": 28.36, "asset": "ETH"}}
+{"ts": "2026-09-11T11:38:19.184842+00:00", "source": "net_edge_truth", "reason": "residual_edge_below_threshold", "meta": {"truth_score": 28.36, "asset": "ETH"}}
