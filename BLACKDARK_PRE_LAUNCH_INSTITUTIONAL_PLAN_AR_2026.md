@@ -112,3 +112,26 @@ python scripts/full_completion_bootstrap.py
 
 **الخلاصة للمالك:** طلبك صحيح وممكن — لكنه **مشروع إكمال مؤسسي** وليس «نشر على Railway».  
 الخطوة التالية: إغلاق G1 + G4 + G6 + G8 محليًا، ثم staging، ثم PASS_LIVE، ثم prod.
+
+---
+
+## 7. متطلبات المالك الإضافية (سبتمبر 2026)
+
+| المتطلب | الأداة / الملف | الحالة |
+|---------|----------------|--------|
+| تدقيق هندسي 826/826 + Type A=0 | `scripts/engineering_audit_826.py` → `ENGINEERING_AUDIT_826_SUMMARY.json` | 🔄 تشغيل كامل — batch01 عينة: **0 Type A** |
+| تصنيف ثلاثي PASS_ENGINEERING + دليل حي | `_triple_classify()` في نفس السكربت | ✅ لكل قدرة |
+| WF أمني (WF-015 انتحال هوية) | `docs/security/SECURITY_WORKFLOW_REGISTER.json` + اختبارات | ✅ REMEDIATED + pytest |
+| WF-016/017 عزل المستأجر | `org_members` / `org_add_member` + `assert_org_access` | ✅ مُصلَح |
+| فصل الأسرار | `scripts/secrets_hygiene_scan.py` + `.gitignore` | ✅ clean |
+| BLK-002 قاعدة prod منفصلة | `docs/ops/DATABASE_PROD_STAGING_AR.md` | 📋 موثّق — يُفعَّل على Railway |
+| Staging أولًا | `deploy/railway/STAGING_DEPLOY_CHECKLIST_AR.md` + `.env.staging.example` | 📋 جاهز للنشر — يحتاج حساب Railway |
+
+**أوامر يومية:**
+
+```bash
+python scripts/engineering_audit_826.py      # Type A يجب = 0
+python scripts/secrets_hygiene_scan.py       # clean: true
+python scripts/verify_security_workflows.py  # WF remediated
+python scripts/pre_launch_gate_assessor.py   # railway_deploy_allowed
+```

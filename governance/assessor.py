@@ -121,12 +121,20 @@ def assess_pre_launch_gates() -> dict[str, Any]:
     pre_launch_ready = all(s == "PASS" for s in statuses)
     railway_deploy_allowed = pre_launch_ready and g8_ok
 
+    wf_path = _ROOT / "docs/security/SECURITY_WORKFLOW_REGISTER.json"
+    wf_data = json.loads(wf_path.read_text(encoding="utf-8")) if wf_path.exists() else {"workflows": []}
+    wf_open = [w["id"] for w in wf_data.get("workflows", []) if w.get("status", "").startswith("OPEN")]
+    secrets_report = _load_json("SECRETS_HYGIENE_REPORT.json") or {}
+
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "program": "PRE_LAUNCH_INSTITUTIONAL_COMPLETION",
         "pre_launch_ready": pre_launch_ready,
         "railway_deploy_allowed": railway_deploy_allowed,
         "PASS_LIVE_NOT_CLAIMED": True,
+        "blk_002_postgres_separate": g8_ok,
+        "secrets_hygiene_clean": secrets_report.get("clean", False),
+        "security_workflows_open": wf_open,
         "gates": gates,
         "honest_summary": {
             "runtime_batch_closure": f"{batch_total}/826" if batch_ok else "incomplete",
