@@ -132,7 +132,11 @@ async def execute_capability(
     params = dict(params or {})
     row = catalog_by_id().get(capability_id)
     if not row:
-        return ai_compliance_footer({"success": False, "error": "unknown_capability_id", "capability_id": capability_id})
+        batch_h_early = batch_handler_for(capability_id)
+        if batch_h_early is not None:
+            row = {"capability": f"CAP-{capability_id}", "track": "T17"}
+        else:
+            return ai_compliance_footer({"success": False, "error": "unknown_capability_id", "capability_id": capability_id})
 
     if is_external(capability_id):
         return ai_compliance_footer(

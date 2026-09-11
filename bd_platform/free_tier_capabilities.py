@@ -15,7 +15,7 @@ from path_safety import assert_url_path_safe, safe_url_segment
 logger = logging.getLogger("BLACKDARK.FreeTierCaps")
 
 FREE_TIER_BASE_IDS: frozenset[int] = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45, 196})
-FREE_TIER_EXTENSION_IDS: frozenset[int] = frozenset({647, 648, 652, 672, 673, 674, 675, 676, 690, 691, 702, 703, 704, 705})
+FREE_TIER_EXTENSION_IDS: frozenset[int] = frozenset({647, 652, 672, 673, 674, 675, 676, 690, 691, 702, 703, 704, 705})
 FREE_TIER_CAP_IDS: frozenset[int] = FREE_TIER_BASE_IDS | FREE_TIER_EXTENSION_IDS
 
 _HEADERS = {"User-Agent": "BLACKDARK/1.0", "Accept": "application/json"}
