@@ -121,8 +121,15 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
 
 def _make_cap_entrypoint(capability_id: int) -> Callable[..., Awaitable[dict[str, Any]]]:
-    async def _entry(*, params: dict[str, Any] | None = None, capability_id: int = capability_id) -> dict[str, Any]:
-        return await execute(capability_id, params=params)
+    async def _entry(
+        symbol: str = "BTC",
+        *,
+        params: dict[str, Any] | None = None,
+        capability_id: int = capability_id,
+    ) -> dict[str, Any]:
+        merged = dict(params or {})
+        merged.setdefault("symbol", symbol)
+        return await execute(capability_id, params=merged)
 
     _entry.__name__ = batch01_entrypoint(capability_id)
     _entry.__doc__ = f"Batch01 production entrypoint for capability #{capability_id}."

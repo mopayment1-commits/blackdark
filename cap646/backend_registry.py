@@ -135,6 +135,30 @@ def _register_batch03_bindings() -> None:
 _register_batch03_bindings()
 
 
+def _register_batch_range_bindings() -> None:
+    from cap646.batch_range_production import BATCH_RANGE_IDS, batch_range_entrypoint
+
+    skip = frozenset({55, 56, 59, 60, 103, 129})  # routed via batch01/02 overlap spines
+    for cid in BATCH_RANGE_IDS:
+        if cid in skip or cid in _EXPLICIT_BINDINGS:
+            continue
+        row = catalog_by_id().get(cid)
+        if not row:
+            continue
+        surface = _slug(row.get("capability", f"cap_{cid}"))
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch_range_production",
+            batch_range_entrypoint(cid),
+            surface,
+            "symbol",
+            "batch_range_production_spine",
+        )
+
+
+_register_batch_range_bindings()
+
+
 # Map gap-matrix component stems → canonical import path + entrypoint
 _COMPONENT_BINDINGS: dict[str, tuple[str, str, str]] = {
     "market_context.py": ("market_context", "probe_price_sources", "symbol"),

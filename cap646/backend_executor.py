@@ -104,7 +104,13 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         from ai_oracle import evaluate_opportunity
 
         opp = {"asset": symbol, "symbol": f"{symbol}/USDT"}
-        return await evaluate_opportunity(opp)
+        kind = str(params.get("opportunity_kind") or "spot_futures")
+        evaluated = await evaluate_opportunity(opp, kind=kind)
+        if hasattr(evaluated, "model_dump"):
+            return evaluated.model_dump()
+        if isinstance(evaluated, dict):
+            return evaluated
+        return {"evaluated": evaluated, "success": True}
 
     return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
 

@@ -17,6 +17,20 @@ BATCHES = {
     "batch01": range(1, 51),
     "batch02": range(51, 101),
     "batch03": range(101, 151),
+    "batch04": range(151, 201),
+    "batch05": range(201, 251),
+    "batch06": range(251, 301),
+    "batch07": range(301, 351),
+    "batch08": range(351, 401),
+    "batch09": range(401, 451),
+    "batch10": range(451, 501),
+    "batch11": range(501, 551),
+    "batch12": range(551, 601),
+    "batch13": range(601, 651),
+    "batch14": range(651, 701),
+    "batch15": range(701, 751),
+    "batch16": range(751, 801),
+    "batch17": range(801, 827),
 }
 
 
