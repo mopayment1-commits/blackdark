@@ -10,7 +10,6 @@ redis
 asyncpg
 strawberry-graphql[fastapi]
 psutil
-textblob
 kafka-python
 hvac
 python-dotenv

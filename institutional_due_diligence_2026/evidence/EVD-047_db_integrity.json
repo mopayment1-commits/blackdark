@@ -1,0 +1,21 @@
+{
+  "evidence_id": "EVD-047",
+  "spine_count": 55,
+  "wave_count": 16,
+  "overlap": [],
+  "sqlite_tables": 60,
+  "spine_tests": {
+    "command": "/workspace/.venv/bin/python -m pytest tests/test_spine_database.py -q --tb=line -ra",
+    "exit_code": 0,
+    "duration_sec": 6.67,
+    "output_tail": "............................                                             [100%]\n",
+    "status": "VERIFIED PASS"
+  },
+  "migration_tests": {
+    "command": "/workspace/.venv/bin/python -m pytest tests/test_postgres_migration_integrity.py -q --tb=line -ra",
+    "exit_code": 0,
+    "duration_sec": 1.97,
+    "output_tail": "....                                                                     [100%]\n",
+    "status": "VERIFIED PASS"
+  }
+}
