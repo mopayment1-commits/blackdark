@@ -55,7 +55,20 @@
 | B02-CLOSE-007 | W22 | Batch 02 final closure Run 007 (IDs 52/53/54/81 + cross-spine + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_FINAL_CLOSURE_REPORT.md |
 | B03-XSPINE-008 | W22 | Cross-spine resolution Run 008 (IDs 103/129 pre-Batch03) | E1 | VERIFIED PASS | 2/2 | EXECUTED | RUN008_CROSS_SPINE_103_129_RESOLUTION.md |
 | B03-RUN-009 | W22 | Batch 03 initial independent nine-phase audit (IDs 101–150) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH03_INDEPENDENT_NINE_PHASE_REPORT.md |
-| B03-CLOSE-010 | W22 | Batch 03 final closure Run 010 (SCORE-IDX confirm + BCBS239 + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH03_FINAL_CLOSURE_REPORT.md |
+## RBAS-001 — Risk-Based Audit Scoping (Run 011 permanent)
+
+Source: IIA Risk-Based Internal Auditing + SR 26-2 proportionality principle.
+
+| Tier | Scope | Phases executed |
+|---|---|---|
+| **Tier1** | Decision/score/index outputs; entitlement/financial sensitive; on-chain/FATF; WF-027 IDs | Full nine-phase (no abbreviation) |
+| **Tier2** | Data-delivery/catalog/registry without direct user decision output | Phase 1 + 4 + 6 + SPLIT-BRAIN only |
+
+**Default-on-doubt:** Tier1 unless clear Tier2 delivery-only proof (`scripts/rbas001_scoping.py`).
+
+**Tier2 escalation:** Hidden decision/score indicators during abbreviated Phase 1 → immediate promotion to Tier1 full path.
+
+| B04-RUN-011 | W22 | Batch 04 RBAS opening audit (IDs 151–200) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH04_RUN011_OPENING_REPORT.md |
 
 ## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
 
