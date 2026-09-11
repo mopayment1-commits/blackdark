@@ -1,6 +1,6 @@
 {
   "batch": "batch_05_401_500",
-  "deep_audit_at": "2026-08-30T20:27:03.428708+00:00",
+  "deep_audit_at": "2026-09-05T15:31:27.729132+00:00",
   "total": 100,
   "classification_counts": {
     "VERIFIED-DEEP": 97,
@@ -22,7 +22,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 402,
@@ -34,7 +34,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 403,
@@ -46,7 +46,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 404,
@@ -58,7 +58,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 405,
@@ -70,7 +70,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 406,
@@ -82,7 +82,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 407,
@@ -94,7 +94,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 408,
@@ -106,7 +106,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 409,
@@ -118,7 +118,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 410,
@@ -130,7 +130,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 411,
@@ -142,7 +142,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 412,
@@ -154,7 +154,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 413,
@@ -166,7 +166,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 414,
@@ -178,7 +178,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 415,
@@ -190,7 +190,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 416,
@@ -202,7 +202,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 417,
@@ -214,7 +214,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 418,
@@ -226,7 +226,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 419,
@@ -238,7 +238,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 420,
@@ -250,7 +250,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 421,
@@ -262,7 +262,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 422,
@@ -274,7 +274,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 423,
@@ -286,7 +286,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 424,
@@ -298,7 +298,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 425,
@@ -310,7 +310,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 426,
@@ -322,7 +322,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 427,
@@ -334,7 +334,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 428,
@@ -346,7 +346,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 429,
@@ -358,7 +358,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 430,
@@ -370,7 +370,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 431,
@@ -382,7 +382,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 432,
@@ -394,7 +394,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 433,
@@ -406,7 +406,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 434,
@@ -418,7 +418,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 435,
@@ -430,7 +430,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 436,
@@ -442,7 +442,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 437,
@@ -461,7 +461,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 438,
@@ -473,7 +473,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 439,
@@ -485,7 +485,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 440,
@@ -497,7 +497,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 441,
@@ -518,7 +518,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 442,
@@ -530,7 +530,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 443,
@@ -542,7 +542,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 444,
@@ -554,7 +554,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 445,
@@ -566,7 +566,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 446,
@@ -578,7 +578,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 447,
@@ -590,7 +590,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 448,
@@ -602,7 +602,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 449,
@@ -614,7 +614,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 450,
@@ -626,7 +626,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 451,
@@ -638,7 +638,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 452,
@@ -650,7 +650,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 453,
@@ -662,7 +662,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 454,
@@ -674,7 +674,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 455,
@@ -686,7 +686,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 456,
@@ -698,7 +698,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 457,
@@ -710,7 +710,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 458,
@@ -731,7 +731,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 459,
@@ -743,7 +743,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 460,
@@ -755,7 +755,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 461,
@@ -767,7 +767,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 462,
@@ -779,7 +779,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 463,
@@ -791,7 +791,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 464,
@@ -803,7 +803,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 465,
@@ -815,7 +815,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 466,
@@ -827,7 +827,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 467,
@@ -839,7 +839,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 468,
@@ -851,7 +851,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 469,
@@ -863,7 +863,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 470,
@@ -875,7 +875,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 471,
@@ -887,7 +887,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 472,
@@ -899,7 +899,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 473,
@@ -911,7 +911,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 474,
@@ -923,7 +923,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 475,
@@ -935,7 +935,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 476,
@@ -947,7 +947,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 477,
@@ -959,7 +959,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 478,
@@ -971,7 +971,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 479,
@@ -983,7 +983,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 480,
@@ -995,7 +995,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 481,
@@ -1007,7 +1007,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 482,
@@ -1019,7 +1019,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 483,
@@ -1031,7 +1031,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 484,
@@ -1043,7 +1043,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 485,
@@ -1055,7 +1055,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 486,
@@ -1067,7 +1067,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 487,
@@ -1079,7 +1079,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 488,
@@ -1091,7 +1091,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 489,
@@ -1103,7 +1103,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 490,
@@ -1115,7 +1115,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 491,
@@ -1127,7 +1127,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 492,
@@ -1139,7 +1139,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 493,
@@ -1151,7 +1151,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 494,
@@ -1163,7 +1163,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 495,
@@ -1175,7 +1175,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 496,
@@ -1187,7 +1187,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 497,
@@ -1199,7 +1199,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 498,
@@ -1211,7 +1211,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 499,
@@ -1223,7 +1223,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 500,
@@ -1235,7 +1235,7 @@
       },
       "independent_test_passed": true,
       "live_ok": true,
-      "source_branch": "capabilities-826-import"
+      "source_branch": "origin/main"
     }
   ]
 }
