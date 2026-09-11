@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 from cap646.catalog import catalog_by_id, matrix_by_id
@@ -262,7 +264,7 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("squeeze", "trigger", "liquidation cluster"), ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol")),
     (("slippage tolerance", "self-optimization", "slippage optimize", "slippage intelligence"), ("bd_platform.slippage_tolerance_optimizer", "optimize_slippage_tolerance", "symbol")),
     (("asymmetric slippage", "directional slippage", "buy sell slippage"), ("bd_platform.slippage_tolerance_optimizer", "compute_asymmetric_slippage_cost", "symbol")),
-    (("intelligence ledger", "execution intelligence", "best execution"), ("bd_platform.intelligence_ledger", "build_execution_intelligence", "symbol")),
+    (("intelligence ledger", "execution intelligence", "best execution"), ("bd_platform.intelligence_ledger", "build_execution_intelligence", "execution_intelligence")),
     (("address intelligence", "address search", "wallet search", "balance history", "balance updates"), ("bd_platform.address_intelligence", "address_intelligence_overview", "address")),
     (("1inch", "dex aggregator"), ("bd_platform.oneinch_connector", "fetch_oneinch_quote", "symbol")),
     (("ranking", "marketcap"), ("bd_platform.market_rankings", "market_rankings", "none")),
@@ -283,6 +285,32 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("telegram", "agent"), ("bd_platform.telegram_agent", "handle_agent_message", "message")),
     (("ifttt", "rule"), ("bd_platform.ifttt_rules", "list_rules", "none")),
     (("strategy marketplace", "marketplace"), ("bd_platform.strategy_marketplace", "list_strategies", "none")),
+    (("quarterly", "protocol performance", "report pack"), ("due_diligence_bundle", "build_full_due_diligence_bundle", "none")),
+    (("governance", "proposal"), ("bd_platform.onchain_hub", "defillama_raises", "none")),
+    (("knowledge graph", "research library"), ("due_diligence_bundle", "build_full_due_diligence_bundle", "none")),
+    (("copilot", "deep research"), ("ai_oracle", "evaluate_opportunity", "opportunity")),
+    (("inflow", "outflow", "netflow"), ("bd_platform.heroes_capability_layer", "exchange_netflow_intelligence_48", "exchange_asset")),
+    (("top holders", "holder intelligence"), ("whale_tracker", "get_latest_whale_alerts", "limit")),
+    (("development activity", "developer activity", "ecosystem development"), ("bd_platform.onchain_hub", "defillama_raises", "none")),
+    (("trending",), ("bd_platform.market_rankings", "market_rankings", "none")),
+    (("historical", "trend"), ("cap646.fallbacks", "resolve_ohlcv_closes", "symbol")),
+    (("transaction volume", "network activity"), ("onchain_tracker", "build_onchain_context_safe", "none")),
+    (("screener",), ("bd_platform.market_rankings", "market_rankings", "none")),
+    (("correlation",), ("bd_platform.alpha_engine", "compute_alpha_signal", "symbol")),
+    (("sector",), ("bd_platform.market_rankings", "market_rankings", "none")),
+    (("workspace",), ("bd_platform.infra_status", "infra_matrix", "none")),
+    (("metadata", "registry"), ("blackdark.canonical.resolver", "resolve_asset", "symbol")),
+    (("monitoring", "coverage"), ("ops.monitoring_alerting", "monitoring_status", "none")),
+    (("entitlement", "data delivery", "pay-per", "pay per"), ("billing_service", "billing_status", "none")),
+    (("fundraising", "confidence score", "momentum score"), ("trust_pulse", "build_trust_pulse", "symbol_tier")),
+    (("cross-domain", "cross domain"), ("cap646.cross_domain_decision", "build_cross_domain_decision_payload", "symbol")),
+    (("realized", "supply", "issuance"), ("bd_platform.onchain_hub", "lookintobitcoin_macro", "none")),
+    (("indicator", "metrics"), ("bd_platform.alpha_engine", "compute_alpha_signal", "symbol")),
+    (("dashboard",), ("bd_platform.infra_status", "infra_matrix", "none")),
+    (("integration", "connector"), ("bd_platform.infra_status", "infra_matrix", "none")),
+    (("liquidity",), ("live_book_hub", "hub_stats", "books")),
+    (("derivatives",), ("bd_platform.derivatives_hub", "derivatives_overview", "symbol")),
+    (("institutional",), ("org_tenant", "org_isolation_status", "none")),
 )
 
 
@@ -305,6 +333,15 @@ def _keyword_binding(name: str) -> tuple[str, str, str] | None:
     return None
 
 
+@lru_cache(maxsize=1)
+def _load_semantic_map() -> dict[int, dict[str, Any]]:
+    path = Path(__file__).resolve().parent / "capability_semantic_map.json"
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {int(k): v for k, v in (data.get("generated") or {}).items()}
+
+
 def _semantic_binding_for(capability_id: int) -> BackendBinding:
     """Resolve goal-specific binding — never the generic batch_range wrapper (v6 §2.1.3)."""
     row = catalog_by_id()[capability_id]
@@ -312,6 +349,17 @@ def _semantic_binding_for(capability_id: int) -> BackendBinding:
     name = row["capability"]
     track = row["track"]
     surface = _slug(name)
+
+    override = _load_semantic_map().get(capability_id)
+    if override:
+        return BackendBinding(
+            capability_id,
+            override["module"],
+            override["entrypoint"],
+            surface,
+            override.get("param_style", "symbol"),
+            override.get("source", "capability_semantic_map"),
+        )
 
     comp = _component_binding(matrix.get("existing_code_components") or [])
     if comp:
@@ -324,7 +372,7 @@ def _semantic_binding_for(capability_id: int) -> BackendBinding:
         return BackendBinding(capability_id, mod, ep, surface, ps, "capability_keyword")
 
     mod, ep, ps = _TRACK_DEFAULTS.get(track, _TRACK_DEFAULTS["T04"])
-    return BackendBinding(capability_id, mod, ep, surface, ps, "track_default")
+    return BackendBinding(capability_id, mod, ep, surface, ps, f"semantic_track_{track}")
 
 
 def _register_batch_range_bindings() -> None:
@@ -347,13 +395,16 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     from cap646.extension_capabilities import is_extension_id
 
     if is_extension_id(capability_id):
+        from cap978.extension_registry import resolve_extension_binding
+
+        ext = resolve_extension_binding(capability_id)
         return BackendBinding(
-            capability_id,
-            "cap646.extension_capabilities",
-            f"extension_{capability_id}",
-            f"extension_{capability_id}",
-            "symbol",
-            "extension_registry_remediation",
+            ext.capability_id,
+            ext.module,
+            ext.entrypoint,
+            ext.surface,
+            ext.param_style,
+            ext.source or "cap978_extension_registry",
         )
 
     if 647 <= capability_id <= 826:
