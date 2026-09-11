@@ -1,7 +1,7 @@
 """Batch 03 prep dedicated backends — goal-specific payloads for IDs 101–150.
 
-IDs 103 and 129 are batch01 overlap: no dedicated backend here; runtime routes them to
-``cap646.batch01_production`` (see ``BATCH03_OVERLAP_BATCH01_IDS``).
+Official batch03 = IDs 101–150. IDs 103 and 129 cross-spine overlap with legacy
+batch01 extension resolved Run 008 — dedicated handlers pending Batch03 audit.
 """
 
 from __future__ import annotations
@@ -16,8 +16,10 @@ from cap646.dedicated_common import seed as _seed
 from cap646.dedicated_common import sym as _sym
 from cap646.evidence_class import ai_compliance_footer
 
-BATCH03_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({103, 129})
-BATCH03_DEDICATED_IDS: frozenset[int] = frozenset(range(101, 151)) - BATCH03_OVERLAP_BATCH01_IDS
+BATCH03_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset()  # resolved Run 008 (103, 129)
+OFFICIAL_BATCH03_IDS: frozenset[int] = frozenset(range(101, 151))
+BATCH03_PENDING_DEDICATED_IDS: frozenset[int] = frozenset({103, 129})  # Batch03 audit — no handler yet
+BATCH03_DEDICATED_IDS: frozenset[int] = OFFICIAL_BATCH03_IDS - BATCH03_PENDING_DEDICATED_IDS
 
 GENERIC_SURFACES = frozenset(
     {"onchain_intelligence", "ai_decision_intelligence", "market_data", "smart_alerts"}
