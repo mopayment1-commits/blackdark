@@ -46,6 +46,7 @@ def five_line_report(cfg: BatchRbasConfig, closure_evidence: dict, tw: dict) -> 
 
 
 def generate_infrastructure(cfg: BatchRbasConfig) -> None:
+    subprocess.run([PYTHON, str(ROOT / "scripts/wf027_resolve_batch.py"), str(cfg.batch_num)], check=True, cwd=ROOT)
     subprocess.run([PYTHON, str(ROOT / "scripts/batch_spine_factory.py"), str(cfg.batch_num)], check=True, cwd=ROOT)
     subprocess.run([PYTHON, str(ROOT / "scripts/generate_batch_scripts.py"), str(cfg.batch_num)], check=True, cwd=ROOT)
     # Generic opening/closure: scripts/run_batch_rbas_opening.py + run_batch_final_closure.py

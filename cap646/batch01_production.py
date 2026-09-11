@@ -17,7 +17,7 @@ LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
         # 103, 129 removed Run 008 — official batch03 (101–150); see CROSS-SPINE-001
         # 175 removed Run 011 — official batch04 (151–200); see CROSS-SPINE-001 / RBAS-001
         # 214, 245 removed Run 013 — official batch05 (201–250); see CROSS-SPINE-001 / WF-027
-        584,
+        # 584 removed Run 021 — official batch12 (551–600); see CROSS-SPINE-001 / WF-027
         629,
         630,
         631,
