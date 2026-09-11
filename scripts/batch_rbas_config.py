@@ -61,3 +61,13 @@ class BatchRbasConfig:
 
     def wf027_in_range(self) -> frozenset[int]:
         return WF027_UNRESOLVED & set(self.id_range)
+
+
+# Per-batch Path B flags — survive generate_batch_scripts regeneration (Run 021).
+BATCH_CONCEPTUAL_FLAGS: dict[int, dict[int, str]] = {
+    13: {
+        648: "BigQuery datashare export not verifiable in local_dev_vm — Path B HEURISTIC",
+        649: "826 inventory reserved slot — Path B HEURISTIC",
+        650: "826 inventory reserved slot — Path B HEURISTIC",
+    },
+}

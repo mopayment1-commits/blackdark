@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from scripts.batch_rbas_config import BatchRbasConfig, batch_id_range  # noqa: E402
+from scripts.batch_rbas_config import BatchRbasConfig, batch_id_range, BATCH_CONCEPTUAL_FLAGS  # noqa: E402
 
 
 def _replace_batch(text: str, cfg: BatchRbasConfig) -> str:
@@ -108,6 +108,10 @@ def generate_audit(cfg: BatchRbasConfig) -> Path:
     return _map()
 '''
     text = re.sub(r"def routing_overlap_map\(\).*?return _routing_overlap_cache\n", registry_block, text, count=1, flags=re.S)
+    flags = BATCH_CONCEPTUAL_FLAGS.get(cfg.batch_num, {})
+    if flags:
+        lines = ",\n    ".join(f"{cid}: {note!r}" for cid, note in sorted(flags.items()))
+        text = text.replace("CONCEPTUAL_FLAGS: dict[int, str] = {}", f"CONCEPTUAL_FLAGS: dict[int, str] = {{\n    {lines},\n}}")
     out.write_text(text, encoding="utf-8")
     return out
 
