@@ -1,0 +1,39 @@
+{
+  "evidence_id": "EVD-032",
+  "entry_points": [
+    {
+      "file": "dashboard.py",
+      "size": 160400
+    },
+    {
+      "file": "platform_api.py",
+      "size": 27780
+    },
+    {
+      "file": "microservices/worker_app.py",
+      "size": 1730
+    }
+  ],
+  "runtime_probes": [
+    {
+      "path": "/",
+      "status": 200,
+      "reachable": true
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "reachable": true
+    },
+    {
+      "path": "/api/market/overview",
+      "status": 200,
+      "reachable": true
+    },
+    {
+      "path": "/api/arbitrage/scanner/status",
+      "status": 200,
+      "reachable": true
+    }
+  ]
+}

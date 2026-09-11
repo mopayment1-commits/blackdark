@@ -1,0 +1,12 @@
+{
+  "evidence_id": "EVD-043",
+  "chain": {
+    "datapoint": "funding_rate",
+    "source": "exchange APIs / blackdark/data ingest",
+    "store_spine": "funding_rates (REAL)",
+    "store_wave01": "de_funding_rates (DECIMAL)",
+    "api_spine": "/api/market/open-interest (market router)",
+    "api_wave01": "/api/v1/data/funding",
+    "note": "Dual storage namespaces; no name collision per EVD-018"
+  }
+}
