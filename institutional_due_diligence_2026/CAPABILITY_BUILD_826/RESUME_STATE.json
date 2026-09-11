@@ -1,0 +1,9 @@
+{
+  "current_build_batch": 1,
+  "next_id": 1,
+  "last_completed_build_batch": 1,
+  "blockers": [
+    "batch01: 25 IDs PARTIAL — v6 gates incomplete"
+  ],
+  "updated_at": "2026-09-11T23:49:19.397123+00:00"
+}

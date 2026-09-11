@@ -41,8 +41,17 @@ def dedicated_handler_source(batch_num: int, cid: int) -> str | None:
     if not path.is_file():
         return None
     text = path.read_text(encoding="utf-8")
-    pat = rf"async def _cap{cid:03d}\(" if cid < 1000 else rf"async def _cap{cid}\("
-    m = re.search(pat, text)
+    patterns = [
+        rf"async def _cap{cid:03d}\(",
+        rf"async def _cap{cid:03d}_",
+    ]
+    if cid >= 1000:
+        patterns = [rf"async def _cap{cid}\(", rf"async def _cap{cid}_"]
+    m = None
+    for pat in patterns:
+        m = re.search(pat, text)
+        if m:
+            break
     if not m:
         return None
     nxt = text.find("async def _cap", m.end())

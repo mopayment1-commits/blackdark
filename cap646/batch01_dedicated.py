@@ -20,6 +20,12 @@ from cap646.evidence_class import ai_compliance_footer, attach_evidence_metadata
 # Official batch 01 dedicated backends (IDs 1–50) + legacy extension IDs with dedicated spines.
 BATCH01_DEDICATED_IDS: frozenset[int] = frozenset(
     {
+        1,
+        2,
+        3,
+        4,
+        10,
+        21,
         6,
         7,
         8,
@@ -64,6 +70,12 @@ BATCH01_DEDICATED_IDS: frozenset[int] = frozenset(
 )
 
 EXPECTED_SURFACE: dict[int, str] = {
+    1: "smart_money_leaderboard",
+    2: "wallet_profiler",
+    3: "wallet_profiler_for_token",
+    4: "smart_money_tracking",
+    10: "wallet_pnl_analysis",
+    21: "transaction_decoder",
     6: "smart_money_token_screener",
     7: "holder_distribution_intelligence",
     8: "top_holders_concentration_analysis",
@@ -258,6 +270,12 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
     address = _addr(params)
 
     dispatch = {
+        1: _cap001_smart_money_leaderboard,
+        2: _cap002_wallet_profiler,
+        3: _cap003_wallet_profiler_for_token,
+        4: _cap004_smart_money_tracking,
+        10: _cap010_wallet_pnl_analysis,
+        21: _cap021_transaction_decoder,
         6: _cap006_smart_money_token_screener,
         7: _cap007_holder_distribution,
         8: _cap008_top_holders_concentration,
@@ -307,6 +325,65 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
     if fn is None:
         raise ValueError(f"batch01 dedicated: unmapped capability {capability_id}")
     return await fn(symbol=symbol, address=address, params=params)
+
+
+# ─── Free-tier parity (Path A — v6 §2.1 dedicated spine) ──────────────────────
+
+
+async def _free_tier_dedicated_wrap(
+    cid: int,
+    *,
+    symbol: str,
+    address: str,
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(cid, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
+    surface = EXPECTED_SURFACE[cid]
+    return ai_compliance_footer(
+        {
+            "capability_id": cid,
+            "surface": surface,
+            "symbol": symbol,
+            "address": address,
+            surface: payload,
+            "success": bool(ft.get("success")),
+            "data_source": payload.get("source") or payload.get("data_source") or "free_tier_explicit",
+            "timestamp": payload.get("timestamp"),
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
+        }
+    )
+
+
+async def _cap001_smart_money_leaderboard(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(1, symbol=symbol, address=address, params=params)
+
+
+async def _cap002_wallet_profiler(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(2, symbol=symbol, address=address, params=params)
+
+
+async def _cap003_wallet_profiler_for_token(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(3, symbol=symbol, address=address, params=params)
+
+
+async def _cap004_smart_money_tracking(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(4, symbol=symbol, address=address, params=params)
+
+
+async def _cap010_wallet_pnl_analysis(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(10, symbol=symbol, address=address, params=params)
+
+
+async def _cap021_transaction_decoder(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(21, symbol=symbol, address=address, params=params)
 
 
 # ─── On-chain / wallet intelligence ───────────────────────────────────────────
