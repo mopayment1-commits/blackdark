@@ -1,13 +1,13 @@
 {
   "remediation": {
-    "generated_at": "2026-09-11T08:52:13.258576+00:00",
+    "generated_at": "2026-09-11T11:31:34.932949+00:00",
     "items": {
       "8": {
         "locked_circulating_supply_proxy": {
           "non_circulating_supply_pct": 0.0,
           "locked_supply_pct": 0.0,
-          "circulating_supply": 20082706.0,
-          "total_supply": 20082718.0,
+          "circulating_supply": 20082718.0,
+          "total_supply": 20082787.0,
           "supply_lock_risk": "low",
           "method": "locked_circulating_supply_proxy",
           "methodology_status": "NOT_COMPLETE",

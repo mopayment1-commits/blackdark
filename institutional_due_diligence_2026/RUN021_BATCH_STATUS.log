@@ -1,0 +1,4 @@
+=== START Batch 07 (301-350) ===
+ABORT Batch07: closure failed exit=1
+=== START Batch 07 (301-350) ===
+Batch07 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16007 | ThreeWay=OK

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T10:53:41.398558+00:00",
+  "generated_at": "2026-09-11T11:34:40.255602+00:00",
   "scope": "Official Batch 04 — IDs 151–200",
   "supersedes": "Run 011 diagnostic RBAS audit (0 PRODUCTION-ALIGNED — honest)",
   "audit_method": "Independent Third-Line RBAS Due Diligence — Run 012 closure",
@@ -68,7 +68,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_crypto_copilot spine=batch04_prep; code: async def _cap154(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 150 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:52:36.9065",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_crypto_copilot spine=batch04_prep; code: async def _cap154(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
       "remediated_run012": false
     },
     "155": {
@@ -81,7 +81,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_deep_research spine=batch04_prep; code: async def _cap155(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 150 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:52:36.9065",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_deep_research spine=batch04_prep; code: async def _cap155(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
       "remediated_run012": false
     },
     "156": {
@@ -185,7 +185,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_research_to_decision_intelligence spine=batch04_prep; code: async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 150 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:52:36.9065",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_research_to_decision_intelligence spine=batch04_prep; code: async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
       "remediated_run012": false
     },
     "164": {
@@ -198,7 +198,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_unlock_actionability_score spine=batch04_prep; code: async def _cap164(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 150 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:52:36.9065",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_unlock_actionability_score spine=batch04_prep; code: async def _cap164(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
       "remediated_run012": false
     },
     "165": {
@@ -211,7 +211,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fundraising_momentum_score spine=batch04_prep; code: async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 150 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:52:36.9065",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fundraising_momentum_score spine=batch04_prep; code: async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
       "remediated_run012": false
     },
     "166": {
@@ -224,7 +224,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_confidence_score spine=batch04_prep; code: async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 150 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:52:36.9065",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_confidence_score spine=batch04_prep; code: async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
       "remediated_run012": false
     },
     "167": {
@@ -328,7 +328,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=alpha_narratives_intelligence spine=batch04_prep; code: async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 150 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:52:36.9065",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=alpha_narratives_intelligence spine=batch04_prep; code: async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
       "remediated_run012": false
     },
     "175": {

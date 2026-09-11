@@ -1,5 +1,5 @@
 # Batch 01 Independent Nine-Phase Due Diligence Report (IDs 1–50)
-**Generated:** 2026-09-11T08:26:49.132641+00:00  
+**Generated:** 2026-09-11T11:31:50.682047+00:00  
 **Auditor role:** Third Line of Defense — Independent Assurance  
 **Standards cited:** SR 26-2, GIPS, NIST AI RMF, BCBS 239, COSO, IIA IPPF, ISO 25010/12207/29148, OWASP API, MITRE ATLAS, FATF R.16, Google SRE PRR
 
@@ -63,7 +63,7 @@
 - **NOT_COMPLETE:** 36/50
 - **PERFORMANCE-UNVERIFIABLE:** 14/50
 
-**GIPS ledger (global):** 60 unique decisions, 24 with outcome_id, simulated_only=True
+**GIPS ledger (global):** 171 unique decisions, 24 with outcome_id, simulated_only=True
 
 ## Run 004 Closure Status
 

@@ -1,6 +1,6 @@
 # Batch 04 Final Closure Report (Run 012)
 
-**Generated:** 2026-09-11T08:55:19.115084+00:00  
+**Generated:** 2026-09-11T11:34:40.256230+00:00  
 **Run:** Master Contract 012  
 **Scope:** IDs 151–200  
 
@@ -21,7 +21,7 @@
 
 | | Before | After |
 |---|---|---|
-| split_brain_type | DIVERGENT_OUTPUT | DUPLICATE_CONFIRMED |
+| split_brain_type | DUPLICATE_CONFIRMED | DUPLICATE_CONFIRMED |
 | outputs_match | — | True |
 
 ## Item 2 — SCORE-IDX Supplemental Review (42 NOT_COMPLETE + 19 Tier2 non-escalated)
@@ -41,12 +41,12 @@
 **Sample post-fix (ID 151):**
 
 ```json
-{"capability_id": 151, "surface": "quarterly_protocol_performance_reports", "data_source": "cap646.batch04_dedicated#cap151", "timestamp": "2026-09-11T08:50:10.730086+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
+{"capability_id": 151, "surface": "quarterly_protocol_performance_reports", "data_source": "cap646.batch04_dedicated#cap151", "timestamp": "2026-09-11T11:29:32.682539+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
 ```
 
 ## Item 4 — PERFORMANCE-UNVERIFIABLE (unchanged)
 
-IDs **154, 155, 163, 164, 165, 166, 174** — GIPS shadow-only ledger (68 decisions).
+IDs **154, 155, 163, 164, 165, 166, 174** — GIPS shadow-only ledger (170 decisions).
 
 ## Item 5 — Non-Regression (Batch01 + Batch02 + Batch03)
 

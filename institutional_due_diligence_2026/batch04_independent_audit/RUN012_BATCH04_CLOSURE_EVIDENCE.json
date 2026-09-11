@@ -4,8 +4,8 @@
     "root_cause": "ID 196 in FREE_TIER_CAP_IDS; dedicated handler invoked wrong underlying (onchain_hub/defillama_raises vs free_tier realized_cap_metrics); timestamp-only delta in raw JSON compare",
     "fix": "_cap196 bound to bd_platform.free_tier_capabilities.realized_cap_metrics; split_brain parity compare strips volatile timestamp fields",
     "before": {
-      "status": "SPLIT-BRAIN-UNVERIFIED",
-      "split_brain_type": "DIVERGENT_OUTPUT"
+      "status": "NOT_COMPLETE",
+      "split_brain_type": "DUPLICATE_CONFIRMED"
     },
     "after": {
       "result_type": "DUPLICATE_CONFIRMED",
@@ -14,7 +14,7 @@
     }
   },
   "score_idx_review": {
-    "reviewed_at": "2026-09-11T08:50:10.649398+00:00",
+    "reviewed_at": "2026-09-11T11:29:32.600818+00:00",
     "policy": "SCORE-IDX-001 + RBAS-001 Tier2 non-escalated recheck",
     "not_complete_scope": [
       151,
@@ -88,7 +88,7 @@
     "confirmed_conceptually_unsound_zero": true
   },
   "bcbs_remediation": {
-    "generated_at": "2026-09-11T08:50:10.649751+00:00",
+    "generated_at": "2026-09-11T11:29:32.601164+00:00",
     "fix": "cap646.batch04_dedicated._wrap stamps top-level data_source + timestamp (Run 011; verified Run 012)",
     "per_id": {
       "151": {
@@ -103,7 +103,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 151, \"surface\": \"quarterly_protocol_performance_reports\", \"data_source\": \"cap646.batch04_dedicated#cap151\", \"timestamp\": \"2026-09-11T08:50:10.730086+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 151, \"surface\": \"quarterly_protocol_performance_reports\", \"data_source\": \"cap646.batch04_dedicated#cap151\", \"timestamp\": \"2026-09-11T11:29:32.682539+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "152": {
@@ -118,7 +118,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 152, \"surface\": \"governance_proposal_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap152\", \"timestamp\": \"2026-09-11T08:50:10.807941+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 152, \"surface\": \"governance_proposal_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap152\", \"timestamp\": \"2026-09-11T11:29:32.760036+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "153": {
@@ -133,7 +133,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 153, \"surface\": \"project_monitoring_coverage_registry\", \"data_source\": \"cap646.batch04_dedicated#cap153\", \"timestamp\": \"2026-09-11T08:50:10.884637+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 153, \"surface\": \"project_monitoring_coverage_registry\", \"data_source\": \"cap646.batch04_dedicated#cap153\", \"timestamp\": \"2026-09-11T11:29:32.837009+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "156": {
@@ -148,7 +148,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 156, \"surface\": \"crypto_knowledge_graph\", \"data_source\": \"cap646.batch04_dedicated#cap156\", \"timestamp\": \"2026-09-11T08:50:10.960671+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 156, \"surface\": \"crypto_knowledge_graph\", \"data_source\": \"cap646.batch04_dedicated#cap156\", \"timestamp\": \"2026-09-11T11:29:32.913805+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "157": {
@@ -163,7 +163,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 157, \"surface\": \"research_library\", \"data_source\": \"cap646.batch04_dedicated#cap157\", \"timestamp\": \"2026-09-11T08:50:20.650661+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 157, \"surface\": \"research_library\", \"data_source\": \"cap646.batch04_dedicated#cap157\", \"timestamp\": \"2026-09-11T11:29:43.333076+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "158": {
@@ -178,7 +178,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 158, \"surface\": \"institutional_research_feed\", \"data_source\": \"cap646.batch04_dedicated#cap158\", \"timestamp\": \"2026-09-11T08:50:20.761395+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 158, \"surface\": \"institutional_research_feed\", \"data_source\": \"cap646.batch04_dedicated#cap158\", \"timestamp\": \"2026-09-11T11:29:43.517079+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "159": {
@@ -193,7 +193,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 159, \"surface\": \"api_data_platform\", \"data_source\": \"cap646.batch04_dedicated#cap159\", \"timestamp\": \"2026-09-11T08:50:21.070172+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 159, \"surface\": \"api_data_platform\", \"data_source\": \"cap646.batch04_dedicated#cap159\", \"timestamp\": \"2026-09-11T11:29:43.649235+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "160": {
@@ -208,7 +208,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 160, \"surface\": \"pay_per_request_data_access\", \"data_source\": \"cap646.batch04_dedicated#cap160\", \"timestamp\": \"2026-09-11T08:50:21.070447+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 160, \"surface\": \"pay_per_request_data_access\", \"data_source\": \"cap646.batch04_dedicated#cap160\", \"timestamp\": \"2026-09-11T11:29:43.649497+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "161": {
@@ -223,7 +223,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 161, \"surface\": \"institutional_data_delivery_entitlements\", \"data_source\": \"cap646.batch04_dedicated#cap161\", \"timestamp\": \"2026-09-11T08:50:21.071459+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 161, \"surface\": \"institutional_data_delivery_entitlements\", \"data_source\": \"cap646.batch04_dedicated#cap161\", \"timestamp\": \"2026-09-11T11:29:43.650513+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "162": {
@@ -238,7 +238,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 162, \"surface\": \"evidence_provenance_layer\", \"data_source\": \"cap646.batch04_dedicated#cap162\", \"timestamp\": \"2026-09-11T08:50:21.072894+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 162, \"surface\": \"evidence_provenance_layer\", \"data_source\": \"cap646.batch04_dedicated#cap162\", \"timestamp\": \"2026-09-11T11:29:43.652071+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "167": {
@@ -253,7 +253,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 167, \"surface\": \"social_volume_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap167\", \"timestamp\": \"2026-09-11T08:50:23.050524+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 167, \"surface\": \"social_volume_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap167\", \"timestamp\": \"2026-09-11T11:29:45.330463+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "168": {
@@ -268,7 +268,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 168, \"surface\": \"social_dominance_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap168\", \"timestamp\": \"2026-09-11T08:50:25.012709+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 168, \"surface\": \"social_dominance_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap168\", \"timestamp\": \"2026-09-11T11:29:47.302617+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "169": {
@@ -283,7 +283,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 169, \"surface\": \"unique_social_volume\", \"data_source\": \"cap646.batch04_dedicated#cap169\", \"timestamp\": \"2026-09-11T08:50:26.952536+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 169, \"surface\": \"unique_social_volume\", \"data_source\": \"cap646.batch04_dedicated#cap169\", \"timestamp\": \"2026-09-11T11:29:48.981986+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "170": {
@@ -298,7 +298,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 170, \"surface\": \"trending_words\", \"data_source\": \"cap646.batch04_dedicated#cap170\", \"timestamp\": \"2026-09-11T08:50:26.952758+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 170, \"surface\": \"trending_words\", \"data_source\": \"cap646.batch04_dedicated#cap170\", \"timestamp\": \"2026-09-11T11:29:48.982233+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "171": {
@@ -313,7 +313,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 171, \"surface\": \"trending_coins\", \"data_source\": \"cap646.batch04_dedicated#cap171\", \"timestamp\": \"2026-09-11T08:50:28.914066+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 171, \"surface\": \"trending_coins\", \"data_source\": \"cap646.batch04_dedicated#cap171\", \"timestamp\": \"2026-09-11T11:29:50.973015+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "172": {
@@ -328,7 +328,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 172, \"surface\": \"historical_crypto_trends\", \"data_source\": \"cap646.batch04_dedicated#cap172\", \"timestamp\": \"2026-09-11T08:50:30.886933+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 172, \"surface\": \"historical_crypto_trends\", \"data_source\": \"cap646.batch04_dedicated#cap172\", \"timestamp\": \"2026-09-11T11:29:52.928845+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "173": {
@@ -343,7 +343,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 173, \"surface\": \"key_narratives_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap173\", \"timestamp\": \"2026-09-11T08:50:32.869356+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 173, \"surface\": \"key_narratives_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap173\", \"timestamp\": \"2026-09-11T11:29:54.621049+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "175": {
@@ -358,7 +358,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 175, \"surface\": \"social_sentiment_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap175\", \"timestamp\": \"2026-09-11T08:50:32.968378+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 175, \"surface\": \"social_sentiment_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap175\", \"timestamp\": \"2026-09-11T11:29:54.772493+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "176": {
@@ -373,7 +373,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 176, \"surface\": \"weighted_social_sentiment\", \"data_source\": \"cap646.batch04_dedicated#cap176\", \"timestamp\": \"2026-09-11T08:50:37.236129+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 176, \"surface\": \"weighted_social_sentiment\", \"data_source\": \"cap646.batch04_dedicated#cap176\", \"timestamp\": \"2026-09-11T11:29:59.084002+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "177": {
@@ -388,7 +388,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 177, \"surface\": \"social_sentiment_balance\", \"data_source\": \"cap646.batch04_dedicated#cap177\", \"timestamp\": \"2026-09-11T08:50:37.241915+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 177, \"surface\": \"social_sentiment_balance\", \"data_source\": \"cap646.batch04_dedicated#cap177\", \"timestamp\": \"2026-09-11T11:29:59.089961+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "178": {
@@ -403,7 +403,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 178, \"surface\": \"social_source_breakdown\", \"data_source\": \"cap646.batch04_dedicated#cap178\", \"timestamp\": \"2026-09-11T08:50:41.548735+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 178, \"surface\": \"social_source_breakdown\", \"data_source\": \"cap646.batch04_dedicated#cap178\", \"timestamp\": \"2026-09-11T11:30:04.619556+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "179": {
@@ -418,7 +418,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 179, \"surface\": \"development_activity_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap179\", \"timestamp\": \"2026-09-11T08:50:43.544168+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 179, \"surface\": \"development_activity_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap179\", \"timestamp\": \"2026-09-11T11:30:06.291532+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "180": {
@@ -433,7 +433,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 180, \"surface\": \"development_activity_contributors\", \"data_source\": \"cap646.batch04_dedicated#cap180\", \"timestamp\": \"2026-09-11T08:50:43.724472+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 180, \"surface\": \"development_activity_contributors\", \"data_source\": \"cap646.batch04_dedicated#cap180\", \"timestamp\": \"2026-09-11T11:30:06.371866+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "181": {
@@ -448,7 +448,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 181, \"surface\": \"ecosystem_development_dashboard\", \"data_source\": \"cap646.batch04_dedicated#cap181\", \"timestamp\": \"2026-09-11T08:50:43.724714+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 181, \"surface\": \"ecosystem_development_dashboard\", \"data_source\": \"cap646.batch04_dedicated#cap181\", \"timestamp\": \"2026-09-11T11:30:06.372169+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "182": {
@@ -463,7 +463,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 182, \"surface\": \"developer_activity_change_detection\", \"data_source\": \"cap646.batch04_dedicated#cap182\", \"timestamp\": \"2026-09-11T08:50:43.802990+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 182, \"surface\": \"developer_activity_change_detection\", \"data_source\": \"cap646.batch04_dedicated#cap182\", \"timestamp\": \"2026-09-11T11:30:06.451008+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "183": {
@@ -478,7 +478,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 183, \"surface\": \"whale_transaction_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap183\", \"timestamp\": \"2026-09-11T08:50:43.803349+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 183, \"surface\": \"whale_transaction_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap183\", \"timestamp\": \"2026-09-11T11:30:06.451472+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "184": {
@@ -493,7 +493,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 184, \"surface\": \"whale_shark_holder_cohorts\", \"data_source\": \"cap646.batch04_dedicated#cap184\", \"timestamp\": \"2026-09-11T08:50:43.803589+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 184, \"surface\": \"whale_shark_holder_cohorts\", \"data_source\": \"cap646.batch04_dedicated#cap184\", \"timestamp\": \"2026-09-11T11:30:06.451746+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "185": {
@@ -508,7 +508,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 185, \"surface\": \"top_holders_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap185\", \"timestamp\": \"2026-09-11T08:50:43.803813+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 185, \"surface\": \"top_holders_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap185\", \"timestamp\": \"2026-09-11T11:30:06.452054+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "186": {
@@ -523,7 +523,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 186, \"surface\": \"historical_wallet_balance_tool\", \"data_source\": \"cap646.batch04_dedicated#cap186\", \"timestamp\": \"2026-09-11T08:50:43.804032+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 186, \"surface\": \"historical_wallet_balance_tool\", \"data_source\": \"cap646.batch04_dedicated#cap186\", \"timestamp\": \"2026-09-11T11:30:06.452347+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "187": {
@@ -538,7 +538,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 187, \"surface\": \"exchange_inflow_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap187\", \"timestamp\": \"2026-09-11T08:50:43.804252+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 187, \"surface\": \"exchange_inflow_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap187\", \"timestamp\": \"2026-09-11T11:30:06.452633+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "188": {
@@ -553,7 +553,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 188, \"surface\": \"exchange_outflow_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap188\", \"timestamp\": \"2026-09-11T08:50:43.804463+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 188, \"surface\": \"exchange_outflow_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap188\", \"timestamp\": \"2026-09-11T11:30:06.452880+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "189": {
@@ -568,7 +568,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 189, \"surface\": \"exchange_netflow_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap189\", \"timestamp\": \"2026-09-11T08:50:45.752115+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 189, \"surface\": \"exchange_netflow_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap189\", \"timestamp\": \"2026-09-11T11:30:08.141112+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "190": {
@@ -583,7 +583,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 190, \"surface\": \"exchange_supply_balance_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap190\", \"timestamp\": \"2026-09-11T08:50:45.752537+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 190, \"surface\": \"exchange_supply_balance_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap190\", \"timestamp\": \"2026-09-11T11:30:08.141580+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "191": {
@@ -598,7 +598,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 191, \"surface\": \"exchange_user_activity\", \"data_source\": \"cap646.batch04_dedicated#cap191\", \"timestamp\": \"2026-09-11T08:50:45.752891+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 191, \"surface\": \"exchange_user_activity\", \"data_source\": \"cap646.batch04_dedicated#cap191\", \"timestamp\": \"2026-09-11T11:30:08.141995+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "192": {
@@ -613,7 +613,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 192, \"surface\": \"network_activity_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap192\", \"timestamp\": \"2026-09-11T08:50:50.034342+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 192, \"surface\": \"network_activity_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap192\", \"timestamp\": \"2026-09-11T11:30:12.438204+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "193": {
@@ -628,7 +628,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 193, \"surface\": \"transaction_volume_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap193\", \"timestamp\": \"2026-09-11T08:50:50.034748+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 193, \"surface\": \"transaction_volume_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap193\", \"timestamp\": \"2026-09-11T11:30:12.438624+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "194": {
@@ -643,7 +643,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 194, \"surface\": \"nvt_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap194\", \"timestamp\": \"2026-09-11T08:50:50.034996+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 194, \"surface\": \"nvt_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap194\", \"timestamp\": \"2026-09-11T11:30:12.438882+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "195": {
@@ -658,7 +658,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 195, \"surface\": \"mvrv_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap195\", \"timestamp\": \"2026-09-11T08:50:50.035215+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 195, \"surface\": \"mvrv_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap195\", \"timestamp\": \"2026-09-11T11:30:12.439105+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "196": {
@@ -673,7 +673,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 196, \"surface\": \"realized_cap_realized_value_intelligence\", \"data_source\": \"defillama_market_proxy\", \"timestamp\": \"2026-09-11T08:50:50.061851+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 196, \"surface\": \"realized_cap_realized_value_intelligence\", \"data_source\": \"defillama_market_proxy\", \"timestamp\": \"2026-09-11T11:30:12.455331+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "197": {
@@ -688,7 +688,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 197, \"surface\": \"daily_active_addresses\", \"data_source\": \"cap646.batch04_dedicated#cap197\", \"timestamp\": \"2026-09-11T08:50:50.062247+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 197, \"surface\": \"daily_active_addresses\", \"data_source\": \"cap646.batch04_dedicated#cap197\", \"timestamp\": \"2026-09-11T11:30:12.455705+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "198": {
@@ -703,7 +703,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 198, \"surface\": \"age_consumed_dormancy_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap198\", \"timestamp\": \"2026-09-11T08:50:50.062477+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 198, \"surface\": \"age_consumed_dormancy_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap198\", \"timestamp\": \"2026-09-11T11:30:12.455938+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "199": {
@@ -718,7 +718,7 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 199, \"surface\": \"mean_dollar_invested_age\", \"data_source\": \"cap646.batch04_dedicated#cap199\", \"timestamp\": \"2026-09-11T08:50:50.245852+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 199, \"surface\": \"mean_dollar_invested_age\", \"data_source\": \"cap646.batch04_dedicated#cap199\", \"timestamp\": \"2026-09-11T11:30:12.644723+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       },
       "200": {
@@ -733,13 +733,13 @@
           "timestamp": true,
           "evidence_class": true
         },
-        "after_payload_excerpt": "{\"capability_id\": 200, \"surface\": \"token_circulation_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap200\", \"timestamp\": \"2026-09-11T08:50:52.222753+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "after_payload_excerpt": "{\"capability_id\": 200, \"surface\": \"token_circulation_intelligence\", \"data_source\": \"cap646.batch04_dedicated#cap200\", \"timestamp\": \"2026-09-11T11:30:14.338882+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
         "bcbs_remediated": true
       }
     }
   },
   "performance_unverifiable": {
-    "generated_at": "2026-09-11T08:51:17.804370+00:00",
+    "generated_at": "2026-09-11T11:30:39.784902+00:00",
     "ids": [
       154,
       155,
@@ -751,56 +751,56 @@
     ],
     "ledger_stats": {
       "exists": true,
-      "unique_decisions": 68,
+      "unique_decisions": 170,
       "simulated_only": true
     },
     "per_id": {
       "154": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 68,
+        "ledger_unique_decisions": 170,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "155": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 68,
+        "ledger_unique_decisions": 170,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "163": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 68,
+        "ledger_unique_decisions": 170,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "164": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 68,
+        "ledger_unique_decisions": 170,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "165": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 68,
+        "ledger_unique_decisions": 170,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "166": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 68,
+        "ledger_unique_decisions": 170,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "174": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 68,
+        "ledger_unique_decisions": 170,
         "ledger_simulated_only": true,
         "runtime_success": true
       }
@@ -808,7 +808,7 @@
     "reclassification": "none \u2014 retained per GIPS standard"
   },
   "non_regression": {
-    "generated_at": "2026-09-11T08:53:10.469473+00:00",
+    "generated_at": "2026-09-11T11:32:31.767772+00:00",
     "met": true,
     "details": {
       "batch01": {

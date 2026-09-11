@@ -2,24 +2,24 @@
   "tier1": {
     "ids": 17,
     "phase_checks": 153,
-    "duration_ms": 25859
+    "duration_ms": 25856
   },
   "tier2": {
     "ids": 29,
     "phase_checks": 87,
-    "duration_ms": 9718
+    "duration_ms": 9891
   },
   "tier1_count": 17,
   "tier1_phase_checks": 153,
-  "tier1_duration_ms": 25859,
+  "tier1_duration_ms": 25856,
   "tier2_count": 29,
   "tier2_phase_checks": 87,
-  "tier2_duration_ms": 9718,
+  "tier2_duration_ms": 9891,
   "escalated_count": 4,
   "escalated_phase_checks": 48,
-  "escalated_duration_ms": 12406,
+  "escalated_duration_ms": 12240,
   "total_phase_checks": 288,
-  "total_duration_ms": 47983,
+  "total_duration_ms": 47987,
   "full_nine_phase_baseline_checks": 450,
   "checks_saved_vs_full_baseline": 162,
   "tier2_efficiency_ratio": 0.64,

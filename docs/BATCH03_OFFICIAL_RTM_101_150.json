@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T10:51:33.272442+00:00",
+  "generated_at": "2026-09-11T11:32:31.721082+00:00",
   "scope": "Official Batch 03 — IDs 101–150",
   "supersedes": "Run 009 diagnostic only (0 PRODUCTION-ALIGNED — no self-assessment RTM existed)",
   "audit_method": "Independent Third-Line Nine-Phase Due Diligence — Run 010 closure",
@@ -28,7 +28,7 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 010 post-BCBS remediation)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_data_analyst_ask_ai spine=batch03_prep; code: async def _cap101(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 148 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:49:30.4299",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_data_analyst_ask_ai spine=batch03_prep; code: async def _cap101(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 171 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:30:35.3058",
       "remediated_run010_bcbs": false
     },
     "102": {
@@ -136,7 +136,7 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 010 post-BCBS remediation)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence_layer spine=batch03_prep; code: async def _cap110(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 148 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:49:30.4299",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence_layer spine=batch03_prep; code: async def _cap110(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 171 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:30:35.3058",
       "remediated_run010_bcbs": false
     },
     "111": {
@@ -148,7 +148,7 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 010 post-BCBS remediation)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_flow_actionability_score spine=batch03_prep; code: async def _cap111(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 148 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:49:30.4299",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_flow_actionability_score spine=batch03_prep; code: async def _cap111(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 171 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:30:35.3058",
       "remediated_run010_bcbs": false
     },
     "112": {
@@ -592,7 +592,7 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 010 post-BCBS remediation)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=due_diligence_report_engine spine=batch03_prep; code: async def _cap148(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 148 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:49:30.4299",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=due_diligence_report_engine spine=batch03_prep; code: async def _cap148(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 171 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:30:35.3058",
       "remediated_run010_bcbs": false
     },
     "149": {
@@ -604,7 +604,7 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 010 post-BCBS remediation)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=automated_risk_scoring_from_diligence spine=batch03_prep; code: async def _cap149(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 148 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:49:30.4299",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=automated_risk_scoring_from_diligence spine=batch03_prep; code: async def _cap149(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 171 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:30:35.3058",
       "remediated_run010_bcbs": false
     },
     "150": {

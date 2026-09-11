@@ -27,15 +27,15 @@
     "escalated": true,
     "escalation_hits": [
       "quarterly_protocol_performance_reports.result.recent[0].verdict",
-      "quarterly_protocol_performance_reports.result.recent[0].accuracy_score",
+      "quarterly_protocol_performance_reports.result.recent[0].opportunity_score",
       "quarterly_protocol_performance_reports.result.recent[1].verdict",
       "quarterly_protocol_performance_reports.result.recent[1].opportunity_score",
       "quarterly_protocol_performance_reports.result.recent[2].verdict",
-      "quarterly_protocol_performance_reports.result.recent[2].accuracy_score",
+      "quarterly_protocol_performance_reports.result.recent[2].opportunity_score",
       "quarterly_protocol_performance_reports.result.recent[3].verdict",
       "quarterly_protocol_performance_reports.result.recent[3].opportunity_score",
       "quarterly_protocol_performance_reports.result.recent[4].verdict",
-      "quarterly_protocol_performance_reports.result.recent[4].accuracy_score",
+      "quarterly_protocol_performance_reports.result.recent[4].opportunity_score",
       "quarterly_protocol_performance_reports.result.recent[5].verdict",
       "quarterly_protocol_performance_reports.result.recent[5].opportunity_score",
       "quarterly_protocol_performance_reports.result.recent[6].verdict",
@@ -48,7 +48,7 @@
       "quarterly_protocol_performance_reports.result.recent[9].opportunity_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 78
+    "audit_duration_ms": 80
   },
   {
     "id": 152,
@@ -78,7 +78,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 75
+    "audit_duration_ms": 78
   },
   {
     "id": 153,
@@ -108,15 +108,15 @@
     "escalated": true,
     "escalation_hits": [
       "project_monitoring_coverage_registry.result.recent[0].verdict",
-      "project_monitoring_coverage_registry.result.recent[0].accuracy_score",
+      "project_monitoring_coverage_registry.result.recent[0].opportunity_score",
       "project_monitoring_coverage_registry.result.recent[1].verdict",
       "project_monitoring_coverage_registry.result.recent[1].opportunity_score",
       "project_monitoring_coverage_registry.result.recent[2].verdict",
-      "project_monitoring_coverage_registry.result.recent[2].accuracy_score",
+      "project_monitoring_coverage_registry.result.recent[2].opportunity_score",
       "project_monitoring_coverage_registry.result.recent[3].verdict",
       "project_monitoring_coverage_registry.result.recent[3].opportunity_score",
       "project_monitoring_coverage_registry.result.recent[4].verdict",
-      "project_monitoring_coverage_registry.result.recent[4].accuracy_score",
+      "project_monitoring_coverage_registry.result.recent[4].opportunity_score",
       "project_monitoring_coverage_registry.result.recent[5].verdict",
       "project_monitoring_coverage_registry.result.recent[5].opportunity_score",
       "project_monitoring_coverage_registry.result.recent[6].verdict",
@@ -129,7 +129,7 @@
       "project_monitoring_coverage_registry.result.recent[9].opportunity_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 75
+    "audit_duration_ms": 77
   },
   {
     "id": 154,
@@ -137,7 +137,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_crypto_copilot spine=batch04_prep; code: async def _cap154(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 71 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T08:54:14.38065",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_crypto_copilot spine=batch04_prep; code: async def _cap154(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
     "severity": "متوسط",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -159,7 +159,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4295
+    "audit_duration_ms": 4285
   },
   {
     "id": 155,
@@ -167,7 +167,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_deep_research spine=batch04_prep; code: async def _cap155(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 71 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T08:54:14.38065",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_deep_research spine=batch04_prep; code: async def _cap155(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
     "severity": "متوسط",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -189,7 +189,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4577
+    "audit_duration_ms": 4417
   },
   {
     "id": 156,
@@ -219,15 +219,15 @@
     "escalated": true,
     "escalation_hits": [
       "crypto_knowledge_graph.result.recent[0].verdict",
-      "crypto_knowledge_graph.result.recent[0].accuracy_score",
+      "crypto_knowledge_graph.result.recent[0].opportunity_score",
       "crypto_knowledge_graph.result.recent[1].verdict",
       "crypto_knowledge_graph.result.recent[1].opportunity_score",
       "crypto_knowledge_graph.result.recent[2].verdict",
-      "crypto_knowledge_graph.result.recent[2].accuracy_score",
+      "crypto_knowledge_graph.result.recent[2].opportunity_score",
       "crypto_knowledge_graph.result.recent[3].verdict",
       "crypto_knowledge_graph.result.recent[3].opportunity_score",
       "crypto_knowledge_graph.result.recent[4].verdict",
-      "crypto_knowledge_graph.result.recent[4].accuracy_score",
+      "crypto_knowledge_graph.result.recent[4].opportunity_score",
       "crypto_knowledge_graph.result.recent[5].verdict",
       "crypto_knowledge_graph.result.recent[5].opportunity_score",
       "crypto_knowledge_graph.result.recent[6].verdict",
@@ -305,7 +305,7 @@
       "news[7].sentiment_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 4368
+    "audit_duration_ms": 4389
   },
   {
     "id": 158,
@@ -368,7 +368,7 @@
       "news[7].sentiment_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 123
+    "audit_duration_ms": 95
   },
   {
     "id": 159,
@@ -383,12 +383,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -473,12 +473,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -496,7 +496,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_research_to_decision_intelligence spine=batch04_prep; code: async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 71 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T08:54:14.38065",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_research_to_decision_intelligence spine=batch04_prep; code: async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
     "severity": "متوسط",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -518,7 +518,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4361
+    "audit_duration_ms": 4421
   },
   {
     "id": 164,
@@ -526,7 +526,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_unlock_actionability_score spine=batch04_prep; code: async def _cap164(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 71 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T08:54:14.38065",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_unlock_actionability_score spine=batch04_prep; code: async def _cap164(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
     "severity": "متوسط",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -548,7 +548,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 58
+    "audit_duration_ms": 60
   },
   {
     "id": 165,
@@ -556,7 +556,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fundraising_momentum_score spine=batch04_prep; code: async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 71 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T08:54:14.38065",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fundraising_momentum_score spine=batch04_prep; code: async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
     "severity": "متوسط",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -578,7 +578,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4242
+    "audit_duration_ms": 4326
   },
   {
     "id": 166,
@@ -586,7 +586,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_confidence_score spine=batch04_prep; code: async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 71 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T08:54:14.38065",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_confidence_score spine=batch04_prep; code: async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
     "severity": "متوسط",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -608,7 +608,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4421
+    "audit_duration_ms": 4394
   },
   {
     "id": 167,
@@ -623,12 +623,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -638,7 +638,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 1986
+    "audit_duration_ms": 2009
   },
   {
     "id": 168,
@@ -653,12 +653,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -668,7 +668,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 1944
+    "audit_duration_ms": 1715
   },
   {
     "id": 169,
@@ -683,12 +683,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -698,7 +698,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 1997
+    "audit_duration_ms": 1964
   },
   {
     "id": 170,
@@ -713,12 +713,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -743,12 +743,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -758,7 +758,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2000
+    "audit_duration_ms": 1993
   },
   {
     "id": 172,
@@ -773,12 +773,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -788,7 +788,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 1930
+    "audit_duration_ms": 1686
   },
   {
     "id": 173,
@@ -851,7 +851,7 @@
       "news[7].sentiment_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 2093
+    "audit_duration_ms": 2097
   },
   {
     "id": 174,
@@ -859,7 +859,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=alpha_narratives_intelligence spine=batch04_prep; code: async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 71 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T08:54:14.38065",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=alpha_narratives_intelligence spine=batch04_prep; code: async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 173 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T11:33:35.8954",
     "severity": "متوسط",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -881,7 +881,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 97
+    "audit_duration_ms": 101
   },
   {
     "id": 175,
@@ -941,7 +941,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 8347
+    "audit_duration_ms": 4285
   },
   {
     "id": 177,
@@ -971,7 +971,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 7
+    "audit_duration_ms": 6
   },
   {
     "id": 178,
@@ -1004,7 +1004,7 @@
       "social_source_breakdown.trust_pulse.zero_tolerance.checks.black_box_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 4271
+    "audit_duration_ms": 8694
   },
   {
     "id": 179,
@@ -1019,12 +1019,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1034,7 +1034,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2013
+    "audit_duration_ms": 1976
   },
   {
     "id": 180,
@@ -1064,15 +1064,15 @@
     "escalated": true,
     "escalation_hits": [
       "development_activity_contributors.result.recent[0].verdict",
-      "development_activity_contributors.result.recent[0].accuracy_score",
+      "development_activity_contributors.result.recent[0].opportunity_score",
       "development_activity_contributors.result.recent[1].verdict",
       "development_activity_contributors.result.recent[1].opportunity_score",
       "development_activity_contributors.result.recent[2].verdict",
-      "development_activity_contributors.result.recent[2].accuracy_score",
+      "development_activity_contributors.result.recent[2].opportunity_score",
       "development_activity_contributors.result.recent[3].verdict",
       "development_activity_contributors.result.recent[3].opportunity_score",
       "development_activity_contributors.result.recent[4].verdict",
-      "development_activity_contributors.result.recent[4].accuracy_score",
+      "development_activity_contributors.result.recent[4].opportunity_score",
       "development_activity_contributors.result.recent[5].verdict",
       "development_activity_contributors.result.recent[5].opportunity_score",
       "development_activity_contributors.result.recent[6].verdict",
@@ -1100,12 +1100,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1145,15 +1145,15 @@
     "escalated": true,
     "escalation_hits": [
       "developer_activity_change_detection.result.recent[0].verdict",
-      "developer_activity_change_detection.result.recent[0].accuracy_score",
+      "developer_activity_change_detection.result.recent[0].opportunity_score",
       "developer_activity_change_detection.result.recent[1].verdict",
       "developer_activity_change_detection.result.recent[1].opportunity_score",
       "developer_activity_change_detection.result.recent[2].verdict",
-      "developer_activity_change_detection.result.recent[2].accuracy_score",
+      "developer_activity_change_detection.result.recent[2].opportunity_score",
       "developer_activity_change_detection.result.recent[3].verdict",
       "developer_activity_change_detection.result.recent[3].opportunity_score",
       "developer_activity_change_detection.result.recent[4].verdict",
-      "developer_activity_change_detection.result.recent[4].accuracy_score",
+      "developer_activity_change_detection.result.recent[4].opportunity_score",
       "developer_activity_change_detection.result.recent[5].verdict",
       "developer_activity_change_detection.result.recent[5].opportunity_score",
       "developer_activity_change_detection.result.recent[6].verdict",
@@ -1166,7 +1166,7 @@
       "developer_activity_change_detection.result.recent[9].opportunity_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 76
+    "audit_duration_ms": 77
   },
   {
     "id": 183,
@@ -1376,7 +1376,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 2002
+    "audit_duration_ms": 2034
   },
   {
     "id": 190,
@@ -1421,12 +1421,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1469,7 +1469,7 @@
       "network_activity_intelligence.trust_pulse.zero_tolerance.checks.black_box_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 4335
+    "audit_duration_ms": 4352
   },
   {
     "id": 193,
@@ -1484,12 +1484,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1514,12 +1514,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1544,12 +1544,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1574,12 +1574,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1589,7 +1589,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 15
+    "audit_duration_ms": 12
   },
   {
     "id": 197,
@@ -1604,12 +1604,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1634,12 +1634,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1664,12 +1664,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1679,7 +1679,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 188
+    "audit_duration_ms": 198
   },
   {
     "id": 200,
@@ -1694,12 +1694,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "8": "SKIPPED",
       "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
       "2": "SKIPPED",
+      "8": "SKIPPED",
+      "5": "SKIPPED",
       "7": "SKIPPED",
+      "3": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1709,6 +1709,6 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 1948
+    "audit_duration_ms": 1970
   }
 ]

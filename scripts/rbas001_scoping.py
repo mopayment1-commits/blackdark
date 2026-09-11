@@ -390,6 +390,67 @@ def write_batch06_tier_table(path: Path) -> dict[int, dict[str, Any]]:
     return tiers
 
 
+def classify_batch_capability(
+    capability_id: int,
+    *,
+    capability_name: str,
+    track: str = "",
+) -> tuple[Tier, str]:
+    """Generic RBAS classifier for batches 07–17 (Run 021). Default-on-doubt → Tier1."""
+    if capability_id in WF027_DORMANT_LEGACY_IDS:
+        return "TIER1", f"WF-027 dormant legacy ID {capability_id} — mandatory full audit"
+    name = capability_name or ""
+    if _TIER1_ENTITLEMENT_PATTERN.search(name):
+        return "TIER1", "Entitlement/authentication/billing surface (WF-015 pattern)"
+    if _TIER1_SCORE_INDEX_PATTERN.search(name):
+        return "TIER1", "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+    if track in {"T09"} or _TIER1_ONCHAIN_PATTERN.search(name):
+        if any(
+            k in name.lower()
+            for k in ("whale", "wallet", "holder", "inflow", "outflow", "netflow", "address", "trace", "transaction")
+        ):
+            return "TIER1", "On-chain address/transaction intelligence (FATF R.16)"
+    if track in {"T12", "T14"} and "ai" in name.lower():
+        return "TIER1", "AI surface — decision/research risk (NIST AI RMF full path)"
+    if _TIER2_DELIVERY_PATTERN.search(name):
+        return "TIER2", "Data-delivery/catalog/registry without direct user decision output"
+    return "TIER1", "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+
+
+def batch_tier_map(batch_num: int) -> dict[int, dict[str, Any]]:
+    from cap646.catalog import catalog_by_id
+    from scripts.batch_rbas_config import batch_id_range
+
+    id_range = batch_id_range(batch_num)
+    catalog = catalog_by_id()
+    out: dict[int, dict[str, Any]] = {}
+    for cid in id_range:
+        row = catalog.get(cid, {})
+        tier, reason = classify_batch_capability(
+            cid,
+            capability_name=str(row.get("capability") or ""),
+            track=str(row.get("track") or ""),
+        )
+        out[cid] = {
+            "id": cid,
+            "capability": row.get("capability"),
+            "track": row.get("track"),
+            "rbas_tier": tier,
+            "rbas_reason": reason,
+        }
+    return out
+
+
+def write_batch_tier_table(batch_num: int, path: Path) -> dict[int, dict[str, Any]]:
+    from scripts.batch_rbas_config import batch_id_range
+
+    tiers = batch_tier_map(batch_num)
+    rows = [tiers[cid] for cid in batch_id_range(batch_num)]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(rows, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return tiers
+
+
 if __name__ == "__main__":
     out = ROOT / "institutional_due_diligence_2026" / "batch04_independent_audit" / "RBAS001_TIER_CLASSIFICATION.json"
     tiers = write_tier_table(out)

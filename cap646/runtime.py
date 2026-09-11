@@ -26,6 +26,7 @@ from cap646.batch03_production import BATCH03_IDS
 from cap646.batch04_production import BATCH04_IDS
 from cap646.batch05_production import BATCH05_IDS
 from cap646.batch06_production import BATCH06_IDS
+from cap646.batch_registry import all_batch_ids, batch_handler_for
 from cap646.batch_spine import execute_and_enrich_batch
 from cap646.handlers.batch01 import handle_batch01_capability
 from cap646.handlers.batch02 import handle_batch02_capability
@@ -36,7 +37,7 @@ from cap646.handlers.batch06 import handle_batch06_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
-OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS | BATCH04_IDS | BATCH05_IDS | BATCH06_IDS
+OPTION_A_IDS = frozenset({338, 500, 507, 534}) | all_batch_ids()
 WAVE_D_SET = set(WAVE_D)
 
 
@@ -65,6 +66,9 @@ def _pdf_dedicated_platform_ids() -> frozenset[int]:
 def _route_handler(track: str, name: str, capability_id: int):
     nl = name.lower()
     if capability_id in OPTION_A_IDS:
+        batch_h = batch_handler_for(capability_id)
+        if batch_h is not None:
+            return batch_h
         if capability_id in BATCH01_IDS:
             return handle_batch01_capability
         if capability_id in BATCH02_IDS:
@@ -162,6 +166,10 @@ async def execute_capability(
         return await execute_and_enrich_batch(
             handle_batch01_capability, capability_id, row=row, params=params
         )
+
+    batch_h = batch_handler_for(capability_id)
+    if batch_h is not None and capability_id not in BATCH01_IDS:
+        return await execute_and_enrich_batch(batch_h, capability_id, row=row, params=params)
 
     if capability_id in BATCH02_IDS:
         return await execute_and_enrich_batch(

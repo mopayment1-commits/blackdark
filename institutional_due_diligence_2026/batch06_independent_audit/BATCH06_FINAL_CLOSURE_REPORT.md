@@ -1,6 +1,6 @@
 # Batch 06 Final Closure Report (Run 016)
 
-**Generated:** 2026-09-11T10:38:06.398799+00:00  
+**Generated:** 2026-09-11T11:39:03.535754+00:00  
 **Run:** Master Contract 016  
 **Scope:** IDs 251–300  
 
@@ -33,7 +33,7 @@
 **Sample post-fix (ID 277):**
 
 ```json
-{"capability_id": 277, "surface": "address_labeling_system", "data_source": "cap646.batch06_dedicated#cap277", "timestamp": "2026-09-11T10:35:55.762084+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
+{"capability_id": 277, "surface": "address_labeling_system", "data_source": "cap646.batch06_dedicated#cap277", "timestamp": "2026-09-11T11:36:53.300644+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
 ```
 
 ## Item 3 — ID 277 Address Labeling System (FATF R.16 / Phase 6)
@@ -59,12 +59,12 @@
 **Live excerpt:**
 
 ```json
-{"capability_id": 277, "surface": "address_labeling_system", "data_source": "cap646.batch06_dedicated#cap277", "timestamp": "2026-09-11T10:35:27.237021+00:00", "inner_surface": "onchain_intelligence", "label_fields": "absent"}
+{"capability_id": 277, "surface": "address_labeling_system", "data_source": "cap646.batch06_dedicated#cap277", "timestamp": "2026-09-11T11:36:24.355456+00:00", "inner_surface": "onchain_intelligence", "label_fields": "absent"}
 ```
 
 ## Item 4 — PERFORMANCE-UNVERIFIABLE (6/50)
 
-IDs **251, 270, 271, 275, 297, 299** — GIPS shadow-only ledger (138 decisions, simulated_only=True).
+IDs **251, 270, 271, 275, 297, 299** — GIPS shadow-only ledger (177 decisions, simulated_only=True).
 
 **Reclassification:** none — retained per GIPS standard.
 

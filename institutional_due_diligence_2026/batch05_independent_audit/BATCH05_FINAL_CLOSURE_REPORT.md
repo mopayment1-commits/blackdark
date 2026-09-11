@@ -1,6 +1,6 @@
 # Batch 05 Final Closure Report (Run 014)
 
-**Generated:** 2026-09-11T09:23:45.570700+00:00  
+**Generated:** 2026-09-11T11:36:23.718194+00:00  
 **Run:** Master Contract 014  
 **Scope:** IDs 201–250  
 
@@ -32,12 +32,12 @@
 **Sample post-fix (ID 201):**
 
 ```json
-{"capability_id": 201, "surface": "network_growth_intelligence", "data_source": "cap646.batch05_dedicated#cap201", "timestamp": "2026-09-11T09:13:30.468411+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
+{"capability_id": 201, "surface": "network_growth_intelligence", "data_source": "cap646.batch05_dedicated#cap201", "timestamp": "2026-09-11T11:26:34.304424+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
 ```
 
 ## Item 3 — PERFORMANCE-UNVERIFIABLE (11/50 — 22%)
 
-IDs **223, 224, 225, 226, 227, 229, 230, 237, 238, 240, 242** — GIPS shadow-only ledger (75 decisions, simulated_only=True).
+IDs **223, 224, 225, 226, 227, 229, 230, 237, 238, 240, 242** — GIPS shadow-only ledger (169 decisions, simulated_only=True).
 
 **Reclassification:** none — retained per GIPS standard.
 
