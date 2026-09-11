@@ -1,0 +1,823 @@
+{
+  "score_idx_review": {
+    "reviewed_at": "2026-09-11T10:35:38.012935+00:00",
+    "policy": "SCORE-IDX-001 + RBAS-001 Tier2 non-escalated recheck (Run 016)",
+    "not_complete_scope_count": 44,
+    "tier2_non_escalated_reviewed": [
+      252,
+      253,
+      254,
+      255,
+      256,
+      257,
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264,
+      266,
+      267,
+      268,
+      272,
+      273,
+      274,
+      276,
+      280,
+      283,
+      284,
+      285,
+      291,
+      292,
+      293,
+      298,
+      300
+    ],
+    "tier2_non_escalated_count": 29,
+    "hidden_decision_hits": {},
+    "reclassified_to_tier1_full": [],
+    "conclusion": "After supplemental SCORE-IDX-001 review of all 29 Tier2 non-escalated capabilities, no hidden scoring/decision logic requiring Tier1 promotion or CONCEPTUALLY-UNSOUND reclassification was found. CONCEPTUALLY-UNSOUND remains 0/50.",
+    "confirmed_conceptually_unsound_zero": true
+  },
+  "bcbs_remediation": {
+    "generated_at": "2026-09-11T10:35:38.013287+00:00",
+    "fix": "cap646.batch06_dedicated._wrap stamps top-level data_source + timestamp (Run 015; verified Run 016)",
+    "per_id": {
+      "252": {
+        "name": "Liquidation Heatmap",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 252, \"surface\": \"liquidation_heatmap\", \"data_source\": \"cap646.batch06_dedicated#cap252\", \"timestamp\": \"2026-09-11T10:35:38.215153+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "253": {
+        "name": "Liquidation Map / Levels",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 253, \"surface\": \"liquidation_map_levels\", \"data_source\": \"cap646.batch06_dedicated#cap253\", \"timestamp\": \"2026-09-11T10:35:38.396581+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "254": {
+        "name": "Real-Time Liquidation Events",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 254, \"surface\": \"real_time_liquidation_events\", \"data_source\": \"cap646.batch06_dedicated#cap254\", \"timestamp\": \"2026-09-11T10:35:38.598932+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "255": {
+        "name": "Open Interest Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 255, \"surface\": \"open_interest_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap255\", \"timestamp\": \"2026-09-11T10:35:38.800690+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "256": {
+        "name": "Funding Rate Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 256, \"surface\": \"funding_rate_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap256\", \"timestamp\": \"2026-09-11T10:35:38.978916+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "257": {
+        "name": "Long/Short Ratio Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 257, \"surface\": \"long_short_ratio_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap257\", \"timestamp\": \"2026-09-11T10:35:39.167261+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "258": {
+        "name": "Top Trader Positioning",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 258, \"surface\": \"top_trader_positioning\", \"data_source\": \"cap646.batch06_dedicated#cap258\", \"timestamp\": \"2026-09-11T10:35:39.185223+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "259": {
+        "name": "Futures Basis Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 259, \"surface\": \"futures_basis_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap259\", \"timestamp\": \"2026-09-11T10:35:39.188367+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "260": {
+        "name": "Futures Volume Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 260, \"surface\": \"futures_volume_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap260\", \"timestamp\": \"2026-09-11T10:35:39.376826+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "261": {
+        "name": "Futures CVD / Taker Flow",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 261, \"surface\": \"futures_cvd_taker_flow\", \"data_source\": \"cap646.batch06_dedicated#cap261\", \"timestamp\": \"2026-09-11T10:35:39.563792+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "262": {
+        "name": "Options Open Interest",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 262, \"surface\": \"options_open_interest\", \"data_source\": \"cap646.batch06_dedicated#cap262\", \"timestamp\": \"2026-09-11T10:35:39.743784+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "263": {
+        "name": "Options Volume",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 263, \"surface\": \"options_volume\", \"data_source\": \"cap646.batch06_dedicated#cap263\", \"timestamp\": \"2026-09-11T10:35:39.854398+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "264": {
+        "name": "Options IV / Skew",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 264, \"surface\": \"options_iv_skew\", \"data_source\": \"cap646.batch06_dedicated#cap264\", \"timestamp\": \"2026-09-11T10:35:41.829424+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "265": {
+        "name": "Max Pain / Gamma Context",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 265, \"surface\": \"max_pain_gamma_context\", \"data_source\": \"cap646.batch06_dedicated#cap265\", \"timestamp\": \"2026-09-11T10:35:51.807480+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "266": {
+        "name": "Spot Market Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 266, \"surface\": \"spot_market_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap266\", \"timestamp\": \"2026-09-11T10:35:53.828579+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "267": {
+        "name": "Order Book / Market Depth",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 267, \"surface\": \"order_book_market_depth\", \"data_source\": \"cap646.batch06_dedicated#cap267\", \"timestamp\": \"2026-09-11T10:35:53.828724+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "268": {
+        "name": "Historical Derivatives Data",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 268, \"surface\": \"historical_derivatives_data\", \"data_source\": \"cap646.batch06_dedicated#cap268\", \"timestamp\": \"2026-09-11T10:35:55.469951+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "269": {
+        "name": "Exchange Comparison",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 269, \"surface\": \"exchange_comparison\", \"data_source\": \"cap646.batch06_dedicated#cap269\", \"timestamp\": \"2026-09-11T10:35:55.553211+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "272": {
+        "name": "API Data Platform",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 272, \"surface\": \"api_data_platform\", \"data_source\": \"cap646.batch06_dedicated#cap272\", \"timestamp\": \"2026-09-11T10:35:55.553350+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "273": {
+        "name": "Multi-Model Liquidation Comparison",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 273, \"surface\": \"multi_model_liquidation_comparison\", \"data_source\": \"cap646.batch06_dedicated#cap273\", \"timestamp\": \"2026-09-11T10:35:55.556575+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "274": {
+        "name": "Derivatives Alerts",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 274, \"surface\": \"derivatives_alerts\", \"data_source\": \"cap646.batch06_dedicated#cap274\", \"timestamp\": \"2026-09-11T10:35:55.761457+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "276": {
+        "name": "Entity Resolution Engine",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 276, \"surface\": \"entity_resolution_engine\", \"data_source\": \"cap646.batch06_dedicated#cap276\", \"timestamp\": \"2026-09-11T10:35:55.761827+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "277": {
+        "name": "Address Labeling System",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 277, \"surface\": \"address_labeling_system\", \"data_source\": \"cap646.batch06_dedicated#cap277\", \"timestamp\": \"2026-09-11T10:35:55.762084+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "278": {
+        "name": "Entity Profiles",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 278, \"surface\": \"entity_profiles\", \"data_source\": \"cap646.batch06_dedicated#cap278\", \"timestamp\": \"2026-09-11T10:35:55.840208+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "279": {
+        "name": "Transaction Search",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 279, \"surface\": \"transaction_search\", \"data_source\": \"cap646.batch06_dedicated#cap279\", \"timestamp\": \"2026-09-11T10:35:55.840562+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "280": {
+        "name": "Portfolio Holdings",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 280, \"surface\": \"portfolio_holdings\", \"data_source\": \"cap646.batch06_dedicated#cap280\", \"timestamp\": \"2026-09-11T10:35:55.840697+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "281": {
+        "name": "Balance History",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 281, \"surface\": \"balance_history\", \"data_source\": \"cap646.batch06_dedicated#cap281\", \"timestamp\": \"2026-09-11T10:35:55.847056+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "282": {
+        "name": "Entity PnL",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 282, \"surface\": \"entity_pnl\", \"data_source\": \"cap646.batch06_dedicated#cap282\", \"timestamp\": \"2026-09-11T10:35:55.940504+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "283": {
+        "name": "Exchange Usage Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 283, \"surface\": \"exchange_usage_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap283\", \"timestamp\": \"2026-09-11T10:35:55.940807+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "284": {
+        "name": "Top Counterparties",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 284, \"surface\": \"top_counterparties\", \"data_source\": \"cap646.batch06_dedicated#cap284\", \"timestamp\": \"2026-09-11T10:35:57.953225+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "285": {
+        "name": "Visualizer / Network Graph",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 285, \"surface\": \"visualizer_network_graph\", \"data_source\": \"cap646.batch06_dedicated#cap285\", \"timestamp\": \"2026-09-11T10:35:57.953564+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "286": {
+        "name": "Automated Trace / Path Finding",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 286, \"surface\": \"automated_trace_path_finding\", \"data_source\": \"cap646.batch06_dedicated#cap286\", \"timestamp\": \"2026-09-11T10:36:02.240015+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "287": {
+        "name": "Cross-Chain Trace",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 287, \"surface\": \"cross_chain_trace\", \"data_source\": \"cap646.batch06_dedicated#cap287\", \"timestamp\": \"2026-09-11T10:36:06.512530+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "288": {
+        "name": "Token Top Holders",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 288, \"surface\": \"token_top_holders\", \"data_source\": \"cap646.batch06_dedicated#cap288\", \"timestamp\": \"2026-09-11T10:36:06.594192+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "289": {
+        "name": "Token Exchange Flows",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 289, \"surface\": \"token_exchange_flows\", \"data_source\": \"cap646.batch06_dedicated#cap289\", \"timestamp\": \"2026-09-11T10:36:06.594552+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "290": {
+        "name": "Token Transaction Explorer",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 290, \"surface\": \"token_transaction_explorer\", \"data_source\": \"cap646.batch06_dedicated#cap290\", \"timestamp\": \"2026-09-11T10:36:06.594790+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "291": {
+        "name": "Custom Dashboards",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 291, \"surface\": \"custom_dashboards\", \"data_source\": \"cap646.batch06_dedicated#cap291\", \"timestamp\": \"2026-09-11T10:36:06.595013+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "292": {
+        "name": "Custom Alerts",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 292, \"surface\": \"custom_alerts\", \"data_source\": \"cap646.batch06_dedicated#cap292\", \"timestamp\": \"2026-09-11T10:36:06.595077+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "293": {
+        "name": "Private Labels",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 293, \"surface\": \"private_labels\", \"data_source\": \"cap646.batch06_dedicated#cap293\", \"timestamp\": \"2026-09-11T10:36:06.595313+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "294": {
+        "name": "Archive / Historical Portfolio Snapshot",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 294, \"surface\": \"archive_historical_portfolio_snapshot\", \"data_source\": \"cap646.batch06_dedicated#cap294\", \"timestamp\": \"2026-09-11T10:36:10.870210+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "295": {
+        "name": "AI Market Insights",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 295, \"surface\": \"ai_market_insights\", \"data_source\": \"cap646.batch06_dedicated#cap295\", \"timestamp\": \"2026-09-11T10:36:12.594675+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "296": {
+        "name": "Whale Movement Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 296, \"surface\": \"whale_movement_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap296\", \"timestamp\": \"2026-09-11T10:36:12.595095+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "298": {
+        "name": "API On-Chain Intelligence",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 298, \"surface\": \"api_on_chain_intelligence\", \"data_source\": \"cap646.batch06_dedicated#cap298\", \"timestamp\": \"2026-09-11T10:36:12.595334+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      },
+      "300": {
+        "name": "Advanced Multi-Asset Charting",
+        "before_missing_fields": [
+          "data_source",
+          "timestamp"
+        ],
+        "after_missing_fields": [],
+        "after_present": {
+          "data_source": true,
+          "timestamp": true,
+          "evidence_class": true
+        },
+        "after_payload_excerpt": "{\"capability_id\": 300, \"surface\": \"advanced_multi_asset_charting\", \"data_source\": \"cap646.batch06_dedicated#cap300\", \"timestamp\": \"2026-09-11T10:36:12.595565+00:00\", \"evidence_class\": \"SHADOW_LIVE_FORWARD\", \"success\": true}",
+        "bcbs_remediated": true
+      }
+    }
+  },
+  "id277_fatf_analysis": {
+    "generated_at": "2026-09-11T10:35:27.237231+00:00",
+    "capability_id": 277,
+    "capability_name": "Address Labeling System",
+    "rbas_tier": "TIER1",
+    "phase6_static_scan": {
+      "user_surface": null,
+      "api_path_registered": false,
+      "failure_mode": "no user-facing API path \u2014 internal/surface-only",
+      "same_class_as_other_not_complete": true
+    },
+    "fatf_r16_live_probe": {
+      "bcbs_top_level": {
+        "data_source": true,
+        "timestamp": true,
+        "evidence_class": true
+      },
+      "dedicated_surface": "address_labeling_system",
+      "inner_handler_surface": "onchain_intelligence",
+      "label_semantics_fields_found": null,
+      "known_unknown_distinction_present": false,
+      "inner_simulated_onchain_flows": true,
+      "requested_address_in_params": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+      "address_echoed_in_payload": null
+    },
+    "phase_results_baseline": {
+      "1": "PASS",
+      "2": "NOT_APPLICABLE",
+      "3": "NOT_APPLICABLE",
+      "4": "PASS",
+      "5": "PASS",
+      "6": "PARTIAL",
+      "7": "PASS",
+      "8": "PARTIAL",
+      "9": "PARTIAL"
+    },
+    "classification_note": "Phase 6 NOT_COMPLETE shares the static-scan api_path gap with 43 peers (user_surface_for\u2192None). ADDITIONALLY: live handler returns generic onchain_intelligence flows (simulated) without known/unknown address-label semantics required for FATF R.16 address-labeling intent. This is an honest implementation gap (NOT_COMPLETE), NOT CONCEPTUALLY-UNSOUND \u2014 capability does not fabricate entity labels; it under-delivers vs catalog name. Phase 9 remains PARTIAL.",
+    "final_status_recommendation": "NOT_COMPLETE",
+    "security_vs_documentation_verdict": "PRIMARY: Phase 6 gap = static-scan/documentation (api_path absent) \u2014 same bucket as 43/44 NOT_COMPLETE. SECONDARY: FATF-relevant product gap documented \u2014 no known/unknown entity labeling in live payload; under-implementation vs catalog, not mislabeled fake labels. Retain NOT_COMPLETE; do not upgrade to CONCEPTUALLY-UNSOUND or downgrade to documentation-only.",
+    "live_payload_excerpt": "{\"capability_id\": 277, \"surface\": \"address_labeling_system\", \"data_source\": \"cap646.batch06_dedicated#cap277\", \"timestamp\": \"2026-09-11T10:35:27.237021+00:00\", \"inner_surface\": \"onchain_intelligence\", \"label_fields\": \"absent\"}"
+  },
+  "performance_unverifiable": {
+    "generated_at": "2026-09-11T10:36:27.612155+00:00",
+    "ids": [
+      251,
+      270,
+      271,
+      275,
+      297,
+      299
+    ],
+    "count": 6,
+    "ledger_stats": {
+      "exists": true,
+      "unique_decisions": 138,
+      "simulated_only": true
+    },
+    "per_id": {
+      "251": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 138,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "270": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 138,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "271": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 138,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "275": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 138,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "297": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 138,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "299": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 138,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      }
+    },
+    "reclassification": "none \u2014 retained per GIPS standard"
+  },
+  "non_regression": {
+    "generated_at": "2026-09-11T10:36:27.612178+00:00",
+    "met": true,
+    "skipped": true,
+    "details": {}
+  },
+  "audit_counts": {
+    "PERFORMANCE-UNVERIFIABLE": 6,
+    "NOT_COMPLETE": 44
+  },
+  "closure_gate_met": true
+}

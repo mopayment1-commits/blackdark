@@ -73,6 +73,10 @@ Source: IIA Risk-Based Internal Auditing + SR 26-2 proportionality principle.
 | B05-RUN-013 | W22 | Batch 05 RBAS opening audit (IDs 201–250) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH05_RUN013_OPENING_REPORT.md |
 | B05-CLOSE-014 | W22 | Batch 05 final closure Run 014 (SCORE-IDX + BCBS + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH05_FINAL_CLOSURE_REPORT.md |
 | B06-RUN-015 | W22 | Batch 06 RBAS opening audit (IDs 251–300) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH06_RUN015_OPENING_REPORT.md |
+| B06-CLOSE-016 | W22 | Batch 06 final closure Run 016 (ID 277 FATF + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH06_FINAL_CLOSURE_REPORT.md |
+| B06-V6-018 | W22 | v6 tri-state adoption — Batch01–06 reclassification (PASS_LIVE=0) | E1 | VERIFIED PASS | 300/300 closed | EXECUTED | RUN018_V6_ADOPTION_REPORT.md |
+| B06-RV-020 | W22 | Run 020 random re-verification sample (seed=16018, 10/50 Batch06) | E1 | VERIFIED PASS | 10/10 | EXECUTED | RUN018_020_V6_EVIDENCE.json |
+| B06-3WAY-020 | W22 | Three-way reconciliation (ledger 826 = inventory = RTM union 300 closed) | E1 | VERIFIED PASS | 826/826 ledger | EXECUTED | 00_MASTER_826_RECONCILIATION_LEDGER.json |
 
 ## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
 

@@ -5,7 +5,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence spine=batch06_prep; code: async def _cap251(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 84 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T09:28:49.52471",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence spine=batch06_prep; code: async def _cap251(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 139 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:36:36.7188",
     "severity": "متوسط",
     "backend": "cap646.batch06_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -27,7 +27,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 7824
+    "audit_duration_ms": 4293
   },
   {
     "id": 252,
@@ -43,11 +43,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -57,7 +57,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 204
+    "audit_duration_ms": 211
   },
   {
     "id": 253,
@@ -73,11 +73,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -87,7 +87,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 180
+    "audit_duration_ms": 202
   },
   {
     "id": 254,
@@ -103,11 +103,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -117,7 +117,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 178
+    "audit_duration_ms": 173
   },
   {
     "id": 255,
@@ -133,11 +133,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -147,7 +147,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 178
+    "audit_duration_ms": 175
   },
   {
     "id": 256,
@@ -163,11 +163,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -177,7 +177,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 185
+    "audit_duration_ms": 178
   },
   {
     "id": 257,
@@ -193,11 +193,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -223,11 +223,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -237,7 +237,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 14
+    "audit_duration_ms": 19
   },
   {
     "id": 259,
@@ -253,11 +253,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -283,11 +283,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -297,7 +297,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 177
+    "audit_duration_ms": 214
   },
   {
     "id": 261,
@@ -313,11 +313,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -327,7 +327,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 197
+    "audit_duration_ms": 185
   },
   {
     "id": 262,
@@ -343,11 +343,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -357,7 +357,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 200
+    "audit_duration_ms": 183
   },
   {
     "id": 263,
@@ -373,11 +373,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -387,7 +387,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 116
+    "audit_duration_ms": 120
   },
   {
     "id": 264,
@@ -403,11 +403,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -417,7 +417,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2006
+    "audit_duration_ms": 1993
   },
   {
     "id": 265,
@@ -450,7 +450,7 @@
       "max_pain_gamma_context.trust_pulse.zero_tolerance.checks.black_box_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 4269
+    "audit_duration_ms": 7917
   },
   {
     "id": 266,
@@ -466,11 +466,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -480,7 +480,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2029
+    "audit_duration_ms": 1945
   },
   {
     "id": 267,
@@ -496,11 +496,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -526,11 +526,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -540,7 +540,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2006
+    "audit_duration_ms": 1710
   },
   {
     "id": 269,
@@ -591,7 +591,7 @@
       "exchange_comparison.result.recent[9].opportunity_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 79
+    "audit_duration_ms": 80
   },
   {
     "id": 270,
@@ -599,7 +599,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=liquidation_cascade_proximity spine=batch06_prep; code: async def _cap270(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 84 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T09:28:49.52471",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=liquidation_cascade_proximity spine=batch06_prep; code: async def _cap270(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 139 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:36:36.7188",
     "severity": "متوسط",
     "backend": "cap646.batch06_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -621,7 +621,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 1957
+    "audit_duration_ms": 2025
   },
   {
     "id": 271,
@@ -629,7 +629,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=leverage_pressure_score spine=batch06_prep; code: async def _cap271(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 84 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T09:28:49.52471",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=leverage_pressure_score spine=batch06_prep; code: async def _cap271(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 139 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:36:36.7188",
     "severity": "متوسط",
     "backend": "cap646.batch06_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -651,7 +651,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 309
+    "audit_duration_ms": 178
   },
   {
     "id": 272,
@@ -667,11 +667,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -697,11 +697,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -711,7 +711,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2
+    "audit_duration_ms": 3
   },
   {
     "id": 274,
@@ -727,11 +727,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -741,7 +741,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 180
+    "audit_duration_ms": 205
   },
   {
     "id": 275,
@@ -749,7 +749,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence spine=batch06_prep; code: async def _cap275(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 84 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T09:28:49.52471",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence spine=batch06_prep; code: async def _cap275(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 139 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:36:36.7188",
     "severity": "متوسط",
     "backend": "cap646.batch06_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -771,7 +771,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4281
+    "audit_duration_ms": 4293
   },
   {
     "id": 276,
@@ -787,11 +787,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -882,7 +882,7 @@
       "entity_profiles.result.recent[9].opportunity_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 78
+    "audit_duration_ms": 79
   },
   {
     "id": 279,
@@ -928,11 +928,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -972,7 +972,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 121
+    "audit_duration_ms": 122
   },
   {
     "id": 282,
@@ -1018,11 +1018,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1048,11 +1048,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1062,7 +1062,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2114
+    "audit_duration_ms": 1997
   },
   {
     "id": 285,
@@ -1078,11 +1078,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1122,7 +1122,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4321
+    "audit_duration_ms": 4320
   },
   {
     "id": 287,
@@ -1152,7 +1152,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4332
+    "audit_duration_ms": 4282
   },
   {
     "id": 288,
@@ -1258,11 +1258,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1288,11 +1288,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1318,11 +1318,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1365,7 +1365,7 @@
       "archive_historical_portfolio_snapshot.trust_pulse.zero_tolerance.checks.black_box_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 4247
+    "audit_duration_ms": 4330
   },
   {
     "id": 295,
@@ -1395,7 +1395,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 2016
+    "audit_duration_ms": 1967
   },
   {
     "id": 296,
@@ -1433,7 +1433,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fraud_suspicious_activity_intelligence spine=batch06_prep; code: async def _cap297(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 84 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T09:28:49.52471",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fraud_suspicious_activity_intelligence spine=batch06_prep; code: async def _cap297(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 139 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:36:36.7188",
     "severity": "متوسط",
     "backend": "cap646.batch06_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -1471,11 +1471,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
@@ -1493,7 +1493,7 @@
     "status": "PERFORMANCE-UNVERIFIABLE",
     "failed_phase": "2",
     "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_entity_decision_intelligence spine=batch06_prep; code: async def _cap299(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 84 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T09:28:49.52471",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_entity_decision_intelligence spine=batch06_prep; code: async def _cap299(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 139 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T10:36:36.7188",
     "severity": "متوسط",
     "backend": "cap646.batch06_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
@@ -1515,7 +1515,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 4294
+    "audit_duration_ms": 4300
   },
   {
     "id": 300,
@@ -1531,11 +1531,11 @@
     "phase_results": {
       "1": "PASS",
       "7": "SKIPPED",
+      "2": "SKIPPED",
+      "3": "SKIPPED",
+      "5": "SKIPPED",
       "9": "SKIPPED",
       "8": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "5": "SKIPPED",
       "4": "PASS",
       "6": "PARTIAL"
     },
