@@ -46,6 +46,14 @@ def load_catalog() -> list[dict[str, Any]]:
     rows = json.loads(_CATALOG.read_text(encoding="utf-8"))
     if _EXTENSION.exists():
         rows.extend(json.loads(_EXTENSION.read_text(encoding="utf-8")))
+    # 826 project scope: merge cap978 extension rows 647–826 (read JSON directly — avoid import cycle).
+    cap978_catalog = _ROOT / "docs" / "cap978" / "CAP978_CATALOG.json"
+    if cap978_catalog.exists():
+        have = {int(r["id"]) for r in rows}
+        for ext in json.loads(cap978_catalog.read_text(encoding="utf-8")):
+            cid = int(ext["id"])
+            if 647 <= cid <= 826 and cid not in have:
+                rows.append(ext)
     return rows
 
 

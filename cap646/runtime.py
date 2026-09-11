@@ -22,14 +22,16 @@ from cap646.handlers.verified import handle_verified_capability
 from cap646.batch01_production import BATCH01_IDS
 from cap646.batch02_production import BATCH02_IDS
 from cap646.batch03_production import BATCH03_IDS
+from cap646.batch_range_production import BATCH_RANGE_IDS
 from cap646.batch_spine import execute_and_enrich_batch
 from cap646.handlers.batch01 import handle_batch01_capability
 from cap646.handlers.batch02 import handle_batch02_capability
 from cap646.handlers.batch03 import handle_batch03_capability
+from cap646.handlers.batch_range import handle_batch_range_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
-OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS
+OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS | BATCH_RANGE_IDS
 WAVE_D_SET = set(WAVE_D)
 
 
@@ -44,6 +46,8 @@ def _route_handler(track: str, name: str, capability_id: int):
             return handle_batch02_capability
         if capability_id in BATCH03_IDS:
             return handle_batch03_capability
+        if capability_id in BATCH_RANGE_IDS:
+            return handle_batch_range_capability
         if capability_id in {338, 500}:
             return handle_data_capability
         return handle_market_capability
@@ -92,8 +96,20 @@ async def execute_capability(
 ) -> dict[str, Any]:
     params = dict(params or {})
     row = catalog_by_id().get(capability_id)
+    if not row and 647 <= capability_id <= 826:
+        try:
+            from cap978.catalog import catalog_by_id as catalog978_by_id
+
+            row = catalog978_by_id().get(capability_id)
+        except Exception:
+            row = None
     if not row:
         return ai_compliance_footer({"success": False, "error": "unknown_capability_id", "capability_id": capability_id})
+
+    if capability_id >= 647 and capability_id <= 826 and capability_id not in BATCH_RANGE_IDS:
+        from cap978.verify import execute_extension
+
+        return await execute_extension(capability_id, user=user, params=params)
 
     if is_external(capability_id):
         return ai_compliance_footer(
@@ -136,6 +152,11 @@ async def execute_capability(
     if capability_id in BATCH03_IDS:
         return await execute_and_enrich_batch(
             handle_batch03_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH_RANGE_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch_range_capability, capability_id, row=row, params=params
         )
 
     if is_duplicate(capability_id) and target_id != capability_id:

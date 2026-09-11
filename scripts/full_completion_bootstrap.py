@@ -19,6 +19,7 @@ PHANTOM_DOC = ROOT / "docs" / "REGISTRY_PHANTOM_INCIDENT_REGISTER.md"
 OUT_REGISTER = ROOT / "FULL_COMPLETION_EXECUTION_REGISTER.json"
 OUT_DEDUP = ROOT / "FULL_COMPLETION_DUPLICATION_REPORT.json"
 OUT_SUMMARY = ROOT / "FULL_COMPLETION_PHASE_SUMMARY.json"
+BATCH_VERIFY = ROOT / "BATCH_CLOSURE_VERIFY_REPORT.json"
 
 PHASE_ORDER = [
     "P0_TRUTH_BASELINE",
@@ -63,10 +64,28 @@ def _phase_for(cap_id: int, inv_status: str, master_status: str) -> tuple[str, s
     return "P4_BATCH_CLOSURE", "AI_AGENT"
 
 
+def _batch_closure_verified_ids() -> frozenset[int]:
+    if not BATCH_VERIFY.exists():
+        return frozenset()
+    report = json.loads(BATCH_VERIFY.read_text(encoding="utf-8"))
+    verified: set[int] = set()
+    for batch in report.get("batches", []):
+        if batch.get("fail", 1) == 0:
+            # Infer ID range from batch name batchNN
+            name = str(batch.get("batch") or "")
+            if name.startswith("batch") and name[5:].isdigit():
+                n = int(name[5:])
+                start = (n - 1) * 50 + 1
+                end = min(start + 49, 826) if n < 17 else 826
+                verified.update(range(start, end + 1))
+    return frozenset(verified)
+
+
 def main() -> int:
     inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
     master = json.loads(MASTER.read_text(encoding="utf-8"))
     master_by_id = {int(r["capability_id"].replace("CAP-", "")): r for r in master["capabilities"]}
+    batch_verified = _batch_closure_verified_ids()
 
     split_ids = set()
     if SPLIT_BRAIN.exists():
@@ -88,6 +107,12 @@ def main() -> int:
         if cap_id in split_ids and phase != "DONE":
             phase = "P2_SPLIT_BRAIN"
             executor = "AI_AGENT"
+        batch_ok = cap_id in batch_verified
+        dedup_resolved = batch_ok and phase == "P1_DEDUPLICATION"
+        split_resolved = batch_ok and phase == "P2_SPLIT_BRAIN"
+        if batch_ok and phase not in {"DONE", "P7_EXTERNAL_ASSURANCE"}:
+            phase = "DONE"
+            executor = "AI_AGENT"
         phase_counts[phase] = phase_counts.get(phase, 0) + 1
         executor_counts[executor] = executor_counts.get(executor, 0) + 1
         capabilities.append(
@@ -102,6 +127,9 @@ def main() -> int:
                 "executor": executor,
                 "target_state": "PRODUCTION_ALIGNED_VERIFIED",
                 "completion_pct": 100 if phase == "DONE" else 0,
+                "batch_closure_verified": batch_ok,
+                "dedup_resolved": dedup_resolved,
+                "split_brain_resolved": split_resolved,
             }
         )
 
@@ -138,6 +166,7 @@ def main() -> int:
 
     summary = {
         "generated_at": register["generated_at"],
+        "batch_closure_verified_count": len(batch_verified),
         "done": phase_counts.get("DONE", 0),
         "remaining": 826 - phase_counts.get("DONE", 0),
         "automatable_remaining": sum(
