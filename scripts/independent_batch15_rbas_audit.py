@@ -27,6 +27,7 @@ def batch15_tier_map():
     return batch_tier_map(15)
 
 
+WF027_IN_BATCH15 = WF027_UNRESOLVED_LEGACY_IDS & set(range(701, 751))
 
 OUT = ROOT / "institutional_due_diligence_2026" / "batch15_independent_audit"
 OUT.mkdir(parents=True, exist_ok=True)

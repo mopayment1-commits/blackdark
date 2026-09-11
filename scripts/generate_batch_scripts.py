@@ -55,12 +55,7 @@ def _replace_batch(text: str, cfg: BatchRbasConfig) -> str:
 
 def _fix_audit_imports(text: str, cfg: BatchRbasConfig) -> str:
     n = cfg.batch_num
-    text = re.sub(
-        rf"def batch{n:02d}_tier_map\(\):\n    return batch_tier_map\(\d+\)\n\n",
-        "",
-        text,
-    )
-    import_block = f'''from scripts.rbas001_scoping import (
+    header = f'''from scripts.rbas001_scoping import (
     WF027_DORMANT_LEGACY_IDS,
     WF027_UNRESOLVED_LEGACY_IDS,
     batch_tier_map,
@@ -71,22 +66,22 @@ def batch{n:02d}_tier_map():
 
 
 WF027_IN_BATCH{n:02d} = WF027_UNRESOLVED_LEGACY_IDS & set(range({cfg.id_start}, {cfg.id_end + 1}))
+
+OUT = ROOT / "institutional_due_diligence_2026" / "batch{n:02d}_independent_audit"
+OUT.mkdir(parents=True, exist_ok=True)
+
+BATCH{n:02d}_RANGE = range({cfg.id_start}, {cfg.id_end + 1})
+BATCH_NUM = {n}
 '''
     text = re.sub(
-        r"from scripts\.rbas001_scoping import \(.*?\)\n",
-        import_block,
+        r"from scripts\.rbas001_scoping import \(.*?\nBATCH_NUM = \d+\n",
+        header,
         text,
         count=1,
         flags=re.S,
     )
-    text = re.sub(
-        rf"WF027_IN_BATCH{n:02d} = WF027_UNRESOLVED_LEGACY_IDS & set\(range\(\d+, \d+\)\)\n\n",
-        "",
-        text,
-    )
     text = text.replace("batch06_tier_map()", f"batch{n:02d}_tier_map()")
     text = text.replace("batch07_tier_map()", f"batch{n:02d}_tier_map()")
-    text = text.replace("BATCH_NUM = 6", f"BATCH_NUM = {n}")
     # Remove stale batch06 decision cap constants — derive from tier map at runtime
     text = re.sub(
         r"DECISION_CAP_IDS = \{.*?\}\nAI_CAP_IDS = \{.*?\}\nWALLET_CAP_IDS.*?\n",
