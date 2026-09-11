@@ -1,6 +1,6 @@
 # 02 — AUDIT PROCEDURE EXECUTION REGISTER
 **Contract:** FINAL-EXECUTION-CONTRACT-2026  
-**Updated:** 2026-09-11T01:07:25Z  
+**Updated:** 2026-09-11T07:45:00Z (Run 005 — Batch 01 closure standards)  
 **HEAD:** `944c4f4d5dfb36d5c11d9eb6984232892a7b5234`
 
 | Proc ID | Domain | Requirement | Min Ev | Result | Coverage | Status | Evidence |
@@ -48,3 +48,19 @@
 | W8-DB-001 | W8 | Schema reconciliation + SQLite init | E1 | VERIFIED PASS | 1/1 | EXECUTED | EVD-047, EVD-018 |
 | W8-DB-002 | W8 | Spine DB pytest | E1 | VERIFIED PASS | 1/1 | EXECUTED | EVD-047 |
 | W9-API-001 | W9 | API auth classification api/routers | E1 | PARTIAL | 308/308 classified | EXECUTED | EVD-046, EVD-019 |
+| SCORE-IDX-001 | W3/W22 | Scoring/index PRODUCTION-ALIGNED gate (Run 005 permanent) | E1 | POLICY ACTIVE | all batches 51–826 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
+| RTM-IND-001 | W0/W22 | RTM self-assessment prohibited; nine-phase independent audit only (WF-026) | E1 | POLICY ACTIVE | batches 51–826 | EXECUTED | WF-026, docs/BATCH01_OFFICIAL_RTM_1_50.json |
+| B01-CLOSE-005 | W22 | Batch 01 final closure Run 005 (IDs 8/9/33 + RTM replace) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
+
+## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
+
+Any capability classified as a **scoring/index** MUST NOT receive `PRODUCTION-ALIGNED` unless **one of**:
+
+1. **Validated weights:** Formula weights/parameters cite an documented academic, industry, or internal calibration source in code and user-facing disclosure; OR
+2. **Explicit heuristic:** Code contains `# HEURISTIC — weights not empirically validated` (or equivalent), payload includes `heuristic: true` and `methodology_status: NOT_COMPLETE`, and RTM records `NOT_COMPLETE (heuristic pending validation)`.
+
+**Prohibited:** Presenting supply-lock proxies as holder-concentration metrics; user-supplied verdict inputs; count-only alert scoring without quality weighting — unless honestly labeled per (2).
+
+## RTM-IND-001 — Independent RTM Policy (WF-026 Remediation)
+
+`scripts/audit_official_batch01_rtm.py` and equivalent self-assessment (success/spine/surface only) are **prohibited** for batches **51–826**. The sole accepted classification method is the **Independent Third-Line Nine-Phase Due Diligence** (`scripts/independent_batch01_nine_phase_audit.py` pattern per batch). No exceptions.

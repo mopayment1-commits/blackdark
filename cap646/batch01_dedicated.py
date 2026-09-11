@@ -376,11 +376,12 @@ async def _cap007_holder_distribution(*, symbol: str, address: str, params: dict
 
 
 async def _cap008_top_holders_concentration(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    """Locked/circulating supply proxy — NOT on-chain top-holder concentration (Run 005 path B)."""
     dist, metrics, locked_pct = await holder_analytics_locked(symbol)
     circ = float(metrics.get("circulating_supply") or 0)
     total = float(metrics.get("total_supply") or circ or 1)
-    top10_proxy_pct = round(min(95.0, max(locked_pct, (total - circ) / total * 100 if total else 0)), 2)
-    concentration_risk = "high" if top10_proxy_pct > 60 else "moderate" if top10_proxy_pct > 35 else "low"
+    non_circulating_pct = round(min(95.0, max(locked_pct, (total - circ) / total * 100 if total else 0)), 2)
+    supply_lock_risk = "high" if non_circulating_pct > 60 else "moderate" if non_circulating_pct > 35 else "low"
 
     return holder_analytics_footer(
         8,
@@ -389,11 +390,29 @@ async def _cap008_top_holders_concentration(*, symbol: str, address: str, params
         dist,
         metrics,
         extra={
-            "top_holders_concentration": {
-                "top10_proxy_pct": top10_proxy_pct,
+            "locked_circulating_supply_proxy": {
+                "non_circulating_supply_pct": non_circulating_pct,
                 "locked_supply_pct": locked_pct,
-                "concentration_risk": concentration_risk,
-                "method": "supply_concentration_proxy",
+                "circulating_supply": circ,
+                "total_supply": total,
+                "supply_lock_risk": supply_lock_risk,
+                "method": "locked_circulating_supply_proxy",
+                "methodology_status": "NOT_COMPLETE",
+                "methodology_reason": (
+                    "Requires on-chain top-holder distribution data source; "
+                    "does not measure actual top-10 holder concentration"
+                ),
+                "data_source_required": "on_chain_top_holder_distribution",
+                "disclaimer": (
+                    "This metric is a locked/non-circulating supply proxy — "
+                    "NOT real top-holder concentration analysis"
+                ),
+            },
+            # Deprecated misleading alias — kept for backward compat, points to honest proxy
+            "top_holders_concentration": {
+                "deprecated": True,
+                "use_instead": "locked_circulating_supply_proxy",
+                "note": "Renamed Run 005 — prior top10_proxy_pct mislabeled supply lock as holder concentration",
             },
         },
     )
@@ -402,6 +421,8 @@ async def _cap008_top_holders_concentration(*, symbol: str, address: str, params
 async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     dist, metrics, locked_pct = await holder_analytics_locked(symbol)
     ls_ratio = float(metrics.get("long_short_ratio") or 1.0)
+    # HEURISTIC — weights not empirically validated, placeholder pending calibration (Run 005 path B).
+    # Combines locked-supply % and Binance futures long/short ratio as a simplified composite only.
     distribution_score = round(max(0.0, min(100.0, 100 - locked_pct * 0.6 + (ls_ratio - 1) * 10)), 2)
     verdict = "well_distributed" if distribution_score >= 65 else "moderate" if distribution_score >= 40 else "concentrated"
 
@@ -418,6 +439,11 @@ async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[
                 "locked_supply_pct": locked_pct,
                 "long_short_ratio": ls_ratio,
             },
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "heuristic pending validation — weights (0.6, 10) not empirically calibrated",
+            "heuristic": True,
+            "heuristic_formula": "100 - locked_pct * 0.6 + (ls_ratio - 1) * 10",
+            "disclaimer": "Heuristic composite score — not a validated distribution index",
         },
     )
 
@@ -1406,6 +1432,8 @@ async def _cap033_actionability_score(*, symbol: str, address: str, params: dict
     from whale_tracker import get_latest_whale_alerts
 
     alerts = await get_latest_whale_alerts(limit=10)
+    # HEURISTIC — alert count scaling only; no historical accuracy weighting (Run 005 path B).
+    # decision_ledger currently SHADOW/SIMULATED-only — insufficient for calibration (Run 004).
     score = min(100.0, max(0.0, len(alerts) * 12.5))
     return ai_compliance_footer(
         {
@@ -1413,6 +1441,14 @@ async def _cap033_actionability_score(*, symbol: str, address: str, params: dict
             "surface": EXPECTED_SURFACE[33],
             "alerts": alerts,
             "actionability_score": score,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": (
+                "heuristic pending validation — score = alert_count * 12.5 without quality/historical accuracy"
+            ),
+            "heuristic": True,
+            "heuristic_formula": "min(100, max(0, len(alerts) * 12.5))",
+            "calibration_blocker": "decision_ledger SHADOW/SIMULATED-only — production accuracy data required",
+            "disclaimer": "Heuristic alert-count proxy — not validated smart-money actionability index",
             "success": True,
         }
     )

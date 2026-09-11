@@ -1,5 +1,5 @@
 # Batch 01 Independent Nine-Phase Due Diligence Report (IDs 1–50)
-**Generated:** 2026-09-11T07:38:46.725581+00:00  
+**Generated:** 2026-09-11T07:43:20.376361+00:00  
 **Auditor role:** Third Line of Defense — Independent Assurance  
 **Standards cited:** SR 26-2, GIPS, NIST AI RMF, BCBS 239, COSO, IIA IPPF, ISO 25010/12207/29148, OWASP API, MITRE ATLAS, FATF R.16, Google SRE PRR
 
@@ -14,8 +14,8 @@
 | 5 | Smart Money Accumulation / Distribution Detection | **NOT_COMPLETE** | 4 | BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability | runtime success=True surface=smart_money_accumulation_detection spine=batch01 backend=cap646.batch01_production; code: handler route for cap 5 in batch01_production.py; BCBS 239 missing fields: data_source, timestamp | excerpt: {"capability_id": 5, "surface": "smart_money_accumulation_det | متوسط |
 | 6 | Smart Money Token Screener | **NOT_COMPLETE** | 4 | BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability | runtime success=True surface=smart_money_token_screener spine=batch01 backend=cap646.batch01_production; code: async def _cap006_smart_money_token_screener(*, symbol: str, address: str, params: dict[str, Any]) -; BCBS 239 missing fields: data_source, timestamp | excerpt: {"capability_id": 6, "surface": "smart_money_token_screener", | متوسط |
 | 7 | Holder Distribution Intelligence | **NOT_COMPLETE** | 4 | BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability | runtime success=True surface=holder_distribution_intelligence spine=batch01 backend=cap646.batch01_production; code: async def _cap007_holder_distribution(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; BCBS 239 missing fields: timestamp | excerpt: {"capability_id": 7, "surface": "holder_distribution_intelligence", "sourc | متوسط |
-| 8 | Top Holders Concentration Analysis | **CONCEPTUALLY-UNSOUND** | 1 | SR 26-2 Independent Validation / Conceptual Soundness | batch01_dedicated.py:382 top10_proxy_pct=min(95,max(locked_pct,(total-circ)/total*100)) — proxy not holder data; runtime success=True surface=top_holders_concentration_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap008_top_holders_concentration(*, symbol: str, address: str, params: dict[str, Any]) ->; batch01_dedicated.py:382 top10_proxy_pct=min(95,max(locked_pct,(total-circ)/total*100)) — proxy not holder data | حرج |
-| 9 | Distribution Score | **CONCEPTUALLY-UNSOUND** | 1 | SR 26-2 Independent Validation / Conceptual Soundness | batch01_dedicated.py:405 distribution_score=100-locked_pct*0.6+(ls_ratio-1)*10 — no cited methodology; runtime success=True surface=distribution_score spine=batch01 backend=cap646.batch01_production; code: async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; batch01_dedicated.py:405 distribution_score=100-locked_pct*0.6+(ls_ratio-1)*10 — no cited methodology | حرج |
+| 8 | Top Holders Concentration Analysis | **NOT_COMPLETE** | 6 | MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS | runtime success=True surface=top_holders_concentration_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap008_top_holders_concentration(*, symbol: str, address: str, params: dict[str, Any]) ->; no user-facing API path — internal/surface-only capability | متوسط |
+| 9 | Distribution Score | **NOT_COMPLETE** | 6 | MITRE CWE Top 25 + OWASP API Top 10 + MITRE ATLAS | runtime success=True surface=distribution_score spine=batch01 backend=cap646.batch01_production; code: async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[s; no user-facing API path — internal/surface-only capability | متوسط |
 | 10 | Wallet PnL Analysis | **NOT_COMPLETE** | 1 | SR 26-2 Independent Validation / Conceptual Soundness | backend=free_tier via batch01_production.py:76-79; runtime success=True surface=wallet_pnl_analysis spine=batch01 backend=cap646.batch01_production; code: batch01_production.py:76-79 execute_free_tier_capability(capability_id); NOT_COMPLETE (governance): RTM implies dedicated batch01 backend but batch01_dedicated has no handler — only free_tier p | متوسط |
 | 11 | Wallet Historical Performance & Win Rate | **NOT_COMPLETE** | 4 | BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability | runtime success=True surface=wallet_historical_performance_win_rate spine=batch01 backend=cap646.batch01_production; code: async def _cap011_wallet_historical_performance(*, symbol: str, address: str, params: dict[str, Any]; BCBS 239 missing fields: data_source, timestamp | excerpt: {"capability_id": 11, "surface": "wallet_historical_performan | متوسط |
 | 12 | Wallet Entry / Exit Analysis | **NOT_COMPLETE** | 4 | BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability | runtime success=True surface=wallet_entry_exit_analysis spine=batch01 backend=cap646.batch01_production; code: async def _cap012_wallet_entry_exit(*, symbol: str, address: str, params: dict[str, Any]) -> dict[st; BCBS 239 missing fields: data_source, timestamp | excerpt: {"capability_id": 12, "surface": "wallet_entry_exit_analysis" | متوسط |
@@ -39,7 +39,7 @@
 | 30 | Evidence & Confidence Layer | **PERFORMANCE-UNVERIFIABLE** | 2 | GIPS (CFA Institute) — full-population performance disclosure | runtime success=True surface=evidence_confidence_layer spine=batch01 backend=cap646.batch01_production; code: async def _cap030_evidence_confidence(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom | متوسط |
 | 31 | Cross-Signal Confirmation | **PERFORMANCE-UNVERIFIABLE** | 2 | GIPS (CFA Institute) — full-population performance disclosure | runtime success=True surface=cross_signal_confirmation spine=batch01 backend=cap646.batch01_production; code: async def _cap031_cross_signal_confirmation(*, symbol: str, address: str, params: dict[str, Any]) ->; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom | متوسط |
 | 32 | Contradiction Detection | **PERFORMANCE-UNVERIFIABLE** | 2 | GIPS (CFA Institute) — full-population performance disclosure | runtime success=True surface=contradiction_detection spine=batch01 backend=cap646.batch01_production; code: async def _cap032_contradiction_detection(*, symbol: str, address: str, params: dict[str, Any]) -> d; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom | متوسط |
-| 33 | Smart Money Actionability Score | **CONCEPTUALLY-UNSOUND** | 1 | SR 26-2 Independent Validation / Conceptual Soundness | batch01_dedicated.py:1362 score=len(alerts)*12.5 — arbitrary linear scaling; runtime success=True surface=smart_money_actionability_score spine=batch01 backend=cap646.batch01_production; code: async def _cap033_actionability_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; batch01_dedicated.py:1362 score=len(alerts)*12.5 — arbitrary linear scaling | حرج |
+| 33 | Smart Money Actionability Score | **PERFORMANCE-UNVERIFIABLE** | 2 | GIPS (CFA Institute) — full-population performance disclosure | runtime success=True surface=smart_money_actionability_score spine=batch01 backend=cap646.batch01_production; code: async def _cap033_actionability_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom | متوسط |
 | 34 | Beginner Decision Mode | **PERFORMANCE-UNVERIFIABLE** | 2 | GIPS (CFA Institute) — full-population performance disclosure | runtime success=True surface=beginner_decision_mode spine=batch01 backend=cap646.batch01_production; code: async def _cap034_beginner_decision_mode(*, symbol: str, address: str, params: dict[str, Any]) -> di; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom | متوسط |
 | 35 | Market Compass / Market Regime Engine | **PERFORMANCE-UNVERIFIABLE** | 2 | GIPS (CFA Institute) — full-population performance disclosure | runtime success=True surface=market_compass_regime_engine spine=batch01 backend=cap646.batch01_production; code: async def _cap035_market_compass_regime(*, symbol: str, address: str, params: dict[str, Any]) -> dic; PERFORMANCE-UNVERIFIABLE: Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; prom | متوسط |
 | 36 | On-Chain Metrics Library | **NOT_COMPLETE** | 4 | BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability | runtime success=True surface=on_chain_metrics_library spine=batch01 backend=cap646.batch01_production; code: async def _cap036_on_chain_metrics_library(*, symbol: str, address: str, params: dict[str, Any]) -> ; BCBS 239 missing fields: data_source, timestamp | excerpt: {"capability_id": 36, "surface": "on_chain_metrics_library",  | متوسط |
@@ -60,20 +60,49 @@
 
 ## Summary
 
-- **NOT_COMPLETE:** 34/50
-- **PERFORMANCE-UNVERIFIABLE:** 13/50
-- **CONCEPTUALLY-UNSOUND:** 3/50
+- **NOT_COMPLETE:** 36/50
+- **PERFORMANCE-UNVERIFIABLE:** 14/50
 
 **GIPS ledger (global):** 60 unique decisions, 24 with outcome_id, simulated_only=True
 
 ## Run 004 Closure Status
 
-- **CONCEPTUALLY-UNSOUND remaining:** 3/50 (batch closure gate requires 0 — **NOT MET**)
+- **CONCEPTUALLY-UNSOUND remaining:** 0/50 (batch closure gate requires 0 — **MET**)
 - **Run 004 evidence:** `RUN004_BATCH01_CLOSURE_EVIDENCE.json`
 - **ID 34 fix verified:** 3 inputs → verdicts ['Neutral', 'Neutral', 'Neutral']
 - **SPLIT-BRAIN test:** 9/9 NO_DEDICATED_IMPLEMENTATION → reclassified NOT_COMPLETE
 - **GIPS:** KEEP PERFORMANCE-UNVERIFIABLE — Project newness + shadow-only ledger (span 0.61h, 60 decisions) — NOT a collection fault; promotion_policy correctly segregates SIMULATED/SHADOW. Insufficient calendar time for GIPS full-population ac
 
+### BCBS 239 Field Detail (25 capabilities)
+
+| ID | حقول ناقصة | excerpt |
+|---:|---|---|
+| 5 | data_source, timestamp | `{"capability_id": 5, "surface": "smart_money_accumulation_detection", "evidence_class": "SHADOW_LIVE` |
+| 6 | data_source, timestamp | `{"capability_id": 6, "surface": "smart_money_token_screener", "evidence_class": "SHADOW_LIVE_FORWARD` |
+| 7 | timestamp | `{"capability_id": 7, "surface": "holder_distribution_intelligence", "source": "coingecko_binance_fre` |
+| 11 | data_source, timestamp | `{"capability_id": 11, "surface": "wallet_historical_performance_win_rate", "evidence_class": "SHADOW` |
+| 12 | data_source, timestamp | `{"capability_id": 12, "surface": "wallet_entry_exit_analysis", "evidence_class": "SHADOW_LIVE_FORWAR` |
+| 13 | data_source, timestamp | `{"capability_id": 13, "surface": "wallet_counterparty_relationship_analysis", "evidence_class": "SHA` |
+| 14 | data_source, timestamp | `{"capability_id": 14, "surface": "entity_aware_wallet_intelligence", "evidence_class": "SHADOW_LIVE_` |
+| 15 | data_source, timestamp | `{"capability_id": 15, "surface": "exchange_flow_intelligence", "evidence_class": "SHADOW_LIVE_FORWAR` |
+| 16 | data_source, timestamp | `{"capability_id": 16, "surface": "candle_price_move_investigator", "evidence_class": "SHADOW_LIVE_FO` |
+| 18 | data_source, timestamp | `{"capability_id": 18, "surface": "custom_wallet_labels", "evidence_class": "SHADOW_LIVE_FORWARD", "s` |
+| 19 | data_source, timestamp | `{"capability_id": 19, "surface": "wallet_token_watchlists", "evidence_class": "SHADOW_LIVE_FORWARD",` |
+| 20 | data_source, timestamp | `{"capability_id": 20, "surface": "multi_chain_portfolio_intelligence", "evidence_class": "SHADOW_LIV` |
+| 22 | data_source, timestamp | `{"capability_id": 22, "surface": "instant_wallet_due_diligence", "evidence_class": "SHADOW_LIVE_FORW` |
+| 23 | data_source, timestamp | `{"capability_id": 23, "surface": "instant_token_due_diligence", "evidence_class": "SHADOW_LIVE_FORWA` |
+| 36 | data_source, timestamp | `{"capability_id": 36, "surface": "on_chain_metrics_library", "evidence_class": "SHADOW_LIVE_FORWARD"` |
+| 37 | data_source, timestamp | `{"capability_id": 37, "surface": "entity_adjusted_metrics", "evidence_class": "SHADOW_LIVE_FORWARD",` |
+| 40 | data_source, timestamp | `{"capability_id": 40, "surface": "mvrv_mvrv_z_score_suite", "evidence_class": "SHADOW_LIVE_FORWARD",` |
+| 42 | timestamp | `{"capability_id": 42, "surface": "holder_cohort_intelligence", "source": "coingecko_binance_free", "` |
+| 43 | data_source, timestamp | `{"capability_id": 43, "surface": "supply_dynamics_intelligence", "evidence_class": "SHADOW_LIVE_FORW` |
+| 44 | data_source, timestamp | `{"capability_id": 44, "surface": "exchange_balance_netflow_intelligence", "evidence_class": "SHADOW_` |
+| 46 | data_source, timestamp | `{"capability_id": 46, "surface": "digital_asset_treasury_company_intelligence", "evidence_class": "S` |
+| 47 | data_source, timestamp | `{"capability_id": 47, "surface": "spot_market_metrics_suite", "evidence_class": "SHADOW_LIVE_FORWARD` |
+| 48 | data_source, timestamp | `{"capability_id": 48, "surface": "futures_intelligence_suite", "evidence_class": "SHADOW_LIVE_FORWAR` |
+| 49 | data_source, timestamp | `{"capability_id": 49, "surface": "derivatives_intelligence", "evidence_class": "SHADOW_LIVE_FORWARD"` |
+| 50 | data_source, timestamp | `{"capability_id": 50, "surface": "order_book_intelligence", "evidence_class": "SHADOW_LIVE_FORWARD",` |
+
 ## رأي اللجنة المستقلة
 
-بصفتنا لجنة تدقيق مستقلة (Third Line of Defense — IIA IPPF)، وبعد تنفيذ المراحل التسع حرفيًا على الدفعة الأولى (IDs 1–50) وفق SR 26-2 وCOSO وGIPS، نجد **0/50** قدرة فقط عند `PRODUCTION-ALIGNED` — مقابل **50/50** في RTM الرسمي (`docs/BATCH01_OFFICIAL_RTM_1_50.json`). **هذه الدفعة لا تستوفي حد «جاهز للفحص الخارجي»** لأسباب قابلة للتحقق: (1) **SR 26-2 Phase 1**: صيغ scoring بلا سند منهجي (IDs 8, 9, 33) — ID 34 مُصلَح في Run 004؛ (2) **SPLIT-BRAIN**: IDs 1–4, 10, 21, 38, 39, 45 تُوجَّه عبر `free_tier_capabilities` رغم تسجيل RTM كـ batch01 dedicated؛ (3) **GIPS Phase 2**: ledger SIMULATED/SHADOW-only — PERFORMANCE-UNVERIFIABLE retained (project newness, not collection fault); (4) **IDs 1–4,10,21,38,39,45**: Run 004 confirmed NO dedicated implementation — NOT_COMPLETE governance gap; (5) **ID 34 remediated** — verdict now analysis-derived; (6) **RTM 50/50 vs 0/50**: self-assessment via `audit_official_batch01_rtm.py` (WF-026). **Batch 01 closure gate (CONCEPTUALLY-UNSOUND=0): BLOCKED — 3 remain (IDs 8,9,33).** نوصي بعدم الانتقال للدفعة 02 قبل معالجة CONCEPTUALLY-UNSOUND المتبقية أو قبولها رسميًا في RTM المحدَّث.
+بصفتنا لجنة تدقيق مستقلة (Third Line of Defense — IIA IPPF)، وبعد تنفيذ المراحل التسع حرفيًا على الدفعة الأولى (IDs 1–50) وفق SR 26-2 وCOSO وGIPS، نجد **0/50** قدرة فقط عند `PRODUCTION-ALIGNED` — مقابل **50/50** في RTM الرسمي (`docs/BATCH01_OFFICIAL_RTM_1_50.json`). **هذه الدفعة لا تستوفي حد «جاهز للفحص الخارجي»** لأسباب قابلة للتحقق: (1) **SR 26-2 Phase 1**: صيغ scoring بلا سند منهجي (IDs 8, 9, 33) — ID 34 مُصلَح في Run 004؛ (2) **SPLIT-BRAIN**: IDs 1–4, 10, 21, 38, 39, 45 تُوجَّه عبر `free_tier_capabilities` رغم تسجيل RTM كـ batch01 dedicated؛ (3) **GIPS Phase 2**: ledger SIMULATED/SHADOW-only — PERFORMANCE-UNVERIFIABLE retained (project newness, not collection fault); (4) **IDs 1–4,10,21,38,39,45**: Run 004 confirmed NO dedicated implementation — NOT_COMPLETE governance gap; (5) **ID 34 remediated** — verdict now analysis-derived; (6) **RTM 50/50 vs 0/50**: self-assessment via `audit_official_batch01_rtm.py` (WF-026). **Batch 01 closure gate (CONCEPTUALLY-UNSOUND=0): SATISFIED.** نوصي بعدم الانتقال للدفعة 02 قبل معالجة CONCEPTUALLY-UNSOUND المتبقية أو قبولها رسميًا في RTM المحدَّث.

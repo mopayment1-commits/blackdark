@@ -36,10 +36,9 @@ PHASE_STANDARD: dict[str, str] = {
 }
 
 CONCEPTUAL_FLAGS: dict[int, str] = {
-    8: "batch01_dedicated.py:382 top10_proxy_pct=min(95,max(locked_pct,(total-circ)/total*100)) — proxy not holder data",
-    9: "batch01_dedicated.py:405 distribution_score=100-locked_pct*0.6+(ls_ratio-1)*10 — no cited methodology",
-    33: "batch01_dedicated.py:1362 score=len(alerts)*12.5 — arbitrary linear scaling",
+    # Run 005 remediated IDs 8, 9, 33 — removed; honest/heuristic labeling applied
 }
+HEURISTIC_NOT_COMPLETE_IDS = {8, 9, 33}
 RUN004_EVIDENCE = OUT / "RUN004_BATCH01_CLOSURE_EVIDENCE.json"
 
 GIPS_LEDGER = ROOT / "data" / "decision_ledger.jsonl"
@@ -159,6 +158,16 @@ def phase1_conceptual(cid: int, result: dict, *, static_backend: str) -> tuple[s
         return "FAIL", CONCEPTUAL_FLAGS[cid]
     if not result.get("success"):
         return "FAIL", "runtime success=false"
+    # Run 005: honest/heuristic caps must declare methodology_status
+    if cid == 8:
+        proxy = result.get("locked_circulating_supply_proxy") or {}
+        if not proxy.get("methodology_status"):
+            return "FAIL", "ID 8 missing locked_circulating_supply_proxy methodology_status"
+        old_block = (result.get("top_holders_concentration") or {})
+        if old_block.get("top10_proxy_pct") is not None:
+            return "FAIL", "ID 8 still exposes misleading top10_proxy_pct value field"
+    if cid in {9, 33} and not result.get("heuristic") and not result.get("methodology_status"):
+        return "FAIL", f"ID {cid} missing heuristic/methodology_status disclosure"
     run004 = load_run004()
     split = {r["id"]: r for r in run004.get("item2_split_brain") or []}
     if cid in split and split[cid].get("result_type") == "NO_DEDICATED_IMPLEMENTATION":
