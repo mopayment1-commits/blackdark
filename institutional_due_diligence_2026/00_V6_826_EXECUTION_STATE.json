@@ -1,23 +1,9 @@
 {
   "started_at": "2026-09-11T20:35:12.283655+00:00",
-  "batches_completed": [
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13
-  ],
-  "current_batch": null,
+  "batches_completed": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  "current_batch": 14,
   "last_completed_at": "2026-09-11T21:23:16.389082+00:00",
-  "run826_started_at": "2026-09-11T21:20:44.502583+00:00",
-  "range": [
-    11,
-    17
-  ],
-  "resume_note": "Continuous 11-17 after batch10 cap491 fix"
+  "run826_started_at": "2026-09-11T21:28:00.000000+00:00",
+  "range": [14, 17],
+  "resume_note": "Continuous 14-17 after batch_registry cache fix"
 }
