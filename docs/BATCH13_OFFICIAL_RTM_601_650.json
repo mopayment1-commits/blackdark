@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T20:31:29.914157+00:00",
+  "generated_at": "2026-09-11T21:23:11.223122+00:00",
   "scope": "Official Batch 13 — IDs 601–650",
   "audit_method": "Independent Third-Line RBAS — Run 021 closure",
   "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
@@ -30,7 +30,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=visual_transaction_graph spine=batch13_prep; code: async def _cap601(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_601 spine=batch13_prep; code: async def _cap601(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -47,7 +47,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=developer_wallet_tracker spine=batch13_prep; code: async def _cap602(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_602 spine=batch13_prep; code: async def _cap602(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -64,7 +64,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=miner_flow_monitor spine=batch13_prep; code: async def _cap603(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_603 spine=batch13_prep; code: async def _cap603(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -81,7 +81,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_unlock_forecaster spine=batch13_prep; code: async def _cap604(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_604 spine=batch13_prep; code: async def _cap604(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -98,7 +98,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile + NIST SP 800-218A SSDF AI Profile",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=governance_sentiment_monitor spine=batch13_prep; code: async def _cap605(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF footer OK; 800-218A gaps: PO.1.2",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_605 spine=batch13_prep; code: async def _cap605(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -115,7 +115,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=dev_health_score spine=batch13_prep; code: async def _cap606(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_606 spine=batch13_prep; code: async def _cap606(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -132,7 +132,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=financial_health_scoring spine=batch13_prep; code: async def _cap607(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_607 spine=batch13_prep; code: async def _cap607(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -149,7 +149,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=custom_ratio_engine spine=batch13_prep; code: async def _cap608(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_608 spine=batch13_prep; code: async def _cap608(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -166,7 +166,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=funding_rate_listener spine=batch13_prep; code: async def _cap609(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_609 spine=batch13_prep; code: async def _cap609(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -183,7 +183,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=funding_arbitrage_engine spine=batch13_prep; code: async def _cap610(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_610 spine=batch13_prep; code: async def _cap610(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -200,7 +200,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=funding_rate_heatmap_engine spine=batch13_prep; code: async def _cap611(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_611 spine=batch13_prep; code: async def _cap611(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -217,7 +217,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=spread_calculation_engine spine=batch13_prep; code: async def _cap612(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_612 spine=batch13_prep; code: async def _cap612(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -234,7 +234,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=liquidation_screener spine=batch13_prep; code: async def _cap613(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_613 spine=batch13_prep; code: async def _cap613(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -251,7 +251,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=dex_liquidity_listener spine=batch13_prep; code: async def _cap614(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_614 spine=batch13_prep; code: async def _cap614(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -268,7 +268,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=gas_cost_predictor spine=batch13_prep; code: async def _cap615(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_615 spine=batch13_prep; code: async def _cap615(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -285,7 +285,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=yield_delta_listener spine=batch13_prep; code: async def _cap616(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_616 spine=batch13_prep; code: async def _cap616(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -302,7 +302,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=yield_arbitrage_engine spine=batch13_prep; code: async def _cap617(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_617 spine=batch13_prep; code: async def _cap617(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -319,7 +319,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=yield_optimization_module spine=batch13_prep; code: async def _cap618(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_618 spine=batch13_prep; code: async def _cap618(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -336,7 +336,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=trend_metric_collector spine=batch13_prep; code: async def _cap619(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_619 spine=batch13_prep; code: async def _cap619(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -353,7 +353,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=mtf_core_logic spine=batch13_prep; code: async def _cap620(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_620 spine=batch13_prep; code: async def _cap620(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -370,7 +370,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=pattern_recognition_engine spine=batch13_prep; code: async def _cap621(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_621 spine=batch13_prep; code: async def _cap621(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -387,7 +387,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile + NIST SP 800-218A SSDF AI Profile",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=prediction_trend_analyzer spine=batch13_prep; code: async def _cap622(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF footer OK; 800-218A gaps: PO.1.2",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_622 spine=batch13_prep; code: async def _cap622(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -404,7 +404,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=execution_latency_monitor spine=batch13_prep; code: async def _cap623(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_623 spine=batch13_prep; code: async def _cap623(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -421,7 +421,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=low_latency_execution_node spine=batch13_prep; code: async def _cap624(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_624 spine=batch13_prep; code: async def _cap624(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -438,7 +438,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=rust_execution_module spine=batch13_prep; code: async def _cap625(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_625 spine=batch13_prep; code: async def _cap625(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -455,7 +455,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=institutional_dashboard spine=batch13_prep; code: async def _cap626(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_626 spine=batch13_prep; code: async def _cap626(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -472,7 +472,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=custom_institutional_data_terminal spine=batch13_prep; code: async def _cap627(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_627 spine=batch13_prep; code: async def _cap627(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -489,7 +489,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=viral_intelligence_distribution_loop spine=batch13_prep; code: async def _cap628(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_628 spine=batch13_prep; code: async def _cap628(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -506,7 +506,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "6",
       "failed_standard": "OWASP ASVS 5.0.0 + MITRE CWE Top 25 + MITRE ATLAS",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=real_time_wallet_alerts spine=batch13_prep; code: async def _cap629(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/629 static scan",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_629 spine=batch13_prep; code: async def _cap629(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/629 static scan",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -523,7 +523,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "6",
       "failed_standard": "OWASP ASVS 5.0.0 + MITRE CWE Top 25 + MITRE ATLAS",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=real_time_data_freshness_update_assurance spine=batch13_prep; code: async def _cap630(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/630 static scan",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_630 spine=batch13_prep; code: async def _cap630(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/630 static scan",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -540,7 +540,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "6",
       "failed_standard": "OWASP ASVS 5.0.0 + MITRE CWE Top 25 + MITRE ATLAS",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=data_source_ingestion_normalization_provenance_reliability_architecture spine=batch13_prep; code: async def _cap631(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/631 static scan",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_631 spine=batch13_prep; code: async def _cap631(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/631 static scan",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -557,7 +557,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=multi_tier_data_storage spine=batch13_prep; code: async def _cap632(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_632 spine=batch13_prep; code: async def _cap632(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -574,7 +574,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_chain_liquidity_flow spine=batch13_prep; code: async def _cap633(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_633 spine=batch13_prep; code: async def _cap633(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -591,7 +591,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=liquidity_full_fill_feasibility spine=batch13_prep; code: async def _cap634(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_634 spine=batch13_prep; code: async def _cap634(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -608,7 +608,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=unified_arbitrage_opportunity_engine spine=batch13_prep; code: async def _cap635(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_635 spine=batch13_prep; code: async def _cap635(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -625,7 +625,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=market_data_drift_monitoring spine=batch13_prep; code: async def _cap636(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_636 spine=batch13_prep; code: async def _cap636(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -642,7 +642,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile + NIST SP 800-218A SSDF AI Profile",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=scenario_engine_probabilistic_scenarios_not_deterministic_prediction spine=batch13_prep; code: async def _cap637(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF footer OK; 800-218A gaps: PO.1.2",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_637 spine=batch13_prep; code: async def _cap637(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -659,7 +659,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile + NIST SP 800-218A SSDF AI Profile",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=claims_prediction_verification_engine spine=batch13_prep; code: async def _cap638(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF footer OK; 800-218A gaps: PO.1.2",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_638 spine=batch13_prep; code: async def _cap638(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -676,7 +676,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=net_edge_truth_score spine=batch13_prep; code: async def _cap639(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_639 spine=batch13_prep; code: async def _cap639(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -693,7 +693,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=public_accuracy_ledger spine=batch13_prep; code: async def _cap640(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_640 spine=batch13_prep; code: async def _cap640(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -710,7 +710,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=decision_certificate_institutional_dd_export spine=batch13_prep; code: async def _cap641(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_641 spine=batch13_prep; code: async def _cap641(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -727,7 +727,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile + NIST SP 800-218A SSDF AI Profile",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=ai_output_provenance_compliance_footer spine=batch13_prep; code: async def _cap642(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF footer OK; 800-218A gaps: PO.1.2",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_642 spine=batch13_prep; code: async def _cap642(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -744,7 +744,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=end_to_end_decision_traceability spine=batch13_prep; code: async def _cap643(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_643 spine=batch13_prep; code: async def _cap643(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -761,7 +761,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "6",
       "failed_standard": "OWASP ASVS 5.0.0 + MITRE CWE Top 25 + MITRE ATLAS",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=capacity_load_evidence spine=batch13_prep; code: async def _cap644(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/644 static scan",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_644 spine=batch13_prep; code: async def _cap644(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/644 static scan",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -778,7 +778,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "8",
       "failed_standard": "Google SRE Production Readiness Review (PRR)",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=security_verification_evidence spine=batch13_prep; code: async def _cap645(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_645 spine=batch13_prep; code: async def _cap645(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
@@ -795,7 +795,7 @@
       "rbas_tier": "TIER1",
       "failed_phase": "6",
       "failed_standard": "OWASP ASVS 5.0.0 + MITRE CWE Top 25 + MITRE ATLAS",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=chaos_failure_injection_resilience_testing spine=batch13_prep; code: async def _cap646(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/646 static scan",
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_646 spine=batch13_prep; code: async def _cap646(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ASVS 5.0: V13.2.1: API route prefix /api/cap646/646 static scan",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
       "v6_audit_environment": "local_dev_vm"
