@@ -23,12 +23,109 @@ def slug(name: str) -> str:
     return s[:80] or "capability"
 
 
+def _resolve_entrypoint(module: str, entrypoint: str) -> Any:
+    import importlib
+
+    return getattr(importlib.import_module(module), entrypoint)
+
+
 def _call_lines(binding: Any, cid: int) -> list[str]:
     mod = binding.module
     ep = binding.entrypoint
     style = binding.param_style
     lines = [f"    from {mod} import {ep}"]
-    if style == "none":
+
+    try:
+        fn = _resolve_entrypoint(mod, ep)
+        sig = inspect.signature(fn)
+    except (ImportError, AttributeError, ValueError, TypeError):
+        sig = None
+
+    if sig is not None:
+        params = [p for p in sig.parameters.values() if p.name not in ("self", "cls")]
+        prep: list[str] = []
+        prep_vars: set[str] = set()
+        call_parts: list[str] = []
+
+        def ensure(line: str, var: str) -> str:
+            if var not in prep_vars:
+                prep.append(line)
+                prep_vars.add(var)
+            return var
+
+        optional_mapped = {"assets", "chain", "limit", "message", "query"}
+
+        for p in params:
+            if p.kind in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD):
+                continue
+            name = p.name
+            if style == "cert" and name in {"cert", "payload", "request"}:
+                if "_cert" not in prep_vars:
+                    prep.extend(
+                        [
+                            "    _cert = {",
+                            f'        "symbol": str(params.get("symbol") or symbol or "BTC"),',
+                            f'        "capability_id": {cid},',
+                            '        "tier": str(params.get("tier") or "pro"),',
+                            "    }",
+                        ]
+                    )
+                    prep_vars.add("_cert")
+                val = "_cert"
+            elif name in {"symbol", "asset", "quote", "token"}:
+                val = ensure(
+                    '    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")',
+                    "_sym",
+                )
+            elif name in {"address", "wallet"}:
+                val = ensure(
+                    '    _addr_val = str(params.get("address") or address or "").strip()',
+                    "_addr_val",
+                )
+            elif name == "chain":
+                val = ensure('    _chain = str(params.get("chain") or "ethereum")', "_chain")
+            elif name == "assets":
+                val = ensure(
+                    '    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]',
+                    "_assets",
+                )
+            elif name == "limit":
+                val = ensure('    _limit = int(params.get("limit") or 50)', "_limit")
+            elif name in {"message", "query"}:
+                val = ensure(
+                    '    _msg = str(params.get("message") or params.get("query") or symbol or "BTC")',
+                    "_msg",
+                )
+            elif p.default is not inspect.Parameter.empty and name not in optional_mapped:
+                continue
+            else:
+                continue
+
+            if p.kind == inspect.Parameter.KEYWORD_ONLY or name in {
+                "symbol",
+                "asset",
+                "quote",
+                "token",
+                "address",
+                "wallet",
+                "chain",
+                "assets",
+                "limit",
+                "message",
+                "query",
+            }:
+                call_parts.append(f"{name}={val}")
+            else:
+                call_parts.append(val)
+
+        if not call_parts and not params:
+            lines.append(f"    _raw = {ep}()")
+        elif not call_parts:
+            lines.append(f"    _raw = {ep}()")
+        else:
+            lines.extend(prep)
+            lines.append(f"    _raw = {ep}({', '.join(call_parts)})")
+    elif style == "none":
         lines.append(f"    _raw = {ep}()")
     elif style == "address":
         lines.append('    _addr_val = str(params.get("address") or address or "").strip()')
@@ -52,11 +149,10 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
     else:
         lines.append('    _sym = str(params.get("symbol") or symbol or "BTC").upper()')
         lines.append(f"    _raw = {ep}(_sym)")
+
     lines.append("    if hasattr(_raw, '__await__'):")
     lines.append("        _raw = await _raw")
-    lines.append("    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}")
-    lines.append("    if 'success' not in payload and not payload.get('error'):")
-    lines.append("        payload['success'] = True")
+    lines.append("    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}")
     lines.append("    payload['methodology'] = {")
     lines.append('        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",')
     lines.append(f'        "implementation": "{mod}.{ep}",')

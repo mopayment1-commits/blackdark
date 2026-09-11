@@ -2,7 +2,34 @@
 """Custom dedicated handler overrides — survive batch_spine_factory regeneration (Run 021)."""
 from __future__ import annotations
 
-# cid -> (expected_surface, handler_source_without_leading_async)
+# cid -> (expected_surface, handler_source)
+_BATCH04_FREE_TIER: dict[int, tuple[str, str]] = {
+    196: (
+        "realized_cap_realized_value_intelligence",
+        '''async def _cap196(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    """Path A — free_tier realized_cap_metrics parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import realized_cap_metrics
+
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = await realized_cap_metrics(symbol=_sym)
+    payload = dict(_raw)
+    return _wrap(
+        196,
+        symbol=symbol,
+        payload_key="realized_cap_realized_value_intelligence",
+        payload=payload,
+        extra={
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.realized_cap_metrics",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
+        },
+    )''',
+    ),
+}
+
 _BATCH13_TAIL: dict[int, tuple[str, str]] = {
     647: (
         "real_time_feed",
@@ -88,6 +115,7 @@ _BATCH13_TAIL: dict[int, tuple[str, str]] = {
 }
 
 BATCH_DEDICATED_OVERRIDES: dict[int, dict[int, tuple[str, str]]] = {
+    4: _BATCH04_FREE_TIER,
     13: _BATCH13_TAIL,
 }
 

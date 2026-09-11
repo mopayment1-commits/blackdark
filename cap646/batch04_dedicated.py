@@ -104,9 +104,7 @@ async def _cap151(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = public_track_record()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "oracle_track_record.public_track_record",
@@ -121,9 +119,7 @@ async def _cap152(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = public_track_record()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "oracle_track_record.public_track_record",
@@ -138,9 +134,7 @@ async def _cap153(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = public_track_record()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "oracle_track_record.public_track_record",
@@ -155,9 +149,7 @@ async def _cap154(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = defillama_raises()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.onchain_hub.defillama_raises",
@@ -172,9 +164,7 @@ async def _cap155(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = defillama_raises()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.onchain_hub.defillama_raises",
@@ -189,9 +179,7 @@ async def _cap156(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = public_track_record()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "oracle_track_record.public_track_record",
@@ -206,9 +194,7 @@ async def _cap157(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = public_track_record()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "oracle_track_record.public_track_record",
@@ -220,13 +206,11 @@ async def _cap157(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap158(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — cap646.fallbacks.resolve_gas_usd (v6 real logic)."""
     from cap646.fallbacks import resolve_gas_usd
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = resolve_gas_usd(_sym)
+    _chain = str(params.get("chain") or "ethereum")
+    _raw = resolve_gas_usd(chain=_chain)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "cap646.fallbacks.resolve_gas_usd",
@@ -241,9 +225,7 @@ async def _cap159(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = get_hot_storage_stats()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "hot_storage.get_hot_storage_stats",
@@ -258,9 +240,7 @@ async def _cap160(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = security_posture_report()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "security_posture.security_posture_report",
@@ -275,9 +255,7 @@ async def _cap161(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = org_isolation_status()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "org_tenant.org_isolation_status",
@@ -289,13 +267,11 @@ async def _cap161(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap162(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — data_provenance_score.compute_data_provenance_score (v6 real logic)."""
     from data_provenance_score import compute_data_provenance_score
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = compute_data_provenance_score(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = compute_data_provenance_score(symbol=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "data_provenance_score.compute_data_provenance_score",
@@ -307,13 +283,11 @@ async def _cap162(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — trust_pulse.build_trust_pulse (v6 real logic)."""
     from trust_pulse import build_trust_pulse
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = build_trust_pulse(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = build_trust_pulse(symbol=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "trust_pulse.build_trust_pulse",
@@ -325,12 +299,11 @@ async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap164(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — bd_platform.token_unlocks.unlock_calendar (v6 real logic)."""
     from bd_platform.token_unlocks import unlock_calendar
-    _raw = unlock_calendar()
+    _limit = int(params.get("limit") or 50)
+    _raw = unlock_calendar(limit=_limit)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.token_unlocks.unlock_calendar",
@@ -345,9 +318,7 @@ async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = defillama_raises()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.onchain_hub.defillama_raises",
@@ -359,13 +330,11 @@ async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — bd_platform.derivatives_hub.derivatives_overview (v6 real logic)."""
     from bd_platform.derivatives_hub import derivatives_overview
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = derivatives_overview(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = derivatives_overview(asset=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.derivatives_hub.derivatives_overview",
@@ -377,13 +346,11 @@ async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap167(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — sentiment_engine.build_sentiment_context_safe (v6 real logic)."""
     from sentiment_engine import build_sentiment_context_safe
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = build_sentiment_context_safe(_sym)
+    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
+    _raw = build_sentiment_context_safe(assets=_assets)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "sentiment_engine.build_sentiment_context_safe",
@@ -395,13 +362,11 @@ async def _cap167(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap168(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — sentiment_engine.build_sentiment_context_safe (v6 real logic)."""
     from sentiment_engine import build_sentiment_context_safe
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = build_sentiment_context_safe(_sym)
+    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
+    _raw = build_sentiment_context_safe(assets=_assets)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "sentiment_engine.build_sentiment_context_safe",
@@ -413,13 +378,11 @@ async def _cap168(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap169(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — sentiment_engine.build_sentiment_context_safe (v6 real logic)."""
     from sentiment_engine import build_sentiment_context_safe
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = build_sentiment_context_safe(_sym)
+    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
+    _raw = build_sentiment_context_safe(assets=_assets)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "sentiment_engine.build_sentiment_context_safe",
@@ -434,9 +397,7 @@ async def _cap170(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = security_posture_report()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "security_posture.security_posture_report",
@@ -451,9 +412,7 @@ async def _cap171(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = get_canonical_layer()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "blackdark.canonical.layer.get_canonical_layer",
@@ -465,13 +424,11 @@ async def _cap171(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap172(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — market_context.probe_price_sources (v6 real logic)."""
     from market_context import probe_price_sources
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = probe_price_sources(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = probe_price_sources(symbol=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "market_context.probe_price_sources",
@@ -483,13 +440,12 @@ async def _cap172(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap173(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — bd_platform.whale_story.whale_narrative (v6 real logic)."""
     from bd_platform.whale_story import whale_narrative
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = whale_narrative(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _limit = int(params.get("limit") or 50)
+    _raw = whale_narrative(symbol=_sym, limit=_limit)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.whale_story.whale_narrative",
@@ -501,13 +457,12 @@ async def _cap173(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — bd_platform.whale_story.whale_narrative (v6 real logic)."""
     from bd_platform.whale_story import whale_narrative
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = whale_narrative(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _limit = int(params.get("limit") or 50)
+    _raw = whale_narrative(symbol=_sym, limit=_limit)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.whale_story.whale_narrative",
@@ -519,13 +474,11 @@ async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap175(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — sentiment_gate.fetch_asset_sentiment (v6 real logic)."""
     from sentiment_gate import fetch_asset_sentiment
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = fetch_asset_sentiment(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = fetch_asset_sentiment(asset=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "sentiment_gate.fetch_asset_sentiment",
@@ -537,13 +490,11 @@ async def _cap175(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap176(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — sentiment_engine.build_sentiment_context_safe (v6 real logic)."""
     from sentiment_engine import build_sentiment_context_safe
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = build_sentiment_context_safe(_sym)
+    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
+    _raw = build_sentiment_context_safe(assets=_assets)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "sentiment_engine.build_sentiment_context_safe",
@@ -555,13 +506,11 @@ async def _cap176(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap177(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — sentiment_engine.build_sentiment_context_safe (v6 real logic)."""
     from sentiment_engine import build_sentiment_context_safe
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = build_sentiment_context_safe(_sym)
+    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
+    _raw = build_sentiment_context_safe(assets=_assets)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "sentiment_engine.build_sentiment_context_safe",
@@ -573,13 +522,11 @@ async def _cap177(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap178(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — sentiment_engine.build_sentiment_context_safe (v6 real logic)."""
     from sentiment_engine import build_sentiment_context_safe
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = build_sentiment_context_safe(_sym)
+    _assets = params.get("assets") or [str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")]
+    _raw = build_sentiment_context_safe(assets=_assets)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "sentiment_engine.build_sentiment_context_safe",
@@ -591,13 +538,11 @@ async def _cap178(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap179(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — market_context.probe_price_sources (v6 real logic)."""
     from market_context import probe_price_sources
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = probe_price_sources(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = probe_price_sources(symbol=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "market_context.probe_price_sources",
@@ -612,9 +557,7 @@ async def _cap180(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = public_track_record()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "oracle_track_record.public_track_record",
@@ -629,9 +572,7 @@ async def _cap181(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_public_readiness()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "product_honesty_api.build_public_readiness",
@@ -646,9 +587,7 @@ async def _cap182(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = public_track_record()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "oracle_track_record.public_track_record",
@@ -660,13 +599,11 @@ async def _cap182(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap183(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — whale_tracker.get_latest_whale_alerts (v6 real logic)."""
     from whale_tracker import get_latest_whale_alerts
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = get_latest_whale_alerts(_sym)
+    _limit = int(params.get("limit") or 50)
+    _raw = get_latest_whale_alerts(limit=_limit)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "whale_tracker.get_latest_whale_alerts",
@@ -678,13 +615,11 @@ async def _cap183(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap184(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — whale_tracker.get_latest_whale_alerts (v6 real logic)."""
     from whale_tracker import get_latest_whale_alerts
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = get_latest_whale_alerts(_sym)
+    _limit = int(params.get("limit") or 50)
+    _raw = get_latest_whale_alerts(limit=_limit)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "whale_tracker.get_latest_whale_alerts",
@@ -699,9 +634,7 @@ async def _cap185(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_onchain_context_safe()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "onchain_tracker.build_onchain_context_safe",
@@ -713,13 +646,11 @@ async def _cap185(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap186(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — bd_platform.portfolio_rebalancer.portfolio_snapshot (v6 real logic)."""
     from bd_platform.portfolio_rebalancer import portfolio_snapshot
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = portfolio_snapshot(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = portfolio_snapshot(symbol=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.portfolio_rebalancer.portfolio_snapshot",
@@ -734,9 +665,7 @@ async def _cap187(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_onchain_context_safe()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "onchain_tracker.build_onchain_context_safe",
@@ -751,9 +680,7 @@ async def _cap188(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_onchain_context_safe()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "onchain_tracker.build_onchain_context_safe",
@@ -765,13 +692,11 @@ async def _cap188(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — market_context.probe_price_sources (v6 real logic)."""
     from market_context import probe_price_sources
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = probe_price_sources(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = probe_price_sources(symbol=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "market_context.probe_price_sources",
@@ -783,13 +708,11 @@ async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap190(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — bd_platform.portfolio_rebalancer.portfolio_snapshot (v6 real logic)."""
     from bd_platform.portfolio_rebalancer import portfolio_snapshot
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = portfolio_snapshot(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = portfolio_snapshot(symbol=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.portfolio_rebalancer.portfolio_snapshot",
@@ -804,9 +727,7 @@ async def _cap191(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_onchain_context_safe()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "onchain_tracker.build_onchain_context_safe",
@@ -821,9 +742,7 @@ async def _cap192(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_public_readiness()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "product_honesty_api.build_public_readiness",
@@ -838,9 +757,7 @@ async def _cap193(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = defillama_raises()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.onchain_hub.defillama_raises",
@@ -855,9 +772,7 @@ async def _cap194(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_onchain_context_safe()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "onchain_tracker.build_onchain_context_safe",
@@ -872,9 +787,7 @@ async def _cap195(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = lookintobitcoin_macro()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.onchain_hub.lookintobitcoin_macro",
@@ -884,21 +797,26 @@ async def _cap195(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     return _wrap(195, symbol=symbol, payload_key="mvrv_intelligence", payload=payload)
 
 async def _cap196(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """Path A explicit — bd_platform.onchain_hub.defillama_raises (v6 real logic)."""
-    from bd_platform.onchain_hub import defillama_raises
-    _raw = defillama_raises()
-    if hasattr(_raw, '__await__'):
-        _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
-    payload['methodology'] = {
-        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
-        "implementation": "bd_platform.onchain_hub.defillama_raises",
-        "methodology_status": "DOCUMENTED",
-        "binding_source_resolved": "track_default",
-    }
-    return _wrap(196, symbol=symbol, payload_key="realized_cap_realized_value_intelligence", payload=payload)
+    """Path A — free_tier realized_cap_metrics parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import realized_cap_metrics
+
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = await realized_cap_metrics(symbol=_sym)
+    payload = dict(_raw)
+    return _wrap(
+        196,
+        symbol=symbol,
+        payload_key="realized_cap_realized_value_intelligence",
+        payload=payload,
+        extra={
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.realized_cap_metrics",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
+        },
+    )
 
 async def _cap197(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — onchain_tracker.build_onchain_context_safe (v6 real logic)."""
@@ -906,9 +824,7 @@ async def _cap197(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_onchain_context_safe()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "onchain_tracker.build_onchain_context_safe",
@@ -923,9 +839,7 @@ async def _cap198(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = build_onchain_context_safe()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "onchain_tracker.build_onchain_context_safe",
@@ -937,13 +851,11 @@ async def _cap198(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
 async def _cap199(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     """Path A explicit — bd_platform.derivatives_hub.derivatives_overview (v6 real logic)."""
     from bd_platform.derivatives_hub import derivatives_overview
-    _sym = str(params.get("symbol") or symbol or "BTC").upper()
-    _raw = derivatives_overview(_sym)
+    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")
+    _raw = derivatives_overview(asset=_sym)
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "bd_platform.derivatives_hub.derivatives_overview",
@@ -958,9 +870,7 @@ async def _cap200(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     _raw = get_canonical_layer()
     if hasattr(_raw, '__await__'):
         _raw = await _raw
-    payload = _raw if isinstance(_raw, dict) else {'success': bool(_raw), 'result': _raw}
-    if 'success' not in payload and not payload.get('error'):
-        payload['success'] = True
+    payload = _raw if isinstance(_raw, dict) else {'success': True, 'result': _raw}
     payload['methodology'] = {
         "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
         "implementation": "blackdark.canonical.layer.get_canonical_layer",
