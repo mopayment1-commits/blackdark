@@ -4,3 +4,4 @@ ABORT Batch07: closure failed exit=1
 Batch07 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16007 | ThreeWay=OK
 === DONE Batch 07 tag=batch07-closure-verified ===
 === START Batch 08 (351-400) ===
+Batch08 | TypeA=0 | TypeB: NOT_COMPLETE=50 PERF-UNV=0 | RandomSample=PASS seed=16008 | ThreeWay=OK
