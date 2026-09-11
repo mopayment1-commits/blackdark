@@ -1,0 +1,129 @@
+{
+  "generated_at": "2026-09-11T21:07:26.130134+00:00",
+  "methodology": "v6 governing file §2.1 + §34 + §1170–1171 — rejects keyword/semantic bulk routing",
+  "pass_engineering": 36,
+  "not_complete": 790,
+  "canonically_covered": 36,
+  "external_blocked": 0,
+  "pass_pct": 4.36,
+  "superficial_binding_pass": 0,
+  "committee_ready_full_completion_claim": false,
+  "prior_superficial_audit_retracted": true,
+  "top_failed_gates": [
+    [
+      "G06_regression_safety",
+      790
+    ],
+    [
+      "G08_performance_gate",
+      790
+    ],
+    [
+      "G11_data_quality_gate",
+      718
+    ],
+    [
+      "G04_requirements_traceability",
+      633
+    ],
+    [
+      "G02_functional_correctness",
+      585
+    ],
+    [
+      "G03_functional_appropriateness",
+      585
+    ],
+    [
+      "G01_functional_completeness",
+      10
+    ]
+  ],
+  "by_batch": {
+    "batch01": {
+      "pass": 1,
+      "total": 50,
+      "pct": 2.0
+    },
+    "batch02": {
+      "pass": 2,
+      "total": 50,
+      "pct": 4.0
+    },
+    "batch03": {
+      "pass": 4,
+      "total": 50,
+      "pct": 8.0
+    },
+    "batch04": {
+      "pass": 1,
+      "total": 50,
+      "pct": 2.0
+    },
+    "batch05": {
+      "pass": 9,
+      "total": 50,
+      "pct": 18.0
+    },
+    "batch06": {
+      "pass": 7,
+      "total": 50,
+      "pct": 14.0
+    },
+    "batch07": {
+      "pass": 2,
+      "total": 50,
+      "pct": 4.0
+    },
+    "batch08": {
+      "pass": 3,
+      "total": 50,
+      "pct": 6.0
+    },
+    "batch09": {
+      "pass": 1,
+      "total": 50,
+      "pct": 2.0
+    },
+    "batch10": {
+      "pass": 2,
+      "total": 50,
+      "pct": 4.0
+    },
+    "batch11": {
+      "pass": 3,
+      "total": 50,
+      "pct": 6.0
+    },
+    "batch12": {
+      "pass": 1,
+      "total": 50,
+      "pct": 2.0
+    },
+    "batch13": {
+      "pass": 0,
+      "total": 50,
+      "pct": 0.0
+    },
+    "batch14": {
+      "pass": 0,
+      "total": 50,
+      "pct": 0.0
+    },
+    "batch15": {
+      "pass": 0,
+      "total": 50,
+      "pct": 0.0
+    },
+    "batch16": {
+      "pass": 0,
+      "total": 50,
+      "pct": 0.0
+    },
+    "batch17": {
+      "pass": 0,
+      "total": 26,
+      "pct": 0.0
+    }
+  }
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Strict v6 audit of all 826 capabilities — institutional committee evidence."""
+"""True v6 institutional audit — governing file aligned, no inflated PASS claims."""
 
 from __future__ import annotations
 
@@ -14,16 +14,16 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-OUT = ROOT / "V6_STRICT_826_AUDIT_REPORT.json"
-SUMMARY = ROOT / "V6_STRICT_826_AUDIT_SUMMARY.json"
-MD_OUT = ROOT / "BLACKDARK_V6_STRICT_826_INSTITUTIONAL_AUDIT_AR_2026.md"
+OUT = ROOT / "V6_TRUE_INSTITUTIONAL_AUDIT_REPORT.json"
+SUMMARY = ROOT / "V6_TRUE_INSTITUTIONAL_AUDIT_SUMMARY.json"
+MD_OUT = ROOT / "BLACKDARK_V6_TRUE_INSTITUTIONAL_AUDIT_AR_2026.md"
 
 
 async def _audit_one(cap_id: int) -> dict:
-    from cap646.v6_strict_dod import verify_v6_strict
+    from cap646.v6_true_institutional_dod import verify_v6_true_institutional
 
     try:
-        return await verify_v6_strict(cap_id)
+        return await verify_v6_true_institutional(cap_id)
     except Exception as exc:
         return {
             "capability_id": cap_id,
@@ -49,43 +49,46 @@ def _batch_name(cid: int) -> str:
 
 def _write_markdown(rows: list[dict], summary: dict) -> None:
     lines = [
-        "# تقرير التدقيق المؤسسي الصارم — 826 قدرة (v6)",
+        "# تقرير التدقيق المؤسسي الحقيقي — 826 قدرة (v6)",
         "",
         f"**التاريخ:** {summary['generated_at'][:10]}",
-        f"**المرجع الحاكم:** BLACKDARK Institutional Capability Standard 2026 v6 §2.1",
+        "**المرجع الحاكم:** `BLACKDARK_Institutional_Capability_Standard_2026_v6(1).md`",
         "",
-        "## الحكم النهائي",
+        "> **تنبيه:** هذا التقرير يلغي ادعاء 826/826 السابق. التدقيق السابق (`v6_strict_dod`) كان سطحيًا.",
+        "",
+        "## الحكم الصادق",
         "",
         f"| المؤشر | القيمة |",
         f"|--------|--------|",
-        f"| PASS_ENGINEERING (صارم v6) | **{summary['pass_engineering']}/826** |",
+        f"| PASS_ENGINEERING (v6 حقيقي) | **{summary['pass_engineering']}/826** |",
         f"| NOT_COMPLETE | **{summary['not_complete']}/826** |",
         f"| CANONICALLY_COVERED | {summary['canonically_covered']} |",
         f"| EXTERNAL_BLOCKED | {summary['external_blocked']} |",
-        f"| نسبة الاكتمال الصارم | **{summary['pass_pct']}%** |",
-        f"| جاهز لتقديم لجنة (ادّعاء اكتمال كامل) | **{'لا' if summary['pass_engineering'] < 826 else 'نعم'}** |",
+        f"| نسبة الاكتمال الحقيقي | **{summary['pass_pct']}%** |",
+        f"| اكتمال عبر ربط keyword/semantic سطحي | {summary['superficial_binding_pass']} |",
+        f"| جاهز لتقديم لجنة (ادّعاء اكتمال كامل) | **لا** |",
         "",
-        "> **قاعدة v6:** لا PASS_ENGINEERING بدون إثبات الهدف التصميمي + 13 بوابة.",
+        "## لماذا التقرير السابق مرفوض",
+        "",
+        "1. معظم البوابات (G06/G08/G11) كانت `True` تلقائيًا بدون دليل.",
+        "2. `capability_keyword` و`semantic_track_*` يمرّران 585+ قدرة على 26 backend مشترك فقط.",
+        "3. v6 §1170–1171 يمنع أن تكون القدرات أسماء/metadata فوق سلوك واحد.",
+        "4. v6 §139.5: 826 صفًا أخضر ≠ 826 قدرة محسومة دلاليًا.",
         "",
         "## أكثر البوابات الفاشلة",
         "",
     ]
-    for gate, count in summary.get("top_failed_gates", [])[:8]:
+    for gate, count in summary.get("top_failed_gates", [])[:10]:
         lines.append(f"- `{gate}`: {count} قدرة")
-    lines.extend(["", "## حسب الدفعة (batch)", ""])
+    lines.extend(["", "## حسب الدفعة", ""])
     for batch, data in sorted(summary.get("by_batch", {}).items()):
         lines.append(f"- **{batch}**: {data['pass']}/{data['total']} PASS ({data['pct']}%)")
     lines.extend(
         [
             "",
-            "## مستثنى من النطاق",
-            "- نشر Railway",
-            "- pentest/SOC2 خارجي",
-            "- موافقة بشرية",
-            "",
             "## أمر التحقق",
             "```bash",
-            "python3 scripts/v6_strict_capability_audit_826.py",
+            "python3 scripts/v6_true_institutional_audit_826.py",
             "```",
         ]
     )
@@ -96,9 +99,10 @@ def main() -> int:
     rows = asyncio.run(_audit_all(concurrency=2))
     OUT.write_text(json.dumps({"capabilities": rows}, indent=2, ensure_ascii=False), encoding="utf-8")
 
-    verdicts = Counter(r.get("verdict") for r in rows)
     pass_eng = sum(1 for r in rows if r.get("PASS_ENGINEERING"))
-    binding = Counter(r.get("binding_source") for r in rows if not r.get("PASS_ENGINEERING"))
+    superficial_pass = sum(
+        1 for r in rows if r.get("PASS_ENGINEERING") and r.get("superficial_binding")
+    )
     failed_gates: Counter[str] = Counter()
     for r in rows:
         for g in r.get("failed_gates") or []:
@@ -117,25 +121,22 @@ def main() -> int:
 
     summary = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "methodology": "v6 §2.1 thirteen gates — no catalog inflation",
+        "methodology": "v6 governing file §2.1 + §34 + §1170–1171 — rejects keyword/semantic bulk routing",
         "pass_engineering": pass_eng,
-        "not_complete": verdicts.get("NOT_COMPLETE", 0) + verdicts.get("AUDIT_ERROR", 0),
-        "canonically_covered": verdicts.get("CANONICALLY_COVERED", 0),
-        "external_blocked": verdicts.get("EXTERNAL_BLOCKED", 0),
+        "not_complete": sum(1 for r in rows if r.get("verdict") == "NOT_COMPLETE"),
+        "canonically_covered": sum(1 for r in rows if r.get("verdict") == "CANONICALLY_COVERED"),
+        "external_blocked": sum(1 for r in rows if r.get("verdict") == "EXTERNAL_BLOCKED"),
         "pass_pct": round(pass_eng / 826 * 100, 2),
+        "superficial_binding_pass": superficial_pass,
         "committee_ready_full_completion_claim": False,
-        "superficial_audit_warning": (
-            "This script auto-passes G06/G08/G11 and accepts keyword routing — "
-            "NOT aligned with v6 governing file §1170–1171. Use v6_true_institutional_audit_826.py."
-        ),
-        "top_failed_gates": failed_gates.most_common(15),
-        "top_binding_sources_failed": binding.most_common(10),
+        "prior_superficial_audit_retracted": True,
+        "top_failed_gates": failed_gates.most_common(12),
         "by_batch": by_batch,
     }
     SUMMARY.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
     _write_markdown(rows, summary)
     print(json.dumps(summary, indent=2, ensure_ascii=False))
-    return 0 if summary["committee_ready_full_completion_claim"] else 1
+    return 1
 
 
 if __name__ == "__main__":

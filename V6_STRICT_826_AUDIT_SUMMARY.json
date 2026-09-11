@@ -6,7 +6,9 @@
   "canonically_covered": 36,
   "external_blocked": 0,
   "pass_pct": 100.0,
-  "committee_ready_full_completion_claim": true,
+  "committee_ready_full_completion_claim": false,
+  "prior_claim_retracted": true,
+  "retraction_reason": "Superficial audit — keyword routing and auto-pass gates; see V6_TRUE_INSTITUTIONAL_AUDIT_SUMMARY.json",
   "top_failed_gates": [],
   "top_binding_sources_failed": [],
   "by_batch": {
