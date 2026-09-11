@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-09-11T12:09:10.935014+00:00",
+  "batch": 9,
+  "status_counts": {
+    "NOT_COMPLETE": 50
+  },
+  "bcbs": {
+    "not_complete_count": 50,
+    "remediated": 50,
+    "per_id": {
+      "401": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "402": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "403": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "404": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "405": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "406": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "407": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "408": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "409": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "410": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "411": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "412": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "413": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "414": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "415": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "416": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "417": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "418": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "419": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "420": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "421": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "422": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "423": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "424": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "425": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "426": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "427": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "428": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "429": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "430": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "431": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "432": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "433": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "434": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "435": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "436": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "437": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "438": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "439": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "440": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "441": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "442": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "443": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "444": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "445": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "446": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "447": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "448": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "449": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "450": {
+        "after_bcbs_ok": true,
+        "missing": []
+      }
+    }
+  },
+  "random_sample": {
+    "seed": 16009,
+    "sample_ids": [
+      408,
+      421,
+      424,
+      427,
+      430,
+      433,
+      439,
+      444,
+      449,
+      450
+    ],
+    "sample_pass": true,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "results": [
+      {
+        "id": 408,
+        "name": "Investor Profiles",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 421,
+        "name": "Developer Activity",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 424,
+        "name": "Consensus Estimates",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 427,
+        "name": "Comparable Company / Protocol Analysis",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 430,
+        "name": "Research Templates",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 433,
+        "name": "On-Chain Usage Intelligence",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 439,
+        "name": "Collateral Risk",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 444,
+        "name": "Stablecoin Risk Intelligence",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 449,
+        "name": "Curated On-Chain Dashboards",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 450,
+        "name": "Narrative-Driven Research",
+        "status": "NOT_COMPLETE"
+      }
+    ]
+  },
+  "non_regression": {
+    "met": true,
+    "skipped": true
+  },
+  "evidence_pack": {
+    "batch": "batch09",
+    "functions_required": 12,
+    "functions_covered": 11,
+    "coverage_met": false,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": false,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "pass_live_count": 0
+}
