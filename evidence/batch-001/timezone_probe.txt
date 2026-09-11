@@ -1,0 +1,13 @@
+$ python3 /workspace/evidence/batch-001/_tz_probe.py
+
+STDOUT:
+
+
+STDERR:
+Traceback (most recent call last):
+  File "/workspace/evidence/batch-001/_tz_probe.py", line 1, in <module>
+    from blackdark.timezone import utc_now
+ModuleNotFoundError: No module named 'blackdark'
+
+
+EXIT:1

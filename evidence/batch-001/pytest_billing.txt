@@ -1,0 +1,10 @@
+$ /workspace/.venv/bin/python3 -m pytest tests/test_billing_subscription_engine.py -q --tb=short
+
+STDOUT:
+.........                                                                [100%]
+
+
+STDERR:
+
+
+EXIT:0
