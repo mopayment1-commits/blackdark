@@ -6,14 +6,15 @@
     6,
     7,
     8,
-    9
+    9,
+    10
   ],
-  "current_batch": null,
-  "last_completed_at": "2026-09-11T21:09:02.572627+00:00",
-  "run826_started_at": "2026-09-11T21:05:38.875668+00:00",
+  "current_batch": 11,
+  "last_completed_at": "2026-09-11T21:19:55.000000+00:00",
+  "run826_started_at": "2026-09-11T21:20:44.502583+00:00",
   "range": [
-    8,
+    11,
     17
   ],
-  "resume_note": "User approved continuous run 8-17 without pause"
+  "resume_note": "Continuous 11-17 after batch10 cap491 fix"
 }

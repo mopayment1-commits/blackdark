@@ -23,6 +23,40 @@ def slug(name: str) -> str:
     return s[:80] or "capability"
 
 
+def load_826_inventory() -> dict[int, dict[str, Any]]:
+    inv_path = ROOT / "docs/CAPABILITIES_826_INVENTORY.json"
+    if not inv_path.is_file():
+        return {}
+    data = json.loads(inv_path.read_text(encoding="utf-8"))
+    per = data.get("per_id") or data
+    return {int(k): v for k, v in per.items()}
+
+
+def reserved_slot_handler(cid: int, surface: str) -> str:
+    return f'''async def _cap{cid:03d}(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
+    payload = {{
+        "heuristic": True,
+        "methodology_status": "NOT_COMPLETE",
+        "reserved_slot": True,
+        "inventory_status": "PENDING",
+        "success": True,
+        "data_source": "826_inventory_reserved_slot",
+        "timestamp": datetime.now(UTC).isoformat(),
+    }}
+    return _wrap(
+        {cid},
+        symbol=symbol,
+        payload_key="{surface}",
+        payload=payload,
+        extra={{
+            "heuristic": True,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+        }},
+    )'''
+
+
 def _resolve_entrypoint(module: str, entrypoint: str) -> Any:
     import importlib
 
@@ -74,7 +108,7 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
                     )
                     prep_vars.add("_cert")
                 val = "_cert"
-            elif name in {"symbol", "asset", "quote", "token"}:
+            elif name in {"symbol", "asset", "quote", "token", "raw"}:
                 val = ensure(
                     '    _sym = str(params.get("symbol") or symbol or "BTC").upper().replace("/USDT", "")',
                     "_sym",
@@ -138,6 +172,7 @@ def _call_lines(binding: Any, cid: int) -> list[str]:
                 "asset",
                 "quote",
                 "token",
+                "raw",
                 "address",
                 "wallet",
                 "chain",
@@ -239,6 +274,7 @@ def regenerate_dedicated(cfg: BatchRbasConfig) -> Path:
     bn = f"batch{n:02d}"
     out = ROOT / "cap646" / f"{bn}_dedicated.py"
     catalog = {int(r["id"]): r for r in json.loads((ROOT / "docs/cap646/CAP646_CATALOG.json").read_text())}
+    inventory = load_826_inventory()
     custom = overrides_for(n)
 
     expected: dict[int, str] = {}
@@ -252,8 +288,16 @@ def regenerate_dedicated(cfg: BatchRbasConfig) -> Path:
             handlers.append(handler_src)
             dispatch.append(f"    {cid}: _cap{cid:03d},")
             continue
-        row = catalog.get(cid, {})
-        name = str(row.get("capability") or f"Capability {cid}")
+        row = catalog.get(cid) or inventory.get(cid, {})
+        name = str(row.get("capability") or "")
+        inv_backend = str(row.get("backend") or "")
+        if not name or inv_backend in {"", "None.None"}:
+            surface = str(row.get("expected_surface") or f"reserved_slot_{cid}")
+            surface = slug(surface) if surface.startswith("reserved") else slug(surface or f"reserved_slot_{cid}")
+            expected[cid] = surface
+            handlers.append(reserved_slot_handler(cid, surface))
+            dispatch.append(f"    {cid}: _cap{cid:03d},")
+            continue
         surface = slug(name)
         expected[cid] = surface
         binding = resolve_binding(cid)

@@ -318,7 +318,31 @@ def resolve_binding(capability_id: int) -> BackendBinding:
     if explicit is not None:
         return explicit
 
-    row = catalog_by_id()[capability_id]
+    row = catalog_by_id().get(capability_id)
+    if row is None:
+        inv_path = Path(__file__).resolve().parents[1] / "docs/CAPABILITIES_826_INVENTORY.json"
+        inv_row: dict[str, Any] = {}
+        if inv_path.is_file():
+            inv_data = json.loads(inv_path.read_text(encoding="utf-8"))
+            inv_row = (inv_data.get("per_id") or inv_data).get(str(capability_id), {})
+        name = str(inv_row.get("capability") or f"Reserved Slot {capability_id}")
+        surface = _slug(name)
+        backend = str(inv_row.get("backend") or "")
+        if backend and backend != "None.None" and "." in backend:
+            mod, ep = backend.rsplit(".", 1)
+            ps = str(inv_row.get("param_style") or "symbol")
+            return BackendBinding(
+                capability_id, mod, ep, surface, ps, str(inv_row.get("binding_source") or "826_inventory")
+            )
+        return BackendBinding(
+            capability_id,
+            "cap646.dedicated_common",
+            "sym",
+            f"reserved_slot_{capability_id}",
+            "none",
+            "826_inventory_reserved",
+        )
+
     matrix = matrix_by_id().get(capability_id, {})
     name = row["capability"]
     track = row["track"]
