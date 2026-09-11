@@ -1,0 +1,23 @@
+{
+  "record_type": "OWNER_ACCEPTANCE_RECORD",
+  "engagement_class": "CLASS_A",
+  "owner_name": "",
+  "scope_version": "",
+  "canonical_target_sha": "",
+  "accepted_scope": false,
+  "accepted_limitations": false,
+  "third_party_sharing_permission": "NO",
+  "acceptance_status": "PENDING",
+  "accepted_at_utc": "",
+  "owner_statement": "",
+  "acceptance_source_type": "OWNER_MESSAGE_OR_SIGNED_RECORD",
+  "acceptance_source_artifact_path": "",
+  "acceptance_source_sha256": "",
+  "human_review_status": "NOT_REQUIRED_INTERNAL_ONLY",
+  "external_owner_ack_status": "NOT_REQUIRED",
+  "external_owner_ack_artifact_path": "",
+  "external_owner_ack_sha256": "",
+  "human_review_completed_at_utc": "",
+  "human_review_baseline_sha": "",
+  "human_review_expiry_status": "NOT_APPLICABLE"
+}

@@ -1,0 +1,16 @@
+{
+  "freeze_id": "",
+  "canonical_sha": "",
+  "freeze_timestamp_utc": "",
+  "universe_count": 0,
+  "unclassified_material_objects": 0,
+  "unresolved_population_mismatches": 0,
+  "status": "NOT_FROZEN",
+  "delta_scope_rule": "Any repository/runtime/material configuration change after this timestamp is DELTA_SCOPE and cannot silently alter the frozen denominator.",
+  "unclassified_low_residual_count": 0,
+  "unclassified_low_residual_percent": 0.0,
+  "max_allowed_low_residual_percent": 1.0,
+  "residual_items_path": "",
+  "mandatory_refreeze_after_material_commits": 10,
+  "mandatory_refreeze_after_calendar_days": 7
+}

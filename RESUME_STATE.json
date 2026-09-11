@@ -1,0 +1,34 @@
+{
+  "canonical_sha": "9af0c38aec6d2a903e949e11ea2d3af98f345f2e",
+  "discovery_freeze_id": "",
+  "current_phase": "PHASE_0_PACKAGE_AND_GOVERNANCE_SOURCE_REGISTRATION",
+  "last_completed_procedure_id": "",
+  "open_procedure_ids": [],
+  "blocked_procedure_ids": [
+    "BUILD_GOVERNANCE_SOURCE_GATE",
+    "PRE_BATCH_SHA_RECONCILIATION"
+  ],
+  "open_findings": [
+    "BGS-010 source file missing",
+    "Ledger SHA mismatch with current repo"
+  ],
+  "open_contradictions": [
+    "CONTR-0001",
+    "CONTR-0002"
+  ],
+  "delta_scope_pending": false,
+  "next_action": "Obtain BGS-010 v2 governing source; reconcile THREE_SPEC ledger claims against current SHA; then proceed to discovery freeze.",
+  "pre_batch_continuity": {
+    "PRE_BATCH_LEDGER_READ": "PASS",
+    "PRE_BATCH_MASTER_PLAN_READ": "PASS",
+    "PRE_BATCH_SHA_RECONCILIATION": "FAIL",
+    "BATCH_START_GATE": "FAIL"
+  },
+  "build_governance": {
+    "registered_sources": 12,
+    "present_sources": 11,
+    "fully_read_sources": 11,
+    "BUILD_GOVERNANCE_SOURCE_GATE": "FAIL",
+    "extracted_claims_total": 1263
+  }
+}

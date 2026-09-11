@@ -1,0 +1,84 @@
+{
+  "artifact": "PRE_BATCH_CONTINUITY_RECORD",
+  "batch_id": "BATCH-000-INIT",
+  "read_timestamp_utc": "2026-09-11T10:15:04.743752+00:00",
+  "canonical_repo_sha_at_read": "9af0c38aec6d2a903e949e11ea2d3af98f345f2e",
+  "PRE_BATCH_LEDGER_READ": "PASS",
+  "PRE_BATCH_MASTER_PLAN_READ": "PASS",
+  "PRE_BATCH_SHA_RECONCILIATION": "FAIL",
+  "BATCH_START_GATE": "FAIL",
+  "continuity_sources": {
+    "THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json": {
+      "path": "docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json",
+      "sha256": "38e0e9f1704f982ad2790264b74ac10bc180b1cd9a55b4e625ca037fb02c3038",
+      "read_timestamp_utc": "2026-09-11T10:15:04.743752+00:00",
+      "ledger_baseline_final_three_spec_material_sha": "d72c962d05cb7d475080ef5402d6fb13025cf744",
+      "ledger_recorded_head": "d72c962d05cb7d475080ef5402d6fb13025cf744",
+      "total_requirements": 2533,
+      "status_counts": {
+        "UNKNOWN": 2533
+      },
+      "current_state_counts": {
+        "NOT_APPLICABLE_WITH_EVIDENCE": 1380,
+        "LOCAL_ENGINEERING_COMPLETE": 1067,
+        "MATURITY_GATED": 60,
+        "EXTERNAL_ASSURANCE_GATED": 16,
+        "LIVE_OR_CHRONOLOGICAL_GATED": 10
+      }
+    },
+    "THREE_SPEC_INCREMENTAL_IMPLEMENTATION_MASTER_PLAN.md": {
+      "path": "docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_MASTER_PLAN.md",
+      "sha256": "bbe891b7b1a6eca044ae96eab0cd3079a5375f95d6cc81be9ad93a3bbd853973",
+      "read_timestamp_utc": "2026-09-11T10:15:04.743752+00:00"
+    }
+  },
+  "delta_from_prior_batch": {
+    "prior_batch_id": null,
+    "ledger_sha_changed": null,
+    "plan_sha_changed": null,
+    "note": "Initial batch — no prior batch comparison."
+  },
+  "extracted_continuity": {
+    "completed_items_count": 1067,
+    "completed_items_sample": [
+      "V4V2_U0007",
+      "V4V2_U0023",
+      "V4V2_U0029",
+      "V4V2_U0031",
+      "V4V2_U0038"
+    ],
+    "partially_completed_items_count": 70,
+    "partially_completed_items_sample": [
+      "V4V2_U0077",
+      "V4V2_U0101",
+      "V4V2_U0109",
+      "V4V2_U0121",
+      "V4V2_U0170"
+    ],
+    "open_items_count": 0,
+    "open_items_sample": [],
+    "blockers_count": 86,
+    "blockers_sample": [
+      "V4V2_U0077",
+      "V4V2_U0101",
+      "V4V2_U0109",
+      "V4V2_U0121",
+      "V4V2_U0170"
+    ],
+    "not_applicable_with_evidence_count": 1380,
+    "external_assurance_gated_count": 16,
+    "superseded_work_note": "Ledger claims THREE_SPEC_FINAL_LOCAL_COMPLETION=true at material SHA d72c962; current repo SHA 9af0c38 differs — all ledger closure claims are PRIOR_EVIDENCE_CANDIDATE until re-verified on current SHA.",
+    "current_implementation_position": "Ledger records 1067 LOCAL_ENGINEERING_COMPLETE + 1380 NOT_APPLICABLE_WITH_EVIDENCE across v4_v2/temporal/adaptive at historical SHA d72c962; governing specs restored from historical commits onto current main checkout.",
+    "next_planned_implementation_state": "Supply BGS-010 v2; re-verify ledger claims on current SHA; then begin DD discovery freeze."
+  },
+  "sha_reconciliation": {
+    "current_repo_sha": "9af0c38aec6d2a903e949e11ea2d3af98f345f2e",
+    "ledger_material_sha": "d72c962d05cb7d475080ef5402d6fb13025cf744",
+    "match": false,
+    "ledger_head_match": false,
+    "verdict": "FAIL — ledger/master-plan claims reference historical SHAs not matching current checkout."
+  },
+  "contradictions_logged": [
+    "CONTR-0001"
+  ]
+}
