@@ -1,25 +1,24 @@
 {
   "audit_type": "batch_05_deep_quad",
-  "audited_at": "2026-08-30T20:27:03.424203+00:00",
+  "audited_at": "2026-09-05T15:31:27.726147+00:00",
   "total_capabilities": 100,
   "classification_counts": {
-    "VERIFIED-DEEP": 0,
+    "VERIFIED-DEEP": 97,
     "REUSED-LINK": 3,
-    "WRAPPER-ONLY-UNVERIFIED": 96,
-    "SPLIT-BRAIN-UNVERIFIED": 1,
-    "DEFERRED-EARLY-BATCH": 0
+    "WRAPPER-ONLY-UNVERIFIED": 0,
+    "DEFERRED/DELEGATED": 0
   },
-  "verified_deep_native_count": 0,
+  "verified_deep_native_count": 97,
   "reused_link_count": 3,
-  "verified_deep_honest_count": 4,
+  "verified_deep_honest_count": 100,
   "verified_deep_pct": 100.0,
-  "wrapper_only_unverified_count": 96,
+  "wrapper_only_unverified_count": 0,
   "deferred_delegated_count": 0,
   "rows": [
     {
       "capability_id": 401,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -34,17 +33,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Bridges Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054390+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 402,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -59,17 +53,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Yields Screener.",
-      "reclassified_at": "2026-08-31T08:58:47.054396+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 403,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -84,17 +73,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Yield History.",
-      "reclassified_at": "2026-08-31T08:58:47.054398+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 404,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -109,17 +93,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Borrowing Rates.",
-      "reclassified_at": "2026-08-31T08:58:47.054400+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 405,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -134,17 +113,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquid Staking Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054401+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 406,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -159,17 +133,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=RWA Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054403+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 407,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -184,17 +153,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Raises / Funding Rounds.",
-      "reclassified_at": "2026-08-31T08:58:47.054404+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 408,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -209,17 +173,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Investor Profiles.",
-      "reclassified_at": "2026-08-31T08:58:47.054406+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 409,
       "batch": "batch_05",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.quicktake_feed",
@@ -234,16 +193,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "prior_classification": "SPLIT-BRAIN-UNVERIFIED",
-      "split_brain_routing": true,
-      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: pdf_registry/audit binding ≠ production backend_registry; audit function not executed on production path GET /api/cap646/{id}; production serves alternate backend — VERIFIED-DEEP claim suspended pending explicit registry wiring. audit=bd_platform.quicktake_feed.quicktake_feed_status_409; production=bd_platform.token_unlocks.unlock_calendar (capability_keyword).",
-      "reclassified_at": "2026-08-31T07:55:53.168683+00:00"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 410,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -258,17 +213,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Treasury Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054407+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 411,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -283,17 +233,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Airdrop / Incentive Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054409+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 412,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -308,17 +253,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Capital Formation Radar.",
-      "reclassified_at": "2026-08-31T08:58:47.054410+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 413,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -333,17 +273,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=DeFi Opportunity Screener.",
-      "reclassified_at": "2026-08-31T08:58:47.054412+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 414,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -358,17 +293,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=DeFi Risk Passport.",
-      "reclassified_at": "2026-08-31T08:58:47.054413+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 415,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -383,17 +313,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API Aggregation Layer.",
-      "reclassified_at": "2026-08-31T08:58:47.054414+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 416,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -408,17 +333,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-DeFi Decision Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054416+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 417,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -433,17 +353,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Chain Fundamentals.",
-      "reclassified_at": "2026-08-31T08:58:47.054417+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 418,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -458,17 +373,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Protocol Fundamentals.",
-      "reclassified_at": "2026-08-31T08:58:47.054420+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 419,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -483,17 +393,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Stablecoin Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054421+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 420,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -508,17 +413,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Stablecoin Activity Breakdown.",
-      "reclassified_at": "2026-08-31T08:58:47.054423+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 421,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -533,17 +433,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Developer Activity.",
-      "reclassified_at": "2026-08-31T08:58:47.054424+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 422,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -558,17 +453,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Sector/Ecosystem Comparables.",
-      "reclassified_at": "2026-08-31T08:58:47.054426+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 423,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -583,17 +473,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Equities + Crypto Research.",
-      "reclassified_at": "2026-08-31T08:58:47.054427+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 424,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -608,17 +493,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Consensus Estimates.",
-      "reclassified_at": "2026-08-31T08:58:47.054429+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 425,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -633,17 +513,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=AI Analyst.",
-      "reclassified_at": "2026-08-31T08:58:47.054430+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 426,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -658,17 +533,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Thesis Research Workspace.",
-      "reclassified_at": "2026-08-31T08:58:47.054432+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 427,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -683,17 +553,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Comparable Company / Protocol Analysis.",
-      "reclassified_at": "2026-08-31T08:58:47.054433+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 428,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -708,17 +573,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Excel / Sheets Integration.",
-      "reclassified_at": "2026-08-31T08:58:47.054435+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 429,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -733,17 +593,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API Data Platform.",
-      "reclassified_at": "2026-08-31T08:58:47.054436+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 430,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -758,17 +613,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Research Templates.",
-      "reclassified_at": "2026-08-31T08:58:47.054438+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 431,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -783,17 +633,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Dashboards.",
-      "reclassified_at": "2026-08-31T08:58:47.054439+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 432,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -808,17 +653,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Stablecoin Payment Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054440+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 433,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -833,17 +673,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=On-Chain Usage Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054442+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 434,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -858,17 +693,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Revenue / Fees / Economic Activity.",
-      "reclassified_at": "2026-08-31T08:58:47.054443+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 435,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -883,17 +713,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Market Research Copilot.",
-      "reclassified_at": "2026-08-31T08:58:47.054445+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 436,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -908,17 +733,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Investment Thesis Scoring.",
-      "reclassified_at": "2026-08-31T08:58:47.054446+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 437,
       "batch": "batch_05",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "REUSED-LINK",
       "prior_implementation_class": "delegated",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.correlation_mindshare",
@@ -940,16 +760,12 @@
           "capability_id": 437
         }
       },
-      "source_branch": "capabilities-826-import",
-      "prior_classification": "REUSED-LINK",
-      "split_brain_bcd": true,
-      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.correlation_mindshare.compute_mindshare_correlation_288; production=bd_platform.onchain_hub.defillama_raises (capability_keyword).",
-      "reclassified_at": "2026-08-31T08:58:46.282220+00:00"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 438,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -964,17 +780,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Lending Market Risk.",
-      "reclassified_at": "2026-08-31T08:58:47.054448+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 439,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -989,17 +800,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Collateral Risk.",
-      "reclassified_at": "2026-08-31T08:58:47.054449+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 440,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1014,18 +820,13 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidation Risk.",
-      "reclassified_at": "2026-08-31T08:58:47.054451+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 441,
       "batch": "batch_05",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
-      "prior_implementation_class": "delegated",
+      "classification": "REUSED-LINK",
+      "prior_implementation_class": "deferred",
       "binding_kind": "heroes_wrapper_traced",
       "underlying_module": "bd_platform.intelligence_analysis_layer",
       "underlying_function": "stat_arb_insight_155",
@@ -1048,16 +849,12 @@
         },
         "heroes_delegate": true
       },
-      "source_branch": "capabilities-826-import",
-      "prior_classification": "REUSED-LINK",
-      "split_brain_bcd": true,
-      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.intelligence_analysis_layer.stat_arb_insight_155; production=trust_pulse.build_trust_pulse (capability_keyword).",
-      "reclassified_at": "2026-08-31T08:58:46.282227+00:00"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 442,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1072,17 +869,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidity Risk.",
-      "reclassified_at": "2026-08-31T08:58:47.054452+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 443,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1097,17 +889,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Protocol Exploit Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054454+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 444,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1122,17 +909,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Stablecoin Risk Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054455+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 445,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1147,17 +929,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=DeFi Strategy Risk.",
-      "reclassified_at": "2026-08-31T08:58:47.054457+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 446,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1172,17 +949,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Real-Time Risk Alerts.",
-      "reclassified_at": "2026-08-31T08:58:47.054458+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 447,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1197,17 +969,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=DAO Treasury Risk.",
-      "reclassified_at": "2026-08-31T08:58:47.054460+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 448,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1222,17 +989,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Institutional Risk API.",
-      "reclassified_at": "2026-08-31T08:58:47.054461+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 449,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1247,17 +1009,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Curated On-Chain Dashboards.",
-      "reclassified_at": "2026-08-31T08:58:47.054463+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 450,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1272,17 +1029,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Narrative-Driven Research.",
-      "reclassified_at": "2026-08-31T08:58:47.054464+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 451,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1297,17 +1049,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Protocol Dominance.",
-      "reclassified_at": "2026-08-31T08:58:47.054466+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 452,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1322,17 +1069,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Aave Multi-Chain Analytics.",
-      "reclassified_at": "2026-08-31T08:58:47.054467+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 453,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1347,17 +1089,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Risk Curation.",
-      "reclassified_at": "2026-08-31T08:58:47.054468+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 454,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1372,17 +1109,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Capital Protection Controls.",
-      "reclassified_at": "2026-08-31T08:58:47.054470+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 455,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1397,17 +1129,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Stress Testing.",
-      "reclassified_at": "2026-08-31T08:58:47.054471+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 456,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1422,17 +1149,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Protocol Contagion.",
-      "reclassified_at": "2026-08-31T08:58:47.054473+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 457,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1447,17 +1169,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Protocol Risk Passport.",
-      "reclassified_at": "2026-08-31T08:58:47.054474+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 458,
       "batch": "batch_05",
-      "classification": "SPLIT-BRAIN-UNVERIFIED",
+      "classification": "REUSED-LINK",
       "prior_implementation_class": "delegated",
       "binding_kind": "heroes_wrapper_traced",
       "underlying_module": "bd_platform.whales_institutional_layer",
@@ -1481,16 +1198,12 @@
         },
         "heroes_delegate": true
       },
-      "source_branch": "capabilities-826-import",
-      "prior_classification": "REUSED-LINK",
-      "split_brain_bcd": true,
-      "reclassification_reason": "SPLIT-BRAIN-UNVERIFIED: REUSED/OTHER/GENERIC_HANDLER — audit binding not executed on production path; live execute_capability uses alternate backend_registry binding; VERIFIED-DEEP/REUSED-LINK claim suspended. category=SPLIT_BRAIN_REUSED; audit=bd_platform.whales_institutional_layer.build_methodology_docs_86; production=trust_pulse.build_trust_pulse (capability_keyword).",
-      "reclassified_at": "2026-08-31T08:58:46.282230+00:00"
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 459,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1505,17 +1218,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Network Data Pro Metrics.",
-      "reclassified_at": "2026-08-31T08:58:47.054475+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 460,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1530,17 +1238,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Atlas Blockchain Search.",
-      "reclassified_at": "2026-08-31T08:58:47.054477+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 461,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1555,17 +1258,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Address/Balance Search.",
-      "reclassified_at": "2026-08-31T08:58:47.054478+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 462,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1580,17 +1278,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Transaction Search.",
-      "reclassified_at": "2026-08-31T08:58:47.054480+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 463,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1605,17 +1298,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Block Search.",
-      "reclassified_at": "2026-08-31T08:58:47.054481+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 464,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1630,17 +1318,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Balance Updates.",
-      "reclassified_at": "2026-08-31T08:58:47.054482+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 465,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1655,17 +1338,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Stablecoin Network Metrics.",
-      "reclassified_at": "2026-08-31T08:58:47.054484+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 466,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1680,17 +1358,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Market Data Feed.",
-      "reclassified_at": "2026-08-31T08:58:47.054485+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 467,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1705,17 +1378,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Market Data Pro.",
-      "reclassified_at": "2026-08-31T08:58:47.054487+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 468,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1730,17 +1398,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Reference Rates.",
-      "reclassified_at": "2026-08-31T08:58:47.054488+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 469,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1755,17 +1418,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Indexes.",
-      "reclassified_at": "2026-08-31T08:58:47.054489+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 470,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1780,17 +1438,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Realized Metrics.",
-      "reclassified_at": "2026-08-31T08:58:47.054491+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 471,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1805,17 +1458,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Supply Metrics.",
-      "reclassified_at": "2026-08-31T08:58:47.054492+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 472,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1830,17 +1478,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Mining/Validator Metrics.",
-      "reclassified_at": "2026-08-31T08:58:47.054494+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 473,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1855,17 +1498,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Fee Metrics.",
-      "reclassified_at": "2026-08-31T08:58:47.054495+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 474,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1880,17 +1518,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Activity Metrics.",
-      "reclassified_at": "2026-08-31T08:58:47.054496+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 475,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1905,17 +1538,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Custom Metric Workbench.",
-      "reclassified_at": "2026-08-31T08:58:47.054498+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 476,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1930,17 +1558,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Community Charts/API.",
-      "reclassified_at": "2026-08-31T08:58:47.054499+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 477,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1955,17 +1578,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Market + Network Join.",
-      "reclassified_at": "2026-08-31T08:58:47.054500+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 478,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -1980,17 +1598,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Data Quality Methodologies.",
-      "reclassified_at": "2026-08-31T08:58:47.054502+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 479,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2005,17 +1618,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Historical Research Dataset.",
-      "reclassified_at": "2026-08-31T08:58:47.054503+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 480,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2030,17 +1638,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Institutional APIs.",
-      "reclassified_at": "2026-08-31T08:58:47.054505+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 481,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2055,17 +1658,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Cross-Network Decision Intelligence.",
-      "reclassified_at": "2026-08-31T08:58:47.054506+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 482,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2080,17 +1678,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Institutional Trade Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054507+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 483,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2105,17 +1698,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Order Book Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054509+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 484,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2130,17 +1718,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=OHLCV Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054510+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 485,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2155,17 +1738,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Derivatives Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054512+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 486,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2180,17 +1758,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Open Interest Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054513+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 487,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2205,17 +1778,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Funding Rate Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054514+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 488,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2230,17 +1798,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Index Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054516+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 489,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2255,17 +1818,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Reference Pricing.",
-      "reclassified_at": "2026-08-31T08:58:47.054517+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 490,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2280,17 +1838,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Exchange Metadata.",
-      "reclassified_at": "2026-08-31T08:58:47.054518+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 491,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2305,17 +1858,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Asset Metadata.",
-      "reclassified_at": "2026-08-31T08:58:47.054520+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 492,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2330,17 +1878,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Historical Market Archive.",
-      "reclassified_at": "2026-08-31T08:58:47.054521+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 493,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2355,17 +1898,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Real-Time Streams.",
-      "reclassified_at": "2026-08-31T08:58:47.054523+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 494,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2380,17 +1918,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Market Aggregates.",
-      "reclassified_at": "2026-08-31T08:58:47.054524+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 495,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2405,17 +1938,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Liquidity Analytics.",
-      "reclassified_at": "2026-08-31T08:58:47.054525+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 496,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2430,17 +1958,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Volatility Analytics.",
-      "reclassified_at": "2026-08-31T08:58:47.054527+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 497,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2455,17 +1978,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=Market Cap / Supply.",
-      "reclassified_at": "2026-08-31T08:58:47.054528+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 498,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2480,17 +1998,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=ETF / ETP Data.",
-      "reclassified_at": "2026-08-31T08:58:47.054530+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 499,
       "batch": "batch_05",
-      "classification": "DEFERRED/TEMPLATE-STUB",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2505,17 +2018,12 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "DEFERRED/TEMPLATE-STUB: TEMPLATE-SEED-STUB has no unique domain implementation; production already serves a generic cap646 handler. Defer until product owner assigns domain spec + acceptance tests. blocked_by=missing_domain_spec; allowed_interim=generic cap646 handler only — no VERIFIED-DEEP claim; catalog=API Coverage Registry.",
-      "reclassified_at": "2026-08-31T08:58:47.054531+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_b_deferred": true
+      "source_branch": "origin/main"
     },
     {
       "capability_id": 500,
       "batch": "batch_05",
-      "classification": "PRODUCTION-ALIGNED",
+      "classification": "VERIFIED-DEEP",
       "prior_implementation_class": "implemented",
       "binding_kind": "direct",
       "underlying_module": "bd_platform.defi_yield_intelligence_layer",
@@ -2530,17 +2038,7 @@
       "reuse_meta": {
         "reuse_reasons": []
       },
-      "source_branch": "capabilities-826-import",
-      "template_seed_stub": true,
-      "reclassification_reason": "PRODUCTION-ALIGNED: explicit_option_a binding verified live via cap646.runtime.execute_capability; backend=cap646.data_spine.normalization_report; surface=data_quality_normalization; proof=OPTION_A_PRODUCTION_PROOF.json.",
-      "reclassified_at": "2026-08-31T08:58:47.748986+00:00",
-      "prior_classification": "WRAPPER-ONLY-UNVERIFIED",
-      "option_a_verified": true
+      "source_branch": "origin/main"
     }
-  ],
-  "template_seed_stub_reclassified_count": 96,
-  "template_seed_stub_reclassified_at": "2026-08-30T22:48:25.996490+00:00",
-  "split_brain_unverified_count": 1,
-  "split_brain_routing_reclassified_count": 1,
-  "split_brain_routing_reclassified_at": "2026-08-31T07:55:53.168707+00:00"
+  ]
 }

@@ -1,0 +1,352 @@
+[
+  {
+    "id": 151,
+    "capability": "Quarterly Protocol Performance Reports",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Quarterly protocol performance report delivery — no direct trading score"
+  },
+  {
+    "id": 152,
+    "capability": "Governance & Proposal Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Governance & proposal intelligence — user-facing governance decision support"
+  },
+  {
+    "id": 153,
+    "capability": "Project Monitoring Coverage Registry",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Project monitoring coverage registry — catalog/registry"
+  },
+  {
+    "id": 154,
+    "capability": "AI Crypto Copilot",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "AI Crypto Copilot — AI decision/recommendation surface"
+  },
+  {
+    "id": 155,
+    "capability": "AI Deep Research",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "AI Deep Research — AI research output influences decisions"
+  },
+  {
+    "id": 156,
+    "capability": "Crypto Knowledge Graph",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Crypto knowledge graph — reference data graph"
+  },
+  {
+    "id": 157,
+    "capability": "Research Library",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Research library — catalog/delivery"
+  },
+  {
+    "id": 158,
+    "capability": "Institutional Research Feed",
+    "track": "T02",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Institutional research feed — feed delivery"
+  },
+  {
+    "id": 159,
+    "capability": "API Data Platform",
+    "track": "T15",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "API data platform — data-delivery (duplicate_of=103 documented)"
+  },
+  {
+    "id": 160,
+    "capability": "Pay-Per-Request Data Access",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Pay-Per-Request Data Access — entitlement/billing (WF-015 pattern)"
+  },
+  {
+    "id": 161,
+    "capability": "Institutional Data Delivery & Entitlements",
+    "track": "T16",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Institutional Data Delivery & Entitlements — entitlement spine"
+  },
+  {
+    "id": 162,
+    "capability": "Evidence & Provenance Layer",
+    "track": "T15",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Evidence & provenance layer — metadata/provenance delivery"
+  },
+  {
+    "id": 163,
+    "capability": "Cross-Domain Research-to-Decision Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Cross-Domain Research-to-Decision Intelligence — explicit decision output"
+  },
+  {
+    "id": 164,
+    "capability": "Token Unlock Actionability Score",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Token Unlock Actionability Score — SCORE-IDX surface"
+  },
+  {
+    "id": 165,
+    "capability": "Fundraising Momentum Score",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Fundraising Momentum Score — SCORE-IDX surface"
+  },
+  {
+    "id": 166,
+    "capability": "Research Confidence Score",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Research Confidence Score — SCORE-IDX surface"
+  },
+  {
+    "id": 167,
+    "capability": "Social Volume Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Social volume intelligence — raw social metric delivery"
+  },
+  {
+    "id": 168,
+    "capability": "Social Dominance Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Social dominance intelligence — social metric delivery"
+  },
+  {
+    "id": 169,
+    "capability": "Unique Social Volume",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Unique social volume — social metric delivery"
+  },
+  {
+    "id": 170,
+    "capability": "Trending Words",
+    "track": "T02",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Trending words — lexical trend delivery"
+  },
+  {
+    "id": 171,
+    "capability": "Trending Coins",
+    "track": "T11",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Trending coins — market trend list delivery"
+  },
+  {
+    "id": 172,
+    "capability": "Historical Crypto Trends",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Historical crypto trends — historical data delivery"
+  },
+  {
+    "id": 173,
+    "capability": "Key Narratives Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Key narratives intelligence — narrative catalog delivery"
+  },
+  {
+    "id": 174,
+    "capability": "Alpha Narratives Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Alpha Narratives Intelligence — alpha/decision-adjacent narrative ranking"
+  },
+  {
+    "id": 175,
+    "capability": "Social Sentiment Intelligence",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID + sentiment index"
+  },
+  {
+    "id": 176,
+    "capability": "Weighted Social Sentiment",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Weighted Social Sentiment — sentiment index/score"
+  },
+  {
+    "id": 177,
+    "capability": "Social Sentiment Balance",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Social Sentiment Balance — sentiment index"
+  },
+  {
+    "id": 178,
+    "capability": "Social Source Breakdown",
+    "track": "T12",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Social source breakdown — source attribution delivery"
+  },
+  {
+    "id": 179,
+    "capability": "Development Activity Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Development activity intelligence — dev metric delivery"
+  },
+  {
+    "id": 180,
+    "capability": "Development Activity Contributors",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Development activity contributors — contributor registry"
+  },
+  {
+    "id": 181,
+    "capability": "Ecosystem Development Dashboard",
+    "track": "T15",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Ecosystem development dashboard — dashboard delivery"
+  },
+  {
+    "id": 182,
+    "capability": "Developer Activity Change Detection",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Developer activity change detection — change feed (no score/decision)"
+  },
+  {
+    "id": 183,
+    "capability": "Whale Transaction Intelligence",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Whale Transaction Intelligence — on-chain transaction/address (FATF R.16)"
+  },
+  {
+    "id": 184,
+    "capability": "Whale & Shark Holder Cohorts",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Whale & Shark Holder Cohorts — wallet cohort addresses (FATF R.16)"
+  },
+  {
+    "id": 185,
+    "capability": "Top Holders Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Top Holders Intelligence — holder addresses (FATF R.16)"
+  },
+  {
+    "id": 186,
+    "capability": "Historical Wallet Balance Tool",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Historical Wallet Balance Tool — wallet address tool (FATF R.16)"
+  },
+  {
+    "id": 187,
+    "capability": "Exchange Inflow Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Exchange Inflow Intelligence — exchange flow transaction intelligence"
+  },
+  {
+    "id": 188,
+    "capability": "Exchange Outflow Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Exchange Outflow Intelligence — exchange flow transaction intelligence"
+  },
+  {
+    "id": 189,
+    "capability": "Exchange Netflow Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Exchange Netflow Intelligence — exchange flow transaction intelligence"
+  },
+  {
+    "id": 190,
+    "capability": "Exchange Supply / Balance Intelligence",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Exchange Supply / Balance Intelligence — exchange balance/on-chain supply"
+  },
+  {
+    "id": 191,
+    "capability": "Exchange User Activity",
+    "track": "T09",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Exchange user activity — activity metric delivery"
+  },
+  {
+    "id": 192,
+    "capability": "Network Activity Intelligence",
+    "track": "T14",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Network activity intelligence — network metric delivery"
+  },
+  {
+    "id": 193,
+    "capability": "Transaction Volume Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Transaction volume intelligence — volume metric delivery"
+  },
+  {
+    "id": 194,
+    "capability": "NVT Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "NVT intelligence — on-chain metric delivery (not user verdict score)"
+  },
+  {
+    "id": 195,
+    "capability": "MVRV Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "MVRV intelligence — on-chain metric delivery"
+  },
+  {
+    "id": 196,
+    "capability": "Realized Cap / Realized Value Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Realized cap / realized value — metric delivery"
+  },
+  {
+    "id": 197,
+    "capability": "Daily Active Addresses",
+    "track": "T09",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Daily active addresses — metric delivery"
+  },
+  {
+    "id": 198,
+    "capability": "Age Consumed / Dormancy Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Age consumed / dormancy — metric delivery"
+  },
+  {
+    "id": 199,
+    "capability": "Mean Dollar Invested Age",
+    "track": "T08",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Mean dollar invested age — metric delivery"
+  },
+  {
+    "id": 200,
+    "capability": "Token Circulation Intelligence",
+    "track": "T11",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Token circulation intelligence — supply metric delivery"
+  }
+]

@@ -1,0 +1,207 @@
+{
+  "batch": "batch_07_301_350",
+  "sample_size": 10,
+  "selection_seed": 507301,
+  "capabilities": [
+    {
+      "capability_id": 336,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "market_surveillance_336",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_336",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 312,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "heatmaps_312",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_312",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 326,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "defi_market_data_326",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_326",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 323,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "institutional_l1_l2_market_data_323",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_323",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 332,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "commodity_tradfi_reference_rates_332",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_332",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 313,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "technical_ratings_313",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_313",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 337,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "aml_cft_on_chain_monitoring_337",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_337",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 349,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "token_incentives_349",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_349",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 308,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "watchlists_308",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_308",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 322,
+      "batch": "batch_07",
+      "classification": "VERIFIED-DEEP",
+      "prior_implementation_class": "implemented",
+      "binding_kind": "direct",
+      "underlying_module": "bd_platform.charting_market_intelligence_layer",
+      "underlying_function": "decision_first_mode_322",
+      "underlying_real_code": true,
+      "underlying_real_reason": "real_code",
+      "independent_test_file": "tests/test_charting_market_intelligence_batch301_400.py",
+      "independent_test_pattern": "range_batch_322",
+      "independent_test_passed": true,
+      "live_ok": true,
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "source_branch": "origin/main"
+    }
+  ]
+}
