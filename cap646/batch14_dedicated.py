@@ -16,7 +16,7 @@ BATCH14_DEDICATED_IDS: frozenset[int] = OFFICIAL_BATCH14_IDS
 
 EXPECTED_SURFACE: dict[int, str] = {
     651: 'reserved_slot_651',
-    652: 'reserved_slot_652',
+    652: 'prompt_to_sql_agent',
     653: 'reserved_slot_653',
     654: 'reserved_slot_654',
     655: 'reserved_slot_655',
@@ -36,11 +36,11 @@ EXPECTED_SURFACE: dict[int, str] = {
     669: 'reserved_slot_669',
     670: 'reserved_slot_670',
     671: 'reserved_slot_671',
-    672: 'reserved_slot_672',
-    673: 'reserved_slot_673',
-    674: 'reserved_slot_674',
-    675: 'reserved_slot_675',
-    676: 'reserved_slot_676',
+    672: 'liquid_staking_intelligence',
+    673: 'rwa_intelligence',
+    674: 'raises_funding_rounds',
+    675: 'investor_profiles',
+    676: 'unlocks',
     677: 'reserved_slot_677',
     678: 'reserved_slot_678',
     679: 'reserved_slot_679',
@@ -54,8 +54,8 @@ EXPECTED_SURFACE: dict[int, str] = {
     687: 'reserved_slot_687',
     688: 'reserved_slot_688',
     689: 'reserved_slot_689',
-    690: 'reserved_slot_690',
-    691: 'reserved_slot_691',
+    690: 'bloomberg_terminal_bridge_proxy',
+    691: 'refinitiv_eikon_bridge_proxy',
     692: 'reserved_slot_692',
     693: 'reserved_slot_693',
     694: 'reserved_slot_694',
@@ -122,25 +122,23 @@ async def _cap651(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 async def _cap652(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(652, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         652,
         symbol=symbol,
-        payload_key="reserved_slot_652",
+        payload_key="prompt_to_sql_agent",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
@@ -582,117 +580,107 @@ async def _cap671(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 async def _cap672(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(672, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         672,
         symbol=symbol,
-        payload_key="reserved_slot_672",
+        payload_key="liquid_staking_intelligence",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
 async def _cap673(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(673, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         673,
         symbol=symbol,
-        payload_key="reserved_slot_673",
+        payload_key="rwa_intelligence",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
 async def _cap674(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(674, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         674,
         symbol=symbol,
-        payload_key="reserved_slot_674",
+        payload_key="raises_funding_rounds",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
 async def _cap675(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(675, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         675,
         symbol=symbol,
-        payload_key="reserved_slot_675",
+        payload_key="investor_profiles",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
 async def _cap676(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(676, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         676,
         symbol=symbol,
-        payload_key="reserved_slot_676",
+        payload_key="unlocks",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
@@ -996,48 +984,44 @@ async def _cap689(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 async def _cap690(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(690, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         690,
         symbol=symbol,
-        payload_key="reserved_slot_690",
+        payload_key="bloomberg_terminal_bridge_proxy",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
 async def _cap691(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    """826 inventory reserved slot — Path B HEURISTIC (v6 §2.1 NOT_COMPLETE until bound)."""
-    payload = {
-        "heuristic": True,
-        "methodology_status": "NOT_COMPLETE",
-        "reserved_slot": True,
-        "inventory_status": "PENDING",
-        "success": True,
-        "data_source": "826_inventory_reserved_slot",
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    """Path A — free_tier execute parity (SPLIT-BRAIN fix Run 826)."""
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(691, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
     return _wrap(
         691,
         symbol=symbol,
-        payload_key="reserved_slot_691",
+        payload_key="refinitiv_eikon_bridge_proxy",
         payload=payload,
         extra={
-            "heuristic": True,
-            "methodology_status": "NOT_COMPLETE",
-            "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
         },
     )
 
