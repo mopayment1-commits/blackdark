@@ -1,7 +1,7 @@
 """Official Batch 02 — canonical production spine for IDs 51–100.
 
 Owner-approved scope: official Batch 02 = IDs 51–100 only.
-IDs 55, 56, 59, 60 overlap batch01 legacy extension (``LEGACY_BATCH01_EXTENSION_IDS``).
+Cross-spine overlap with batch01 (55, 56, 59, 60) resolved Run 007 — routed batch02 only.
 """
 
 from __future__ import annotations
@@ -9,7 +9,6 @@ from __future__ import annotations
 from typing import Any, Awaitable, Callable
 
 OFFICIAL_BATCH02_IDS: frozenset[int] = frozenset(range(51, 101))
-BATCH02_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({55, 56, 59, 60})
 BATCH02_IDS: frozenset[int] = OFFICIAL_BATCH02_IDS
 
 from cap646.batch02_dedicated import BATCH02_DEDICATED_IDS
@@ -33,12 +32,6 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         raise ValueError(f"capability {capability_id} is not in official batch02 production spine")
 
     params = dict(params or {})
-
-    if capability_id in BATCH02_OVERLAP_BATCH01_IDS:
-        raise ValueError(
-            f"capability {capability_id} is batch01 overlap — reserved; "
-            "runtime routes via cap646.batch01_production"
-        )
 
     if capability_id in BATCH02_DEDICATED_IDS:
         from cap646.batch02_dedicated import execute as execute_dedicated
