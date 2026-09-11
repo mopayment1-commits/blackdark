@@ -1,0 +1,11 @@
+{
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_fee_matrix.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 1.08,
+  "output_tail": "...................                                                      [100%]\n",
+  "status": "VERIFIED PASS",
+  "evidence_id": "EVD-036",
+  "model_id": "MDL-006",
+  "source": "fee_matrix.py",
+  "tier": "HIGH"
+}

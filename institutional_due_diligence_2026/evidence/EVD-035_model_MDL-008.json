@@ -1,0 +1,11 @@
+{
+  "command": "/workspace/.venv/bin/python -m pytest tests/test_money_decimal.py -q --tb=line -ra",
+  "exit_code": 0,
+  "duration_sec": 0.96,
+  "output_tail": "...                                                                      [100%]\n",
+  "status": "VERIFIED PASS",
+  "evidence_id": "EVD-035",
+  "model_id": "MDL-008",
+  "source": "money_decimal.py",
+  "tier": "CRITICAL"
+}
