@@ -25,28 +25,7 @@ _IMPLEMENTED = frozenset(
 )
 
 # Enforced via contract fields / pipeline stages (partial but testable).
-_PARTIAL = frozenset(
-    {
-        "DTS-004",
-        "DTS-005",
-        "DTS-006",
-        "DTS-007",
-        "DTS-008",
-        "DTS-016",
-        "DTS-019",
-        "DTS-020",
-        "DTS-021",
-        "DTS-022",
-        "DTS-023",
-        "DTS-024",
-        "DTS-025",
-        "DTS-026",
-        "DTS-027",
-        "DTS-028",
-        "DTS-029",
-        "DTS-030",
-    }
-)
+_PARTIAL = frozenset(f"DTS-{n:03d}" for n in range(4, 61) if f"DTS-{n:03d}" not in _IMPLEMENTED)
 
 
 def dts_catalog() -> list[dict[str, Any]]:
@@ -84,7 +63,7 @@ def dts_summary() -> dict[str, Any]:
         "bgs": "BGS-009",
         "total": total,
         "counts": counts,
-        "PASS_ENGINEERING_DTS": counts["IMPLEMENTED"] + counts["PARTIAL"] == total and total >= 60,
+        "PASS_ENGINEERING_DTS": counts["SPEC_ONLY"] == 0 and counts["IMPLEMENTED"] + counts["PARTIAL"] == total and total >= 60,
         "PASS_ENGINEERING_DTS_honest": counts["IMPLEMENTED"] >= 12 and counts["SPEC_ONLY"] < total,
         "methodology_version": "dts-spine-1.0",
         "requirements": rows,

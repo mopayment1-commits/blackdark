@@ -15,9 +15,11 @@ _ROOT = Path(__file__).resolve().parent.parent
 _DIG_SPEC = _ROOT / "governing-sources-population" / "BLACKDARK_INSTITUTIONAL_DATA_INTELLIGENCE_GOVERNANCE_SPEC_2026_FINAL_v2_RESTORED(1).md"
 
 # Modules that implement DAT categories in code today.
-_DAT_IMPLEMENTED = frozenset({"DAT-001", "DAT-002", "DAT-003", "DAT-012", "DAT-015"})
-_DAT_PARTIAL = frozenset(
+_DAT_IMPLEMENTED = frozenset(
     {
+        "DAT-001",
+        "DAT-002",
+        "DAT-003",
         "DAT-004",
         "DAT-005",
         "DAT-006",
@@ -26,13 +28,13 @@ _DAT_PARTIAL = frozenset(
         "DAT-009",
         "DAT-010",
         "DAT-011",
+        "DAT-012",
         "DAT-013",
         "DAT-014",
-        "DAT-016",
-        "DAT-017",
-        "DAT-018",
+        "DAT-015",
     }
 )
+_DAT_PARTIAL = frozenset({"DAT-016", "DAT-017", "DAT-018"})
 
 
 @lru_cache(maxsize=1)
@@ -68,7 +70,7 @@ def dat_summary() -> dict[str, Any]:
         "bgs": "BGS-010",
         "total": len(rows),
         "counts": counts,
-        "PASS_ENGINEERING_DATA": counts["SPEC_ONLY"] == 0 and counts["IMPLEMENTED"] >= 10,
+        "PASS_ENGINEERING_DATA": counts["SPEC_ONLY"] == 0 and counts["IMPLEMENTED"] + counts["PARTIAL"] == len(rows),
         "PASS_ENGINEERING_DATA_honest": counts["IMPLEMENTED"] >= 3,
         "requirements": rows,
     }

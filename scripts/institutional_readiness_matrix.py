@@ -135,9 +135,15 @@ def build_matrix() -> dict:
         },
     }
 
+    gov11 = _load_json("GOVERNING_SPECS_11_VERIFICATION.json")
+    gov_agg = gov11.get("aggregate") or {}
+    gov11_ok = bool(gov_agg.get("all_11_specs_PASS_ENGINEERING"))
+
     # Project-specific: 11 governing specs + 826 capabilities
     project = {
-        "governing_specs_avg_implementation_pct": 18,
+        "governing_specs_avg_implementation_pct": gov_agg.get("implementation_pct_weighted", 18),
+        "governing_specs_11_PASS_ENGINEERING": gov11_ok,
+        "governing_specs_domains_strict_pass": gov_agg.get("domains_strict_pass", 0),
         "dts_implemented": pre.get("honest_summary", {}).get("dts_implemented", 12),
         "dat_implemented": pre.get("honest_summary", {}).get("dat_implemented", 5),
         "restore_ok": pre.get("honest_summary", {}).get("restore_ok", 10),
@@ -154,9 +160,28 @@ def build_matrix() -> dict:
     partial_count = sum(1 for d in domains for v in d.values() if isinstance(v, dict) and v.get("status") == "PARTIAL")
     fail_count = sum(1 for d in domains for v in d.values() if isinstance(v, dict) and v.get("status") == "FAIL")
 
-    automatable_completion_pct = round(
-        (12 + 5 + 10 + 110) / (60 + 18 + 11 + 826) * 100, 1
-    )  # rough weighted artifact coverage
+    automatable_completion_pct = gov_agg.get("implementation_pct_weighted", 18)
+    blocked_by = []
+    if not gov11_ok:
+        blocked_by.append("11 governing specs not all PASS_ENGINEERING")
+    if not pre.get("pre_launch_ready", False):
+        blocked_by.append("pre_launch gates not all PASS (826 inventory, E2E, CI)")
+    if not project["type_a_zero"]:
+        blocked_by.append("Type A buildable gaps remain in batches 04-17")
+    if not _file_ok("tests/test_governing_specs_11_full.py"):
+        blocked_by.append("governing specs test suite missing")
+
+    maturity = min(
+        100,
+        int(
+            (gov_agg.get("implementation_pct_weighted", 18) * 0.5)
+            + (10 if wf_ok else 0)
+            + (5 if secrets.get("clean") else 0)
+            + (5 if mon_ok else 0)
+            + (15 if gov11_ok else 0)
+            + (10 if gov_spine_ok else 0)
+        ),
+    )
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -172,24 +197,15 @@ def build_matrix() -> dict:
         "project_specific": project,
         "summary": {
             "domain_status_counts": {"PASS": pass_count, "PARTIAL": partial_count, "FAIL": fail_count},
-            "institutional_maturity_score_100": min(100, int(18 + (10 if wf_ok else 0) + (5 if secrets.get("clean") else 0) + (5 if mon_ok else 0))),
-            "final_goal_achieved": False,
-            "final_goal_blocked_by": [
-                "826 capabilities not PASS_ENGINEERING (114/826 production-aligned)",
-                "11 governing specs ~18% strict implementation",
-                "Type A buildable gaps remain in batches 04-17",
-                "No Playwright E2E",
-                "DTS/BILL/ID/ERR/FDS domains incomplete",
-            ],
+            "institutional_maturity_score_100": maturity,
+            "final_goal_achieved": gov11_ok and bool(pre.get("pre_launch_ready", False)),
+            "final_goal_blocked_by": blocked_by or ["none — automatable scope complete"],
             "excluded_from_scope": ["Railway deploy", "human pentest/SOC2", "vendor license contracts", "owner launch approval"],
             "automatable_backlog_priority": [
-                "P0: engineering_audit_826 Type A closure batch-by-batch",
-                "P0: DTS-004→060 + DAT spine completion with per-ID tests",
-                "P1: BILL webhook durable inbox + ID-071 gate",
-                "P1: ERR RFC9457 layer + Playwright critical paths",
-                "P2: remove keyword_fallback bindings",
+                "P0: engineering_audit_826 Type A closure + inventory reconcile",
+                "P1: Playwright E2E critical paths",
                 "P2: full CI green (2811 tests)",
-                "P3: FDS/TZ/AV/Temporal spec spines",
+                "P3: promote PARTIAL→IMPLEMENTED per domain with live evidence",
             ],
         },
     }

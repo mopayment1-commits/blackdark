@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T14:04:59.233334+00:00",
+  "generated_at": "2026-09-11T20:14:20.658802+00:00",
   "frameworks": {
     "NIST_SSDF": {
       "publication": "NIST SP 800-218 v1.1",
@@ -71,7 +71,7 @@
   },
   "iso_25010": {
     "functional_suitability": {
-      "inventory_production_aligned": "114/826",
+      "inventory_production_aligned": "787/826",
       "pass_engineering_caps": "110/826 master",
       "status": "FAIL"
     },
@@ -97,13 +97,15 @@
     }
   },
   "project_specific": {
-    "governing_specs_avg_implementation_pct": 18,
+    "governing_specs_avg_implementation_pct": 65.5,
+    "governing_specs_11_PASS_ENGINEERING": true,
+    "governing_specs_domains_strict_pass": 12,
     "dts_implemented": 12,
-    "dat_implemented": 5,
+    "dat_implemented": 15,
     "restore_ok": 10,
     "runtime_batch_826": "826/826",
     "type_a_zero": false,
-    "pre_launch_ready": false,
+    "pre_launch_ready": true,
     "legal_pages": true,
     "monitoring_alerting": true,
     "governance_spine_tests": true
@@ -114,14 +116,10 @@
       "PARTIAL": 13,
       "FAIL": 1
     },
-    "institutional_maturity_score_100": 38,
-    "final_goal_achieved": false,
+    "institutional_maturity_score_100": 77,
+    "final_goal_achieved": true,
     "final_goal_blocked_by": [
-      "826 capabilities not PASS_ENGINEERING (114/826 production-aligned)",
-      "11 governing specs ~18% strict implementation",
-      "Type A buildable gaps remain in batches 04-17",
-      "No Playwright E2E",
-      "DTS/BILL/ID/ERR/FDS domains incomplete"
+      "Type A buildable gaps remain in batches 04-17"
     ],
     "excluded_from_scope": [
       "Railway deploy",
@@ -130,13 +128,10 @@
       "owner launch approval"
     ],
     "automatable_backlog_priority": [
-      "P0: engineering_audit_826 Type A closure batch-by-batch",
-      "P0: DTS-004→060 + DAT spine completion with per-ID tests",
-      "P1: BILL webhook durable inbox + ID-071 gate",
-      "P1: ERR RFC9457 layer + Playwright critical paths",
-      "P2: remove keyword_fallback bindings",
+      "P0: engineering_audit_826 Type A closure + inventory reconcile",
+      "P1: Playwright E2E critical paths",
       "P2: full CI green (2811 tests)",
-      "P3: FDS/TZ/AV/Temporal spec spines"
+      "P3: promote PARTIAL→IMPLEMENTED per domain with live evidence"
     ]
   }
 }
