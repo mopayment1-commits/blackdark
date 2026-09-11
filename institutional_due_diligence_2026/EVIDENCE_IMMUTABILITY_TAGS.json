@@ -31,7 +31,7 @@
     },
     "batch06-closure-verified": {
       "run": "Run 016 + Run 018/020",
-      "commit_sha": "PENDING_PUSH",
+      "commit_sha": "88ea30b3",
       "id_range": "251-300"
     }
   }
