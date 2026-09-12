@@ -1,0 +1,22 @@
+{
+  "pit_id": "pit_6c5d9d5c9ea2",
+  "replay_id": "replay_test_1",
+  "knowledge_cutoff": "2026-01-01T00:00:00+00:00",
+  "event_time_field": "event_time",
+  "ingest_time_field": "ingest_time",
+  "universe_snapshot_id": null,
+  "revision_policy": "as_available_at_cutoff",
+  "data_snapshot_hash": "deadbeef",
+  "code_sha": "cafebabe",
+  "model_version": null,
+  "config_version": null,
+  "oracle": null,
+  "horizon": null,
+  "survivorship_controls": {
+    "no_winner_only": true
+  },
+  "reconstructed_with_later_data": false,
+  "integrity_label": "point-in-time-faithful",
+  "created_at": "2026-09-12T14:03:01.551210+00:00",
+  "contract_hash": "95a5e8a10bcfcd852d2f5f19a046723cc08c5e7bf3e65a5c58ab40313f5c23c0"
+}

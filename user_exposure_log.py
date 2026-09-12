@@ -70,6 +70,13 @@ def record_user_exposure(
         source=source or "oracle",
     )
     row["evidence_class"] = cls
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    row = enforce_material_write(
+        asset_kind="exposure",
+        record=row,
+        surface=source or "user_exposure_log",
+    )
     with _LOCK:
         _MEMORY[exposure_id] = row
         while len(_MEMORY) > _MAX_MEMORY:

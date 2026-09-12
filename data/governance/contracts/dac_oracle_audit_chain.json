@@ -1,0 +1,45 @@
+{
+  "asset_id": "dac_oracle_audit_chain",
+  "canonical_name": "Oracle Audit Chain",
+  "owner": "platform-trust",
+  "purpose": "Tamper-evident append-only prediction/outcome chain",
+  "consumers": [
+    "track_record",
+    "evidence_room",
+    "dd_bundle"
+  ],
+  "schema_version": "1.0.0",
+  "event_time_field": "timestamp",
+  "ingest_time_field": "appended_at",
+  "freshness_sla_seconds": 120,
+  "completeness_threshold": 1.0,
+  "validity_rules": {
+    "required": [
+      "chain_hash",
+      "prev_hash",
+      "evidence_class"
+    ]
+  },
+  "uniqueness_key": "chain_hash",
+  "reconciliation_policy": "hash_chain_verify",
+  "missing_corrupt_behavior": "invalidate_chain_report",
+  "lineage_upstream": [
+    "oracle_predictions"
+  ],
+  "rights_profile_id": "rp_proprietary_internal",
+  "retention_class": "rc_evidence_archive",
+  "fallback_policy": "verify_before_use",
+  "monitoring_hooks": [
+    "oracle_audit_chain.verify_chain"
+  ],
+  "evidence_refs": [
+    "data/oracle_audit_chain.jsonl",
+    "oracle_audit_chain.py"
+  ],
+  "storage_tier": "HOT",
+  "security_classification": "internal",
+  "failure_behavior": "fail_closed_on_tamper",
+  "physical_path": "data/oracle_audit_chain.jsonl",
+  "contract_version": "1.0.0",
+  "materialized_at": "2026-09-12T14:02:50.295409+00:00"
+}

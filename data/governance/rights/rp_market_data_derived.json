@@ -1,0 +1,12 @@
+{
+  "profile_id": "rp_market_data_derived",
+  "storage_allowed": true,
+  "derived_use_allowed": true,
+  "training_allowed": true,
+  "redistribution_allowed": false,
+  "api_resale_allowed": false,
+  "licensing_allowed": false,
+  "retention_max_days": 3650,
+  "enforcement": "block_export_without_profile",
+  "license_note": "Derived from licensed market APIs \u2014 no permanent commercial dataset without contract"
+}

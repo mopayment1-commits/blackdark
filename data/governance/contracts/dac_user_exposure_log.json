@@ -1,0 +1,42 @@
+{
+  "asset_id": "dac_user_exposure_log",
+  "canonical_name": "User Exposure Log",
+  "owner": "platform-product",
+  "purpose": "Track user exposure to decisions with evidence class",
+  "consumers": [
+    "decision_ledger",
+    "gips",
+    "analytics"
+  ],
+  "schema_version": "1.0.0",
+  "event_time_field": "shown_at",
+  "ingest_time_field": "shown_at",
+  "freshness_sla_seconds": 300,
+  "completeness_threshold": 0.99,
+  "validity_rules": {
+    "required": [
+      "exposure_id",
+      "decision_id",
+      "evidence_class"
+    ]
+  },
+  "uniqueness_key": "exposure_id",
+  "reconciliation_policy": "append_only",
+  "missing_corrupt_behavior": "reject_exposure",
+  "lineage_upstream": [
+    "decision_ledger"
+  ],
+  "rights_profile_id": "rp_user_telemetry_minimized",
+  "retention_class": "rc_user_telemetry",
+  "fallback_policy": "none",
+  "monitoring_hooks": [],
+  "evidence_refs": [
+    "data/user_exposure_log.jsonl"
+  ],
+  "storage_tier": "HOT",
+  "security_classification": "pii_limited",
+  "failure_behavior": "degrade_not_fake",
+  "physical_path": "data/user_exposure_log.jsonl",
+  "contract_version": "1.0.0",
+  "materialized_at": "2026-09-12T14:02:50.295685+00:00"
+}

@@ -14,6 +14,7 @@
 | REF-F03b | NIST | SP 800-218 SSDF | 1.1 | 2022 | FINAL | NO | https://csrc.nist.gov/pubs/sp/800/218/final | TECHNICAL_BENCHMARK | W13 CI/CD |
 | REF-F03c | NIST | SP 800-61 Rev.3 | Rev.3 | 2024 | FINAL | NO | https://csrc.nist.gov/pubs/sp/800/61/r3/final | TECHNICAL_BENCHMARK | W16 IR |
 | REF-F03d | NIST | AI RMF 1.0 | 1.0 | 2023 | FINAL | NO | https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence | TECHNICAL_BENCHMARK | W6 AI/ML |
+| REF-F03e | NIST | SP 800-218A SSDF AI Profile | 1.0 | 2024-06 | FINAL | NO | https://csrc.nist.gov/pubs/sp/800/218/a/final | TECHNICAL_BENCHMARK | W6 AI/ML (Phase 3 complement) |
 | REF-F04 | ISO/IEC | 25010 Product Quality | 2023 | 2023 | FINAL | NO | https://www.iso.org/ | TECHNICAL_BENCHMARK | W10 Frontend |
 | REF-F04a | ISO/IEC | 27001 ISMS | 2022 | 2022 | FINAL | NO | https://www.iso.org/ | TECHNICAL_BENCHMARK | W7 Security |
 | REF-F04b | ISO | 22301 BCMS | 2019 | 2019 | FINAL | NO | https://www.iso.org/ | INSTITUTIONAL_BENCHMARK | W15/W16 |

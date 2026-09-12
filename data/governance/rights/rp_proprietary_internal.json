@@ -1,0 +1,11 @@
+{
+  "profile_id": "rp_proprietary_internal",
+  "storage_allowed": true,
+  "derived_use_allowed": true,
+  "training_allowed": true,
+  "redistribution_allowed": false,
+  "api_resale_allowed": false,
+  "licensing_allowed": false,
+  "retention_max_days": null,
+  "enforcement": "block_export_without_profile"
+}

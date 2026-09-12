@@ -1,0 +1,8 @@
+{"membership_id": "mem_4c9649b219", "org_id": "org_9156e0c6a2e8", "email": "owner@dd.example", "role": "admin", "status": "active", "joined_at": "2026-09-11T00:50:07.478693+00:00"}
+{"membership_id": "mem_89dde27dcd", "org_id": "org_9156e0c6a2e8", "email": "analyst@dd.example", "role": "analyst", "status": "active", "joined_at": "2026-09-11T00:50:07.479334+00:00"}
+{"membership_id": "mem_5ce0bf9476", "org_id": "org_a4bc88fe5d7c", "email": "mfa.owner@dd.example", "role": "admin", "status": "active", "joined_at": "2026-09-11T00:50:07.481842+00:00"}
+{"membership_id": "mem_527c427d40", "org_id": "org_dc8fb6c954a5", "email": "sso.owner@dd.example", "role": "admin", "status": "active", "joined_at": "2026-09-11T00:50:07.484211+00:00"}
+{"membership_id": "mem_dec838376d", "org_id": "org_dc8fb6c954a5", "email": "sso.user@dd.example", "role": "analyst", "status": "active", "joined_at": "2026-09-11T00:50:07.502319+00:00"}
+{"membership_id": "mem_b4ff5acbc2", "org_id": "org_22d664b2f3f8", "email": "owner@auth0.example", "role": "admin", "status": "active", "joined_at": "2026-09-11T00:50:09.245086+00:00"}
+{"membership_id": "mem_3a7ef831e5", "org_id": "org_e210e83cb4e1", "email": "owner@auth0.example", "role": "admin", "status": "active", "joined_at": "2026-09-11T00:50:09.368432+00:00"}
+{"membership_id": "mem_c3f684d1da", "org_id": "org_e210e83cb4e1", "email": "user@auth0.example", "role": "analyst", "status": "active", "joined_at": "2026-09-11T00:50:09.385607+00:00"}

@@ -1,0 +1,352 @@
+[
+  {
+    "id": 151,
+    "capability": "Quarterly Protocol Performance Reports",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 152,
+    "capability": "Governance & Proposal Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 153,
+    "capability": "Project Monitoring Coverage Registry",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 154,
+    "capability": "AI Crypto Copilot",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 155,
+    "capability": "AI Deep Research",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 156,
+    "capability": "Crypto Knowledge Graph",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 157,
+    "capability": "Research Library",
+    "track": "T17",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 158,
+    "capability": "Institutional Research Feed",
+    "track": "T02",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 159,
+    "capability": "API Data Platform",
+    "track": "T15",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 160,
+    "capability": "Pay-Per-Request Data Access",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Entitlement/authentication/billing surface (WF-015 pattern)"
+  },
+  {
+    "id": 161,
+    "capability": "Institutional Data Delivery & Entitlements",
+    "track": "T16",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 162,
+    "capability": "Evidence & Provenance Layer",
+    "track": "T15",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 163,
+    "capability": "Cross-Domain Research-to-Decision Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 164,
+    "capability": "Token Unlock Actionability Score",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 165,
+    "capability": "Fundraising Momentum Score",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 166,
+    "capability": "Research Confidence Score",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 167,
+    "capability": "Social Volume Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 168,
+    "capability": "Social Dominance Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 169,
+    "capability": "Unique Social Volume",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 170,
+    "capability": "Trending Words",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 171,
+    "capability": "Trending Coins",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 172,
+    "capability": "Historical Crypto Trends",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 173,
+    "capability": "Key Narratives Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 174,
+    "capability": "Alpha Narratives Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 175,
+    "capability": "Social Sentiment Intelligence",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 175 — mandatory full audit"
+  },
+  {
+    "id": 176,
+    "capability": "Weighted Social Sentiment",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 177,
+    "capability": "Social Sentiment Balance",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 178,
+    "capability": "Social Source Breakdown",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 179,
+    "capability": "Development Activity Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 180,
+    "capability": "Development Activity Contributors",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 181,
+    "capability": "Ecosystem Development Dashboard",
+    "track": "T15",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 182,
+    "capability": "Developer Activity Change Detection",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 183,
+    "capability": "Whale Transaction Intelligence",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 184,
+    "capability": "Whale & Shark Holder Cohorts",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 185,
+    "capability": "Top Holders Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 186,
+    "capability": "Historical Wallet Balance Tool",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 187,
+    "capability": "Exchange Inflow Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 188,
+    "capability": "Exchange Outflow Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 189,
+    "capability": "Exchange Netflow Intelligence",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 190,
+    "capability": "Exchange Supply / Balance Intelligence",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 191,
+    "capability": "Exchange User Activity",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 192,
+    "capability": "Network Activity Intelligence",
+    "track": "T14",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 193,
+    "capability": "Transaction Volume Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 194,
+    "capability": "NVT Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 195,
+    "capability": "MVRV Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 196,
+    "capability": "Realized Cap / Realized Value Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 197,
+    "capability": "Daily Active Addresses",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 198,
+    "capability": "Age Consumed / Dormancy Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 199,
+    "capability": "Mean Dollar Invested Age",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 200,
+    "capability": "Token Circulation Intelligence",
+    "track": "T11",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  }
+]

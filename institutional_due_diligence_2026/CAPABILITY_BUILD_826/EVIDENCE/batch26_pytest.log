@@ -1,0 +1,2217 @@
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE [ 96%]
+EEE                                                                      [100%]
+==================================== ERRORS ====================================
+__________ ERROR at setup of test_build_batch26_runtime_success[626] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:926: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+------------------------------ Captured log setup ------------------------------
+ERROR    database:database.py:575 Database transaction failed; rolled back.
+Traceback (most recent call last):
+  File "/workspace/database.py", line 571, in get_connection
+    yield db
+  File "/workspace/database.py", line 595, in init_db
+    await _apply_migrations(db)
+  File "/workspace/database.py", line 836, in _apply_migrations
+    await db.execute(
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 183, in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 122, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 105, in run
+    result = function()
+             ^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+ERROR    database:database.py:598 Failed to initialise database
+Traceback (most recent call last):
+  File "/workspace/database.py", line 595, in init_db
+    await _apply_migrations(db)
+  File "/workspace/database.py", line 836, in _apply_migrations
+    await db.execute(
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 183, in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 122, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 105, in run
+    result = function()
+             ^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[627] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[628] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[629] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[630] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[631] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[632] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[633] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[634] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[635] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[636] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[637] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[638] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[639] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[640] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[641] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[642] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[643] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[644] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[645] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[646] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[647] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[648] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[649] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+__________ ERROR at setup of test_build_batch26_runtime_success[650] ___________
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[626] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[627] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[628] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[629] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[630] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[631] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[632] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[633] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[634] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[635] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[636] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[637] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[638] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[639] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[640] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[641] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[642] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[643] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[644] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[645] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[646] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[647] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[648] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[649] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+_______ ERROR at setup of test_build_batch26_bcbs_provenance_fields[650] _______
+.venv/lib/python3.12/site-packages/pytest_asyncio/plugin.py:558: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[626] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[627] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[628] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[629] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[630] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[631] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[632] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[633] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[634] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[635] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[636] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[637] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[638] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[639] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[640] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[641] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[642] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[643] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[644] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[645] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[646] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[647] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[648] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[649] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+____________ ERROR at setup of test_build_batch26_hero_binding[650] ____________
+tests/conftest.py:61: in _bootstrap_database_schema
+    asyncio.run(database.init_db())
+/usr/lib/python3.12/asyncio/runners.py:194: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/asyncio/base_events.py:687: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+database.py:595: in init_db
+    await _apply_migrations(db)
+database.py:836: in _apply_migrations
+    await db.execute(
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:183: in execute
+    cursor = await self._execute(self._conn.execute, sql, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+             ^^^^^^^^^^
+E   sqlite3.OperationalError: database is locked
+=========================== short test summary info ============================
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[626]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[627]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[628]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[629]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[630]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[631]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[632]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[633]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[634]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[635]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[636]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[637]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[638]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[639]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[640]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[641]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[642]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[643]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[644]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[645]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[646]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[647]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[648]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[649]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_runtime_success[650]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[626]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[627]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[628]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[629]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[630]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[631]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[632]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[633]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[634]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[635]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[636]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[637]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[638]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[639]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[640]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[641]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[642]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[643]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[644]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[645]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[646]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[647]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[648]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[649]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_bcbs_provenance_fields[650]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[626]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[627]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[628]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[629]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[630]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[631]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[632]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[633]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[634]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[635]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[636]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[637]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[638]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[639]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[640]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[641]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[642]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[643]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[644]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[645]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[646]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[647]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[648]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[649]
+ERROR tests/cap646/test_capability_build_batch26.py::test_build_batch26_hero_binding[650]

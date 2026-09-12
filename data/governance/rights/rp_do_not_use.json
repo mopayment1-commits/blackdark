@@ -1,0 +1,10 @@
+{
+  "profile_id": "rp_do_not_use",
+  "storage_allowed": false,
+  "derived_use_allowed": false,
+  "training_allowed": false,
+  "redistribution_allowed": false,
+  "api_resale_allowed": false,
+  "licensing_allowed": false,
+  "enforcement": "hard_block_all_paths"
+}

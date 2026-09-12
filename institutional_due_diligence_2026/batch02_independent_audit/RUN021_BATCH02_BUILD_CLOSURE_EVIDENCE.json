@@ -1,0 +1,755 @@
+{
+  "generated_at": "2026-09-12T03:29:09.802154+00:00",
+  "run": "021_batch02_build_closure_batch04",
+  "scope": "build_batch_04_ids_76_100",
+  "non_regression": {
+    "met": true,
+    "batch04_build_pytest": {
+      "generated_at": "2026-09-12T03:28:36.514075+00:00",
+      "scope": "build_batch_04_ids_76_100",
+      "command": "/workspace/.venv/bin/python -m pytest tests/cap646/test_capability_build_batch01.py tests/cap646/test_capability_build_batch02.py tests/cap646/test_capability_build_batch03.py tests/cap646/test_capability_build_batch04.py -q --tb=short",
+      "exit_code": 0,
+      "log_path": "institutional_due_diligence_2026/CAPABILITY_BUILD_826/EVIDENCE/batch04_pytest.log",
+      "commit": "af778834",
+      "met": true
+    },
+    "affected_batches": [
+      "batch02"
+    ],
+    "evidence_mapping": "tests/cap646/test_capability_build_batch04.py → IDs 76–100"
+  },
+  "bcbs_remediation": {
+    "generated_at": "2026-09-12T03:28:36.678530+00:00",
+    "fix": "cap646.batch02_production._stamp_batch02 (Run 021 build batch 03)",
+    "per_id": {
+      "76": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "77": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "78": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "79": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "80": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "81": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "82": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "83": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "84": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "85": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "86": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "87": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "88": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "89": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "90": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "91": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "92": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "93": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "94": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "95": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "96": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "97": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "98": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "99": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "100": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      }
+    }
+  },
+  "bcbs": {
+    "generated_at": "2026-09-12T03:28:36.678530+00:00",
+    "fix": "cap646.batch02_production._stamp_batch02 (Run 021 build batch 03)",
+    "per_id": {
+      "76": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "77": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "78": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "79": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "80": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "81": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "82": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "83": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "84": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "85": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "86": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "87": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "88": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "89": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "90": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "91": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "92": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "93": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "94": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "95": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "96": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "97": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "98": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "99": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "100": {
+        "data_source": true,
+        "timestamp": true,
+        "quality": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      }
+    }
+  },
+  "prior_run007": {
+    "generated_at": "2026-09-11T22:08:59.157837+00:00",
+    "conceptual_unsound_remediation": {
+      "52": {
+        "path": "A",
+        "production_spine": "batch02",
+        "surface": "cross_asset_return_breadth",
+        "success": true,
+        "payload_sample": {
+          "ok": true,
+          "capability_id": 565,
+          "symbol": "BTC",
+          "timestamp": "2026-09-11T22:08:59.159416+00:00",
+          "disclaimer": "Analysis only — not financial advice, guarantee, or execution.",
+          "analysis_only": true,
+          "no_execution": true,
+          "cross_asset": 4237.8,
+          "feature": "Cross-Asset Correlation",
+          "attribution": "BLACKDARK institutional delivery intelligence layer",
+          "formula_visible": true,
+          "breadth_score": 0.5
+        }
+      },
+      "53": {
+        "path": "A",
+        "production_spine": "batch02",
+        "surface": "btc_to_macro_coupling",
+        "success": true,
+        "payload_sample": {
+          "btc_symbol": "BTC",
+          "btc_change_24h_pct": -0.101,
+          "macro_regime": "Neutral",
+          "dxy_score": 0.1328,
+          "spx_score": -0.405,
+          "coupling_coefficient": null,
+          "coupling_window_days": 30,
+          "coupling_samples": 0,
+          "coupling_method": "pearson_daily_returns_yahoo",
+          "coupling_read": "insufficient_history"
+        }
+      },
+      "54": {
+        "path": "A",
+        "production_spine": "batch02",
+        "surface": "global_liquidity_intelligence",
+        "success": true,
+        "payload_sample": {
+          "aggregated_quote_volume_24h_usd": 0,
+          "liquidity_label": "Low",
+          "liquidity_score": 38,
+          "measured_assets": 0,
+          "methodology": "sum_reference_basket_quote_volume_24h",
+          "data_source": "websocket_empty"
+        }
+      },
+      "81": {
+        "path": "A",
+        "production_spine": "batch02",
+        "surface": "whale_accumulation_distribution_intelligence",
+        "success": true,
+        "payload_sample": {
+          "accumulation_signals": 0,
+          "distribution_signals": 0,
+          "accumulation_notional_usd": 0.0,
+          "distribution_notional_usd": 0.0,
+          "classification_method": "notional_usd_and_direction_fields",
+          "notional_threshold_usd": 1000000.0,
+          "classified_alerts": []
+        }
+      }
+    },
+    "cross_spine": {
+      "55": {
+        "production_spine": "batch02",
+        "backend_module": "cap646.batch02_production",
+        "surface": "nvt_fair_value_model",
+        "success": true,
+        "routing_correct": true
+      },
+      "56": {
+        "production_spine": "batch02",
+        "backend_module": "cap646.batch02_production",
+        "surface": "token_screener",
+        "success": true,
+        "routing_correct": true
+      },
+      "59": {
+        "production_spine": "batch02",
+        "backend_module": "cap646.batch02_production",
+        "surface": "personalized_research_dashboards",
+        "success": true,
+        "routing_correct": true
+      },
+      "60": {
+        "production_spine": "batch02",
+        "backend_module": "cap646.batch02_production",
+        "surface": "metric_based_smart_alerts",
+        "success": true,
+        "routing_correct": true
+      }
+    },
+    "performance_unverifiable": {
+      "66": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 330,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "69": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 330,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "90": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 330,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "97": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 330,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      },
+      "98": {
+        "status": "PERFORMANCE-UNVERIFIABLE",
+        "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
+        "ledger_unique_decisions": 330,
+        "ledger_simulated_only": true,
+        "runtime_success": true
+      }
+    },
+    "cross_spine_scan": {
+      "scan_at": "2026-09-11T22:09:07.298898+00:00",
+      "rule": "CROSS-SPINE-001",
+      "total_overlapping_ids": 0,
+      "overlaps": [],
+      "batch01_batch02": [],
+      "batch01_batch03": [],
+      "batch02_batch03": [],
+      "literal_definitions": {
+        "OFFICIAL_BATCH01_IDS": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50
+        ],
+        "LEGACY_BATCH01_EXTENSION_IDS": [],
+        "BATCH01_IDS": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50
+        ],
+        "BATCH02_IDS": [
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100
+        ],
+        "BATCH03_IDS": [
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150
+        ],
+        "runtime_check_order": [
+          "BATCH01_IDS",
+          "BATCH02_IDS",
+          "BATCH03_IDS"
+        ]
+      },
+      "run007_batch02_cross_spine_fixed": [
+        55,
+        56,
+        59,
+        60
+      ],
+      "remaining_findings_outside_batch02": []
+    }
+  },
+  "independent_audit_exit_code": 0
+}

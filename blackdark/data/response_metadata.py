@@ -87,4 +87,14 @@ def dataset_response(
         body["freshness_sla_seconds"] = sla
     if extra:
         body.update(extra)
+    from blackdark.data_governance.runtime import enforce_data_state_for_decision
+
+    quality = enforce_data_state_for_decision(
+        dataset=dataset,
+        count=count,
+        latest_record_at=latest_record_at,
+    )
+    body["governance_quality"] = quality
+    if quality.get("degraded"):
+        body["confidence_cap"] = 0.0 if quality.get("data_state") == "MISSING" else 0.3
     return body

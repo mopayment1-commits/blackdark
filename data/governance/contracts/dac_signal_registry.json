@@ -1,0 +1,48 @@
+{
+  "asset_id": "dac_signal_registry",
+  "canonical_name": "Signal Registry",
+  "owner": "platform-intelligence",
+  "purpose": "Accumulate governed signal lexicon with provenance for compounding intelligence",
+  "consumers": [
+    "decision_ledger",
+    "oracle",
+    "cap646",
+    "evidence_room"
+  ],
+  "schema_version": "1.0.0",
+  "event_time_field": "asof",
+  "ingest_time_field": "recorded_at",
+  "freshness_sla_seconds": 300,
+  "completeness_threshold": 0.95,
+  "validity_rules": {
+    "required": [
+      "signal_id",
+      "signal_type",
+      "evidence_class"
+    ]
+  },
+  "uniqueness_key": "signal_id",
+  "reconciliation_policy": "append_only_dedupe_by_id",
+  "missing_corrupt_behavior": "degrade_confidence_no_silent_zero",
+  "lineage_upstream": [
+    "oracle",
+    "arbitrage_engine",
+    "whale_signal_classifier"
+  ],
+  "rights_profile_id": "rp_proprietary_internal",
+  "retention_class": "rc_operational_hot",
+  "fallback_policy": "return_empty_with_data_state",
+  "monitoring_hooks": [
+    "signal_registry.registry_stats"
+  ],
+  "evidence_refs": [
+    "data/signal_registry.jsonl",
+    "signal_registry.py"
+  ],
+  "storage_tier": "HOT",
+  "security_classification": "internal",
+  "failure_behavior": "degrade_not_fake_live",
+  "physical_path": "data/signal_registry.jsonl",
+  "contract_version": "1.0.0",
+  "materialized_at": "2026-09-12T14:02:50.295128+00:00"
+}

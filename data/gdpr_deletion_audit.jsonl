@@ -1,0 +1,2 @@
+{"request_id": "del_c8c860edfb", "user_email": "a@b.com", "requested_at": "2026-09-11T00:50:55.121136+00:00", "scheduled_completion": "2026-10-11T00:50:55.121126+00:00", "grace_days": 30, "status": "scheduled", "append_only": true}
+{"request_id": "del_1bd6a06ef7", "user_email": "user@example.com", "requested_at": "2026-09-11T00:50:55.138612+00:00", "scheduled_completion": "2026-10-11T00:50:55.138604+00:00", "grace_days": 30, "status": "scheduled", "append_only": true}

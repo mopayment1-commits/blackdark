@@ -256,10 +256,20 @@ def _record_platform_compounding(
     surface: str = "oracle",
 ) -> None:
     try:
-        from cap646.evidence_class import infer_evidence_class
-        from decision_certificate import build_decision_certificate
         from decision_ledger import link_exposure, record_decision
         from user_exposure_log import record_user_exposure
+        from blackdark.data_governance.runtime import enforce_data_state_for_decision, GovernanceViolationError
+
+        quality = enforce_data_state_for_decision(
+            dataset="oracle_decision",
+            count=1 if out.get("prediction_id") or out.get("verdict") else 0,
+            latest_record_at=str(out.get("timestamp") or out.get("created_at") or ""),
+        )
+        out["governance_quality"] = quality
+        if quality.get("data_state") == "MISSING":
+            raise GovernanceViolationError("decision_data_missing", "oracle_decision")
+        from cap646.evidence_class import infer_evidence_class
+        from decision_certificate import build_decision_certificate
 
         prediction_id = str(
             out.get("prediction_id")

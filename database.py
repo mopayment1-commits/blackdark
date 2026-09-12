@@ -2271,6 +2271,11 @@ async def insert_oracle_prediction(
         )
         return 0
 
+    from blackdark.data_governance.runtime import enforce_replay_framing, enforce_rights_for_contract
+
+    enforce_rights_for_contract("dac_oracle_audit_chain", "storage")
+    enforce_replay_framing(source=source)
+
     ts = timestamp or _utcnow_iso()
     regime = (market_regime or "neutral").strip().lower() or "neutral"
     async with get_connection() as db:
@@ -2365,6 +2370,13 @@ async def resolve_oracle_prediction(
     direction_label: str | None = None,
     resolved_at: str | None = None,
 ) -> None:
+    from blackdark.data_governance.runtime import enforce_oracle_outcome_resolution
+
+    outcome_meta = enforce_oracle_outcome_resolution(
+        prediction_id=prediction_id,
+        outcome=outcome,
+        accuracy_score=accuracy_score,
+    )
     async with get_connection() as db:
         row = await (
             await db.execute(
@@ -2415,6 +2427,7 @@ async def resolve_oracle_prediction(
             )
         except Exception:
             logger.debug("Track record append skipped on resolve", exc_info=True)
+        logger.debug("oracle_outcome_governance | prediction_id=%s meta=%s", prediction_id, outcome_meta)
 
 
 def _empty_oracle_audit_stats() -> dict[str, Any]:

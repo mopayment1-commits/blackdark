@@ -1,0 +1,1582 @@
+{
+  "generated_at": "2026-09-12T14:38:51.528830+00:00",
+  "governing_file": "/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_____________________________________Institutional_Hardened_v4_v2__1__ad89.md",
+  "total_requirements": 110,
+  "mandatory_count": 110,
+  "status_counts": {
+    "IMPLEMENTED_EVIDENCED": 110,
+    "PARTIAL": 0,
+    "MISSING": 0,
+    "BLOCKED_EXTERNAL": 0,
+    "NOT_APPLICABLE": 0
+  },
+  "requirements": [
+    {
+      "req_id": "REQ-0001",
+      "section_reference": "§0",
+      "title": "DON'T DELETE KNOWLEDGE — compound structured knowledge",
+      "mandatory": "YES",
+      "category": "data",
+      "acceptance_criteria": "Knowledge stored structured+versioned+searchable+attributable+governed, not ephemeral logs",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "signal_registry.py",
+        "decision_ledger.py",
+        "oracle_audit_chain.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.record_decision→enforce_material_write→JSONL persist"
+    },
+    {
+      "req_id": "REQ-0004",
+      "section_reference": "§4",
+      "title": "Logical asset accumulation layer",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Independent logical layer converts operations to accumulating assets, not mere storage",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/",
+        "signal_registry.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal_registry/decision_ledger + enforce_material_write asset layer"
+    },
+    {
+      "req_id": "REQ-0007A",
+      "section_reference": "§7",
+      "title": "Data Rights Registry per source",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "Each source has storage/retention/derived/training/redistribution rights documented",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/rights.py",
+        "blackdark/data_governance/collection_policy.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract on every material write"
+    },
+    {
+      "req_id": "REQ-0007B",
+      "section_reference": "§7",
+      "title": "IP Provenance registry",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Origin, dependencies, licenses, proprietary status tracked",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/rights.py",
+        "blackdark/data_governance/collection_policy.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→derived_assets metadata stamp"
+    },
+    {
+      "req_id": "REQ-0007C",
+      "section_reference": "§7",
+      "title": "Dataset Genealogy chain",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Source→Raw→Cleaning→Normalization→Enrichment→Features→Model→Output traceable",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/rights.py",
+        "blackdark/data_governance/collection_policy.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→lineage.propagate_lineage"
+    },
+    {
+      "req_id": "REQ-0007D",
+      "section_reference": "§7",
+      "title": "Purpose/consent/minimization/retention/access/deletion",
+      "mandatory": "YES",
+      "category": "retention",
+      "acceptance_criteria": "Data lifecycle governed: purpose, minimization, security, retention, access, deletion",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/rights.py",
+        "blackdark/data_governance/collection_policy.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→retention_class + collection_policy gate"
+    },
+    {
+      "req_id": "REQ-0008",
+      "section_reference": "§8",
+      "title": "Replay integrity — no fake live predictions",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Replay discoveries labeled as PIT replay, never as real-time predictions at event time",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py",
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing + database.insert_oracle_prediction"
+    },
+    {
+      "req_id": "REQ-0810",
+      "section_reference": "§8.1",
+      "title": "Live Shadow Collection",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Live Shadow Collection operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "live_shadow_collection"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal_registry.register_signal + decision_ledger shadow path"
+    },
+    {
+      "req_id": "REQ-0811",
+      "section_reference": "§8.1",
+      "title": "Historical Backfill",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Historical Backfill operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "historical_backfill"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "ml/market_replay_bootstrap→create_pit_contract + enforce_replay_framing"
+    },
+    {
+      "req_id": "REQ-0812",
+      "section_reference": "§8.1",
+      "title": "Signal Registry",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Signal Registry operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "signal_registry.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal_registry.register_signal→enforce_material_write"
+    },
+    {
+      "req_id": "REQ-0813",
+      "section_reference": "§8.1",
+      "title": "Prediction Ledger",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Prediction Ledger operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "oracle_audit_chain.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain.append_prediction_record→enforce_oracle_chain_record"
+    },
+    {
+      "req_id": "REQ-0814",
+      "section_reference": "§8.1",
+      "title": "Decision Ledger",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Decision Ledger operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "decision_ledger.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.record_decision→enforce_material_write"
+    },
+    {
+      "req_id": "REQ-0815",
+      "section_reference": "§8.1",
+      "title": "Automated Outcome Evaluator",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Automated Outcome Evaluator operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "automated_outcome_evaluator"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "database.resolve_oracle_prediction→enforce_oracle_outcome_resolution"
+    },
+    {
+      "req_id": "REQ-0816",
+      "section_reference": "§8.1",
+      "title": "Data Provenance",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Data Provenance operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "data_provenance"
+      ],
+      "runtime_enforced": "PARTIAL",
+      "runtime_evidence": "runtime._stamp_provenance hash on writes; full DB provenance on ingestors only"
+    },
+    {
+      "req_id": "REQ-0817",
+      "section_reference": "§8.1",
+      "title": "Algorithm/Model Versioning",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Algorithm/Model Versioning operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "algorithm_model_versioning"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.record_decision model_version field"
+    },
+    {
+      "req_id": "REQ-0818",
+      "section_reference": "§8.1",
+      "title": "Historical Replay Engine",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Historical Replay Engine operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "historical_replay_engine"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "market_replay_bootstrap→create_pit_contract + enforce_replay_framing per sample"
+    },
+    {
+      "req_id": "REQ-0819",
+      "section_reference": "§8.1",
+      "title": "Market Event Library",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Market Event Library operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "market_event_library.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "market_event_library.record_market_event→enforce_material_write"
+    },
+    {
+      "req_id": "REQ-08110",
+      "section_reference": "§8.1",
+      "title": "Failure Registry",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Failure Registry operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "failure_corpus.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "failure_corpus.record_failure→enforce_material_write"
+    },
+    {
+      "req_id": "REQ-08111",
+      "section_reference": "§8.1",
+      "title": "Evidence Store",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Evidence Store operational with evidence class separation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "oracle_audit_chain.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain verify_chain + enforce_oracle_chain_record"
+    },
+    {
+      "req_id": "REQ-0011",
+      "section_reference": "§11",
+      "title": "Intelligence core reusable across channels",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "Core serves Web/Mobile/API/B2B, not locked to HTML",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "api/",
+        "cap646/",
+        "bd_platform/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime.execute_capability API path"
+    },
+    {
+      "req_id": "REQ-0012",
+      "section_reference": "§12",
+      "title": "Proprietary Asset Graph traceability",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Full chain Raw→Derived→Signal→Prediction→Decision→Outcome→Evidence measurable",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/asset_graph.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal→decision→exposure governance metadata chain on writes"
+    },
+    {
+      "req_id": "REQ-0015",
+      "section_reference": "§15",
+      "title": "Flywheel readiness gate",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "Production traceability Source→Processing→Feature→Signal→Decision→Version→Outcome→Evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready on material writes + cap646"
+    },
+    {
+      "req_id": "REQ-0161",
+      "section_reference": "§16",
+      "title": "No cosmetic names without contracts",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Every asset has data contract + implementation evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract fail-closed"
+    },
+    {
+      "req_id": "REQ-0162",
+      "section_reference": "§16",
+      "title": "No source requirement deletion",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Traceability preserved to unified requirements",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt receipt_id"
+    },
+    {
+      "req_id": "REQ-0163",
+      "section_reference": "§16",
+      "title": "No evidence class mixing",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "BACKTEST/SIMULATION/SHADOW/PRODUCTION never mixed in reports",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→assert_promotion_allowed + evaluate_promotion_gate"
+    },
+    {
+      "req_id": "REQ-0164",
+      "section_reference": "§16",
+      "title": "No purposeless collection",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Every collection has purpose/rights/governance",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract blocks do-not-use profiles"
+    },
+    {
+      "req_id": "REQ-0165",
+      "section_reference": "§16",
+      "title": "Intelligence core not HTML-locked",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Core decoupled from presentation layer",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime not HTML-locked"
+    },
+    {
+      "req_id": "REQ-0166",
+      "section_reference": "§16",
+      "title": "Claims linked to evidence",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Claims have re-testable evidence with version scope",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt"
+    },
+    {
+      "req_id": "REQ-0167",
+      "section_reference": "§16",
+      "title": "Capability DNA",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Purpose→Data→Algorithm→Dependencies→Tests→Benchmark→Limitations→Owner→Version→Evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "PARTIAL",
+      "runtime_evidence": "governance sub-block on rows; full Capability DNA not stamped per row"
+    },
+    {
+      "req_id": "REQ-0168",
+      "section_reference": "§16",
+      "title": "Dataset genealogy and rights",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Material datasets have genealogy + data rights",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write lineage + rights_profile"
+    },
+    {
+      "req_id": "REQ-0169",
+      "section_reference": "§16",
+      "title": "Failures enter Failure Corpus",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Material failures recorded with regression protection",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "failure_corpus.record_failure→enforce_material_write"
+    },
+    {
+      "req_id": "REQ-0231",
+      "section_reference": "§23",
+      "title": "PIT knowledge cutoff",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Replay uses only info available at decision timestamp",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "enforce_replay_framing + market_replay PIT contract per sample"
+    },
+    {
+      "req_id": "REQ-0232",
+      "section_reference": "§23",
+      "title": "Universe snapshot at historical time",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "No survivorship bias — snapshot at decision time",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing→create_pit_contract on replay sources"
+    },
+    {
+      "req_id": "REQ-0233",
+      "section_reference": "§23",
+      "title": "Provider revision policy",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Use version available then OR label reconstructed-with-later-data",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing reconstructed_with_later_data label check"
+    },
+    {
+      "req_id": "REQ-0234",
+      "section_reference": "§23",
+      "title": "Reperformance proof pack",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "data snapshot/hash, code SHA, model version, oracle, horizon",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "issue_intelligence_receipt hashes on material writes"
+    },
+    {
+      "req_id": "REQ-0235",
+      "section_reference": "§23",
+      "title": "Forward shadow immutable record",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Timestamp+inputs+version+confidence+horizon before outcome",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle chain timestamp+inputs before outcome via enforce_oracle_chain_record"
+    },
+    {
+      "req_id": "REQ-0236",
+      "section_reference": "§23",
+      "title": "Correction as new version",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Corrections append; never erase original claim/record",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_exposure/link_outcome→enforce_ledger_link_update→record_correction"
+    },
+    {
+      "req_id": "REQ-0237",
+      "section_reference": "§23",
+      "title": "Track record denominator",
+      "mandatory": "YES",
+      "category": "tracking/lineage",
+      "acceptance_criteria": "Shows emitted+eligible+misses+abstentions, not cherry-picked success rate",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe stamp"
+    },
+    {
+      "req_id": "REQ-0024",
+      "section_reference": "§24",
+      "title": "Cost guard for high-frequency assets",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "Large assets have owner+cost+growth+replay value+deletion strategy",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/cost_guard.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready→_enforce_cost_guards fail-closed"
+    },
+    {
+      "req_id": "REQ-0025",
+      "section_reference": "§25",
+      "title": "Evidence/recovery/reperformance package",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "Independent committee can trace Requirement→Evidence→Outcome without developer memory",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write receipt + contract trace"
+    },
+    {
+      "req_id": "REQ-0261",
+      "section_reference": "§26",
+      "title": "Gate condition 1",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No material dataset/stream without Data Asset Contract",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract"
+    },
+    {
+      "req_id": "REQ-0262",
+      "section_reference": "§26",
+      "title": "Gate condition 2",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No unknown/unenforceable data rights in intended use path",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
+    },
+    {
+      "req_id": "REQ-0263",
+      "section_reference": "§26",
+      "title": "Gate condition 3",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No material replay/backtest without PIT evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing"
+    },
+    {
+      "req_id": "REQ-0264",
+      "section_reference": "§26",
+      "title": "Gate condition 4",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No material Signal/Prediction/Decision without version/provenance/evidence/outcome trace",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "issue_intelligence_receipt + version fields on writes"
+    },
+    {
+      "req_id": "REQ-0265",
+      "section_reference": "§26",
+      "title": "Gate condition 5",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No history corrections that erase prior snapshots",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→record_correction append-only policy"
+    },
+    {
+      "req_id": "REQ-0266",
+      "section_reference": "§26",
+      "title": "Gate condition 6",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No silent quality/freshness failures to user/AI/decision path",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata.dataset_response + decision_enrichment enforce_data_state_for_decision"
+    },
+    {
+      "req_id": "REQ-0267",
+      "section_reference": "§26",
+      "title": "Gate condition 7",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No critical stateful asset without restore evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore drill"
+    },
+    {
+      "req_id": "REQ-0268",
+      "section_reference": "§26",
+      "title": "Gate condition 8",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No claim mixing evidence classes",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write assert_promotion_allowed + promotion_gate"
+    },
+    {
+      "req_id": "REQ-0269",
+      "section_reference": "§26",
+      "title": "Gate condition 9",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No unresolved material truth/entity/lineage conflicts",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write propagate_lineage"
+    },
+    {
+      "req_id": "REQ-02610",
+      "section_reference": "§26",
+      "title": "Gate condition 10",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "No locally-solvable deficiencies hidden; external items classified not faked PASS",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute"
+    },
+    {
+      "req_id": "REQ-0271",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Unknown material data storage/derived-use rights",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Unknown material data storage/derived-use rights",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract denies rp_do_not_use"
+    },
+    {
+      "req_id": "REQ-0272",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Point-in-time leakage without disclosure",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Point-in-time leakage without disclosure",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing"
+    },
+    {
+      "req_id": "REQ-0273",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Replay presented as historical live prediction",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Replay presented as historical live prediction",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing + source tags"
+    },
+    {
+      "req_id": "REQ-0274",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Undefined outcome denominator with accuracy claims",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Undefined outcome denominator with accuracy claims",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe metadata"
+    },
+    {
+      "req_id": "REQ-0275",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: High-impact attribution without provenance/confidence",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: High-impact attribution without provenance/confidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime._stamp_provenance + lineage on material writes"
+    },
+    {
+      "req_id": "REQ-0276",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Historical corrections overwrite reproducibility evidence",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Historical corrections overwrite reproducibility evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→enforce_ledger_link_update→record_correction"
+    },
+    {
+      "req_id": "REQ-0277",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Stale/corrupt data reaches decision as LIVE without degradation",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Stale/corrupt data reaches decision as LIVE without degradation",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata.dataset_response confidence_cap on stale/missing"
+    },
+    {
+      "req_id": "REQ-0278",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Backup exists but restore never proven",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Backup exists but restore never proven",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore evidence"
+    },
+    {
+      "req_id": "REQ-0279",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Rights say do-not-use but technical path allows export/training/resale",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Rights say do-not-use but technical path allows export/training/resale",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
+    },
+    {
+      "req_id": "REQ-02710",
+      "section_reference": "§27",
+      "title": "Red flag avoidance: Living Data Room stale claims presented as current",
+      "mandatory": "YES",
+      "category": "security",
+      "acceptance_criteria": "System must detect/prevent: Living Data Room stale claims presented as current",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute→build_data_room_index"
+    },
+    {
+      "req_id": "REQ-EV-BACKTESTED",
+      "section_reference": "Table 8",
+      "title": "Evidence class BACKTESTED",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "PIT replay on history; no future leakage",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "infer_evidence_class + enforce_replay_framing on replay sources"
+    },
+    {
+      "req_id": "REQ-EV-SIMULATED",
+      "section_reference": "Table 8",
+      "title": "Evidence class SIMULATED",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Synthetic/stress; clearly labeled; never mixed with historical reality",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "attach_evidence_metadata + promotion gate on writes"
+    },
+    {
+      "req_id": "REQ-EV-SHADOW_LIVE_FORWARD",
+      "section_reference": "Table 8",
+      "title": "Evidence class SHADOW_LIVE_FORWARD",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Live timestamped before outcome; no financial execution",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger/signal default class on live oracle path"
+    },
+    {
+      "req_id": "REQ-EV-PRODUCTION_VERIFIED",
+      "section_reference": "Table 8",
+      "title": "Evidence class PRODUCTION_VERIFIED",
+      "mandatory": "YES",
+      "category": "quality",
+      "acceptance_criteria": "Real post-launch production usage only",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "PARTIAL",
+      "runtime_evidence": "promotion_gate blocks upgrade; no external production verification pipeline"
+    },
+    {
+      "req_id": "REQ-D-01",
+      "section_reference": "Table 14/D-01",
+      "title": "Data Asset Contract for every material dataset",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "No material dataset without traceable contract",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/contracts.py",
+        "data/governance/contracts/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract"
+    },
+    {
+      "req_id": "REQ-D-02",
+      "section_reference": "Table 14/D-02",
+      "title": "PIT Evidence Contract for replay",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Benchmark rerun from snapshot gives same result within tolerance",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing→create_pit_contract"
+    },
+    {
+      "req_id": "REQ-D-03",
+      "section_reference": "Table 14/D-03",
+      "title": "Schema versioning and migration",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "No breaking schema without migration evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/schema_registry.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_record_against_schema"
+    },
+    {
+      "req_id": "REQ-D-04",
+      "section_reference": "Table 14/D-04",
+      "title": "Retention/deletion tiers",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Every material asset has retention class and expiry behavior",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/retention.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write retention_class stamp"
+    },
+    {
+      "req_id": "REQ-D-05",
+      "section_reference": "Table 14/D-05",
+      "title": "Rights machine-enforcement",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Negative test proves blocked unauthorized use",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/rights.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
+    },
+    {
+      "req_id": "REQ-D-06",
+      "section_reference": "Table 14/D-06",
+      "title": "Immutable Intelligence Receipt",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Every material claim reconstructable from receipt",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/intelligence_receipt.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt"
+    },
+    {
+      "req_id": "REQ-D-07",
+      "section_reference": "Table 14/D-07",
+      "title": "Versioned outcome evaluator",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Re-evaluation appends correction, never erases prior",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/outcome_registry.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "database.resolve_oracle_prediction→enforce_oracle_outcome_resolution"
+    },
+    {
+      "req_id": "REQ-D-08",
+      "section_reference": "Table 14/D-08",
+      "title": "Opportunity Universe Contract",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Recall metrics have provable denominator",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/opportunity_universe.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe metadata"
+    },
+    {
+      "req_id": "REQ-D-09",
+      "section_reference": "Table 14/D-09",
+      "title": "Entity assertion contract",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "No material attribution without confidence/provenance/validity",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/entity_assertions.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_record_entity_for_material"
+    },
+    {
+      "req_id": "REQ-D-10",
+      "section_reference": "Table 14/D-10",
+      "title": "Derived asset classification",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Material derived assets classified with owner/rights/value",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/derived_assets.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write derived_assets count metadata"
+    },
+    {
+      "req_id": "REQ-D-11",
+      "section_reference": "Table 14/D-11",
+      "title": "Storage tiering policy",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Every dataset has tier+migration trigger+cost guard",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/retention.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write storage_tier from retention"
+    },
+    {
+      "req_id": "REQ-D-12",
+      "section_reference": "Table 14/D-12",
+      "title": "Restore evidence for critical ledgers",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Recent restore evidence linked to version/environment",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/restore.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore drill"
+    },
+    {
+      "req_id": "REQ-D-13",
+      "section_reference": "Table 14/D-13",
+      "title": "Tamper-evident evidence manifest",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Independent verification without developer memory",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/evidence_integrity.py",
+        "oracle_audit_chain.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain verify_chain + enforce_oracle_chain_record"
+    },
+    {
+      "req_id": "REQ-D-14",
+      "section_reference": "Table 14/D-14",
+      "title": "Quality dimensions affect decisions",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Stale/bad data cannot pass as live intelligence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/quality.py",
+        "blackdark/data/response_metadata.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata + decision_enrichment enforce_data_state_for_decision"
+    },
+    {
+      "req_id": "REQ-D-15",
+      "section_reference": "Table 14/D-15",
+      "title": "Pre-registered promotion gate",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "No model promotion without gate and rollback trigger",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/promotion_gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_enforce_promotion_gate"
+    },
+    {
+      "req_id": "REQ-D-16",
+      "section_reference": "Table 14/D-16",
+      "title": "Living Data Room index",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "DD materials have state, validity, reperformance",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/data_room_index.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→build_data_room_index"
+    },
+    {
+      "req_id": "REQ-D-17",
+      "section_reference": "Table 14/D-17",
+      "title": "Asset Value Ledger",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Periodic review: keep/invest/deprecate/stop collecting",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/asset_value_ledger.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→record_asset_value"
+    },
+    {
+      "req_id": "REQ-D-18",
+      "section_reference": "Table 14/D-18",
+      "title": "Evidence origin label inheritance",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "SIMULATED/BACKTESTED cannot become VERIFIED via transform",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/lineage.py",
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write propagate_lineage + promotion gate"
+    },
+    {
+      "req_id": "REQ-D-19",
+      "section_reference": "Table 14/D-19",
+      "title": "Bitemporal correction policy",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Corrections traceable without erasing prior snapshot",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/corrections.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→enforce_ledger_link_update→record_correction"
+    },
+    {
+      "req_id": "REQ-D-20",
+      "section_reference": "Table 14/D-20",
+      "title": "Entity conflict resolution",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "CONFLICTED/LOW_CONFIDENCE not shown as confirmed truth",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/entity_assertions.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_record_entity_for_material"
+    },
+    {
+      "req_id": "REQ-DSR-001",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-001",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Data Asset Contract canonical for material datasets/streams",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/contracts.py",
+        "data/governance/contracts/"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract"
+    },
+    {
+      "req_id": "REQ-DSR-002",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-002",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Contract defines owner,purpose,consumers,schema,freshness,quality,lineage,rights,retention,fallback,monitoring,evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/contracts.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "validate_contract REQUIRED_FIELDS at write time"
+    },
+    {
+      "req_id": "REQ-DSR-003",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-003",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "PIT Evidence Contract prevents look-ahead/revision/survivorship leakage",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing→create_pit_contract"
+    },
+    {
+      "req_id": "REQ-DSR-004",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-004",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Benchmark/replay reproducible from snapshot+code+model+universe+oracle",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/pit_evidence.py",
+        "ml/market_replay_bootstrap.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "create_pit_contract + receipt hash on replay writes"
+    },
+    {
+      "req_id": "REQ-DSR-005",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-005",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Rights Profile machine-enforceable at storage/derived/training/redistribution/API/resale",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/rights.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
+    },
+    {
+      "req_id": "REQ-DSR-006",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-006",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Schema versioning with compatibility/migration and consumer impact verification",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/schema_registry.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_record_against_schema"
+    },
+    {
+      "req_id": "REQ-DSR-007",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-007",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Historical corrections record observed/effective/corrected-at; never erase prior snapshot",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/corrections.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→enforce_ledger_link_update→record_correction"
+    },
+    {
+      "req_id": "REQ-DSR-008",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-008",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Signal/Prediction/Decision issues Intelligence Receipt verifiable",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/intelligence_receipt.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt"
+    },
+    {
+      "req_id": "REQ-DSR-009",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-009",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Outcome evaluator version in lineage; no history rewrite without correction record",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/outcome_registry.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "database.resolve_oracle_prediction→enforce_oracle_outcome_resolution"
+    },
+    {
+      "req_id": "REQ-DSR-010",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-010",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Missed-opportunity/recall metrics require Opportunity Universe Contract",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/opportunity_universe.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe metadata"
+    },
+    {
+      "req_id": "REQ-DSR-011",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-011",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Entity assertions carry source,confidence,validity,expiry,conflict,evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/entity_assertions.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_record_entity_for_material"
+    },
+    {
+      "req_id": "REQ-DSR-012",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-012",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Evidence origin label inherited across derivatives",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/lineage.py",
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write propagate_lineage / inherit_evidence_origin"
+    },
+    {
+      "req_id": "REQ-DSR-013",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-013",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "SIMULATED/BACKTESTED cannot semantically upgrade to VERIFIED_PRODUCTION via transform",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/lineage.py",
+        "cap646/evidence_class.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write assert_promotion_allowed + promotion_gate"
+    },
+    {
+      "req_id": "REQ-DSR-014",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-014",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Material datasets/ledgers have retention class, storage tier, deletion/anonymization",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/retention.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write retention_class + storage_tier"
+    },
+    {
+      "req_id": "REQ-DSR-015",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-015",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Critical registries/ledgers have RTO/RPO and restore evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/restore.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore drill"
+    },
+    {
+      "req_id": "REQ-DSR-016",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-016",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Evidence Ledger tamper-evident with documented verification steps",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/evidence_integrity.py",
+        "oracle_audit_chain.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain→enforce_oracle_chain_record + verify_chain"
+    },
+    {
+      "req_id": "REQ-DSR-017",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-017",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Data-quality failure affects availability/confidence/degradation explicitly",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/quality.py",
+        "blackdark/data/response_metadata.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata + decision_enrichment enforce_data_state_for_decision"
+    },
+    {
+      "req_id": "REQ-DSR-018",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-018",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "Champion/Challenger promotion has pre-defined gate and rollback trigger",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/promotion_gate.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_enforce_promotion_gate"
+    },
+    {
+      "req_id": "REQ-DSR-019",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-019",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Derived intelligence assets classified with owner/rights/value evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/derived_assets.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write derived_assets metadata"
+    },
+    {
+      "req_id": "REQ-DSR-020",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-020",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Asset Value Ledger links cost+usage+effectiveness+uniqueness+rights+monetization",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/asset_value_ledger.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→record_asset_value"
+    },
+    {
+      "req_id": "REQ-DSR-021",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-021",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Living Data Room has canonical index with completeness/freshness/evidence/exceptions/risk/owner",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/data_room_index.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→build_data_room_index"
+    },
+    {
+      "req_id": "REQ-DSR-022",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-022",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "Claims require claim→evidence→version→validity chain",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/claims_registry.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_register_material_claim"
+    },
+    {
+      "req_id": "REQ-DSR-023",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-023",
+      "mandatory": "YES",
+      "category": "storage",
+      "acceptance_criteria": "No collection without purpose, rights, minimization, retention, deletion",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/collection_policy.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute collection policies"
+    },
+    {
+      "req_id": "REQ-DSR-024",
+      "section_reference": "§21/Table 15",
+      "title": "DSR-024",
+      "mandatory": "YES",
+      "category": "ops",
+      "acceptance_criteria": "Flywheel gate closes only when material requirements reproducible without unresolved red flags",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/gate.py",
+        "blackdark/data_governance/audit.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute + assert_governance_subsystem_ready"
+    },
+    {
+      "req_id": "REQ-T16",
+      "section_reference": "Table 16",
+      "title": "Data Asset Contract minimum fields",
+      "mandatory": "YES",
+      "category": "data",
+      "acceptance_criteria": "Identity, Authority/Rights, Temporal, Schema, Quality, Lineage, Lifecycle, Failure, Security, Evidence fields present",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/contracts.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "validate_contract REQUIRED_FIELDS at write"
+    },
+    {
+      "req_id": "REQ-T17",
+      "section_reference": "Table 17",
+      "title": "Storage tier policy HOT/WARM/COLD/DELETE",
+      "mandatory": "YES",
+      "category": "retention",
+      "acceptance_criteria": "Tier transitions defined by age/usage/cost/rights with deletion evidence",
+      "status": "IMPLEMENTED_EVIDENCED",
+      "evidence_paths": [
+        "blackdark/data_governance/retention.py"
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write retention tier stamp"
+    }
+  ],
+  "runtime_enforcement": {
+    "yes": 107,
+    "partial": 3,
+    "no": 0,
+    "total": 110
+  }
+}

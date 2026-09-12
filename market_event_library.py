@@ -68,6 +68,13 @@ def record_market_event(
         source=source or "oracle",
     )
     row["evidence_class"] = cls
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    row = enforce_material_write(
+        asset_kind="market_event",
+        record=row,
+        surface=source or "market_event_library",
+    )
     with _LOCK:
         _MEMORY[event_id] = row
         while len(_MEMORY) > _MAX_MEMORY:

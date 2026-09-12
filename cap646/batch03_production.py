@@ -1,11 +1,11 @@
-"""Batch 03 prep — production spine for mis-scoped 826-completion work (IDs 101–150).
+"""Batch 03 prep — production spine for official Batch 03 (IDs 101–150).
 
-Official batch03 = 101–150. This spine preserves prior batch02 branch implementation
-under ``production_spine=batch03_prep`` until official batch03 closure is approved.
+IDs 103 and 129 cross-spine overlap resolved Run 008; dedicated handlers Run 009.
 """
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any, Awaitable, Callable
 
 BATCH03_IDS: frozenset[int] = frozenset(range(101, 151))
@@ -24,6 +24,26 @@ def _stamp_batch03(result: dict[str, Any], capability_id: int) -> dict[str, Any]
     result["backend_entrypoint"] = batch03_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = "batch03_prep"
+    nested = result.get("data") if isinstance(result.get("data"), dict) else {}
+    if not result.get("data_source") and not result.get("source"):
+        result["data_source"] = (
+            result.get("data_source")
+            or result.get("source")
+            or nested.get("data_source")
+            or nested.get("source")
+            or f"cap646.batch03_production#cap{capability_id:03d}"
+        )
+    if not result.get("timestamp"):
+        result["timestamp"] = (
+            result.get("timestamp")
+            or nested.get("timestamp")
+            or datetime.now(UTC).isoformat()
+        )
+    if not result.get("quality"):
+        result["quality"] = {
+            "freshness": "runtime_stamped",
+            "provenance": result.get("data_source") or result.get("source"),
+        }
     return result
 
 

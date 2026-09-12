@@ -1,0 +1,82 @@
+{
+  "ok": true,
+  "feature_ref": 87,
+  "report": {
+    "report_id": "icr_de213e0da8",
+    "generated_at": "2026-09-11T00:50:54.187223+00:00",
+    "source": "intelligence",
+    "asset": "ETH",
+    "executive_summary": {
+      "verdict": "Neutral",
+      "risk_score": 6.0
+    },
+    "risk_score": 6.0,
+    "methodology": {
+      "rule_based_only_sprint_2": true
+    },
+    "performance_ledger": {
+      "entries": []
+    },
+    "holdings_snapshot": [],
+    "disclaimer": {
+      "en": "BLACKDARK is an analytical tool providing insights only \u2014 not licensed investment advice and no financial guarantees.",
+      "ar": "BLACKDARK \u0647\u064a \u0623\u062f\u0627\u0629 \u062a\u062d\u0644\u064a\u0644\u064a\u0629 \u062a\u0642\u062f\u0645 insights \u0641\u0642\u0637 \u2014 \u0644\u0627 \u062a\u0648\u0635\u064a\u0627\u062a \u0627\u0633\u062a\u062b\u0645\u0627\u0631\u064a\u0629 \u0645\u0631\u062e\u0651\u0635\u0629 \u0648\u0644\u0627 \u0636\u0645\u0627\u0646\u0627\u062a \u0645\u0627\u0644\u064a\u0629.",
+      "every_page": true
+    },
+    "professional_tone": true,
+    "non_custodial": true,
+    "traceability": {
+      "every_number_has_source": true,
+      "timestamped": true
+    },
+    "checksum_sha256": "c1b81f2393db45866b615de5d904ec254d7d794e6b17b9da515d5d1cf27d3903"
+  },
+  "formats": {
+    "json": {
+      "report_id": "icr_de213e0da8",
+      "generated_at": "2026-09-11T00:50:54.187223+00:00",
+      "source": "intelligence",
+      "asset": "ETH",
+      "executive_summary": {
+        "verdict": "Neutral",
+        "risk_score": 6.0
+      },
+      "risk_score": 6.0,
+      "methodology": {
+        "rule_based_only_sprint_2": true
+      },
+      "performance_ledger": {
+        "entries": []
+      },
+      "holdings_snapshot": [],
+      "disclaimer": {
+        "en": "BLACKDARK is an analytical tool providing insights only \u2014 not licensed investment advice and no financial guarantees.",
+        "ar": "BLACKDARK \u0647\u064a \u0623\u062f\u0627\u0629 \u062a\u062d\u0644\u064a\u0644\u064a\u0629 \u062a\u0642\u062f\u0645 insights \u0641\u0642\u0637 \u2014 \u0644\u0627 \u062a\u0648\u0635\u064a\u0627\u062a \u0627\u0633\u062a\u062b\u0645\u0627\u0631\u064a\u0629 \u0645\u0631\u062e\u0651\u0635\u0629 \u0648\u0644\u0627 \u0636\u0645\u0627\u0646\u0627\u062a \u0645\u0627\u0644\u064a\u0629.",
+        "every_page": true
+      },
+      "professional_tone": true,
+      "non_custodial": true,
+      "traceability": {
+        "every_number_has_source": true,
+        "timestamped": true
+      },
+      "checksum_sha256": "c1b81f2393db45866b615de5d904ec254d7d794e6b17b9da515d5d1cf27d3903"
+    },
+    "html": "<html><head><title>IC Report ETH</title></head><body><h1>Investment Committee Report \u2014 ETH</h1><p><strong>Executive Summary:</strong> </p><p><strong>Risk Score:</strong> 6.0/10</p><footer><p>BLACKDARK is an analytical tool providing insights only \u2014 not licensed investment advice and no financial guarantees.</p></footer></body></html>",
+    "pdf": {
+      "note": "PDF generated from HTML template",
+      "html_source": "icr_de213e0da8"
+    }
+  },
+  "export_routes": {
+    "intelligence": "/intelligence/export/ic-report",
+    "portfolio": "/portfolio/export/ic-report"
+  },
+  "one_click_export": true,
+  "share_card": {},
+  "share": {},
+  "fee_db": {
+    "generate_usd": 0.01,
+    "cdn_usd": 0.002
+  }
+}

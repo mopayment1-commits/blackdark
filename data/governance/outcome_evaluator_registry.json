@@ -1,0 +1,31 @@
+{
+  "registry_version": "1.0.0",
+  "evaluators": {
+    "oracle_outcome_v1": {
+      "evaluator_id": "oracle_outcome_v1",
+      "version": "1.0.0",
+      "definition": "Oracle prediction resolved against forward market move at horizon",
+      "horizons": [
+        "5m",
+        "1h",
+        "4h",
+        "24h"
+      ],
+      "correction_policy": "append_correction_record",
+      "active": true,
+      "registered_at": "2026-09-12T14:02:50.632829+00:00"
+    },
+    "decision_outcome_v1": {
+      "evaluator_id": "decision_outcome_v1",
+      "version": "1.0.0",
+      "definition": "Decision action evaluated against realized outcome at linked horizon",
+      "horizons": [
+        "1h",
+        "24h"
+      ],
+      "correction_policy": "append_correction_record",
+      "active": true,
+      "registered_at": "2026-09-12T14:02:50.632832+00:00"
+    }
+  }
+}

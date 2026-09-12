@@ -1,0 +1,168 @@
+{
+  "ledger_summary": {
+    "engineering_status": {
+      "PARTIAL": 250,
+      "PASS_ENGINEERING": 50,
+      "NOT_COMPLETE": 526
+    },
+    "live_status": {
+      "NOT_CLAIMED": 826
+    },
+    "assurance_status": {
+      "PENDING_INDEPENDENT_ASSURANCE": 826
+    },
+    "pass_live_count": 0,
+    "pass_engineering_count": 50,
+    "assurance_ready_count": 0
+  },
+  "three_way": {
+    "ledger_rows": 826,
+    "ledger_expected": 826,
+    "ledger_match": true,
+    "dedicated_handler_ids_in_code": 250,
+    "dedicated_note": "Dedicated handlers exist for batch spines 01\u201306 (250 IDs); full 826 not all dedicated yet",
+    "rtm_ids_union": 300,
+    "rtm_expected_closed_batches": 300,
+    "rtm_match_closed": true,
+    "all_826_in_ledger": true,
+    "pass_live_in_ledger": 0
+  },
+  "random_sample": {
+    "seed": 16018,
+    "sample_ids": [
+      252,
+      259,
+      260,
+      268,
+      274,
+      276,
+      281,
+      287,
+      288,
+      298
+    ],
+    "results": [
+      {
+        "id": 252,
+        "name": "Liquidation Heatmap",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER2",
+        "audit_path": "TIER2_ABBREVIATED_1_4_6"
+      },
+      {
+        "id": 259,
+        "name": "Futures Basis Intelligence",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER2",
+        "audit_path": "TIER2_ABBREVIATED_1_4_6"
+      },
+      {
+        "id": 260,
+        "name": "Futures Volume Intelligence",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER2",
+        "audit_path": "TIER2_ABBREVIATED_1_4_6"
+      },
+      {
+        "id": 268,
+        "name": "Historical Derivatives Data",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER2",
+        "audit_path": "TIER2_ABBREVIATED_1_4_6"
+      },
+      {
+        "id": 274,
+        "name": "Derivatives Alerts",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER2",
+        "audit_path": "TIER2_ABBREVIATED_1_4_6"
+      },
+      {
+        "id": 276,
+        "name": "Entity Resolution Engine",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER2",
+        "audit_path": "TIER2_ABBREVIATED_1_4_6"
+      },
+      {
+        "id": 281,
+        "name": "Balance History",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER1",
+        "audit_path": "TIER1_FULL_9_PHASE"
+      },
+      {
+        "id": 287,
+        "name": "Cross-Chain Trace",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER1",
+        "audit_path": "TIER1_FULL_9_PHASE"
+      },
+      {
+        "id": 288,
+        "name": "Token Top Holders",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER1",
+        "audit_path": "TIER1_FULL_9_PHASE"
+      },
+      {
+        "id": 298,
+        "name": "API On-Chain Intelligence",
+        "status": "NOT_COMPLETE",
+        "rbas_tier": "TIER2",
+        "audit_path": "TIER2_ABBREVIATED_1_4_6"
+      }
+    ],
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "sample_pass": true,
+    "batch_reopen_required": false
+  },
+  "evidence_pack": {
+    "batch": "batch06",
+    "functions_required": 12,
+    "functions_covered": 12,
+    "coverage_met": true,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": true,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "non_regression": {
+    "generated_at": "2026-09-11T10:55:23.844512+00:00",
+    "met": true,
+    "details": {
+      "batch01": {
+        "exit_code": 0,
+        "closure_gate_met": true
+      },
+      "batch02": {
+        "exit_code": 0,
+        "closure_gate_met": true
+      },
+      "batch03": {
+        "exit_code": 0,
+        "closure_gate_met": true
+      },
+      "batch04": {
+        "exit_code": 0,
+        "closure_gate_met": true
+      },
+      "batch05": {
+        "exit_code": 0,
+        "closure_gate_met": true
+      }
+    }
+  },
+  "pass_live_project_wide": 0
+}

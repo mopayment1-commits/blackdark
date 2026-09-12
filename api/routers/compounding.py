@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, Body, HTTPException, Query, Request, Response
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request, Response
+
+from security_auth import optional_user_from_request
 
 router = APIRouter(tags=["compounding"])
 
@@ -196,13 +198,19 @@ async def proof_certificate_verify(certificate_id: str) -> dict[str, Any]:
 
 
 @router.post("/api/analytics/event")
-async def analytics_track_event(request: Request, body: dict[str, Any] = Body(...)) -> dict[str, Any]:
+async def analytics_track_event(
+    request: Request,
+    body: dict[str, Any] = Body(...),
+    user: dict | None = Depends(optional_user_from_request),
+) -> dict[str, Any]:
     from distribution_compounding import track_event
 
+    # WF-015: never persist caller-supplied user_id; bind to authenticated session only.
+    bound_user_id = user.get("id") if user else None
     row = await track_event(
         event_type=str(body.get("event_type") or "custom"),
         payload=body.get("payload"),
-        user_id=body.get("user_id"),
+        user_id=bound_user_id,
         session_id=body.get("session_id"),
         source=body.get("source"),
         attribution=body.get("attribution"),

@@ -6,6 +6,7 @@ matching the CAP646 catalog name via real underlying modules.
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any
 
 from cap646.dedicated_common import (
@@ -20,6 +21,15 @@ from cap646.evidence_class import ai_compliance_footer, attach_evidence_metadata
 # Official batch 01 dedicated backends (IDs 1–50) + legacy extension IDs with dedicated spines.
 BATCH01_DEDICATED_IDS: frozenset[int] = frozenset(
     {
+        1,
+        2,
+        3,
+        4,
+        10,
+        21,
+        38,
+        39,
+        45,
         6,
         7,
         8,
@@ -57,10 +67,6 @@ BATCH01_DEDICATED_IDS: frozenset[int] = frozenset(
         44,
         46,
         50,
-        55,
-        56,
-        59,
-        60,
         214,
         584,
         629,
@@ -68,6 +74,15 @@ BATCH01_DEDICATED_IDS: frozenset[int] = frozenset(
 )
 
 EXPECTED_SURFACE: dict[int, str] = {
+    1: "smart_money_leaderboard",
+    2: "wallet_profiler",
+    3: "wallet_profiler_for_token",
+    4: "smart_money_tracking",
+    10: "wallet_pnl_analysis",
+    21: "transaction_decoder",
+    38: "cost_basis_distribution",
+    39: "realized_cap_realized_price",
+    45: "etf_flow_intelligence",
     6: "smart_money_token_screener",
     7: "holder_distribution_intelligence",
     8: "top_holders_concentration_analysis",
@@ -129,6 +144,20 @@ def _addr(params: dict[str, Any]) -> str:
         or params.get("wallet")
         or "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
     ).strip()
+
+
+def _stamp_bcbs_provenance(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
+    """Top-level BCBS 239 fields for v6 data-quality / provenance gates (Run 021 batch01)."""
+    if not result.get("data_source") and not result.get("source"):
+        result["data_source"] = f"cap646.batch01_dedicated#cap{capability_id:03d}"
+    if not result.get("timestamp"):
+        result["timestamp"] = datetime.now(UTC).isoformat()
+    if not result.get("quality"):
+        result["quality"] = {
+            "freshness": "runtime_stamped",
+            "provenance": result.get("data_source") or result.get("source"),
+        }
+    return result
 
 
 def _nvt_signal(ratio: float) -> str:
@@ -262,6 +291,15 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
     address = _addr(params)
 
     dispatch = {
+        1: _cap001_smart_money_leaderboard,
+        2: _cap002_wallet_profiler,
+        3: _cap003_wallet_profiler_for_token,
+        4: _cap004_smart_money_tracking,
+        10: _cap010_wallet_pnl_analysis,
+        21: _cap021_transaction_decoder,
+        38: _cap038_cost_basis_distribution,
+        39: _cap039_realized_cap_price,
+        45: _cap045_etf_flow_intelligence,
         6: _cap006_smart_money_token_screener,
         7: _cap007_holder_distribution,
         8: _cap008_top_holders_concentration,
@@ -310,7 +348,83 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
     fn = dispatch.get(capability_id)
     if fn is None:
         raise ValueError(f"batch01 dedicated: unmapped capability {capability_id}")
-    return await fn(symbol=symbol, address=address, params=params)
+    result = await fn(symbol=symbol, address=address, params=params)
+    return _stamp_bcbs_provenance(result, capability_id)
+
+
+# ─── Free-tier parity (Path A — v6 §2.1 dedicated spine) ──────────────────────
+
+
+async def _free_tier_dedicated_wrap(
+    cid: int,
+    *,
+    symbol: str,
+    address: str,
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    from bd_platform.free_tier_capabilities import execute_free_tier_capability
+
+    ft = await execute_free_tier_capability(cid, params={**params, "symbol": symbol, "address": address})
+    payload = dict(ft.get("data") or {})
+    surface = EXPECTED_SURFACE[cid]
+    return ai_compliance_footer(
+        {
+            "capability_id": cid,
+            "surface": surface,
+            "symbol": symbol,
+            "address": address,
+            surface: payload,
+            "success": bool(ft.get("success")),
+            "data_source": payload.get("source") or payload.get("data_source") or "free_tier_explicit",
+            "timestamp": payload.get("timestamp") or datetime.now(UTC).isoformat(),
+            "quality": {
+                "freshness": "free_tier_runtime",
+                "provenance": payload.get("source") or payload.get("data_source") or "free_tier_explicit",
+            },
+            "methodology": {
+                "framework": "Path A — explicit free_tier parity (v6 §2.1)",
+                "implementation": "bd_platform.free_tier_capabilities.execute_free_tier_capability",
+                "methodology_status": "DOCUMENTED",
+                "binding_source_resolved": "free_tier_explicit",
+            },
+        }
+    )
+
+
+async def _cap001_smart_money_leaderboard(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(1, symbol=symbol, address=address, params=params)
+
+
+async def _cap002_wallet_profiler(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(2, symbol=symbol, address=address, params=params)
+
+
+async def _cap003_wallet_profiler_for_token(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(3, symbol=symbol, address=address, params=params)
+
+
+async def _cap004_smart_money_tracking(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(4, symbol=symbol, address=address, params=params)
+
+
+async def _cap010_wallet_pnl_analysis(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(10, symbol=symbol, address=address, params=params)
+
+
+async def _cap021_transaction_decoder(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(21, symbol=symbol, address=address, params=params)
+
+
+async def _cap038_cost_basis_distribution(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(38, symbol=symbol, address=address, params=params)
+
+
+async def _cap039_realized_cap_price(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(39, symbol=symbol, address=address, params=params)
+
+
+async def _cap045_etf_flow_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(45, symbol=symbol, address=address, params=params)
 
 
 # ─── On-chain / wallet intelligence ───────────────────────────────────────────
@@ -376,11 +490,12 @@ async def _cap007_holder_distribution(*, symbol: str, address: str, params: dict
 
 
 async def _cap008_top_holders_concentration(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    """Locked/circulating supply proxy — NOT on-chain top-holder concentration (Run 005 path B)."""
     dist, metrics, locked_pct = await holder_analytics_locked(symbol)
     circ = float(metrics.get("circulating_supply") or 0)
     total = float(metrics.get("total_supply") or circ or 1)
-    top10_proxy_pct = round(min(95.0, max(locked_pct, (total - circ) / total * 100 if total else 0)), 2)
-    concentration_risk = "high" if top10_proxy_pct > 60 else "moderate" if top10_proxy_pct > 35 else "low"
+    non_circulating_pct = round(min(95.0, max(locked_pct, (total - circ) / total * 100 if total else 0)), 2)
+    supply_lock_risk = "high" if non_circulating_pct > 60 else "moderate" if non_circulating_pct > 35 else "low"
 
     return holder_analytics_footer(
         8,
@@ -389,11 +504,29 @@ async def _cap008_top_holders_concentration(*, symbol: str, address: str, params
         dist,
         metrics,
         extra={
-            "top_holders_concentration": {
-                "top10_proxy_pct": top10_proxy_pct,
+            "locked_circulating_supply_proxy": {
+                "non_circulating_supply_pct": non_circulating_pct,
                 "locked_supply_pct": locked_pct,
-                "concentration_risk": concentration_risk,
-                "method": "supply_concentration_proxy",
+                "circulating_supply": circ,
+                "total_supply": total,
+                "supply_lock_risk": supply_lock_risk,
+                "method": "locked_circulating_supply_proxy",
+                "methodology_status": "NOT_COMPLETE",
+                "methodology_reason": (
+                    "Requires on-chain top-holder distribution data source; "
+                    "does not measure actual top-10 holder concentration"
+                ),
+                "data_source_required": "on_chain_top_holder_distribution",
+                "disclaimer": (
+                    "This metric is a locked/non-circulating supply proxy — "
+                    "NOT real top-holder concentration analysis"
+                ),
+            },
+            # Deprecated misleading alias — kept for backward compat, points to honest proxy
+            "top_holders_concentration": {
+                "deprecated": True,
+                "use_instead": "locked_circulating_supply_proxy",
+                "note": "Renamed Run 005 — prior top10_proxy_pct mislabeled supply lock as holder concentration",
             },
         },
     )
@@ -402,6 +535,8 @@ async def _cap008_top_holders_concentration(*, symbol: str, address: str, params
 async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     dist, metrics, locked_pct = await holder_analytics_locked(symbol)
     ls_ratio = float(metrics.get("long_short_ratio") or 1.0)
+    # HEURISTIC — weights not empirically validated, placeholder pending calibration (Run 005 path B).
+    # Combines locked-supply % and Binance futures long/short ratio as a simplified composite only.
     distribution_score = round(max(0.0, min(100.0, 100 - locked_pct * 0.6 + (ls_ratio - 1) * 10)), 2)
     verdict = "well_distributed" if distribution_score >= 65 else "moderate" if distribution_score >= 40 else "concentrated"
 
@@ -418,6 +553,11 @@ async def _cap009_distribution_score(*, symbol: str, address: str, params: dict[
                 "locked_supply_pct": locked_pct,
                 "long_short_ratio": ls_ratio,
             },
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": "heuristic pending validation — weights (0.6, 10) not empirically calibrated",
+            "heuristic": True,
+            "heuristic_formula": "100 - locked_pct * 0.6 + (ls_ratio - 1) * 10",
+            "disclaimer": "Heuristic composite score — not a validated distribution index",
         },
     )
 
@@ -1201,11 +1341,53 @@ async def _cap030_evidence_confidence(*, symbol: str, address: str, params: dict
 
 async def _cap034_beginner_decision_mode(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     from bd_platform.retail_intelligence_layer import build_one_clear_answer_63
+    from market_context import fetch_binance_ticker
+    from onchain_tracker import build_onchain_context_safe
+
+    ticker = await fetch_binance_ticker(f"{symbol}USDT")
+    change = float((ticker or {}).get("change_24h") or 0)
+    ctx = await build_onchain_context_safe()
+    asset_ctx = (ctx.get("onchain_by_asset") or {}).get(symbol) or {}
+    netflow = float(asset_ctx.get("exchange_netflow_24h") or asset_ctx.get("netflow_24h") or 0)
+
+    reasons: list[dict[str, Any]] = []
+    if change >= 5.0:
+        verdict: str = "Opportunity"
+        risk_score = max(3.0, min(8.0, 8.0 - change * 0.25))
+        reasons.append({"point": f"24h price change +{change:.1f}%", "weight": 0.45, "rule_based": True})
+    elif change <= -5.0:
+        verdict = "Risk"
+        risk_score = min(9.0, max(5.5, 5.0 + abs(change) * 0.25))
+        reasons.append({"point": f"24h price change {change:.1f}%", "weight": 0.45, "rule_based": True})
+    else:
+        verdict = "Neutral"
+        risk_score = 5.0
+        reasons.append(
+            {
+                "point": f"24h price change {change:.1f}% within neutral band (-5%..+5%)",
+                "weight": 0.35,
+                "rule_based": True,
+            }
+        )
+
+    if netflow < -500:
+        reasons.append({"point": "Exchange net outflow detected", "weight": 0.3, "rule_based": True})
+        if verdict == "Neutral" and change >= 0:
+            verdict = "Opportunity"
+    elif netflow > 500:
+        reasons.append({"point": "Exchange net inflow detected", "weight": 0.3, "rule_based": True})
+        if verdict == "Opportunity":
+            verdict = "Neutral"
 
     answer = build_one_clear_answer_63(
-        verdict=str(params.get("verdict") or "Neutral"),  # type: ignore[arg-type]
-        reasons=[{"point": f"Simplified read for {symbol}", "weight": 1.0, "rule_based": True}],
-        risk_score=float(params.get("risk_score") or 5.0),
+        verdict=verdict,  # type: ignore[arg-type]
+        reasons=reasons[:3],
+        risk_score=risk_score,
+        raw_indicators={
+            "change_24h_pct": change,
+            "exchange_netflow_24h": netflow,
+            "analysis_method": "rule_based_price_netflow",
+        },
     )
     return ai_compliance_footer(
         {
@@ -1214,6 +1396,11 @@ async def _cap034_beginner_decision_mode(*, symbol: str, address: str, params: d
             "symbol": symbol,
             "beginner_mode": True,
             "clear_answer": answer,
+            "analysis_inputs": {
+                "change_24h_pct": change,
+                "exchange_netflow_24h": netflow,
+                "user_verdict_ignored": True,
+            },
             "success": True,
         }
     )
@@ -1359,6 +1546,8 @@ async def _cap033_actionability_score(*, symbol: str, address: str, params: dict
     from whale_tracker import get_latest_whale_alerts
 
     alerts = await get_latest_whale_alerts(limit=10)
+    # HEURISTIC — alert count scaling only; no historical accuracy weighting (Run 005 path B).
+    # decision_ledger currently SHADOW/SIMULATED-only — insufficient for calibration (Run 004).
     score = min(100.0, max(0.0, len(alerts) * 12.5))
     return ai_compliance_footer(
         {
@@ -1366,6 +1555,14 @@ async def _cap033_actionability_score(*, symbol: str, address: str, params: dict
             "surface": EXPECTED_SURFACE[33],
             "alerts": alerts,
             "actionability_score": score,
+            "methodology_status": "NOT_COMPLETE",
+            "methodology_reason": (
+                "heuristic pending validation — score = alert_count * 12.5 without quality/historical accuracy"
+            ),
+            "heuristic": True,
+            "heuristic_formula": "min(100, max(0, len(alerts) * 12.5))",
+            "calibration_blocker": "decision_ledger SHADOW/SIMULATED-only — production accuracy data required",
+            "disclaimer": "Heuristic alert-count proxy — not validated smart-money actionability index",
             "success": True,
         }
     )

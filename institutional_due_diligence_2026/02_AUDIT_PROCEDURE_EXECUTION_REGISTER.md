@@ -1,6 +1,6 @@
 # 02 — AUDIT PROCEDURE EXECUTION REGISTER
 **Contract:** FINAL-EXECUTION-CONTRACT-2026  
-**Updated:** 2026-09-11T01:07:25Z  
+**Updated:** 2026-09-11T08:30:00Z (Run 007 — Batch 02 closure standards)  
 **HEAD:** `944c4f4d5dfb36d5c11d9eb6984232892a7b5234`
 
 | Proc ID | Domain | Requirement | Min Ev | Result | Coverage | Status | Evidence |
@@ -48,3 +48,57 @@
 | W8-DB-001 | W8 | Schema reconciliation + SQLite init | E1 | VERIFIED PASS | 1/1 | EXECUTED | EVD-047, EVD-018 |
 | W8-DB-002 | W8 | Spine DB pytest | E1 | VERIFIED PASS | 1/1 | EXECUTED | EVD-047 |
 | W9-API-001 | W9 | API auth classification api/routers | E1 | PARTIAL | 308/308 classified | EXECUTED | EVD-046, EVD-019 |
+| SCORE-IDX-001 | W3/W22 | Scoring/index PRODUCTION-ALIGNED gate (Run 005 permanent) | E1 | POLICY ACTIVE | all batches 51–826 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
+| RTM-IND-001 | W0/W22 | RTM self-assessment prohibited; nine-phase independent audit only (WF-026) | E1 | POLICY ACTIVE | batches 51–826 | EXECUTED | WF-026, docs/BATCH01_OFFICIAL_RTM_1_50.json |
+| B01-CLOSE-005 | W22 | Batch 01 final closure Run 005 (IDs 8/9/33 + RTM replace) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH01_FINAL_CLOSURE_REPORT.md |
+| B02-RUN-006 | W22 | Batch 02 initial independent nine-phase audit (IDs 51–100) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_INDEPENDENT_NINE_PHASE_REPORT.md |
+| B02-CLOSE-007 | W22 | Batch 02 final closure Run 007 (IDs 52/53/54/81 + cross-spine + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH02_FINAL_CLOSURE_REPORT.md |
+| B03-XSPINE-008 | W22 | Cross-spine resolution Run 008 (IDs 103/129 pre-Batch03) | E1 | VERIFIED PASS | 2/2 | EXECUTED | RUN008_CROSS_SPINE_103_129_RESOLUTION.md |
+| B03-RUN-009 | W22 | Batch 03 initial independent nine-phase audit (IDs 101–150) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH03_INDEPENDENT_NINE_PHASE_REPORT.md |
+## RBAS-001 — Risk-Based Audit Scoping (Run 011 permanent)
+
+Source: IIA Risk-Based Internal Auditing + SR 26-2 proportionality principle.
+
+| Tier | Scope | Phases executed |
+|---|---|---|
+| **Tier1** | Decision/score/index outputs; entitlement/financial sensitive; on-chain/FATF; WF-027 IDs | Full nine-phase (no abbreviation) |
+| **Tier2** | Data-delivery/catalog/registry without direct user decision output | Phase 1 + 4 + 6 + SPLIT-BRAIN only |
+
+**Default-on-doubt:** Tier1 unless clear Tier2 delivery-only proof (`scripts/rbas001_scoping.py`).
+
+**Tier2 escalation:** Hidden decision/score indicators during abbreviated Phase 1 → immediate promotion to Tier1 full path.
+
+| B04-RUN-011 | W22 | Batch 04 RBAS opening audit (IDs 151–200) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH04_RUN011_OPENING_REPORT.md |
+| B04-CLOSE-012 | W22 | Batch 04 final closure Run 012 (ID 196 split-brain + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH04_FINAL_CLOSURE_REPORT.md |
+| B05-RUN-013 | W22 | Batch 05 RBAS opening audit (IDs 201–250) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH05_RUN013_OPENING_REPORT.md |
+| B05-CLOSE-014 | W22 | Batch 05 final closure Run 014 (SCORE-IDX + BCBS + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH05_FINAL_CLOSURE_REPORT.md |
+| B06-RUN-015 | W22 | Batch 06 RBAS opening audit (IDs 251–300) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH06_RUN015_OPENING_REPORT.md |
+| B06-CLOSE-016 | W22 | Batch 06 final closure Run 016 (ID 277 FATF + RTM) | E1 | VERIFIED PASS | 50/50 | EXECUTED | BATCH06_FINAL_CLOSURE_REPORT.md |
+| B06-V6-018 | W22 | v6 tri-state adoption — Batch01–06 reclassification (PASS_LIVE=0) | E1 | VERIFIED PASS | 300/300 closed | EXECUTED | RUN018_V6_ADOPTION_REPORT.md |
+| B06-RV-020 | W22 | Run 020 random re-verification sample (seed=16018, 10/50 Batch06) | E1 | VERIFIED PASS | 10/10 | EXECUTED | RUN018_020_V6_EVIDENCE.json |
+| B06-3WAY-020 | W22 | Three-way reconciliation (ledger 826 = inventory = RTM union 300 closed) | E1 | VERIFIED PASS | 826/826 ledger | EXECUTED | 00_MASTER_826_RECONCILIATION_LEDGER.json |
+
+## SCORE-IDX-001 — Permanent Scoring/Index Standard (Run 005)
+
+Any capability classified as a **scoring/index** MUST NOT receive `PRODUCTION-ALIGNED` unless **one of**:
+
+1. **Validated weights:** Formula weights/parameters cite an documented academic, industry, or internal calibration source in code and user-facing disclosure; OR
+2. **Explicit heuristic:** Code contains `# HEURISTIC — weights not empirically validated` (or equivalent), payload includes `heuristic: true` and `methodology_status: NOT_COMPLETE`, and RTM records `NOT_COMPLETE (heuristic pending validation)`.
+
+**Prohibited:** Presenting supply-lock proxies as holder-concentration metrics; user-supplied verdict inputs; count-only alert scoring without quality weighting — unless honestly labeled per (2).
+
+## RTM-IND-001 — Independent RTM Policy (WF-026 Remediation)
+
+`scripts/audit_official_batch01_rtm.py` and equivalent self-assessment (success/spine/surface only) are **prohibited** for batches **51–826**. The sole accepted classification method is the **Independent Third-Line Nine-Phase Due Diligence** (`scripts/independent_batch01_nine_phase_audit.py` pattern per batch). No exceptions.
+
+## CROSS-SPINE-001 — Batch Routing Overlap Governance (Run 007 permanent)
+
+Any `capability_id` that appears in **more than one** `BATCH0X_IDS` routing set in `cap646/runtime.py` (or its imported `batch0X_production` modules) is a **governance contradiction** and MUST be:
+
+1. **Detected immediately** when discovered (automated scan in closure runs and audit scripts);
+2. **Recorded** as a separate finding with literal list membership (`BATCH01_IDS`, `BATCH02_IDS`, `BATCH03_IDS`, `LEGACY_BATCH01_EXTENSION_IDS`);
+3. **Resolved** by removing the ID from the non-official list OR reordering runtime checks with documented owner approval — never left silently routed to the wrong batch handler.
+
+**Runtime order today:** `BATCH01_IDS` → `BATCH02_IDS` → `BATCH03_IDS` (first match wins).
+
+**Known post-Run-007 finding (outside Batch 02 scope):** IDs **103, 129** appeared in both `BATCH01_IDS` (legacy extension) and `BATCH03_IDS` — **resolved Run 008** (removed from `LEGACY_BATCH01_EXTENSION_IDS`; pending dedicated handlers in Batch03 audit).

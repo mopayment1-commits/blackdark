@@ -1,0 +1,48 @@
+{
+  "asset_id": "dac_failure_corpus",
+  "canonical_name": "Failure Corpus",
+  "owner": "platform-quality",
+  "purpose": "Unified failure intelligence with regression protection",
+  "consumers": [
+    "kill_rate_board",
+    "cap646",
+    "regression_tests"
+  ],
+  "schema_version": "1.0.0",
+  "event_time_field": "recorded_at",
+  "ingest_time_field": "recorded_at",
+  "freshness_sla_seconds": 600,
+  "completeness_threshold": 0.95,
+  "validity_rules": {
+    "required": [
+      "failure_id",
+      "source",
+      "reason",
+      "category"
+    ]
+  },
+  "uniqueness_key": "failure_id",
+  "reconciliation_policy": "append_only",
+  "missing_corrupt_behavior": "log_and_continue",
+  "lineage_upstream": [
+    "truth_gates",
+    "provenance_score",
+    "circuit_breaker"
+  ],
+  "rights_profile_id": "rp_proprietary_internal",
+  "retention_class": "rc_evidence_archive",
+  "fallback_policy": "mirror_kill_rate",
+  "monitoring_hooks": [
+    "failure_corpus.corpus_stats"
+  ],
+  "evidence_refs": [
+    "data/failure_corpus.jsonl",
+    "failure_corpus.py"
+  ],
+  "storage_tier": "WARM",
+  "security_classification": "internal",
+  "failure_behavior": "never_silent",
+  "physical_path": "data/failure_corpus.jsonl",
+  "contract_version": "1.0.0",
+  "materialized_at": "2026-09-12T14:02:50.295594+00:00"
+}

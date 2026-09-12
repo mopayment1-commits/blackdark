@@ -1,0 +1,65 @@
+{
+  "guards": {
+    "dac_signal_registry": {
+      "asset_id": "dac_signal_registry",
+      "owner": "platform-intelligence",
+      "storage_tier": "HOT",
+      "estimated_monthly_cost_usd": 50,
+      "growth_rate_monthly_pct": 5,
+      "query_replay_value": "high",
+      "deletion_compaction_strategy": "rc_operational_hot",
+      "review_action": "keep"
+    },
+    "dac_decision_ledger": {
+      "asset_id": "dac_decision_ledger",
+      "owner": "platform-intelligence",
+      "storage_tier": "HOT",
+      "estimated_monthly_cost_usd": 50,
+      "growth_rate_monthly_pct": 5,
+      "query_replay_value": "high",
+      "deletion_compaction_strategy": "rc_evidence_archive",
+      "review_action": "keep"
+    },
+    "dac_oracle_audit_chain": {
+      "asset_id": "dac_oracle_audit_chain",
+      "owner": "platform-trust",
+      "storage_tier": "HOT",
+      "estimated_monthly_cost_usd": 50,
+      "growth_rate_monthly_pct": 5,
+      "query_replay_value": "medium",
+      "deletion_compaction_strategy": "rc_evidence_archive",
+      "review_action": "keep"
+    },
+    "dac_market_event_library": {
+      "asset_id": "dac_market_event_library",
+      "owner": "platform-intelligence",
+      "storage_tier": "WARM",
+      "estimated_monthly_cost_usd": 15,
+      "growth_rate_monthly_pct": 2,
+      "query_replay_value": "medium",
+      "deletion_compaction_strategy": "rc_operational_warm",
+      "review_action": "keep"
+    },
+    "dac_failure_corpus": {
+      "asset_id": "dac_failure_corpus",
+      "owner": "platform-quality",
+      "storage_tier": "WARM",
+      "estimated_monthly_cost_usd": 15,
+      "growth_rate_monthly_pct": 2,
+      "query_replay_value": "medium",
+      "deletion_compaction_strategy": "rc_evidence_archive",
+      "review_action": "keep"
+    },
+    "dac_user_exposure_log": {
+      "asset_id": "dac_user_exposure_log",
+      "owner": "platform-product",
+      "storage_tier": "HOT",
+      "estimated_monthly_cost_usd": 50,
+      "growth_rate_monthly_pct": 5,
+      "query_replay_value": "medium",
+      "deletion_compaction_strategy": "rc_user_telemetry",
+      "review_action": "keep"
+    }
+  },
+  "registered_at": "2026-09-12T14:03:26.597082+00:00"
+}

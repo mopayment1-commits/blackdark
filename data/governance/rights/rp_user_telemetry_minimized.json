@@ -1,0 +1,13 @@
+{
+  "profile_id": "rp_user_telemetry_minimized",
+  "storage_allowed": true,
+  "derived_use_allowed": true,
+  "training_allowed": false,
+  "redistribution_allowed": false,
+  "api_resale_allowed": false,
+  "licensing_allowed": false,
+  "retention_max_days": 365,
+  "enforcement": "block_training_and_export",
+  "minimization": true,
+  "deletion_on_request": true
+}
