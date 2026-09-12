@@ -19,6 +19,9 @@ from cap646.handlers.market import handle_market_capability
 from cap646.handlers.onchain import handle_onchain_capability
 from cap646.handlers.platform import handle_platform_capability
 from cap646.handlers.verified import handle_verified_capability
+from cap646.batch01_production import BATCH01_IDS
+from cap646.batch02_production import BATCH02_IDS
+from cap646.batch03_production import BATCH03_IDS
 from cap646.batch_constants import TOTAL_CAPABILITIES
 from cap646.batch_range_production import BATCH_RANGE_IDS
 from cap646.batch_spine import execute_and_enrich_batch
