@@ -44,6 +44,17 @@ async def test_build_batch01_bcbs_provenance_fields(capability_id: int):
     assert result.get("quality"), result
 
 
+@pytest.mark.parametrize("capability_id", BUILD_BATCH_01_IDS)
+def test_build_batch01_hero_binding(capability_id: int):
+    from cap646.build826_heroes import hero_binding_for
+
+    binding = hero_binding_for(capability_id)
+    assert binding["hero_binding_status"] == "BOUND", binding
+    assert binding["primary_hero"], binding
+    assert binding["hero_entry_path"], binding
+    assert f"/api/cap646/{capability_id}/execute" in binding["hero_entry_path"]
+
+
 @pytest.mark.parametrize("capability_id", [1, 2, 3, 4, 10, 21])
 @pytest.mark.asyncio
 async def test_build_batch01_free_tier_dedicated_path_a(capability_id: int):

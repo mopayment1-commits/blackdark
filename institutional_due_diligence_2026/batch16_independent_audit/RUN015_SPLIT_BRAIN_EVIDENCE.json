@@ -15,19 +15,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771074+00:00"
+        "timestamp": "2026-09-12T12:05:45.434936+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771074+00:00",
+      "timestamp": "2026-09-12T12:05:45.434936+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771095+00:00",
+        "attached_at": "2026-09-12T12:05:45.434958+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -61,19 +61,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771223+00:00"
+        "timestamp": "2026-09-12T12:05:45.435087+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771223+00:00",
+      "timestamp": "2026-09-12T12:05:45.435087+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771233+00:00",
+        "attached_at": "2026-09-12T12:05:45.435096+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -107,19 +107,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771343+00:00"
+        "timestamp": "2026-09-12T12:05:45.435211+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771343+00:00",
+      "timestamp": "2026-09-12T12:05:45.435211+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771351+00:00",
+        "attached_at": "2026-09-12T12:05:45.435218+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -153,19 +153,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771459+00:00"
+        "timestamp": "2026-09-12T12:05:45.435329+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771459+00:00",
+      "timestamp": "2026-09-12T12:05:45.435329+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771464+00:00",
+        "attached_at": "2026-09-12T12:05:45.435337+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -199,19 +199,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771566+00:00"
+        "timestamp": "2026-09-12T12:05:45.435442+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771566+00:00",
+      "timestamp": "2026-09-12T12:05:45.435442+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771571+00:00",
+        "attached_at": "2026-09-12T12:05:45.435448+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -245,19 +245,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771672+00:00"
+        "timestamp": "2026-09-12T12:05:45.435550+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771672+00:00",
+      "timestamp": "2026-09-12T12:05:45.435550+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771677+00:00",
+        "attached_at": "2026-09-12T12:05:45.435554+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -291,19 +291,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771779+00:00"
+        "timestamp": "2026-09-12T12:05:45.435659+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771779+00:00",
+      "timestamp": "2026-09-12T12:05:45.435659+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771784+00:00",
+        "attached_at": "2026-09-12T12:05:45.435663+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -337,19 +337,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771884+00:00"
+        "timestamp": "2026-09-12T12:05:45.435765+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771884+00:00",
+      "timestamp": "2026-09-12T12:05:45.435765+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771888+00:00",
+        "attached_at": "2026-09-12T12:05:45.435769+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -383,19 +383,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.771988+00:00"
+        "timestamp": "2026-09-12T12:05:45.435871+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.771988+00:00",
+      "timestamp": "2026-09-12T12:05:45.435871+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.771993+00:00",
+        "attached_at": "2026-09-12T12:05:45.435875+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -429,19 +429,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772095+00:00"
+        "timestamp": "2026-09-12T12:05:45.435977+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772095+00:00",
+      "timestamp": "2026-09-12T12:05:45.435977+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772100+00:00",
+        "attached_at": "2026-09-12T12:05:45.435982+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -475,19 +475,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772245+00:00"
+        "timestamp": "2026-09-12T12:05:45.436126+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772245+00:00",
+      "timestamp": "2026-09-12T12:05:45.436126+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772252+00:00",
+        "attached_at": "2026-09-12T12:05:45.436132+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -521,19 +521,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772358+00:00"
+        "timestamp": "2026-09-12T12:05:45.436241+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772358+00:00",
+      "timestamp": "2026-09-12T12:05:45.436241+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772363+00:00",
+        "attached_at": "2026-09-12T12:05:45.436245+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -567,19 +567,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772464+00:00"
+        "timestamp": "2026-09-12T12:05:45.436347+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772464+00:00",
+      "timestamp": "2026-09-12T12:05:45.436347+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772468+00:00",
+        "attached_at": "2026-09-12T12:05:45.436351+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -613,19 +613,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772569+00:00"
+        "timestamp": "2026-09-12T12:05:45.436453+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772569+00:00",
+      "timestamp": "2026-09-12T12:05:45.436453+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772573+00:00",
+        "attached_at": "2026-09-12T12:05:45.436457+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -659,19 +659,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772673+00:00"
+        "timestamp": "2026-09-12T12:05:45.436561+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772673+00:00",
+      "timestamp": "2026-09-12T12:05:45.436561+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772676+00:00",
+        "attached_at": "2026-09-12T12:05:45.436565+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -705,19 +705,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772782+00:00"
+        "timestamp": "2026-09-12T12:05:45.436669+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772782+00:00",
+      "timestamp": "2026-09-12T12:05:45.436669+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772787+00:00",
+        "attached_at": "2026-09-12T12:05:45.436673+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -751,19 +751,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772890+00:00"
+        "timestamp": "2026-09-12T12:05:45.436777+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772890+00:00",
+      "timestamp": "2026-09-12T12:05:45.436777+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.772894+00:00",
+        "attached_at": "2026-09-12T12:05:45.436781+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -797,19 +797,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.772999+00:00"
+        "timestamp": "2026-09-12T12:05:45.436885+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.772999+00:00",
+      "timestamp": "2026-09-12T12:05:45.436885+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.773003+00:00",
+        "attached_at": "2026-09-12T12:05:45.436890+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -843,19 +843,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.773111+00:00"
+        "timestamp": "2026-09-12T12:05:45.436994+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.773111+00:00",
+      "timestamp": "2026-09-12T12:05:45.436994+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.773116+00:00",
+        "attached_at": "2026-09-12T12:05:45.436998+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -889,19 +889,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.773221+00:00"
+        "timestamp": "2026-09-12T12:05:45.437099+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.773221+00:00",
+      "timestamp": "2026-09-12T12:05:45.437099+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.773226+00:00",
+        "attached_at": "2026-09-12T12:05:45.437103+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -935,19 +935,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.773330+00:00"
+        "timestamp": "2026-09-12T12:05:45.437205+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.773330+00:00",
+      "timestamp": "2026-09-12T12:05:45.437205+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.773333+00:00",
+        "attached_at": "2026-09-12T12:05:45.437208+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -981,19 +981,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.773436+00:00"
+        "timestamp": "2026-09-12T12:05:45.437310+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.773436+00:00",
+      "timestamp": "2026-09-12T12:05:45.437310+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.773440+00:00",
+        "attached_at": "2026-09-12T12:05:45.437314+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1027,19 +1027,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.773546+00:00"
+        "timestamp": "2026-09-12T12:05:45.437434+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.773546+00:00",
+      "timestamp": "2026-09-12T12:05:45.437434+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.773550+00:00",
+        "attached_at": "2026-09-12T12:05:45.437439+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1073,19 +1073,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781098+00:00"
+        "timestamp": "2026-09-12T12:05:45.444927+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781098+00:00",
+      "timestamp": "2026-09-12T12:05:45.444927+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781124+00:00",
+        "attached_at": "2026-09-12T12:05:45.444954+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1119,19 +1119,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781269+00:00"
+        "timestamp": "2026-09-12T12:05:45.445100+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781269+00:00",
+      "timestamp": "2026-09-12T12:05:45.445100+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781277+00:00",
+        "attached_at": "2026-09-12T12:05:45.445108+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1165,19 +1165,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781394+00:00"
+        "timestamp": "2026-09-12T12:05:45.445223+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781394+00:00",
+      "timestamp": "2026-09-12T12:05:45.445223+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781400+00:00",
+        "attached_at": "2026-09-12T12:05:45.445229+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1211,19 +1211,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781514+00:00"
+        "timestamp": "2026-09-12T12:05:45.445357+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781514+00:00",
+      "timestamp": "2026-09-12T12:05:45.445357+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781520+00:00",
+        "attached_at": "2026-09-12T12:05:45.445364+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1257,19 +1257,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781632+00:00"
+        "timestamp": "2026-09-12T12:05:45.445477+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781632+00:00",
+      "timestamp": "2026-09-12T12:05:45.445477+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781638+00:00",
+        "attached_at": "2026-09-12T12:05:45.445482+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1303,19 +1303,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781749+00:00"
+        "timestamp": "2026-09-12T12:05:45.445595+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781749+00:00",
+      "timestamp": "2026-09-12T12:05:45.445595+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781754+00:00",
+        "attached_at": "2026-09-12T12:05:45.445600+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1349,19 +1349,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781862+00:00"
+        "timestamp": "2026-09-12T12:05:45.445708+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781862+00:00",
+      "timestamp": "2026-09-12T12:05:45.445708+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781866+00:00",
+        "attached_at": "2026-09-12T12:05:45.445713+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1395,19 +1395,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.781969+00:00"
+        "timestamp": "2026-09-12T12:05:45.445822+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.781969+00:00",
+      "timestamp": "2026-09-12T12:05:45.445822+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.781973+00:00",
+        "attached_at": "2026-09-12T12:05:45.445827+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1441,19 +1441,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782077+00:00"
+        "timestamp": "2026-09-12T12:05:45.445935+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782077+00:00",
+      "timestamp": "2026-09-12T12:05:45.445935+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782081+00:00",
+        "attached_at": "2026-09-12T12:05:45.445940+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1487,19 +1487,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782181+00:00"
+        "timestamp": "2026-09-12T12:05:45.446043+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782181+00:00",
+      "timestamp": "2026-09-12T12:05:45.446043+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782186+00:00",
+        "attached_at": "2026-09-12T12:05:45.446047+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1533,19 +1533,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782290+00:00"
+        "timestamp": "2026-09-12T12:05:45.446151+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782290+00:00",
+      "timestamp": "2026-09-12T12:05:45.446151+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782295+00:00",
+        "attached_at": "2026-09-12T12:05:45.446156+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1579,19 +1579,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782396+00:00"
+        "timestamp": "2026-09-12T12:05:45.446257+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782396+00:00",
+      "timestamp": "2026-09-12T12:05:45.446257+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782400+00:00",
+        "attached_at": "2026-09-12T12:05:45.446261+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1625,19 +1625,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782511+00:00"
+        "timestamp": "2026-09-12T12:05:45.446367+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782511+00:00",
+      "timestamp": "2026-09-12T12:05:45.446367+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782515+00:00",
+        "attached_at": "2026-09-12T12:05:45.446371+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1671,19 +1671,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782619+00:00"
+        "timestamp": "2026-09-12T12:05:45.446470+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782619+00:00",
+      "timestamp": "2026-09-12T12:05:45.446470+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782624+00:00",
+        "attached_at": "2026-09-12T12:05:45.446474+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1717,19 +1717,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782726+00:00"
+        "timestamp": "2026-09-12T12:05:45.446574+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782726+00:00",
+      "timestamp": "2026-09-12T12:05:45.446574+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782731+00:00",
+        "attached_at": "2026-09-12T12:05:45.446578+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1763,19 +1763,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782833+00:00"
+        "timestamp": "2026-09-12T12:05:45.446678+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782833+00:00",
+      "timestamp": "2026-09-12T12:05:45.446678+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782838+00:00",
+        "attached_at": "2026-09-12T12:05:45.446683+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1809,19 +1809,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.782953+00:00"
+        "timestamp": "2026-09-12T12:05:45.446784+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.782953+00:00",
+      "timestamp": "2026-09-12T12:05:45.446784+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.782959+00:00",
+        "attached_at": "2026-09-12T12:05:45.446789+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1855,19 +1855,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783065+00:00"
+        "timestamp": "2026-09-12T12:05:45.446888+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783065+00:00",
+      "timestamp": "2026-09-12T12:05:45.446888+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783069+00:00",
+        "attached_at": "2026-09-12T12:05:45.446892+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1901,19 +1901,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783177+00:00"
+        "timestamp": "2026-09-12T12:05:45.446994+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783177+00:00",
+      "timestamp": "2026-09-12T12:05:45.446994+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783182+00:00",
+        "attached_at": "2026-09-12T12:05:45.446998+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1947,19 +1947,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783285+00:00"
+        "timestamp": "2026-09-12T12:05:45.447097+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783285+00:00",
+      "timestamp": "2026-09-12T12:05:45.447097+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783289+00:00",
+        "attached_at": "2026-09-12T12:05:45.447101+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1993,19 +1993,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783391+00:00"
+        "timestamp": "2026-09-12T12:05:45.447206+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783391+00:00",
+      "timestamp": "2026-09-12T12:05:45.447206+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783395+00:00",
+        "attached_at": "2026-09-12T12:05:45.447210+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2039,19 +2039,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783495+00:00"
+        "timestamp": "2026-09-12T12:05:45.447311+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783495+00:00",
+      "timestamp": "2026-09-12T12:05:45.447311+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783499+00:00",
+        "attached_at": "2026-09-12T12:05:45.447315+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2085,19 +2085,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783601+00:00"
+        "timestamp": "2026-09-12T12:05:45.447420+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783601+00:00",
+      "timestamp": "2026-09-12T12:05:45.447420+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783606+00:00",
+        "attached_at": "2026-09-12T12:05:45.447424+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2131,19 +2131,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783706+00:00"
+        "timestamp": "2026-09-12T12:05:45.447529+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783706+00:00",
+      "timestamp": "2026-09-12T12:05:45.447529+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783710+00:00",
+        "attached_at": "2026-09-12T12:05:45.447533+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2177,19 +2177,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783815+00:00"
+        "timestamp": "2026-09-12T12:05:45.447638+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783815+00:00",
+      "timestamp": "2026-09-12T12:05:45.447638+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783819+00:00",
+        "attached_at": "2026-09-12T12:05:45.447642+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2223,19 +2223,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.783925+00:00"
+        "timestamp": "2026-09-12T12:05:45.447742+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.783925+00:00",
+      "timestamp": "2026-09-12T12:05:45.447742+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.783929+00:00",
+        "attached_at": "2026-09-12T12:05:45.447746+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -2269,19 +2269,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T22:00:24.784031+00:00"
+        "timestamp": "2026-09-12T12:05:45.447846+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T22:00:24.784031+00:00",
+      "timestamp": "2026-09-12T12:05:45.447846+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T22:00:24.784035+00:00",
+        "attached_at": "2026-09-12T12:05:45.447850+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {

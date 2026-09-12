@@ -1,6 +1,6 @@
 # Six Heroes Binding Index — CAPABILITY_BUILD_826
 
-**Updated:** 2026-09-12T11:25:47.972504+00:00
+**Updated:** 2026-09-12T12:14:48.689132+00:00
 
 | ID | Capability | Primary Hero | Entry Path | Binding | Build Status |
 |---:|---|---|---|---|---|
@@ -704,131 +704,131 @@
 | 698 | CAP-698 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/698/execute | BOUND | COMPLETE_V6 |
 | 699 | CAP-699 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/699/execute | BOUND | COMPLETE_V6 |
 | 700 | CAP-700 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/700/execute | BOUND | COMPLETE_V6 |
-| 701 | CAP-701 | — | — | UNBOUND | PARTIAL |
-| 702 | CAP-702 | — | — | UNBOUND | PARTIAL |
-| 703 | CAP-703 | — | — | UNBOUND | PARTIAL |
-| 704 | CAP-704 | — | — | UNBOUND | PARTIAL |
-| 705 | CAP-705 | — | — | UNBOUND | PARTIAL |
-| 706 | CAP-706 | — | — | UNBOUND | PARTIAL |
-| 707 | CAP-707 | — | — | UNBOUND | PARTIAL |
-| 708 | CAP-708 | — | — | UNBOUND | PARTIAL |
-| 709 | CAP-709 | — | — | UNBOUND | PARTIAL |
-| 710 | CAP-710 | — | — | UNBOUND | PARTIAL |
-| 711 | CAP-711 | — | — | UNBOUND | PARTIAL |
-| 712 | CAP-712 | — | — | UNBOUND | PARTIAL |
-| 713 | CAP-713 | — | — | UNBOUND | PARTIAL |
-| 714 | CAP-714 | — | — | UNBOUND | PARTIAL |
-| 715 | CAP-715 | — | — | UNBOUND | PARTIAL |
-| 716 | CAP-716 | — | — | UNBOUND | PARTIAL |
-| 717 | CAP-717 | — | — | UNBOUND | PARTIAL |
-| 718 | CAP-718 | — | — | UNBOUND | PARTIAL |
-| 719 | CAP-719 | — | — | UNBOUND | PARTIAL |
-| 720 | CAP-720 | — | — | UNBOUND | PARTIAL |
-| 721 | CAP-721 | — | — | UNBOUND | PARTIAL |
-| 722 | CAP-722 | — | — | UNBOUND | PARTIAL |
-| 723 | CAP-723 | — | — | UNBOUND | PARTIAL |
-| 724 | CAP-724 | — | — | UNBOUND | PARTIAL |
-| 725 | CAP-725 | — | — | UNBOUND | PARTIAL |
-| 726 | CAP-726 | — | — | UNBOUND | NOT_STARTED |
-| 727 | CAP-727 | — | — | UNBOUND | NOT_STARTED |
-| 728 | CAP-728 | — | — | UNBOUND | NOT_STARTED |
-| 729 | CAP-729 | — | — | UNBOUND | NOT_STARTED |
-| 730 | CAP-730 | — | — | UNBOUND | NOT_STARTED |
-| 731 | CAP-731 | — | — | UNBOUND | NOT_STARTED |
-| 732 | CAP-732 | — | — | UNBOUND | NOT_STARTED |
-| 733 | CAP-733 | — | — | UNBOUND | NOT_STARTED |
-| 734 | CAP-734 | — | — | UNBOUND | NOT_STARTED |
-| 735 | CAP-735 | — | — | UNBOUND | NOT_STARTED |
-| 736 | CAP-736 | — | — | UNBOUND | NOT_STARTED |
-| 737 | CAP-737 | — | — | UNBOUND | NOT_STARTED |
-| 738 | CAP-738 | — | — | UNBOUND | NOT_STARTED |
-| 739 | CAP-739 | — | — | UNBOUND | NOT_STARTED |
-| 740 | CAP-740 | — | — | UNBOUND | NOT_STARTED |
-| 741 | CAP-741 | — | — | UNBOUND | NOT_STARTED |
-| 742 | CAP-742 | — | — | UNBOUND | NOT_STARTED |
-| 743 | CAP-743 | — | — | UNBOUND | NOT_STARTED |
-| 744 | CAP-744 | — | — | UNBOUND | NOT_STARTED |
-| 745 | CAP-745 | — | — | UNBOUND | NOT_STARTED |
-| 746 | CAP-746 | — | — | UNBOUND | NOT_STARTED |
-| 747 | CAP-747 | — | — | UNBOUND | NOT_STARTED |
-| 748 | CAP-748 | — | — | UNBOUND | NOT_STARTED |
-| 749 | CAP-749 | — | — | UNBOUND | NOT_STARTED |
-| 750 | CAP-750 | — | — | UNBOUND | NOT_STARTED |
-| 751 | CAP-751 | — | — | UNBOUND | NOT_STARTED |
-| 752 | CAP-752 | — | — | UNBOUND | NOT_STARTED |
-| 753 | CAP-753 | — | — | UNBOUND | NOT_STARTED |
-| 754 | CAP-754 | — | — | UNBOUND | NOT_STARTED |
-| 755 | CAP-755 | — | — | UNBOUND | NOT_STARTED |
-| 756 | CAP-756 | — | — | UNBOUND | NOT_STARTED |
-| 757 | CAP-757 | — | — | UNBOUND | NOT_STARTED |
-| 758 | CAP-758 | — | — | UNBOUND | NOT_STARTED |
-| 759 | CAP-759 | — | — | UNBOUND | NOT_STARTED |
-| 760 | CAP-760 | — | — | UNBOUND | NOT_STARTED |
-| 761 | CAP-761 | — | — | UNBOUND | NOT_STARTED |
-| 762 | CAP-762 | — | — | UNBOUND | NOT_STARTED |
-| 763 | CAP-763 | — | — | UNBOUND | NOT_STARTED |
-| 764 | CAP-764 | — | — | UNBOUND | NOT_STARTED |
-| 765 | CAP-765 | — | — | UNBOUND | NOT_STARTED |
-| 766 | CAP-766 | — | — | UNBOUND | NOT_STARTED |
-| 767 | CAP-767 | — | — | UNBOUND | NOT_STARTED |
-| 768 | CAP-768 | — | — | UNBOUND | NOT_STARTED |
-| 769 | CAP-769 | — | — | UNBOUND | NOT_STARTED |
-| 770 | CAP-770 | — | — | UNBOUND | NOT_STARTED |
-| 771 | CAP-771 | — | — | UNBOUND | NOT_STARTED |
-| 772 | CAP-772 | — | — | UNBOUND | NOT_STARTED |
-| 773 | CAP-773 | — | — | UNBOUND | NOT_STARTED |
-| 774 | CAP-774 | — | — | UNBOUND | NOT_STARTED |
-| 775 | CAP-775 | — | — | UNBOUND | NOT_STARTED |
-| 776 | CAP-776 | — | — | UNBOUND | NOT_STARTED |
-| 777 | CAP-777 | — | — | UNBOUND | NOT_STARTED |
-| 778 | CAP-778 | — | — | UNBOUND | NOT_STARTED |
-| 779 | CAP-779 | — | — | UNBOUND | NOT_STARTED |
-| 780 | CAP-780 | — | — | UNBOUND | NOT_STARTED |
-| 781 | CAP-781 | — | — | UNBOUND | NOT_STARTED |
-| 782 | CAP-782 | — | — | UNBOUND | NOT_STARTED |
-| 783 | CAP-783 | — | — | UNBOUND | NOT_STARTED |
-| 784 | CAP-784 | — | — | UNBOUND | NOT_STARTED |
-| 785 | CAP-785 | — | — | UNBOUND | NOT_STARTED |
-| 786 | CAP-786 | — | — | UNBOUND | NOT_STARTED |
-| 787 | CAP-787 | — | — | UNBOUND | NOT_STARTED |
-| 788 | CAP-788 | — | — | UNBOUND | NOT_STARTED |
-| 789 | CAP-789 | — | — | UNBOUND | NOT_STARTED |
-| 790 | CAP-790 | — | — | UNBOUND | NOT_STARTED |
-| 791 | CAP-791 | — | — | UNBOUND | NOT_STARTED |
-| 792 | CAP-792 | — | — | UNBOUND | NOT_STARTED |
-| 793 | CAP-793 | — | — | UNBOUND | NOT_STARTED |
-| 794 | CAP-794 | — | — | UNBOUND | NOT_STARTED |
-| 795 | CAP-795 | — | — | UNBOUND | NOT_STARTED |
-| 796 | CAP-796 | — | — | UNBOUND | NOT_STARTED |
-| 797 | CAP-797 | — | — | UNBOUND | NOT_STARTED |
-| 798 | CAP-798 | — | — | UNBOUND | NOT_STARTED |
-| 799 | CAP-799 | — | — | UNBOUND | NOT_STARTED |
-| 800 | CAP-800 | — | — | UNBOUND | NOT_STARTED |
-| 801 | CAP-801 | — | — | UNBOUND | NOT_STARTED |
-| 802 | CAP-802 | — | — | UNBOUND | NOT_STARTED |
-| 803 | CAP-803 | — | — | UNBOUND | NOT_STARTED |
-| 804 | CAP-804 | — | — | UNBOUND | NOT_STARTED |
-| 805 | CAP-805 | — | — | UNBOUND | NOT_STARTED |
-| 806 | CAP-806 | — | — | UNBOUND | NOT_STARTED |
-| 807 | CAP-807 | — | — | UNBOUND | NOT_STARTED |
-| 808 | CAP-808 | — | — | UNBOUND | NOT_STARTED |
-| 809 | CAP-809 | — | — | UNBOUND | NOT_STARTED |
-| 810 | CAP-810 | — | — | UNBOUND | NOT_STARTED |
-| 811 | CAP-811 | — | — | UNBOUND | NOT_STARTED |
-| 812 | CAP-812 | — | — | UNBOUND | NOT_STARTED |
-| 813 | CAP-813 | — | — | UNBOUND | NOT_STARTED |
-| 814 | CAP-814 | — | — | UNBOUND | NOT_STARTED |
-| 815 | CAP-815 | — | — | UNBOUND | NOT_STARTED |
-| 816 | CAP-816 | — | — | UNBOUND | NOT_STARTED |
-| 817 | CAP-817 | — | — | UNBOUND | NOT_STARTED |
-| 818 | CAP-818 | — | — | UNBOUND | NOT_STARTED |
-| 819 | CAP-819 | — | — | UNBOUND | NOT_STARTED |
-| 820 | CAP-820 | — | — | UNBOUND | NOT_STARTED |
-| 821 | CAP-821 | — | — | UNBOUND | NOT_STARTED |
-| 822 | CAP-822 | — | — | UNBOUND | NOT_STARTED |
-| 823 | CAP-823 | — | — | UNBOUND | NOT_STARTED |
-| 824 | CAP-824 | — | — | UNBOUND | NOT_STARTED |
-| 825 | CAP-825 | — | — | UNBOUND | NOT_STARTED |
-| 826 | CAP-826 | — | — | UNBOUND | NOT_STARTED |
+| 701 | CAP-701 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/701/execute | BOUND | COMPLETE_V6 |
+| 702 | CAP-702 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/702/execute | BOUND | COMPLETE_V6 |
+| 703 | CAP-703 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/703/execute | BOUND | COMPLETE_V6 |
+| 704 | CAP-704 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/704/execute | BOUND | COMPLETE_V6 |
+| 705 | CAP-705 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/705/execute | BOUND | COMPLETE_V6 |
+| 706 | CAP-706 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/706/execute | BOUND | COMPLETE_V6 |
+| 707 | CAP-707 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/707/execute | BOUND | COMPLETE_V6 |
+| 708 | CAP-708 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/708/execute | BOUND | COMPLETE_V6 |
+| 709 | CAP-709 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/709/execute | BOUND | COMPLETE_V6 |
+| 710 | CAP-710 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/710/execute | BOUND | COMPLETE_V6 |
+| 711 | CAP-711 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/711/execute | BOUND | COMPLETE_V6 |
+| 712 | CAP-712 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/712/execute | BOUND | COMPLETE_V6 |
+| 713 | CAP-713 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/713/execute | BOUND | COMPLETE_V6 |
+| 714 | CAP-714 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/714/execute | BOUND | COMPLETE_V6 |
+| 715 | CAP-715 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/715/execute | BOUND | COMPLETE_V6 |
+| 716 | CAP-716 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/716/execute | BOUND | COMPLETE_V6 |
+| 717 | CAP-717 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/717/execute | BOUND | COMPLETE_V6 |
+| 718 | CAP-718 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/718/execute | BOUND | COMPLETE_V6 |
+| 719 | CAP-719 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/719/execute | BOUND | COMPLETE_V6 |
+| 720 | CAP-720 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/720/execute | BOUND | COMPLETE_V6 |
+| 721 | CAP-721 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/721/execute | BOUND | COMPLETE_V6 |
+| 722 | CAP-722 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/722/execute | BOUND | COMPLETE_V6 |
+| 723 | CAP-723 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/723/execute | BOUND | COMPLETE_V6 |
+| 724 | CAP-724 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/724/execute | BOUND | COMPLETE_V6 |
+| 725 | CAP-725 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/725/execute | BOUND | COMPLETE_V6 |
+| 726 | CAP-726 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/726/execute | BOUND | COMPLETE_V6 |
+| 727 | CAP-727 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/727/execute | BOUND | COMPLETE_V6 |
+| 728 | CAP-728 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/728/execute | BOUND | COMPLETE_V6 |
+| 729 | CAP-729 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/729/execute | BOUND | COMPLETE_V6 |
+| 730 | CAP-730 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/730/execute | BOUND | COMPLETE_V6 |
+| 731 | CAP-731 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/731/execute | BOUND | COMPLETE_V6 |
+| 732 | CAP-732 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/732/execute | BOUND | COMPLETE_V6 |
+| 733 | CAP-733 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/733/execute | BOUND | COMPLETE_V6 |
+| 734 | CAP-734 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/734/execute | BOUND | COMPLETE_V6 |
+| 735 | CAP-735 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/735/execute | BOUND | COMPLETE_V6 |
+| 736 | CAP-736 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/736/execute | BOUND | COMPLETE_V6 |
+| 737 | CAP-737 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/737/execute | BOUND | COMPLETE_V6 |
+| 738 | CAP-738 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/738/execute | BOUND | COMPLETE_V6 |
+| 739 | CAP-739 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/739/execute | BOUND | COMPLETE_V6 |
+| 740 | CAP-740 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/740/execute | BOUND | COMPLETE_V6 |
+| 741 | CAP-741 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/741/execute | BOUND | COMPLETE_V6 |
+| 742 | CAP-742 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/742/execute | BOUND | COMPLETE_V6 |
+| 743 | CAP-743 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/743/execute | BOUND | COMPLETE_V6 |
+| 744 | CAP-744 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/744/execute | BOUND | COMPLETE_V6 |
+| 745 | CAP-745 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/745/execute | BOUND | COMPLETE_V6 |
+| 746 | CAP-746 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/746/execute | BOUND | COMPLETE_V6 |
+| 747 | CAP-747 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/747/execute | BOUND | COMPLETE_V6 |
+| 748 | CAP-748 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/748/execute | BOUND | COMPLETE_V6 |
+| 749 | CAP-749 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/749/execute | BOUND | COMPLETE_V6 |
+| 750 | CAP-750 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/750/execute | BOUND | COMPLETE_V6 |
+| 751 | CAP-751 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/751/execute | BOUND | COMPLETE_V6 |
+| 752 | CAP-752 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/752/execute | BOUND | COMPLETE_V6 |
+| 753 | CAP-753 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/753/execute | BOUND | COMPLETE_V6 |
+| 754 | CAP-754 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/754/execute | BOUND | COMPLETE_V6 |
+| 755 | CAP-755 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/755/execute | BOUND | COMPLETE_V6 |
+| 756 | CAP-756 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/756/execute | BOUND | COMPLETE_V6 |
+| 757 | CAP-757 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/757/execute | BOUND | COMPLETE_V6 |
+| 758 | CAP-758 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/758/execute | BOUND | COMPLETE_V6 |
+| 759 | CAP-759 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/759/execute | BOUND | COMPLETE_V6 |
+| 760 | CAP-760 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/760/execute | BOUND | COMPLETE_V6 |
+| 761 | CAP-761 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/761/execute | BOUND | COMPLETE_V6 |
+| 762 | CAP-762 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/762/execute | BOUND | COMPLETE_V6 |
+| 763 | CAP-763 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/763/execute | BOUND | COMPLETE_V6 |
+| 764 | CAP-764 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/764/execute | BOUND | COMPLETE_V6 |
+| 765 | CAP-765 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/765/execute | BOUND | COMPLETE_V6 |
+| 766 | CAP-766 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/766/execute | BOUND | COMPLETE_V6 |
+| 767 | CAP-767 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/767/execute | BOUND | COMPLETE_V6 |
+| 768 | CAP-768 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/768/execute | BOUND | COMPLETE_V6 |
+| 769 | CAP-769 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/769/execute | BOUND | COMPLETE_V6 |
+| 770 | CAP-770 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/770/execute | BOUND | COMPLETE_V6 |
+| 771 | CAP-771 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/771/execute | BOUND | COMPLETE_V6 |
+| 772 | CAP-772 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/772/execute | BOUND | COMPLETE_V6 |
+| 773 | CAP-773 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/773/execute | BOUND | COMPLETE_V6 |
+| 774 | CAP-774 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/774/execute | BOUND | COMPLETE_V6 |
+| 775 | CAP-775 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/775/execute | BOUND | COMPLETE_V6 |
+| 776 | CAP-776 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/776/execute | BOUND | COMPLETE_V6 |
+| 777 | CAP-777 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/777/execute | BOUND | COMPLETE_V6 |
+| 778 | CAP-778 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/778/execute | BOUND | COMPLETE_V6 |
+| 779 | CAP-779 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/779/execute | BOUND | COMPLETE_V6 |
+| 780 | CAP-780 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/780/execute | BOUND | COMPLETE_V6 |
+| 781 | CAP-781 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/781/execute | BOUND | COMPLETE_V6 |
+| 782 | CAP-782 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/782/execute | BOUND | COMPLETE_V6 |
+| 783 | CAP-783 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/783/execute | BOUND | COMPLETE_V6 |
+| 784 | CAP-784 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/784/execute | BOUND | COMPLETE_V6 |
+| 785 | CAP-785 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/785/execute | BOUND | COMPLETE_V6 |
+| 786 | CAP-786 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/786/execute | BOUND | COMPLETE_V6 |
+| 787 | CAP-787 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/787/execute | BOUND | COMPLETE_V6 |
+| 788 | CAP-788 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/788/execute | BOUND | COMPLETE_V6 |
+| 789 | CAP-789 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/789/execute | BOUND | COMPLETE_V6 |
+| 790 | CAP-790 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/790/execute | BOUND | COMPLETE_V6 |
+| 791 | CAP-791 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/791/execute | BOUND | COMPLETE_V6 |
+| 792 | CAP-792 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/792/execute | BOUND | COMPLETE_V6 |
+| 793 | CAP-793 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/793/execute | BOUND | COMPLETE_V6 |
+| 794 | CAP-794 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/794/execute | BOUND | COMPLETE_V6 |
+| 795 | CAP-795 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/795/execute | BOUND | COMPLETE_V6 |
+| 796 | CAP-796 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/796/execute | BOUND | COMPLETE_V6 |
+| 797 | CAP-797 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/797/execute | BOUND | COMPLETE_V6 |
+| 798 | CAP-798 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/798/execute | BOUND | COMPLETE_V6 |
+| 799 | CAP-799 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/799/execute | BOUND | COMPLETE_V6 |
+| 800 | CAP-800 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/800/execute | BOUND | COMPLETE_V6 |
+| 801 | CAP-801 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/801/execute | BOUND | COMPLETE_V6 |
+| 802 | CAP-802 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/802/execute | BOUND | COMPLETE_V6 |
+| 803 | CAP-803 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/803/execute | BOUND | COMPLETE_V6 |
+| 804 | CAP-804 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/804/execute | BOUND | COMPLETE_V6 |
+| 805 | CAP-805 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/805/execute | BOUND | COMPLETE_V6 |
+| 806 | CAP-806 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/806/execute | BOUND | COMPLETE_V6 |
+| 807 | CAP-807 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/807/execute | BOUND | COMPLETE_V6 |
+| 808 | CAP-808 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/808/execute | BOUND | COMPLETE_V6 |
+| 809 | CAP-809 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/809/execute | BOUND | COMPLETE_V6 |
+| 810 | CAP-810 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/810/execute | BOUND | COMPLETE_V6 |
+| 811 | CAP-811 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/811/execute | BOUND | COMPLETE_V6 |
+| 812 | CAP-812 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/812/execute | BOUND | COMPLETE_V6 |
+| 813 | CAP-813 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/813/execute | BOUND | COMPLETE_V6 |
+| 814 | CAP-814 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/814/execute | BOUND | COMPLETE_V6 |
+| 815 | CAP-815 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/815/execute | BOUND | COMPLETE_V6 |
+| 816 | CAP-816 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/816/execute | BOUND | COMPLETE_V6 |
+| 817 | CAP-817 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/817/execute | BOUND | COMPLETE_V6 |
+| 818 | CAP-818 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/818/execute | BOUND | COMPLETE_V6 |
+| 819 | CAP-819 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/819/execute | BOUND | COMPLETE_V6 |
+| 820 | CAP-820 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/820/execute | BOUND | COMPLETE_V6 |
+| 821 | CAP-821 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/821/execute | BOUND | COMPLETE_V6 |
+| 822 | CAP-822 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/822/execute | BOUND | COMPLETE_V6 |
+| 823 | CAP-823 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/823/execute | BOUND | COMPLETE_V6 |
+| 824 | CAP-824 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/824/execute | BOUND | COMPLETE_V6 |
+| 825 | CAP-825 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/825/execute | BOUND | COMPLETE_V6 |
+| 826 | CAP-826 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/826/execute | BOUND | COMPLETE_V6 |
 
 **Unbound COMPLETE_V6 (must be 0):** 0

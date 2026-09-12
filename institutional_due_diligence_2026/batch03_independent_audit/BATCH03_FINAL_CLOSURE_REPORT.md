@@ -1,6 +1,6 @@
 # Batch 03 Final Closure Report (Run 010)
 
-**Generated:** 2026-09-11T13:14:39.261871+00:00  
+**Generated:** 2026-09-11T22:09:40.698325+00:00  
 **Run:** Master Contract 010  
 **Scope:** IDs 101–150 (Batch03 closure — Batch04 NOT opened)  
 
@@ -84,12 +84,12 @@ All other NOT_COMPLETE IDs are data-delivery, AI, sentiment, or catalog-link cap
 **Live post-fix excerpt (ID 103 sample):**
 
 ```json
-{"capability_id": 103, "surface": "api_data_platform", "data_source": "cap646.batch03_dedicated#cap103", "timestamp": "2026-09-11T13:13:37.881049+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
+{"capability_id": 103, "surface": "api_data_platform", "data_source": "cap646.batch03_dedicated#cap103", "timestamp": "2026-09-11T22:08:39.988322+00:00", "evidence_class": "SHADOW_LIVE_FORWARD", "success": true}
 ```
 
 ## Item 3 — PERFORMANCE-UNVERIFIABLE (unchanged)
 
-IDs **101, 110, 111, 148, 149** remain PERFORMANCE-UNVERIFIABLE per GIPS shadow-only ledger (218 decisions, simulated_only=True).
+IDs **101, 110, 111, 148, 149** remain PERFORMANCE-UNVERIFIABLE per GIPS shadow-only ledger (330 decisions, simulated_only=True).
 
 ## Item 4 — Non-Regression (Batch01 + Batch02)
 

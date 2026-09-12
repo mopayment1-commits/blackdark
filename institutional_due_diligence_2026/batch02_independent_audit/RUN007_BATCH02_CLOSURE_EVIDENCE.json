@@ -1,6 +1,6 @@
 {
   "remediation": {
-    "generated_at": "2026-09-11T13:13:57.030635+00:00",
+    "generated_at": "2026-09-11T22:08:59.157837+00:00",
     "conceptual_unsound_remediation": {
       "52": {
         "path": "A",
@@ -11,7 +11,7 @@
           "ok": true,
           "capability_id": 565,
           "symbol": "BTC",
-          "timestamp": "2026-09-11T13:13:57.031553+00:00",
+          "timestamp": "2026-09-11T22:08:59.159416+00:00",
           "disclaimer": "Analysis only \u2014 not financial advice, guarantee, or execution.",
           "analysis_only": true,
           "no_execution": true,
@@ -19,7 +19,7 @@
           "feature": "Cross-Asset Correlation",
           "attribution": "BLACKDARK institutional delivery intelligence layer",
           "formula_visible": true,
-          "breadth_score": 0.75
+          "breadth_score": 0.5
         }
       },
       "53": {
@@ -29,10 +29,10 @@
         "success": true,
         "payload_sample": {
           "btc_symbol": "BTC",
-          "btc_change_24h_pct": 1.148,
+          "btc_change_24h_pct": -0.101,
           "macro_regime": "Neutral",
-          "dxy_score": 0.2066,
-          "spx_score": 0.1146,
+          "dxy_score": 0.1328,
+          "spx_score": -0.405,
           "coupling_coefficient": null,
           "coupling_window_days": 30,
           "coupling_samples": 0,
@@ -104,41 +104,41 @@
       "66": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 218,
+        "ledger_unique_decisions": 330,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "69": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 218,
+        "ledger_unique_decisions": 330,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "90": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 218,
+        "ledger_unique_decisions": 330,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "97": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 218,
+        "ledger_unique_decisions": 330,
         "ledger_simulated_only": true,
         "runtime_success": true
       },
       "98": {
         "status": "PERFORMANCE-UNVERIFIABLE",
         "reason": "GIPS: shadow-only decision ledger (Run 004 rationale preserved)",
-        "ledger_unique_decisions": 218,
+        "ledger_unique_decisions": 330,
         "ledger_simulated_only": true,
         "runtime_success": true
       }
     },
     "cross_spine_scan": {
-      "scan_at": "2026-09-11T13:14:05.231892+00:00",
+      "scan_at": "2026-09-11T22:09:07.298898+00:00",
       "rule": "CROSS-SPINE-001",
       "total_overlapping_ids": 0,
       "overlaps": [],
@@ -198,14 +198,7 @@
           49,
           50
         ],
-        "LEGACY_BATCH01_EXTENSION_IDS": [
-          629,
-          630,
-          631,
-          642,
-          644,
-          646
-        ],
+        "LEGACY_BATCH01_EXTENSION_IDS": [],
         "BATCH01_IDS": [
           1,
           2,
@@ -256,13 +249,7 @@
           47,
           48,
           49,
-          50,
-          629,
-          630,
-          631,
-          642,
-          644,
-          646
+          50
         ],
         "BATCH02_IDS": [
           51,

@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-09-12T12:14:47.643564+00:00",
+  "scope": "build_batch_34_ids_826_826",
+  "non_regression": {
+    "met": true,
+    "pytest": {
+      "met": true,
+      "exit_code": 0,
+      "log_path": "institutional_due_diligence_2026/CAPABILITY_BUILD_826/EVIDENCE/batch34_pytest.log"
+    }
+  },
+  "bcbs": {
+    "per_id": {
+      "826": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
-  "sig_697a2b637096": {
-    "signal_id": "sig_697a2b637096",
+  "sig_448fa8c3ce21": {
+    "signal_id": "sig_448fa8c3ce21",
     "name": "RSI_14",
     "formula": "RSI(close, 14)",
     "formula_hash": "7675a8cbd987b971",
     "data_source": "ta_engine",
     "signal_type": "custom",
-    "registered_at": "2026-09-12T11:21:42.798983+00:00",
+    "registered_at": "2026-09-12T12:11:31.759922+00:00",
     "schema_version": "v1"
   }
 }
