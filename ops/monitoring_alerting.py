@@ -13,10 +13,12 @@ from typing import Any
 
 import httpx
 
+from path_safety import coerce_json_mapping, read_json_mapping, safe_data_file, write_json_mapping
+
 logger = logging.getLogger("BLACKDARK.Monitoring")
 
 ROOT = Path(__file__).resolve().parent.parent
-STATE_PATH = ROOT / "data" / "monitoring_alert_state.json"
+_STATE_FILE = safe_data_file("monitoring_alert_state.json", project_root=ROOT)
 _ALERT_COOLDOWN_SEC = int(os.getenv("MONITORING_ALERT_COOLDOWN_SEC", "300"))
 _LATENCY_WARN_MS = float(os.getenv("MONITORING_LATENCY_WARN_MS", "2000"))
 _LATENCY_FAIL_MS = float(os.getenv("MONITORING_LATENCY_FAIL_MS", "5000"))
@@ -32,18 +34,31 @@ def _base_url() -> str:
     ).rstrip("/")
 
 
+def _default_state() -> dict[str, Any]:
+    return {"consecutive_failures": 0, "last_alert_ts": 0.0, "last_signal_alerts": {}}
+
+
+def _normalize_state(raw: dict[str, object]) -> dict[str, Any]:
+    alerts = raw.get("last_signal_alerts")
+    return {
+        "consecutive_failures": int(raw.get("consecutive_failures") or 0),
+        "last_alert_ts": float(raw.get("last_alert_ts") or 0),
+        "last_signal_alerts": dict(coerce_json_mapping(alerts) if isinstance(alerts, dict) else {}),
+    }
+
+
 def _load_state() -> dict[str, Any]:
-    if not STATE_PATH.exists():
-        return {"consecutive_failures": 0, "last_alert_ts": 0, "last_signal_alerts": {}}
+    if not _STATE_FILE.exists():
+        return _default_state()
     try:
-        return json.loads(STATE_PATH.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return {"consecutive_failures": 0, "last_alert_ts": 0, "last_signal_alerts": {}}
+        return _normalize_state(read_json_mapping(_STATE_FILE))
+    except (json.JSONDecodeError, OSError, TypeError, ValueError):
+        return _default_state()
 
 
 def _save_state(state: dict[str, Any]) -> None:
-    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATE_PATH.write_text(json.dumps(state, indent=2), encoding="utf-8")
+    _STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    write_json_mapping(_STATE_FILE, _normalize_state(dict(state)))
 
 
 async def _send_ops_alert(title: str, body: str) -> dict[str, Any]:

@@ -95,9 +95,9 @@ def _gate_data_quality(result: dict[str, Any]) -> bool:
     if "provenance" in str(result.get("backend_module", "")):
         return True
     data = result.get("result") if isinstance(result.get("result"), dict) else result
-    if isinstance(data, dict) and any(k in data for k in ("provenance", "provenance_score", "data_provenance")):
-        return True
-    return True  # N/A when no data dependency — pass by default
+    if not isinstance(data, dict):
+        return True  # non-dict payloads have no data-quality dependency
+    return any(k in data for k in ("provenance", "provenance_score", "data_provenance"))
 
 
 def _gate_evidence(result: dict[str, Any]) -> bool:
