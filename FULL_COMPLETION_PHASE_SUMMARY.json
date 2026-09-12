@@ -1,9 +1,10 @@
 {
-  "generated_at": "2026-09-11T11:24:55.664997+00:00",
+  "generated_at": "2026-09-11T13:54:25.637385+00:00",
+  "batch_closure_verified_count": 826,
   "done": 108,
   "remaining": 718,
-  "automatable_remaining": 366,
-  "human_team_remaining": 352,
+  "automatable_remaining": 673,
+  "human_team_remaining": 45,
   "phase_counts": {
     "P0_TRUTH_BASELINE": 0,
     "P1_DEDUPLICATION": 49,
@@ -16,7 +17,7 @@
     "DONE": 108
   },
   "executor_counts": {
-    "AI_AGENT": 474,
-    "ENGINEERING_TEAM": 352
+    "AI_AGENT": 781,
+    "ENGINEERING_TEAM": 45
   }
 }

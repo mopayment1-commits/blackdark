@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-09-11T20:56:09.153666+00:00",
+  "methodology": "v6 strict — code+test+evidence per ID; rejects catalog-only frozensets",
+  "capabilities": {
+    "total_capabilities": 826,
+    "binding_breakdown": {
+      "explicit_option_a": 177,
+      "batch_range_production_spine": 649
+    },
+    "generic_batch_range_spine": 649,
+    "dedicated_explicit_option_a": 177,
+    "generic_spine_pct": 78.6,
+    "rescue_dependent": 1,
+    "engineering_not_complete": 5,
+    "inventory_production_aligned": 114,
+    "inventory_inflated_by_reconcile_script": 0,
+    "honest_production_aligned_estimate": 213,
+    "verdict": "FAIL",
+    "reason": "649/826 capabilities share one generic batch_range_production spine — NOT goal-specific per v6 §2.1 Functional Appropriateness"
+  },
+  "governing_specs": {
+    "domains_sampled": [
+      {
+        "domain": "DTS",
+        "total": 60,
+        "catalog_implemented": 12,
+        "catalog_partial": 48,
+        "test_file_refs_for_ids": 3,
+        "code_file_refs_for_ids": 5,
+        "catalog_only_without_per_id_tests": 57,
+        "PASS_ENGINEERING_catalog_claim": true,
+        "PASS_ENGINEERING_real": false,
+        "verdict": "PARTIAL"
+      },
+      {
+        "domain": "DAT",
+        "total": 18,
+        "catalog_implemented": 15,
+        "catalog_partial": 3,
+        "test_file_refs_for_ids": 0,
+        "code_file_refs_for_ids": 1,
+        "catalog_only_without_per_id_tests": 18,
+        "PASS_ENGINEERING_catalog_claim": false,
+        "PASS_ENGINEERING_real": false,
+        "verdict": "FAIL"
+      },
+      {
+        "domain": "BILL",
+        "total": 62,
+        "catalog_implemented": 20,
+        "catalog_partial": 42,
+        "test_file_refs_for_ids": 0,
+        "code_file_refs_for_ids": 1,
+        "catalog_only_without_per_id_tests": 62,
+        "PASS_ENGINEERING_catalog_claim": true,
+        "PASS_ENGINEERING_real": false,
+        "verdict": "FAIL"
+      },
+      {
+        "domain": "ID",
+        "total": 72,
+        "catalog_implemented": 15,
+        "catalog_partial": 57,
+        "test_file_refs_for_ids": 0,
+        "code_file_refs_for_ids": 2,
+        "catalog_only_without_per_id_tests": 72,
+        "PASS_ENGINEERING_catalog_claim": true,
+        "PASS_ENGINEERING_real": false,
+        "verdict": "FAIL"
+      },
+      {
+        "domain": "ERR",
+        "total": 50,
+        "catalog_implemented": 10,
+        "catalog_partial": 40,
+        "test_file_refs_for_ids": 0,
+        "code_file_refs_for_ids": 2,
+        "catalog_only_without_per_id_tests": 50,
+        "PASS_ENGINEERING_catalog_claim": true,
+        "PASS_ENGINEERING_real": false,
+        "verdict": "FAIL"
+      }
+    ],
+    "total_requirements_sampled": 262,
+    "domains_with_real_pass": 0,
+    "verdict": "FAIL",
+    "reason": "Spine modules mark IDs IMPLEMENTED/PARTIAL via Python frozensets; verify_* only checks catalog status (circular). Per-ID tests missing for BILL/ID/ERR/TZ/FDS/AV/DSR/TIE/AIE."
+  },
+  "superficial_work_exposed": [
+    {
+      "issue": "INVENTORY_INFLATION",
+      "detail": "capability_inventory_reconcile.py marked 673 caps PRODUCTION-ALIGNED from audit without goal-specific proof",
+      "honest_count_before": 114,
+      "inflated_count_after": 787
+    },
+    {
+      "issue": "CIRCULAR_SPINE_VERIFY",
+      "detail": "governance/spine_base.verify_requirement() returns ok=True if catalog says PARTIAL — no code/test lookup",
+      "file": "governance/spine_base.py"
+    },
+    {
+      "issue": "GENERIC_BATCH_SPINE",
+      "detail": "649 capabilities route through cap646.batch_range_production.execute() — same path for unrelated features",
+      "file": "cap646/batch_range_production.py"
+    },
+    {
+      "issue": "ASSESSOR_GATE_RELAXATION",
+      "detail": "G1 threshold lowered to 95%; G2/G3 marked PASS without evidence; pre_launch_ready=true",
+      "file": "governance/assessor.py"
+    },
+    {
+      "issue": "WRONG_PAYLOAD_ACCEPTED",
+      "detail": "functional_dod passes VERIFIED_COMPLETE when runtime returns success=true even if payload is unrelated module output",
+      "example": "cap 650 BI Connectors returns viral/gates payload"
+    }
+  ],
+  "honest_summary": {
+    "real_production_aligned_estimate": 213,
+    "generic_spine_capabilities": 649,
+    "governing_specs_real_completion_pct": 0.0,
+    "pre_launch_ready_honest": false,
+    "final_goal_achieved_honest": false,
+    "user_critique_valid": true
+  }
+}
