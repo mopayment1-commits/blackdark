@@ -189,17 +189,8 @@ async def fetch_audit_logs(
     params.append(max(1, min(limit, 10_000)))
 
     async with get_connection() as db:
-        result = await db.execute(
-            f"""
-            SELECT id, timestamp, actor, action, payload_hash, outcome,
-                   signature, request_method, request_path, metadata_json
-            FROM audit_logs
-            {where}
-            ORDER BY timestamp DESC, id DESC
-            LIMIT ?
-            """,
-            tuple(params),
-        )
+        audit_sql = f"SELECT id, timestamp, actor, action, payload_hash, outcome, signature, request_method, request_path, metadata_json FROM audit_logs {where} ORDER BY timestamp DESC, id DESC LIMIT ?"  # nosec B608
+        result = await db.execute(audit_sql, tuple(params))
         rows = await result.fetchall()
 
     out: list[dict[str, Any]] = []
@@ -458,24 +449,8 @@ async def search_decisions(
     params.append(max(1, min(limit, 1000)))
 
     async with get_connection() as db:
-        result = await db.execute(
-            f"""
-            SELECT d.decision_id, d.context, d.prediction, d.confidence,
-                   d.timestamp, d.outcome, d.version, d.signature
-            FROM decisions d
-            INNER JOIN (
-                SELECT decision_id, MAX(version) AS max_version
-                FROM decisions
-                GROUP BY decision_id
-            ) latest
-                ON d.decision_id = latest.decision_id
-               AND d.version = latest.max_version
-            WHERE 1=1 {where}
-            ORDER BY d.timestamp DESC
-            LIMIT ?
-            """,
-            tuple(params),
-        )
+        decision_sql = f"SELECT d.decision_id, d.context, d.prediction, d.confidence, d.timestamp, d.outcome, d.version, d.signature FROM decisions d INNER JOIN ( SELECT decision_id, MAX(version) AS max_version FROM decisions GROUP BY decision_id ) latest ON d.decision_id = latest.decision_id AND d.version = latest.max_version WHERE 1=1 {where} ORDER BY d.timestamp DESC LIMIT ?"  # nosec B608
+        result = await db.execute(decision_sql, tuple(params))
         rows = await result.fetchall()
 
     out: list[dict[str, Any]] = []

@@ -1359,16 +1359,8 @@ async def _fetch_archivable_table_rows(
     batch_limit = limit or config.COMPACTION_SQLITE_BATCH_SIZE
     try:
         async with get_connection() as db:
-            rows = await db.execute(
-                f"""
-                SELECT *
-                FROM {table}
-                WHERE timestamp < ?
-                ORDER BY timestamp ASC, id ASC
-                LIMIT ?
-                """,
-                (cutoff_iso, batch_limit),
-            )
+            archive_sql = f"SELECT * FROM {table} WHERE timestamp < ? ORDER BY timestamp ASC, id ASC LIMIT ?"  # nosec B608
+            rows = await db.execute(archive_sql, (cutoff_iso, batch_limit))
             result = await rows.fetchall()
         return [dict(row) for row in result]
     except Exception:
@@ -1569,20 +1561,7 @@ async def fetch_latest_order_books(
         market_filter = "WHERE o.market_type = ?"
         params.append(market_type)
 
-    query = f"""
-        SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type
-        FROM order_books o
-        INNER JOIN (
-            SELECT exchange, symbol, market_type, MAX(timestamp) AS max_ts
-            FROM order_books
-            GROUP BY exchange, symbol, market_type
-        ) latest
-            ON o.exchange = latest.exchange
-           AND o.symbol = latest.symbol
-           AND o.market_type = latest.market_type
-           AND o.timestamp = latest.max_ts
-        {market_filter}
-    """
+    query = f"SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type FROM order_books o INNER JOIN ( SELECT exchange, symbol, market_type, MAX(timestamp) AS max_ts FROM order_books GROUP BY exchange, symbol, market_type ) latest ON o.exchange = latest.exchange AND o.symbol = latest.symbol AND o.market_type = latest.market_type AND o.timestamp = latest.max_ts {market_filter}"  # nosec B608
 
     async with get_connection() as db:
         rows = await db.execute(query, params)
@@ -1886,16 +1865,8 @@ async def fetch_institutional_feed_rows(
     placeholders = ", ".join("?" for _ in allowed)
     try:
         async with get_connection() as db:
-            rows = await db.execute(
-                f"""
-                SELECT *
-                FROM institutional_flows
-                WHERE flow_type IN ({placeholders})
-                ORDER BY timestamp DESC, id DESC
-                LIMIT ?
-                """,
-                (*allowed, limit),
-            )
+            flows_sql = f"SELECT * FROM institutional_flows WHERE flow_type IN ({placeholders}) ORDER BY timestamp DESC, id DESC LIMIT ?"  # nosec B608
+            rows = await db.execute(flows_sql, (*allowed, limit))
             result = await rows.fetchall()
         return [dict(row) for row in result]
     except Exception:
@@ -2466,20 +2437,8 @@ async def _fetch_audit_core_rows(
     else:
         total_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"  # nosec B608
         resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1 AND {live_clause}"  # nosec B608
-        avg_sql = f"""
-            SELECT AVG(accuracy_score)
-            FROM oracle_predictions
-            WHERE resolved = 1
-              AND accuracy_score IS NOT NULL
-              AND {live_clause}
-        """
-        recent_sql = f"""
-            SELECT *
-            FROM oracle_predictions
-            WHERE {live_clause}
-            ORDER BY timestamp DESC, id DESC
-            LIMIT ?
-        """
+        avg_sql = f"SELECT AVG(accuracy_score) FROM oracle_predictions WHERE resolved = 1 AND accuracy_score IS NOT NULL AND {live_clause}"  # nosec B608
+        recent_sql = f"SELECT * FROM oracle_predictions WHERE {live_clause} ORDER BY timestamp DESC, id DESC LIMIT ?"  # nosec B608
     total_row = await (await db.execute(total_sql)).fetchone()
     resolved_row = await (await db.execute(resolved_sql)).fetchone()
     avg_row = await (await db.execute(avg_sql)).fetchone()
@@ -2637,21 +2596,8 @@ async def fetch_labeled_oracle_predictions(
     try:
         source_clause = "" if include_synthetic else f"AND {live_source_sql()}"
         async with get_connection() as db:
-            rows = await (
-                await db.execute(
-                    f"""
-                    SELECT *
-                    FROM oracle_predictions
-                    WHERE resolved = 1
-                      AND price_after_24h IS NOT NULL
-                      AND label IS NOT NULL
-                      {source_clause}
-                    ORDER BY timestamp ASC
-                    LIMIT ?
-                    """,
-                    (limit,),
-                )
-            ).fetchall()
+            calibration_sql = f"SELECT * FROM oracle_predictions WHERE resolved = 1 AND price_after_24h IS NOT NULL AND label IS NOT NULL {source_clause} ORDER BY timestamp ASC LIMIT ?"  # nosec B608
+            rows = await (await db.execute(calibration_sql, (limit,))).fetchall()
         return [dict(row) for row in rows]
     except Exception:
         logger.exception("Unable to fetch labeled oracle predictions")
@@ -3077,14 +3023,8 @@ async def increment_platform_metric(metric: str) -> dict[str, Any]:
         raise ValueError(f"Unknown metric: {metric}")
     try:
         async with get_connection() as db:
-            await db.execute(
-                f"""
-                UPDATE platform_analytics
-                SET {metric} = {metric} + 1, updated_at = ?
-                WHERE id = 1
-                """,
-                (_utcnow_iso(),),
-            )
+            metric_sql = f"UPDATE platform_analytics SET {metric} = {metric} + 1, updated_at = ? WHERE id = 1"  # nosec B608
+            await db.execute(metric_sql, (_utcnow_iso(),))
         return await fetch_platform_analytics()
     except Exception:
         logger.exception(
@@ -4167,15 +4107,8 @@ async def count_risk_oracle_predictions_month() -> int:
     placeholders = ",".join("?" for _ in risk_labels)
     try:
         async with get_connection() as db:
-            rows = await db.execute(
-                f"""
-                SELECT COUNT(*)
-                FROM oracle_predictions
-                WHERE timestamp >= ?
-                  AND verdict IN ({placeholders})
-                """,
-                (since, *risk_labels),
-            )
+            risk_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE timestamp >= ? AND verdict IN ({placeholders})"  # nosec B608
+            rows = await db.execute(risk_sql, (since, *risk_labels))
             row = await rows.fetchone()
         return int(row[0]) if row else 0
     except Exception:

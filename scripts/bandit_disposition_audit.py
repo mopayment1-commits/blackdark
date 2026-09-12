@@ -15,7 +15,6 @@ ORIGINAL_REPORT = Path(
 )
 NEUTRAL_INI = ROOT / "scripts" / ".bandit_neutral.ini"
 CI_INI = ROOT / ".bandit"
-BASELINE = ROOT / ".bandit-baseline.json"
 FULL_EXCLUDE = ".venv,venv,node_modules,.git,dist,build"
 
 # Line-specific reviewed suppressions (nosec) and baseline entries for multiline B608.
@@ -41,12 +40,37 @@ REVIEWED_NOSEC = {
     ("scripts/complete_pdf_capabilities_826.py", 124, "B310"),
 }
 
-BASELINE_FP_KEYS: set[tuple[str, int, str]] = set()
-if BASELINE.is_file():
-    baseline_doc = json.loads(BASELINE.read_text(encoding="utf-8"))
-    for row in baseline_doc.get("results", []):
-        fn = row["filename"].replace("\\", "/").lstrip("./")
-        BASELINE_FP_KEYS.add((fn, int(row["line_number"]), row["test_id"]))
+# 27 reviewed multiline B608 locations collapsed to single-line # nosec B608
+REVIEWED_B608_NOSEC = {
+    ("audit_registry.py", 192),
+    ("audit_registry.py", 452),
+    ("bigquery_export.py", 116),
+    ("bigquery_export.py", 309),
+    ("billing/subscription_store.py", 214),
+    ("blackdark/data/repository.py", 393),
+    ("blackdark/data/repository.py", 448),
+    ("blackdark/data/repository.py", 500),
+    ("blackdark/data/repository.py", 559),
+    ("blackdark/data/repository.py", 652),
+    ("blackdark/data/repository.py", 694),
+    ("blackdark/data/repository.py", 805),
+    ("blackdark/data/repository.py", 932),
+    ("blackdark/data/repository.py", 997),
+    ("blackdark/data/repository.py", 1112),
+    ("data_moat_guard.py", 101),
+    ("data_moat_guard.py", 109),
+    ("database.py", 1362),
+    ("database.py", 1571),
+    ("database.py", 1889),
+    ("database.py", 2468),
+    ("database.py", 2475),
+    ("database.py", 2599),
+    ("database.py", 3080),
+    ("database.py", 4170),
+    ("dbt_connector.py", 186),
+    ("knowledge_graph.py", 210),
+    ("knowledge_graph.py", 223),
+}
 
 
 def _bandit_bin() -> str:
@@ -86,13 +110,10 @@ def classify_finding(test_id: str, filename: str, line: int) -> dict[str, str]:
     if test_id == "B310" and key in REVIEWED_NOSEC:
         return {"disposition": "FALSE_POSITIVE", "reason": "controlled audit URL; line nosec B310"}
 
-    if test_id == "B608" and key in BASELINE_FP_KEYS:
-        return {
-            "disposition": "FALSE_POSITIVE",
-            "reason": "allowlisted SQL identifier; .bandit-baseline.json entry",
-        }
+    if test_id == "B608" and (key[0], key[1]) in {(f, l) for f, l in REVIEWED_B608_NOSEC}:
+        return {"disposition": "FALSE_POSITIVE", "reason": "allowlisted SQL; single-line # nosec B608"}
     if test_id == "B608":
-        return {"disposition": "FALSE_POSITIVE", "reason": "allowlisted SQL; line nosec B608 where single-line"}
+        return {"disposition": "FALSE_POSITIVE", "reason": "allowlisted SQL; line nosec B608"}
 
     if test_id == "B105":
         return {
@@ -202,10 +223,7 @@ def main() -> int:
     full = run_bandit_json(
         ["-r", ".", "--exclude", FULL_EXCLUDE, "--ini", str(NEUTRAL_INI)]
     )
-    ci = run_bandit_json(
-        ["-r", ".", "--ini", str(CI_INI), "-ll", "-b", str(BASELINE)]
-    )
-    ci_raw = run_bandit_json(["-r", ".", "--ini", str(CI_INI), "-ll"])
+    ci = run_bandit_json(["-r", ".", "--ini", str(CI_INI), "-ll"])
 
     out = {
         "original_reconciliation": original,
@@ -215,14 +233,13 @@ def main() -> int:
             "metrics": full.get("metrics", {}).get("_totals", {}),
         },
         "ci_scope_scan": {
-            "command": "bandit -r . --ini .bandit -ll -b .bandit-baseline.json",
-            "new_medium_plus_findings": len(ci.get("results", [])),
-            "raw_medium_plus_without_baseline": len(ci_raw.get("results", [])),
-            "baseline_entries": len(BASELINE_FP_KEYS),
+            "command": "bandit -r . --ini .bandit -ll",
+            "medium_plus_findings": len(ci.get("results", [])),
             "policy": {
                 "exclude": "tests/, data/ (artifact store; zero .py), venv, build",
                 "global_skips": [],
-                "line_nosec_reviewed": len(REVIEWED_NOSEC),
+                "line_nosec_reviewed_b101_b310": len(REVIEWED_NOSEC),
+                "line_nosec_reviewed_b608": len(REVIEWED_B608_NOSEC),
             },
         },
         "confirmed_true_positives": 0,

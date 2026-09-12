@@ -183,11 +183,7 @@ def _verify_models_in_bigquery() -> dict[str, Any]:
     client = _build_client()
     mart_fqn = f"{cfg['project_id']}.{cfg['dataset_id']}.{_MART_MODEL}"
     staging_fqn = f"{cfg['project_id']}.{cfg['dataset_id']}.{_STAGING_MODEL}"
-    query = f"""
-        SELECT
-            (SELECT COUNT(1) FROM `{mart_fqn}`) AS mart_rows,
-            (SELECT COUNT(1) FROM `{staging_fqn}`) AS staging_rows
-    """
+    query = f"SELECT (SELECT COUNT(1) FROM `{mart_fqn}`) AS mart_rows, (SELECT COUNT(1) FROM `{staging_fqn}`) AS staging_rows"  # nosec B608
     rows = list(client.query(query, location=location).result())
     if not rows:
         return {"mart_rows": 0, "staging_rows": 0}

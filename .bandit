@@ -1,5 +1,5 @@
 # BLACKDARK Bandit CI policy — scope exclusions only (no global test-id skips).
 # ./data is runtime artifact storage (JSON/JSONL/joblib); verified zero .py under data/.
-# Multiline B608 false positives: line-specific .bandit-baseline.json (not rule skips).
+# B608 false positives: single-line SQL vars with line-level # nosec B608 (Bandit baseline ignores line numbers; see PyCQA/bandit#1467).
 [bandit]
 exclude = ./.venv,./venv,./tests,./data,./node_modules,./.git,./dist,./build
