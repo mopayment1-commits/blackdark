@@ -1,19 +1,5 @@
 # BLACKDARK Bandit policy — production security closure.
-# Test asserts (B101) are intentional and excluded via skips/excludes.
-exclude_dirs:
-  - ./.venv
-  - ./venv
-  - ./tests
-  - ./data
-  - ./node_modules
-  - ./.git
-  - ./dist
-  - ./build
-
-skips:
-  # Intentional pytest/runtime asserts outside tests/ (tiny residual set).
-  - B101
-  # Parameterized SQL with dialect guards — covered by tests/test_sql_safety.py.
-  - B608
-  # Passive security scan scripts use controlled urllib for header checks.
-  - B310
+# INI format (auto-discovered with `bandit -r .`). Use ./ prefixes for exclude paths.
+[bandit]
+exclude = ./.venv,./venv,./tests,./data,./node_modules,./.git,./dist,./build
+skips = B101,B608,B310
