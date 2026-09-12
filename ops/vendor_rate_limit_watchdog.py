@@ -33,7 +33,7 @@ def vendor_rate_limit_status() -> dict[str, Any]:
         else:
             signals.append({"vendor": "coingecko", "throttled": False, "api_key_configured": cg.get("api_key_configured")})
     except Exception as exc:
-        signals.append({"vendor": "coingecko", "error": str(exc)})
+        signals.append({"vendor": "coingecko", "error": type(exc).__name__})
 
     try:
         from exchange_ingress_guard import ingress_guard_status
@@ -50,7 +50,7 @@ def vendor_rate_limit_status() -> dict[str, Any]:
             else:
                 signals.append({"vendor": "exchange_ingress", "throttled": False})
     except Exception as exc:
-        signals.append({"vendor": "exchange_ingress", "error": str(exc)})
+        signals.append({"vendor": "exchange_ingress", "error": type(exc).__name__})
 
     projected = int(os.getenv("LAUNCH_PROJECTED_USERS", "100"))
     return {

@@ -1,0 +1,25 @@
+{
+  "original_reference_inventory": "blackdark-codeql-911.csv",
+  "original_reference_total_claimed": 911,
+  "original_security_claimed": 38,
+  "original_quality_claimed": 873,
+  "reference_artifact_available_in_repo": false,
+  "reproduced_pre_fix_total": 928,
+  "reproduced_pre_fix_security": 38,
+  "reproduced_pre_fix_quality": 890,
+  "analyzed_sha_original": "f9e06f136f54fda777cc740a33e6b6b9fa14902f",
+  "analyzed_sha_final": "f9e06f136f54fda777cc740a33e6b6b9fa14902f",
+  "codeql_cli": "2.27.0",
+  "python_query_pack": "codeql/python-queries@1.8.10",
+  "query_suite": "python-security-and-quality.qls",
+  "commands": [
+    "codeql database create /workspace/.codeql-db --language=python --source-root=/workspace",
+    "codeql database analyze /workspace/.codeql-db --format=sarif-latest --output=/workspace/blackdark-codeql-results.sarif /workspace/.codeql/qlpacks/codeql/python-queries/1.8.10/codeql-suites/python-security-and-quality.qls"
+  ],
+  "extraction_modules_processed": 1218,
+  "python_files_analyzed_final": 1055,
+  "final_sarif_total": 924,
+  "final_sarif_security": 33,
+  "security_remediated_absent_from_final_sarif": 5,
+  "global_suppressions_introduced": false
+}

@@ -290,7 +290,9 @@ async def create_decision(
 
         await ingest_decision(api_row)
     except Exception:
-        logger.exception("KG ingest failed for decision %s", did)
+        from log_safety import sanitize_log_value
+
+        logger.exception("KG ingest failed for decision %s", sanitize_log_value(did))
     return api_row
 
 
@@ -364,7 +366,9 @@ async def create_decision_version(
 
         await ingest_decision(api_row)
     except Exception:
-        logger.exception("KG ingest failed for decision version %s", decision_id)
+        from log_safety import sanitize_log_value
+
+        logger.exception("KG ingest failed for decision version %s", sanitize_log_value(decision_id))
     return api_row
 
 

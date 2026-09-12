@@ -4559,7 +4559,7 @@ async def build_info():
         cap646_import_ok = True
         cap646_routes = len(_cap646_router.routes)
     except Exception as exc:
-        cap646_import_error = str(exc)
+        cap646_import_error = type(exc).__name__
         cap646_routes = 0
     return {
         "ui_language": "en",
