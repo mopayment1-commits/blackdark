@@ -8,7 +8,7 @@
   "reproduced_pre_fix_security": 38,
   "reproduced_pre_fix_quality": 890,
   "analyzed_sha_original": "f9e06f136f54fda777cc740a33e6b6b9fa14902f",
-  "analyzed_sha_final": "f9e06f136f54fda777cc740a33e6b6b9fa14902f",
+  "analyzed_sha_final": "c71580dce3171b1e5040f17b5f033f8979daadd6",
   "codeql_cli": "2.27.0",
   "python_query_pack": "codeql/python-queries@1.8.10",
   "query_suite": "python-security-and-quality.qls",
