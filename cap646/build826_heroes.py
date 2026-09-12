@@ -432,6 +432,112 @@ _BATCH15_FALLBACK: dict[int, str] = {
     400: "Whale Signal vs Noise",
 }
 
+_BATCH17_FALLBACK: dict[int, str] = {
+    401: "Single-Sentence Oracle",
+    402: "Single-Sentence Oracle",
+    403: "Single-Sentence Oracle",
+    404: "Single-Sentence Oracle",
+    405: "Single-Sentence Oracle",
+    406: "Single-Sentence Oracle",
+    407: "Arbitrage Scanner",
+    408: "Single-Sentence Oracle",
+    409: "Single-Sentence Oracle",
+    410: "Single-Sentence Oracle",
+    411: "Single-Sentence Oracle",
+    412: "B2B Feed",
+    413: "Single-Sentence Oracle",
+    414: "Single-Sentence Oracle",
+    415: "B2B Feed",
+    416: "Single-Sentence Oracle",
+    417: "Single-Sentence Oracle",
+    418: "Single-Sentence Oracle",
+    419: "Single-Sentence Oracle",
+    420: "Single-Sentence Oracle",
+    421: "Single-Sentence Oracle",
+    422: "Single-Sentence Oracle",
+    423: "Single-Sentence Oracle",
+    424: "Single-Sentence Oracle",
+    425: "Single-Sentence Oracle",
+    426: "Single-Sentence Oracle",
+    427: "Single-Sentence Oracle",
+    428: "B2B Feed",
+    429: "B2B Feed",
+    430: "Single-Sentence Oracle",
+    431: "Single-Sentence Oracle",
+    432: "Single-Sentence Oracle",
+    433: "Whale Signal vs Noise",
+    434: "Single-Sentence Oracle",
+    435: "Single-Sentence Oracle",
+    436: "Single-Sentence Oracle",
+    437: "Single-Sentence Oracle",
+    438: "Single-Sentence Oracle",
+    439: "Single-Sentence Oracle",
+    440: "Arbitrage Scanner",
+    441: "Single-Sentence Oracle",
+    442: "Single-Sentence Oracle",
+    443: "Single-Sentence Oracle",
+    444: "Single-Sentence Oracle",
+    445: "Single-Sentence Oracle",
+    446: "Single-Sentence Oracle",
+    447: "Single-Sentence Oracle",
+    448: "B2B Feed",
+    449: "Whale Signal vs Noise",
+    450: "Single-Sentence Oracle",
+}
+
+_BATCH19_FALLBACK: dict[int, str] = {
+    451: "Single-Sentence Oracle",
+    452: "Single-Sentence Oracle",
+    453: "Single-Sentence Oracle",
+    454: "B2B Feed",
+    455: "Single-Sentence Oracle",
+    456: "Single-Sentence Oracle",
+    457: "Single-Sentence Oracle",
+    458: "Single-Sentence Oracle",
+    459: "Whale Signal vs Noise",
+    460: "Single-Sentence Oracle",
+    461: "Whale Signal vs Noise",
+    462: "Whale Signal vs Noise",
+    463: "Single-Sentence Oracle",
+    464: "Single-Sentence Oracle",
+    465: "Whale Signal vs Noise",
+    466: "Single-Sentence Oracle",
+    467: "Single-Sentence Oracle",
+    468: "Public Accuracy Ledger",
+    469: "Single-Sentence Oracle",
+    470: "Single-Sentence Oracle",
+    471: "Single-Sentence Oracle",
+    472: "Single-Sentence Oracle",
+    473: "Single-Sentence Oracle",
+    474: "Single-Sentence Oracle",
+    475: "Single-Sentence Oracle",
+    476: "B2B Feed",
+    477: "Whale Signal vs Noise",
+    478: "Public Accuracy Ledger",
+    479: "Single-Sentence Oracle",
+    480: "B2B Feed",
+    481: "Single-Sentence Oracle",
+    482: "B2B Feed",
+    483: "Single-Sentence Oracle",
+    484: "Single-Sentence Oracle",
+    485: "Arbitrage Scanner",
+    486: "B2B Feed",
+    487: "Arbitrage Scanner",
+    488: "Single-Sentence Oracle",
+    489: "Public Accuracy Ledger",
+    490: "Whale Signal vs Noise",
+    491: "Single-Sentence Oracle",
+    492: "Single-Sentence Oracle",
+    493: "Single-Sentence Oracle",
+    494: "Single-Sentence Oracle",
+    495: "Single-Sentence Oracle",
+    496: "Single-Sentence Oracle",
+    497: "Single-Sentence Oracle",
+    498: "Single-Sentence Oracle",
+    499: "B2B Feed",
+    500: "Public Accuracy Ledger",
+}
+
 
 def _heroes_for(cid: int) -> list[str]:
     return [name for name, meta in HERO_ENGINES.items() if cid in meta["capability_ids"]]
@@ -445,8 +551,15 @@ def _primary_hero_for(cid: int) -> str | None:
         return _BATCH01_FALLBACK[cid]
     if cid in _BATCH02_FALLBACK:
         return _BATCH02_FALLBACK[cid]
-    return (_BATCH03_FALLBACK.get(cid) or _BATCH05_FALLBACK.get(cid) or _BATCH07_FALLBACK.get(cid)
-        or _BATCH11_FALLBACK.get(cid) or _BATCH13_FALLBACK.get(cid) or _BATCH15_FALLBACK.get(cid))
+    return (_BATCH03_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH05_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH07_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid))
+        or _BATCH11_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH13_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH15_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid))
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid))
 
 
 def hero_binding_for(cid: int) -> dict[str, Any]:
@@ -462,6 +575,8 @@ def hero_binding_for(cid: int) -> dict[str, Any]:
             or _BATCH11_FALLBACK.get(cid)
             or _BATCH13_FALLBACK.get(cid)
             or _BATCH15_FALLBACK.get(cid)
+            or _BATCH17_FALLBACK.get(cid)
+            or _BATCH19_FALLBACK.get(cid)
         )
         if fb:
             heroes = [fb]

@@ -1,6 +1,6 @@
 # Six Heroes Binding Index — CAPABILITY_BUILD_826
 
-**Updated:** 2026-09-12T04:54:44.279444+00:00
+**Updated:** 2026-09-12T09:47:59.007966+00:00
 
 | ID | Capability | Primary Hero | Entry Path | Binding | Build Status |
 |---:|---|---|---|---|---|
@@ -404,106 +404,106 @@
 | 398 | Perps Volume | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/398/execute | BOUND | COMPLETE_V6 |
 | 399 | Options Volume | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/399/execute | BOUND | COMPLETE_V6 |
 | 400 | Stablecoins Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/400/execute | BOUND | COMPLETE_V6 |
-| 401 | Bridges Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 402 | Yields Screener | — | — | UNBOUND | NOT_STARTED |
-| 403 | Yield History | — | — | UNBOUND | NOT_STARTED |
-| 404 | Borrowing Rates | — | — | UNBOUND | NOT_STARTED |
-| 405 | Liquid Staking Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 406 | RWA Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 407 | Raises / Funding Rounds | — | — | UNBOUND | NOT_STARTED |
-| 408 | Investor Profiles | — | — | UNBOUND | NOT_STARTED |
-| 409 | Unlocks | — | — | UNBOUND | NOT_STARTED |
-| 410 | Treasury Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 411 | Airdrop / Incentive Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 412 | Capital Formation Radar | — | — | UNBOUND | NOT_STARTED |
-| 413 | DeFi Opportunity Screener | — | — | UNBOUND | NOT_STARTED |
-| 414 | DeFi Risk Passport | — | — | UNBOUND | NOT_STARTED |
-| 415 | API Aggregation Layer | — | — | UNBOUND | NOT_STARTED |
-| 416 | Cross-DeFi Decision Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 417 | Cross-Chain Fundamentals | — | — | UNBOUND | NOT_STARTED |
-| 418 | Protocol Fundamentals | — | — | UNBOUND | NOT_STARTED |
-| 419 | Stablecoin Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 420 | Stablecoin Activity Breakdown | — | — | UNBOUND | NOT_STARTED |
-| 421 | Developer Activity | — | — | UNBOUND | NOT_STARTED |
-| 422 | Sector/Ecosystem Comparables | — | — | UNBOUND | NOT_STARTED |
-| 423 | Equities + Crypto Research | — | — | UNBOUND | NOT_STARTED |
-| 424 | Consensus Estimates | — | — | UNBOUND | NOT_STARTED |
-| 425 | AI Analyst | — | — | UNBOUND | NOT_STARTED |
-| 426 | Thesis Research Workspace | — | — | UNBOUND | NOT_STARTED |
-| 427 | Comparable Company / Protocol Analysis | — | — | UNBOUND | NOT_STARTED |
-| 428 | Excel / Sheets Integration | — | — | UNBOUND | NOT_STARTED |
-| 429 | API Data Platform | — | — | UNBOUND | NOT_STARTED |
-| 430 | Research Templates | — | — | UNBOUND | NOT_STARTED |
-| 431 | Dashboards | — | — | UNBOUND | NOT_STARTED |
-| 432 | Stablecoin Payment Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 433 | On-Chain Usage Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 434 | Revenue / Fees / Economic Activity | — | — | UNBOUND | NOT_STARTED |
-| 435 | Cross-Market Research Copilot | — | — | UNBOUND | NOT_STARTED |
-| 436 | Investment Thesis Scoring | — | — | UNBOUND | NOT_STARTED |
-| 437 | DeFi Risk Radar | — | — | UNBOUND | NOT_STARTED |
-| 438 | Lending Market Risk | — | — | UNBOUND | NOT_STARTED |
-| 439 | Collateral Risk | — | — | UNBOUND | NOT_STARTED |
-| 440 | Liquidation Risk | — | — | UNBOUND | NOT_STARTED |
-| 441 | Oracle Risk | — | — | UNBOUND | NOT_STARTED |
-| 442 | Liquidity Risk | — | — | UNBOUND | NOT_STARTED |
-| 443 | Protocol Exploit Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 444 | Stablecoin Risk Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 445 | DeFi Strategy Risk | — | — | UNBOUND | NOT_STARTED |
-| 446 | Real-Time Risk Alerts | — | — | UNBOUND | NOT_STARTED |
-| 447 | DAO Treasury Risk | — | — | UNBOUND | NOT_STARTED |
-| 448 | Institutional Risk API | — | — | UNBOUND | NOT_STARTED |
-| 449 | Curated On-Chain Dashboards | — | — | UNBOUND | NOT_STARTED |
-| 450 | Narrative-Driven Research | — | — | UNBOUND | NOT_STARTED |
-| 451 | Protocol Dominance | — | — | UNBOUND | NOT_STARTED |
-| 452 | Aave Multi-Chain Analytics | — | — | UNBOUND | NOT_STARTED |
-| 453 | Risk Curation | — | — | UNBOUND | NOT_STARTED |
-| 454 | Capital Protection Controls | — | — | UNBOUND | NOT_STARTED |
-| 455 | Stress Testing | — | — | UNBOUND | NOT_STARTED |
-| 456 | Cross-Protocol Contagion | — | — | UNBOUND | NOT_STARTED |
-| 457 | Protocol Risk Passport | — | — | UNBOUND | NOT_STARTED |
-| 458 | Risk-to-Decision Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 459 | Network Data Pro Metrics | — | — | UNBOUND | NOT_STARTED |
-| 460 | Atlas Blockchain Search | — | — | UNBOUND | NOT_STARTED |
-| 461 | Address/Balance Search | — | — | UNBOUND | NOT_STARTED |
-| 462 | Transaction Search | — | — | UNBOUND | NOT_STARTED |
-| 463 | Block Search | — | — | UNBOUND | NOT_STARTED |
-| 464 | Balance Updates | — | — | UNBOUND | NOT_STARTED |
-| 465 | Stablecoin Network Metrics | — | — | UNBOUND | NOT_STARTED |
-| 466 | Market Data Feed | — | — | UNBOUND | NOT_STARTED |
-| 467 | Market Data Pro | — | — | UNBOUND | NOT_STARTED |
-| 468 | Reference Rates | — | — | UNBOUND | NOT_STARTED |
-| 469 | Indexes | — | — | UNBOUND | NOT_STARTED |
-| 470 | Realized Metrics | — | — | UNBOUND | NOT_STARTED |
-| 471 | Supply Metrics | — | — | UNBOUND | NOT_STARTED |
-| 472 | Mining/Validator Metrics | — | — | UNBOUND | NOT_STARTED |
-| 473 | Fee Metrics | — | — | UNBOUND | NOT_STARTED |
-| 474 | Activity Metrics | — | — | UNBOUND | NOT_STARTED |
-| 475 | Custom Metric Workbench | — | — | UNBOUND | NOT_STARTED |
-| 476 | Community Charts/API | — | — | UNBOUND | NOT_STARTED |
-| 477 | Market + Network Join | — | — | UNBOUND | NOT_STARTED |
-| 478 | Data Quality Methodologies | — | — | UNBOUND | NOT_STARTED |
-| 479 | Historical Research Dataset | — | — | UNBOUND | NOT_STARTED |
-| 480 | Institutional APIs | — | — | UNBOUND | NOT_STARTED |
-| 481 | Cross-Network Decision Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 482 | Institutional Trade Data | — | — | UNBOUND | NOT_STARTED |
-| 483 | Order Book Data | — | — | UNBOUND | NOT_STARTED |
-| 484 | OHLCV Data | — | — | UNBOUND | NOT_STARTED |
-| 485 | Derivatives Data | — | — | UNBOUND | NOT_STARTED |
-| 486 | Open Interest Data | — | — | UNBOUND | NOT_STARTED |
-| 487 | Funding Rate Data | — | — | UNBOUND | NOT_STARTED |
-| 488 | Index Data | — | — | UNBOUND | NOT_STARTED |
-| 489 | Reference Pricing | — | — | UNBOUND | NOT_STARTED |
-| 490 | Exchange Metadata | — | — | UNBOUND | NOT_STARTED |
-| 491 | Asset Metadata | — | — | UNBOUND | NOT_STARTED |
-| 492 | Historical Market Archive | — | — | UNBOUND | NOT_STARTED |
-| 493 | Real-Time Streams | — | — | UNBOUND | NOT_STARTED |
-| 494 | Market Aggregates | — | — | UNBOUND | NOT_STARTED |
-| 495 | Liquidity Analytics | — | — | UNBOUND | NOT_STARTED |
-| 496 | Volatility Analytics | — | — | UNBOUND | NOT_STARTED |
-| 497 | Market Cap / Supply | — | — | UNBOUND | NOT_STARTED |
-| 498 | ETF / ETP Data | — | — | UNBOUND | NOT_STARTED |
-| 499 | API Coverage Registry | — | — | UNBOUND | NOT_STARTED |
-| 500 | Data Quality & Normalization | — | — | UNBOUND | NOT_STARTED |
+| 401 | Bridges Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/401/execute | BOUND | COMPLETE_V6 |
+| 402 | Yields Screener | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/402/execute | BOUND | COMPLETE_V6 |
+| 403 | Yield History | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/403/execute | BOUND | COMPLETE_V6 |
+| 404 | Borrowing Rates | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/404/execute | BOUND | COMPLETE_V6 |
+| 405 | Liquid Staking Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/405/execute | BOUND | COMPLETE_V6 |
+| 406 | RWA Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/406/execute | BOUND | COMPLETE_V6 |
+| 407 | Raises / Funding Rounds | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/407/execute | BOUND | COMPLETE_V6 |
+| 408 | Investor Profiles | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/408/execute | BOUND | COMPLETE_V6 |
+| 409 | Unlocks | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/409/execute | BOUND | COMPLETE_V6 |
+| 410 | Treasury Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/410/execute | BOUND | COMPLETE_V6 |
+| 411 | Airdrop / Incentive Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/411/execute | BOUND | COMPLETE_V6 |
+| 412 | Capital Formation Radar | B2B Feed | /api/b2b/demo → /api/cap646/412/execute | BOUND | COMPLETE_V6 |
+| 413 | DeFi Opportunity Screener | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/413/execute | BOUND | COMPLETE_V6 |
+| 414 | DeFi Risk Passport | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/414/execute | BOUND | COMPLETE_V6 |
+| 415 | API Aggregation Layer | B2B Feed | /api/b2b/demo → /api/cap646/415/execute | BOUND | COMPLETE_V6 |
+| 416 | Cross-DeFi Decision Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/416/execute | BOUND | COMPLETE_V6 |
+| 417 | Cross-Chain Fundamentals | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/417/execute | BOUND | COMPLETE_V6 |
+| 418 | Protocol Fundamentals | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/418/execute | BOUND | COMPLETE_V6 |
+| 419 | Stablecoin Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/419/execute | BOUND | COMPLETE_V6 |
+| 420 | Stablecoin Activity Breakdown | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/420/execute | BOUND | COMPLETE_V6 |
+| 421 | Developer Activity | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/421/execute | BOUND | COMPLETE_V6 |
+| 422 | Sector/Ecosystem Comparables | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/422/execute | BOUND | COMPLETE_V6 |
+| 423 | Equities + Crypto Research | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/423/execute | BOUND | COMPLETE_V6 |
+| 424 | Consensus Estimates | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/424/execute | BOUND | COMPLETE_V6 |
+| 425 | AI Analyst | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/425/execute | BOUND | ENGINEERING_READY |
+| 426 | Thesis Research Workspace | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/426/execute | BOUND | COMPLETE_V6 |
+| 427 | Comparable Company / Protocol Analysis | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/427/execute | BOUND | COMPLETE_V6 |
+| 428 | Excel / Sheets Integration | B2B Feed | /api/b2b/demo → /api/cap646/428/execute | BOUND | COMPLETE_V6 |
+| 429 | API Data Platform | B2B Feed | /api/b2b/demo → /api/cap646/429/execute | BOUND | ENGINEERING_READY |
+| 430 | Research Templates | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/430/execute | BOUND | COMPLETE_V6 |
+| 431 | Dashboards | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/431/execute | BOUND | COMPLETE_V6 |
+| 432 | Stablecoin Payment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/432/execute | BOUND | COMPLETE_V6 |
+| 433 | On-Chain Usage Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/433/execute | BOUND | COMPLETE_V6 |
+| 434 | Revenue / Fees / Economic Activity | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/434/execute | BOUND | COMPLETE_V6 |
+| 435 | Cross-Market Research Copilot | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/435/execute | BOUND | COMPLETE_V6 |
+| 436 | Investment Thesis Scoring | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/436/execute | BOUND | COMPLETE_V6 |
+| 437 | DeFi Risk Radar | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/437/execute | BOUND | COMPLETE_V6 |
+| 438 | Lending Market Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/438/execute | BOUND | COMPLETE_V6 |
+| 439 | Collateral Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/439/execute | BOUND | COMPLETE_V6 |
+| 440 | Liquidation Risk | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/440/execute | BOUND | COMPLETE_V6 |
+| 441 | Oracle Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/441/execute | BOUND | ENGINEERING_READY |
+| 442 | Liquidity Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/442/execute | BOUND | COMPLETE_V6 |
+| 443 | Protocol Exploit Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/443/execute | BOUND | COMPLETE_V6 |
+| 444 | Stablecoin Risk Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/444/execute | BOUND | COMPLETE_V6 |
+| 445 | DeFi Strategy Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/445/execute | BOUND | COMPLETE_V6 |
+| 446 | Real-Time Risk Alerts | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/446/execute | BOUND | COMPLETE_V6 |
+| 447 | DAO Treasury Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/447/execute | BOUND | COMPLETE_V6 |
+| 448 | Institutional Risk API | B2B Feed | /api/b2b/demo → /api/cap646/448/execute | BOUND | COMPLETE_V6 |
+| 449 | Curated On-Chain Dashboards | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/449/execute | BOUND | COMPLETE_V6 |
+| 450 | Narrative-Driven Research | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/450/execute | BOUND | COMPLETE_V6 |
+| 451 | Protocol Dominance | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/451/execute | BOUND | COMPLETE_V6 |
+| 452 | Aave Multi-Chain Analytics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/452/execute | BOUND | COMPLETE_V6 |
+| 453 | Risk Curation | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/453/execute | BOUND | COMPLETE_V6 |
+| 454 | Capital Protection Controls | B2B Feed | /api/b2b/demo → /api/cap646/454/execute | BOUND | COMPLETE_V6 |
+| 455 | Stress Testing | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/455/execute | BOUND | COMPLETE_V6 |
+| 456 | Cross-Protocol Contagion | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/456/execute | BOUND | COMPLETE_V6 |
+| 457 | Protocol Risk Passport | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/457/execute | BOUND | COMPLETE_V6 |
+| 458 | Risk-to-Decision Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/458/execute | BOUND | COMPLETE_V6 |
+| 459 | Network Data Pro Metrics | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/459/execute | BOUND | COMPLETE_V6 |
+| 460 | Atlas Blockchain Search | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/460/execute | BOUND | COMPLETE_V6 |
+| 461 | Address/Balance Search | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/461/execute | BOUND | COMPLETE_V6 |
+| 462 | Transaction Search | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/462/execute | BOUND | COMPLETE_V6 |
+| 463 | Block Search | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/463/execute | BOUND | COMPLETE_V6 |
+| 464 | Balance Updates | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/464/execute | BOUND | COMPLETE_V6 |
+| 465 | Stablecoin Network Metrics | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/465/execute | BOUND | COMPLETE_V6 |
+| 466 | Market Data Feed | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/466/execute | BOUND | ENGINEERING_READY |
+| 467 | Market Data Pro | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/467/execute | BOUND | COMPLETE_V6 |
+| 468 | Reference Rates | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/468/execute | BOUND | COMPLETE_V6 |
+| 469 | Indexes | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/469/execute | BOUND | COMPLETE_V6 |
+| 470 | Realized Metrics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/470/execute | BOUND | COMPLETE_V6 |
+| 471 | Supply Metrics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/471/execute | BOUND | COMPLETE_V6 |
+| 472 | Mining/Validator Metrics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/472/execute | BOUND | COMPLETE_V6 |
+| 473 | Fee Metrics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/473/execute | BOUND | COMPLETE_V6 |
+| 474 | Activity Metrics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/474/execute | BOUND | COMPLETE_V6 |
+| 475 | Custom Metric Workbench | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/475/execute | BOUND | COMPLETE_V6 |
+| 476 | Community Charts/API | B2B Feed | /api/b2b/demo → /api/cap646/476/execute | BOUND | COMPLETE_V6 |
+| 477 | Market + Network Join | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/477/execute | BOUND | COMPLETE_V6 |
+| 478 | Data Quality Methodologies | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/478/execute | BOUND | COMPLETE_V6 |
+| 479 | Historical Research Dataset | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/479/execute | BOUND | COMPLETE_V6 |
+| 480 | Institutional APIs | B2B Feed | /api/b2b/demo → /api/cap646/480/execute | BOUND | COMPLETE_V6 |
+| 481 | Cross-Network Decision Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/481/execute | BOUND | COMPLETE_V6 |
+| 482 | Institutional Trade Data | B2B Feed | /api/b2b/demo → /api/cap646/482/execute | BOUND | COMPLETE_V6 |
+| 483 | Order Book Data | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/483/execute | BOUND | COMPLETE_V6 |
+| 484 | OHLCV Data | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/484/execute | BOUND | COMPLETE_V6 |
+| 485 | Derivatives Data | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/485/execute | BOUND | COMPLETE_V6 |
+| 486 | Open Interest Data | B2B Feed | /api/b2b/demo → /api/cap646/486/execute | BOUND | COMPLETE_V6 |
+| 487 | Funding Rate Data | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/487/execute | BOUND | COMPLETE_V6 |
+| 488 | Index Data | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/488/execute | BOUND | COMPLETE_V6 |
+| 489 | Reference Pricing | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/489/execute | BOUND | COMPLETE_V6 |
+| 490 | Exchange Metadata | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/490/execute | BOUND | COMPLETE_V6 |
+| 491 | Asset Metadata | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/491/execute | BOUND | COMPLETE_V6 |
+| 492 | Historical Market Archive | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/492/execute | BOUND | ENGINEERING_READY |
+| 493 | Real-Time Streams | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/493/execute | BOUND | COMPLETE_V6 |
+| 494 | Market Aggregates | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/494/execute | BOUND | COMPLETE_V6 |
+| 495 | Liquidity Analytics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/495/execute | BOUND | COMPLETE_V6 |
+| 496 | Volatility Analytics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/496/execute | BOUND | COMPLETE_V6 |
+| 497 | Market Cap / Supply | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/497/execute | BOUND | COMPLETE_V6 |
+| 498 | ETF / ETP Data | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/498/execute | BOUND | COMPLETE_V6 |
+| 499 | API Coverage Registry | B2B Feed | /api/b2b/demo → /api/cap646/499/execute | BOUND | ENGINEERING_READY |
+| 500 | Data Quality & Normalization | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/500/execute | BOUND | PARTIAL |
 | 501 | Institutional Delivery | — | — | UNBOUND | NOT_STARTED |
 | 502 | Benchmark Administration Metadata | — | — | UNBOUND | NOT_STARTED |
 | 503 | Cross-Market Data Intelligence | — | — | UNBOUND | NOT_STARTED |

@@ -1,7 +1,7 @@
 {
-  "current_build_batch": 17,
-  "next_id": 401,
-  "last_completed_build_batch": 16,
+  "current_build_batch": 21,
+  "next_id": 501,
+  "last_completed_build_batch": 20,
   "blockers": [
     "batch01: IDs 17,24,25 ENGINEERING_READY — GIPS performance gate (shadow ledger)",
     "batch02: IDs 26-35 ENGINEERING_READY — GIPS decision-cap performance gate",
@@ -18,7 +18,11 @@
     "batch13: IDs 302,324 ENGINEERING_READY — residual gates",
     "batch14: IDs 339,341 ENGINEERING_READY — residual gates",
     "batch15: IDs 366,367,375 ENGINEERING_READY — residual gates",
-    "batch16: IDs 376,380,384 ENGINEERING_READY — residual gates"
+    "batch16: IDs 376,380,384 ENGINEERING_READY — residual gates",
+    "batch17: IDs 425 ENGINEERING_READY — residual gates",
+    "batch18: IDs 429,441 ENGINEERING_READY — residual gates",
+    "batch19: IDs 466 ENGINEERING_READY — residual gates",
+    "batch20: IDs 492,499 ENGINEERING_READY — residual gates"
   ],
-  "updated_at": "2026-09-12T04:54:44.280645+00:00"
+  "updated_at": "2026-09-12T09:47:59.009034+00:00"
 }

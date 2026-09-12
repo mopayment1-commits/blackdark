@@ -75,6 +75,20 @@ OFFICIAL_CONFIG: dict[int, dict[str, Any]] = {
         "audit_json": "BATCH08_INDEPENDENT_RBAS_AUDIT.json",
         "rtm": ROOT / "docs/BATCH08_OFFICIAL_RTM_351_400.json",
     },
+    9: {
+        "out": ROOT / "institutional_due_diligence_2026/batch09_independent_audit",
+        "closure": "RUN021_BATCH09_BUILD_CLOSURE_EVIDENCE.json",
+        "audit_script": "scripts/independent_batch09_rbas_audit.py",
+        "audit_json": "BATCH09_INDEPENDENT_RBAS_AUDIT.json",
+        "rtm": ROOT / "docs/BATCH09_OFFICIAL_RTM_401_450.json",
+    },
+    10: {
+        "out": ROOT / "institutional_due_diligence_2026/batch10_independent_audit",
+        "closure": "RUN021_BATCH10_BUILD_CLOSURE_EVIDENCE.json",
+        "audit_script": "scripts/independent_batch10_rbas_audit.py",
+        "audit_json": "BATCH10_INDEPENDENT_RBAS_AUDIT.json",
+        "rtm": ROOT / "docs/BATCH10_OFFICIAL_RTM_451_500.json",
+    },
 }
 
 
