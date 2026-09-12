@@ -2370,6 +2370,13 @@ async def resolve_oracle_prediction(
     direction_label: str | None = None,
     resolved_at: str | None = None,
 ) -> None:
+    from blackdark.data_governance.runtime import enforce_oracle_outcome_resolution
+
+    outcome_meta = enforce_oracle_outcome_resolution(
+        prediction_id=prediction_id,
+        outcome=outcome,
+        accuracy_score=accuracy_score,
+    )
     async with get_connection() as db:
         row = await (
             await db.execute(
@@ -2420,6 +2427,7 @@ async def resolve_oracle_prediction(
             )
         except Exception:
             logger.debug("Track record append skipped on resolve", exc_info=True)
+        logger.debug("oracle_outcome_governance | prediction_id=%s meta=%s", prediction_id, outcome_meta)
 
 
 def _empty_oracle_audit_stats() -> dict[str, Any]:

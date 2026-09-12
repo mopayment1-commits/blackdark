@@ -96,6 +96,14 @@ def link_exposure(decision_id: str, exposure_id: str) -> dict[str, Any] | None:
         if not row:
             return None
         row = dict(row)
+        from blackdark.data_governance.runtime import enforce_ledger_link_update
+
+        enforce_ledger_link_update(
+            decision_id=decision_id,
+            prior_row=row,
+            updates={"exposure_id": exposure_id},
+            reason="link_exposure",
+        )
         row["exposure_id"] = exposure_id
         row["updated_at"] = _utcnow()
         _MEMORY[decision_id] = row
@@ -109,6 +117,14 @@ def link_outcome(decision_id: str, outcome_id: str) -> dict[str, Any] | None:
         if not row:
             return None
         row = dict(row)
+        from blackdark.data_governance.runtime import enforce_ledger_link_update
+
+        enforce_ledger_link_update(
+            decision_id=decision_id,
+            prior_row=row,
+            updates={"outcome_id": outcome_id},
+            reason="link_outcome",
+        )
         row["outcome_id"] = outcome_id
         row["updated_at"] = _utcnow()
         _MEMORY[decision_id] = row

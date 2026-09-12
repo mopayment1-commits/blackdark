@@ -73,12 +73,25 @@ def _latest_restore_evidence() -> dict[str, Any] | None:
         return None
 
 
+def _enforce_cost_guards() -> None:
+    """REQ-0024 — cost guard must exist for every canonical contract before live execute."""
+    from blackdark.data_governance.contracts import CANONICAL_CONTRACTS
+    from blackdark.data_governance.cost_guard import ensure_cost_guards, validate_cost_guard
+
+    ensure_cost_guards()
+    for asset_id in CANONICAL_CONTRACTS:
+        ok, missing = validate_cost_guard(asset_id)
+        if not ok:
+            raise GovernanceViolationError("cost_guard_invalid", f"{asset_id}:{','.join(missing)}")
+
+
 def assert_governance_subsystem_ready(*, surface: str) -> None:
     """DSR-001/015/024 — contracts + restore evidence must exist before live execute."""
     if _disabled():
         return
     ensure_contracts_materialized()
     ensure_collection_policies()
+    _enforce_cost_guards()
     contract = get_contract("dac_decision_ledger")
     if not contract:
         raise GovernanceViolationError("missing_contract", "dac_decision_ledger")
@@ -115,18 +128,109 @@ def enforce_rights_for_contract(contract_id: str, action: str = "storage") -> No
         raise GovernanceViolationError("rights_denied", reason)
 
 
-def enforce_replay_framing(*, source: str | None, claim_text: str | None = None) -> None:
+def enforce_replay_framing(
+    *,
+    source: str | None,
+    claim_text: str | None = None,
+    record: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
     """§8 / DSR-003 — replay sources must not be framed as live predictions."""
     if _disabled():
-        return
+        return None
     src = (source or "").lower()
     is_replay = any(h in src for h in ("replay", "backtest", "historical_seed", "market_replay"))
     if not is_replay:
-        return
+        return None
     text = claim_text or ""
     ok, reason = validate_pit_framing(is_replay=True, claim_text=text or "point-in-time replay")
     if not ok:
         raise GovernanceViolationError("pit_framing_violation", reason)
+    from blackdark.data_governance.pit_evidence import create_pit_contract
+
+    rec = record or {}
+    reconstructed = bool(rec.get("reconstructed_with_later_data"))
+    if reconstructed and "reconstructed-with-later-data" not in text.lower():
+        raise GovernanceViolationError("pit_reconstruction_unlabeled", "reconstructed_with_later_data")
+    pit = create_pit_contract(
+        replay_id=str(rec.get("replay_id") or source or "replay"),
+        knowledge_cutoff=str(rec.get("created_at") or rec.get("timestamp") or datetime.now(UTC).isoformat()),
+        model_version=str(rec.get("model_version")) if rec.get("model_version") else None,
+        oracle=str(rec.get("source") or source or "replay"),
+        reconstructed_with_later_data=reconstructed,
+    )
+    return pit
+
+
+def _stamp_provenance(*, asset_kind: str, record: dict[str, Any], artifact_id: str) -> dict[str, str]:
+    """REQ-0816 — provenance hash on material writes (decision/signal chain)."""
+    from blackdark.data.provenance import hash_payload
+
+    payload = json.dumps(
+        {
+            "asset_kind": asset_kind,
+            "artifact_id": artifact_id,
+            "source": record.get("source"),
+            "evidence_class": record.get("evidence_class"),
+            "lineage": record.get("lineage"),
+        },
+        sort_keys=True,
+        default=str,
+    )
+    return {
+        "provenance_hash": hash_payload(payload),
+        "provenance_chain": f"{asset_kind}:{artifact_id}",
+    }
+
+
+def _register_material_claim(*, asset_kind: str, artifact_id: str, receipt_id: str, record: dict[str, Any]) -> str:
+    """REQ-DSR-022 — claim linked to receipt evidence on every material write."""
+    from blackdark.data_governance.claims_registry import register_claim
+
+    claim_row = register_claim(
+        claim=f"{asset_kind}:{artifact_id}:material_write",
+        evidence_ref=str(receipt_id),
+        version=str(record.get("model_version") or record.get("governance", {}).get("policy") or "v4_v2_runtime"),
+    )
+    return str(claim_row.get("claim_id"))
+
+
+def _record_entity_for_material(*, record: dict[str, Any], asset_kind: str, receipt_id: str) -> str | None:
+    """REQ-DSR-011 / D-09 — entity assertion on symbol/asset for material writes."""
+    from blackdark.data_governance.entity_assertions import record_entity_assertion
+
+    entity_id = str(record.get("symbol") or record.get("asset") or "").upper()
+    if not entity_id:
+        return None
+    assertion = record_entity_assertion(
+        entity_type="market_asset",
+        entity_id=entity_id,
+        assertion=f"{asset_kind}_write_for_{entity_id}",
+        source=str(record.get("source") or asset_kind),
+        confidence=float(record.get("confidence") or record.get("score") or 0.75),
+        evidence_ref=str(receipt_id),
+        conflict_state="CONFIRMED",
+    )
+    return str(assertion.get("assertion_id"))
+
+
+def _enforce_promotion_gate(*, evidence_class: str, target: str, record: dict[str, Any]) -> None:
+    """REQ-DSR-018 / D-15 — promotion gate before evidence class upgrade."""
+    from blackdark.data_governance.promotion_gate import evaluate_promotion_gate
+
+    has_evidence = bool(record.get("promotion_evidence") or record.get("production_verified"))
+    gate = evaluate_promotion_gate(
+        champion_id=str(evidence_class),
+        challenger_id=str(target),
+        hypothesis=f"promote_{evidence_class}_to_{target}",
+        baseline_metric=0.0,
+        challenger_metric=1.0 if has_evidence else 0.0,
+        non_regression_pass=has_evidence,
+        sample_coverage=str(record.get("sample_coverage") or ("adequate" if has_evidence else "insufficient")),
+        approver=str(record.get("approver") or "runtime_gate"),
+        rollback_trigger="evidence_class_regression",
+    )
+    if not gate.get("promoted"):
+        raise GovernanceViolationError("promotion_gate_denied", f"{evidence_class}->{target}")
 
 
 def enforce_data_state_for_decision(*, dataset: str, count: int, latest_record_at: str | None = None) -> dict[str, Any]:
@@ -161,7 +265,13 @@ def enforce_material_write(
 
     assert_governance_subsystem_ready(surface=surface)
     enforce_rights_for_contract(contract_id, "storage")
-    enforce_replay_framing(source=str(record.get("source") or ""), claim_text=claim_text)
+    pit = enforce_replay_framing(
+        source=str(record.get("source") or ""),
+        claim_text=claim_text,
+        record=record,
+    )
+    if pit:
+        record["pit_contract_id"] = pit["pit_id"]
 
     contract = get_contract(contract_id)
     if not contract:
@@ -189,6 +299,7 @@ def enforce_material_write(
 
     target = record.get("evidence_class")
     if target and evidence_class and target != evidence_class:
+        _enforce_promotion_gate(evidence_class=str(evidence_class), target=str(target), record=record)
         try:
             assert_promotion_allowed(evidence_class, target)  # type: ignore[arg-type]
         except ValueError as exc:
@@ -224,6 +335,20 @@ def enforce_material_write(
         "surface": surface,
         "policy": "v4_v2_runtime",
     }
+    if pit:
+        record["governance"]["pit_contract_id"] = pit["pit_id"]
+    prov = _stamp_provenance(asset_kind=asset_kind, record=record, artifact_id=str(artifact_id))
+    record["governance"].update(prov)
+    claim_id = _register_material_claim(
+        asset_kind=asset_kind,
+        artifact_id=str(artifact_id),
+        receipt_id=str(receipt.get("receipt_id")),
+        record=record,
+    )
+    record["governance"]["claim_id"] = claim_id
+    assertion_id = _record_entity_for_material(record=record, asset_kind=asset_kind, receipt_id=str(receipt.get("receipt_id")))
+    if assertion_id:
+        record["governance"]["entity_assertion_id"] = assertion_id
     from blackdark.data_governance.outcome_registry import ensure_outcome_registry
     from blackdark.data_governance.opportunity_universe import ensure_opportunity_universes
     from blackdark.data_governance.derived_assets import ensure_derived_classifications
@@ -271,7 +396,9 @@ def enforce_oracle_chain_record(record: dict[str, Any], *, surface: str = "oracl
     enriched = dict(record)
     enriched.setdefault("source", record.get("source") or "oracle")
     enriched.setdefault("evidence_class", infer_evidence_class(source=str(enriched.get("source"))))
-    enforce_replay_framing(source=str(enriched.get("source")))
+    pit = enforce_replay_framing(source=str(enriched.get("source")), record=enriched)
+    if pit:
+        enriched["pit_contract_id"] = pit["pit_id"]
     artifact_id = str(enriched.get("prediction_id") or enriched.get("event") or "oracle")
     receipt = issue_intelligence_receipt(
         artifact_type="oracle_chain",
@@ -286,4 +413,81 @@ def enforce_oracle_chain_record(record: dict[str, Any], *, surface: str = "oracl
         "enforced_at": datetime.now(UTC).isoformat(),
         "surface": surface,
     }
+    if pit:
+        enriched["governance"]["pit_contract_id"] = pit["pit_id"]
+    prov = _stamp_provenance(asset_kind="oracle_chain", record=enriched, artifact_id=artifact_id)
+    enriched["governance"].update(prov)
+    claim_id = _register_material_claim(
+        asset_kind="oracle_chain",
+        artifact_id=artifact_id,
+        receipt_id=str(receipt.get("receipt_id")),
+        record=enriched,
+    )
+    enriched["governance"]["claim_id"] = claim_id
+    from blackdark.data_governance.outcome_registry import ensure_outcome_registry
+
+    outcome_reg = ensure_outcome_registry()
+    enriched["governance"]["outcome_evaluator"] = outcome_reg.get("evaluators", {}).get(
+        "oracle_outcome_v1", {}
+    ).get("version")
     return enriched
+
+
+def enforce_ledger_link_update(
+    *,
+    decision_id: str,
+    prior_row: dict[str, Any],
+    updates: dict[str, Any],
+    reason: str,
+) -> None:
+    """DSR-007 — append-only corrections when linking exposure/outcome."""
+    if _disabled():
+        return
+    import hashlib
+
+    from blackdark.data_governance.corrections import record_correction
+
+    assert_governance_subsystem_ready(surface="decision_ledger_link")
+    prior_ref = hashlib.sha256(
+        json.dumps(prior_row, sort_keys=True, default=str).encode()
+    ).hexdigest()[:24]
+    record_correction(
+        target_asset="dac_decision_ledger",
+        target_record_id=decision_id,
+        observed_at=str(prior_row.get("created_at") or datetime.now(UTC).isoformat()),
+        effective_at=datetime.now(UTC).isoformat(),
+        reason=reason,
+        prior_snapshot_ref=prior_ref,
+        new_value_summary=updates,
+    )
+
+
+def enforce_oracle_outcome_resolution(
+    *,
+    prediction_id: int,
+    outcome: str,
+    accuracy_score: float,
+) -> dict[str, Any]:
+    """REQ-0815 / DSR-009 — outcome evaluator active before oracle resolve."""
+    if _disabled():
+        return {}
+    assert_governance_subsystem_ready(surface="oracle_resolve")
+    from blackdark.data_governance.outcome_registry import ensure_outcome_registry
+
+    reg = ensure_outcome_registry()
+    ev = reg.get("evaluators", {}).get("oracle_outcome_v1")
+    if not ev or not ev.get("active"):
+        raise GovernanceViolationError("outcome_evaluator_inactive", "oracle_outcome_v1")
+    claim_id = _register_material_claim(
+        asset_kind="oracle_outcome",
+        artifact_id=str(prediction_id),
+        receipt_id=f"oracle:{prediction_id}:{outcome}",
+        record={"model_version": ev.get("version"), "source": "oracle_resolve"},
+    )
+    return {
+        "evaluator_id": "oracle_outcome_v1",
+        "evaluator_version": ev.get("version"),
+        "claim_id": claim_id,
+        "outcome": outcome,
+        "accuracy_score": accuracy_score,
+    }

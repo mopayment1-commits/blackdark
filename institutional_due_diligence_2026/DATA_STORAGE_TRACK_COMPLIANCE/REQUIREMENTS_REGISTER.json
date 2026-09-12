@@ -23,7 +23,9 @@
         "signal_registry.py",
         "decision_ledger.py",
         "oracle_audit_chain.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.record_decision→enforce_material_write→JSONL persist"
     },
     {
       "req_id": "REQ-0004",
@@ -36,7 +38,9 @@
       "evidence_paths": [
         "blackdark/data_governance/",
         "signal_registry.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal_registry/decision_ledger + enforce_material_write asset layer"
     },
     {
       "req_id": "REQ-0007A",
@@ -49,7 +53,9 @@
       "evidence_paths": [
         "blackdark/data_governance/rights.py",
         "blackdark/data_governance/collection_policy.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract on every material write"
     },
     {
       "req_id": "REQ-0007B",
@@ -62,7 +68,9 @@
       "evidence_paths": [
         "blackdark/data_governance/rights.py",
         "blackdark/data_governance/collection_policy.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→derived_assets metadata stamp"
     },
     {
       "req_id": "REQ-0007C",
@@ -75,7 +83,9 @@
       "evidence_paths": [
         "blackdark/data_governance/rights.py",
         "blackdark/data_governance/collection_policy.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→lineage.propagate_lineage"
     },
     {
       "req_id": "REQ-0007D",
@@ -88,7 +98,9 @@
       "evidence_paths": [
         "blackdark/data_governance/rights.py",
         "blackdark/data_governance/collection_policy.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→retention_class + collection_policy gate"
     },
     {
       "req_id": "REQ-0008",
@@ -101,7 +113,9 @@
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py",
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing + database.insert_oracle_prediction"
     },
     {
       "req_id": "REQ-0810",
@@ -113,7 +127,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "live_shadow_collection"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal_registry.register_signal + decision_ledger shadow path"
     },
     {
       "req_id": "REQ-0811",
@@ -125,7 +141,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "historical_backfill"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "ml/market_replay_bootstrap→create_pit_contract + enforce_replay_framing"
     },
     {
       "req_id": "REQ-0812",
@@ -137,7 +155,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "signal_registry.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal_registry.register_signal→enforce_material_write"
     },
     {
       "req_id": "REQ-0813",
@@ -149,7 +169,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "oracle_audit_chain.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain.append_prediction_record→enforce_oracle_chain_record"
     },
     {
       "req_id": "REQ-0814",
@@ -161,7 +183,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "decision_ledger.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.record_decision→enforce_material_write"
     },
     {
       "req_id": "REQ-0815",
@@ -173,7 +197,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "automated_outcome_evaluator"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "database.resolve_oracle_prediction→enforce_oracle_outcome_resolution"
     },
     {
       "req_id": "REQ-0816",
@@ -185,7 +211,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "data_provenance"
-      ]
+      ],
+      "runtime_enforced": "PARTIAL",
+      "runtime_evidence": "runtime._stamp_provenance hash on writes; full DB provenance on ingestors only"
     },
     {
       "req_id": "REQ-0817",
@@ -197,7 +225,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "algorithm_model_versioning"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.record_decision model_version field"
     },
     {
       "req_id": "REQ-0818",
@@ -209,7 +239,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "historical_replay_engine"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "market_replay_bootstrap→create_pit_contract + enforce_replay_framing per sample"
     },
     {
       "req_id": "REQ-0819",
@@ -221,7 +253,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "market_event_library.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "market_event_library.record_market_event→enforce_material_write"
     },
     {
       "req_id": "REQ-08110",
@@ -233,7 +267,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "failure_corpus.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "failure_corpus.record_failure→enforce_material_write"
     },
     {
       "req_id": "REQ-08111",
@@ -245,7 +281,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "oracle_audit_chain.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain verify_chain + enforce_oracle_chain_record"
     },
     {
       "req_id": "REQ-0011",
@@ -259,7 +297,9 @@
         "api/",
         "cap646/",
         "bd_platform/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime.execute_capability API path"
     },
     {
       "req_id": "REQ-0012",
@@ -271,7 +311,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/asset_graph.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "signal→decision→exposure governance metadata chain on writes"
     },
     {
       "req_id": "REQ-0015",
@@ -283,7 +325,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready on material writes + cap646"
     },
     {
       "req_id": "REQ-0161",
@@ -295,7 +339,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract fail-closed"
     },
     {
       "req_id": "REQ-0162",
@@ -307,7 +353,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt receipt_id"
     },
     {
       "req_id": "REQ-0163",
@@ -319,7 +367,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→assert_promotion_allowed + evaluate_promotion_gate"
     },
     {
       "req_id": "REQ-0164",
@@ -331,7 +381,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract blocks do-not-use profiles"
     },
     {
       "req_id": "REQ-0165",
@@ -343,7 +395,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime not HTML-locked"
     },
     {
       "req_id": "REQ-0166",
@@ -355,7 +409,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt"
     },
     {
       "req_id": "REQ-0167",
@@ -367,7 +423,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "PARTIAL",
+      "runtime_evidence": "governance sub-block on rows; full Capability DNA not stamped per row"
     },
     {
       "req_id": "REQ-0168",
@@ -379,7 +437,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write lineage + rights_profile"
     },
     {
       "req_id": "REQ-0169",
@@ -391,7 +451,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "failure_corpus.record_failure→enforce_material_write"
     },
     {
       "req_id": "REQ-0231",
@@ -403,7 +465,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "enforce_replay_framing + market_replay PIT contract per sample"
     },
     {
       "req_id": "REQ-0232",
@@ -415,7 +479,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing→create_pit_contract on replay sources"
     },
     {
       "req_id": "REQ-0233",
@@ -427,7 +493,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing reconstructed_with_later_data label check"
     },
     {
       "req_id": "REQ-0234",
@@ -439,7 +507,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "issue_intelligence_receipt hashes on material writes"
     },
     {
       "req_id": "REQ-0235",
@@ -451,7 +521,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle chain timestamp+inputs before outcome via enforce_oracle_chain_record"
     },
     {
       "req_id": "REQ-0236",
@@ -463,7 +535,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_exposure/link_outcome→enforce_ledger_link_update→record_correction"
     },
     {
       "req_id": "REQ-0237",
@@ -475,7 +549,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe stamp"
     },
     {
       "req_id": "REQ-0024",
@@ -487,7 +563,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/cost_guard.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready→_enforce_cost_guards fail-closed"
     },
     {
       "req_id": "REQ-0025",
@@ -499,7 +577,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write receipt + contract trace"
     },
     {
       "req_id": "REQ-0261",
@@ -511,7 +591,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract"
     },
     {
       "req_id": "REQ-0262",
@@ -523,7 +605,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
     },
     {
       "req_id": "REQ-0263",
@@ -535,7 +619,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing"
     },
     {
       "req_id": "REQ-0264",
@@ -547,7 +633,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "issue_intelligence_receipt + version fields on writes"
     },
     {
       "req_id": "REQ-0265",
@@ -559,7 +647,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→record_correction append-only policy"
     },
     {
       "req_id": "REQ-0266",
@@ -571,7 +661,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata.dataset_response + decision_enrichment enforce_data_state_for_decision"
     },
     {
       "req_id": "REQ-0267",
@@ -583,7 +675,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore drill"
     },
     {
       "req_id": "REQ-0268",
@@ -595,7 +689,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write assert_promotion_allowed + promotion_gate"
     },
     {
       "req_id": "REQ-0269",
@@ -607,7 +703,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write propagate_lineage"
     },
     {
       "req_id": "REQ-02610",
@@ -619,7 +717,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute"
     },
     {
       "req_id": "REQ-0271",
@@ -631,7 +731,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract denies rp_do_not_use"
     },
     {
       "req_id": "REQ-0272",
@@ -643,7 +745,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing"
     },
     {
       "req_id": "REQ-0273",
@@ -655,7 +759,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing + source tags"
     },
     {
       "req_id": "REQ-0274",
@@ -667,7 +773,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe metadata"
     },
     {
       "req_id": "REQ-0275",
@@ -679,7 +787,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime._stamp_provenance + lineage on material writes"
     },
     {
       "req_id": "REQ-0276",
@@ -691,7 +801,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→enforce_ledger_link_update→record_correction"
     },
     {
       "req_id": "REQ-0277",
@@ -703,7 +815,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata.dataset_response confidence_cap on stale/missing"
     },
     {
       "req_id": "REQ-0278",
@@ -715,7 +829,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore evidence"
     },
     {
       "req_id": "REQ-0279",
@@ -727,7 +843,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
     },
     {
       "req_id": "REQ-02710",
@@ -739,7 +857,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute→build_data_room_index"
     },
     {
       "req_id": "REQ-EV-BACKTESTED",
@@ -751,7 +871,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "infer_evidence_class + enforce_replay_framing on replay sources"
     },
     {
       "req_id": "REQ-EV-SIMULATED",
@@ -763,7 +885,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "attach_evidence_metadata + promotion gate on writes"
     },
     {
       "req_id": "REQ-EV-SHADOW_LIVE_FORWARD",
@@ -775,7 +899,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger/signal default class on live oracle path"
     },
     {
       "req_id": "REQ-EV-PRODUCTION_VERIFIED",
@@ -787,7 +913,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "PARTIAL",
+      "runtime_evidence": "promotion_gate blocks upgrade; no external production verification pipeline"
     },
     {
       "req_id": "REQ-D-01",
@@ -800,7 +928,9 @@
       "evidence_paths": [
         "blackdark/data_governance/contracts.py",
         "data/governance/contracts/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract"
     },
     {
       "req_id": "REQ-D-02",
@@ -812,7 +942,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing→create_pit_contract"
     },
     {
       "req_id": "REQ-D-03",
@@ -824,7 +956,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/schema_registry.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_record_against_schema"
     },
     {
       "req_id": "REQ-D-04",
@@ -836,7 +970,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/retention.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write retention_class stamp"
     },
     {
       "req_id": "REQ-D-05",
@@ -848,7 +984,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/rights.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
     },
     {
       "req_id": "REQ-D-06",
@@ -860,7 +998,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/intelligence_receipt.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt"
     },
     {
       "req_id": "REQ-D-07",
@@ -872,7 +1012,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/outcome_registry.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "database.resolve_oracle_prediction→enforce_oracle_outcome_resolution"
     },
     {
       "req_id": "REQ-D-08",
@@ -884,7 +1026,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/opportunity_universe.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe metadata"
     },
     {
       "req_id": "REQ-D-09",
@@ -896,7 +1040,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/entity_assertions.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_record_entity_for_material"
     },
     {
       "req_id": "REQ-D-10",
@@ -908,7 +1054,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/derived_assets.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write derived_assets count metadata"
     },
     {
       "req_id": "REQ-D-11",
@@ -920,7 +1068,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/retention.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write storage_tier from retention"
     },
     {
       "req_id": "REQ-D-12",
@@ -932,7 +1082,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/restore.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore drill"
     },
     {
       "req_id": "REQ-D-13",
@@ -945,7 +1097,9 @@
       "evidence_paths": [
         "blackdark/data_governance/evidence_integrity.py",
         "oracle_audit_chain.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain verify_chain + enforce_oracle_chain_record"
     },
     {
       "req_id": "REQ-D-14",
@@ -958,7 +1112,9 @@
       "evidence_paths": [
         "blackdark/data_governance/quality.py",
         "blackdark/data/response_metadata.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata + decision_enrichment enforce_data_state_for_decision"
     },
     {
       "req_id": "REQ-D-15",
@@ -970,7 +1126,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/promotion_gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_enforce_promotion_gate"
     },
     {
       "req_id": "REQ-D-16",
@@ -982,7 +1140,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/data_room_index.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→build_data_room_index"
     },
     {
       "req_id": "REQ-D-17",
@@ -994,7 +1154,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/asset_value_ledger.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→record_asset_value"
     },
     {
       "req_id": "REQ-D-18",
@@ -1007,7 +1169,9 @@
       "evidence_paths": [
         "blackdark/data_governance/lineage.py",
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write propagate_lineage + promotion gate"
     },
     {
       "req_id": "REQ-D-19",
@@ -1019,7 +1183,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/corrections.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→enforce_ledger_link_update→record_correction"
     },
     {
       "req_id": "REQ-D-20",
@@ -1031,7 +1197,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/entity_assertions.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_record_entity_for_material"
     },
     {
       "req_id": "REQ-DSR-001",
@@ -1044,7 +1212,9 @@
       "evidence_paths": [
         "blackdark/data_governance/contracts.py",
         "data/governance/contracts/"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_contract"
     },
     {
       "req_id": "REQ-DSR-002",
@@ -1056,7 +1226,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/contracts.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "validate_contract REQUIRED_FIELDS at write time"
     },
     {
       "req_id": "REQ-DSR-003",
@@ -1068,7 +1240,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_replay_framing→create_pit_contract"
     },
     {
       "req_id": "REQ-DSR-004",
@@ -1081,7 +1255,9 @@
       "evidence_paths": [
         "blackdark/data_governance/pit_evidence.py",
         "ml/market_replay_bootstrap.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "create_pit_contract + receipt hash on replay writes"
     },
     {
       "req_id": "REQ-DSR-005",
@@ -1093,7 +1269,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/rights.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_rights_for_contract"
     },
     {
       "req_id": "REQ-DSR-006",
@@ -1105,7 +1283,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/schema_registry.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→validate_record_against_schema"
     },
     {
       "req_id": "REQ-DSR-007",
@@ -1117,7 +1297,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/corrections.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "decision_ledger.link_*→enforce_ledger_link_update→record_correction"
     },
     {
       "req_id": "REQ-DSR-008",
@@ -1129,7 +1311,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/intelligence_receipt.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→issue_intelligence_receipt"
     },
     {
       "req_id": "REQ-DSR-009",
@@ -1141,7 +1325,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/outcome_registry.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "database.resolve_oracle_prediction→enforce_oracle_outcome_resolution"
     },
     {
       "req_id": "REQ-DSR-010",
@@ -1153,7 +1339,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/opportunity_universe.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write opportunity_universe metadata"
     },
     {
       "req_id": "REQ-DSR-011",
@@ -1165,7 +1353,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/entity_assertions.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_record_entity_for_material"
     },
     {
       "req_id": "REQ-DSR-012",
@@ -1178,7 +1368,9 @@
       "evidence_paths": [
         "blackdark/data_governance/lineage.py",
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write propagate_lineage / inherit_evidence_origin"
     },
     {
       "req_id": "REQ-DSR-013",
@@ -1191,7 +1383,9 @@
       "evidence_paths": [
         "blackdark/data_governance/lineage.py",
         "cap646/evidence_class.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write assert_promotion_allowed + promotion_gate"
     },
     {
       "req_id": "REQ-DSR-014",
@@ -1203,7 +1397,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/retention.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write retention_class + storage_tier"
     },
     {
       "req_id": "REQ-DSR-015",
@@ -1215,7 +1411,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/restore.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.assert_governance_subsystem_ready restore drill"
     },
     {
       "req_id": "REQ-DSR-016",
@@ -1228,7 +1426,9 @@
       "evidence_paths": [
         "blackdark/data_governance/evidence_integrity.py",
         "oracle_audit_chain.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "oracle_audit_chain→enforce_oracle_chain_record + verify_chain"
     },
     {
       "req_id": "REQ-DSR-017",
@@ -1241,7 +1441,9 @@
       "evidence_paths": [
         "blackdark/data_governance/quality.py",
         "blackdark/data/response_metadata.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "response_metadata + decision_enrichment enforce_data_state_for_decision"
     },
     {
       "req_id": "REQ-DSR-018",
@@ -1253,7 +1455,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/promotion_gate.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_enforce_promotion_gate"
     },
     {
       "req_id": "REQ-DSR-019",
@@ -1265,7 +1469,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/derived_assets.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write derived_assets metadata"
     },
     {
       "req_id": "REQ-DSR-020",
@@ -1277,7 +1483,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/asset_value_ledger.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→record_asset_value"
     },
     {
       "req_id": "REQ-DSR-021",
@@ -1289,7 +1497,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/data_room_index.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→build_data_room_index"
     },
     {
       "req_id": "REQ-DSR-022",
@@ -1301,7 +1511,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/claims_registry.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write→_register_material_claim"
     },
     {
       "req_id": "REQ-DSR-023",
@@ -1313,7 +1525,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/collection_policy.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute collection policies"
     },
     {
       "req_id": "REQ-DSR-024",
@@ -1326,7 +1540,9 @@
       "evidence_paths": [
         "blackdark/data_governance/gate.py",
         "blackdark/data_governance/audit.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "cap646/runtime→enforce_capability_execute + assert_governance_subsystem_ready"
     },
     {
       "req_id": "REQ-T16",
@@ -1338,7 +1554,9 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/contracts.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "validate_contract REQUIRED_FIELDS at write"
     },
     {
       "req_id": "REQ-T17",
@@ -1350,7 +1568,15 @@
       "status": "IMPLEMENTED_EVIDENCED",
       "evidence_paths": [
         "blackdark/data_governance/retention.py"
-      ]
+      ],
+      "runtime_enforced": "YES",
+      "runtime_evidence": "runtime.enforce_material_write retention tier stamp"
     }
-  ]
+  ],
+  "runtime_enforcement": {
+    "yes": 107,
+    "partial": 3,
+    "no": 0,
+    "total": 110
+  }
 }

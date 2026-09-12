@@ -138,13 +138,27 @@ async def _insert_replay_sample(
     index: int,
     insert_oracle_prediction: Any,
     resolve_oracle_prediction: Any,
+    pit_contract_id: str | None = None,
 ) -> str:
+    from blackdark.data_governance.runtime import enforce_replay_framing
+
     window = [row["close"] for row in klines[: index + 1]]
     price_at = float(klines[index]["close"])
     price_after = float(klines[index + 24]["close"])
     verdict = _verdict_from_past(window)
     features = _feature_vector_from_closes(asset, window)
     outcome, accuracy, direction = score_verdict_accuracy(verdict, price_at, price_after)
+    event_ts = datetime.fromtimestamp(klines[index]["ts"] / 1000, tz=UTC).isoformat()
+    enforce_replay_framing(
+        source=SOURCE,
+        claim_text="successfully detected the historical event under point-in-time replay",
+        record={
+            "replay_id": SOURCE,
+            "created_at": event_ts,
+            "source": SOURCE,
+            "pit_contract_id": pit_contract_id,
+        },
+    )
     score = min(95.0, max(35.0, 55.0 + features["ret_24h"]))
     conf = min(90.0, max(40.0, 60.0 - features["volatility"] * 3))
     pred_id = await insert_oracle_prediction(
@@ -180,6 +194,7 @@ async def _bootstrap_asset_samples(
     remaining: int,
     insert_oracle_prediction: Any,
     resolve_oracle_prediction: Any,
+    pit_contract_id: str | None = None,
 ) -> tuple[int, int, int]:
     klines = await _fetch_hourly_klines(session, asset, limit=min(1000, lookback_hours + 48))
     if len(klines) < 48:
@@ -195,6 +210,7 @@ async def _bootstrap_asset_samples(
             index=index,
             insert_oracle_prediction=insert_oracle_prediction,
             resolve_oracle_prediction=resolve_oracle_prediction,
+            pit_contract_id=pit_contract_id,
         )
         inserted += 1
         resolved += 1
@@ -220,8 +236,16 @@ async def bootstrap_market_replay_dataset(
         insert_oracle_prediction,
         resolve_oracle_prediction,
     )
+    from blackdark.data_governance.pit_evidence import create_pit_contract
 
     await init_db()
+    pit = create_pit_contract(
+        replay_id=SOURCE,
+        knowledge_cutoff=_utcnow_iso(),
+        oracle=SOURCE,
+        model_version="market_replay_bootstrap",
+    )
+    pit_contract_id = pit["pit_id"]
     threshold = min_samples or max(int(config.ML_MIN_TRAIN_SAMPLES), 50)
     existing = await fetch_labeled_oracle_predictions(limit=threshold * 2, include_synthetic=False)
     if len(existing) >= threshold:
@@ -247,6 +271,7 @@ async def bootstrap_market_replay_dataset(
                 remaining=threshold * 2 - resolved,
                 insert_oracle_prediction=insert_oracle_prediction,
                 resolve_oracle_prediction=resolve_oracle_prediction,
+                pit_contract_id=pit_contract_id,
             )
             inserted += add_inserted
             resolved += add_resolved
@@ -258,6 +283,7 @@ async def bootstrap_market_replay_dataset(
     return {
         "bootstrapped": True,
         "source": SOURCE,
+        "pit_contract_id": pit_contract_id,
         "inserted": inserted,
         "resolved": resolved,
         "correct": correct,
