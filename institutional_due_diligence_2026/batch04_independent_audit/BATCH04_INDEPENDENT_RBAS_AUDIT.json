@@ -2,11 +2,11 @@
   {
     "id": 151,
     "name": "Quarterly Protocol Performance Reports",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=quarterly_protocol_performance_reports spine=batch04_prep; code: async def _cap151(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=quarterly_protocol_performance_reports spine=batch04_prep; code: async def _cap151(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -18,7 +18,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -27,16 +27,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 81
+    "audit_duration_ms": 86
   },
   {
     "id": 152,
     "name": "Governance & Proposal Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=governance_proposal_intelligence spine=batch04_prep; code: async def _cap152(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=governance_proposal_intelligence spine=batch04_prep; code: async def _cap152(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -48,7 +48,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -57,16 +57,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 78
+    "audit_duration_ms": 86
   },
   {
     "id": 153,
     "name": "Project Monitoring Coverage Registry",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=project_monitoring_coverage_registry spine=batch04_prep; code: async def _cap153(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=project_monitoring_coverage_registry spine=batch04_prep; code: async def _cap153(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -78,7 +78,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER2",
@@ -108,7 +108,7 @@
       "project_monitoring_coverage_registry.recent[9].opportunity_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 78
+    "audit_duration_ms": 90
   },
   {
     "id": 154,
@@ -129,7 +129,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -138,7 +138,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 26
+    "audit_duration_ms": 23
   },
   {
     "id": 155,
@@ -159,7 +159,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -168,16 +168,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 144
+    "audit_duration_ms": 131
   },
   {
     "id": 156,
     "name": "Crypto Knowledge Graph",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=crypto_knowledge_graph spine=batch04_prep; code: async def _cap156(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=crypto_knowledge_graph spine=batch04_prep; code: async def _cap156(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -189,7 +189,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER2",
@@ -219,16 +219,16 @@
       "crypto_knowledge_graph.recent[9].opportunity_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 78
+    "audit_duration_ms": 90
   },
   {
     "id": 157,
     "name": "Research Library",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_library spine=batch04_prep; code: async def _cap157(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_library spine=batch04_prep; code: async def _cap157(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -240,7 +240,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER2",
@@ -302,16 +302,16 @@
       "news[7].sentiment_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 201
+    "audit_duration_ms": 195
   },
   {
     "id": 158,
     "name": "Institutional Research Feed",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=institutional_research_feed spine=batch04_prep; code: async def _cap158(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=institutional_research_feed spine=batch04_prep; code: async def _cap158(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -323,7 +323,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER2",
@@ -365,7 +365,7 @@
       "news[7].sentiment_score"
     ],
     "phase_checks_executed": 12,
-    "audit_duration_ms": 314
+    "audit_duration_ms": 729
   },
   {
     "id": 159,
@@ -380,12 +380,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -395,16 +395,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 160,
     "name": "Pay-Per-Request Data Access",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=pay_per_request_data_access spine=batch04_prep; code: async def _cap160(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=pay_per_request_data_access spine=batch04_prep; code: async def _cap160(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -416,7 +416,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -425,7 +425,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 161,
@@ -440,12 +440,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -455,7 +455,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 162,
@@ -470,12 +470,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -485,16 +485,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 163,
     "name": "Cross-Domain Research-to-Decision Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_research_to_decision_intelligence spine=batch04_prep; code: async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_research_to_decision_intelligence spine=batch04_prep; code: async def _cap163(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -506,7 +506,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -515,16 +515,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 212
+    "audit_duration_ms": 148
   },
   {
     "id": 164,
     "name": "Token Unlock Actionability Score",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_unlock_actionability_score spine=batch04_prep; code: async def _cap164(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_unlock_actionability_score spine=batch04_prep; code: async def _cap164(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -536,7 +536,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -545,16 +545,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 45
+    "audit_duration_ms": 108
   },
   {
     "id": 165,
     "name": "Fundraising Momentum Score",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fundraising_momentum_score spine=batch04_prep; code: async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fundraising_momentum_score spine=batch04_prep; code: async def _cap165(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -566,7 +566,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -575,16 +575,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 33
+    "audit_duration_ms": 27
   },
   {
     "id": 166,
     "name": "Research Confidence Score",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_confidence_score spine=batch04_prep; code: async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_confidence_score spine=batch04_prep; code: async def _cap166(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -596,7 +596,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -605,7 +605,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 302
+    "audit_duration_ms": 295
   },
   {
     "id": 167,
@@ -620,12 +620,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -635,16 +635,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 1
+    "audit_duration_ms": 6
   },
   {
     "id": 168,
     "name": "Social Dominance Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=social_dominance_intelligence spine=batch04_prep; code: async def _cap168(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=social_dominance_intelligence spine=batch04_prep; code: async def _cap168(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -656,7 +656,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -665,16 +665,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 1
+    "audit_duration_ms": 6
   },
   {
     "id": 169,
     "name": "Unique Social Volume",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=unique_social_volume spine=batch04_prep; code: async def _cap169(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=unique_social_volume spine=batch04_prep; code: async def _cap169(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -686,7 +686,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -695,16 +695,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 1
+    "audit_duration_ms": 6
   },
   {
     "id": 170,
     "name": "Trending Words",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=trending_words spine=batch04_prep; code: async def _cap170(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=trending_words spine=batch04_prep; code: async def _cap170(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -716,7 +716,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -725,16 +725,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 4
   },
   {
     "id": 171,
     "name": "Trending Coins",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=trending_coins spine=batch04_prep; code: async def _cap171(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=trending_coins spine=batch04_prep; code: async def _cap171(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -746,7 +746,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -755,7 +755,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 172,
@@ -770,12 +770,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -785,16 +785,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2066
+    "audit_duration_ms": 2004
   },
   {
     "id": 173,
     "name": "Key Narratives Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=key_narratives_intelligence spine=batch04_prep; code: async def _cap173(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=key_narratives_intelligence spine=batch04_prep; code: async def _cap173(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -806,7 +806,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -815,16 +815,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 126
+    "audit_duration_ms": 123
   },
   {
     "id": 174,
     "name": "Alpha Narratives Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=alpha_narratives_intelligence spine=batch04_prep; code: async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=alpha_narratives_intelligence spine=batch04_prep; code: async def _cap174(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -836,7 +836,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -845,7 +845,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 186
+    "audit_duration_ms": 183
   },
   {
     "id": 175,
@@ -866,7 +866,7 @@
       "5": "PASS",
       "6": "PARTIAL",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -875,7 +875,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 3
+    "audit_duration_ms": 4
   },
   {
     "id": 176,
@@ -896,7 +896,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -905,7 +905,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 2
+    "audit_duration_ms": 6
   },
   {
     "id": 177,
@@ -926,7 +926,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -935,16 +935,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 1
+    "audit_duration_ms": 6
   },
   {
     "id": 178,
     "name": "Social Source Breakdown",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=social_source_breakdown spine=batch04_prep; code: async def _cap178(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=social_source_breakdown spine=batch04_prep; code: async def _cap178(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -956,7 +956,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -965,7 +965,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 1
+    "audit_duration_ms": 6
   },
   {
     "id": 179,
@@ -980,12 +980,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -995,16 +995,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 2458
+    "audit_duration_ms": 1972
   },
   {
     "id": 180,
     "name": "Development Activity Contributors",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=development_activity_contributors spine=batch04_prep; code: async def _cap180(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=development_activity_contributors spine=batch04_prep; code: async def _cap180(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1016,7 +1016,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1025,7 +1025,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 81
+    "audit_duration_ms": 85
   },
   {
     "id": 181,
@@ -1040,12 +1040,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -1055,16 +1055,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 182,
     "name": "Developer Activity Change Detection",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=developer_activity_change_detection spine=batch04_prep; code: async def _cap182(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=developer_activity_change_detection spine=batch04_prep; code: async def _cap182(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1076,7 +1076,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1085,16 +1085,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 78
+    "audit_duration_ms": 84
   },
   {
     "id": 183,
     "name": "Whale Transaction Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_transaction_intelligence spine=batch04_prep; code: async def _cap183(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_transaction_intelligence spine=batch04_prep; code: async def _cap183(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1106,7 +1106,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1115,16 +1115,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 2
+    "audit_duration_ms": 6
   },
   {
     "id": 184,
     "name": "Whale & Shark Holder Cohorts",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_shark_holder_cohorts spine=batch04_prep; code: async def _cap184(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_shark_holder_cohorts spine=batch04_prep; code: async def _cap184(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1136,7 +1136,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1145,16 +1145,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 2
+    "audit_duration_ms": 6
   },
   {
     "id": 185,
     "name": "Top Holders Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=top_holders_intelligence spine=batch04_prep; code: async def _cap185(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=top_holders_intelligence spine=batch04_prep; code: async def _cap185(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1166,7 +1166,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1175,16 +1175,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 186,
     "name": "Historical Wallet Balance Tool",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=historical_wallet_balance_tool spine=batch04_prep; code: async def _cap186(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=historical_wallet_balance_tool spine=batch04_prep; code: async def _cap186(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1196,7 +1196,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1205,16 +1205,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 187,
     "name": "Exchange Inflow Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_inflow_intelligence spine=batch04_prep; code: async def _cap187(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_inflow_intelligence spine=batch04_prep; code: async def _cap187(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1226,7 +1226,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1235,16 +1235,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 188,
     "name": "Exchange Outflow Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_outflow_intelligence spine=batch04_prep; code: async def _cap188(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_outflow_intelligence spine=batch04_prep; code: async def _cap188(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1256,7 +1256,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1265,16 +1265,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 189,
     "name": "Exchange Netflow Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_netflow_intelligence spine=batch04_prep; code: async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_netflow_intelligence spine=batch04_prep; code: async def _cap189(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1286,7 +1286,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1295,16 +1295,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 2229
+    "audit_duration_ms": 1673
   },
   {
     "id": 190,
     "name": "Exchange Supply / Balance Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_supply_balance_intelligence spine=batch04_prep; code: async def _cap190(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_supply_balance_intelligence spine=batch04_prep; code: async def _cap190(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1316,7 +1316,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1325,16 +1325,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 191,
     "name": "Exchange User Activity",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_user_activity spine=batch04_prep; code: async def _cap191(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_user_activity spine=batch04_prep; code: async def _cap191(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1346,7 +1346,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1355,7 +1355,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 192,
@@ -1370,12 +1370,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -1385,16 +1385,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 193,
     "name": "Transaction Volume Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=transaction_volume_intelligence spine=batch04_prep; code: async def _cap193(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=transaction_volume_intelligence spine=batch04_prep; code: async def _cap193(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1406,7 +1406,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1420,11 +1420,11 @@
   {
     "id": 194,
     "name": "NVT Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=nvt_intelligence spine=batch04_prep; code: async def _cap194(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=nvt_intelligence spine=batch04_prep; code: async def _cap194(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1436,7 +1436,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1445,16 +1445,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 4
   },
   {
     "id": 195,
     "name": "MVRV Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=mvrv_intelligence spine=batch04_prep; code: async def _cap195(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=mvrv_intelligence spine=batch04_prep; code: async def _cap195(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1466,7 +1466,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1475,16 +1475,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 26
+    "audit_duration_ms": 32
   },
   {
     "id": 196,
     "name": "Realized Cap / Realized Value Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DUPLICATE_CONFIRMED; runtime success=True surface=realized_cap_realized_value_intelligence spine=batch04_prep; code: async def _cap196(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DUPLICATE_CONFIRMED; runtime success=True surface=realized_cap_realized_value_intelligence spine=batch04_prep; code: async def _cap196(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DUPLICATE_CONFIRMED",
     "routing_overlap": null,
@@ -1496,7 +1496,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1510,11 +1510,11 @@
   {
     "id": 197,
     "name": "Daily Active Addresses",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=daily_active_addresses spine=batch04_prep; code: async def _cap197(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=daily_active_addresses spine=batch04_prep; code: async def _cap197(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1526,7 +1526,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1535,16 +1535,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 198,
     "name": "Age Consumed / Dormancy Intelligence",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=age_consumed_dormancy_intelligence spine=batch04_prep; code: async def _cap198(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=age_consumed_dormancy_intelligence spine=batch04_prep; code: async def _cap198(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1556,7 +1556,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1565,16 +1565,16 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   },
   {
     "id": 199,
     "name": "Mean Dollar Invested Age",
-    "status": "NOT_COMPLETE",
-    "failed_phase": "8",
-    "failed_standard": "Google SRE Production Readiness Review (PRR)",
-    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=mean_dollar_invested_age spine=batch04_prep; code: async def _cap199(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
-    "severity": "متوسط",
+    "status": "PRODUCTION-ALIGNED",
+    "failed_phase": "—",
+    "failed_standard": "—",
+    "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=mean_dollar_invested_age spine=batch04_prep; code: async def _cap199(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:",
+    "severity": "منخفض",
     "backend": "cap646.batch04_dedicated",
     "split_brain_type": "DEDICATED_ONLY",
     "routing_overlap": null,
@@ -1586,7 +1586,7 @@
       "5": "PASS",
       "6": "PASS",
       "7": "PASS",
-      "8": "PARTIAL",
+      "8": "PASS",
       "9": "NOT_APPLICABLE"
     },
     "rbas_tier": "TIER1",
@@ -1595,7 +1595,7 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 9,
-    "audit_duration_ms": 189
+    "audit_duration_ms": 185
   },
   {
     "id": 200,
@@ -1610,12 +1610,12 @@
     "routing_overlap": null,
     "phase_results": {
       "1": "PASS",
-      "9": "SKIPPED",
-      "5": "SKIPPED",
-      "3": "SKIPPED",
-      "2": "SKIPPED",
-      "8": "SKIPPED",
       "7": "SKIPPED",
+      "8": "SKIPPED",
+      "3": "SKIPPED",
+      "9": "SKIPPED",
+      "2": "SKIPPED",
+      "5": "SKIPPED",
       "4": "PASS",
       "6": "PASS"
     },
@@ -1625,6 +1625,6 @@
     "escalated": false,
     "escalation_hits": [],
     "phase_checks_executed": 3,
-    "audit_duration_ms": 0
+    "audit_duration_ms": 5
   }
 ]

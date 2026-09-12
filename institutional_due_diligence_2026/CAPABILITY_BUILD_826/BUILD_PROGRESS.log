@@ -9,3 +9,13 @@
 2026-09-12T00:16:02.006750+00:00 BATCH_01 | complete_v6=22/25 (total 36/826) | engineering_ready=3 (total 14) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=33bd75aa
 2026-09-12T03:27:14.439305+00:00 BATCH_03 | complete_v6=22/25 (total 58/826) | engineering_ready=3 (total 17) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af778834
 2026-09-12T03:29:33.154252+00:00 BATCH_04 | complete_v6=21/25 (total 79/826) | engineering_ready=4 (total 21) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af778834
+2026-09-12T04:15:01.229385+00:00 BATCH_05 | complete_v6=21/25 (total 100/826) | engineering_ready=4 (total 25) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=79166c91
+2026-09-12T04:16:20.002466+00:00 BATCH_06 | complete_v6=21/25 (total 121/826) | engineering_ready=3 (total 28) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=79166c91
+2026-09-12T04:16:50.579589+00:00 BATCH_07 | complete_v6=0/25 (total 121/826) | engineering_ready=0 (total 28) | partial=25 | blocked=0 | unbound_heroes=25 | failed=0 | sha=79166c91
+2026-09-12T04:17:09.732417+00:00 BATCH_08 | complete_v6=0/25 (total 121/826) | engineering_ready=0 (total 28) | partial=25 | blocked=0 | unbound_heroes=25 | failed=0 | sha=79166c91
+2026-09-12T04:17:15.619504+00:00 BATCH_09 | complete_v6=0/25 (total 121/826) | engineering_ready=0 (total 28) | partial=25 | blocked=0 | unbound_heroes=25 | failed=0 | sha=79166c91
+2026-09-12T04:17:59.942074+00:00 BATCH_10 | complete_v6=0/25 (total 121/826) | engineering_ready=0 (total 28) | partial=25 | blocked=0 | unbound_heroes=25 | failed=0 | sha=79166c91
+2026-09-12T04:21:20.471447+00:00 BATCH_07 | complete_v6=17/25 (total 138/826) | engineering_ready=7 (total 35) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=79166c91
+2026-09-12T04:23:50.553419+00:00 BATCH_08 | complete_v6=19/25 (total 157/826) | engineering_ready=6 (total 41) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=79166c91
+2026-09-12T04:25:49.616505+00:00 BATCH_09 | complete_v6=21/25 (total 178/826) | engineering_ready=3 (total 44) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=79166c91
+2026-09-12T04:28:59.036759+00:00 BATCH_10 | complete_v6=20/25 (total 198/826) | engineering_ready=4 (total 48) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=79166c91

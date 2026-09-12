@@ -1,6 +1,6 @@
 # Six Heroes Binding Index — CAPABILITY_BUILD_826
 
-**Updated:** 2026-09-12T03:29:33.160362+00:00
+**Updated:** 2026-09-12T04:28:59.046391+00:00
 
 | ID | Capability | Primary Hero | Entry Path | Binding | Build Status |
 |---:|---|---|---|---|---|
@@ -104,156 +104,156 @@
 | 98 | Whale Movement Alerts | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/98/execute | BOUND | ENGINEERING_READY |
 | 99 | QuickTake / Analyst Insight Feed | B2B Feed | /api/b2b/demo → /api/cap646/99/execute | BOUND | COMPLETE_V6 |
 | 100 | Research Reports | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/100/execute | BOUND | COMPLETE_V6 |
-| 101 | AI Data Analyst / Ask AI | — | — | UNBOUND | NOT_STARTED |
-| 102 | AI-Generated Reporting | — | — | UNBOUND | NOT_STARTED |
-| 103 | API Data Platform | — | — | UNBOUND | NOT_STARTED |
-| 104 | High-Resolution / Block-Level Data Deliv | — | — | UNBOUND | NOT_STARTED |
-| 105 | Historical Full-Data Layer | — | — | UNBOUND | NOT_STARTED |
-| 106 | Data Quality & Provenance Layer | — | — | UNBOUND | NOT_STARTED |
-| 107 | Metric Methodology Registry | — | — | UNBOUND | NOT_STARTED |
-| 108 | Institutional Data & API Delivery | — | — | UNBOUND | NOT_STARTED |
-| 109 | White-Label Research & Reporting | — | — | UNBOUND | NOT_STARTED |
-| 110 | Cross-Domain Decision Intelligence Layer | — | — | UNBOUND | NOT_STARTED |
-| 111 | Exchange Flow Actionability Score | — | — | UNBOUND | NOT_STARTED |
-| 112 | Flow-to-Price Explanation Engine | — | — | UNBOUND | NOT_STARTED |
-| 113 | Asset Intelligence Profiles | — | — | UNBOUND | NOT_STARTED |
-| 114 | Asset Classification & Taxonomy | — | — | UNBOUND | NOT_STARTED |
-| 115 | Asset Screener | — | — | UNBOUND | NOT_STARTED |
-| 116 | Market Pair Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 117 | Real Volume / Quality-Adjusted Volume | — | — | UNBOUND | NOT_STARTED |
-| 118 | VWAP Price Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 119 | Market Cap & FDV Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 120 | Supply Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 121 | ROI & ATH Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 122 | Volatility Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 123 | Sharpe Ratio Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 124 | Futures Funding Rate Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 125 | Futures Open Interest Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 126 | Futures Volume Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 127 | Multi-Factor Market Overview | — | — | UNBOUND | NOT_STARTED |
-| 128 | Momentum Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 129 | Sentiment Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 130 | Mindshare Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 131 | Narrative & Sector Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 132 | Mindshare Gainers / Losers | — | — | UNBOUND | NOT_STARTED |
-| 133 | Curated Crypto News Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 134 | AI News Summaries | — | — | UNBOUND | NOT_STARTED |
-| 135 | Real-Time Industry Event Monitoring | — | — | UNBOUND | NOT_STARTED |
-| 136 | Agentic Monitoring Views | — | — | UNBOUND | NOT_STARTED |
-| 137 | Custom Watchlists | — | — | UNBOUND | NOT_STARTED |
-| 138 | Token Unlock Calendar | — | — | UNBOUND | NOT_STARTED |
-| 139 | Vesting Schedule Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 140 | Token Allocation Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 141 | Unlock Impact Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 142 | Fundraising Rounds Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 143 | Investor Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 144 | Fund & Fund-Manager Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 145 | M&A Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 146 | Capital Flow & Funding Trend Intelligenc | — | — | UNBOUND | NOT_STARTED |
-| 147 | Comparable Funding & Valuation Analysis | — | — | UNBOUND | NOT_STARTED |
-| 148 | Due Diligence Report Engine | — | — | UNBOUND | NOT_STARTED |
-| 149 | Automated Risk Scoring from Diligence | — | — | UNBOUND | NOT_STARTED |
-| 150 | Protocol KPI Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 151 | Quarterly Protocol Performance Reports | — | — | UNBOUND | NOT_STARTED |
-| 152 | Governance & Proposal Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 153 | Project Monitoring Coverage Registry | — | — | UNBOUND | NOT_STARTED |
-| 154 | AI Crypto Copilot | — | — | UNBOUND | NOT_STARTED |
-| 155 | AI Deep Research | — | — | UNBOUND | NOT_STARTED |
-| 156 | Crypto Knowledge Graph | — | — | UNBOUND | NOT_STARTED |
-| 157 | Research Library | — | — | UNBOUND | NOT_STARTED |
-| 158 | Institutional Research Feed | — | — | UNBOUND | NOT_STARTED |
-| 159 | API Data Platform | — | — | UNBOUND | NOT_STARTED |
-| 160 | Pay-Per-Request Data Access | — | — | UNBOUND | NOT_STARTED |
-| 161 | Institutional Data Delivery & Entitlemen | — | — | UNBOUND | NOT_STARTED |
-| 162 | Evidence & Provenance Layer | — | — | UNBOUND | NOT_STARTED |
-| 163 | Cross-Domain Research-to-Decision Intell | — | — | UNBOUND | NOT_STARTED |
-| 164 | Token Unlock Actionability Score | — | — | UNBOUND | NOT_STARTED |
-| 165 | Fundraising Momentum Score | — | — | UNBOUND | NOT_STARTED |
-| 166 | Research Confidence Score | — | — | UNBOUND | NOT_STARTED |
-| 167 | Social Volume Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 168 | Social Dominance Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 169 | Unique Social Volume | — | — | UNBOUND | NOT_STARTED |
-| 170 | Trending Words | — | — | UNBOUND | NOT_STARTED |
-| 171 | Trending Coins | — | — | UNBOUND | NOT_STARTED |
-| 172 | Historical Crypto Trends | — | — | UNBOUND | NOT_STARTED |
-| 173 | Key Narratives Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 174 | Alpha Narratives Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 175 | Social Sentiment Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 176 | Weighted Social Sentiment | — | — | UNBOUND | NOT_STARTED |
-| 177 | Social Sentiment Balance | — | — | UNBOUND | NOT_STARTED |
-| 178 | Social Source Breakdown | — | — | UNBOUND | NOT_STARTED |
-| 179 | Development Activity Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 180 | Development Activity Contributors | — | — | UNBOUND | NOT_STARTED |
-| 181 | Ecosystem Development Dashboard | — | — | UNBOUND | NOT_STARTED |
-| 182 | Developer Activity Change Detection | — | — | UNBOUND | NOT_STARTED |
-| 183 | Whale Transaction Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 184 | Whale & Shark Holder Cohorts | — | — | UNBOUND | NOT_STARTED |
-| 185 | Top Holders Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 186 | Historical Wallet Balance Tool | — | — | UNBOUND | NOT_STARTED |
-| 187 | Exchange Inflow Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 188 | Exchange Outflow Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 189 | Exchange Netflow Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 190 | Exchange Supply / Balance Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 191 | Exchange User Activity | — | — | UNBOUND | NOT_STARTED |
-| 192 | Network Activity Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 193 | Transaction Volume Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 194 | NVT Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 195 | MVRV Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 196 | Realized Cap / Realized Value Intelligen | — | — | UNBOUND | NOT_STARTED |
-| 197 | Daily Active Addresses | — | — | UNBOUND | NOT_STARTED |
-| 198 | Age Consumed / Dormancy Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 199 | Mean Dollar Invested Age | — | — | UNBOUND | NOT_STARTED |
-| 200 | Token Circulation Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 201 | Network Growth Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 202 | Supply Distribution Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 203 | DEX Trading Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 204 | DeFi Protocol Activity Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 205 | Open Interest Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 206 | Funding Rate Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 207 | Price / Volume / Market Metrics | — | — | UNBOUND | NOT_STARTED |
-| 208 | Metric Correlation Workbench | — | — | UNBOUND | NOT_STARTED |
-| 209 | Custom Chart Builder | — | — | UNBOUND | NOT_STARTED |
-| 210 | Custom Dashboards / Layouts | — | — | UNBOUND | NOT_STARTED |
-| 211 | Screener | — | — | UNBOUND | NOT_STARTED |
-| 212 | Smart Alerts | — | — | UNBOUND | NOT_STARTED |
-| 213 | Anomaly Detection Alerts | — | — | UNBOUND | NOT_STARTED |
-| 214 | Watchlists | — | — | UNBOUND | NOT_STARTED |
-| 215 | Community Explorer | — | — | UNBOUND | NOT_STARTED |
-| 216 | Research & Market Insights | — | — | UNBOUND | NOT_STARTED |
-| 217 | SanAPI-Style Data Access | — | — | UNBOUND | NOT_STARTED |
-| 218 | Google Sheets Integration | — | — | UNBOUND | NOT_STARTED |
-| 219 | Metric Availability Registry | — | — | UNBOUND | NOT_STARTED |
-| 220 | Data Stabilization & Mutability Metadata | — | — | UNBOUND | NOT_STARTED |
-| 221 | Data Quality & Provenance Layer | — | — | UNBOUND | NOT_STARTED |
-| 222 | Metric Methodology Registry | — | — | UNBOUND | NOT_STARTED |
-| 223 | Social-to-On-Chain Confirmation Engine | — | — | UNBOUND | NOT_STARTED |
-| 224 | Narrative Actionability Score | — | — | UNBOUND | NOT_STARTED |
-| 225 | Development-to-Market Divergence Detecto | — | — | UNBOUND | NOT_STARTED |
-| 226 | Cross-Domain Decision Intelligence Layer | — | — | UNBOUND | NOT_STARTED |
-| 227 | Unified Trading Intelligence Workspace | — | — | UNBOUND | NOT_STARTED |
-| 228 | Funding Rate Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 229 | Cross-Exchange Funding Arbitrage Scanner | — | — | UNBOUND | NOT_STARTED |
-| 230 | Spot-Perp Arbitrage Scanner | — | — | UNBOUND | NOT_STARTED |
-| 231 | Futures Basis & Term Structure | — | — | UNBOUND | NOT_STARTED |
-| 232 | Open Interest Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 233 | Liquidation Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 234 | CVD Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 235 | Long/Short Ratio Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 236 | DEX Screener | — | — | UNBOUND | NOT_STARTED |
-| 237 | Token Risk Scoring | — | — | UNBOUND | NOT_STARTED |
-| 238 | Pump & Dump Detection | — | — | UNBOUND | NOT_STARTED |
-| 239 | Narrative Tracking | — | — | UNBOUND | NOT_STARTED |
-| 240 | Sector Rotation Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 241 | Sentiment Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 242 | Price Prediction / Multi-Signal Forecast | — | — | UNBOUND | NOT_STARTED |
-| 243 | Correlation Matrix | — | — | UNBOUND | NOT_STARTED |
-| 244 | New Listings Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 245 | Market Health & Freshness | — | — | UNBOUND | NOT_STARTED |
-| 246 | Coverage Metadata Registry | — | — | UNBOUND | NOT_STARTED |
-| 247 | Public REST API | — | — | UNBOUND | NOT_STARTED |
-| 248 | MCP Server for AI Agents | — | — | UNBOUND | NOT_STARTED |
-| 249 | CLI Access | — | — | UNBOUND | NOT_STARTED |
-| 250 | OpenAPI / SDK Generation | — | — | UNBOUND | NOT_STARTED |
+| 101 | AI Data Analyst / Ask AI | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/101/execute | BOUND | ENGINEERING_READY |
+| 102 | AI-Generated Reporting | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/102/execute | BOUND | ENGINEERING_READY |
+| 103 | API Data Platform | B2B Feed | /api/b2b/demo → /api/cap646/103/execute | BOUND | COMPLETE_V6 |
+| 104 | High-Resolution / Block-Level Data Deliv | B2B Feed | /api/b2b/demo → /api/cap646/104/execute | BOUND | COMPLETE_V6 |
+| 105 | Historical Full-Data Layer | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/105/execute | BOUND | COMPLETE_V6 |
+| 106 | Data Quality & Provenance Layer | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/106/execute | BOUND | COMPLETE_V6 |
+| 107 | Metric Methodology Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/107/execute | BOUND | COMPLETE_V6 |
+| 108 | Institutional Data & API Delivery | B2B Feed | /api/b2b/demo → /api/cap646/108/execute | BOUND | COMPLETE_V6 |
+| 109 | White-Label Research & Reporting | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/109/execute | BOUND | COMPLETE_V6 |
+| 110 | Cross-Domain Decision Intelligence Layer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/110/execute | BOUND | ENGINEERING_READY |
+| 111 | Exchange Flow Actionability Score | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/111/execute | BOUND | ENGINEERING_READY |
+| 112 | Flow-to-Price Explanation Engine | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/112/execute | BOUND | COMPLETE_V6 |
+| 113 | Asset Intelligence Profiles | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/113/execute | BOUND | COMPLETE_V6 |
+| 114 | Asset Classification & Taxonomy | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/114/execute | BOUND | COMPLETE_V6 |
+| 115 | Asset Screener | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/115/execute | BOUND | COMPLETE_V6 |
+| 116 | Market Pair Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/116/execute | BOUND | COMPLETE_V6 |
+| 117 | Real Volume / Quality-Adjusted Volume | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/117/execute | BOUND | COMPLETE_V6 |
+| 118 | VWAP Price Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/118/execute | BOUND | COMPLETE_V6 |
+| 119 | Market Cap & FDV Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/119/execute | BOUND | COMPLETE_V6 |
+| 120 | Supply Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/120/execute | BOUND | COMPLETE_V6 |
+| 121 | ROI & ATH Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/121/execute | BOUND | COMPLETE_V6 |
+| 122 | Volatility Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/122/execute | BOUND | COMPLETE_V6 |
+| 123 | Sharpe Ratio Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/123/execute | BOUND | COMPLETE_V6 |
+| 124 | Futures Funding Rate Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/124/execute | BOUND | COMPLETE_V6 |
+| 125 | Futures Open Interest Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/125/execute | BOUND | COMPLETE_V6 |
+| 126 | Futures Volume Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/126/execute | BOUND | COMPLETE_V6 |
+| 127 | Multi-Factor Market Overview | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/127/execute | BOUND | COMPLETE_V6 |
+| 128 | Momentum Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/128/execute | BOUND | COMPLETE_V6 |
+| 129 | Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/129/execute | BOUND | PARTIAL |
+| 130 | Mindshare Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/130/execute | BOUND | COMPLETE_V6 |
+| 131 | Narrative & Sector Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/131/execute | BOUND | COMPLETE_V6 |
+| 132 | Mindshare Gainers / Losers | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/132/execute | BOUND | COMPLETE_V6 |
+| 133 | Curated Crypto News Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/133/execute | BOUND | COMPLETE_V6 |
+| 134 | AI News Summaries | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/134/execute | BOUND | ENGINEERING_READY |
+| 135 | Real-Time Industry Event Monitoring | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/135/execute | BOUND | COMPLETE_V6 |
+| 136 | Agentic Monitoring Views | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/136/execute | BOUND | COMPLETE_V6 |
+| 137 | Custom Watchlists | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/137/execute | BOUND | COMPLETE_V6 |
+| 138 | Token Unlock Calendar | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/138/execute | BOUND | COMPLETE_V6 |
+| 139 | Vesting Schedule Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/139/execute | BOUND | COMPLETE_V6 |
+| 140 | Token Allocation Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/140/execute | BOUND | COMPLETE_V6 |
+| 141 | Unlock Impact Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/141/execute | BOUND | COMPLETE_V6 |
+| 142 | Fundraising Rounds Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/142/execute | BOUND | COMPLETE_V6 |
+| 143 | Investor Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/143/execute | BOUND | COMPLETE_V6 |
+| 144 | Fund & Fund-Manager Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/144/execute | BOUND | COMPLETE_V6 |
+| 145 | M&A Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/145/execute | BOUND | COMPLETE_V6 |
+| 146 | Capital Flow & Funding Trend Intelligenc | B2B Feed | /api/b2b/demo → /api/cap646/146/execute | BOUND | COMPLETE_V6 |
+| 147 | Comparable Funding & Valuation Analysis | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/147/execute | BOUND | COMPLETE_V6 |
+| 148 | Due Diligence Report Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/148/execute | BOUND | ENGINEERING_READY |
+| 149 | Automated Risk Scoring from Diligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/149/execute | BOUND | ENGINEERING_READY |
+| 150 | Protocol KPI Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/150/execute | BOUND | COMPLETE_V6 |
+| 151 | Quarterly Protocol Performance Reports | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/151/execute | BOUND | COMPLETE_V6 |
+| 152 | Governance & Proposal Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/152/execute | BOUND | COMPLETE_V6 |
+| 153 | Project Monitoring Coverage Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/153/execute | BOUND | COMPLETE_V6 |
+| 154 | AI Crypto Copilot | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/154/execute | BOUND | ENGINEERING_READY |
+| 155 | AI Deep Research | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/155/execute | BOUND | ENGINEERING_READY |
+| 156 | Crypto Knowledge Graph | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/156/execute | BOUND | COMPLETE_V6 |
+| 157 | Research Library | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/157/execute | BOUND | COMPLETE_V6 |
+| 158 | Institutional Research Feed | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/158/execute | BOUND | COMPLETE_V6 |
+| 159 | API Data Platform | B2B Feed | /api/b2b/demo → /api/cap646/159/execute | BOUND | ENGINEERING_READY |
+| 160 | Pay-Per-Request Data Access | B2B Feed | /api/b2b/demo → /api/cap646/160/execute | BOUND | COMPLETE_V6 |
+| 161 | Institutional Data Delivery & Entitlemen | B2B Feed | /api/b2b/demo → /api/cap646/161/execute | BOUND | ENGINEERING_READY |
+| 162 | Evidence & Provenance Layer | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/162/execute | BOUND | ENGINEERING_READY |
+| 163 | Cross-Domain Research-to-Decision Intell | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/163/execute | BOUND | COMPLETE_V6 |
+| 164 | Token Unlock Actionability Score | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/164/execute | BOUND | COMPLETE_V6 |
+| 165 | Fundraising Momentum Score | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/165/execute | BOUND | COMPLETE_V6 |
+| 166 | Research Confidence Score | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/166/execute | BOUND | COMPLETE_V6 |
+| 167 | Social Volume Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/167/execute | BOUND | ENGINEERING_READY |
+| 168 | Social Dominance Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/168/execute | BOUND | COMPLETE_V6 |
+| 169 | Unique Social Volume | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/169/execute | BOUND | COMPLETE_V6 |
+| 170 | Trending Words | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/170/execute | BOUND | COMPLETE_V6 |
+| 171 | Trending Coins | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/171/execute | BOUND | COMPLETE_V6 |
+| 172 | Historical Crypto Trends | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/172/execute | BOUND | ENGINEERING_READY |
+| 173 | Key Narratives Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/173/execute | BOUND | COMPLETE_V6 |
+| 174 | Alpha Narratives Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/174/execute | BOUND | COMPLETE_V6 |
+| 175 | Social Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/175/execute | BOUND | PARTIAL |
+| 176 | Weighted Social Sentiment | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/176/execute | BOUND | ENGINEERING_READY |
+| 177 | Social Sentiment Balance | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/177/execute | BOUND | ENGINEERING_READY |
+| 178 | Social Source Breakdown | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/178/execute | BOUND | COMPLETE_V6 |
+| 179 | Development Activity Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/179/execute | BOUND | ENGINEERING_READY |
+| 180 | Development Activity Contributors | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/180/execute | BOUND | COMPLETE_V6 |
+| 181 | Ecosystem Development Dashboard | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/181/execute | BOUND | ENGINEERING_READY |
+| 182 | Developer Activity Change Detection | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/182/execute | BOUND | COMPLETE_V6 |
+| 183 | Whale Transaction Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/183/execute | BOUND | COMPLETE_V6 |
+| 184 | Whale & Shark Holder Cohorts | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/184/execute | BOUND | COMPLETE_V6 |
+| 185 | Top Holders Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/185/execute | BOUND | COMPLETE_V6 |
+| 186 | Historical Wallet Balance Tool | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/186/execute | BOUND | COMPLETE_V6 |
+| 187 | Exchange Inflow Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/187/execute | BOUND | COMPLETE_V6 |
+| 188 | Exchange Outflow Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/188/execute | BOUND | COMPLETE_V6 |
+| 189 | Exchange Netflow Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/189/execute | BOUND | COMPLETE_V6 |
+| 190 | Exchange Supply / Balance Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/190/execute | BOUND | COMPLETE_V6 |
+| 191 | Exchange User Activity | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/191/execute | BOUND | COMPLETE_V6 |
+| 192 | Network Activity Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/192/execute | BOUND | ENGINEERING_READY |
+| 193 | Transaction Volume Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/193/execute | BOUND | COMPLETE_V6 |
+| 194 | NVT Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/194/execute | BOUND | COMPLETE_V6 |
+| 195 | MVRV Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/195/execute | BOUND | COMPLETE_V6 |
+| 196 | Realized Cap / Realized Value Intelligen | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/196/execute | BOUND | COMPLETE_V6 |
+| 197 | Daily Active Addresses | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/197/execute | BOUND | COMPLETE_V6 |
+| 198 | Age Consumed / Dormancy Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/198/execute | BOUND | COMPLETE_V6 |
+| 199 | Mean Dollar Invested Age | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/199/execute | BOUND | COMPLETE_V6 |
+| 200 | Token Circulation Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/200/execute | BOUND | ENGINEERING_READY |
+| 201 | Network Growth Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/201/execute | BOUND | COMPLETE_V6 |
+| 202 | Supply Distribution Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/202/execute | BOUND | COMPLETE_V6 |
+| 203 | DEX Trading Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/203/execute | BOUND | COMPLETE_V6 |
+| 204 | DeFi Protocol Activity Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/204/execute | BOUND | ENGINEERING_READY |
+| 205 | Open Interest Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/205/execute | BOUND | COMPLETE_V6 |
+| 206 | Funding Rate Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/206/execute | BOUND | COMPLETE_V6 |
+| 207 | Price / Volume / Market Metrics | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/207/execute | BOUND | COMPLETE_V6 |
+| 208 | Metric Correlation Workbench | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/208/execute | BOUND | COMPLETE_V6 |
+| 209 | Custom Chart Builder | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/209/execute | BOUND | COMPLETE_V6 |
+| 210 | Custom Dashboards / Layouts | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/210/execute | BOUND | COMPLETE_V6 |
+| 211 | Screener | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/211/execute | BOUND | COMPLETE_V6 |
+| 212 | Smart Alerts | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/212/execute | BOUND | COMPLETE_V6 |
+| 213 | Anomaly Detection Alerts | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/213/execute | BOUND | COMPLETE_V6 |
+| 214 | Watchlists | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/214/execute | BOUND | PARTIAL |
+| 215 | Community Explorer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/215/execute | BOUND | COMPLETE_V6 |
+| 216 | Research & Market Insights | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/216/execute | BOUND | COMPLETE_V6 |
+| 217 | SanAPI-Style Data Access | B2B Feed | /api/b2b/demo → /api/cap646/217/execute | BOUND | COMPLETE_V6 |
+| 218 | Google Sheets Integration | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/218/execute | BOUND | COMPLETE_V6 |
+| 219 | Metric Availability Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/219/execute | BOUND | ENGINEERING_READY |
+| 220 | Data Stabilization & Mutability Metadata | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/220/execute | BOUND | COMPLETE_V6 |
+| 221 | Data Quality & Provenance Layer | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/221/execute | BOUND | ENGINEERING_READY |
+| 222 | Metric Methodology Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/222/execute | BOUND | COMPLETE_V6 |
+| 223 | Social-to-On-Chain Confirmation Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/223/execute | BOUND | COMPLETE_V6 |
+| 224 | Narrative Actionability Score | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/224/execute | BOUND | COMPLETE_V6 |
+| 225 | Development-to-Market Divergence Detecto | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/225/execute | BOUND | COMPLETE_V6 |
+| 226 | Cross-Domain Decision Intelligence Layer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/226/execute | BOUND | COMPLETE_V6 |
+| 227 | Unified Trading Intelligence Workspace | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/227/execute | BOUND | COMPLETE_V6 |
+| 228 | Funding Rate Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/228/execute | BOUND | COMPLETE_V6 |
+| 229 | Cross-Exchange Funding Arbitrage Scanner | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/229/execute | BOUND | COMPLETE_V6 |
+| 230 | Spot-Perp Arbitrage Scanner | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/230/execute | BOUND | COMPLETE_V6 |
+| 231 | Futures Basis & Term Structure | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/231/execute | BOUND | COMPLETE_V6 |
+| 232 | Open Interest Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/232/execute | BOUND | COMPLETE_V6 |
+| 233 | Liquidation Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/233/execute | BOUND | COMPLETE_V6 |
+| 234 | CVD Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/234/execute | BOUND | COMPLETE_V6 |
+| 235 | Long/Short Ratio Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/235/execute | BOUND | COMPLETE_V6 |
+| 236 | DEX Screener | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/236/execute | BOUND | COMPLETE_V6 |
+| 237 | Token Risk Scoring | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/237/execute | BOUND | COMPLETE_V6 |
+| 238 | Pump & Dump Detection | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/238/execute | BOUND | COMPLETE_V6 |
+| 239 | Narrative Tracking | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/239/execute | BOUND | COMPLETE_V6 |
+| 240 | Sector Rotation Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/240/execute | BOUND | COMPLETE_V6 |
+| 241 | Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/241/execute | BOUND | ENGINEERING_READY |
+| 242 | Price Prediction / Multi-Signal Forecast | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/242/execute | BOUND | ENGINEERING_READY |
+| 243 | Correlation Matrix | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/243/execute | BOUND | COMPLETE_V6 |
+| 244 | New Listings Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/244/execute | BOUND | COMPLETE_V6 |
+| 245 | Market Health & Freshness | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/245/execute | BOUND | PARTIAL |
+| 246 | Coverage Metadata Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/246/execute | BOUND | ENGINEERING_READY |
+| 247 | Public REST API | B2B Feed | /api/b2b/demo → /api/cap646/247/execute | BOUND | COMPLETE_V6 |
+| 248 | MCP Server for AI Agents | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/248/execute | BOUND | ENGINEERING_READY |
+| 249 | CLI Access | B2B Feed | /api/b2b/demo → /api/cap646/249/execute | BOUND | COMPLETE_V6 |
+| 250 | OpenAPI / SDK Generation | B2B Feed | /api/b2b/demo → /api/cap646/250/execute | BOUND | COMPLETE_V6 |
 | 251 | Cross-Domain Decision Intelligence | — | — | UNBOUND | NOT_STARTED |
 | 252 | Liquidation Heatmap | — | — | UNBOUND | NOT_STARTED |
 | 253 | Liquidation Map / Levels | — | — | UNBOUND | NOT_STARTED |

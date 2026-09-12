@@ -236,14 +236,12 @@ def run_batch_tests(build_batch: int, ids: list[int]) -> dict[str, Any]:
     ev_dir = BUILD_DIR / "EVIDENCE"
     ev_dir.mkdir(parents=True, exist_ok=True)
     log_path = ev_dir / f"batch{build_batch:02d}_pytest.log"
-    build_test_modules = {
-        1: "tests/cap646/test_capability_build_batch01.py",
-        2: "tests/cap646/test_capability_build_batch02.py",
-        3: "tests/cap646/test_capability_build_batch03.py",
-        4: "tests/cap646/test_capability_build_batch04.py",
-    }
-    if build_batch in build_test_modules:
-        cmd = [PYTHON, "-m", "pytest", build_test_modules[build_batch], "-q", "--tb=short"]
+    ensure_test = ROOT / "scripts" / "ensure_build_batch_test.py"
+    if ensure_test.is_file():
+        subprocess.run([PYTHON, str(ensure_test), str(build_batch)], cwd=ROOT, check=False)
+    test_path = ROOT / f"tests/cap646/test_capability_build_batch{build_batch:02d}.py"
+    if test_path.is_file():
+        cmd = [PYTHON, "-m", "pytest", str(test_path.relative_to(ROOT)), "-q", "--tb=short"]
     elif (ROOT / f"tests/cap646/test_batch{build_batch:02d}_dedicated.py").is_file():
         cmd = [PYTHON, "-m", "pytest", f"tests/cap646/test_batch{build_batch:02d}_dedicated.py", "-q", "--tb=short"]
     else:
@@ -255,6 +253,22 @@ def run_batch_tests(build_batch: int, ids: list[int]) -> dict[str, Any]:
         "log": str(log_path.relative_to(ROOT)),
         "passed": proc.returncode == 0,
     }
+
+
+def run_official_batch_closure(build_batch: int) -> None:
+    script = ROOT / "scripts/run_official_build_closure.py"
+    if script.is_file() and build_batch >= 3:
+        subprocess.run([PYTHON, str(script), "--build-batch", str(build_batch)], cwd=ROOT, check=False, timeout=1200)
+
+
+def _milestone_batch(build_batch: int) -> bool:
+    end_id = min(build_batch * BATCH_SIZE, 826)
+    return end_id in {125, 250, 375, 500, 625, 750, 826}
+
+
+def _write_batch_stub(build_batch: int, ids: list[int], summary: dict[str, Any]) -> None:
+    stub = BUILD_DIR / f"BATCH_{build_batch:02d}_STUB.json"
+    stub.write_text(json.dumps({"generated_at": _now(), "ids": [ids[0], ids[-1]], **summary}, indent=2) + "\n", encoding="utf-8")
 
 
 async def process_build_batch(build_batch: int, *, force: bool = False) -> dict[str, Any]:
@@ -269,6 +283,7 @@ async def process_build_batch(build_batch: int, *, force: bool = False) -> dict[
         rows_by_id[cid]["status"] = "IN_PROGRESS"
         rows_by_id[cid]["updated_at"] = _now()
 
+    run_official_batch_closure(build_batch)
     runtime = await runtime_probe(ids)
     audits = await audit_ids(ids)
     tests = run_batch_tests(build_batch, ids)
@@ -359,56 +374,68 @@ async def process_build_batch(build_batch: int, *, force: bool = False) -> dict[
     write_heroes_binding_index(reg)
 
     report_path = BUILD_DIR / f"BATCH_{build_batch:02d}_REPORT.md"
-    hero_lines = [f"- **{k}:** {v}" for k, v in sorted(hero_summary.items(), key=lambda x: -x[1])]
-    report_path.write_text(
-        "\n".join(
-            [
-                f"# Build Batch {build_batch:02d} (IDs {ids[0]}–{ids[-1]})",
-                "",
-                f"**Generated:** {_now()}",
-                f"**Governing:** `{V6_STANDARD.relative_to(ROOT)}`",
-                "",
-                f"## Batch Gate: {'ALL COMPLETE_V6 ✅' if strict_pass else 'TERMINAL (no FAILED_GATE) ✅' if batch_terminal else 'FAILED_GATE ❌'}",
-                "",
-                f"- COMPLETE_V6 in batch: **{complete}/{len(ids)}** (826 total: {complete_total})",
-                f"- ENGINEERING_READY in batch: **{engineering}/{len(ids)}** (826 total: {eng_total})",
-                f"- PARTIAL: **{partial}** (826 total: {partial_total})",
-                f"- BLOCKED_EXTERNAL: **{blocked}**",
-                f"- FAILED_GATE: **{failed}**",
-                f"- Unbound heroes in batch: **{unbound}**",
-                f"- Tests: {'PASS ✅' if tests['passed'] else 'FAIL ❌'} (`{tests['log']}`)",
-                "",
-                "## Six Heroes Binding Summary",
-                "",
-                *hero_lines,
-                "",
-                "## Per-ID",
-                "",
-                "| ID | Status | Hero | Binding | Runtime | v6 | Top failures |",
-                "|---:|---|---|---|---|---|---|",
-                *[
-                    f"| {r['id']} | {r['status']} | {r.get('primary_hero') or '—'} | "
-                    f"{r.get('hero_binding_status')} | {r['runtime_success']} | {r['fully_v6_compliant']} | "
-                    f"{', '.join(r['failures'][:3]) or '—'} |"
-                    for r in batch_rows
-                ],
-                "",
-                "## Notes",
-                "",
-                "COMPLETE_V6 requires `fully_v6_compliant=true` + runtime + Hero BOUND.",
-                "ENGINEERING_READY = runtime OK + Hero BOUND + core gates clean; residual perf/live gates open.",
-                "PARTIAL = honest incomplete; no fake PASS.",
-            ]
+    batch_summary = {
+        "build_batch": build_batch,
+        "complete_v6": complete,
+        "engineering_ready": engineering,
+        "partial": partial,
+        "failed": failed,
+        "unbound_heroes": unbound,
+        "complete_total": complete_total,
+        "engineering_total": eng_total,
+    }
+    if _milestone_batch(build_batch):
+        hero_lines = [f"- **{k}:** {v}" for k, v in sorted(hero_summary.items(), key=lambda x: -x[1])]
+        report_path.write_text(
+            "\n".join(
+                [
+                    f"# Build Batch {build_batch:02d} (IDs {ids[0]}–{ids[-1]}) — Milestone {ids[-1]}",
+                    "",
+                    f"**Generated:** {_now()}",
+                    f"**Governing:** `{V6_STANDARD.relative_to(ROOT)}`",
+                    "",
+                    f"## Batch Gate: {'ALL COMPLETE_V6 ✅' if strict_pass else 'TERMINAL (no FAILED_GATE) ✅' if batch_terminal else 'FAILED_GATE ❌'}",
+                    "",
+                    f"- COMPLETE_V6 in batch: **{complete}/{len(ids)}** (826 total: {complete_total})",
+                    f"- ENGINEERING_READY in batch: **{engineering}/{len(ids)}** (826 total: {eng_total})",
+                    f"- PARTIAL: **{partial}** (826 total: {partial_total})",
+                    f"- FAILED_GATE: **{failed}**",
+                    f"- Unbound heroes in batch: **{unbound}**",
+                    f"- Tests: {'PASS ✅' if tests['passed'] else 'FAIL ❌'} (`{tests['log']}`)",
+                    "",
+                    "## Six Heroes Binding Summary",
+                    "",
+                    *hero_lines,
+                    "",
+                    "## Per-ID",
+                    "",
+                    "| ID | Status | Hero | Binding | Runtime | v6 | Top failures |",
+                    "|---:|---|---|---|---|---|---|",
+                    *[
+                        f"| {r['id']} | {r['status']} | {r.get('primary_hero') or '—'} | "
+                        f"{r.get('hero_binding_status')} | {r['runtime_success']} | {r['fully_v6_compliant']} | "
+                        f"{', '.join(r['failures'][:3]) or '—'} |"
+                        for r in batch_rows
+                    ],
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
         )
-        + "\n",
-        encoding="utf-8",
-    )
+    else:
+        _write_batch_stub(build_batch, ids, batch_summary)
 
     if batch_terminal:
         resume["last_completed_build_batch"] = build_batch
         resume["current_build_batch"] = build_batch + 1
         resume["next_id"] = ids[-1] + 1
-        resume["blockers"] = [] if strict_pass else [f"batch{build_batch:02d}: residual PARTIAL/ENGINEERING_READY gates"]
+        prior_blockers = [b for b in (resume.get("blockers") or []) if not b.startswith(f"batch{build_batch:02d}:")]
+        eng_ids = [r["id"] for r in batch_rows if r["status"] == "ENGINEERING_READY"]
+        if eng_ids:
+            prior_blockers.append(
+                f"batch{build_batch:02d}: IDs {','.join(str(i) for i in eng_ids)} ENGINEERING_READY — residual gates"
+            )
+        resume["blockers"] = prior_blockers
     else:
         resume["current_build_batch"] = build_batch
         resume["blockers"] = [f"batch{build_batch:02d}: {failed} FAILED_GATE"]
@@ -469,6 +496,9 @@ async def main() -> int:
         print(result["log_line"])
         if not result["batch_terminal"]:
             print(f"HALT at build batch {b} — FAILED_GATE (fix before continuing)")
+            return 1
+        if result.get("unbound_heroes", 0) > 0:
+            print(f"HALT at build batch {b} — {result['unbound_heroes']} UNBOUND heroes (infra gap)")
             return 1
         if result["complete_total"] >= 826 and result["gate_pass"]:
             print("All 826 COMPLETE_V6")
