@@ -14214,300 +14214,556 @@
       "capability": "Institutional_Dashboard",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676569+00:00"
+      "updated_at": "2026-09-12T11:16:20.457351+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/626/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/626/execute",
+      "runtime_success": true
     },
     {
       "id": 627,
       "capability": "Custom_Institutional_Data_Terminal",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676611+00:00"
+      "updated_at": "2026-09-12T11:16:20.457382+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/627/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/627/execute",
+      "runtime_success": true
     },
     {
       "id": 628,
       "capability": "Viral_Intelligence_Distribution_Loop",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676651+00:00"
+      "updated_at": "2026-09-12T11:16:20.457393+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/628/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/628/execute",
+      "runtime_success": true
     },
     {
       "id": 629,
       "capability": "Real-Time Wallet Alerts",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676691+00:00"
+      "updated_at": "2026-09-12T11:16:20.457402+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/629/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/629/execute",
+      "runtime_success": true
     },
     {
       "id": 630,
       "capability": "Real_Time_Data_Freshness_Update_Assurance",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676732+00:00"
+      "updated_at": "2026-09-12T11:16:20.457410+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/630/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/630/execute",
+      "runtime_success": true
     },
     {
       "id": 631,
       "capability": "Data_Source_Ingestion_Normalization_Provenance_Reliability_Architecture",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676773+00:00"
+      "updated_at": "2026-09-12T11:16:20.457419+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/631/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/631/execute",
+      "runtime_success": true
     },
     {
       "id": 632,
       "capability": "Multi-Tier Data Storage",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676815+00:00"
+      "updated_at": "2026-09-12T11:16:20.457427+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/632/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/632/execute",
+      "runtime_success": true
     },
     {
       "id": 633,
       "capability": "Cross-Chain Liquidity Flow",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676866+00:00"
+      "updated_at": "2026-09-12T11:16:20.457434+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/633/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/633/execute",
+      "runtime_success": true
     },
     {
       "id": 634,
       "capability": "Liquidity/Full-Fill Feasibility",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676910+00:00"
+      "updated_at": "2026-09-12T11:16:20.457442+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/634/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/634/execute",
+      "runtime_success": true
     },
     {
       "id": 635,
       "capability": "Unified Arbitrage Opportunity Engine",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676953+00:00"
+      "updated_at": "2026-09-12T11:16:20.457450+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/635/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/635/execute",
+      "runtime_success": true
     },
     {
       "id": 636,
       "capability": "Market/Data Drift Monitoring",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.676996+00:00"
+      "updated_at": "2026-09-12T11:16:20.457458+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/636/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/636/execute",
+      "runtime_success": true
     },
     {
       "id": 637,
       "capability": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677040+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "updated_at": "2026-09-12T11:16:20.457471+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/637/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/637/execute",
+      "runtime_success": true
     },
     {
       "id": 638,
       "capability": "Claims/Prediction Verification Engine",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677084+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "updated_at": "2026-09-12T11:16:20.457480+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/638/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/638/execute",
+      "runtime_success": true
     },
     {
       "id": 639,
       "capability": "Net-Edge Truth Score",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677128+00:00"
+      "updated_at": "2026-09-12T11:16:20.457486+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/639/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/639/execute",
+      "runtime_success": true
     },
     {
       "id": 640,
       "capability": "Public Accuracy Ledger",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677174+00:00"
+      "updated_at": "2026-09-12T11:16:20.457494+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/640/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/640/execute",
+      "runtime_success": true
     },
     {
       "id": 641,
       "capability": "Decision Certificate + Institutional DD Export",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677220+00:00"
+      "updated_at": "2026-09-12T11:16:20.457502+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/641/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/641/execute",
+      "runtime_success": true
     },
     {
       "id": 642,
       "capability": "AI Output Provenance / Compliance Footer",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677266+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "updated_at": "2026-09-12T11:16:20.457510+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/642/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/642/execute",
+      "runtime_success": true
     },
     {
       "id": 643,
       "capability": "End-to-End Decision Traceability",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677313+00:00"
+      "updated_at": "2026-09-12T11:16:20.457517+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/643/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/643/execute",
+      "runtime_success": true
     },
     {
       "id": 644,
       "capability": "Capacity / Load Evidence",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677360+00:00"
+      "updated_at": "2026-09-12T11:16:20.457525+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/644/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/644/execute",
+      "runtime_success": true
     },
     {
       "id": 645,
       "capability": "Security Verification Evidence",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677406+00:00"
+      "updated_at": "2026-09-12T11:16:20.457532+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/645/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/645/execute",
+      "runtime_success": true
     },
     {
       "id": 646,
       "capability": "Chaos / Failure-Injection Resilience Testing",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677454+00:00"
+      "updated_at": "2026-09-12T11:16:20.457539+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/646/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/646/execute",
+      "runtime_success": true
     },
     {
       "id": 647,
       "capability": "CAP-647",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677503+00:00"
+      "updated_at": "2026-09-12T11:16:20.457545+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/647/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/647/execute",
+      "runtime_success": true
     },
     {
       "id": 648,
       "capability": "CAP-648",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677551+00:00"
+      "updated_at": "2026-09-12T11:16:20.457553+00:00",
+      "primary_hero": "B2B Feed",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/b2b/demo → /api/cap646/648/execute",
+      "hero_ui_path": "/institutional",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/648/execute",
+      "runtime_success": true
     },
     {
       "id": 649,
       "capability": "CAP-649",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677601+00:00"
+      "updated_at": "2026-09-12T11:16:20.457559+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/649/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/649/execute",
+      "runtime_success": true
     },
     {
       "id": 650,
       "capability": "CAP-650",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch26_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.677651+00:00"
+      "updated_at": "2026-09-12T11:16:20.457566+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/650/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/650/execute",
+      "runtime_success": true
     },
     {
       "id": 651,
@@ -16622,5 +16878,5 @@
       "updated_at": "2026-09-11T23:48:08.685193+00:00"
     }
   ],
-  "updated_at": "2026-09-12T11:04:37.188295+00:00"
+  "updated_at": "2026-09-12T11:16:20.459094+00:00"
 }

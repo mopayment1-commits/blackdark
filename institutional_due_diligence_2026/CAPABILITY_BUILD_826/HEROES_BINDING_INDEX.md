@@ -1,6 +1,6 @@
 # Six Heroes Binding Index — CAPABILITY_BUILD_826
 
-**Updated:** 2026-09-12T11:04:37.197140+00:00
+**Updated:** 2026-09-12T11:16:20.471724+00:00
 
 | ID | Capability | Primary Hero | Entry Path | Binding | Build Status |
 |---:|---|---|---|---|---|
@@ -629,31 +629,31 @@
 | 623 | Execution_Latency_Monitor | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/623/execute | BOUND | COMPLETE_V6 |
 | 624 | Low_Latency_Execution_Node | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/624/execute | BOUND | COMPLETE_V6 |
 | 625 | Rust_Execution_Module | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/625/execute | BOUND | COMPLETE_V6 |
-| 626 | Institutional_Dashboard | — | — | UNBOUND | NOT_STARTED |
-| 627 | Custom_Institutional_Data_Terminal | — | — | UNBOUND | NOT_STARTED |
-| 628 | Viral_Intelligence_Distribution_Loop | — | — | UNBOUND | NOT_STARTED |
-| 629 | Real-Time Wallet Alerts | — | — | UNBOUND | NOT_STARTED |
-| 630 | Real_Time_Data_Freshness_Update_Assuranc | — | — | UNBOUND | NOT_STARTED |
-| 631 | Data_Source_Ingestion_Normalization_Prov | — | — | UNBOUND | NOT_STARTED |
-| 632 | Multi-Tier Data Storage | — | — | UNBOUND | NOT_STARTED |
-| 633 | Cross-Chain Liquidity Flow | — | — | UNBOUND | NOT_STARTED |
-| 634 | Liquidity/Full-Fill Feasibility | — | — | UNBOUND | NOT_STARTED |
-| 635 | Unified Arbitrage Opportunity Engine | — | — | UNBOUND | NOT_STARTED |
-| 636 | Market/Data Drift Monitoring | — | — | UNBOUND | NOT_STARTED |
-| 637 | Scenario Engine (probabilistic scenarios | — | — | UNBOUND | NOT_STARTED |
-| 638 | Claims/Prediction Verification Engine | — | — | UNBOUND | NOT_STARTED |
-| 639 | Net-Edge Truth Score | — | — | UNBOUND | NOT_STARTED |
-| 640 | Public Accuracy Ledger | — | — | UNBOUND | NOT_STARTED |
-| 641 | Decision Certificate + Institutional DD  | — | — | UNBOUND | NOT_STARTED |
-| 642 | AI Output Provenance / Compliance Footer | — | — | UNBOUND | NOT_STARTED |
-| 643 | End-to-End Decision Traceability | — | — | UNBOUND | NOT_STARTED |
-| 644 | Capacity / Load Evidence | — | — | UNBOUND | NOT_STARTED |
-| 645 | Security Verification Evidence | — | — | UNBOUND | NOT_STARTED |
-| 646 | Chaos / Failure-Injection Resilience Tes | — | — | UNBOUND | NOT_STARTED |
-| 647 | CAP-647 | — | — | UNBOUND | NOT_STARTED |
-| 648 | CAP-648 | — | — | UNBOUND | NOT_STARTED |
-| 649 | CAP-649 | — | — | UNBOUND | NOT_STARTED |
-| 650 | CAP-650 | — | — | UNBOUND | NOT_STARTED |
+| 626 | Institutional_Dashboard | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/626/execute | BOUND | COMPLETE_V6 |
+| 627 | Custom_Institutional_Data_Terminal | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/627/execute | BOUND | COMPLETE_V6 |
+| 628 | Viral_Intelligence_Distribution_Loop | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/628/execute | BOUND | COMPLETE_V6 |
+| 629 | Real-Time Wallet Alerts | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/629/execute | BOUND | COMPLETE_V6 |
+| 630 | Real_Time_Data_Freshness_Update_Assuranc | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/630/execute | BOUND | COMPLETE_V6 |
+| 631 | Data_Source_Ingestion_Normalization_Prov | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/631/execute | BOUND | COMPLETE_V6 |
+| 632 | Multi-Tier Data Storage | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/632/execute | BOUND | COMPLETE_V6 |
+| 633 | Cross-Chain Liquidity Flow | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/633/execute | BOUND | COMPLETE_V6 |
+| 634 | Liquidity/Full-Fill Feasibility | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/634/execute | BOUND | COMPLETE_V6 |
+| 635 | Unified Arbitrage Opportunity Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/635/execute | BOUND | COMPLETE_V6 |
+| 636 | Market/Data Drift Monitoring | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/636/execute | BOUND | COMPLETE_V6 |
+| 637 | Scenario Engine (probabilistic scenarios | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/637/execute | BOUND | ENGINEERING_READY |
+| 638 | Claims/Prediction Verification Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/638/execute | BOUND | ENGINEERING_READY |
+| 639 | Net-Edge Truth Score | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/639/execute | BOUND | COMPLETE_V6 |
+| 640 | Public Accuracy Ledger | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/640/execute | BOUND | COMPLETE_V6 |
+| 641 | Decision Certificate + Institutional DD  | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/641/execute | BOUND | COMPLETE_V6 |
+| 642 | AI Output Provenance / Compliance Footer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/642/execute | BOUND | ENGINEERING_READY |
+| 643 | End-to-End Decision Traceability | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/643/execute | BOUND | COMPLETE_V6 |
+| 644 | Capacity / Load Evidence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/644/execute | BOUND | COMPLETE_V6 |
+| 645 | Security Verification Evidence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/645/execute | BOUND | COMPLETE_V6 |
+| 646 | Chaos / Failure-Injection Resilience Tes | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/646/execute | BOUND | COMPLETE_V6 |
+| 647 | CAP-647 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/647/execute | BOUND | COMPLETE_V6 |
+| 648 | CAP-648 | B2B Feed | /api/b2b/demo → /api/cap646/648/execute | BOUND | COMPLETE_V6 |
+| 649 | CAP-649 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/649/execute | BOUND | COMPLETE_V6 |
+| 650 | CAP-650 | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/650/execute | BOUND | COMPLETE_V6 |
 | 651 | CAP-651 | — | — | UNBOUND | NOT_STARTED |
 | 652 | CAP-652 | — | — | UNBOUND | NOT_STARTED |
 | 653 | CAP-653 | — | — | UNBOUND | NOT_STARTED |
