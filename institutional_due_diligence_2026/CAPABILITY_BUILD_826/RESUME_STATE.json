@@ -3,7 +3,10 @@
   "next_id": 101,
   "last_completed_build_batch": 4,
   "blockers": [
-    "batch04: residual PARTIAL/ENGINEERING_READY gates"
+    "batch01: IDs 17,24,25 ENGINEERING_READY — GIPS performance gate (shadow ledger)",
+    "batch02: IDs 26-35 ENGINEERING_READY — GIPS decision-cap performance gate",
+    "batch03: IDs 53,66,69 ENGINEERING_READY — GIPS decision-cap performance gate",
+    "batch04: IDs 81,90,97,98 ENGINEERING_READY — GIPS/AI residual gates"
   ],
   "updated_at": "2026-09-12T03:29:33.161172+00:00"
 }
