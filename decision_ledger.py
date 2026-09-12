@@ -73,6 +73,14 @@ def record_decision(
         source=source or "oracle",
     )
     row["evidence_class"] = cls
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    row = enforce_material_write(
+        asset_kind="decision",
+        record=row,
+        surface=source or "decision_ledger",
+        schema_id="decision_ledger",
+    )
     with _LOCK:
         _MEMORY[decision_id] = row
         while len(_MEMORY) > _MAX_MEMORY:

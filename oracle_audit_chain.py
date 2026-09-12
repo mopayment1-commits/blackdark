@@ -120,6 +120,9 @@ def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
             "prev_hash": prev,
             **record,
         }
+        from blackdark.data_governance.runtime import enforce_oracle_chain_record
+
+        entry = enforce_oracle_chain_record(entry, surface=str(record.get("source") or "oracle"))
         entry["chain_hash"] = _hash_record(entry, prev)
         with path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(entry, default=str) + "\n")

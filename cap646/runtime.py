@@ -130,6 +130,9 @@ async def execute_capability(
     skip_entitlement: bool = False,
 ) -> dict[str, Any]:
     params = dict(params or {})
+    from blackdark.data_governance.runtime import enforce_capability_execute
+
+    await enforce_capability_execute(capability_id, user=user, params=params)
     row = catalog_by_id().get(capability_id)
     if not row:
         batch_h_early = batch_handler_for(capability_id)

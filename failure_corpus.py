@@ -58,6 +58,13 @@ def record_failure(
         source=source,
     )
     row["evidence_class"] = cls
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    row = enforce_material_write(
+        asset_kind="failure",
+        record=row,
+        surface=source,
+    )
     _persist(row)
     try:
         from kill_rate_board import record_kill

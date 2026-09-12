@@ -1,5 +1,5 @@
 {
-  "assessed_at": "2026-09-12T14:03:27.925197+00:00",
+  "assessed_at": "2026-09-12T14:38:51.528335+00:00",
   "contracts": {
     "count": 6,
     "all_valid": true
@@ -78,7 +78,7 @@
   },
   "manifest_chain": {
     "valid": true,
-    "records": 9,
+    "records": 18,
     "broken_at": null
   },
   "oracle_chain_valid": true

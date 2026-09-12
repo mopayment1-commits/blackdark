@@ -15,11 +15,27 @@ from blackdark.data_governance.contracts import (
 from blackdark.data_governance.gate import assess_flywheel_gate
 from blackdark.data_governance.intelligence_receipt import issue_intelligence_receipt
 from blackdark.data_governance.lineage import inherit_evidence_origin, propagate_lineage
+from blackdark.data_governance.runtime import (
+    GovernanceViolationError,
+    assert_governance_subsystem_ready,
+    enforce_capability_execute,
+    enforce_material_write,
+    enforce_oracle_chain_record,
+    enforce_replay_framing,
+    enforce_rights_for_contract,
+)
 
 __all__ = [
     "CANONICAL_CONTRACTS",
+    "GovernanceViolationError",
+    "assert_governance_subsystem_ready",
     "assess_compliance",
     "assess_flywheel_gate",
+    "enforce_capability_execute",
+    "enforce_material_write",
+    "enforce_oracle_chain_record",
+    "enforce_replay_framing",
+    "enforce_rights_for_contract",
     "get_contract",
     "inherit_evidence_origin",
     "issue_intelligence_receipt",

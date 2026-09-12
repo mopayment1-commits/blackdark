@@ -2271,6 +2271,11 @@ async def insert_oracle_prediction(
         )
         return 0
 
+    from blackdark.data_governance.runtime import enforce_replay_framing, enforce_rights_for_contract
+
+    enforce_rights_for_contract("dac_oracle_audit_chain", "storage")
+    enforce_replay_framing(source=source)
+
     ts = timestamp or _utcnow_iso()
     regime = (market_regime or "neutral").strip().lower() or "neutral"
     async with get_connection() as db:

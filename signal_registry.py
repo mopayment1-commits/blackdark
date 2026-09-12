@@ -20,6 +20,7 @@ from typing import Any
 from uuid import uuid4
 
 import config
+from cap646.evidence_class import infer_evidence_class
 
 logger = logging.getLogger("BLACKDARK.SignalRegistry")
 
@@ -180,6 +181,15 @@ def register_signal(
         "created_at": _utcnow(),
         "updated_at": _utcnow(),
     }
+    record["evidence_class"] = infer_evidence_class(source=str(record.get("source") or signal_type))
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    record = enforce_material_write(
+        asset_kind="signal",
+        record=record,
+        surface=str(record.get("source") or "signal_registry"),
+        schema_id="signal_registry",
+    )
     with _LOCK:
         _SIGNALS[sid] = record
         while len(_SIGNALS) > _MAX_MEMORY:
