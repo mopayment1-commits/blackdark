@@ -187,13 +187,30 @@ async def _cap640(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 async def _cap641(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    return await wrap_with_backend(
+    from decision_certificate import build_decision_certificate
+
+    cert = build_decision_certificate(
+        {
+            "symbol": symbol,
+            "tier": params.get("tier") or "elite",
+            "decision_action": "institutional_dd_export",
+            "decision_sentence": f"Institutional due-diligence export certificate for {symbol}",
+        }
+    )
+    payload = {
+        "certificate": cert,
+        "decision_certificate": cert,
+        "export_format": params.get("format") or "json",
+        "symbol": symbol,
+    }
+    body = _wrap(
         641,
-        expected_surface=EXPECTED_SURFACE,
         symbol=symbol,
         payload_key="decision_certificate_institutional_dd_export",
-        params=params,
+        payload=payload,
     )
+    body["certificate"] = cert
+    return body
 
 async def _cap642(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     return await wrap_with_backend(

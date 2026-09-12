@@ -178,13 +178,18 @@ async def _cap614(*, symbol: str, address: str, params: dict[str, Any]) -> dict[
     )
 
 async def _cap615(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
-    return await wrap_with_backend(
+    from cap646.fallbacks import resolve_gas_usd
+
+    chain = str(params.get("chain") or "ethereum")
+    gas = await resolve_gas_usd(chain)
+    body = _wrap(
         615,
-        expected_surface=EXPECTED_SURFACE,
         symbol=symbol,
         payload_key="gas_cost_predictor",
-        params=params,
+        payload={**gas, "chain": chain, "symbol": symbol},
     )
+    body["gas_usd"] = gas.get("gas_usd")
+    return body
 
 async def _cap616(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     return await wrap_with_backend(

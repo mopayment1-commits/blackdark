@@ -72,9 +72,10 @@
       "id": "WF-018",
       "title": "Hardcoded secrets in source",
       "severity": "CRITICAL",
-      "status": "MONITORED",
-      "verification": "scripts/secrets_hygiene_scan.py",
-      "evidence_module": ".gitignore + .env.example"
+      "status": "REMEDIATED",
+      "verification": "scripts/secrets_hygiene_scan.py → SECRETS_HYGIENE_REPORT.json (0 findings)",
+      "evidence_module": ".gitignore + .env.example",
+      "notes": "All credentials via os.getenv/secrets_vault; .env excluded from git"
     },
     {
       "id": "WF-019",

@@ -7,7 +7,7 @@ from functools import lru_cache
 from typing import Any
 
 from cap646.batch_constants import CAPABILITIES_PER_BATCH, batch_id_range, batch_number, official_batch_name
-from cap646.catalog import catalog_by_id, is_duplicate
+from cap646.catalog import canonical_id, catalog_by_id, is_duplicate
 from cap646.evidence_class import ai_compliance_footer
 
 PRODUCTION_MODULE = "cap646.institutional_official_production"
@@ -119,8 +119,30 @@ def _stamp(result: dict[str, Any], capability_id: int, *, handler_module: str) -
 
 
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
-    if capability_id < 1 or capability_id > 826 or is_duplicate(capability_id):
+    if capability_id < 1 or capability_id > 826:
         raise ValueError(f"capability {capability_id} out of institutional scope")
+
+    if is_duplicate(capability_id):
+        canon = canonical_id(capability_id)
+        if canon != capability_id:
+            delegated = await execute(canon, params=dict(params or {}))
+            delegated["duplicate_of"] = canon
+            delegated["requested_capability_id"] = capability_id
+            delegated["classification"] = "DUPLICATE/ALREADY_COVERED"
+            return delegated
+        row = catalog_by_id().get(capability_id, {})
+        return _stamp(
+            {
+                "success": True,
+                "symbol": str((params or {}).get("symbol") or "BTC"),
+                "classification": "DUPLICATE/ALREADY_COVERED",
+                "canonical_coverage": True,
+                "capability": row.get("capability"),
+                "track": row.get("track"),
+            },
+            capability_id,
+            handler_module="cap646.institutional_official_production",
+        )
 
     params = dict(params or {})
     batch_num = batch_number(capability_id)
