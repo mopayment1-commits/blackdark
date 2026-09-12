@@ -1,8 +1,7 @@
-"""Official 25-cap batch production spine — routes every capability 1–826 by batch_constants."""
+"""Official 25-cap batch production spine — routes every capability 1–826 via institutional production."""
 
 from __future__ import annotations
 
-import importlib
 from typing import Any, Awaitable, Callable
 
 from cap646.batch_constants import CAPABILITIES_PER_BATCH, TOTAL_CAPABILITIES, batch_number, official_batch_name
@@ -17,14 +16,11 @@ def _stamp(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
     result.setdefault("production_spine", batch)
     result.setdefault("official_batch", batch)
     result.setdefault("capabilities_per_batch", CAPABILITIES_PER_BATCH)
-    result["backend_module"] = "cap646.official_batch_production"
-    result["backend_entrypoint"] = official_entrypoint(capability_id)
-    result["binding_source"] = "explicit_option_a"
+    if not result.get("backend_module"):
+        result["backend_module"] = "cap646.institutional_official_production"
+    result.setdefault("backend_entrypoint", official_entrypoint(capability_id))
+    result.setdefault("binding_source", "explicit_option_a")
     return result
-
-
-def _dedicated_module(batch_num: int):
-    return importlib.import_module(f"cap646.official_batch{batch_num:02d}_dedicated")
 
 
 async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -32,32 +28,12 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         raise ValueError(f"capability {capability_id} out of range 1–{TOTAL_CAPABILITIES}")
 
     from cap646.catalog import catalog_by_id
+    from cap646.institutional_official_production import execute as institutional_execute
 
     row = catalog_by_id().get(capability_id, {})
-    batch_num = batch_number(capability_id)
-    mod = _dedicated_module(batch_num)
-
-    if batch_num == 1:
-        result = await mod.execute(capability_id, params=dict(params or {}))
-    elif batch_num == 2:
-        from cap646.batch02_official_production import execute as batch02_execute
-
-        result = await batch02_execute(capability_id, params=dict(params or {}))
-    else:
-        dedicated_ids = getattr(mod, f"BATCH{batch_num:02d}_DEDICATED_IDS", frozenset())
-        if capability_id not in dedicated_ids:
-            raise ValueError(f"capability {capability_id} not in official batch{batch_num:02d} dedicated set")
-        result = await mod.execute(capability_id, params=dict(params or {}))
-
+    result = await institutional_execute(capability_id, params=dict(params or {}))
     result.setdefault("capability", row.get("capability"))
     result.setdefault("track", row.get("track"))
-    if not result.get("data_provenance") and not result.get("provenance"):
-        from data_provenance_score import compute_data_provenance_score
-
-        sym = str((params or {}).get("symbol") or "BTC").upper().replace("/USDT", "")
-        result["data_provenance"] = compute_data_provenance_score(symbol=sym)
-    result.setdefault("latency_ms", 0.0)
-    result.setdefault("performance_gate", True)
     return _stamp(result, capability_id)
 
 
