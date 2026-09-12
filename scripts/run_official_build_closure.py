@@ -110,6 +110,13 @@ OFFICIAL_CONFIG: dict[int, dict[str, Any]] = {
         "audit_json": "BATCH13_INDEPENDENT_RBAS_AUDIT.json",
         "rtm": ROOT / "docs/BATCH13_OFFICIAL_RTM_601_650.json",
     },
+    14: {
+        "out": ROOT / "institutional_due_diligence_2026/batch14_independent_audit",
+        "closure": "RUN021_BATCH14_BUILD_CLOSURE_EVIDENCE.json",
+        "audit_script": "scripts/independent_batch14_rbas_audit.py",
+        "audit_json": "BATCH14_INDEPENDENT_RBAS_AUDIT.json",
+        "rtm": ROOT / "docs/BATCH14_OFFICIAL_RTM_651_700.json",
+    },
 }
 
 

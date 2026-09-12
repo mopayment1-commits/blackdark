@@ -697,6 +697,59 @@ _BATCH25_FALLBACK: dict[int, str] = {
     650: "Single-Sentence Oracle",
 }
 
+_BATCH27_FALLBACK: dict[int, str] = {
+    651: "Single-Sentence Oracle",
+    652: "Single-Sentence Oracle",
+    653: "Single-Sentence Oracle",
+    654: "Single-Sentence Oracle",
+    655: "Single-Sentence Oracle",
+    656: "Single-Sentence Oracle",
+    657: "Single-Sentence Oracle",
+    658: "Single-Sentence Oracle",
+    659: "Single-Sentence Oracle",
+    660: "Single-Sentence Oracle",
+    661: "Single-Sentence Oracle",
+    662: "Single-Sentence Oracle",
+    663: "Single-Sentence Oracle",
+    664: "Single-Sentence Oracle",
+    665: "Single-Sentence Oracle",
+    666: "Single-Sentence Oracle",
+    667: "Single-Sentence Oracle",
+    668: "Single-Sentence Oracle",
+    669: "Single-Sentence Oracle",
+    670: "Single-Sentence Oracle",
+    671: "Single-Sentence Oracle",
+    672: "Single-Sentence Oracle",
+    673: "Single-Sentence Oracle",
+    674: "Single-Sentence Oracle",
+    675: "Single-Sentence Oracle",
+    676: "Single-Sentence Oracle",
+    677: "Single-Sentence Oracle",
+    678: "Single-Sentence Oracle",
+    679: "Single-Sentence Oracle",
+    680: "Single-Sentence Oracle",
+    681: "Single-Sentence Oracle",
+    682: "Single-Sentence Oracle",
+    683: "Single-Sentence Oracle",
+    684: "Single-Sentence Oracle",
+    685: "Single-Sentence Oracle",
+    686: "Single-Sentence Oracle",
+    687: "Single-Sentence Oracle",
+    688: "Single-Sentence Oracle",
+    689: "Single-Sentence Oracle",
+    690: "B2B Feed",
+    691: "B2B Feed",
+    692: "Single-Sentence Oracle",
+    693: "Single-Sentence Oracle",
+    694: "Single-Sentence Oracle",
+    695: "Single-Sentence Oracle",
+    696: "Single-Sentence Oracle",
+    697: "Single-Sentence Oracle",
+    698: "Single-Sentence Oracle",
+    699: "Single-Sentence Oracle",
+    700: "Single-Sentence Oracle",
+}
+
 
 def _heroes_for(cid: int) -> list[str]:
     return [name for name, meta in HERO_ENGINES.items() if cid in meta["capability_ids"]]
@@ -713,26 +766,26 @@ def _primary_hero_for(cid: int) -> str | None:
     return (_BATCH03_FALLBACK.get(cid
         or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
         or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
-        or _BATCH25_FALLBACK.get(cid)) or _BATCH05_FALLBACK.get(cid
+        or _BATCH25_FALLBACK.get(cid) or _BATCH27_FALLBACK.get(cid)) or _BATCH05_FALLBACK.get(cid
         or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
         or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
-        or _BATCH25_FALLBACK.get(cid)) or _BATCH07_FALLBACK.get(cid
+        or _BATCH25_FALLBACK.get(cid) or _BATCH27_FALLBACK.get(cid)) or _BATCH07_FALLBACK.get(cid
         or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
         or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
-        or _BATCH25_FALLBACK.get(cid))
+        or _BATCH25_FALLBACK.get(cid) or _BATCH27_FALLBACK.get(cid))
         or _BATCH11_FALLBACK.get(cid
         or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
         or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
-        or _BATCH25_FALLBACK.get(cid)) or _BATCH13_FALLBACK.get(cid
+        or _BATCH25_FALLBACK.get(cid) or _BATCH27_FALLBACK.get(cid)) or _BATCH13_FALLBACK.get(cid
         or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
         or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
-        or _BATCH25_FALLBACK.get(cid)) or _BATCH15_FALLBACK.get(cid
+        or _BATCH25_FALLBACK.get(cid) or _BATCH27_FALLBACK.get(cid)) or _BATCH15_FALLBACK.get(cid
         or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
         or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
-        or _BATCH25_FALLBACK.get(cid))
+        or _BATCH25_FALLBACK.get(cid) or _BATCH27_FALLBACK.get(cid))
         or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
         or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
-        or _BATCH25_FALLBACK.get(cid))
+        or _BATCH25_FALLBACK.get(cid) or _BATCH27_FALLBACK.get(cid))
 
 
 def hero_binding_for(cid: int) -> dict[str, Any]:
@@ -753,6 +806,7 @@ def hero_binding_for(cid: int) -> dict[str, Any]:
             or _BATCH21_FALLBACK.get(cid)
             or _BATCH23_FALLBACK.get(cid)
             or _BATCH25_FALLBACK.get(cid)
+            or _BATCH27_FALLBACK.get(cid)
         )
         if fb:
             heroes = [fb]
