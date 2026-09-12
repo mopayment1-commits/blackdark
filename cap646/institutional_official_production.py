@@ -120,7 +120,7 @@ def _stamp(result: dict[str, Any], capability_id: int, *, handler_module: str) -
     result.setdefault("track", row.get("track"))
     result["surface"] = surface
     _ensure_surface_domain_payload(result, surface)
-    result["backend_module"] = PRODUCTION_MODULE
+    result["backend_module"] = handler_module
     result["backend_entrypoint"] = institutional_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = batch
@@ -150,6 +150,21 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
             delegated["requested_capability_id"] = capability_id
             delegated["classification"] = "DUPLICATE/ALREADY_COVERED"
             return delegated
+        params = dict(params or {})
+        from cap646.batch01_production import BATCH01_IDS, execute as batch01_execute
+        from cap646.batch02_production import BATCH02_IDS, execute as batch02_execute
+
+        if capability_id in BATCH01_IDS:
+            body = await batch01_execute(capability_id, params=params)
+            body["classification"] = "DUPLICATE/ALREADY_COVERED"
+            body["canonical_coverage"] = True
+            return _stamp(body, capability_id, handler_module="cap646.batch01_production")
+        if capability_id in BATCH02_IDS:
+            body = await batch02_execute(capability_id, params=params)
+            body["classification"] = "DUPLICATE/ALREADY_COVERED"
+            body["canonical_coverage"] = True
+            return _stamp(body, capability_id, handler_module="cap646.batch02_production")
+
         row = catalog_by_id().get(capability_id, {})
         return _stamp(
             {
@@ -165,22 +180,25 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         )
 
     params = dict(params or {})
+
+    from cap646.batch01_production import BATCH01_IDS, execute as batch01_execute
+    from cap646.batch02_production import BATCH02_IDS, execute as batch02_execute
+
+    if capability_id in BATCH01_IDS:
+        return _stamp(
+            await batch01_execute(capability_id, params=params),
+            capability_id,
+            handler_module="cap646.batch01_production",
+        )
+
+    if capability_id in BATCH02_IDS:
+        return _stamp(
+            await batch02_execute(capability_id, params=params),
+            capability_id,
+            handler_module="cap646.batch02_production",
+        )
+
     batch_num = batch_number(capability_id)
-
-    if capability_id in _BATCH01_OVERLAP_IDS:
-        from cap646.batch01_production import execute as batch01_execute
-
-        return _stamp(await batch01_execute(capability_id, params=params), capability_id, handler_module="cap646.batch01_production")
-
-    if batch_num == 1:
-        from cap646.batch01_production import execute as batch01_execute
-
-        return _stamp(await batch01_execute(capability_id, params=params), capability_id, handler_module="cap646.batch01_production")
-
-    if batch_num == 2:
-        from cap646.batch02_official_production import execute as batch02_execute
-
-        return _stamp(await batch02_execute(capability_id, params=params), capability_id, handler_module="cap646.batch02_official_production")
 
     legacy = _legacy_dedicated_module(batch_num)
     if legacy:
