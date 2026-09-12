@@ -1,0 +1,48 @@
+{
+  "monitoring_setup_ok": false,
+  "checks": [
+    {
+      "check": "monitoring_enabled",
+      "ok": true,
+      "hint": "Set MONITORING_ENABLED=true"
+    },
+    {
+      "check": "monitoring_base_url",
+      "ok": true,
+      "hint": "Set MONITORING_BASE_URL or APP_BASE_URL to public deploy URL"
+    },
+    {
+      "check": "ops_telegram",
+      "ok": true,
+      "hint": "Set TELEGRAM_BOT_TOKEN + OPS_TELEGRAM_CHAT_ID for instant alerts"
+    },
+    {
+      "check": "monitoring_webhook",
+      "ok": true,
+      "hint": "Set MONITORING_WEBHOOK_URL (PagerDuty/Slack) or Telegram"
+    },
+    {
+      "check": "sentry_dsn",
+      "ok": false,
+      "hint": "Recommended: SENTRY_DSN for production error tracking"
+    },
+    {
+      "check": "uptime_self_probe",
+      "ok": true,
+      "hint": "UPTIME_SELF_PROBE_ENABLED=true (default)"
+    },
+    {
+      "check": "external_uptime_monitor",
+      "ok": false,
+      "hint": "Configure UptimeRobot/Better Stack \u2192 /health/live (see config/uptime_monitor.example.json)"
+    }
+  ],
+  "next_steps": [
+    "1. Set MONITORING_BASE_URL=https://your-deploy-url",
+    "2. Set OPS_TELEGRAM_CHAT_ID + TELEGRAM_BOT_TOKEN",
+    "3. Optional: MONITORING_WEBHOOK_URL for PagerDuty/Slack",
+    "4. External: UptimeRobot monitor on /health/live every 60s",
+    "5. Run: python3 scripts/free_api_rate_limit_audit.py",
+    "6. Verify: curl $MONITORING_BASE_URL/api/monitoring/status"
+  ]
+}

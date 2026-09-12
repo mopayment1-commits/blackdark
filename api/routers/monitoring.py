@@ -22,3 +22,11 @@ async def monitoring_probe_now():
     from ops.monitoring_alerting import probe_endpoints
 
     return await probe_endpoints()
+
+
+@router.get("/rate-limits")
+async def monitoring_rate_limits():
+    """Free-tier API rate-limit status — CoinGecko, Binance, exchanges."""
+    from ops.vendor_rate_limit_watchdog import vendor_rate_limit_status
+
+    return vendor_rate_limit_status()
