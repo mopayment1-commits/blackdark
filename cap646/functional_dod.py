@@ -85,8 +85,10 @@ async def verify_functional(
         }
 
     if capability_id in SIGNED_INFRA_SLOTS:
+        from scale_readiness import signed_load_evidence_from_capability_result
+
         result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
-        signed = bool((result.get("report") or {}).get("signed_load_evidence", {}).get("present"))
+        signed = signed_load_evidence_from_capability_result(result)
         return {
             "id": capability_id,
             "verdict": "VERIFIED_COMPLETE" if signed else "EXTERNAL_EVIDENCE_REQUIRED",

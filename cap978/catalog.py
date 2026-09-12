@@ -55,7 +55,8 @@ from cap646.catalog import (  # noqa: E402
 
 from bd_platform.free_tier_capabilities import FREE_TIER_EXTENSION_IDS  # noqa: E402
 
-EXTENSION_EXTERNAL_IDS: frozenset[int] = FREE_TIER_EXTENSION_IDS | frozenset({649, 658})
+# CAP-649/658: engineering-closed internally; live cloud creds are pre-deploy (WF-019).
+EXTENSION_EXTERNAL_IDS: frozenset[int] = FREE_TIER_EXTENSION_IDS
 
 # Extension duplicates of base canonical capabilities (same goal/behavior)
 EXTENSION_CANONICAL: dict[str, int] = {
