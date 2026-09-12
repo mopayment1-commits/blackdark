@@ -54,6 +54,27 @@ OFFICIAL_CONFIG: dict[int, dict[str, Any]] = {
         "audit_json": "BATCH05_INDEPENDENT_RBAS_AUDIT.json",
         "rtm": ROOT / "docs/BATCH05_OFFICIAL_RTM_201_250.json",
     },
+    6: {
+        "out": ROOT / "institutional_due_diligence_2026/batch06_independent_audit",
+        "closure": "RUN021_BATCH06_BUILD_CLOSURE_EVIDENCE.json",
+        "audit_script": "scripts/independent_batch06_rbas_audit.py",
+        "audit_json": "BATCH06_INDEPENDENT_RBAS_AUDIT.json",
+        "rtm": ROOT / "docs/BATCH06_OFFICIAL_RTM_251_300.json",
+    },
+    7: {
+        "out": ROOT / "institutional_due_diligence_2026/batch07_independent_audit",
+        "closure": "RUN021_BATCH07_BUILD_CLOSURE_EVIDENCE.json",
+        "audit_script": "scripts/independent_batch07_rbas_audit.py",
+        "audit_json": "BATCH07_INDEPENDENT_RBAS_AUDIT.json",
+        "rtm": ROOT / "docs/BATCH07_OFFICIAL_RTM_301_350.json",
+    },
+    8: {
+        "out": ROOT / "institutional_due_diligence_2026/batch08_independent_audit",
+        "closure": "RUN021_BATCH08_BUILD_CLOSURE_EVIDENCE.json",
+        "audit_script": "scripts/independent_batch08_rbas_audit.py",
+        "audit_json": "BATCH08_INDEPENDENT_RBAS_AUDIT.json",
+        "rtm": ROOT / "docs/BATCH08_OFFICIAL_RTM_351_400.json",
+    },
 }
 
 

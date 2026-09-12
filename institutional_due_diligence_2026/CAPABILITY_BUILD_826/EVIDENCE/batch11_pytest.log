@@ -1,0 +1,46 @@
+........................................................................ [ 96%]
+...                                                                      [100%]
+=============================== warnings summary ===============================
+tests/cap646/test_capability_build_batch11.py: 20 warnings
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape
+
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_runtime_success[251]
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_runtime_success[275]
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_bcbs_provenance_fields[251]
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_bcbs_provenance_fields[275]
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape[::-1]
+
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_hero_binding[255]
+  /workspace/.venv/lib/python3.12/site-packages/_pytest/threadexception.py:58: PytestUnhandledThreadExceptionWarning: Exception in thread Thread-54
+  
+  Traceback (most recent call last):
+    File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 107, in run
+      future.get_loop().call_soon_threadsafe(set_result, future, result)
+    File "/usr/lib/python3.12/asyncio/base_events.py", line 840, in call_soon_threadsafe
+      self._check_closed()
+    File "/usr/lib/python3.12/asyncio/base_events.py", line 541, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  During handling of the above exception, another exception occurred:
+  
+  Traceback (most recent call last):
+    File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+      self.run()
+    File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 110, in run
+      future.get_loop().call_soon_threadsafe(set_exception, future, e)
+    File "/usr/lib/python3.12/asyncio/base_events.py", line 840, in call_soon_threadsafe
+      self._check_closed()
+    File "/usr/lib/python3.12/asyncio/base_events.py", line 541, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnhandledThreadExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
