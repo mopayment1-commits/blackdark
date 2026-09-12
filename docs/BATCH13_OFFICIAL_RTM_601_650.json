@@ -24,7 +24,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -33,7 +33,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_601 spine=batch13_prep; code: async def _cap601(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "602": {
       "id": 602,
@@ -41,7 +42,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -50,7 +51,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_602 spine=batch13_prep; code: async def _cap602(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "603": {
       "id": 603,
@@ -58,7 +60,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -67,7 +69,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_603 spine=batch13_prep; code: async def _cap603(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "604": {
       "id": 604,
@@ -75,7 +78,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -84,7 +87,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_604 spine=batch13_prep; code: async def _cap604(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "605": {
       "id": 605,
@@ -92,7 +96,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -101,7 +105,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_605 spine=batch13_prep; code: async def _cap605(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "606": {
       "id": 606,
@@ -109,7 +114,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -118,7 +123,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_606 spine=batch13_prep; code: async def _cap606(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "607": {
       "id": 607,
@@ -126,7 +132,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -135,7 +141,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_607 spine=batch13_prep; code: async def _cap607(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "608": {
       "id": 608,
@@ -143,7 +150,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -152,7 +159,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_608 spine=batch13_prep; code: async def _cap608(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "609": {
       "id": 609,
@@ -160,7 +168,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -169,7 +177,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_609 spine=batch13_prep; code: async def _cap609(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "610": {
       "id": 610,
@@ -177,7 +186,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -186,7 +195,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_610 spine=batch13_prep; code: async def _cap610(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "611": {
       "id": 611,
@@ -194,7 +204,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -203,7 +213,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_611 spine=batch13_prep; code: async def _cap611(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "612": {
       "id": 612,
@@ -211,7 +222,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -220,7 +231,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_612 spine=batch13_prep; code: async def _cap612(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "613": {
       "id": 613,
@@ -228,7 +240,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -237,7 +249,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_613 spine=batch13_prep; code: async def _cap613(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "614": {
       "id": 614,
@@ -245,7 +258,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -254,7 +267,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_614 spine=batch13_prep; code: async def _cap614(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "615": {
       "id": 615,
@@ -262,7 +276,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -271,7 +285,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_615 spine=batch13_prep; code: async def _cap615(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "616": {
       "id": 616,
@@ -279,7 +294,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -288,7 +303,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_616 spine=batch13_prep; code: async def _cap616(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "617": {
       "id": 617,
@@ -296,7 +312,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -305,7 +321,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_617 spine=batch13_prep; code: async def _cap617(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "618": {
       "id": 618,
@@ -313,7 +330,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -322,7 +339,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_618 spine=batch13_prep; code: async def _cap618(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "619": {
       "id": 619,
@@ -330,7 +348,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -339,7 +357,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_619 spine=batch13_prep; code: async def _cap619(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "620": {
       "id": 620,
@@ -347,7 +366,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -356,7 +375,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_620 spine=batch13_prep; code: async def _cap620(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "621": {
       "id": 621,
@@ -364,7 +384,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -373,7 +393,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_621 spine=batch13_prep; code: async def _cap621(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "622": {
       "id": 622,
@@ -381,7 +402,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -390,7 +411,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_622 spine=batch13_prep; code: async def _cap622(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "623": {
       "id": 623,
@@ -398,7 +420,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -407,7 +429,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_623 spine=batch13_prep; code: async def _cap623(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "624": {
       "id": 624,
@@ -415,7 +438,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -424,7 +447,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_624 spine=batch13_prep; code: async def _cap624(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "625": {
       "id": 625,
@@ -432,7 +456,7 @@
       "official_batch": "batch13",
       "status": "NOT_COMPLETE",
       "legacy_status": "NOT_COMPLETE",
-      "engineering_status": "PARTIAL",
+      "engineering_status": "PASS_ENGINEERING",
       "live_status": "NOT_CLAIMED",
       "assurance_status": "PENDING_INDEPENDENT_ASSURANCE",
       "rbas_tier": "TIER1",
@@ -441,7 +465,8 @@
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=reserved_slot_625 spine=batch13_prep; code: async def _cap625(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; generic runbook only; no per-capability rollback drill",
       "remediated_closure": true,
       "v6_governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
-      "v6_audit_environment": "local_dev_vm"
+      "v6_audit_environment": "local_dev_vm",
+      "build_batch_25_remediated": true
     },
     "626": {
       "id": 626,

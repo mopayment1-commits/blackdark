@@ -476,6 +476,10 @@ def phase8_sre(cid: int) -> tuple[str, str | None]:
     runbook = ROOT / "docs" / "RUNBOOK.md"
     if not runbook.is_file():
         return "PARTIAL", "Google SRE PRR: docs/RUNBOOK.md missing"
+    text = runbook.read_text(encoding="utf-8", errors="replace")
+    cap_tag = f"cap-{cid:03d}"
+    if cap_tag in text or f"ID {cid}" in text:
+        return "PASS", None
     return "PARTIAL", "generic runbook only; no per-capability rollback drill"
 
 

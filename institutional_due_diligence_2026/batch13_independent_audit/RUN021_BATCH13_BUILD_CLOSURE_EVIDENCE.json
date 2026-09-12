@@ -1,0 +1,116 @@
+{
+  "generated_at": "2026-09-12T11:04:32.169967+00:00",
+  "scope": "build_batch_25_ids_601_625",
+  "non_regression": {
+    "met": false,
+    "pytest": {
+      "met": false,
+      "exit_code": 1,
+      "log_path": "institutional_due_diligence_2026/CAPABILITY_BUILD_826/EVIDENCE/batch25_pytest.log"
+    }
+  },
+  "bcbs": {
+    "per_id": {
+      "601": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "602": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "603": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "604": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "605": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "606": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "607": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "608": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "609": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "610": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "611": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "612": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "613": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "614": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "615": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "616": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "617": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "618": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "619": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "620": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "621": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "622": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "623": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "624": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      },
+      "625": {
+        "bcbs_remediated": true,
+        "runtime_success": true
+      }
+    }
+  }
+}

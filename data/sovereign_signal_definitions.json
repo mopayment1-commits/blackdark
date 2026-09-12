@@ -1,0 +1,12 @@
+{
+  "sig_8e8beabaaef7": {
+    "signal_id": "sig_8e8beabaaef7",
+    "name": "RSI_14",
+    "formula": "RSI(close, 14)",
+    "formula_hash": "7675a8cbd987b971",
+    "data_source": "ta_engine",
+    "signal_type": "custom",
+    "registered_at": "2026-09-12T11:00:54.793311+00:00",
+    "schema_version": "v1"
+  }
+}

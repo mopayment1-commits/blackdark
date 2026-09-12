@@ -538,6 +538,165 @@ _BATCH19_FALLBACK: dict[int, str] = {
     500: "Public Accuracy Ledger",
 }
 
+_BATCH21_FALLBACK: dict[int, str] = {
+    501: "B2B Feed",
+    502: "B2B Feed",
+    503: "Single-Sentence Oracle",
+    504: "B2B Feed",
+    505: "Whale Signal vs Noise",
+    506: "Whale Signal vs Noise",
+    507: "Whale Signal vs Noise",
+    508: "Arbitrage Scanner",
+    509: "Arbitrage Scanner",
+    510: "Arbitrage Scanner",
+    511: "Arbitrage Scanner",
+    512: "Arbitrage Scanner",
+    513: "B2B Feed",
+    514: "B2B Feed",
+    515: "B2B Feed",
+    516: "B2B Feed",
+    517: "B2B Feed",
+    518: "B2B Feed",
+    519: "Whale Signal vs Noise",
+    520: "Single-Sentence Oracle",
+    521: "Arbitrage Scanner",
+    522: "B2B Feed",
+    523: "Public Accuracy Ledger",
+    524: "Public Accuracy Ledger",
+    525: "Public Accuracy Ledger",
+    526: "Single-Sentence Oracle",
+    527: "Arbitrage Scanner",
+    528: "Arbitrage Scanner",
+    529: "Arbitrage Scanner",
+    530: "Arbitrage Scanner",
+    531: "B2B Feed",
+    532: "Arbitrage Scanner",
+    533: "Whale Signal vs Noise",
+    534: "Arbitrage Scanner",
+    535: "Whale Signal vs Noise",
+    536: "Arbitrage Scanner",
+    537: "Arbitrage Scanner",
+    538: "Arbitrage Scanner",
+    539: "Whale Signal vs Noise",
+    540: "Whale Signal vs Noise",
+    541: "Single-Sentence Oracle",
+    542: "Arbitrage Scanner",
+    543: "Arbitrage Scanner",
+    544: "B2B Feed",
+    545: "Whale Signal vs Noise",
+    546: "Single-Sentence Oracle",
+    547: "Single-Sentence Oracle",
+    548: "Single-Sentence Oracle",
+    549: "Arbitrage Scanner",
+    550: "B2B Feed",
+}
+
+_BATCH23_FALLBACK: dict[int, str] = {
+    551: "Single-Sentence Oracle",
+    552: "Single-Sentence Oracle",
+    553: "Single-Sentence Oracle",
+    554: "Single-Sentence Oracle",
+    555: "Single-Sentence Oracle",
+    556: "Single-Sentence Oracle",
+    557: "Single-Sentence Oracle",
+    558: "Single-Sentence Oracle",
+    559: "Single-Sentence Oracle",
+    560: "Single-Sentence Oracle",
+    561: "Single-Sentence Oracle",
+    562: "Single-Sentence Oracle",
+    563: "Single-Sentence Oracle",
+    564: "Single-Sentence Oracle",
+    565: "Single-Sentence Oracle",
+    566: "Single-Sentence Oracle",
+    567: "Single-Sentence Oracle",
+    568: "Single-Sentence Oracle",
+    569: "Single-Sentence Oracle",
+    570: "Single-Sentence Oracle",
+    571: "Single-Sentence Oracle",
+    572: "Single-Sentence Oracle",
+    573: "Single-Sentence Oracle",
+    574: "Single-Sentence Oracle",
+    575: "Single-Sentence Oracle",
+    576: "Single-Sentence Oracle",
+    577: "Single-Sentence Oracle",
+    578: "Single-Sentence Oracle",
+    579: "Single-Sentence Oracle",
+    580: "Single-Sentence Oracle",
+    581: "Single-Sentence Oracle",
+    582: "Single-Sentence Oracle",
+    583: "Single-Sentence Oracle",
+    584: "Single-Sentence Oracle",
+    585: "Single-Sentence Oracle",
+    586: "Single-Sentence Oracle",
+    587: "Single-Sentence Oracle",
+    588: "Single-Sentence Oracle",
+    589: "Single-Sentence Oracle",
+    590: "Single-Sentence Oracle",
+    591: "Single-Sentence Oracle",
+    592: "Single-Sentence Oracle",
+    593: "Single-Sentence Oracle",
+    594: "Single-Sentence Oracle",
+    595: "Single-Sentence Oracle",
+    596: "Single-Sentence Oracle",
+    597: "Single-Sentence Oracle",
+    598: "Single-Sentence Oracle",
+    599: "Single-Sentence Oracle",
+    600: "Single-Sentence Oracle",
+}
+
+_BATCH25_FALLBACK: dict[int, str] = {
+    601: "Single-Sentence Oracle",
+    602: "Single-Sentence Oracle",
+    603: "Single-Sentence Oracle",
+    604: "Single-Sentence Oracle",
+    605: "Single-Sentence Oracle",
+    606: "Single-Sentence Oracle",
+    607: "Single-Sentence Oracle",
+    608: "Single-Sentence Oracle",
+    609: "Single-Sentence Oracle",
+    610: "Single-Sentence Oracle",
+    611: "Single-Sentence Oracle",
+    612: "Single-Sentence Oracle",
+    613: "Single-Sentence Oracle",
+    614: "Single-Sentence Oracle",
+    615: "Single-Sentence Oracle",
+    616: "Single-Sentence Oracle",
+    617: "Single-Sentence Oracle",
+    618: "Single-Sentence Oracle",
+    619: "Single-Sentence Oracle",
+    620: "Single-Sentence Oracle",
+    621: "Single-Sentence Oracle",
+    622: "Single-Sentence Oracle",
+    623: "Single-Sentence Oracle",
+    624: "Single-Sentence Oracle",
+    625: "Single-Sentence Oracle",
+    626: "Single-Sentence Oracle",
+    627: "Single-Sentence Oracle",
+    628: "Single-Sentence Oracle",
+    629: "Single-Sentence Oracle",
+    630: "Single-Sentence Oracle",
+    631: "Single-Sentence Oracle",
+    632: "Single-Sentence Oracle",
+    633: "Single-Sentence Oracle",
+    634: "Single-Sentence Oracle",
+    635: "Single-Sentence Oracle",
+    636: "Single-Sentence Oracle",
+    637: "Single-Sentence Oracle",
+    638: "Single-Sentence Oracle",
+    639: "Single-Sentence Oracle",
+    640: "Single-Sentence Oracle",
+    641: "Single-Sentence Oracle",
+    642: "Single-Sentence Oracle",
+    643: "Single-Sentence Oracle",
+    644: "Single-Sentence Oracle",
+    645: "Single-Sentence Oracle",
+    646: "Single-Sentence Oracle",
+    647: "Single-Sentence Oracle",
+    648: "B2B Feed",
+    649: "Single-Sentence Oracle",
+    650: "Single-Sentence Oracle",
+}
+
 
 def _heroes_for(cid: int) -> list[str]:
     return [name for name, meta in HERO_ENGINES.items() if cid in meta["capability_ids"]]
@@ -552,14 +711,28 @@ def _primary_hero_for(cid: int) -> str | None:
     if cid in _BATCH02_FALLBACK:
         return _BATCH02_FALLBACK[cid]
     return (_BATCH03_FALLBACK.get(cid
-        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH05_FALLBACK.get(cid
-        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH07_FALLBACK.get(cid
-        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid))
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
+        or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
+        or _BATCH25_FALLBACK.get(cid)) or _BATCH05_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
+        or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
+        or _BATCH25_FALLBACK.get(cid)) or _BATCH07_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
+        or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
+        or _BATCH25_FALLBACK.get(cid))
         or _BATCH11_FALLBACK.get(cid
-        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH13_FALLBACK.get(cid
-        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)) or _BATCH15_FALLBACK.get(cid
-        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid))
-        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid))
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
+        or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
+        or _BATCH25_FALLBACK.get(cid)) or _BATCH13_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
+        or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
+        or _BATCH25_FALLBACK.get(cid)) or _BATCH15_FALLBACK.get(cid
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
+        or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
+        or _BATCH25_FALLBACK.get(cid))
+        or _BATCH17_FALLBACK.get(cid) or _BATCH19_FALLBACK.get(cid)
+        or _BATCH21_FALLBACK.get(cid) or _BATCH23_FALLBACK.get(cid)
+        or _BATCH25_FALLBACK.get(cid))
 
 
 def hero_binding_for(cid: int) -> dict[str, Any]:
@@ -577,6 +750,9 @@ def hero_binding_for(cid: int) -> dict[str, Any]:
             or _BATCH15_FALLBACK.get(cid)
             or _BATCH17_FALLBACK.get(cid)
             or _BATCH19_FALLBACK.get(cid)
+            or _BATCH21_FALLBACK.get(cid)
+            or _BATCH23_FALLBACK.get(cid)
+            or _BATCH25_FALLBACK.get(cid)
         )
         if fb:
             heroes = [fb]

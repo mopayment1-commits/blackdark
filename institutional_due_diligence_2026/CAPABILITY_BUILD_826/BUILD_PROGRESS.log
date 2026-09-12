@@ -29,3 +29,8 @@
 2026-09-12T09:38:27.510885+00:00 BATCH_18 | complete_v6=23/25 (total 378/826) | engineering_ready=2 (total 67) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=bfa2b6e2
 2026-09-12T09:42:30.612362+00:00 BATCH_19 | complete_v6=24/25 (total 402/826) | engineering_ready=1 (total 68) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=bfa2b6e2
 2026-09-12T09:47:58.999315+00:00 BATCH_20 | complete_v6=22/25 (total 424/826) | engineering_ready=2 (total 70) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=bfa2b6e2
+2026-09-12T10:23:22.657784+00:00 BATCH_21 | complete_v6=23/25 (total 447/826) | engineering_ready=1 (total 71) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af18aa58
+2026-09-12T10:28:32.515151+00:00 BATCH_22 | complete_v6=22/25 (total 469/826) | engineering_ready=2 (total 73) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af18aa58
+2026-09-12T10:32:24.817172+00:00 BATCH_23 | complete_v6=23/25 (total 492/826) | engineering_ready=2 (total 75) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af18aa58
+2026-09-12T10:36:15.891977+00:00 BATCH_24 | complete_v6=22/25 (total 514/826) | engineering_ready=2 (total 77) | partial=1 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af18aa58
+2026-09-12T11:04:37.188262+00:00 BATCH_25 | complete_v6=23/25 (total 537/826) | engineering_ready=2 (total 79) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af18aa58
