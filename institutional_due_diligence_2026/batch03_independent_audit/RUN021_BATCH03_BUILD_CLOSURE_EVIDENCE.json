@@ -1,0 +1,334 @@
+{
+  "generated_at": "2026-09-12T04:16:11.950485+00:00",
+  "run": "021_batch03_build_closure_batch06",
+  "scope": "build_batch_06_ids_126_150",
+  "non_regression": {
+    "met": true,
+    "batch06_build_pytest": {
+      "generated_at": "2026-09-12T04:16:03.686101+00:00",
+      "scope": "build_batch_06_ids_126_150",
+      "command": "/workspace/.venv/bin/python -m pytest tests/cap646/test_capability_build_batch01.py tests/cap646/test_capability_build_batch02.py tests/cap646/test_capability_build_batch03.py tests/cap646/test_capability_build_batch04.py tests/cap646/test_capability_build_batch05.py tests/cap646/test_capability_build_batch06.py -q --tb=short",
+      "exit_code": 0,
+      "log_path": "institutional_due_diligence_2026/CAPABILITY_BUILD_826/EVIDENCE/batch06_pytest.log",
+      "commit": "79166c91",
+      "met": true
+    },
+    "affected_batches": [
+      "batch03"
+    ],
+    "evidence_mapping": "tests/cap646/test_capability_build_batch06.py → IDs 126–150"
+  },
+  "bcbs_remediation": {
+    "generated_at": "2026-09-12T04:16:03.850810+00:00",
+    "fix": "cap646.batch03_production._stamp_batch03 + batch03_dedicated._wrap (Run 021)",
+    "per_id": {
+      "126": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "127": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "128": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "129": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "130": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "131": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "132": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "133": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "134": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "135": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "136": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "137": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "138": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "139": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "140": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "141": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "142": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "143": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "144": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "145": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "146": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "147": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "148": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "149": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "150": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      }
+    }
+  },
+  "bcbs": {
+    "generated_at": "2026-09-12T04:16:03.850810+00:00",
+    "fix": "cap646.batch03_production._stamp_batch03 + batch03_dedicated._wrap (Run 021)",
+    "per_id": {
+      "126": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "127": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "128": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "129": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "130": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "131": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "132": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "133": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "134": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "135": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "136": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "137": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "138": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "139": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "140": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "141": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "142": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "143": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "144": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "145": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "146": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "147": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "148": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "149": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      },
+      "150": {
+        "data_source": true,
+        "timestamp": true,
+        "runtime_success": true,
+        "bcbs_remediated": true
+      }
+    }
+  },
+  "independent_audit_exit_code": 0
+}

@@ -170,3 +170,44 @@ def test_csp_nonce_mode_can_rollback_to_unsafe_inline(monkeypatch):
     headers = security_headers_for(req)
     script_src = headers["Content-Security-Policy"].split("script-src")[1].split(";")[0]
     assert "'unsafe-inline'" in script_src
+
+
+def test_wf015_analytics_ignores_spoofed_user_id(tmp_path, monkeypatch):
+    import asyncio
+
+    import config
+    import database
+    from dashboard import app
+    from fastapi.testclient import TestClient
+
+    db_path = tmp_path / "wf015.db"
+    monkeypatch.setattr(config, "DB_PATH", db_path)
+    monkeypatch.setattr(database.config, "DB_PATH", db_path)
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv("ENV", "test")
+    asyncio.run(database.init_db())
+
+    client = TestClient(app)
+    resp = client.post(
+        "/api/analytics/event",
+        json={"event_type": "audit_spoof_test", "user_id": "999999-spoofed", "source": "test"},
+    )
+    assert resp.status_code == 200
+    stored = resp.json()["event"]
+    assert stored.get("user_id") is None
+
+
+def test_identity_write_routes_require_auth():
+    from dashboard import app
+    from fastapi.testclient import TestClient
+
+    client = TestClient(app)
+    for path, payload in (
+        ("/api/trust-debt/event", {"kind": "ledger_decision", "weight": 1.0}),
+        ("/api/alert-passport/evaluate", {"asset": "BTC"}),
+        ("/api/proof-arena/pick", {"symbol": "BTC", "direction": "long"}),
+        ("/api/anti-hype/mode", {"enabled": True}),
+        ("/api/discipline-mirror/answer", {"asset": "BTC", "followed": True}),
+    ):
+        r = client.post(path, json={**payload, "user_key": "attacker-spoof"})
+        assert r.status_code == 401, f"{path} should reject unauthenticated write"

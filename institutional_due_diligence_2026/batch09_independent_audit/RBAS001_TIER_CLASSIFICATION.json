@@ -1,0 +1,352 @@
+[
+  {
+    "id": 401,
+    "capability": "Bridges Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 402,
+    "capability": "Yields Screener",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 403,
+    "capability": "Yield History",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 404,
+    "capability": "Borrowing Rates",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 405,
+    "capability": "Liquid Staking Intelligence",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 406,
+    "capability": "RWA Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 407,
+    "capability": "Raises / Funding Rounds",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 408,
+    "capability": "Investor Profiles",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 409,
+    "capability": "Unlocks",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 410,
+    "capability": "Treasury Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 411,
+    "capability": "Airdrop / Incentive Intelligence",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 412,
+    "capability": "Capital Formation Radar",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 413,
+    "capability": "DeFi Opportunity Screener",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 414,
+    "capability": "DeFi Risk Passport",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 415,
+    "capability": "API Aggregation Layer",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 416,
+    "capability": "Cross-DeFi Decision Intelligence",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 417,
+    "capability": "Cross-Chain Fundamentals",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 418,
+    "capability": "Protocol Fundamentals",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 419,
+    "capability": "Stablecoin Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 420,
+    "capability": "Stablecoin Activity Breakdown",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 421,
+    "capability": "Developer Activity",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 422,
+    "capability": "Sector/Ecosystem Comparables",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 423,
+    "capability": "Equities + Crypto Research",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 424,
+    "capability": "Consensus Estimates",
+    "track": "T14",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 425,
+    "capability": "AI Analyst",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 426,
+    "capability": "Thesis Research Workspace",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 427,
+    "capability": "Comparable Company / Protocol Analysis",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 428,
+    "capability": "Excel / Sheets Integration",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 429,
+    "capability": "API Data Platform",
+    "track": "T02",
+    "rbas_tier": "TIER2",
+    "rbas_reason": "Data-delivery/catalog/registry without direct user decision output"
+  },
+  {
+    "id": 430,
+    "capability": "Research Templates",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 431,
+    "capability": "Dashboards",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 432,
+    "capability": "Stablecoin Payment Intelligence",
+    "track": "T14",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 433,
+    "capability": "On-Chain Usage Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 434,
+    "capability": "Revenue / Fees / Economic Activity",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 435,
+    "capability": "Cross-Market Research Copilot",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 436,
+    "capability": "Investment Thesis Scoring",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 437,
+    "capability": "DeFi Risk Radar",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 438,
+    "capability": "Lending Market Risk",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 439,
+    "capability": "Collateral Risk",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 440,
+    "capability": "Liquidation Risk",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 441,
+    "capability": "Oracle Risk",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 442,
+    "capability": "Liquidity Risk",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 443,
+    "capability": "Protocol Exploit Intelligence",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 444,
+    "capability": "Stablecoin Risk Intelligence",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 445,
+    "capability": "DeFi Strategy Risk",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 446,
+    "capability": "Real-Time Risk Alerts",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 447,
+    "capability": "DAO Treasury Risk",
+    "track": "T08",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 448,
+    "capability": "Institutional Risk API",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 449,
+    "capability": "Curated On-Chain Dashboards",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 450,
+    "capability": "Narrative-Driven Research",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  }
+]

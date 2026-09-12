@@ -1,0 +1,67 @@
+{
+  "audit_id": "IDA-2026-BLACKDARK-001",
+  "wave": 0,
+  "wave_name": "FORENSIC_BASELINE_AND_AUDIT_GOVERNANCE",
+  "spec_reference": "BLACKDARK_MASTER_INSTITUTIONAL_AUDIT_SPEC_2026 §16-§17",
+  "generated_at": "2026-09-10T23:36:00Z",
+  "closure_status": "CLOSED",
+  "audit_mode": "DIAGNOSIS_ONLY",
+  "remediation_performed": false,
+  "repository": {
+    "path": "/workspace",
+    "branch": "cursor/batch07-301-350-ed16",
+    "head_sha": "14bbf492c69b51e2008d6dc9baefe3d578ae0696",
+    "origin_main_sha": "9af0c38aec6d2a903e949e11ea2d3af98f345f2e",
+    "ahead_of_main": 43,
+    "behind_main": 0,
+    "worktree_clean": true,
+    "tracked_files": 1435
+  },
+  "secondary_worktree": {
+    "path": "/home/ubuntu/blackdark-incident-readonly",
+    "head_sha": "ce05685893455c062489879963491ca65a651292",
+    "state": "detached"
+  },
+  "artifacts_created": [
+    "BLACKDARK_AUDIT_SSOT.md",
+    "01_AUDIT_CHARTER_AND_STANDARDS.md",
+    "00_FORENSIC_BASELINE.md",
+    "FORENSIC_CHANGE_IMPACT_REGISTER.md",
+    "27_COVERAGE_LEDGER.md",
+    "28_EVIDENCE_INDEX.md",
+    "24_MASTER_FINDINGS_REGISTER.md",
+    "WAVE_00_CLOSURE.json"
+  ],
+  "closure_checks": {
+    "forensic_baseline_captured": true,
+    "git_branch_head_status_recorded": true,
+    "commit_merge_tag_history_sampled": true,
+    "lock_file_hashes_recorded": true,
+    "area_change_scan_performed": true,
+    "change_impact_register_created": true,
+    "ssot_established": true,
+    "standards_register_initialized": true,
+    "coverage_ledger_initialized": true,
+    "evidence_index_initialized": true,
+    "findings_register_initialized": true,
+    "zero_trust_applied_to_prior_claims": true,
+    "remediation_performed": false,
+    "final_verdict_issued": false,
+    "full_audit_complete": false
+  },
+  "findings_summary": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 2,
+    "P3": 0,
+    "OBSERVATION": 1
+  },
+  "forensic_regression_identified": "NOT_PROVEN",
+  "next_wave": {
+    "number": 1,
+    "name": "COMPLETE_SYSTEM_DISCOVERY",
+    "spec_sections": ["§18", "§19"],
+    "primary_output": "03_COMPLETE_SYSTEM_UNIVERSE.md",
+    "resume_instruction": "Enumerate full repository universe without sampling; compute discovery denominators; update SSOT inventories and Coverage Ledger"
+  }
+}

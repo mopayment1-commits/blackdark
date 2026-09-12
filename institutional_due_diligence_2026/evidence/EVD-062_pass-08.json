@@ -1,0 +1,8 @@
+{
+  "pass_id": "PASS-08",
+  "title": "Operational Red Team",
+  "scope": "Challenge resilience/backup",
+  "evidence_id": "EVD-062",
+  "discrepancies": [],
+  "status": "COMPLETED"
+}

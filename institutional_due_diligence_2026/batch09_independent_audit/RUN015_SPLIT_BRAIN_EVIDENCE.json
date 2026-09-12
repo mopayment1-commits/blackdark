@@ -1,0 +1,4901 @@
+[
+  {
+    "id": 401,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 401,
+      "surface": "bridges_intelligence",
+      "symbol": "BTC",
+      "bridges_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:54.629274+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:54.629295+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 402,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 402,
+      "surface": "yields_screener",
+      "symbol": "BTC",
+      "yields_screener": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:54.647588+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:54.647609+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 403,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 403,
+      "surface": "yield_history",
+      "symbol": "BTC",
+      "yield_history": {
+        "timestamp": "2026-09-12T09:37:54.661153+00:00",
+        "headline": "No major whale narratives in the current window — market in equilibrium.",
+        "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
+        "stories": [
+          "No major whale narratives in the current window — market in equilibrium."
+        ],
+        "alert_count": 0,
+        "flow_count": 0,
+        "classified": [],
+        "classifier": "signal_vs_noise_v1",
+        "derivatives_wired": false,
+        "note": "Transfers ≠ trades. Funding/OI hedge check applied when available.",
+        "hero": "whale_intelligence_radar",
+        "acceptance": "one_plain_sentence_signal_vs_noise",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.whale_story.whale_narrative",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "timestamp": "2026-09-12T09:37:54.661153+00:00",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.whale_story.whale_narrative",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap403",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:54.661182+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 404,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 404,
+      "surface": "borrowing_rates",
+      "symbol": "BTC",
+      "borrowing_rates": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:54.684269+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:54.684288+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 405,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 405,
+      "surface": "liquid_staking_intelligence",
+      "symbol": "BTC",
+      "liquid_staking_intelligence": {
+        "product": "BLACKDARK",
+        "ha_ready_codepath": false,
+        "soft_launch": false,
+        "database": "sqlite",
+        "login_rate_limit_backend": "memory",
+        "postgres_pool": {
+          "active": false
+        },
+        "parallelism": {
+          "workers": 2,
+          "replicas": 1,
+          "parallelism": 2
+        },
+        "recommended_env": {
+          "DATABASE_URL": "postgresql://...",
+          "REDIS_URL": "redis://...",
+          "SERVICE_BUS_LOCAL": "false",
+          "WEB_CONCURRENCY": "4+",
+          "WEB_REPLICAS": "2+",
+          "PG_POOL_MAX": "20",
+          "SOFT_LAUNCH": "unset for institutional pitch",
+          "VIRAL_MODE": "true"
+        },
+        "checks": [
+          {
+            "id": "postgres",
+            "ok": false,
+            "required_for_ha": true,
+            "detail": "sqlite"
+          },
+          {
+            "id": "postgres_pool",
+            "ok": false,
+            "required_for_ha": true,
+            "detail": {
+              "active": false
+            }
+          },
+          {
+            "id": "redis_shared",
+            "ok": false,
+            "required_for_ha": true,
+            "detail": "missing"
+          },
+          {
+            "id": "login_rate_limit_shared",
+            "ok": false,
+            "required_for_ha": true,
+            "detail": "memory"
+          },
+          {
+            "id": "multi_worker",
+            "ok": false,
+            "required_for_ha": true,
+            "detail": {
+              "workers": 2,
+              "replicas": 1,
+              "parallelism": 2
+            }
+          },
+          {
+            "id": "soft_launch_honesty",
+            "ok": true,
+            "required_for_ha": false,
+            "detail": "strict/non-soft"
+          }
+        ],
+        "capacity_claim": {
+          "code_enables_high_concurrency": true,
+          "proven_high_concurrency_signed": true,
+          "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+          "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+        },
+        "signed_load_evidence": {
+          "present": true,
+          "deposit_slot": false,
+          "env_key": "SIGNED_LOAD_EVIDENCE_JSON",
+          "log_path": "docs/LOAD_TEST_RUN_LOG.md"
+        },
+        "viral": {
+          "readiness_api": "/api/viral/readiness",
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+          "protections": [
+            "load_shedding",
+            "oracle_semaphore",
+            "shared_rate_limits",
+            "quick_cache"
+          ]
+        },
+        "k8s": {
+          "web_deployment": "deploy/k8s/web-deployment.yaml",
+          "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+          "hpa": "deploy/k8s/workers-hpa.yaml"
+        },
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "scale_readiness.scale_readiness_report",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "scale_readiness.scale_readiness_report",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap405",
+      "timestamp": "2026-09-12T09:37:54.786643+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:54.786657+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 406,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 406,
+      "surface": "rwa_intelligence",
+      "symbol": "BTC",
+      "rwa_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:54.804975+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:54.804994+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 407,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 407,
+      "surface": "raises_funding_rounds",
+      "symbol": "BTC",
+      "raises_funding_rounds": {
+        "asset": "BTC",
+        "timestamp": "2026-09-12T09:37:54.987249+00:00",
+        "free_tier": {
+          "source": "binance_futures_public",
+          "asset": "BTC",
+          "symbol": "BTCUSDT",
+          "timestamp": "2026-09-12T09:37:54.875873+00:00",
+          "mark_price": 0.0,
+          "funding_rate": 0.0,
+          "funding_rate_pct": 0.0,
+          "open_interest_contracts": 0.0,
+          "open_interest_usd": 0,
+          "change_24h_pct": 0.0,
+          "long_short_ratio": 0.0,
+          "long_account_pct": 0.0,
+          "short_account_pct": 0.0,
+          "taker_buy_sell_ratio": 0.0,
+          "available": false
+        },
+        "coinglass": {
+          "funding": {
+            "available": false,
+            "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+          },
+          "liquidations": {
+            "available": false,
+            "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+          },
+          "open_interest": {
+            "available": false,
+            "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+          },
+          "note": "CoinGlass enhances data when COINGLASS_API_KEY is set"
+        },
+        "deribit_options": {
+          "provider": "deribit",
+          "assets": {
+            "BTC": {
+              "success": true,
+              "exchange": "deribit",
+              "currency": "BTC",
+              "count": 946,
+              "instruments": [
+                {
+                  "instrument": "BTC-13SEP26-85000-P",
+                  "mark_price": 0.09967584,
+                  "bid": 0.097,
+                  "ask": 0.102,
+                  "open_interest": 16.2,
+                  "volume": 16.2
+                },
+                {
+                  "instrument": "BTC-16SEP26-77500-C",
+                  "mark_price": 0.01164041,
+                  "bid": 0.011,
+                  "ask": 0.0125,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25DEC26-104000-C",
+                  "mark_price": 0.01156333,
+                  "bid": 0.0115,
+                  "ask": 0.012,
+                  "open_interest": 95.6,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-155000-P",
+                  "mark_price": 1.00278064,
+                  "bid": 0.9975,
+                  "ask": 1.0065,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-105000-C",
+                  "mark_price": 0.00020413,
+                  "bid": 0.0001,
+                  "ask": 0.0004,
+                  "open_interest": 1538.7,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-18SEP26-90000-C",
+                  "mark_price": 0.00021106,
+                  "bid": 0.0001,
+                  "ask": 0.0004,
+                  "open_interest": 728.2,
+                  "volume": 7.9
+                },
+                {
+                  "instrument": "BTC-27NOV26-70000-C",
+                  "mark_price": 0.13106981,
+                  "bid": 0.13,
+                  "ask": 0.1325,
+                  "open_interest": 5.2,
+                  "volume": 1.0
+                },
+                {
+                  "instrument": "BTC-13SEP26-86000-P",
+                  "mark_price": 0.11261311,
+                  "bid": 0.11,
+                  "ask": 0.115,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-16SEP26-76500-P",
+                  "mark_price": 0.00783277,
+                  "bid": 0.007,
+                  "ask": 0.0085,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-90000-P",
+                  "mark_price": 0.16874659,
+                  "bid": 0.166,
+                  "ask": 0.1705,
+                  "open_interest": 6.3,
+                  "volume": 0.3
+                },
+                {
+                  "instrument": "BTC-25JUN27-105000-P",
+                  "mark_price": 0.36307666,
+                  "bid": 0.36,
+                  "ask": 0.3675,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-82000-P",
+                  "mark_price": 0.06721745,
+                  "bid": 0.0645,
+                  "ask": 0.069,
+                  "open_interest": 459.5,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-26MAR27-112000-P",
+                  "mark_price": 0.43524672,
+                  "bid": 0.432,
+                  "ask": 0.438,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25DEC26-58000-C",
+                  "mark_price": 0.27045741,
+                  "bid": 0.2685,
+                  "ask": 0.272,
+                  "open_interest": 40.3,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-79000-C",
+                  "mark_price": 0.04475212,
+                  "bid": 0.044,
+                  "ask": 0.045,
+                  "open_interest": 229.6,
+                  "volume": 11.2
+                },
+                {
+                  "instrument": "BTC-25SEP26-66000-P",
+                  "mark_price": 0.00111431,
+                  "bid": 0.001,
+                  "ask": 0.0012,
+                  "open_interest": 1633.0,
+                  "volume": 4.5
+                },
+                {
+                  "instrument": "BTC-25JUN27-90000-C",
+                  "mark_price": 0.09827961,
+                  "bid": 0.097,
+                  "ask": 0.0995,
+                  "open_interest": 766.0,
+                  "volume": 10.8
+                },
+                {
+                  "instrument": "BTC-25SEP26-79000-C",
+                  "mark_price": 0.01713417,
+                  "bid": 0.0165,
+                  "ask": 0.0175,
+                  "open_interest": 2364.4,
+                  "volume": 58.2
+                },
+                {
+                  "instrument": "BTC-2OCT26-79000-C",
+                  "mark_price": 0.02386972,
+                  "bid": 0.0235,
+                  "ask": 0.0245,
+                  "open_interest": 1.4,
+                  "volume": 1.8
+                },
+                {
+                  "instrument": "BTC-26MAR27-78000-C",
+                  "mark_price": 0.12224872,
+                  "bid": 0.1215,
+                  "ask": 0.123,
+                  "open_interest": 597.3,
+                  "volume": 3.0
+                },
+                {
+                  "instrument": "BTC-14SEP26-80000-C",
+                  "mark_price": 0.00031053,
+                  "bid": 0.0002,
+                  "ask": 0.0004,
+                  "open_interest": 48.9,
+                  "volume": 73.5
+                },
+                {
+                  "instrument": "BTC-25SEP26-85000-P",
+                  "mark_price": 0.10149194,
+                  "bid": 0.099,
+                  "ask": 0.1035,
+                  "open_interest": 454.6,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-27NOV26-68000-P",
+                  "mark_price": 0.022038,
+                  "bid": 0.0215,
+                  "ask": 0.0225,
+                  "open_interest": 89.5,
+                  "volume": 2.9
+                },
+                {
+                  "instrument": "BTC-2OCT26-81000-P",
+                  "mark_price": 0.06130445,
+                  "bid": 0.06,
+                  "ask": 0.0625,
+                  "open_interest": 1.8,
+                  "volume": 1.8
+                },
+                {
+                  "instrument": "BTC-25DEC26-95000-P",
+                  "mark_price": 0.23457652,
+                  "bid": 0.232,
+                  "ask": 0.234,
+                  "open_interest": 111.9,
+                  "volume": 0.3
+                },
+                {
+                  "instrument": "BTC-27NOV26-81000-P",
+                  "mark_price": 0.09078011,
+                  "bid": 0.0895,
+                  "ask": 0.091,
+                  "open_interest": 34.3,
+                  "volume": 24.3
+                },
+                {
+                  "instrument": "BTC-16SEP26-78500-C",
+                  "mark_price": 0.00657541,
+                  "bid": 0.006,
+                  "ask": 0.0075,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-125000-P",
+                  "mark_price": 0.61518727,
+                  "bid": 0.6115,
+                  "ask": 0.6185,
+                  "open_interest": 21.5,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25JUN27-55000-P",
+                  "mark_price": 0.03028441,
+                  "bid": 0.0295,
+                  "ask": 0.031,
+                  "open_interest": 35.9,
+                  "volume": 0.1
+                },
+                {
+                  "instrument": "BTC-26MAR27-96000-C",
+                  "mark_price": 0.04910301,
+                  "bid": 0.0485,
+                  "ask": 0.05,
+                  "open_interest": 153.5,
+                  "volume": 0.5
+                },
+                {
+                  "instrument": "BTC-30OCT26-60000-C",
+                  "mark_price": 0.23221246,
+                  "bid": 0.2305,
+                  "ask": 0.234,
+                  "open_interest": 15.5,
+                  "volume": 1.4
+                },
+                {
+                  "instrument": "BTC-16SEP26-78500-P",
+                  "mark_price": 0.02173675,
+                  "bid": 0.019,
+                  "ask": 0.0255,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-76000-P",
+                  "mark_price": 0.04135402,
+                  "bid": 0.0405,
+                  "ask": 0.042,
+                  "open_interest": 343.2,
+                  "volume": 53.6
+                },
+                {
+                  "instrument": "BTC-30OCT26-45000-C",
+                  "mark_price": 0.42191604,
+                  "bid": 0.4205,
+                  "ask": 0.4235,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-66000-C",
+                  "mark_price": 0.15969786,
+                  "bid": 0.1585,
+                  "ask": 0.162,
+                  "open_interest": 89.5,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25DEC26-70000-P",
+                  "mark_price": 0.03726483,
+                  "bid": 0.0365,
+                  "ask": 0.038,
+                  "open_interest": 1486.0,
+                  "volume": 4.2
+                },
+                {
+                  "instrument": "BTC-30OCT26-58000-C",
+                  "mark_price": 0.25704309,
+                  "bid": 0.2555,
+                  "ask": 0.259,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-90000-C",
+                  "mark_price": 0.01089725,
+                  "bid": 0.0105,
+                  "ask": 0.011,
+                  "open_interest": 2899.1,
+                  "volume": 34.9
+                },
+                {
+                  "instrument": "BTC-27NOV26-98000-C",
+                  "mark_price": 0.01053593,
+                  "bid": 0.01,
+                  "ask": 0.011,
+                  "open_interest": 52.8,
+                  "volume": 6.8
+                },
+                {
+                  "instrument": "BTC-25DEC26-125000-C",
+                  "mark_price": 0.00357027,
+                  "bid": 0.0033,
+                  "ask": 0.0039,
+                  "open_interest": 573.0,
+                  "volume": 0.9
+                },
+                {
+                  "instrument": "BTC-25JUN27-40000-P",
+                  "mark_price": 0.00974734,
+                  "bid": 0.009,
+                  "ask": 0.0105,
+                  "open_interest": 1227.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-140000-C",
+                  "mark_price": 2.36e-06,
+                  "bid": null,
+                  "ask": 0.0001,
+                  "open_interest": 1208.2,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-94000-P",
+                  "mark_price": 0.21576876,
+                  "bid": 0.213,
+                  "ask": 0.218,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-18SEP26-95000-P",
+                  "mark_price": 0.22837639,
+                  "bid": 0.2255,
+                  "ask": 0.231,
+                  "open_interest": 0.2,
+                  "volume": 0.1
+                },
+                {
+                  "instrument": "BTC-25DEC26-100000-C",
+                  "mark_price": 0.01544741,
+                  "bid": 0.015,
+                  "ask": 0.016,
+                  "open_interest": 5943.6,
+                  "volume": 80.1
+                },
+                {
+                  "instrument": "BTC-13SEP26-77500-P",
+                  "mark_price": 0.00433051,
+                  "bid": 0.0037,
+                  "ask": 0.0047,
+                  "open_interest": 116.0,
+                  "volume": 136.0
+                },
+                {
+                  "instrument": "BTC-15SEP26-87000-P",
+                  "mark_price": 0.12524879,
+                  "bid": 0.1225,
+                  "ask": 0.1275,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-26MAR27-62000-P",
+                  "mark_price": 0.03292633,
+                  "bid": 0.0325,
+                  "ask": 0.0335,
+                  "open_interest": 258.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-102000-P",
+                  "mark_price": 0.31817009,
+                  "bid": 0.315,
+                  "ask": 0.321,
+                  "open_interest": 0.4,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-27NOV26-80000-C",
+                  "mark_price": 0.05793167,
+                  "bid": 0.0575,
+                  "ask": 0.0585,
+                  "open_interest": 1004.9,
+                  "volume": 41.4
+                }
+              ]
+            }
+          },
+          "note": "Options intelligence for institutional due diligence — not auto-execution."
+        },
+        "sources": [
+          "Binance Futures (free)",
+          "Deribit",
+          "CoinGlass (optional)"
+        ],
+        "primary_source": "coinglass",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.derivatives_hub.derivatives_overview",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "timestamp": "2026-09-12T09:37:54.987249+00:00",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.derivatives_hub.derivatives_overview",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap407",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:54.987276+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 408,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 408,
+      "surface": "investor_profiles",
+      "symbol": "BTC",
+      "investor_profiles": {
+        "asset": "BTC",
+        "timestamp": "2026-09-12T09:37:55.165796+00:00",
+        "free_tier": {
+          "source": "binance_futures_public",
+          "asset": "BTC",
+          "symbol": "BTCUSDT",
+          "timestamp": "2026-09-12T09:37:55.056507+00:00",
+          "mark_price": 0.0,
+          "funding_rate": 0.0,
+          "funding_rate_pct": 0.0,
+          "open_interest_contracts": 0.0,
+          "open_interest_usd": 0,
+          "change_24h_pct": 0.0,
+          "long_short_ratio": 0.0,
+          "long_account_pct": 0.0,
+          "short_account_pct": 0.0,
+          "taker_buy_sell_ratio": 0.0,
+          "available": false
+        },
+        "coinglass": {
+          "funding": {
+            "available": false,
+            "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+          },
+          "liquidations": {
+            "available": false,
+            "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+          },
+          "open_interest": {
+            "available": false,
+            "reason": "COINGLASS_API_KEY not set (optional paid tier)"
+          },
+          "note": "CoinGlass enhances data when COINGLASS_API_KEY is set"
+        },
+        "deribit_options": {
+          "provider": "deribit",
+          "assets": {
+            "BTC": {
+              "success": true,
+              "exchange": "deribit",
+              "currency": "BTC",
+              "count": 946,
+              "instruments": [
+                {
+                  "instrument": "BTC-13SEP26-85000-P",
+                  "mark_price": 0.09967584,
+                  "bid": 0.097,
+                  "ask": 0.102,
+                  "open_interest": 16.2,
+                  "volume": 16.2
+                },
+                {
+                  "instrument": "BTC-16SEP26-77500-C",
+                  "mark_price": 0.01164099,
+                  "bid": 0.011,
+                  "ask": 0.0125,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25DEC26-104000-C",
+                  "mark_price": 0.01156333,
+                  "bid": 0.0115,
+                  "ask": 0.012,
+                  "open_interest": 95.6,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-155000-P",
+                  "mark_price": 1.00278064,
+                  "bid": 0.9975,
+                  "ask": 1.0065,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-105000-C",
+                  "mark_price": 0.00020413,
+                  "bid": 0.0001,
+                  "ask": 0.0004,
+                  "open_interest": 1538.7,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-18SEP26-90000-C",
+                  "mark_price": 0.00021106,
+                  "bid": 0.0001,
+                  "ask": 0.0004,
+                  "open_interest": 728.2,
+                  "volume": 7.9
+                },
+                {
+                  "instrument": "BTC-27NOV26-70000-C",
+                  "mark_price": 0.13106981,
+                  "bid": 0.13,
+                  "ask": 0.1325,
+                  "open_interest": 5.2,
+                  "volume": 1.0
+                },
+                {
+                  "instrument": "BTC-13SEP26-86000-P",
+                  "mark_price": 0.11261311,
+                  "bid": 0.11,
+                  "ask": 0.115,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-16SEP26-76500-P",
+                  "mark_price": 0.00783232,
+                  "bid": 0.007,
+                  "ask": 0.0085,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-90000-P",
+                  "mark_price": 0.16874659,
+                  "bid": 0.166,
+                  "ask": 0.1705,
+                  "open_interest": 6.3,
+                  "volume": 0.3
+                },
+                {
+                  "instrument": "BTC-25JUN27-105000-P",
+                  "mark_price": 0.36307666,
+                  "bid": 0.36,
+                  "ask": 0.3675,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-82000-P",
+                  "mark_price": 0.06721745,
+                  "bid": 0.0645,
+                  "ask": 0.069,
+                  "open_interest": 459.5,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-26MAR27-112000-P",
+                  "mark_price": 0.43524672,
+                  "bid": 0.432,
+                  "ask": 0.438,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25DEC26-58000-C",
+                  "mark_price": 0.27045741,
+                  "bid": 0.2685,
+                  "ask": 0.272,
+                  "open_interest": 40.3,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-79000-C",
+                  "mark_price": 0.04475153,
+                  "bid": 0.044,
+                  "ask": 0.045,
+                  "open_interest": 229.6,
+                  "volume": 11.2
+                },
+                {
+                  "instrument": "BTC-25SEP26-66000-P",
+                  "mark_price": 0.00111431,
+                  "bid": 0.001,
+                  "ask": 0.0012,
+                  "open_interest": 1633.0,
+                  "volume": 4.5
+                },
+                {
+                  "instrument": "BTC-25JUN27-90000-C",
+                  "mark_price": 0.09827961,
+                  "bid": 0.097,
+                  "ask": 0.0995,
+                  "open_interest": 766.0,
+                  "volume": 10.8
+                },
+                {
+                  "instrument": "BTC-25SEP26-79000-C",
+                  "mark_price": 0.01713417,
+                  "bid": 0.0165,
+                  "ask": 0.0175,
+                  "open_interest": 2364.4,
+                  "volume": 58.2
+                },
+                {
+                  "instrument": "BTC-2OCT26-79000-C",
+                  "mark_price": 0.02386972,
+                  "bid": 0.0235,
+                  "ask": 0.0245,
+                  "open_interest": 1.4,
+                  "volume": 1.8
+                },
+                {
+                  "instrument": "BTC-26MAR27-78000-C",
+                  "mark_price": 0.12224872,
+                  "bid": 0.1215,
+                  "ask": 0.123,
+                  "open_interest": 597.3,
+                  "volume": 3.0
+                },
+                {
+                  "instrument": "BTC-14SEP26-80000-C",
+                  "mark_price": 0.00031053,
+                  "bid": 0.0002,
+                  "ask": 0.0004,
+                  "open_interest": 48.9,
+                  "volume": 73.5
+                },
+                {
+                  "instrument": "BTC-25SEP26-85000-P",
+                  "mark_price": 0.10149194,
+                  "bid": 0.099,
+                  "ask": 0.1035,
+                  "open_interest": 454.6,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-27NOV26-68000-P",
+                  "mark_price": 0.0220377,
+                  "bid": 0.0215,
+                  "ask": 0.0225,
+                  "open_interest": 89.5,
+                  "volume": 2.9
+                },
+                {
+                  "instrument": "BTC-2OCT26-81000-P",
+                  "mark_price": 0.06130445,
+                  "bid": 0.06,
+                  "ask": 0.0625,
+                  "open_interest": 1.8,
+                  "volume": 1.8
+                },
+                {
+                  "instrument": "BTC-25DEC26-95000-P",
+                  "mark_price": 0.23457652,
+                  "bid": 0.232,
+                  "ask": 0.234,
+                  "open_interest": 111.9,
+                  "volume": 0.3
+                },
+                {
+                  "instrument": "BTC-27NOV26-81000-P",
+                  "mark_price": 0.09078029,
+                  "bid": 0.0895,
+                  "ask": 0.091,
+                  "open_interest": 34.3,
+                  "volume": 24.3
+                },
+                {
+                  "instrument": "BTC-16SEP26-78500-C",
+                  "mark_price": 0.00657618,
+                  "bid": 0.006,
+                  "ask": 0.0075,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-125000-P",
+                  "mark_price": 0.61518727,
+                  "bid": 0.6115,
+                  "ask": 0.6185,
+                  "open_interest": 21.5,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25JUN27-55000-P",
+                  "mark_price": 0.03028441,
+                  "bid": 0.0295,
+                  "ask": 0.031,
+                  "open_interest": 35.9,
+                  "volume": 0.1
+                },
+                {
+                  "instrument": "BTC-26MAR27-96000-C",
+                  "mark_price": 0.04910301,
+                  "bid": 0.0485,
+                  "ask": 0.05,
+                  "open_interest": 153.5,
+                  "volume": 0.5
+                },
+                {
+                  "instrument": "BTC-30OCT26-60000-C",
+                  "mark_price": 0.23221246,
+                  "bid": 0.2305,
+                  "ask": 0.234,
+                  "open_interest": 15.5,
+                  "volume": 1.4
+                },
+                {
+                  "instrument": "BTC-16SEP26-78500-P",
+                  "mark_price": 0.02173722,
+                  "bid": 0.019,
+                  "ask": 0.0255,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-76000-P",
+                  "mark_price": 0.04135577,
+                  "bid": 0.0405,
+                  "ask": 0.042,
+                  "open_interest": 343.2,
+                  "volume": 53.6
+                },
+                {
+                  "instrument": "BTC-30OCT26-45000-C",
+                  "mark_price": 0.42191604,
+                  "bid": 0.4205,
+                  "ask": 0.4235,
+                  "open_interest": 0.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-66000-C",
+                  "mark_price": 0.15969786,
+                  "bid": 0.1585,
+                  "ask": 0.162,
+                  "open_interest": 89.5,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25DEC26-70000-P",
+                  "mark_price": 0.03726483,
+                  "bid": 0.0365,
+                  "ask": 0.038,
+                  "open_interest": 1486.0,
+                  "volume": 4.2
+                },
+                {
+                  "instrument": "BTC-30OCT26-58000-C",
+                  "mark_price": 0.25704309,
+                  "bid": 0.2555,
+                  "ask": 0.259,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-90000-C",
+                  "mark_price": 0.0108976,
+                  "bid": 0.0105,
+                  "ask": 0.011,
+                  "open_interest": 2899.1,
+                  "volume": 34.9
+                },
+                {
+                  "instrument": "BTC-27NOV26-98000-C",
+                  "mark_price": 0.01053572,
+                  "bid": 0.01,
+                  "ask": 0.011,
+                  "open_interest": 52.8,
+                  "volume": 6.8
+                },
+                {
+                  "instrument": "BTC-25DEC26-125000-C",
+                  "mark_price": 0.00357027,
+                  "bid": 0.0033,
+                  "ask": 0.0039,
+                  "open_interest": 573.0,
+                  "volume": 0.9
+                },
+                {
+                  "instrument": "BTC-25JUN27-40000-P",
+                  "mark_price": 0.00974734,
+                  "bid": 0.009,
+                  "ask": 0.0105,
+                  "open_interest": 1227.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-140000-C",
+                  "mark_price": 2.36e-06,
+                  "bid": null,
+                  "ask": 0.0001,
+                  "open_interest": 1208.2,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-30OCT26-94000-P",
+                  "mark_price": 0.21576876,
+                  "bid": 0.213,
+                  "ask": 0.218,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-18SEP26-95000-P",
+                  "mark_price": 0.22837639,
+                  "bid": 0.2255,
+                  "ask": 0.231,
+                  "open_interest": 0.2,
+                  "volume": 0.1
+                },
+                {
+                  "instrument": "BTC-25DEC26-100000-C",
+                  "mark_price": 0.01544741,
+                  "bid": 0.015,
+                  "ask": 0.016,
+                  "open_interest": 5943.6,
+                  "volume": 80.1
+                },
+                {
+                  "instrument": "BTC-13SEP26-77500-P",
+                  "mark_price": 0.00433051,
+                  "bid": 0.0037,
+                  "ask": 0.0047,
+                  "open_interest": 116.0,
+                  "volume": 136.0
+                },
+                {
+                  "instrument": "BTC-15SEP26-87000-P",
+                  "mark_price": 0.12524879,
+                  "bid": 0.1225,
+                  "ask": 0.1275,
+                  "open_interest": 0.0,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-26MAR27-62000-P",
+                  "mark_price": 0.03292633,
+                  "bid": 0.0325,
+                  "ask": 0.0335,
+                  "open_interest": 258.1,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-25SEP26-102000-P",
+                  "mark_price": 0.31817009,
+                  "bid": 0.315,
+                  "ask": 0.321,
+                  "open_interest": 0.4,
+                  "volume": 0.0
+                },
+                {
+                  "instrument": "BTC-27NOV26-80000-C",
+                  "mark_price": 0.05793218,
+                  "bid": 0.0575,
+                  "ask": 0.0585,
+                  "open_interest": 1004.9,
+                  "volume": 41.4
+                }
+              ]
+            }
+          },
+          "note": "Options intelligence for institutional due diligence — not auto-execution."
+        },
+        "sources": [
+          "Binance Futures (free)",
+          "Deribit",
+          "CoinGlass (optional)"
+        ],
+        "primary_source": "coinglass",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.derivatives_hub.derivatives_overview",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "timestamp": "2026-09-12T09:37:55.165796+00:00",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.derivatives_hub.derivatives_overview",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap408",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.165824+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 409,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 409,
+      "surface": "unlocks",
+      "symbol": "BTC",
+      "unlocks": {
+        "source": "free_tier_composite",
+        "timestamp": "2026-09-12T09:37:55.194637+00:00",
+        "scheduled_unlocks": [
+          {
+            "asset": "SUI",
+            "name": "Sui",
+            "unlock_date": "2026-08-01",
+            "amount_usd": 45000000,
+            "type": "investor_vesting",
+            "source": "public_schedule"
+          },
+          {
+            "asset": "DYDX",
+            "name": "dYdX",
+            "unlock_date": "2026-08-05",
+            "amount_usd": 18000000,
+            "type": "investor_vesting",
+            "source": "public_schedule"
+          },
+          {
+            "asset": "APT",
+            "name": "Aptos",
+            "unlock_date": "2026-08-12",
+            "amount_usd": 52000000,
+            "type": "investor_vesting",
+            "source": "public_schedule"
+          },
+          {
+            "asset": "BLUR",
+            "name": "Blur",
+            "unlock_date": "2026-08-14",
+            "amount_usd": 12000000,
+            "type": "team_vesting",
+            "source": "public_schedule"
+          },
+          {
+            "asset": "SEI",
+            "name": "Sei",
+            "unlock_date": "2026-08-15",
+            "amount_usd": 22000000,
+            "type": "ecosystem",
+            "source": "public_schedule"
+          },
+          {
+            "asset": "ARB",
+            "name": "Arbitrum",
+            "unlock_date": "2026-08-16",
+            "amount_usd": 98000000,
+            "type": "team_vesting",
+            "source": "public_schedule"
+          },
+          {
+            "asset": "IMX",
+            "name": "Immutable",
+            "unlock_date": "2026-08-20",
+            "amount_usd": 31000000,
+            "type": "team_vesting",
+            "source": "public_schedule"
+          },
+          {
+            "asset": "OP",
+            "name": "Optimism",
+            "unlock_date": "2026-08-30",
+            "amount_usd": 67000000,
+            "type": "investor_vesting",
+            "source": "public_schedule"
+          }
+        ],
+        "supply_pressure": [
+          {
+            "asset": "HYPE",
+            "name": "Hyperliquid",
+            "locked_supply_pct": 76.7,
+            "market_cap_usd": 17643638508.0,
+            "type": "supply_pressure",
+            "source": "coingecko_free"
+          },
+          {
+            "asset": "RAIN",
+            "name": "Rain",
+            "locked_supply_pct": 37.9,
+            "market_cap_usd": 10725851003.0,
+            "type": "supply_pressure",
+            "source": "coingecko_free"
+          },
+          {
+            "asset": "XRP",
+            "name": "XRP",
+            "locked_supply_pct": 37.1,
+            "market_cap_usd": 86032863131.0,
+            "type": "supply_pressure",
+            "source": "coingecko_free"
+          },
+          {
+            "asset": "DOGE",
+            "name": "Dogecoin",
+            "locked_supply_pct": 9.2,
+            "market_cap_usd": 13223312356.0,
+            "type": "supply_pressure",
+            "source": "coingecko_free"
+          },
+          {
+            "asset": "SOL",
+            "name": "Solana",
+            "locked_supply_pct": 7.5,
+            "market_cap_usd": 59842765308.0,
+            "type": "supply_pressure",
+            "source": "coingecko_free"
+          }
+        ],
+        "count": 13,
+        "note": "Scheduled unlocks from public vesting calendars + CoinGecko locked-supply metric (no paid API)",
+        "references": [
+          "TokenUnlocks",
+          "CryptoRank",
+          "CoinGecko"
+        ],
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.token_unlocks.unlock_calendar",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "free_tier_composite",
+      "timestamp": "2026-09-12T09:37:55.194637+00:00",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.token_unlocks.unlock_calendar",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.194659+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 410,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 410,
+      "surface": "treasury_intelligence",
+      "symbol": "BTC",
+      "treasury_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:55.216814+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.216833+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 411,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 411,
+      "surface": "airdrop_incentive_intelligence",
+      "symbol": "BTC",
+      "airdrop_incentive_intelligence": {
+        "onchain_flows": [
+          {
+            "asset": "BNB",
+            "inflow_usd": 594456.51,
+            "outflow_usd": 1122950.63,
+            "net_flow_usd": -528494.12,
+            "large_tx_count": 0,
+            "source": "simulated",
+            "timestamp": "2026-09-12T09:37:55.219225+00:00"
+          },
+          {
+            "asset": "BTC",
+            "inflow_usd": 8910888.3,
+            "outflow_usd": 6135434.9,
+            "net_flow_usd": 2775453.4,
+            "large_tx_count": 2,
+            "source": "simulated",
+            "timestamp": "2026-09-12T09:37:55.219253+00:00"
+          },
+          {
+            "asset": "ETH",
+            "inflow_usd": 3705764.35,
+            "outflow_usd": 3406216.81,
+            "net_flow_usd": 299547.54,
+            "large_tx_count": 0,
+            "source": "simulated",
+            "timestamp": "2026-09-12T09:37:55.219262+00:00"
+          },
+          {
+            "asset": "SOL",
+            "inflow_usd": 2107618.25,
+            "outflow_usd": 2159050.55,
+            "net_flow_usd": -51432.29,
+            "large_tx_count": 0,
+            "source": "simulated",
+            "timestamp": "2026-09-12T09:37:55.219268+00:00"
+          },
+          {
+            "asset": "XRP",
+            "inflow_usd": 548427.46,
+            "outflow_usd": 659154.24,
+            "net_flow_usd": -110726.77,
+            "large_tx_count": 0,
+            "source": "simulated",
+            "timestamp": "2026-09-12T09:37:55.219274+00:00"
+          }
+        ],
+        "onchain_signals": [],
+        "onchain_by_asset": {
+          "BNB": {
+            "asset": "BNB",
+            "net_flow_usd": -528494.12,
+            "inflow_usd": 594456.51,
+            "outflow_usd": 1122950.63,
+            "bias": "accumulation",
+            "signals": []
+          },
+          "BTC": {
+            "asset": "BTC",
+            "net_flow_usd": 2775453.4,
+            "inflow_usd": 8910888.3,
+            "outflow_usd": 6135434.9,
+            "bias": "distribution",
+            "signals": []
+          },
+          "ETH": {
+            "asset": "ETH",
+            "net_flow_usd": 299547.54,
+            "inflow_usd": 3705764.35,
+            "outflow_usd": 3406216.81,
+            "bias": "distribution",
+            "signals": []
+          },
+          "SOL": {
+            "asset": "SOL",
+            "net_flow_usd": -51432.29,
+            "inflow_usd": 2107618.25,
+            "outflow_usd": 2159050.55,
+            "bias": "neutral",
+            "signals": []
+          },
+          "XRP": {
+            "asset": "XRP",
+            "net_flow_usd": -110726.77,
+            "inflow_usd": 548427.46,
+            "outflow_usd": 659154.24,
+            "bias": "neutral",
+            "signals": []
+          }
+        },
+        "onchain_score_adjustments": {
+          "BNB": 3.0,
+          "BTC": -4.0,
+          "ETH": -4.0,
+          "SOL": 0.0,
+          "XRP": 0.0
+        },
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "onchain_tracker.build_onchain_context_safe",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "onchain_tracker.build_onchain_context_safe",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap411",
+      "timestamp": "2026-09-12T09:37:55.219346+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.219356+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 412,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 412,
+      "surface": "capital_formation_radar",
+      "symbol": "BTC",
+      "capital_formation_radar": {
+        "surface": "data_provenance_score",
+        "generated_at": "2026-09-12T09:37:55.220016+00:00",
+        "symbol": "BTC",
+        "score": 66.0,
+        "band": "caution",
+        "posture": "Decide with caution — some inputs soft or thin",
+        "components": {
+          "freshness": {
+            "score": 18.0,
+            "state": "unknown",
+            "freshness_ms": null
+          },
+          "venue_depth": {
+            "score": 35.0,
+            "live_venues": 100,
+            "max_component": 35
+          },
+          "source_diversity": {
+            "score": 11.0,
+            "categories": [
+              "derivatives",
+              "prices"
+            ]
+          },
+          "executable_gate": {
+            "score": 2.0,
+            "executable": false
+          }
+        },
+        "live_ingestion_ready_ids": [
+          "binance",
+          "okx",
+          "bybit",
+          "coinbase",
+          "kucoin",
+          "bitget",
+          "gateio",
+          "mexc",
+          "kraken",
+          "htx",
+          "cryptocom",
+          "bingx",
+          "lbank",
+          "xt",
+          "coinw",
+          "upbit",
+          "bithumb",
+          "bitfinex",
+          "bitstamp",
+          "whitebit"
+        ],
+        "honesty": "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+        "api": "/api/oracle/provenance-score",
+        "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture.",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "data_provenance_score.compute_data_provenance_score",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "data_provenance_score.compute_data_provenance_score",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap412",
+      "timestamp": "2026-09-12T09:37:55.220031+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.220041+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 413,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 413,
+      "surface": "defi_opportunity_screener",
+      "symbol": "BTC",
+      "defi_opportunity_screener": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:55.240767+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.240787+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 414,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 414,
+      "surface": "defi_risk_passport",
+      "symbol": "BTC",
+      "defi_risk_passport": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:55.257007+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.257026+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 415,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 415,
+      "surface": "api_aggregation_layer",
+      "symbol": "BTC",
+      "api_aggregation_layer": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:55.273765+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.273784+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 416,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 416,
+      "surface": "cross_defi_decision_intelligence",
+      "symbol": "BTC",
+      "cross_defi_decision_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:55.291447+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.291466+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 417,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 417,
+      "surface": "cross_chain_fundamentals",
+      "symbol": "BTC",
+      "cross_chain_fundamentals": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:55.308895+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.308914+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 418,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 418,
+      "surface": "protocol_fundamentals",
+      "symbol": "BTC",
+      "protocol_fundamentals": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:55.324342+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.324361+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 419,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 419,
+      "surface": "stablecoin_intelligence",
+      "symbol": "BTC",
+      "stablecoin_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:55.342039+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.342058+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 420,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 420,
+      "surface": "stablecoin_activity_breakdown",
+      "symbol": "BTC",
+      "stablecoin_activity_breakdown": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:55.356883+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.356902+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 421,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 421,
+      "surface": "developer_activity",
+      "symbol": "BTC",
+      "developer_activity": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:55.373230+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.373249+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 422,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 422,
+      "surface": "sector_ecosystem_comparables",
+      "symbol": "BTC",
+      "sector_ecosystem_comparables": {
+        "surface": "public_readiness",
+        "generated_at": "2026-09-12T09:37:55.735249+00:00",
+        "tracks": {
+          "PUBLIC_DEMO_READY": true,
+          "LIVE_PRODUCTION_READY": false,
+          "LIVE_MONEY_READY": false
+        },
+        "gates": {
+          "production_guard_required_pass": false,
+          "redis_live": false,
+          "viral_multi_instance": true,
+          "billing_checkout": true,
+          "admin_mfa_configured": true
+        },
+        "required_failures": [
+          "postgres_database",
+          "at_rest_encryption_posture",
+          "service_mode_web",
+          "billing_entitlement_webhook",
+          "secrets_master_key",
+          "session_token_pepper",
+          "admin_auth_configured",
+          "telegram_webhook_secret"
+        ],
+        "parallelism": {
+          "workers": 2,
+          "replicas": 1,
+          "parallelism": 2
+        },
+        "billing_provider": "stripe",
+        "viral": {
+          "ok": false,
+          "redis_live": false,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 1,
+            "parallelism": 2
+          }
+        },
+        "unconditional_go": false,
+        "note": "PUBLIC-DEMO-READY can be true while LIVE-PRODUCTION-READY / LIVE-MONEY-READY remain false. Agent-env proofs are not Production PASS.",
+        "api": "/api/product/public-readiness",
+        "guard_api": "/api/production/guard",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "product_honesty_api.build_public_readiness",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "product_honesty_api.build_public_readiness",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap422",
+      "timestamp": "2026-09-12T09:37:55.735263+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.735272+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 423,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 423,
+      "surface": "equities_crypto_research",
+      "symbol": "BTC",
+      "equities_crypto_research": {
+        "immutable_chain": {
+          "valid": true,
+          "total_records": 4211,
+          "chain_path": "data/oracle_audit_chain.jsonl"
+        },
+        "cumulative": {
+          "resolved_predictions": 2097,
+          "hit_rate_percent": 38.05,
+          "partial_rate_percent": 42.35,
+          "hit_definition": "correct_only",
+          "metrics_scope": "live_only",
+          "meets_target": false,
+          "note": "Live predictions only — synthetic historical_seed excluded. Hit rate counts full correct only; partial is separate."
+        },
+        "synthetic_demo_data": {
+          "resolved_predictions": 0,
+          "hit_rate_percent": 0.0,
+          "hit_definition": "correct_only",
+          "excluded_from_primary_metrics": true,
+          "note": "Due-diligence backfill — not live trading performance."
+        },
+        "recent": [
+          {
+            "seq": 4202,
+            "timestamp": "2026-09-12T04:50:15.990037+00:00",
+            "prev_hash": "bb1de0822742ae002f31e43b1e94fa2c7e33c125ce273509f751bcb55a066b85",
+            "event": "prediction_created",
+            "prediction_id": 293,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.01,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "0056ba2fb4ab39c0b9d73ec93847db21f6244bb0b0319539fe044ccd897b6709"
+          },
+          {
+            "seq": 4203,
+            "timestamp": "2026-09-12T04:50:45.511443+00:00",
+            "prev_hash": "0056ba2fb4ab39c0b9d73ec93847db21f6244bb0b0319539fe044ccd897b6709",
+            "event": "prediction_created",
+            "prediction_id": 294,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.02,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "c73213850765779e2702356e4b22cc079d7f92b68b0eca0d3db136a9f47bebf6"
+          },
+          {
+            "seq": 4204,
+            "timestamp": "2026-09-12T04:51:59.915812+00:00",
+            "prev_hash": "c73213850765779e2702356e4b22cc079d7f92b68b0eca0d3db136a9f47bebf6",
+            "event": "prediction_created",
+            "prediction_id": 295,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.01,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "c3179510ef62518f4565d8c344d2b50771f6da848b0b8c76b3ecf9c641d81a0b"
+          },
+          {
+            "seq": 4205,
+            "timestamp": "2026-09-12T04:53:46.678418+00:00",
+            "prev_hash": "c3179510ef62518f4565d8c344d2b50771f6da848b0b8c76b3ecf9c641d81a0b",
+            "event": "prediction_created",
+            "prediction_id": 296,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77247.42,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "2153065297d5d3bfd8b558d5570a86bc07f76191c9c034913e6e5ca3c4253424"
+          },
+          {
+            "seq": 4206,
+            "timestamp": "2026-09-12T04:53:55.981219+00:00",
+            "prev_hash": "2153065297d5d3bfd8b558d5570a86bc07f76191c9c034913e6e5ca3c4253424",
+            "event": "prediction_created",
+            "prediction_id": 297,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77242.53,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "3816641bab95c27fbf5b0bdbf60a1ae28802b68d8ad35492fe584fa7a58065d6"
+          },
+          {
+            "seq": 4207,
+            "timestamp": "2026-09-12T04:54:36.904274+00:00",
+            "prev_hash": "3816641bab95c27fbf5b0bdbf60a1ae28802b68d8ad35492fe584fa7a58065d6",
+            "event": "prediction_created",
+            "prediction_id": 298,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77242.54,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "9acd89abcfe181f7e9097ab8936b9d57454efa8c776ebe48473bfda7f84c80ce"
+          },
+          {
+            "seq": 4208,
+            "timestamp": "2026-09-12T09:32:44.350694+00:00",
+            "prev_hash": "9acd89abcfe181f7e9097ab8936b9d57454efa8c776ebe48473bfda7f84c80ce",
+            "event": "prediction_created",
+            "prediction_id": 299,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77381.59,
+            "opportunity_score": 84,
+            "confidence": 75,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "eebbd6eb0a754d5362412fdb6352ae5de23f67de2ead29786438f82647a60707"
+          },
+          {
+            "seq": 4209,
+            "timestamp": "2026-09-12T09:34:32.454649+00:00",
+            "prev_hash": "eebbd6eb0a754d5362412fdb6352ae5de23f67de2ead29786438f82647a60707",
+            "event": "prediction_created",
+            "prediction_id": 300,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77358.04,
+            "opportunity_score": 84,
+            "confidence": 75,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "154b49675aa4921ca227aec566995834d1a85bcb07f56c9201d2bd39120e2f97"
+          },
+          {
+            "seq": 4210,
+            "timestamp": "2026-09-12T09:35:53.872981+00:00",
+            "prev_hash": "154b49675aa4921ca227aec566995834d1a85bcb07f56c9201d2bd39120e2f97",
+            "event": "prediction_created",
+            "prediction_id": 301,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77340.0,
+            "opportunity_score": 85,
+            "confidence": 76,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "8acdcf6418667f27738621b071f530cf8b690aff8f6f1c89ecf6f1fec4120311"
+          },
+          {
+            "seq": 4211,
+            "timestamp": "2026-09-12T09:37:53.249268+00:00",
+            "prev_hash": "8acdcf6418667f27738621b071f530cf8b690aff8f6f1c89ecf6f1fec4120311",
+            "event": "prediction_created",
+            "prediction_id": 302,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77335.99,
+            "opportunity_score": 85,
+            "confidence": 76,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "f30b026384f301b6fcdf5b7bd30f705f2c8140fb754c742bf951ae7e2ee54754"
+          }
+        ],
+        "auto_accumulation": true,
+        "note": "Every live oracle prediction auto-appends to hash chain on create + resolve.",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "oracle_track_record.public_track_record",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "oracle_track_record.public_track_record",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap423",
+      "timestamp": "2026-09-12T09:37:55.847060+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.847085+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 424,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 424,
+      "surface": "consensus_estimates",
+      "symbol": "BTC",
+      "consensus_estimates": {
+        "surface": "public_readiness",
+        "generated_at": "2026-09-12T09:37:55.847334+00:00",
+        "tracks": {
+          "PUBLIC_DEMO_READY": true,
+          "LIVE_PRODUCTION_READY": false,
+          "LIVE_MONEY_READY": false
+        },
+        "gates": {
+          "production_guard_required_pass": false,
+          "redis_live": false,
+          "viral_multi_instance": true,
+          "billing_checkout": true,
+          "admin_mfa_configured": true
+        },
+        "required_failures": [
+          "postgres_database",
+          "at_rest_encryption_posture",
+          "service_mode_web",
+          "billing_entitlement_webhook",
+          "secrets_master_key",
+          "session_token_pepper",
+          "admin_auth_configured",
+          "telegram_webhook_secret"
+        ],
+        "parallelism": {
+          "workers": 2,
+          "replicas": 1,
+          "parallelism": 2
+        },
+        "billing_provider": "stripe",
+        "viral": {
+          "ok": false,
+          "redis_live": false,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 1,
+            "parallelism": 2
+          }
+        },
+        "unconditional_go": false,
+        "note": "PUBLIC-DEMO-READY can be true while LIVE-PRODUCTION-READY / LIVE-MONEY-READY remain false. Agent-env proofs are not Production PASS.",
+        "api": "/api/product/public-readiness",
+        "guard_api": "/api/production/guard",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "product_honesty_api.build_public_readiness",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "product_honesty_api.build_public_readiness",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap424",
+      "timestamp": "2026-09-12T09:37:55.847342+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.847348+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 425,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 425,
+      "surface": "ai_analyst",
+      "symbol": "BTC",
+      "ai_analyst": {
+        "surface": "data_provenance_score",
+        "generated_at": "2026-09-12T09:37:55.847487+00:00",
+        "symbol": "BTC",
+        "score": 66.0,
+        "band": "caution",
+        "posture": "Decide with caution — some inputs soft or thin",
+        "components": {
+          "freshness": {
+            "score": 18.0,
+            "state": "unknown",
+            "freshness_ms": null
+          },
+          "venue_depth": {
+            "score": 35.0,
+            "live_venues": 100,
+            "max_component": 35
+          },
+          "source_diversity": {
+            "score": 11.0,
+            "categories": [
+              "derivatives",
+              "prices"
+            ]
+          },
+          "executable_gate": {
+            "score": 2.0,
+            "executable": false
+          }
+        },
+        "live_ingestion_ready_ids": [
+          "binance",
+          "okx",
+          "bybit",
+          "coinbase",
+          "kucoin",
+          "bitget",
+          "gateio",
+          "mexc",
+          "kraken",
+          "htx",
+          "cryptocom",
+          "bingx",
+          "lbank",
+          "xt",
+          "coinw",
+          "upbit",
+          "bithumb",
+          "bitfinex",
+          "bitstamp",
+          "whitebit"
+        ],
+        "honesty": "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. Breadth without freshness is not coverage.",
+        "api": "/api/oracle/provenance-score",
+        "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture.",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "data_provenance_score.compute_data_provenance_score",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "data_provenance_score.compute_data_provenance_score",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap425",
+      "timestamp": "2026-09-12T09:37:55.847498+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.847503+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 426,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 426,
+      "surface": "thesis_research_workspace",
+      "symbol": "BTC",
+      "thesis_research_workspace": {
+        "immutable_chain": {
+          "valid": true,
+          "total_records": 4211,
+          "chain_path": "data/oracle_audit_chain.jsonl"
+        },
+        "cumulative": {
+          "resolved_predictions": 2097,
+          "hit_rate_percent": 38.05,
+          "partial_rate_percent": 42.35,
+          "hit_definition": "correct_only",
+          "metrics_scope": "live_only",
+          "meets_target": false,
+          "note": "Live predictions only — synthetic historical_seed excluded. Hit rate counts full correct only; partial is separate."
+        },
+        "synthetic_demo_data": {
+          "resolved_predictions": 0,
+          "hit_rate_percent": 0.0,
+          "hit_definition": "correct_only",
+          "excluded_from_primary_metrics": true,
+          "note": "Due-diligence backfill — not live trading performance."
+        },
+        "recent": [
+          {
+            "seq": 4202,
+            "timestamp": "2026-09-12T04:50:15.990037+00:00",
+            "prev_hash": "bb1de0822742ae002f31e43b1e94fa2c7e33c125ce273509f751bcb55a066b85",
+            "event": "prediction_created",
+            "prediction_id": 293,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.01,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "0056ba2fb4ab39c0b9d73ec93847db21f6244bb0b0319539fe044ccd897b6709"
+          },
+          {
+            "seq": 4203,
+            "timestamp": "2026-09-12T04:50:45.511443+00:00",
+            "prev_hash": "0056ba2fb4ab39c0b9d73ec93847db21f6244bb0b0319539fe044ccd897b6709",
+            "event": "prediction_created",
+            "prediction_id": 294,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.02,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "c73213850765779e2702356e4b22cc079d7f92b68b0eca0d3db136a9f47bebf6"
+          },
+          {
+            "seq": 4204,
+            "timestamp": "2026-09-12T04:51:59.915812+00:00",
+            "prev_hash": "c73213850765779e2702356e4b22cc079d7f92b68b0eca0d3db136a9f47bebf6",
+            "event": "prediction_created",
+            "prediction_id": 295,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.01,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "c3179510ef62518f4565d8c344d2b50771f6da848b0b8c76b3ecf9c641d81a0b"
+          },
+          {
+            "seq": 4205,
+            "timestamp": "2026-09-12T04:53:46.678418+00:00",
+            "prev_hash": "c3179510ef62518f4565d8c344d2b50771f6da848b0b8c76b3ecf9c641d81a0b",
+            "event": "prediction_created",
+            "prediction_id": 296,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77247.42,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "2153065297d5d3bfd8b558d5570a86bc07f76191c9c034913e6e5ca3c4253424"
+          },
+          {
+            "seq": 4206,
+            "timestamp": "2026-09-12T04:53:55.981219+00:00",
+            "prev_hash": "2153065297d5d3bfd8b558d5570a86bc07f76191c9c034913e6e5ca3c4253424",
+            "event": "prediction_created",
+            "prediction_id": 297,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77242.53,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "3816641bab95c27fbf5b0bdbf60a1ae28802b68d8ad35492fe584fa7a58065d6"
+          },
+          {
+            "seq": 4207,
+            "timestamp": "2026-09-12T04:54:36.904274+00:00",
+            "prev_hash": "3816641bab95c27fbf5b0bdbf60a1ae28802b68d8ad35492fe584fa7a58065d6",
+            "event": "prediction_created",
+            "prediction_id": 298,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77242.54,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "9acd89abcfe181f7e9097ab8936b9d57454efa8c776ebe48473bfda7f84c80ce"
+          },
+          {
+            "seq": 4208,
+            "timestamp": "2026-09-12T09:32:44.350694+00:00",
+            "prev_hash": "9acd89abcfe181f7e9097ab8936b9d57454efa8c776ebe48473bfda7f84c80ce",
+            "event": "prediction_created",
+            "prediction_id": 299,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77381.59,
+            "opportunity_score": 84,
+            "confidence": 75,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "eebbd6eb0a754d5362412fdb6352ae5de23f67de2ead29786438f82647a60707"
+          },
+          {
+            "seq": 4209,
+            "timestamp": "2026-09-12T09:34:32.454649+00:00",
+            "prev_hash": "eebbd6eb0a754d5362412fdb6352ae5de23f67de2ead29786438f82647a60707",
+            "event": "prediction_created",
+            "prediction_id": 300,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77358.04,
+            "opportunity_score": 84,
+            "confidence": 75,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "154b49675aa4921ca227aec566995834d1a85bcb07f56c9201d2bd39120e2f97"
+          },
+          {
+            "seq": 4210,
+            "timestamp": "2026-09-12T09:35:53.872981+00:00",
+            "prev_hash": "154b49675aa4921ca227aec566995834d1a85bcb07f56c9201d2bd39120e2f97",
+            "event": "prediction_created",
+            "prediction_id": 301,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77340.0,
+            "opportunity_score": 85,
+            "confidence": 76,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "8acdcf6418667f27738621b071f530cf8b690aff8f6f1c89ecf6f1fec4120311"
+          },
+          {
+            "seq": 4211,
+            "timestamp": "2026-09-12T09:37:53.249268+00:00",
+            "prev_hash": "8acdcf6418667f27738621b071f530cf8b690aff8f6f1c89ecf6f1fec4120311",
+            "event": "prediction_created",
+            "prediction_id": 302,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77335.99,
+            "opportunity_score": 85,
+            "confidence": 76,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "f30b026384f301b6fcdf5b7bd30f705f2c8140fb754c742bf951ae7e2ee54754"
+          }
+        ],
+        "auto_accumulation": true,
+        "note": "Every live oracle prediction auto-appends to hash chain on create + resolve.",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "oracle_track_record.public_track_record",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "oracle_track_record.public_track_record",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap426",
+      "timestamp": "2026-09-12T09:37:55.928654+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:55.928676+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 427,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 427,
+      "surface": "comparable_company_protocol_analysis",
+      "symbol": "BTC",
+      "comparable_company_protocol_analysis": {
+        "success": true,
+        "result": "<blackdark.canonical.layer.CanonicalDataLayer object at 0x7f06f039f800>",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "blackdark.canonical.layer.get_canonical_layer",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "blackdark.canonical.layer.get_canonical_layer",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap427",
+      "timestamp": "2026-09-12T09:37:56.035831+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.035848+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 428,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 428,
+      "surface": "excel_sheets_integration",
+      "symbol": "BTC",
+      "excel_sheets_integration": {
+        "immutable_chain": {
+          "valid": true,
+          "total_records": 4211,
+          "chain_path": "data/oracle_audit_chain.jsonl"
+        },
+        "cumulative": {
+          "resolved_predictions": 2097,
+          "hit_rate_percent": 38.05,
+          "partial_rate_percent": 42.35,
+          "hit_definition": "correct_only",
+          "metrics_scope": "live_only",
+          "meets_target": false,
+          "note": "Live predictions only — synthetic historical_seed excluded. Hit rate counts full correct only; partial is separate."
+        },
+        "synthetic_demo_data": {
+          "resolved_predictions": 0,
+          "hit_rate_percent": 0.0,
+          "hit_definition": "correct_only",
+          "excluded_from_primary_metrics": true,
+          "note": "Due-diligence backfill — not live trading performance."
+        },
+        "recent": [
+          {
+            "seq": 4202,
+            "timestamp": "2026-09-12T04:50:15.990037+00:00",
+            "prev_hash": "bb1de0822742ae002f31e43b1e94fa2c7e33c125ce273509f751bcb55a066b85",
+            "event": "prediction_created",
+            "prediction_id": 293,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.01,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "0056ba2fb4ab39c0b9d73ec93847db21f6244bb0b0319539fe044ccd897b6709"
+          },
+          {
+            "seq": 4203,
+            "timestamp": "2026-09-12T04:50:45.511443+00:00",
+            "prev_hash": "0056ba2fb4ab39c0b9d73ec93847db21f6244bb0b0319539fe044ccd897b6709",
+            "event": "prediction_created",
+            "prediction_id": 294,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.02,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "c73213850765779e2702356e4b22cc079d7f92b68b0eca0d3db136a9f47bebf6"
+          },
+          {
+            "seq": 4204,
+            "timestamp": "2026-09-12T04:51:59.915812+00:00",
+            "prev_hash": "c73213850765779e2702356e4b22cc079d7f92b68b0eca0d3db136a9f47bebf6",
+            "event": "prediction_created",
+            "prediction_id": 295,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77256.01,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "c3179510ef62518f4565d8c344d2b50771f6da848b0b8c76b3ecf9c641d81a0b"
+          },
+          {
+            "seq": 4205,
+            "timestamp": "2026-09-12T04:53:46.678418+00:00",
+            "prev_hash": "c3179510ef62518f4565d8c344d2b50771f6da848b0b8c76b3ecf9c641d81a0b",
+            "event": "prediction_created",
+            "prediction_id": 296,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77247.42,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "2153065297d5d3bfd8b558d5570a86bc07f76191c9c034913e6e5ca3c4253424"
+          },
+          {
+            "seq": 4206,
+            "timestamp": "2026-09-12T04:53:55.981219+00:00",
+            "prev_hash": "2153065297d5d3bfd8b558d5570a86bc07f76191c9c034913e6e5ca3c4253424",
+            "event": "prediction_created",
+            "prediction_id": 297,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77242.53,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "3816641bab95c27fbf5b0bdbf60a1ae28802b68d8ad35492fe584fa7a58065d6"
+          },
+          {
+            "seq": 4207,
+            "timestamp": "2026-09-12T04:54:36.904274+00:00",
+            "prev_hash": "3816641bab95c27fbf5b0bdbf60a1ae28802b68d8ad35492fe584fa7a58065d6",
+            "event": "prediction_created",
+            "prediction_id": 298,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77242.54,
+            "opportunity_score": 86,
+            "confidence": 71,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "9acd89abcfe181f7e9097ab8936b9d57454efa8c776ebe48473bfda7f84c80ce"
+          },
+          {
+            "seq": 4208,
+            "timestamp": "2026-09-12T09:32:44.350694+00:00",
+            "prev_hash": "9acd89abcfe181f7e9097ab8936b9d57454efa8c776ebe48473bfda7f84c80ce",
+            "event": "prediction_created",
+            "prediction_id": 299,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77381.59,
+            "opportunity_score": 84,
+            "confidence": 75,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "eebbd6eb0a754d5362412fdb6352ae5de23f67de2ead29786438f82647a60707"
+          },
+          {
+            "seq": 4209,
+            "timestamp": "2026-09-12T09:34:32.454649+00:00",
+            "prev_hash": "eebbd6eb0a754d5362412fdb6352ae5de23f67de2ead29786438f82647a60707",
+            "event": "prediction_created",
+            "prediction_id": 300,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77358.04,
+            "opportunity_score": 84,
+            "confidence": 75,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "154b49675aa4921ca227aec566995834d1a85bcb07f56c9201d2bd39120e2f97"
+          },
+          {
+            "seq": 4210,
+            "timestamp": "2026-09-12T09:35:53.872981+00:00",
+            "prev_hash": "154b49675aa4921ca227aec566995834d1a85bcb07f56c9201d2bd39120e2f97",
+            "event": "prediction_created",
+            "prediction_id": 301,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77340.0,
+            "opportunity_score": 85,
+            "confidence": 76,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "8acdcf6418667f27738621b071f530cf8b690aff8f6f1c89ecf6f1fec4120311"
+          },
+          {
+            "seq": 4211,
+            "timestamp": "2026-09-12T09:37:53.249268+00:00",
+            "prev_hash": "8acdcf6418667f27738621b071f530cf8b690aff8f6f1c89ecf6f1fec4120311",
+            "event": "prediction_created",
+            "prediction_id": 302,
+            "asset": "BTC",
+            "verdict": "BULLISH_ANALYTICS",
+            "price_at_prediction": 77335.99,
+            "opportunity_score": 85,
+            "confidence": 76,
+            "source": "oracle",
+            "kind": "oracle_api",
+            "resolved": false,
+            "chain_hash": "f30b026384f301b6fcdf5b7bd30f705f2c8140fb754c742bf951ae7e2ee54754"
+          }
+        ],
+        "auto_accumulation": true,
+        "note": "Every live oracle prediction auto-appends to hash chain on create + resolve.",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "oracle_track_record.public_track_record",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "oracle_track_record.public_track_record",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap428",
+      "timestamp": "2026-09-12T09:37:56.119798+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.119822+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 429,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 429,
+      "surface": "api_data_platform",
+      "symbol": "BTC",
+      "api_data_platform": {
+        "success": true,
+        "result": "enqueued=0 dropped=0 flushed=0 flush_errors=0 buffer_depth=0 last_flush_at=None active_backends=[]",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "hot_storage.get_hot_storage_stats",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "gap_matrix_component"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "hot_storage.get_hot_storage_stats",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "gap_matrix_component"
+      },
+      "data_source": "cap646.batch09_dedicated#cap429",
+      "timestamp": "2026-09-12T09:37:56.119990+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.119998+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 430,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 430,
+      "surface": "research_templates",
+      "symbol": "BTC",
+      "research_templates": {
+        "success": true,
+        "result": "<blackdark.canonical.layer.CanonicalDataLayer object at 0x7f06f039f800>",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "blackdark.canonical.layer.get_canonical_layer",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "blackdark.canonical.layer.get_canonical_layer",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap430",
+      "timestamp": "2026-09-12T09:37:56.120116+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.120122+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 431,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 431,
+      "surface": "dashboards",
+      "symbol": "BTC",
+      "dashboards": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:56.139421+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.139440+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 432,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 432,
+      "surface": "stablecoin_payment_intelligence",
+      "symbol": "BTC",
+      "stablecoin_payment_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:56.155297+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.155320+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 433,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 433,
+      "surface": "on_chain_usage_intelligence",
+      "symbol": "BTC",
+      "on_chain_usage_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:56.176931+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.176950+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 434,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 434,
+      "surface": "revenue_fees_economic_activity",
+      "symbol": "BTC",
+      "revenue_fees_economic_activity": {
+        "gas_usd": 0.0265,
+        "source": "live_oracle",
+        "success": true,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "cap646.fallbacks.resolve_gas_usd",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "live_oracle",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "cap646.fallbacks.resolve_gas_usd",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:37:56.878366+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.878384+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 435,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 435,
+      "surface": "cross_market_research_copilot",
+      "symbol": "BTC",
+      "cross_market_research_copilot": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:37:56.901208+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:37:56.901227+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 436,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 436,
+      "surface": "investment_thesis_scoring",
+      "symbol": "BTC",
+      "investment_thesis_scoring": {
+        "product": "BLACKDARK Trust OS",
+        "surface": "trust_pulse",
+        "event": "pulse",
+        "symbol": "BTC",
+        "action": "ACT",
+        "verdict": "BULLISH_ANALYTICS",
+        "sentence": "Clear opportunity on BTC: score 85/100. Estimated net after costs ~$0.00.",
+        "why": {
+          "grasp_line": "Top reasons — under five seconds",
+          "factors": [
+            {
+              "factor": "Opportunity score 85",
+              "detail": "Composite Trust OS score from live market context",
+              "source": "oracle"
+            },
+            {
+              "factor": "24h move +0.51%",
+              "detail": "Short-horizon price change on the watched pair",
+              "source": "live market"
+            },
+            {
+              "factor": "Regime unknown",
+              "detail": "Regime label from unified context",
+              "source": "context"
+            }
+          ]
+        },
+        "score": 85,
+        "price": 77335.99,
+        "change_24h": 0.507,
+        "freshness": {
+          "status": "live",
+          "label": "Updated 5s ago",
+          "age_seconds": 5.1,
+          "stale": false,
+          "heartbeat_sec": 20.0
+        },
+        "proof": {
+          "label": "Verified on Ledger",
+          "prediction_id": 303,
+          "certificate_hash": "992f590e0f188d0040350eba1b8b3f2d72fcabcc1362be15284f6dc12194b63f",
+          "chain_hash": null,
+          "verify_url": "https://blackdark.app/oracle-accuracy#audit-challenge",
+          "permalink": "https://blackdark.app/oracle-accuracy?cert=992f590e0f188d00&pid=303",
+          "share_text": "BLACKDARK Decision Certificate · BTC · ACT · score 85 · id=303 · hash=992f590e0f188d00… · verify /oracle-accuracy · Free Proof",
+          "share_urls": {
+            "x": "https://twitter.com/intent/tweet?text=BLACKDARK%20Decision%20Certificate%20%C2%B7%20BTC%20%C2%B7%20ACT%20%C2%B7%20verify%20https%3A//blackdark.app/oracle-accuracy%23audit-challenge%20%C2%B7%20Free%20Proof",
+            "telegram": "https://t.me/share/url?url=https%3A//blackdark.app/oracle-accuracy%23audit-challenge&text=BLACKDARK%20Decision%20Certificate%20%C2%B7%20BTC%20%C2%B7%20ACT%20%C2%B7%20verify%20https%3A//blackdark.app/oracle-accuracy%23audit-challenge%20%C2%B7%20Free%20Proof",
+            "whatsapp": "https://wa.me/?text=BLACKDARK%20Decision%20Certificate%20%C2%B7%20BTC%20%C2%B7%20ACT%20%C2%B7%20verify%20https%3A//blackdark.app/oracle-accuracy%23audit-challenge%20%C2%B7%20Free%20Proof"
+          },
+          "watermark": "Free Proof"
+        },
+        "ledger": {
+          "label": "Verified on Ledger",
+          "href": "/oracle-accuracy",
+          "recent_hit_rate_percent": 0.0,
+          "misses_in_window": 0,
+          "resolved_in_window": 0,
+          "total_records": 4212,
+          "honesty_line": "Public Accuracy Ledger — hits and misses published",
+          "target_band": "65-70%"
+        },
+        "flip": null,
+        "continuity": {
+          "locked": true,
+          "upgrade_hint": "Decision Pro unlocks “since your last visit”."
+        },
+        "half_life_seconds": null,
+        "veto": false,
+        "veto_reason": null,
+        "tier": "free",
+        "cta": {
+          "primary": {
+            "label": "Open full proof",
+            "href": "/dashboard?lens=prove#decide"
+          },
+          "verify": {
+            "label": "Verify Ledger",
+            "href": "/oracle-accuracy"
+          }
+        },
+        "compliance": {
+          "surface": "trust_pulse",
+          "data_source": "live market + institutional context + labeled flywheel",
+          "trust_basis": "public_accuracy_ledger + decision_certificate",
+          "disclaimer": "Not financial advice. AI cannot guarantee future returns. Verify claims on the Public Accuracy Ledger. No secret alpha promises.",
+          "regulator_note": "Built for auditability against AI-washing enforcement patterns (prove-it, not trust-me)."
+        },
+        "from_cache": false,
+        "updated_at": "2026-09-12T09:38:02.674156+00:00",
+        "cache_ttl_sec": 45.0,
+        "zero_tolerance": {
+          "surface": "zero_tolerance_attach",
+          "violations": [],
+          "pass": true,
+          "checks": {
+            "stale_live": {
+              "defect": "stale_data",
+              "live_label_allowed": true,
+              "violated": false,
+              "freshness_state": "live",
+              "remedy": "Show source + timestamp + freshness; downgrade LIVE → Stale/Unknown."
+            },
+            "black_box_score": {
+              "defect": "black_box_scores",
+              "violated": false,
+              "has_why": true,
+              "has_invalidation": false,
+              "remedy": "Attach Why + what would drop the score before rendering."
+            },
+            "fake_precision": {
+              "defect": "fake_precision",
+              "violated": false,
+              "remedy": "Use scenarios + confidence + invalidation — never exact price×time as fact."
+            },
+            "hallucination_posture": {
+              "defect": "ai_hallucinations",
+              "violated": false,
+              "posture": "OK",
+              "remedy": "If source missing → do not invent; return WAIT/unknown."
+            }
+          },
+          "doctrine": "Prefer WAIT/unknown over invented confidence.",
+          "api": "/api/public/zero-tolerance-closure"
+        },
+        "live_claim_allowed": true,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "trust_pulse.build_trust_pulse",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "trust_pulse.build_trust_pulse",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap436",
+      "timestamp": "2026-09-12T09:38:02.674622+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.674637+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 437,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 437,
+      "surface": "defi_risk_radar",
+      "symbol": "BTC",
+      "defi_risk_radar": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:38:02.693159+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.693180+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 438,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 438,
+      "surface": "lending_market_risk",
+      "symbol": "BTC",
+      "lending_market_risk": {
+        "trading_frozen": false,
+        "freeze_reason": "",
+        "freeze_until_ts": null,
+        "drift_freeze_active": false,
+        "max_slippage_bps": 80.0,
+        "poison_threshold_pct": 15.0,
+        "stop_loss_pct": 2.0,
+        "active_stop_losses": 0,
+        "recent_poison_events": [],
+        "config_slippage_buffer_bps": 5.0,
+        "honest_scope": {
+          "shipped": [
+            "slippage gate",
+            "poison / freeze kill-switch",
+            "stop-loss hooks",
+            "drawdown freeze (when enabled)"
+          ],
+          "not_shipped": [
+            "institutional VaR 99% desk",
+            "Expected Shortfall / CVaR engine",
+            "formal position-limit ledger"
+          ],
+          "note": "Risk Intelligence here is execution safety — not a full buy-side risk platform."
+        },
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "risk_manager.risk_status",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "risk_manager.risk_status",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap438",
+      "timestamp": "2026-09-12T09:38:02.693976+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.693989+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 439,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 439,
+      "surface": "collateral_risk",
+      "symbol": "BTC",
+      "collateral_risk": {
+        "trading_frozen": false,
+        "freeze_reason": "",
+        "freeze_until_ts": null,
+        "drift_freeze_active": false,
+        "max_slippage_bps": 80.0,
+        "poison_threshold_pct": 15.0,
+        "stop_loss_pct": 2.0,
+        "active_stop_losses": 0,
+        "recent_poison_events": [],
+        "config_slippage_buffer_bps": 5.0,
+        "honest_scope": {
+          "shipped": [
+            "slippage gate",
+            "poison / freeze kill-switch",
+            "stop-loss hooks",
+            "drawdown freeze (when enabled)"
+          ],
+          "not_shipped": [
+            "institutional VaR 99% desk",
+            "Expected Shortfall / CVaR engine",
+            "formal position-limit ledger"
+          ],
+          "note": "Risk Intelligence here is execution safety — not a full buy-side risk platform."
+        },
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "risk_manager.risk_status",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "risk_manager.risk_status",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap439",
+      "timestamp": "2026-09-12T09:38:02.694142+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.694148+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 440,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 440,
+      "surface": "liquidation_risk",
+      "symbol": "BTC",
+      "liquidation_risk": {
+        "asset": "BTC",
+        "timestamp": "2026-09-12T09:38:02.944377+00:00",
+        "alerts": [],
+        "metrics": null,
+        "data_source": "binance_futures_public",
+        "coinglass_supplement": false,
+        "front_run_note": "Radar only — execution requires AUTO_EXECUTION + risk approval",
+        "reference": "Insilico Terminal",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.liquidation_radar.liquidation_radar",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "binance_futures_public",
+      "timestamp": "2026-09-12T09:38:02.944377+00:00",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.liquidation_radar.liquidation_radar",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.944402+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 441,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 441,
+      "surface": "oracle_risk",
+      "symbol": "BTC",
+      "oracle_risk": {
+        "product": "BLACKDARK Trust OS",
+        "surface": "trust_pulse",
+        "event": "pulse",
+        "symbol": "BTC",
+        "action": "ACT",
+        "verdict": "BULLISH_ANALYTICS",
+        "sentence": "Clear opportunity on BTC: score 85/100. Estimated net after costs ~$0.00.",
+        "why": {
+          "grasp_line": "Top reasons — under five seconds",
+          "factors": [
+            {
+              "factor": "Opportunity score 85",
+              "detail": "Composite Trust OS score from live market context",
+              "source": "oracle"
+            },
+            {
+              "factor": "24h move +0.51%",
+              "detail": "Short-horizon price change on the watched pair",
+              "source": "live market"
+            },
+            {
+              "factor": "Regime unknown",
+              "detail": "Regime label from unified context",
+              "source": "context"
+            }
+          ]
+        },
+        "score": 85,
+        "price": 77335.99,
+        "change_24h": 0.507,
+        "freshness": {
+          "status": "live",
+          "label": "Updated 0s ago",
+          "age_seconds": 0.3,
+          "stale": false,
+          "heartbeat_sec": 20.0
+        },
+        "proof": {
+          "label": "Verified on Ledger",
+          "prediction_id": 303,
+          "certificate_hash": "992f590e0f188d0040350eba1b8b3f2d72fcabcc1362be15284f6dc12194b63f",
+          "chain_hash": null,
+          "verify_url": "https://blackdark.app/oracle-accuracy#audit-challenge",
+          "permalink": "https://blackdark.app/oracle-accuracy?cert=992f590e0f188d00&pid=303",
+          "share_text": "BLACKDARK Decision Certificate · BTC · ACT · score 85 · id=303 · hash=992f590e0f188d00… · verify /oracle-accuracy · Free Proof",
+          "share_urls": {
+            "x": "https://twitter.com/intent/tweet?text=BLACKDARK%20Decision%20Certificate%20%C2%B7%20BTC%20%C2%B7%20ACT%20%C2%B7%20verify%20https%3A//blackdark.app/oracle-accuracy%23audit-challenge%20%C2%B7%20Free%20Proof",
+            "telegram": "https://t.me/share/url?url=https%3A//blackdark.app/oracle-accuracy%23audit-challenge&text=BLACKDARK%20Decision%20Certificate%20%C2%B7%20BTC%20%C2%B7%20ACT%20%C2%B7%20verify%20https%3A//blackdark.app/oracle-accuracy%23audit-challenge%20%C2%B7%20Free%20Proof",
+            "whatsapp": "https://wa.me/?text=BLACKDARK%20Decision%20Certificate%20%C2%B7%20BTC%20%C2%B7%20ACT%20%C2%B7%20verify%20https%3A//blackdark.app/oracle-accuracy%23audit-challenge%20%C2%B7%20Free%20Proof"
+          },
+          "watermark": "Free Proof"
+        },
+        "ledger": {
+          "label": "Verified on Ledger",
+          "href": "/oracle-accuracy",
+          "recent_hit_rate_percent": 0.0,
+          "misses_in_window": 0,
+          "resolved_in_window": 0,
+          "total_records": 4212,
+          "honesty_line": "Public Accuracy Ledger — hits and misses published",
+          "target_band": "65-70%"
+        },
+        "flip": null,
+        "continuity": {
+          "locked": true,
+          "upgrade_hint": "Decision Pro unlocks “since your last visit” continuity.",
+          "summary": null,
+          "flipped": false
+        },
+        "half_life_seconds": null,
+        "veto": false,
+        "veto_reason": null,
+        "tier": "free",
+        "cta": {
+          "primary": {
+            "label": "Open full proof",
+            "href": "/dashboard?lens=prove#decide"
+          },
+          "verify": {
+            "label": "Verify Ledger",
+            "href": "/oracle-accuracy"
+          }
+        },
+        "compliance": {
+          "surface": "trust_pulse",
+          "data_source": "live market + institutional context + labeled flywheel",
+          "trust_basis": "public_accuracy_ledger + decision_certificate",
+          "disclaimer": "Not financial advice. AI cannot guarantee future returns. Verify claims on the Public Accuracy Ledger. No secret alpha promises.",
+          "regulator_note": "Built for auditability against AI-washing enforcement patterns (prove-it, not trust-me)."
+        },
+        "from_cache": true,
+        "updated_at": "2026-09-12T09:38:02.978398+00:00",
+        "cache_ttl_sec": 45.0,
+        "zero_tolerance": {
+          "surface": "zero_tolerance_attach",
+          "violations": [],
+          "pass": true,
+          "checks": {
+            "stale_live": {
+              "defect": "stale_data",
+              "live_label_allowed": true,
+              "violated": false,
+              "freshness_state": "live",
+              "remedy": "Show source + timestamp + freshness; downgrade LIVE → Stale/Unknown."
+            },
+            "black_box_score": {
+              "defect": "black_box_scores",
+              "violated": false,
+              "has_why": true,
+              "has_invalidation": false,
+              "remedy": "Attach Why + what would drop the score before rendering."
+            },
+            "fake_precision": {
+              "defect": "fake_precision",
+              "violated": false,
+              "remedy": "Use scenarios + confidence + invalidation — never exact price×time as fact."
+            },
+            "hallucination_posture": {
+              "defect": "ai_hallucinations",
+              "violated": false,
+              "posture": "OK",
+              "remedy": "If source missing → do not invent; return WAIT/unknown."
+            }
+          },
+          "doctrine": "Prefer WAIT/unknown over invented confidence.",
+          "api": "/api/public/zero-tolerance-closure"
+        },
+        "live_claim_allowed": true,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "trust_pulse.build_trust_pulse",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "trust_pulse.build_trust_pulse",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap441",
+      "timestamp": "2026-09-12T09:38:02.978447+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.978463+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 442,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 442,
+      "surface": "liquidity_risk",
+      "symbol": "BTC",
+      "liquidity_risk": {
+        "trading_frozen": false,
+        "freeze_reason": "",
+        "freeze_until_ts": null,
+        "drift_freeze_active": false,
+        "max_slippage_bps": 80.0,
+        "poison_threshold_pct": 15.0,
+        "stop_loss_pct": 2.0,
+        "active_stop_losses": 0,
+        "recent_poison_events": [],
+        "config_slippage_buffer_bps": 5.0,
+        "honest_scope": {
+          "shipped": [
+            "slippage gate",
+            "poison / freeze kill-switch",
+            "stop-loss hooks",
+            "drawdown freeze (when enabled)"
+          ],
+          "not_shipped": [
+            "institutional VaR 99% desk",
+            "Expected Shortfall / CVaR engine",
+            "formal position-limit ledger"
+          ],
+          "note": "Risk Intelligence here is execution safety — not a full buy-side risk platform."
+        },
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "risk_manager.risk_status",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "risk_manager.risk_status",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap442",
+      "timestamp": "2026-09-12T09:38:02.978930+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.978939+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 443,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 443,
+      "surface": "protocol_exploit_intelligence",
+      "symbol": "BTC",
+      "protocol_exploit_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "timestamp": "2026-09-12T09:38:02.996736+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:02.996756+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 444,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 444,
+      "surface": "stablecoin_risk_intelligence",
+      "symbol": "BTC",
+      "stablecoin_risk_intelligence": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:38:03.013603+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:03.013623+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 445,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 445,
+      "surface": "defi_strategy_risk",
+      "symbol": "BTC",
+      "defi_strategy_risk": {
+        "source": "defillama",
+        "raises": [],
+        "count": 0,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.onchain_hub.defillama_raises",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "data_source": "defillama",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.onchain_hub.defillama_raises",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "timestamp": "2026-09-12T09:38:03.031046+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:03.031066+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 446,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 446,
+      "surface": "real_time_risk_alerts",
+      "symbol": "BTC",
+      "real_time_risk_alerts": {
+        "enabled": true,
+        "running": false,
+        "interval_sec": 2.0,
+        "cooldown_sec": 45.0,
+        "last_fingerprint": null,
+        "last_alert_age_sec": null,
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "instant_alert_engine.engine_stats",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "instant_alert_engine.engine_stats",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap446",
+      "timestamp": "2026-09-12T09:38:03.031412+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:03.031421+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 447,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 447,
+      "surface": "dao_treasury_risk",
+      "symbol": "BTC",
+      "dao_treasury_risk": {
+        "trading_frozen": false,
+        "freeze_reason": "",
+        "freeze_until_ts": null,
+        "drift_freeze_active": false,
+        "max_slippage_bps": 80.0,
+        "poison_threshold_pct": 15.0,
+        "stop_loss_pct": 2.0,
+        "active_stop_losses": 0,
+        "recent_poison_events": [],
+        "config_slippage_buffer_bps": 5.0,
+        "honest_scope": {
+          "shipped": [
+            "slippage gate",
+            "poison / freeze kill-switch",
+            "stop-loss hooks",
+            "drawdown freeze (when enabled)"
+          ],
+          "not_shipped": [
+            "institutional VaR 99% desk",
+            "Expected Shortfall / CVaR engine",
+            "formal position-limit ledger"
+          ],
+          "note": "Risk Intelligence here is execution safety — not a full buy-side risk platform."
+        },
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "risk_manager.risk_status",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "risk_manager.risk_status",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap447",
+      "timestamp": "2026-09-12T09:38:03.031559+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:03.031565+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 448,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 448,
+      "surface": "institutional_risk_api",
+      "symbol": "BTC",
+      "institutional_risk_api": {
+        "trading_frozen": false,
+        "freeze_reason": "",
+        "freeze_until_ts": null,
+        "drift_freeze_active": false,
+        "max_slippage_bps": 80.0,
+        "poison_threshold_pct": 15.0,
+        "stop_loss_pct": 2.0,
+        "active_stop_losses": 0,
+        "recent_poison_events": [],
+        "config_slippage_buffer_bps": 5.0,
+        "honest_scope": {
+          "shipped": [
+            "slippage gate",
+            "poison / freeze kill-switch",
+            "stop-loss hooks",
+            "drawdown freeze (when enabled)"
+          ],
+          "not_shipped": [
+            "institutional VaR 99% desk",
+            "Expected Shortfall / CVaR engine",
+            "formal position-limit ledger"
+          ],
+          "note": "Risk Intelligence here is execution safety — not a full buy-side risk platform."
+        },
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "risk_manager.risk_status",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "risk_manager.risk_status",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap448",
+      "timestamp": "2026-09-12T09:38:03.031680+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:03.031684+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 449,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 449,
+      "surface": "curated_on_chain_dashboards",
+      "symbol": "BTC",
+      "curated_on_chain_dashboards": {
+        "surface": "public_readiness",
+        "generated_at": "2026-09-12T09:38:03.031889+00:00",
+        "tracks": {
+          "PUBLIC_DEMO_READY": true,
+          "LIVE_PRODUCTION_READY": false,
+          "LIVE_MONEY_READY": false
+        },
+        "gates": {
+          "production_guard_required_pass": false,
+          "redis_live": false,
+          "viral_multi_instance": true,
+          "billing_checkout": true,
+          "admin_mfa_configured": true
+        },
+        "required_failures": [
+          "postgres_database",
+          "at_rest_encryption_posture",
+          "service_mode_web",
+          "billing_entitlement_webhook",
+          "secrets_master_key",
+          "session_token_pepper",
+          "admin_auth_configured",
+          "telegram_webhook_secret"
+        ],
+        "parallelism": {
+          "workers": 2,
+          "replicas": 1,
+          "parallelism": 2
+        },
+        "billing_provider": "stripe",
+        "viral": {
+          "ok": false,
+          "redis_live": false,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 1,
+            "parallelism": 2
+          }
+        },
+        "unconditional_go": false,
+        "note": "PUBLIC-DEMO-READY can be true while LIVE-PRODUCTION-READY / LIVE-MONEY-READY remain false. Agent-env proofs are not Production PASS.",
+        "api": "/api/product/public-readiness",
+        "guard_api": "/api/production/guard",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "product_honesty_api.build_public_readiness",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "track_default"
+        }
+      },
+      "success": true,
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "product_honesty_api.build_public_readiness",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "track_default"
+      },
+      "data_source": "cap646.batch09_dedicated#cap449",
+      "timestamp": "2026-09-12T09:38:03.031896+00:00",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:03.031901+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  },
+  {
+    "id": 450,
+    "free_tier_available": false,
+    "free_error": "not_in_FREE_TIER_CAP_IDS",
+    "batch09_dedicated_available": true,
+    "dedicated_result": {
+      "capability_id": 450,
+      "surface": "narrative_driven_research",
+      "symbol": "BTC",
+      "narrative_driven_research": {
+        "timestamp": "2026-09-12T09:38:03.037744+00:00",
+        "headline": "No major whale narratives in the current window — market in equilibrium.",
+        "one_sentence": "No major whale narratives in the current window — market in equilibrium.",
+        "stories": [
+          "No major whale narratives in the current window — market in equilibrium."
+        ],
+        "alert_count": 0,
+        "flow_count": 0,
+        "classified": [],
+        "classifier": "signal_vs_noise_v1",
+        "derivatives_wired": false,
+        "note": "Transfers ≠ trades. Funding/OI hedge check applied when available.",
+        "hero": "whale_intelligence_radar",
+        "acceptance": "one_plain_sentence_signal_vs_noise",
+        "methodology": {
+          "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+          "implementation": "bd_platform.whale_story.whale_narrative",
+          "methodology_status": "DOCUMENTED",
+          "binding_source_resolved": "capability_keyword"
+        }
+      },
+      "success": true,
+      "timestamp": "2026-09-12T09:38:03.037744+00:00",
+      "methodology": {
+        "framework": "Path A — explicit backend_registry binding (v6 §2.1)",
+        "implementation": "bd_platform.whale_story.whale_narrative",
+        "methodology_status": "DOCUMENTED",
+        "binding_source_resolved": "capability_keyword"
+      },
+      "data_source": "cap646.batch09_dedicated#cap450",
+      "evidence_class": "SHADOW_LIVE_FORWARD",
+      "evidence_metadata": {
+        "class": "SHADOW_LIVE_FORWARD",
+        "source": null,
+        "attached_at": "2026-09-12T09:38:03.037771+00:00",
+        "promotion_policy": "replay_and_simulation_never_become_production_metrics"
+      },
+      "compliance_footer": {
+        "evidence_class": "SHADOW_LIVE_FORWARD",
+        "provenance_score": null,
+        "provenance_band": null,
+        "freshness_state": null,
+        "sources": null,
+        "confidence": null,
+        "unknown_is_not_zero": true,
+        "stale_rejected": false,
+        "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
+      }
+    },
+    "result_type": "DEDICATED_ONLY",
+    "verdict": "No free_tier path — dedicated batch09 only (SPLIT-BRAIN N/A)"
+  }
+]

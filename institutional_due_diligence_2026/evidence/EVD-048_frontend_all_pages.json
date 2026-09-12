@@ -1,0 +1,432 @@
+{
+  "evidence_id": "EVD-048",
+  "total": 85,
+  "render_ok": 69,
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/address-intelligence",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/admin/launch",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "path": "/admin/plan",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "path": "/admin/roadmap",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "path": "/alert-passport",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/allocator-receipt",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/anti-hype",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/app",
+      "status": 302,
+      "ok": true
+    },
+    {
+      "path": "/b2b",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/b2b/committee-one-pager",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/cancel",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/cap646",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/capabilities",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/changelog",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/complaints",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/compliance",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/contradiction-replay",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/cookies",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/corpus-passport",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/coverage-honesty",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/create-checkout-session",
+      "status": 502,
+      "ok": false
+    },
+    {
+      "path": "/d5-honesty",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/dashboard",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/data-room",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/desk-duel",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/discipline-mirror",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/disclaimer",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/docs",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/docs/public",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/emotion-tax",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/errors",
+      "status": 307,
+      "ok": true
+    },
+    {
+      "path": "/faq",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/favicon.ico",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/feedback",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/health/live",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/health/ready",
+      "status": 503,
+      "ok": false
+    },
+    {
+      "path": "/health/viral",
+      "status": 503,
+      "ok": false
+    },
+    {
+      "path": "/how-it-works",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/il-simulator",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/institutional",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/intelligence-ledger",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/kill-rate",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/landing",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/legal",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/login",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/manifest.json",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/market-intelligence",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/miss-feed",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/model-card",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/msa",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/my/discipline-mirror",
+      "status": 307,
+      "ok": true
+    },
+    {
+      "path": "/openapi.json",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/oracle-accuracy",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/oracle/accuracy",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/plan",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "path": "/platform",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/priority-chain",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/profile",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/proof-arena",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/public/accuracy-ledger",
+      "status": 307,
+      "ok": true
+    },
+    {
+      "path": "/refund",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/register",
+      "status": 307,
+      "ok": true
+    },
+    {
+      "path": "/reset-password",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/silence-index",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/since-you-left",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/sla",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/status",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/success",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/sw.js",
+      "status": 200,
+      "ok": false
+    },
+    {
+      "path": "/system/info",
+      "status": 403,
+      "ok": false
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/transfer-intent",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/trust-debt",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/unique-ten",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/validity-decay",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/verify-email",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/visibility-cost",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "path": "/zero-tolerance",
+      "status": 200,
+      "ok": true
+    }
+  ]
+}

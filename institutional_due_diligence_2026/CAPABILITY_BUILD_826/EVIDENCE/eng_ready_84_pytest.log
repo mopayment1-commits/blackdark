@@ -1,0 +1,63 @@
+........................................................................ [  3%]
+........................................................................ [  7%]
+........................................................................ [ 11%]
+........................................................................ [ 14%]
+........................................................................ [ 18%]
+........................................................................ [ 22%]
+........................................................................ [ 25%]
+........................................................................ [ 29%]
+........................................................................ [ 33%]
+........................................................................ [ 36%]
+........................................................................ [ 40%]
+........................................................................ [ 44%]
+........................................................................ [ 47%]
+........................................................................ [ 51%]
+........................................................................ [ 55%]
+........................................................................ [ 58%]
+........................................................................ [ 62%]
+........................................................................ [ 66%]
+........................................................................ [ 69%]
+........................................................................ [ 73%]
+........................................................................ [ 77%]
+........................................................................ [ 80%]
+........................................................................ [ 84%]
+........................................................................ [ 88%]
+........................................................................ [ 92%]
+........................................................................ [ 95%]
+........................................................................ [ 99%]
+............                                                             [100%]
+=============================== warnings summary ===============================
+tests/cap646/test_capability_build_batch07.py: 5 warnings
+tests/cap646/test_capability_build_batch10.py: 10 warnings
+tests/cap646/test_capability_build_batch11.py: 20 warnings
+tests/cap646/test_capability_build_batch12.py: 5 warnings
+tests/cap646/test_capability_build_batch20.py: 5 warnings
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape
+
+tests/cap646/test_capability_build_batch07.py::test_build_batch07_runtime_success[163]
+tests/cap646/test_capability_build_batch10.py::test_build_batch10_runtime_success[226]
+tests/cap646/test_capability_build_batch10.py::test_build_batch10_bcbs_provenance_fields[226]
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_runtime_success[251]
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_runtime_success[275]
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_bcbs_provenance_fields[251]
+tests/cap646/test_capability_build_batch11.py::test_build_batch11_bcbs_provenance_fields[275]
+tests/cap646/test_capability_build_batch12.py::test_build_batch12_runtime_success[299]
+tests/cap646/test_capability_build_batch20.py::test_build_batch20_runtime_success[481]
+  /workspace/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py:204: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape[::-1]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Traceback (most recent call last):
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 107, in run
+    future.get_loop().call_soon_threadsafe(set_result, future, result)
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 840, in call_soon_threadsafe
+    self._check_closed()
+Traceback (most recent call last):
+  File "/workspace/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 107, in run
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 840, in call_soon_threadsafe
+    self._check_closed()
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 541, in _check_closed
+    raise RuntimeError('Event loop is closed')

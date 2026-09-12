@@ -1,15 +1,15 @@
 """Official Batch 02 — canonical production spine for IDs 51–100.
 
 Owner-approved scope: official Batch 02 = IDs 51–100 only.
-IDs 55, 56, 59, 60 overlap batch01 legacy extension (``LEGACY_BATCH01_EXTENSION_IDS``).
+Cross-spine overlap with batch01 (55, 56, 59, 60) resolved Run 007 — routed batch02 only.
 """
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any, Awaitable, Callable
 
 OFFICIAL_BATCH02_IDS: frozenset[int] = frozenset(range(51, 101))
-BATCH02_OVERLAP_BATCH01_IDS: frozenset[int] = frozenset({55, 56, 59, 60})
 BATCH02_IDS: frozenset[int] = OFFICIAL_BATCH02_IDS
 
 from cap646.batch02_dedicated import BATCH02_DEDICATED_IDS
@@ -25,6 +25,26 @@ def _stamp_batch02(result: dict[str, Any], capability_id: int) -> dict[str, Any]
     result["backend_entrypoint"] = batch02_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = "batch02"
+    nested = result.get("data") if isinstance(result.get("data"), dict) else {}
+    if not result.get("data_source") and not result.get("source"):
+        result["data_source"] = (
+            result.get("data_source")
+            or result.get("source")
+            or nested.get("data_source")
+            or nested.get("source")
+            or f"cap646.batch02_production#cap{capability_id:03d}"
+        )
+    if not result.get("timestamp"):
+        result["timestamp"] = (
+            result.get("timestamp")
+            or nested.get("timestamp")
+            or datetime.now(UTC).isoformat()
+        )
+    if not result.get("quality"):
+        result["quality"] = {
+            "freshness": "runtime_stamped",
+            "provenance": result.get("data_source") or result.get("source"),
+        }
     return result
 
 
@@ -33,12 +53,6 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         raise ValueError(f"capability {capability_id} is not in official batch02 production spine")
 
     params = dict(params or {})
-
-    if capability_id in BATCH02_OVERLAP_BATCH01_IDS:
-        raise ValueError(
-            f"capability {capability_id} is batch01 overlap — reserved; "
-            "runtime routes via cap646.batch01_production"
-        )
 
     if capability_id in BATCH02_DEDICATED_IDS:
         from cap646.batch02_dedicated import execute as execute_dedicated

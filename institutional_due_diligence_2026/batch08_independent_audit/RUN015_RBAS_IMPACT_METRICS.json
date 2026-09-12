@@ -1,0 +1,28 @@
+{
+  "tier1": {
+    "ids": 44,
+    "phase_checks": 396,
+    "duration_ms": 7055
+  },
+  "tier2": {
+    "ids": 5,
+    "phase_checks": 15,
+    "duration_ms": 248
+  },
+  "tier1_count": 44,
+  "tier1_phase_checks": 396,
+  "tier1_duration_ms": 7055,
+  "tier2_count": 5,
+  "tier2_phase_checks": 15,
+  "tier2_duration_ms": 248,
+  "escalated_count": 1,
+  "escalated_phase_checks": 12,
+  "escalated_duration_ms": 523,
+  "total_phase_checks": 423,
+  "total_duration_ms": 7826,
+  "full_nine_phase_baseline_checks": 450,
+  "checks_saved_vs_full_baseline": 27,
+  "tier2_efficiency_ratio": 0.94,
+  "conceptually_unsound_count": 0,
+  "calibration_note": "Escalation excludes compliance_footer provenance_score paths (Run 025 calibration). Tier2 abbreviated path did not yield CONCEPTUALLY-UNSOUND misses."
+}

@@ -1,0 +1,26 @@
+{
+  "evidence_id": "EVD-051",
+  "workflows": [
+    {
+      "file": "cap978-institutional-gate.yml",
+      "size": 2622,
+      "has_pytest": true
+    },
+    {
+      "file": "security.yml",
+      "size": 1897,
+      "has_pytest": true
+    },
+    {
+      "file": "sonarcloud.yml",
+      "size": 7148,
+      "has_pytest": true
+    },
+    {
+      "file": "ci.yml",
+      "size": 8554,
+      "has_pytest": true
+    }
+  ],
+  "count": 4
+}

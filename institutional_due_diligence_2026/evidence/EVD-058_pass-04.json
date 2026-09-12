@@ -1,0 +1,8 @@
+{
+  "pass_id": "PASS-04",
+  "title": "Data Integrity Red Team",
+  "scope": "Challenge lineage/freshness",
+  "evidence_id": "EVD-058",
+  "discrepancies": [],
+  "status": "COMPLETED"
+}

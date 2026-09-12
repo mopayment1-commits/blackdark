@@ -1,0 +1,70 @@
+{
+  "users": {
+    "f10_user": {
+      "events": [
+        {
+          "kind": "unverified_ai",
+          "weight": 4.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.596948+00:00"
+        },
+        {
+          "kind": "ledger_decision",
+          "weight": 3.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.597183+00:00"
+        }
+      ],
+      "ledger_points": 3.0,
+      "unverified_points": 4.0
+    },
+    "closure": {
+      "events": [
+        {
+          "kind": "unverified_ai",
+          "weight": 5.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.619408+00:00"
+        },
+        {
+          "kind": "unverified_ai",
+          "weight": 3.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.619706+00:00"
+        },
+        {
+          "kind": "ledger_decision",
+          "weight": 2.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.620182+00:00"
+        }
+      ],
+      "ledger_points": 2.0,
+      "unverified_points": 8.0
+    },
+    "http_test": {
+      "events": [
+        {
+          "kind": "unverified_ai",
+          "weight": 5.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.774316+00:00"
+        },
+        {
+          "kind": "unverified_ai",
+          "weight": 3.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.774682+00:00"
+        },
+        {
+          "kind": "ledger_decision",
+          "weight": 2.0,
+          "note": "",
+          "at": "2026-09-11T00:50:09.774946+00:00"
+        }
+      ],
+      "ledger_points": 2.0,
+      "unverified_points": 8.0
+    }
+  }
+}

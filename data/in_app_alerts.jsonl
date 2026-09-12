@@ -1,0 +1,3 @@
+{"id":"ina_eff729cb1bf7","title":"Test signal","body":"BTC ACT","level":"signal","payload":{"asset":"BTC"},"user_email":null,"read":false,"created_at":"2026-09-11T00:50:49.490976+00:00","ts":1789087849.4909852}
+{"id":"ina_ce1dd7d807e4","title":"Oracle","body":"Do Not Touch ETH","level":"signal","payload":{"asset":"ETH"},"user_email":null,"read":false,"created_at":"2026-09-11T00:50:49.492251+00:00","ts":1789087849.4922597}
+{"id":"ina_8e0d54c733b8","title":"Oracle","body":"Do Not Touch ETH","level":"signal","payload":{"asset":"ETH"},"user_email":"audit@blackdark.local","read":false,"created_at":"2026-09-11T00:50:49.778180+00:00","ts":1789087849.778188}

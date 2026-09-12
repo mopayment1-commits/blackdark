@@ -62,7 +62,9 @@ def matrix_by_id() -> dict[int, dict[str, Any]]:
 
 
 def canonical_id(capability_id: int) -> int:
-    row = catalog_by_id()[capability_id]
+    row = catalog_by_id().get(capability_id)
+    if not row:
+        return capability_id
     canon = REPEAT_CANONICAL.get(row["capability"])
     return canon if canon and canon != capability_id else capability_id
 

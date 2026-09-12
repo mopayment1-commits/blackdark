@@ -1,0 +1,31 @@
+{
+  "evidence_id": "EVD-033",
+  "vectors": [
+    {
+      "id": "FV-001",
+      "fee_match": true,
+      "net_match": true
+    },
+    {
+      "id": "FV-002",
+      "fee_match": true,
+      "net_match": true
+    },
+    {
+      "id": "FV-003",
+      "fee_match": true,
+      "net_match": true
+    },
+    {
+      "id": "FV-004",
+      "fee_match": true,
+      "net_match": true
+    },
+    {
+      "id": "FV-005",
+      "fee_match": true,
+      "net_match": true
+    }
+  ],
+  "all_pass": true
+}

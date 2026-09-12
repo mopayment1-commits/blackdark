@@ -1,0 +1,352 @@
+[
+  {
+    "id": 601,
+    "capability": "Visual_Transaction_Graph",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 602,
+    "capability": "Developer_Wallet_Tracker",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "On-chain address/transaction intelligence (FATF R.16)"
+  },
+  {
+    "id": 603,
+    "capability": "Miner_Flow_Monitor",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 604,
+    "capability": "Token_Unlock_Forecaster",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 605,
+    "capability": "Governance_Sentiment_Monitor",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 606,
+    "capability": "Dev_Health_Score",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 607,
+    "capability": "Financial_Health_Scoring",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 608,
+    "capability": "Custom_Ratio_Engine",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 609,
+    "capability": "Funding_Rate_Listener",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 610,
+    "capability": "Funding_Arbitrage_Engine",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 611,
+    "capability": "Funding_Rate_Heatmap_Engine",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 612,
+    "capability": "Spread_Calculation_Engine",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 613,
+    "capability": "Liquidation_Screener",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 614,
+    "capability": "DEX_Liquidity_Listener",
+    "track": "T05",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 615,
+    "capability": "Gas_Cost_Predictor",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 616,
+    "capability": "Yield_Delta_Listener",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 617,
+    "capability": "Yield_Arbitrage_Engine",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 618,
+    "capability": "Yield_Optimization_Module",
+    "track": "T10",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 619,
+    "capability": "Trend_Metric_Collector",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 620,
+    "capability": "MTF_Core_Logic",
+    "track": "T04",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 621,
+    "capability": "Pattern_Recognition_Engine",
+    "track": "T12",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 622,
+    "capability": "Prediction_Trend_Analyzer",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 623,
+    "capability": "Execution_Latency_Monitor",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 624,
+    "capability": "Low_Latency_Execution_Node",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 625,
+    "capability": "Rust_Execution_Module",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 626,
+    "capability": "Institutional_Dashboard",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 627,
+    "capability": "Custom_Institutional_Data_Terminal",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 628,
+    "capability": "Viral_Intelligence_Distribution_Loop",
+    "track": "T15",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 629,
+    "capability": "Real-Time Wallet Alerts",
+    "track": "T13",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 629 — mandatory full audit"
+  },
+  {
+    "id": 630,
+    "capability": "Real_Time_Data_Freshness_Update_Assurance",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 630 — mandatory full audit"
+  },
+  {
+    "id": 631,
+    "capability": "Data_Source_Ingestion_Normalization_Provenance_Reliability_Architecture",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 631 — mandatory full audit"
+  },
+  {
+    "id": 632,
+    "capability": "Multi-Tier Data Storage",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 633,
+    "capability": "Cross-Chain Liquidity Flow",
+    "track": "T09",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 634,
+    "capability": "Liquidity/Full-Fill Feasibility",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 635,
+    "capability": "Unified Arbitrage Opportunity Engine",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 636,
+    "capability": "Market/Data Drift Monitoring",
+    "track": "T03",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 637,
+    "capability": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
+    "track": "T11",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 638,
+    "capability": "Claims/Prediction Verification Engine",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 639,
+    "capability": "Net-Edge Truth Score",
+    "track": "T06",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 640,
+    "capability": "Public Accuracy Ledger",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 641,
+    "capability": "Decision Certificate + Institutional DD Export",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 642,
+    "capability": "AI Output Provenance / Compliance Footer",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 642 — mandatory full audit"
+  },
+  {
+    "id": 643,
+    "capability": "End-to-End Decision Traceability",
+    "track": "T17",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "Score/index/decision/recommendation surface (SCORE-IDX-001 pattern)"
+  },
+  {
+    "id": 644,
+    "capability": "Capacity / Load Evidence",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 644 — mandatory full audit"
+  },
+  {
+    "id": 645,
+    "capability": "Security Verification Evidence",
+    "track": "T02",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 646,
+    "capability": "Chaos / Failure-Injection Resilience Testing",
+    "track": "T01",
+    "rbas_tier": "TIER1",
+    "rbas_reason": "WF-027 dormant legacy ID 646 — mandatory full audit"
+  },
+  {
+    "id": 647,
+    "capability": null,
+    "track": null,
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 648,
+    "capability": null,
+    "track": null,
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 649,
+    "capability": null,
+    "track": null,
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  },
+  {
+    "id": 650,
+    "capability": null,
+    "track": null,
+    "rbas_tier": "TIER1",
+    "rbas_reason": "RBAS-001 default-on-doubt — no clear Tier2 delivery-only proof"
+  }
+]

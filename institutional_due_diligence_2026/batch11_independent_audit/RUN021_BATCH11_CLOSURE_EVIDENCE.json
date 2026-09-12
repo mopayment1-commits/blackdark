@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-09-11T21:22:25.268292+00:00",
+  "batch": 11,
+  "status_counts": {
+    "NOT_COMPLETE": 50
+  },
+  "bcbs": {
+    "not_complete_count": 50,
+    "remediated": 50,
+    "per_id": {
+      "501": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "502": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "503": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "504": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "505": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "506": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "507": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "508": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "509": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "510": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "511": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "512": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "513": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "514": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "515": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "516": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "517": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "518": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "519": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "520": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "521": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "522": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "523": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "524": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "525": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "526": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "527": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "528": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "529": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "530": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "531": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "532": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "533": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "534": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "535": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "536": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "537": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "538": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "539": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "540": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "541": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "542": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "543": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "544": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "545": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "546": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "547": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "548": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "549": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "550": {
+        "after_bcbs_ok": true,
+        "missing": []
+      }
+    }
+  },
+  "random_sample": {
+    "seed": 16011,
+    "sample_ids": [
+      507,
+      508,
+      511,
+      515,
+      516,
+      526,
+      528,
+      532,
+      537,
+      540
+    ],
+    "sample_pass": true,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "results": [
+      {
+        "id": 507,
+        "name": "OHLCV",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 508,
+        "name": "L1 Order Book",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 511,
+        "name": "Options Market Data",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 515,
+        "name": "REST API",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 516,
+        "name": "WebSocket Streaming",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 526,
+        "name": "AI Market Data Grounding Layer",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 528,
+        "name": "Liquidation Levels",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 532,
+        "name": "Funding Rates",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 537,
+        "name": "Global Order Book Metrics",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 540,
+        "name": "Bot Activity Detection",
+        "status": "NOT_COMPLETE"
+      }
+    ]
+  },
+  "non_regression": {
+    "met": true,
+    "skipped": true
+  },
+  "evidence_pack": {
+    "batch": "batch11",
+    "functions_required": 12,
+    "functions_covered": 12,
+    "coverage_met": true,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": true,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "pass_live_count": 0
+}

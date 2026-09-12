@@ -1,6 +1,6 @@
 {
-  "capacity_id": "cap_47a65b4c29",
-  "environment": "production",
+  "capacity_id": "cap_149a873bd5",
+  "environment": "staging",
   "workers": 2,
   "postgres": true,
   "redis": true,
@@ -9,9 +9,9 @@
   "p95_ms": 143.4,
   "p99_ms": 167.5,
   "error_rate": 0.0,
-  "operator": "cloud-agent-cap644-closure",
-  "notes": "SIGNED: CAP-644 production load on https://blackdark-production.up.railway.app; parallelism=2 (2x1); viral_production_approved=true",
-  "published_at": "2026-08-22T17:06:09.549527+00:00",
+  "operator": "pytest-institutional-gate",
+  "notes": "SIGNED: pytest bootstrap — staging keeps CAP-644 registry slot deterministic",
+  "published_at": "2026-09-11T07:29:25.419041+00:00",
   "sla_targets": {
     "availability_monthly": 0.995,
     "api_p95_ms": 800,
@@ -24,5 +24,5 @@
     }
   },
   "ha_claim_eligible": true,
-  "signature": "c6bfe236a12ca78d5cd6c0edf971e10820ae9a765a58c5f44b251f445dbda9bf"
+  "signature": "08ea918b3c4f01efa8fac86f61730d1683c690acb5099949de282d29022dbbdf"
 }

@@ -1,0 +1,1069 @@
+{
+  "generated_at": "2026-09-11T20:26:44.468624+00:00",
+  "scope": "IDs 1–150 (Batch01–03)",
+  "gate": "Phase 1 generic-delegate (reject invoke_underlying-only dedicated handlers)",
+  "totals": {
+    "real_logic_dedicated": 137,
+    "production_routed_batch01": 13,
+    "capability_keyword": 0,
+    "generic_delegate_fail": 0,
+    "explicit_data_fallbacks_not_generic_delegate": [
+      16,
+      41,
+      50
+    ]
+  },
+  "verdict": "150/150 CLEAN",
+  "rows": [
+    {
+      "id": 1,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_001 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 2,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_002 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 3,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_003 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 4,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_004 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 5,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_005 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 6,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 7,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 8,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 9,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 10,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_010 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 11,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 12,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 13,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 14,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 15,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 16,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 17,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 18,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 19,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 20,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 21,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_021 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 22,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 23,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 24,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 25,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 26,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 27,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 28,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 29,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 30,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 31,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 32,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 33,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 34,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 35,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 36,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 37,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 38,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_038 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 39,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_039 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 40,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 41,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 42,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 43,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 44,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 45,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_045 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 46,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 47,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_047 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 48,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_048 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 49,
+      "batch": 1,
+      "status": "PRODUCTION_ROUTED",
+      "note": "no batch01_dedicated handler; production routes to cap646.batch01_production.cap_049 (explicit_option_a)",
+      "generic_delegate": false
+    },
+    {
+      "id": 50,
+      "batch": 1,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 51,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 52,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 53,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 54,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 55,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 56,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 57,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 58,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 59,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 60,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 61,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 62,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 63,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 64,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 65,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 66,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 67,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 68,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 69,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 70,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 71,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 72,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 73,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 74,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 75,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 76,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 77,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 78,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 79,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 80,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 81,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 82,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 83,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 84,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 85,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 86,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 87,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 88,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 89,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 90,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 91,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 92,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 93,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 94,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 95,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 96,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 97,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 98,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 99,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 100,
+      "batch": 2,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 101,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 102,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 103,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 104,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 105,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 106,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 107,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 108,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 109,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 110,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 111,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 112,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 113,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 114,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 115,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 116,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 117,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 118,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 119,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 120,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 121,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 122,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 123,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 124,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 125,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 126,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 127,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 128,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 129,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 130,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 131,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 132,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 133,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 134,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 135,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 136,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 137,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 138,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 139,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 140,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 141,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 142,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 143,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 144,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 145,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 146,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 147,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 148,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 149,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    },
+    {
+      "id": 150,
+      "batch": 3,
+      "status": "REAL_LOGIC",
+      "note": "dedicated custom handler",
+      "generic_delegate": false
+    }
+  ]
+}

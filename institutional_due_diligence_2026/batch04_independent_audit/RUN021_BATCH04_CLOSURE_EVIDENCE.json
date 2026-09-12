@@ -1,0 +1,308 @@
+{
+  "generated_at": "2026-09-11T20:41:33.558248+00:00",
+  "batch": 4,
+  "status_counts": {
+    "NOT_COMPLETE": 50
+  },
+  "bcbs": {
+    "not_complete_count": 50,
+    "remediated": 50,
+    "per_id": {
+      "151": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "152": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "153": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "154": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "155": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "156": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "157": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "158": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "159": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "160": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "161": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "162": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "163": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "164": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "165": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "166": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "167": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "168": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "169": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "170": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "171": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "172": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "173": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "174": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "175": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "176": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "177": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "178": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "179": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "180": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "181": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "182": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "183": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "184": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "185": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "186": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "187": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "188": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "189": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "190": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "191": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "192": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "193": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "194": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "195": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "196": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "197": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "198": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "199": {
+        "after_bcbs_ok": true,
+        "missing": []
+      },
+      "200": {
+        "after_bcbs_ok": true,
+        "missing": []
+      }
+    }
+  },
+  "random_sample": {
+    "seed": 16004,
+    "sample_ids": [
+      154,
+      156,
+      157,
+      158,
+      160,
+      165,
+      176,
+      180,
+      181,
+      184
+    ],
+    "sample_pass": true,
+    "conceptually_unsound": 0,
+    "split_brain_unverified": 0,
+    "results": [
+      {
+        "id": 154,
+        "name": "AI Crypto Copilot",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 156,
+        "name": "Crypto Knowledge Graph",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 157,
+        "name": "Research Library",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 158,
+        "name": "Institutional Research Feed",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 160,
+        "name": "Pay-Per-Request Data Access",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 165,
+        "name": "Fundraising Momentum Score",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 176,
+        "name": "Weighted Social Sentiment",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 180,
+        "name": "Development Activity Contributors",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 181,
+        "name": "Ecosystem Development Dashboard",
+        "status": "NOT_COMPLETE"
+      },
+      {
+        "id": 184,
+        "name": "Whale & Shark Holder Cohorts",
+        "status": "NOT_COMPLETE"
+      }
+    ]
+  },
+  "non_regression": {
+    "met": true,
+    "skipped": true
+  },
+  "evidence_pack": {
+    "batch": "batch04",
+    "functions_required": 12,
+    "functions_covered": 12,
+    "coverage_met": true,
+    "per_function": {
+      "scope_inventory": true,
+      "requirements_traceability": true,
+      "semantic_correctness": true,
+      "canonical_duplicate_reconciliation": true,
+      "consumer_path_evidence": true,
+      "security_entitlement": true,
+      "data_provenance": true,
+      "reliability_performance": true,
+      "regression": true,
+      "quality_security_gate": true,
+      "build_provenance": true,
+      "engineering_live_assurance_status": true
+    }
+  },
+  "pass_live_count": 0
+}

@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-09-11T10:55:23.844512+00:00",
+  "met": true,
+  "details": {
+    "batch01": {
+      "exit_code": 0,
+      "closure_gate_met": true
+    },
+    "batch02": {
+      "exit_code": 0,
+      "closure_gate_met": true
+    },
+    "batch03": {
+      "exit_code": 0,
+      "closure_gate_met": true
+    },
+    "batch04": {
+      "exit_code": 0,
+      "closure_gate_met": true
+    },
+    "batch05": {
+      "exit_code": 0,
+      "closure_gate_met": true
+    }
+  }
+}

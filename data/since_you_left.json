@@ -1,0 +1,27 @@
+{
+  "users": {
+    "wow_tester_1789087886333": {
+      "last_seen": "2026-09-11T00:51:26.496955+00:00",
+      "last_seen_ts": 1789087886.4969587,
+      "snapshot": {
+        "captured_at": "2026-09-11T00:51:26.415281+00:00",
+        "ts": 1789087886.415284,
+        "kill_rate_percent": 100.0,
+        "total_kills": 1116,
+        "net_edge_reject_rate": 0.9667,
+        "net_edge_evaluated": 451,
+        "accuracy_hit_rate": 0.0,
+        "accuracy_samples": 0,
+        "locked_count": 0,
+        "locked_open": 0,
+        "active_opps": 5,
+        "hottest_asset": "BTC",
+        "registry_labeled": 317,
+        "registry_total": 343,
+        "btc_action": "—",
+        "btc_score": null
+      },
+      "visit_count": 2
+    }
+  }
+}
