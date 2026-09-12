@@ -7,8 +7,8 @@ from cap646.waves import USER_FACING, WAVE_A, WAVE_B, WAVE_C
 # capability_id -> {ui_path, api_path, label}
 USER_SURFACES: dict[int, dict[str, str]] = {
     17: {"ui_path": "/dashboard", "api_path": "/api/cap646/17/execute", "label": "Smart Alerts"},
-    47: {"ui_path": "/dashboard", "api_path": "/api/cap646/47", "label": "Spot Market Metrics"},
-    48: {"ui_path": "/dashboard", "api_path": "/api/cap646/48", "label": "Futures Intelligence"},
+    47: {"ui_path": "/dashboard", "api_path": "/api/cap646/47/execute", "label": "Spot Market Metrics"},
+    48: {"ui_path": "/dashboard", "api_path": "/api/cap646/48/execute", "label": "Futures Intelligence"},
     60: {"ui_path": "/dashboard", "api_path": "/api/cap646/60/execute", "label": "Alerts"},
     103: {"ui_path": "/institutional", "api_path": "/api/institutional", "label": "API Data Platform"},
     129: {"ui_path": "/dashboard", "api_path": "/api/cap646/129", "label": "Sentiment"},
@@ -34,7 +34,11 @@ def user_surface_for(capability_id: int) -> dict[str, str] | None:
         return None
     if capability_id in USER_SURFACES:
         return USER_SURFACES[capability_id]
-    return {"ui_path": "/cap646", "api_path": f"/api/cap646/{capability_id}", "label": f"Capability #{capability_id}"}
+    return {
+        "ui_path": "/cap646",
+        "api_path": f"/api/cap646/{capability_id}/execute",
+        "label": f"Capability #{capability_id}",
+    }
 
 
 def hub_context() -> dict:

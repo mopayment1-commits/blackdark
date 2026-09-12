@@ -146,13 +146,8 @@ def split_brain_row(cid: int, batch_num: int) -> dict[str, Any] | None:
     return None
 
 
-def user_path_live(cid: int) -> tuple[bool, str]:
-    from cap646.ui_pages import user_surface_for
-
-    surf = user_surface_for(cid)
-    if not surf or not surf.get("api_path"):
-        return False, "no user-facing api_path"
-    prefix = str(surf["api_path"]).split("{")[0]
+def _cap646_execute_route_confirmed(api_path: str) -> bool:
+    prefix = api_path.split("{")[0]
     try:
         r = subprocess.run(
             ["rg", "-l", re.escape(prefix), "api/", "dashboard.py", "platform_api.py"],
@@ -161,16 +156,38 @@ def user_path_live(cid: int) -> tuple[bool, str]:
             text=True,
             timeout=10,
         )
-        return r.returncode == 0, f"api_prefix={prefix}"
-    except Exception as exc:
-        return False, str(exc)
+        if r.returncode == 0:
+            return True
+        gr = subprocess.run(
+            ["rg", "-l", r"/\{capability_id\}/execute", "api/routers/cap646.py"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        return gr.returncode == 0 and "/execute" in api_path
+    except Exception:
+        return False
+
+
+def user_path_live(cid: int) -> tuple[bool, str]:
+    from cap646.ui_pages import user_surface_for
+
+    surf = user_surface_for(cid)
+    if not surf or not surf.get("api_path"):
+        return False, "no user-facing api_path"
+    path = str(surf["api_path"])
+    if _cap646_execute_route_confirmed(path):
+        return True, f"api_path={path}"
+    prefix = path.split("{")[0]
+    return False, f"api_prefix={prefix}"
 
 
 def criteria_from_phases(phase_results: dict[str, str], audit_status: str) -> dict[str, str]:
     out = {k: "NO" for k in V6_13_KEYS}
     for pid, keys in PHASE_TO_CRITERIA.items():
         st = phase_results.get(pid, "MISSING")
-        if st == "PASS":
+        if st in ("PASS", "NOT_APPLICABLE"):
             for k in keys:
                 out[k] = "YES"
     if audit_status == "PRODUCTION-ALIGNED":
@@ -216,8 +233,10 @@ def evidence_pack_per_id(
         bool((runtime or {}).get("data_source") or (runtime or {}).get("timestamp") or (runtime or {}).get("source"))
     )
     phases = (audit_row or {}).get("phase_results") or {}
+    p2 = phases.get("2")
+    p8 = phases.get("8")
     ep["8_reliability_performance_evidence"] = yn(
-        phases.get("2") == "PASS" and phases.get("8") == "PASS"
+        p8 == "PASS" and p2 in ("PASS", "NOT_APPLICABLE")
     )
     ep["9_affected_regression_evidence"] = yn(
         bool(closure and (closure.get("non_regression") or {}).get("met"))

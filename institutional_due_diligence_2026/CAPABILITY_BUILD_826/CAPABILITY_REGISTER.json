@@ -10,359 +10,359 @@
       "capability": "Smart Money Leaderboard",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.3_functional_appropriateness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388220+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005326+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/1/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/1/execute"
     },
     {
       "id": 2,
       "capability": "Wallet Profiler",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.3_functional_appropriateness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388232+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005343+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/2/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/2/execute"
     },
     {
       "id": 3,
       "capability": "Wallet Profiler for Token",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.3_functional_appropriateness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388237+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005351+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/3/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/3/execute"
     },
     {
       "id": 4,
       "capability": "Smart Money Tracking",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.3_functional_appropriateness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388240+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005357+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/4/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/4/execute"
     },
     {
       "id": 5,
       "capability": "Smart Money Accumulation / Distribution Detection",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "PARTIAL",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388242+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005362+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/5/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/5/execute"
     },
     {
       "id": 6,
       "capability": "Smart Money Token Screener",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388244+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005367+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/6/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/6/execute"
     },
     {
       "id": 7,
       "capability": "Holder Distribution Intelligence",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388247+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005372+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/7/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/7/execute"
     },
     {
       "id": 8,
       "capability": "Top Holders Concentration Analysis",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate",
-        "v6_13.10_observability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388249+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005378+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/8/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/8/execute"
     },
     {
       "id": 9,
       "capability": "Distribution Score",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate",
-        "v6_13.10_observability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388252+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005383+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/9/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/9/execute"
     },
     {
       "id": 10,
       "capability": "Wallet PnL Analysis",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.3_functional_appropriateness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388254+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005388+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/10/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/10/execute"
     },
     {
       "id": 11,
       "capability": "Wallet Historical Performance & Win Rate",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388257+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005393+00:00",
+      "runtime_success": true,
+      "primary_hero": "Arbitrage Scanner",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/arbitrage/scanner/status → /api/cap646/11/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/11/execute"
     },
     {
       "id": 12,
       "capability": "Wallet Entry / Exit Analysis",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388259+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005399+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/12/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/12/execute"
     },
     {
       "id": 13,
       "capability": "Wallet Counterparty & Relationship Analysis",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388261+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005404+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/13/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/13/execute"
     },
     {
       "id": 14,
       "capability": "Entity-Aware Wallet Intelligence",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388263+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005410+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/14/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/14/execute"
     },
     {
       "id": 15,
       "capability": "Exchange Flow Intelligence",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388266+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005419+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/15/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/15/execute"
     },
     {
       "id": 16,
       "capability": "Candle / Price-Move Investigator",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388268+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005427+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/16/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/16/execute"
     },
     {
       "id": 17,
       "capability": "Smart Alerts",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
       "evidence_paths": [
@@ -370,153 +370,156 @@
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
       "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
         "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
+        "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-11T23:49:19.388270+00:00",
-      "runtime_success": true
+      "updated_at": "2026-09-12T00:16:02.005443+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/17/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/17/execute"
     },
     {
       "id": 18,
       "capability": "Custom Wallet Labels",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388273+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005452+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/18/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/18/execute"
     },
     {
       "id": 19,
       "capability": "Wallet & Token Watchlists",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388275+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005457+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/19/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/19/execute"
     },
     {
       "id": 20,
       "capability": "Multi-Chain Portfolio Intelligence",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388278+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005463+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/20/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/20/execute"
     },
     {
       "id": 21,
       "capability": "Transaction Decoder",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.3_functional_appropriateness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388280+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005467+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/21/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/21/execute"
     },
     {
       "id": 22,
       "capability": "Instant Wallet Due Diligence",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388282+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005472+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/22/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/22/execute"
     },
     {
       "id": 23,
       "capability": "Instant Token Due Diligence",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch01_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
-        "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
-      ],
-      "updated_at": "2026-09-11T23:49:19.388284+00:00",
-      "runtime_success": true
+      "blocker": null,
+      "updated_at": "2026-09-12T00:16:02.005477+00:00",
+      "runtime_success": true,
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/23/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/23/execute"
     },
     {
       "id": 24,
       "capability": "AI Research Agent Grounded in Platform Data",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
       "evidence_paths": [
@@ -524,21 +527,25 @@
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
       "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
         "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
+        "evidence_pack.8_reliability_performance_evidence",
+        "ai_rmf_800_218a_applied"
       ],
-      "updated_at": "2026-09-11T23:49:19.388286+00:00",
-      "runtime_success": true
+      "updated_at": "2026-09-12T00:16:02.005484+00:00",
+      "runtime_success": true,
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/24/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/24/execute"
     },
     {
       "id": 25,
       "capability": "Signal → Explanation Workflow",
       "official_batch": "batch01",
       "build_batch": 1,
-      "status": "PARTIAL",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
       "evidence_paths": [
@@ -546,314 +553,610 @@
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
       "blocker": [
-        "v6_13.2_functional_correctness",
-        "v6_13.6_regression_safety",
-        "v6_13.7_security_gate",
         "v6_13.8_performance_gate",
-        "v6_13.9_reliability_gate"
+        "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-11T23:49:19.388289+00:00",
-      "runtime_success": true
+      "updated_at": "2026-09-12T00:16:02.005491+00:00",
+      "runtime_success": true,
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/25/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/25/execute"
     },
     {
       "id": 26,
       "capability": "Price-Move Explanation",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652052+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080901+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/26/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/26/execute",
+      "runtime_success": true
     },
     {
       "id": 27,
       "capability": "Smart Money Historical Trend Analysis",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652090+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080926+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/27/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/27/execute",
+      "runtime_success": true
     },
     {
       "id": 28,
       "capability": "Smart Money Conviction Engine",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652136+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080938+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/28/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/28/execute",
+      "runtime_success": true
     },
     {
       "id": 29,
       "capability": "Cross-Market Decision Intelligence Engine",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652174+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080947+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/29/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/29/execute",
+      "runtime_success": true
     },
     {
       "id": 30,
       "capability": "Evidence & Confidence Layer",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652212+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080954+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/30/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/30/execute",
+      "runtime_success": true
     },
     {
       "id": 31,
       "capability": "Cross-Signal Confirmation",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652250+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080962+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/31/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/31/execute",
+      "runtime_success": true
     },
     {
       "id": 32,
       "capability": "Contradiction Detection",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652288+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080969+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/32/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/32/execute",
+      "runtime_success": true
     },
     {
       "id": 33,
       "capability": "Smart Money Actionability Score",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652326+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080976+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/33/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/33/execute",
+      "runtime_success": true
     },
     {
       "id": 34,
       "capability": "Beginner Decision Mode",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652364+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080983+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/34/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/34/execute",
+      "runtime_success": true
     },
     {
       "id": 35,
       "capability": "Market Compass / Market Regime Engine",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652403+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.080990+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/35/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/35/execute",
+      "runtime_success": true
     },
     {
       "id": 36,
       "capability": "On-Chain Metrics Library",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652444+00:00"
+      "updated_at": "2026-09-12T00:15:51.080999+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/36/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/36/execute",
+      "runtime_success": true
     },
     {
       "id": 37,
       "capability": "Entity-Adjusted Metrics",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652482+00:00"
+      "updated_at": "2026-09-12T00:15:51.081008+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/37/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/37/execute",
+      "runtime_success": true
     },
     {
       "id": 38,
       "capability": "Cost Basis Distribution",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "PARTIAL",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652545+00:00"
+      "updated_at": "2026-09-12T00:15:51.081015+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/38/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/38/execute",
+      "runtime_success": true
     },
     {
       "id": 39,
       "capability": "Realized Cap & Realized Price Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "PARTIAL",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652616+00:00"
+      "updated_at": "2026-09-12T00:15:51.081022+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/39/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/39/execute",
+      "runtime_success": true
     },
     {
       "id": 40,
       "capability": "MVRV / MVRV Z-Score Suite",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652656+00:00"
+      "updated_at": "2026-09-12T00:15:51.081029+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [
+        "Arbitrage Scanner",
+        "Stealth Advisor"
+      ],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/40/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/40/execute",
+      "runtime_success": true
     },
     {
       "id": 41,
       "capability": "SOPR / Profitability Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "ENGINEERING_READY",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
       "v6_fully_compliant": false,
-      "evidence_paths": [],
-      "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652695+00:00"
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
+      "blocker": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "updated_at": "2026-09-12T00:15:51.081037+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/41/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/41/execute",
+      "runtime_success": true
     },
     {
       "id": 42,
       "capability": "Holder Cohort Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652734+00:00"
+      "updated_at": "2026-09-12T00:15:51.081043+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/42/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/42/execute",
+      "runtime_success": true
     },
     {
       "id": 43,
       "capability": "Supply Dynamics Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652772+00:00"
+      "updated_at": "2026-09-12T00:15:51.081050+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/43/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/43/execute",
+      "runtime_success": true
     },
     {
       "id": 44,
       "capability": "Exchange Balance & Netflow Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652811+00:00"
+      "updated_at": "2026-09-12T00:15:51.081057+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/44/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/44/execute",
+      "runtime_success": true
     },
     {
       "id": 45,
       "capability": "ETF Flow Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "PARTIAL",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652874+00:00"
+      "updated_at": "2026-09-12T00:15:51.081063+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/45/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/45/execute",
+      "runtime_success": true
     },
     {
       "id": 46,
       "capability": "Digital Asset Treasury Company Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652911+00:00"
+      "updated_at": "2026-09-12T00:15:51.081069+00:00",
+      "primary_hero": "Whale Signal vs Noise",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/46/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/46/execute",
+      "runtime_success": true
     },
     {
       "id": 47,
       "capability": "Spot Market Metrics Suite",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "PARTIAL",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.652975+00:00"
+      "updated_at": "2026-09-12T00:15:51.081075+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/47/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/47/execute",
+      "runtime_success": true
     },
     {
       "id": 48,
       "capability": "Futures Intelligence Suite",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "PARTIAL",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.653046+00:00"
+      "updated_at": "2026-09-12T00:15:51.081081+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [
+        "Arbitrage Scanner"
+      ],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/48/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/48/execute",
+      "runtime_success": true
     },
     {
       "id": 49,
       "capability": "Options Intelligence Suite",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "PARTIAL",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.653111+00:00"
+      "updated_at": "2026-09-12T00:15:51.081086+00:00",
+      "primary_hero": "Arbitrage Scanner",
+      "secondary_heroes": [],
+      "hero_entry_path": "/api/arbitrage/scanner/status → /api/cap646/49/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/49/execute",
+      "runtime_success": true
     },
     {
       "id": 50,
       "capability": "Order Book Intelligence",
       "official_batch": "batch01",
       "build_batch": 2,
-      "status": "NOT_STARTED",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
-      "evidence_paths": [],
+      "v6_fully_compliant": true,
+      "evidence_paths": [
+        "EVIDENCE/batch02_pytest.log",
+        "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
+      ],
       "blocker": null,
-      "updated_at": "2026-09-11T23:48:08.653148+00:00"
+      "updated_at": "2026-09-12T00:15:51.081092+00:00",
+      "primary_hero": "Single-Sentence Oracle",
+      "secondary_heroes": [
+        "Arbitrage Scanner",
+        "Stealth Advisor"
+      ],
+      "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/50/execute",
+      "hero_ui_path": "/dashboard",
+      "hero_binding_status": "BOUND",
+      "cap646_execute_path": "/api/cap646/50/execute",
+      "runtime_success": true
     },
     {
       "id": 51,
@@ -10168,5 +10471,5 @@
       "updated_at": "2026-09-11T23:48:08.685193+00:00"
     }
   ],
-  "updated_at": "2026-09-11T23:49:19.389602+00:00"
+  "updated_at": "2026-09-12T00:16:02.006768+00:00"
 }

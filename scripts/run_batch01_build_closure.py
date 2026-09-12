@@ -29,7 +29,7 @@ COMMON_PARAMS = {
     "tier": "pro",
 }
 
-BUILD_BATCH_IDS = list(range(1, 26))
+BUILD_BATCH_IDS = list(range(1, 51))
 
 
 def _git_sha() -> str:
@@ -42,7 +42,15 @@ def _git_sha() -> str:
 
 def run_batch01_regression() -> dict[str, Any]:
     BUILD_EVIDENCE.parent.mkdir(parents=True, exist_ok=True)
-    cmd = [PYTHON, "-m", "pytest", "tests/cap646/test_capability_build_batch01.py", "-q", "--tb=short"]
+    cmd = [
+        PYTHON,
+        "-m",
+        "pytest",
+        "tests/cap646/test_capability_build_batch01.py",
+        "tests/cap646/test_capability_build_batch02.py",
+        "-q",
+        "--tb=short",
+    ]
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=600)
     BUILD_EVIDENCE.write_text(proc.stdout + proc.stderr, encoding="utf-8")
     return {
@@ -108,7 +116,7 @@ def patch_rtm_engineering_status(audit_rows: list[dict[str, Any]]) -> dict[str, 
         entry = dict(per_id.get(cid) or {})
         entry["engineering_status"] = "PASS_ENGINEERING" if row.get("status") != "CONCEPTUALLY-UNSOUND" else "NOT_COMPLETE"
         entry["live_status"] = "awaiting_deploy"
-        entry["build_batch_01_remediated"] = True
+        entry["build_batch_01_remediated"] = int(row["id"]) <= 50
         per_id[cid] = entry
     doc["per_id"] = per_id
     doc["build_batch_01_updated_at"] = datetime.now(UTC).isoformat()

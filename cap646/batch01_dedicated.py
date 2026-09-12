@@ -27,6 +27,9 @@ BATCH01_DEDICATED_IDS: frozenset[int] = frozenset(
         4,
         10,
         21,
+        38,
+        39,
+        45,
         6,
         7,
         8,
@@ -77,6 +80,9 @@ EXPECTED_SURFACE: dict[int, str] = {
     4: "smart_money_tracking",
     10: "wallet_pnl_analysis",
     21: "transaction_decoder",
+    38: "cost_basis_distribution",
+    39: "realized_cap_realized_price",
+    45: "etf_flow_intelligence",
     6: "smart_money_token_screener",
     7: "holder_distribution_intelligence",
     8: "top_holders_concentration_analysis",
@@ -291,6 +297,9 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
         4: _cap004_smart_money_tracking,
         10: _cap010_wallet_pnl_analysis,
         21: _cap021_transaction_decoder,
+        38: _cap038_cost_basis_distribution,
+        39: _cap039_realized_cap_price,
+        45: _cap045_etf_flow_intelligence,
         6: _cap006_smart_money_token_screener,
         7: _cap007_holder_distribution,
         8: _cap008_top_holders_concentration,
@@ -404,6 +413,18 @@ async def _cap010_wallet_pnl_analysis(*, symbol: str, address: str, params: dict
 
 async def _cap021_transaction_decoder(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
     return await _free_tier_dedicated_wrap(21, symbol=symbol, address=address, params=params)
+
+
+async def _cap038_cost_basis_distribution(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(38, symbol=symbol, address=address, params=params)
+
+
+async def _cap039_realized_cap_price(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(39, symbol=symbol, address=address, params=params)
+
+
+async def _cap045_etf_flow_intelligence(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:
+    return await _free_tier_dedicated_wrap(45, symbol=symbol, address=address, params=params)
 
 
 # ─── On-chain / wallet intelligence ───────────────────────────────────────────
