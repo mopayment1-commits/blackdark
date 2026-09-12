@@ -150,3 +150,63 @@ Consumer path: `POST /api/cap646/{id}/execute` via Six Heroes → cap646 institu
 | 48 | cap-048 futures_intelligence | same |
 | 49 | cap-049 options_intelligence | same |
 | 50 | cap-050 order_book_intelligence | same |
+
+### Build batch 03 (IDs 51–75)
+
+| ID | Runbook tag | Rollback |
+|---:|---|---|
+| 51 | cap-051 macro_traditional_finance_integration | batch01–03 pytest |
+| 52 | cap-052 cross_asset_return_breadth | batch01–03 pytest |
+| 53 | cap-053 btc_to_macro_coupling | batch01–03 pytest |
+| 54 | cap-054 global_liquidity_intelligence | batch01–03 pytest |
+| 55 | cap-055 nvt_fair_value_model | batch01–03 pytest |
+| 56 | cap-056 token_screener | batch01–03 pytest |
+| 57 | cap-057 profitability_map | batch01–03 pytest |
+| 58 | cap-058 custom_no_code_charting_workbench | batch01–03 pytest |
+| 59 | cap-059 personalized_research_dashboards | batch01–03 pytest |
+| 60 | cap-060 metric_based_smart_alerts | batch01–03 pytest |
+| 61 | cap-061 point_in_time_immutable_metrics | batch01–03 pytest |
+| 62 | cap-062 institutional_backtesting_data_layer | batch01–03 pytest |
+| 63 | cap-063 data_quality_provenance_layer | batch01–03 pytest |
+| 64 | cap-064 metric_methodology_registry | batch01–03 pytest |
+| 65 | cap-065 research_intelligence_portal | batch01–03 pytest |
+| 66 | cap-066 market_regime_written_read | batch01–03 pytest |
+| 67 | cap-067 api_cli_excel_mcp_data_access | batch01–03 pytest |
+| 68 | cap-068 bulk_data_institutional_delivery | batch01–03 pytest |
+| 69 | cap-069 cross_domain_decision_intelligence_layer | batch01–03 pytest |
+| 70 | cap-070 exchange_reserve_intelligence | batch01–03 pytest |
+| 71 | cap-071 exchange_inflow_outflow_netflow | batch01–03 pytest |
+| 72 | cap-072 exchange_whale_ratio | batch01–03 pytest |
+| 73 | cap-073 exchange_address_transaction_activity | batch01–03 pytest |
+| 74 | cap-074 exchange_to_exchange_flow_intelligence | batch01–03 pytest |
+| 75 | cap-075 exchange_internal_flow_filter | batch01–03 pytest |
+
+### Build batch 04 (IDs 76–100)
+
+| ID | Runbook tag | Rollback |
+|---:|---|---|
+| 76 | cap-076 stablecoin_exchange_reserve | batch01–04 pytest |
+| 77 | cap-077 stablecoin_exchange_flow_intelligence | batch01–04 pytest |
+| 78 | cap-078 stablecoin_supply_ratio_intelligence | batch01–04 pytest |
+| 79 | cap-079 miner_flow_intelligence | batch01–04 pytest |
+| 80 | cap-080 miners_position_index_mpi | batch01–04 pytest |
+| 81 | cap-081 whale_accumulation_distribution_intelligence | batch01–04 pytest |
+| 82 | cap-082 coinbase_premium_intelligence | batch01–04 pytest |
+| 83 | cap-083 korea_premium_intelligence | batch01–04 pytest |
+| 84 | cap-084 fund_etf_data_intelligence | batch01–04 pytest |
+| 85 | cap-085 futures_open_interest_intelligence | batch01–04 pytest |
+| 86 | cap-086 funding_rate_intelligence | batch01–04 pytest |
+| 87 | cap-087 estimated_leverage_ratio | batch01–04 pytest |
+| 88 | cap-088 liquidation_intelligence | batch01–04 pytest |
+| 89 | cap-089 taker_buy_sell_pressure | batch01–04 pytest |
+| 90 | cap-090 derivatives_market_sentiment_composite | batch01–04 pytest |
+| 91 | cap-091 inter_entity_flow_intelligence | batch01–04 pytest |
+| 92 | cap-092 address_labels_cohorts | batch01–04 pytest |
+| 93 | cap-093 custom_no_code_analytics_web3 | batch01–04 pytest |
+| 94 | cap-094 native_sql_advanced_query_workspace | batch01–04 pytest |
+| 95 | cap-095 pro_chart_multi_metric_workbench | batch01–04 pytest |
+| 96 | cap-096 personal_dashboards | batch01–04 pytest |
+| 97 | cap-097 custom_metric_alerts | batch01–04 pytest |
+| 98 | cap-098 whale_movement_alerts | batch01–04 pytest |
+| 99 | cap-099 quicktake_analyst_insight_feed | batch01–04 pytest |
+| 100 | cap-100 research_reports | batch01–04 pytest |

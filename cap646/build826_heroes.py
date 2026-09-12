@@ -67,6 +67,54 @@ _BATCH02_FALLBACK: dict[int, str] = {
     50: "Single-Sentence Oracle",
 }
 
+# Build batch 03 (51–75) — official batch02 spine
+_BATCH03_FALLBACK: dict[int, str] = {
+    51: "Single-Sentence Oracle",
+    52: "Arbitrage Scanner",
+    53: "Single-Sentence Oracle",
+    54: "Arbitrage Scanner",
+    58: "Single-Sentence Oracle",
+    60: "Whale Signal vs Noise",
+    62: "B2B Feed",
+    63: "Public Accuracy Ledger",
+    64: "Public Accuracy Ledger",
+    65: "Public Accuracy Ledger",
+    66: "Single-Sentence Oracle",
+    67: "B2B Feed",
+    68: "B2B Feed",
+    70: "Whale Signal vs Noise",
+    71: "Whale Signal vs Noise",
+    72: "Whale Signal vs Noise",
+    73: "Whale Signal vs Noise",
+    74: "B2B Feed",
+    75: "Whale Signal vs Noise",
+    76: "Whale Signal vs Noise",
+    77: "B2B Feed",
+    78: "Whale Signal vs Noise",
+    79: "Arbitrage Scanner",
+    80: "Whale Signal vs Noise",
+    81: "Whale Signal vs Noise",
+    82: "Arbitrage Scanner",
+    83: "Arbitrage Scanner",
+    84: "B2B Feed",
+    85: "Whale Signal vs Noise",
+    86: "Single-Sentence Oracle",
+    87: "Stealth Advisor",
+    88: "Stealth Advisor",
+    89: "Single-Sentence Oracle",
+    90: "Single-Sentence Oracle",
+    91: "B2B Feed",
+    92: "B2B Feed",
+    93: "Single-Sentence Oracle",
+    94: "Single-Sentence Oracle",
+    95: "Single-Sentence Oracle",
+    96: "Single-Sentence Oracle",
+    97: "Single-Sentence Oracle",
+    98: "B2B Feed",
+    99: "B2B Feed",
+    100: "Public Accuracy Ledger",
+}
+
 
 def _heroes_for(cid: int) -> list[str]:
     return [name for name, meta in HERO_ENGINES.items() if cid in meta["capability_ids"]]
@@ -78,14 +126,16 @@ def _primary_hero_for(cid: int) -> str | None:
         return hits[0]
     if cid in _BATCH01_FALLBACK:
         return _BATCH01_FALLBACK[cid]
-    return _BATCH02_FALLBACK.get(cid)
+    if cid in _BATCH02_FALLBACK:
+        return _BATCH02_FALLBACK[cid]
+    return _BATCH03_FALLBACK.get(cid)
 
 
 def hero_binding_for(cid: int) -> dict[str, Any]:
     """Return primary_hero, hero_entry_path, hero_binding_status for register."""
     heroes = _heroes_for(cid)
     if not heroes:
-        fb = _BATCH01_FALLBACK.get(cid) or _BATCH02_FALLBACK.get(cid)
+        fb = _BATCH01_FALLBACK.get(cid) or _BATCH02_FALLBACK.get(cid) or _BATCH03_FALLBACK.get(cid)
         if fb:
             heroes = [fb]
     hero = heroes[0] if heroes else None

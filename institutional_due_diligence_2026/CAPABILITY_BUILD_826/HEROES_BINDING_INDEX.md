@@ -1,6 +1,6 @@
 # Six Heroes Binding Index — CAPABILITY_BUILD_826
 
-**Updated:** 2026-09-12T00:16:02.013615+00:00
+**Updated:** 2026-09-12T03:29:33.160362+00:00
 
 | ID | Capability | Primary Hero | Entry Path | Binding | Build Status |
 |---:|---|---|---|---|---|
@@ -54,56 +54,56 @@
 | 48 | Futures Intelligence Suite | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/48/execute | BOUND | COMPLETE_V6 |
 | 49 | Options Intelligence Suite | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/49/execute | BOUND | COMPLETE_V6 |
 | 50 | Order Book Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/50/execute | BOUND | COMPLETE_V6 |
-| 51 | Macro & Traditional Finance Integration | — | — | UNBOUND | NOT_STARTED |
-| 52 | Cross-Asset Return Breadth | — | — | UNBOUND | NOT_STARTED |
-| 53 | BTC-to-Macro Coupling | — | — | UNBOUND | NOT_STARTED |
-| 54 | Global Liquidity Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 55 | NVT Fair-Value Model | — | — | UNBOUND | NOT_STARTED |
-| 56 | Token Screener | — | — | UNBOUND | NOT_STARTED |
-| 57 | Profitability Map | — | — | UNBOUND | NOT_STARTED |
-| 58 | Custom No-Code Charting / Workbench | — | — | UNBOUND | NOT_STARTED |
-| 59 | Personalized Research Dashboards | — | — | UNBOUND | NOT_STARTED |
-| 60 | Metric-Based Smart Alerts | — | — | UNBOUND | NOT_STARTED |
-| 61 | Point-in-Time Immutable Metrics | — | — | UNBOUND | NOT_STARTED |
-| 62 | Institutional Backtesting Data Layer | — | — | UNBOUND | NOT_STARTED |
-| 63 | Data Quality & Provenance Layer | — | — | UNBOUND | NOT_STARTED |
-| 64 | Metric Methodology Registry | — | — | UNBOUND | NOT_STARTED |
-| 65 | Research Intelligence Portal | — | — | UNBOUND | NOT_STARTED |
-| 66 | Market Regime Written Read | — | — | UNBOUND | NOT_STARTED |
-| 67 | API / CLI / Excel / MCP Data Access | — | — | UNBOUND | NOT_STARTED |
-| 68 | Bulk Data & Institutional Delivery | — | — | UNBOUND | NOT_STARTED |
-| 69 | Cross-Domain Decision Intelligence Layer | — | — | UNBOUND | NOT_STARTED |
-| 70 | Exchange Reserve Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 71 | Exchange Inflow / Outflow / Netflow | — | — | UNBOUND | NOT_STARTED |
-| 72 | Exchange Whale Ratio | — | — | UNBOUND | NOT_STARTED |
-| 73 | Exchange Address & Transaction Activity | — | — | UNBOUND | NOT_STARTED |
-| 74 | Exchange-to-Exchange Flow Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 75 | Exchange Internal-Flow Filter | — | — | UNBOUND | NOT_STARTED |
-| 76 | Stablecoin Exchange Reserve | — | — | UNBOUND | NOT_STARTED |
-| 77 | Stablecoin Exchange Flow Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 78 | Stablecoin Supply Ratio Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 79 | Miner Flow Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 80 | Miners' Position Index (MPI) | — | — | UNBOUND | NOT_STARTED |
-| 81 | Whale Accumulation / Distribution Intell | — | — | UNBOUND | NOT_STARTED |
-| 82 | Coinbase Premium Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 83 | Korea Premium Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 84 | Fund / ETF Data Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 85 | Futures Open Interest Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 86 | Funding Rate Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 87 | Estimated Leverage Ratio | — | — | UNBOUND | NOT_STARTED |
-| 88 | Liquidation Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 89 | Taker Buy / Sell Pressure | — | — | UNBOUND | NOT_STARTED |
-| 90 | Derivatives Market Sentiment Composite | — | — | UNBOUND | NOT_STARTED |
-| 91 | Inter-Entity Flow Intelligence | — | — | UNBOUND | NOT_STARTED |
-| 92 | Address Labels & Cohorts | — | — | UNBOUND | NOT_STARTED |
-| 93 | Custom No-Code Analytics / Web3 Analytic | — | — | UNBOUND | NOT_STARTED |
-| 94 | Native SQL / Advanced Query Workspace | — | — | UNBOUND | NOT_STARTED |
-| 95 | Pro Chart & Multi-Metric Workbench | — | — | UNBOUND | NOT_STARTED |
-| 96 | Personal Dashboards | — | — | UNBOUND | NOT_STARTED |
-| 97 | Custom Metric Alerts | — | — | UNBOUND | NOT_STARTED |
-| 98 | Whale Movement Alerts | — | — | UNBOUND | NOT_STARTED |
-| 99 | QuickTake / Analyst Insight Feed | — | — | UNBOUND | NOT_STARTED |
-| 100 | Research Reports | — | — | UNBOUND | NOT_STARTED |
+| 51 | Macro & Traditional Finance Integration | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/51/execute | BOUND | COMPLETE_V6 |
+| 52 | Cross-Asset Return Breadth | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/52/execute | BOUND | COMPLETE_V6 |
+| 53 | BTC-to-Macro Coupling | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/53/execute | BOUND | ENGINEERING_READY |
+| 54 | Global Liquidity Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/54/execute | BOUND | COMPLETE_V6 |
+| 55 | NVT Fair-Value Model | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/55/execute | BOUND | COMPLETE_V6 |
+| 56 | Token Screener | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/56/execute | BOUND | COMPLETE_V6 |
+| 57 | Profitability Map | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/57/execute | BOUND | COMPLETE_V6 |
+| 58 | Custom No-Code Charting / Workbench | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/58/execute | BOUND | COMPLETE_V6 |
+| 59 | Personalized Research Dashboards | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/59/execute | BOUND | COMPLETE_V6 |
+| 60 | Metric-Based Smart Alerts | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/60/execute | BOUND | COMPLETE_V6 |
+| 61 | Point-in-Time Immutable Metrics | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/61/execute | BOUND | COMPLETE_V6 |
+| 62 | Institutional Backtesting Data Layer | B2B Feed | /api/b2b/demo → /api/cap646/62/execute | BOUND | COMPLETE_V6 |
+| 63 | Data Quality & Provenance Layer | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/63/execute | BOUND | COMPLETE_V6 |
+| 64 | Metric Methodology Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/64/execute | BOUND | COMPLETE_V6 |
+| 65 | Research Intelligence Portal | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/65/execute | BOUND | COMPLETE_V6 |
+| 66 | Market Regime Written Read | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/66/execute | BOUND | ENGINEERING_READY |
+| 67 | API / CLI / Excel / MCP Data Access | B2B Feed | /api/b2b/demo → /api/cap646/67/execute | BOUND | COMPLETE_V6 |
+| 68 | Bulk Data & Institutional Delivery | B2B Feed | /api/b2b/demo → /api/cap646/68/execute | BOUND | COMPLETE_V6 |
+| 69 | Cross-Domain Decision Intelligence Layer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/69/execute | BOUND | ENGINEERING_READY |
+| 70 | Exchange Reserve Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/70/execute | BOUND | COMPLETE_V6 |
+| 71 | Exchange Inflow / Outflow / Netflow | B2B Feed | /api/b2b/demo → /api/cap646/71/execute | BOUND | COMPLETE_V6 |
+| 72 | Exchange Whale Ratio | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/72/execute | BOUND | COMPLETE_V6 |
+| 73 | Exchange Address & Transaction Activity | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/73/execute | BOUND | COMPLETE_V6 |
+| 74 | Exchange-to-Exchange Flow Intelligence | B2B Feed | /api/b2b/demo → /api/cap646/74/execute | BOUND | COMPLETE_V6 |
+| 75 | Exchange Internal-Flow Filter | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/75/execute | BOUND | COMPLETE_V6 |
+| 76 | Stablecoin Exchange Reserve | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/76/execute | BOUND | COMPLETE_V6 |
+| 77 | Stablecoin Exchange Flow Intelligence | B2B Feed | /api/b2b/demo → /api/cap646/77/execute | BOUND | COMPLETE_V6 |
+| 78 | Stablecoin Supply Ratio Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/78/execute | BOUND | COMPLETE_V6 |
+| 79 | Miner Flow Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/79/execute | BOUND | COMPLETE_V6 |
+| 80 | Miners' Position Index (MPI) | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/80/execute | BOUND | COMPLETE_V6 |
+| 81 | Whale Accumulation / Distribution Intell | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/81/execute | BOUND | ENGINEERING_READY |
+| 82 | Coinbase Premium Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/82/execute | BOUND | COMPLETE_V6 |
+| 83 | Korea Premium Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/83/execute | BOUND | COMPLETE_V6 |
+| 84 | Fund / ETF Data Intelligence | B2B Feed | /api/b2b/demo → /api/cap646/84/execute | BOUND | COMPLETE_V6 |
+| 85 | Futures Open Interest Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/85/execute | BOUND | COMPLETE_V6 |
+| 86 | Funding Rate Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/86/execute | BOUND | COMPLETE_V6 |
+| 87 | Estimated Leverage Ratio | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/87/execute | BOUND | COMPLETE_V6 |
+| 88 | Liquidation Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/88/execute | BOUND | COMPLETE_V6 |
+| 89 | Taker Buy / Sell Pressure | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/89/execute | BOUND | COMPLETE_V6 |
+| 90 | Derivatives Market Sentiment Composite | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/90/execute | BOUND | ENGINEERING_READY |
+| 91 | Inter-Entity Flow Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/91/execute | BOUND | COMPLETE_V6 |
+| 92 | Address Labels & Cohorts | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/92/execute | BOUND | COMPLETE_V6 |
+| 93 | Custom No-Code Analytics / Web3 Analytic | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/93/execute | BOUND | COMPLETE_V6 |
+| 94 | Native SQL / Advanced Query Workspace | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/94/execute | BOUND | COMPLETE_V6 |
+| 95 | Pro Chart & Multi-Metric Workbench | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/95/execute | BOUND | COMPLETE_V6 |
+| 96 | Personal Dashboards | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/96/execute | BOUND | COMPLETE_V6 |
+| 97 | Custom Metric Alerts | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/97/execute | BOUND | ENGINEERING_READY |
+| 98 | Whale Movement Alerts | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/98/execute | BOUND | ENGINEERING_READY |
+| 99 | QuickTake / Analyst Insight Feed | B2B Feed | /api/b2b/demo → /api/cap646/99/execute | BOUND | COMPLETE_V6 |
+| 100 | Research Reports | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/100/execute | BOUND | COMPLETE_V6 |
 | 101 | AI Data Analyst / Ask AI | — | — | UNBOUND | NOT_STARTED |
 | 102 | AI-Generated Reporting | — | — | UNBOUND | NOT_STARTED |
 | 103 | API Data Platform | — | — | UNBOUND | NOT_STARTED |

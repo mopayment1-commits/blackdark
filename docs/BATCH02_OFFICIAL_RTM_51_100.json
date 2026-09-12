@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T13:14:32.858808+00:00",
+  "generated_at": "2026-09-11T22:09:34.349822+00:00",
   "scope": "Official Batch 02 — IDs 51–100",
   "supersedes": "self-assessment / Run 006 diagnostic (50/50 PRODUCTION-ALIGNED — invalidated WF-026)",
   "audit_method": "Independent Third-Line Nine-Phase Due Diligence — Run 007",
@@ -28,7 +28,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=macro_traditional_finance_integration spine=batch02; code: async def _cap051(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 51, \"surface\": \"macro_traditional_finance_integration\", \"ev; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "52": {
       "id": 52,
@@ -40,7 +43,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_asset_return_breadth spine=batch02; code: async def _cap052(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 52, \"surface\": \"cross_asset_return_breadth\", \"evidence_clas; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "53": {
       "id": 53,
@@ -51,8 +57,11 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 007)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=btc_to_macro_coupling spine=batch02; code: async def _cap053(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 218 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T13:12:41.2813; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=btc_to_macro_coupling spine=batch02; code: async def _cap053(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 330 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T22:07:40.4965; BCBS missing=data_source,timestamp",
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "54": {
       "id": 54,
@@ -64,7 +73,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=global_liquidity_intelligence spine=batch02; code: async def _cap054(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 54, \"surface\": \"global_liquidity_intelligence\", \"evidence_c; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "55": {
       "id": 55,
@@ -76,7 +88,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=nvt_fair_value_model spine=batch02; code: async def _cap055(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 55, \"surface\": \"nvt_fair_value_model\", \"evidence_class\": \"S; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "56": {
       "id": 56,
@@ -88,7 +103,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=token_screener spine=batch02; code: async def _cap056(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 56, \"surface\": \"token_screener\", \"evidence_class\": \"SHADOW_; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "57": {
       "id": 57,
@@ -100,7 +118,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=profitability_map spine=batch02; code: async def _cap057(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 57, \"surface\": \"profitability_map\", \"evidence_class\": \"SHAD; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "58": {
       "id": 58,
@@ -112,7 +133,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=custom_no_code_charting_workbench spine=batch02; code: async def _cap058(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 58, \"surface\": \"custom_no_code_charting_workbench\", \"eviden; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "59": {
       "id": 59,
@@ -124,7 +148,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=personalized_research_dashboards spine=batch02; code: async def _cap059(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 59, \"surface\": \"personalized_research_dashboards\", \"evidenc; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "60": {
       "id": 60,
@@ -136,7 +163,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=metric_based_smart_alerts spine=batch02; code: async def _cap060(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 60, \"surface\": \"metric_based_smart_alerts\", \"evidence_class; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "61": {
       "id": 61,
@@ -148,7 +178,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=point_in_time_immutable_metrics spine=batch02; code: async def _cap061(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 61, \"surface\": \"point_in_time_immutable_metrics\", \"evidence; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "62": {
       "id": 62,
@@ -160,7 +193,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=institutional_backtesting_data_layer spine=batch02; code: async def _cap062(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 62, \"surface\": \"institutional_backtesting_data_layer\", \"evi; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "63": {
       "id": 63,
@@ -172,7 +208,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=data_quality_provenance_layer spine=batch02; code: async def _cap063(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 63, \"surface\": \"data_quality_provenance_layer\", \"evidence_c; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "64": {
       "id": 64,
@@ -184,7 +223,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=metric_methodology_registry spine=batch02; code: async def _cap064(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 64, \"surface\": \"metric_methodology_registry\", \"evidence_cla; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "65": {
       "id": 65,
@@ -196,7 +238,10 @@
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_intelligence_portal spine=batch02; code: async def _cap065(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ai_compliance_footer present; ISO 42001 lifecycle not verified; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "66": {
       "id": 66,
@@ -207,8 +252,11 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 007)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=market_regime_written_read spine=batch02; code: async def _cap066(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 218 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T13:12:41.2813; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=market_regime_written_read spine=batch02; code: async def _cap066(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 330 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T22:07:40.4965; BCBS missing=data_source,timestamp",
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "67": {
       "id": 67,
@@ -220,7 +268,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=api_cli_excel_mcp_data_access spine=batch02; code: async def _cap067(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 67, \"surface\": \"api_cli_excel_mcp_data_access\", \"evidence_c; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "68": {
       "id": 68,
@@ -232,7 +283,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=bulk_data_institutional_delivery spine=batch02; code: async def _cap068(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 68, \"surface\": \"bulk_data_institutional_delivery\", \"evidenc; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "69": {
       "id": 69,
@@ -243,8 +297,11 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 007)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence_layer spine=batch02; code: async def _cap069(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 218 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T13:12:41.2813; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=cross_domain_decision_intelligence_layer spine=batch02; code: async def _cap069(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 330 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T22:07:40.4965; BCBS missing=data_source,timestamp",
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "70": {
       "id": 70,
@@ -256,7 +313,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_reserve_intelligence spine=batch02; code: async def _cap070(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 70, \"surface\": \"exchange_reserve_intelligence\", \"evidence_c; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "71": {
       "id": 71,
@@ -268,7 +328,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_inflow_outflow_netflow spine=batch02; code: async def _cap071(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 71, \"surface\": \"exchange_inflow_outflow_netflow\", \"evidence; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "72": {
       "id": 72,
@@ -280,7 +343,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_whale_ratio spine=batch02; code: async def _cap072(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 72, \"surface\": \"exchange_whale_ratio\", \"evidence_class\": \"S; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "73": {
       "id": 73,
@@ -292,7 +358,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_address_transaction_activity spine=batch02; code: async def _cap073(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 73, \"surface\": \"exchange_address_transaction_activity\", \"ev; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "74": {
       "id": 74,
@@ -304,7 +373,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_to_exchange_flow_intelligence spine=batch02; code: async def _cap074(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 74, \"surface\": \"exchange_to_exchange_flow_intelligence\", \"e; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "75": {
       "id": 75,
@@ -316,7 +388,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=exchange_internal_flow_filter spine=batch02; code: async def _cap075(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 75, \"surface\": \"exchange_internal_flow_filter\", \"evidence_c; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_03_remediated": true
     },
     "76": {
       "id": 76,
@@ -328,7 +403,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=stablecoin_exchange_reserve spine=batch02; code: async def _cap076(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 76, \"surface\": \"stablecoin_exchange_reserve\", \"evidence_cla; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "77": {
       "id": 77,
@@ -340,7 +418,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=stablecoin_exchange_flow_intelligence spine=batch02; code: async def _cap077(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 77, \"surface\": \"stablecoin_exchange_flow_intelligence\", \"ev; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "78": {
       "id": 78,
@@ -352,7 +433,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=stablecoin_supply_ratio_intelligence spine=batch02; code: async def _cap078(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 78, \"surface\": \"stablecoin_supply_ratio_intelligence\", \"evi; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "79": {
       "id": 79,
@@ -364,7 +448,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=miner_flow_intelligence spine=batch02; code: async def _cap079(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 79, \"surface\": \"miner_flow_intelligence\", \"evidence_class\":; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "80": {
       "id": 80,
@@ -376,7 +463,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=miners_position_index_mpi spine=batch02; code: async def _cap080(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 80, \"surface\": \"miners_position_index_mpi\", \"evidence_class; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "81": {
       "id": 81,
@@ -387,8 +477,11 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 007)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_accumulation_distribution_intelligence spine=batch02; code: async def _cap081(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 218 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T13:12:41.2813; BCBS missing=data_source,timestamp",
-      "remediated_run007": true
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_accumulation_distribution_intelligence spine=batch02; code: async def _cap081(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 330 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T22:07:40.4965; BCBS missing=data_source,timestamp",
+      "remediated_run007": true,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "82": {
       "id": 82,
@@ -400,7 +493,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=coinbase_premium_intelligence spine=batch02; code: async def _cap082(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 82, \"surface\": \"coinbase_premium_intelligence\", \"evidence_c; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "83": {
       "id": 83,
@@ -412,7 +508,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=korea_premium_intelligence spine=batch02; code: async def _cap083(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 83, \"surface\": \"korea_premium_intelligence\", \"evidence_clas; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "84": {
       "id": 84,
@@ -424,7 +523,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=fund_etf_data_intelligence spine=batch02; code: async def _cap084(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 84, \"surface\": \"fund_etf_data_intelligence\", \"evidence_clas; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "85": {
       "id": 85,
@@ -436,7 +538,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=futures_open_interest_intelligence spine=batch02; code: async def _cap085(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 85, \"surface\": \"futures_open_interest_intelligence\", \"evide; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "86": {
       "id": 86,
@@ -448,7 +553,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=funding_rate_intelligence spine=batch02; code: async def _cap086(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 86, \"surface\": \"funding_rate_intelligence\", \"evidence_class; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "87": {
       "id": 87,
@@ -460,7 +568,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=estimated_leverage_ratio spine=batch02; code: async def _cap087(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 87, \"surface\": \"estimated_leverage_ratio\", \"evidence_class\"; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "88": {
       "id": 88,
@@ -472,7 +583,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=liquidation_intelligence spine=batch02; code: async def _cap088(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 88, \"surface\": \"liquidation_intelligence\", \"evidence_class\"; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "89": {
       "id": 89,
@@ -484,7 +598,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=taker_buy_sell_pressure spine=batch02; code: async def _cap089(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 89, \"surface\": \"taker_buy_sell_pressure\", \"evidence_class\":; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "90": {
       "id": 90,
@@ -495,8 +612,11 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 007)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=derivatives_market_sentiment_composite spine=batch02; code: async def _cap090(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 218 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T13:12:41.2813; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=derivatives_market_sentiment_composite spine=batch02; code: async def _cap090(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 330 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T22:07:40.4965; BCBS missing=data_source,timestamp",
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "91": {
       "id": 91,
@@ -508,7 +628,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=inter_entity_flow_intelligence spine=batch02; code: async def _cap091(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 91, \"surface\": \"inter_entity_flow_intelligence\", \"evidence_; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "92": {
       "id": 92,
@@ -520,7 +643,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=address_labels_cohorts spine=batch02; code: async def _cap092(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 92, \"surface\": \"address_labels_cohorts\", \"evidence_class\": ; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "93": {
       "id": 93,
@@ -532,7 +658,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=custom_no_code_analytics_web3 spine=batch02; code: async def _cap093(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 93, \"surface\": \"custom_no_code_analytics_web3\", \"evidence_c; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "94": {
       "id": 94,
@@ -544,7 +673,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=native_sql_advanced_query_workspace spine=batch02; code: async def _cap094(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 94, \"surface\": \"native_sql_advanced_query_workspace\", \"evid; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "95": {
       "id": 95,
@@ -556,7 +688,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=pro_chart_multi_metric_workbench spine=batch02; code: async def _cap095(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 95, \"surface\": \"pro_chart_multi_metric_workbench\", \"evidenc; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "96": {
       "id": 96,
@@ -568,7 +703,10 @@
       "failed_phase": "4",
       "failed_standard": "BCBS 239 — Accuracy/Completeness/Timeliness/Adaptability",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=personal_dashboards spine=batch02; code: async def _cap096(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; BCBS 239 missing: data_source, timestamp | {\"capability_id\": 96, \"surface\": \"personal_dashboards\", \"evidence_class\": \"SH; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "97": {
       "id": 97,
@@ -579,8 +717,11 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 007)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=custom_metric_alerts spine=batch02; code: async def _cap097(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 218 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T13:12:41.2813; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=custom_metric_alerts spine=batch02; code: async def _cap097(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 330 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T22:07:40.4965; BCBS missing=data_source,timestamp",
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "98": {
       "id": 98,
@@ -591,8 +732,11 @@
       "audit_method": "Independent Third-Line Nine-Phase (Run 007)",
       "failed_phase": "2",
       "failed_standard": "GIPS (CFA Institute) — full-population performance disclosure",
-      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_movement_alerts spine=batch02; code: async def _cap098(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 218 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T13:12:41.2813; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=whale_movement_alerts spine=batch02; code: async def _cap098(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; PERFORMANCE-UNVERIFIABLE: 330 decisions all SIMULATED/SHADOW (2026-09-11T00:30:49.493941+00:00..2026-09-11T22:07:40.4965; BCBS missing=data_source,timestamp",
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "99": {
       "id": 99,
@@ -604,7 +748,10 @@
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=quicktake_analyst_insight_feed spine=batch02; code: async def _cap099(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ai_compliance_footer present; ISO 42001 lifecycle not verified; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     },
     "100": {
       "id": 100,
@@ -616,7 +763,12 @@
       "failed_phase": "3",
       "failed_standard": "NIST AI RMF 1.0 + NIST AI 600-1 GenAI Profile",
       "evidence": "split_brain=DEDICATED_ONLY; runtime success=True surface=research_reports spine=batch02; code: async def _cap100(*, symbol: str, address: str, params: dict[str, Any]) -> dict[str, Any]:; ai_compliance_footer present; ISO 42001 lifecycle not verified; BCBS missing=data_source,timestamp",
-      "remediated_run007": false
+      "remediated_run007": false,
+      "engineering_status": "PASS_ENGINEERING",
+      "live_status": "awaiting_deploy",
+      "build_batch_04_remediated": true
     }
-  }
+  },
+  "build_batch_03_updated_at": "2026-09-12T03:26:36.247926+00:00",
+  "build_batch_04_remediated_at": "2026-09-12T03:29:09.801495+00:00"
 }

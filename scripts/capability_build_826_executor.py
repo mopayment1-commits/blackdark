@@ -236,14 +236,17 @@ def run_batch_tests(build_batch: int, ids: list[int]) -> dict[str, Any]:
     ev_dir = BUILD_DIR / "EVIDENCE"
     ev_dir.mkdir(parents=True, exist_ok=True)
     log_path = ev_dir / f"batch{build_batch:02d}_pytest.log"
-    if build_batch == 1:
-        cmd = [PYTHON, "-m", "pytest", "tests/cap646/test_capability_build_batch01.py", "-q", "--tb=short"]
-    elif build_batch == 2:
-        cmd = [PYTHON, "-m", "pytest", "tests/cap646/test_capability_build_batch02.py", "-q", "--tb=short"]
-    else:
+    build_test_modules = {
+        1: "tests/cap646/test_capability_build_batch01.py",
+        2: "tests/cap646/test_capability_build_batch02.py",
+        3: "tests/cap646/test_capability_build_batch03.py",
+        4: "tests/cap646/test_capability_build_batch04.py",
+    }
+    if build_batch in build_test_modules:
+        cmd = [PYTHON, "-m", "pytest", build_test_modules[build_batch], "-q", "--tb=short"]
+    elif (ROOT / f"tests/cap646/test_batch{build_batch:02d}_dedicated.py").is_file():
         cmd = [PYTHON, "-m", "pytest", f"tests/cap646/test_batch{build_batch:02d}_dedicated.py", "-q", "--tb=short"]
-    if build_batch == 1 or not (ROOT / f"tests/cap646/test_batch{build_batch:02d}_dedicated.py").is_file():
-        # Fallback: runtime-only for batches without dedicated test module
+    else:
         cmd = [PYTHON, "-c", f"print('TEST_GAP batch{build_batch:02d}: no dedicated pytest module')"]
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=600)
     log_path.write_text(proc.stdout + proc.stderr, encoding="utf-8")
