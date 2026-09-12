@@ -179,3 +179,66 @@ async def test_batch_institutional_closure_batch01_shape():
     report = await verify_batch01_institutional(6)
     assert report["capability_id"] == 6
     assert "PASS_INSTITUTIONAL" in report
+
+
+def test_v6_strict_closure_source_and_provenance_guards():
+    from cap646.v6_strict_closure import (
+        _domain_ok,
+        _has_forbidden_invoke,
+        _is_thin_only,
+        _provenance_ok,
+        expected_surface,
+    )
+
+    assert _has_forbidden_invoke("invoke_substantive(") is True
+    assert _has_forbidden_invoke("clean_handler") is False
+    assert _is_thin_only("") is True
+    assert _is_thin_only("wrap_with_backend(\nreturn x") is True
+    ok, reason = _provenance_ok({"data_provenance": {"score": 0.9, "band": "A", "freshness": "live"}})
+    assert ok is True
+    assert reason == "scored"
+    surface = expected_surface(6)
+    domain_ok, _ = _domain_ok({"surface": surface, "screener": {"items": []}}, 6)
+    assert domain_ok is True
+
+
+@pytest.mark.asyncio
+async def test_v6_strict_closure_verify_and_close_batch():
+    from cap646.v6_strict_closure import close_batch_strict, verify_strict_institutional
+
+    report = await verify_strict_institutional(6)
+    assert report["capability_id"] == 6
+    assert isinstance(report.get("gates"), dict)
+    batch_report = await close_batch_strict(1)
+    assert batch_report["batch"] == "batch01"
+    assert batch_report["total"] >= 1
+
+
+@pytest.mark.asyncio
+async def test_monitoring_maybe_alert_signal_and_base_url(monkeypatch):
+    import time
+
+    import ops.monitoring_alerting as mon
+
+    async def fake_alert(title: str, body: str) -> dict[str, Any]:
+        return {"telegram": True, "webhook": False, "title": title, "body": body}
+
+    monkeypatch.setattr(mon, "_send_ops_alert", fake_alert)
+    monkeypatch.setenv("MONITORING_BASE_URL", "https://monitor.blackdark.test/")
+
+    assert mon._base_url() == "https://monitor.blackdark.test"
+
+    cooled = {"last_signal_alerts": {"error_rate": time.time()}}
+    assert (
+        await mon._maybe_alert_signal(
+            cooled, signal_key="error_rate", fired=True, title="rate", body="high"
+        )
+        is None
+    )
+
+    fresh: dict[str, Any] = {"last_signal_alerts": {}}
+    sent = await mon._maybe_alert_signal(
+        fresh, signal_key="error_rate", fired=True, title="rate", body="high"
+    )
+    assert sent is not None
+    assert sent["telegram"] is True
