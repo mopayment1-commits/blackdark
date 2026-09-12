@@ -22,7 +22,7 @@ USER_SURFACES: dict[int, dict[str, str]] = {
     630: {"ui_path": "/cap646", "api_path": "/api/cap646/630/execute", "label": "Freshness Assurance"},
     338: {"ui_path": "/cap646", "api_path": "/api/cap646/338/execute", "label": "Data Quality Pipeline"},
     500: {"ui_path": "/cap646", "api_path": "/api/cap646/500/execute", "label": "Normalization"},
-    584: {"ui_path": "/dashboard", "api_path": "/api/arbitrage/opportunities", "label": "Risk Shield"},
+    584: {"ui_path": "/dashboard", "api_path": "/api/cap646/584/execute", "label": "Risk Shield"},
     642: {"ui_path": "/oracle-accuracy", "api_path": "/api/cap646/642/execute", "label": "AI Provenance Footer"},
     644: {"ui_path": "/institutional", "api_path": "/api/cap646/644/execute", "label": "Capacity Evidence"},
     646: {"ui_path": "/institutional", "api_path": "/api/cap646/646/execute", "label": "Chaos Resilience"},
