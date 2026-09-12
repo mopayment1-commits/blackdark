@@ -461,11 +461,17 @@ _register_batch01_legacy_extension_bindings()
 
 
 def _register_official_batch_bindings() -> None:
-    """SSOT: all 826 capabilities route through official 25-cap batch production spine."""
+    """SSOT: capabilities outside batch01/02/03 production spines use official batch wrapper."""
+    from cap646.batch01_production import BATCH01_IDS
+    from cap646.batch02_production import BATCH02_IDS
+    from cap646.batch03_production import BATCH03_IDS
     from cap646.batch_constants import TOTAL_CAPABILITIES
     from cap646.official_batch_production import official_entrypoint
 
+    reserved = BATCH01_IDS | BATCH02_IDS | BATCH03_IDS
     for cid in range(1, TOTAL_CAPABILITIES + 1):
+        if cid in reserved:
+            continue
         row = catalog_by_id().get(cid)
         if not row:
             continue
@@ -481,6 +487,47 @@ def _register_official_batch_bindings() -> None:
 
 
 _register_official_batch_bindings()
+
+
+def _reassert_batch_production_registry_ssot() -> None:
+    """Batch01/02/03 production spine bindings win over range/official wrappers."""
+    from cap646.batch01_production import BATCH01_IDS, batch01_entrypoint
+    from cap646.batch02_production import BATCH02_IDS, batch02_entrypoint
+    from cap646.batch03_production import BATCH03_IDS, batch03_entrypoint
+
+    for cid in BATCH01_IDS:
+        row = catalog_by_id().get(cid, {})
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch01_production",
+            batch01_entrypoint(cid),
+            _slug(row.get("capability", f"cap_{cid}")),
+            "symbol",
+            "explicit_option_a",
+        )
+    for cid in BATCH02_IDS - BATCH01_IDS:
+        row = catalog_by_id().get(cid, {})
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch02_production",
+            batch02_entrypoint(cid),
+            _slug(row.get("capability", f"cap_{cid}")),
+            "symbol",
+            "explicit_option_a",
+        )
+    for cid in BATCH03_IDS - BATCH01_IDS - BATCH02_IDS:
+        row = catalog_by_id().get(cid, {})
+        _EXPLICIT_BINDINGS[cid] = BackendBinding(
+            cid,
+            "cap646.batch03_production",
+            batch03_entrypoint(cid),
+            _slug(row.get("capability", f"cap_{cid}")),
+            "symbol",
+            "explicit_option_a",
+        )
+
+
+_reassert_batch_production_registry_ssot()
 
 
 @lru_cache(maxsize=978)
