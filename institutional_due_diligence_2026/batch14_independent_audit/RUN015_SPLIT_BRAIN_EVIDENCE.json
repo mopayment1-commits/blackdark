@@ -15,19 +15,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.638635+00:00"
+        "timestamp": "2026-09-12T11:24:47.404204+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.638635+00:00",
+      "timestamp": "2026-09-12T11:24:47.404204+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.638658+00:00",
+        "attached_at": "2026-09-12T11:24:47.404226+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -57,7 +57,7 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "internal_graphql",
-        "timestamp": "2026-09-11T21:47:57.830434+00:00",
+        "timestamp": "2026-09-12T11:24:47.596162+00:00",
         "graphql_health": {
           "status": "ok",
           "endpoint": "/graphql",
@@ -80,7 +80,7 @@
       "symbol": "BTC",
       "prompt_to_sql_agent": {
         "source": "internal_graphql",
-        "timestamp": "2026-09-11T21:47:57.830455+00:00",
+        "timestamp": "2026-09-12T11:24:47.596184+00:00",
         "graphql_health": {
           "status": "ok",
           "endpoint": "/graphql",
@@ -102,12 +102,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "internal_graphql",
-      "timestamp": "2026-09-11T21:47:57.830455+00:00",
+      "timestamp": "2026-09-12T11:24:47.596184+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.830474+00:00",
+        "attached_at": "2026-09-12T11:24:47.596203+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -142,19 +142,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.830714+00:00"
+        "timestamp": "2026-09-12T11:24:47.596437+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.830714+00:00",
+      "timestamp": "2026-09-12T11:24:47.596437+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.830726+00:00",
+        "attached_at": "2026-09-12T11:24:47.596449+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -188,19 +188,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.830850+00:00"
+        "timestamp": "2026-09-12T11:24:47.596565+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.830850+00:00",
+      "timestamp": "2026-09-12T11:24:47.596565+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.830857+00:00",
+        "attached_at": "2026-09-12T11:24:47.596572+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -234,19 +234,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.830978+00:00"
+        "timestamp": "2026-09-12T11:24:47.596678+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.830978+00:00",
+      "timestamp": "2026-09-12T11:24:47.596678+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.830986+00:00",
+        "attached_at": "2026-09-12T11:24:47.596684+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -280,19 +280,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.831577+00:00"
+        "timestamp": "2026-09-12T11:24:47.597284+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.831577+00:00",
+      "timestamp": "2026-09-12T11:24:47.597284+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.831591+00:00",
+        "attached_at": "2026-09-12T11:24:47.597299+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -326,19 +326,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.831710+00:00"
+        "timestamp": "2026-09-12T11:24:47.597427+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.831710+00:00",
+      "timestamp": "2026-09-12T11:24:47.597427+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.831716+00:00",
+        "attached_at": "2026-09-12T11:24:47.597435+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -372,19 +372,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.831820+00:00"
+        "timestamp": "2026-09-12T11:24:47.597552+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.831820+00:00",
+      "timestamp": "2026-09-12T11:24:47.597552+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.831825+00:00",
+        "attached_at": "2026-09-12T11:24:47.597558+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -418,19 +418,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.831928+00:00"
+        "timestamp": "2026-09-12T11:24:47.597666+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.831928+00:00",
+      "timestamp": "2026-09-12T11:24:47.597666+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.831932+00:00",
+        "attached_at": "2026-09-12T11:24:47.597672+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -464,19 +464,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832037+00:00"
+        "timestamp": "2026-09-12T11:24:47.597778+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832037+00:00",
+      "timestamp": "2026-09-12T11:24:47.597778+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832042+00:00",
+        "attached_at": "2026-09-12T11:24:47.597782+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -510,19 +510,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832149+00:00"
+        "timestamp": "2026-09-12T11:24:47.597887+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832149+00:00",
+      "timestamp": "2026-09-12T11:24:47.597887+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832153+00:00",
+        "attached_at": "2026-09-12T11:24:47.597892+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -556,19 +556,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832261+00:00"
+        "timestamp": "2026-09-12T11:24:47.597997+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832261+00:00",
+      "timestamp": "2026-09-12T11:24:47.597997+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832267+00:00",
+        "attached_at": "2026-09-12T11:24:47.598004+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -602,19 +602,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832373+00:00"
+        "timestamp": "2026-09-12T11:24:47.598109+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832373+00:00",
+      "timestamp": "2026-09-12T11:24:47.598109+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832378+00:00",
+        "attached_at": "2026-09-12T11:24:47.598115+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -648,19 +648,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832482+00:00"
+        "timestamp": "2026-09-12T11:24:47.598219+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832482+00:00",
+      "timestamp": "2026-09-12T11:24:47.598219+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832486+00:00",
+        "attached_at": "2026-09-12T11:24:47.598223+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -694,19 +694,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832591+00:00"
+        "timestamp": "2026-09-12T11:24:47.598329+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832591+00:00",
+      "timestamp": "2026-09-12T11:24:47.598329+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832595+00:00",
+        "attached_at": "2026-09-12T11:24:47.598334+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -740,19 +740,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832695+00:00"
+        "timestamp": "2026-09-12T11:24:47.598434+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832695+00:00",
+      "timestamp": "2026-09-12T11:24:47.598434+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832699+00:00",
+        "attached_at": "2026-09-12T11:24:47.598438+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -786,19 +786,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832799+00:00"
+        "timestamp": "2026-09-12T11:24:47.598540+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832799+00:00",
+      "timestamp": "2026-09-12T11:24:47.598540+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832803+00:00",
+        "attached_at": "2026-09-12T11:24:47.598544+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -832,19 +832,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.832909+00:00"
+        "timestamp": "2026-09-12T11:24:47.598649+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.832909+00:00",
+      "timestamp": "2026-09-12T11:24:47.598649+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.832913+00:00",
+        "attached_at": "2026-09-12T11:24:47.598654+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -878,19 +878,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.833015+00:00"
+        "timestamp": "2026-09-12T11:24:47.598757+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.833015+00:00",
+      "timestamp": "2026-09-12T11:24:47.598757+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.833021+00:00",
+        "attached_at": "2026-09-12T11:24:47.598762+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -924,19 +924,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.833125+00:00"
+        "timestamp": "2026-09-12T11:24:47.598866+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.833125+00:00",
+      "timestamp": "2026-09-12T11:24:47.598866+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.833129+00:00",
+        "attached_at": "2026-09-12T11:24:47.598870+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -970,19 +970,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:47:57.833232+00:00"
+        "timestamp": "2026-09-12T11:24:47.598971+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:47:57.833232+00:00",
+      "timestamp": "2026-09-12T11:24:47.598971+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:57.833236+00:00",
+        "attached_at": "2026-09-12T11:24:47.598975+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -1012,13 +1012,13 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "defillama_yields",
-        "timestamp": "2026-09-11T21:47:58.674523+00:00",
+        "timestamp": "2026-09-12T11:24:48.352403+00:00",
         "liquid_staking_pools": [
           {
             "chain": "Ethereum",
             "project": "lido",
             "symbol": "STETH",
-            "tvlUsd": 24589813159,
+            "tvlUsd": 24476640363,
             "apyBase": 2.231,
             "apyReward": null,
             "apy": 2.231,
@@ -1036,16 +1036,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 3.43051,
-            "sigma": 0.05385,
-            "count": 1560,
+            "mu": 3.42974,
+            "sigma": 0.05386,
+            "count": 1561,
             "outlier": false,
             "underlyingTokens": [
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 2.22795,
+            "apyMean30d": 2.22905,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1054,7 +1054,7 @@
             "chain": "Ethereum",
             "project": "sparklend",
             "symbol": "WSTETH",
-            "tvlUsd": 3178823333,
+            "tvlUsd": 3190744987,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -1072,9 +1072,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 0.00122,
+            "mu": 0.00121,
             "sigma": 0.00027,
-            "count": 1217,
+            "count": 1218,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1090,7 +1090,7 @@
             "chain": "Ethereum",
             "project": "aave-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 2866405304,
+            "tvlUsd": 2871749060,
             "apyBase": 1e-05,
             "apyReward": null,
             "apy": 1e-05,
@@ -1108,9 +1108,9 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 0.02665,
+            "mu": 0.02663,
             "sigma": 0.00231,
-            "count": 1310,
+            "count": 1311,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1126,15 +1126,15 @@
             "chain": "Ethereum",
             "project": "rocket-pool",
             "symbol": "RETH",
-            "tvlUsd": 1320436049,
-            "apyBase": 2.16802,
+            "tvlUsd": 1323498959,
+            "apyBase": 2.17266,
             "apyReward": null,
-            "apy": 2.16802,
+            "apy": 2.17266,
             "rewardTokens": null,
             "pool": "d4b3c522-6127-4b89-bedf-83641cdcd2eb",
-            "apyPct1D": -0.00244,
-            "apyPct7D": 0.00806,
-            "apyPct30D": -0.05365,
+            "apyPct1D": 0.00464,
+            "apyPct7D": 0.01129,
+            "apyPct30D": -0.03165,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
@@ -1144,16 +1144,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 2.88759,
+            "mu": 2.88706,
             "sigma": 0.03816,
-            "count": 1331,
+            "count": 1332,
             "outlier": false,
             "underlyingTokens": [
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 2.17157,
+            "apyMean30d": 2.17068,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1162,34 +1162,34 @@
             "chain": "Solana",
             "project": "jito-liquid-staking",
             "symbol": "JITOSOL",
-            "tvlUsd": 1053319853,
-            "apyBase": 4.65,
+            "tvlUsd": 1048289286,
+            "apyBase": 4.92,
             "apyReward": null,
-            "apy": 4.65,
+            "apy": 4.92,
             "rewardTokens": null,
             "pool": "0e7d0722-9054-4907-8593-567b353c0900",
-            "apyPct1D": 0,
-            "apyPct7D": -0.27,
-            "apyPct30D": -0.38,
+            "apyPct1D": 0.27,
+            "apyPct7D": 0,
+            "apyPct30D": -0.16,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
             "predictions": {
               "predictedClass": "Down",
-              "predictedProbability": 53,
+              "predictedProbability": 56.00000000000001,
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 6.28829,
+            "mu": 6.28622,
             "sigma": 0.05017,
-            "count": 534,
+            "count": 535,
             "outlier": false,
             "underlyingTokens": [
               "So11111111111111111111111111111111111111112"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 4.95344,
+            "apyMean30d": 4.95022,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1198,7 +1198,7 @@
             "chain": "Ethereum",
             "project": "coinbase-wrapped-staked-eth",
             "symbol": "CBETH",
-            "tvlUsd": 481293252,
+            "tvlUsd": 482309884,
             "apyBase": 2.64721,
             "apyReward": null,
             "apy": 2.64721,
@@ -1216,16 +1216,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 3.16521,
-            "sigma": 0.04599,
-            "count": 1330,
+            "mu": 3.16482,
+            "sigma": 0.04598,
+            "count": 1331,
             "outlier": false,
             "underlyingTokens": [
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 2.37056,
+            "apyMean30d": 2.37665,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1234,7 +1234,7 @@
             "chain": "Ethereum",
             "project": "morpho-blue",
             "symbol": "WSTETH",
-            "tvlUsd": 340927633,
+            "tvlUsd": 340538612,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -1252,9 +1252,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 1.76475,
-            "sigma": 0.25028,
-            "count": 933,
+            "mu": 1.76284,
+            "sigma": 0.25016,
+            "count": 934,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1270,34 +1270,34 @@
             "chain": "Solana",
             "project": "marinade-liquid-staking",
             "symbol": "MSOL",
-            "tvlUsd": 235303039,
-            "apyBase": 4.75824,
+            "tvlUsd": 234221408,
+            "apyBase": 6.01218,
             "apyReward": null,
-            "apy": 4.75824,
+            "apy": 6.01218,
             "rewardTokens": null,
             "pool": "b3f93865-5ec8-4662-90a0-11808e0aa2bd",
-            "apyPct1D": -1.24213,
-            "apyPct7D": -0.20856,
-            "apyPct30D": 0.07788,
+            "apyPct1D": 1.25395,
+            "apyPct7D": 1.04539,
+            "apyPct30D": -0.29059,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
             "predictions": {
-              "predictedClass": "Stable/Up",
+              "predictedClass": "Down",
               "predictedProbability": 55.00000000000001,
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 6.80707,
-            "sigma": 0.07209,
-            "count": 562,
+            "mu": 6.80791,
+            "sigma": 0.07194,
+            "count": 563,
             "outlier": false,
             "underlyingTokens": [
               "So11111111111111111111111111111111111111112"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 5.52353,
+            "apyMean30d": 5.52467,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1306,7 +1306,7 @@
             "chain": "Ethereum",
             "project": "fluid-lending",
             "symbol": "WSTETH",
-            "tvlUsd": 215425515,
+            "tvlUsd": 215170786,
             "apyBase": 0.02,
             "apyReward": null,
             "apy": 0.02,
@@ -1324,16 +1324,16 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 0.15649,
+            "mu": 0.15626,
             "sigma": 0.00546,
-            "count": 613,
+            "count": 614,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 0.02466,
+            "apyMean30d": 0.02447,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1342,7 +1342,7 @@
             "chain": "Ethereum",
             "project": "compound-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 162600386,
+            "tvlUsd": 162406545,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -1362,7 +1362,7 @@
             "poolMeta": "USDC-pool",
             "mu": 0,
             "sigma": 0,
-            "count": 771,
+            "count": 772,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1375,46 +1375,10 @@
             "apyBaseInception": null
           },
           {
-            "chain": "Ethereum",
-            "project": "aave-v3",
-            "symbol": "WSTETH",
-            "tvlUsd": 152164991,
-            "apyBase": 0.03075,
-            "apyReward": null,
-            "apy": 0.03075,
-            "rewardTokens": null,
-            "pool": "d541708e-1283-4feb-bc7a-457fc5f8db2c",
-            "apyPct1D": -0.00024,
-            "apyPct7D": -0.00606,
-            "apyPct30D": -0.01742,
-            "stablecoin": false,
-            "ilRisk": "no",
-            "exposure": "single",
-            "predictions": {
-              "predictedClass": "Stable/Up",
-              "predictedProbability": 96,
-              "binnedConfidence": 3
-            },
-            "poolMeta": "Prime Instance",
-            "mu": 0.2092,
-            "sigma": 0.01219,
-            "count": 672,
-            "outlier": false,
-            "underlyingTokens": [
-              "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
-            ],
-            "il7d": null,
-            "apyBase7d": null,
-            "apyMean30d": 0.03894,
-            "volumeUsd1d": null,
-            "volumeUsd7d": null,
-            "apyBaseInception": null
-          },
-          {
             "chain": "Base",
             "project": "aave-v3",
             "symbol": "CBETH",
-            "tvlUsd": 131351700,
+            "tvlUsd": 131527251,
             "apyBase": 0.00025,
             "apyReward": null,
             "apy": 0.00025,
@@ -1422,7 +1386,7 @@
             "pool": "54470a44-22f4-4508-bbbb-2d8e2770ab77",
             "apyPct1D": 0,
             "apyPct7D": -1e-05,
-            "apyPct30D": 0,
+            "apyPct30D": 1e-05,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
@@ -1432,9 +1396,9 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 0.09999,
+            "mu": 0.09988,
             "sigma": 0.00805,
-            "count": 915,
+            "count": 916,
             "outlier": false,
             "underlyingTokens": [
               "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22"
@@ -1448,9 +1412,45 @@
           },
           {
             "chain": "Ethereum",
+            "project": "aave-v3",
+            "symbol": "WSTETH",
+            "tvlUsd": 128248688,
+            "apyBase": 0.03973,
+            "apyReward": null,
+            "apy": 0.03973,
+            "rewardTokens": null,
+            "pool": "d541708e-1283-4feb-bc7a-457fc5f8db2c",
+            "apyPct1D": 0.00873,
+            "apyPct7D": 0.00314,
+            "apyPct30D": -0.00569,
+            "stablecoin": false,
+            "ilRisk": "no",
+            "exposure": "single",
+            "predictions": {
+              "predictedClass": "Stable/Up",
+              "predictedProbability": 96,
+              "binnedConfidence": 3
+            },
+            "poolMeta": "Prime Instance",
+            "mu": 0.20895,
+            "sigma": 0.01218,
+            "count": 673,
+            "outlier": false,
+            "underlyingTokens": [
+              "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
+            ],
+            "il7d": null,
+            "apyBase7d": null,
+            "apyMean30d": 0.03873,
+            "volumeUsd1d": null,
+            "volumeUsd7d": null,
+            "apyBaseInception": null
+          },
+          {
+            "chain": "Ethereum",
             "project": "concrete",
             "symbol": "ctwstETH+",
-            "tvlUsd": 114937594,
+            "tvlUsd": 114800639,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -1470,7 +1470,7 @@
             "poolMeta": "Concrete wrapped Staked ETH +",
             "mu": 0,
             "sigma": 0,
-            "count": 124,
+            "count": 125,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
@@ -1486,7 +1486,7 @@
             "chain": "Ethereum",
             "project": "aave-v3",
             "symbol": "RETH",
-            "tvlUsd": 106020522,
+            "tvlUsd": 106061887,
             "apyBase": 2e-05,
             "apyReward": null,
             "apy": 2e-05,
@@ -1504,9 +1504,9 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 0.03537,
-            "sigma": 0.00637,
-            "count": 1303,
+            "mu": 0.03534,
+            "sigma": 0.00636,
+            "count": 1304,
             "outlier": false,
             "underlyingTokens": [
               "0xae78736Cd615f374D3085123A210448E74Fc6393"
@@ -1522,7 +1522,7 @@
             "chain": "Ethereum",
             "project": "curve-dex",
             "symbol": "ETH-STETH",
-            "tvlUsd": 103549790,
+            "tvlUsd": 103042902,
             "apyBase": 1.37,
             "apyReward": null,
             "apy": 1.37,
@@ -1530,9 +1530,9 @@
               "0xD533a949740bb3306d119CC777fa900bA034cd52"
             ],
             "pool": "57d30b9c-fc66-4ac2-b666-69ad5f410cce",
-            "apyPct1D": 0.18,
-            "apyPct7D": 0.01,
-            "apyPct30D": 0.19,
+            "apyPct1D": 0.17,
+            "apyPct7D": 0.14,
+            "apyPct30D": 0.07,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "multi",
@@ -1542,9 +1542,9 @@
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 3.06406,
-            "sigma": 0.61005,
-            "count": 1662,
+            "mu": 3.06303,
+            "sigma": 0.60987,
+            "count": 1663,
             "outlier": false,
             "underlyingTokens": [
               "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
@@ -1552,43 +1552,43 @@
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 1.24981,
-            "volumeUsd1d": 8330834.47,
-            "volumeUsd7d": 52356558.23847,
+            "apyMean30d": 1.25117,
+            "volumeUsd1d": 8463361.56,
+            "volumeUsd7d": 53189447.46832,
             "apyBaseInception": null
           },
           {
             "chain": "Solana",
             "project": "kamino-lend",
             "symbol": "JITOSOL",
-            "tvlUsd": 96189826,
-            "apyBase": 0.00035,
+            "tvlUsd": 98570097,
+            "apyBase": 0.00034,
             "apyReward": null,
-            "apy": 0.00035,
+            "apy": 0.00034,
             "rewardTokens": null,
             "pool": "1da10c92-fd2e-4506-a4d1-8c8fa22ff744",
-            "apyPct1D": -2e-05,
-            "apyPct7D": 3e-05,
-            "apyPct30D": -0.00075,
+            "apyPct1D": -1e-05,
+            "apyPct7D": 0,
+            "apyPct30D": -0.00076,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
             "predictions": {
               "predictedClass": "Stable/Up",
-              "predictedProbability": 72,
+              "predictedProbability": 71,
               "binnedConfidence": 2
             },
             "poolMeta": "SOL/BTC Market",
-            "mu": 0.02322,
+            "mu": 0.0232,
             "sigma": 0.00259,
-            "count": 1026,
+            "count": 1027,
             "outlier": false,
             "underlyingTokens": [
               "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 0.00054,
+            "apyMean30d": 0.00052,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1597,7 +1597,7 @@
             "chain": "Ethereum",
             "project": "morpho-blue",
             "symbol": "WSTETH",
-            "tvlUsd": 92890024,
+            "tvlUsd": 95636362,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -1615,9 +1615,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 0.57316,
-            "sigma": 0.05777,
-            "count": 880,
+            "mu": 0.5725,
+            "sigma": 0.05774,
+            "count": 881,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1633,15 +1633,15 @@
             "chain": "Ethereum",
             "project": "fluid-dex",
             "symbol": "WSTETH-ETH",
-            "tvlUsd": 89206665,
-            "apyBase": 0.66973,
+            "tvlUsd": 89298613,
+            "apyBase": 0.73526,
             "apyReward": null,
-            "apy": 0.66973,
+            "apy": 0.73526,
             "rewardTokens": null,
             "pool": "4f715567-420c-400d-9a62-0059331e3940",
-            "apyPct1D": 0.63717,
-            "apyPct7D": 0.50888,
-            "apyPct30D": 0.2322,
+            "apyPct1D": 0.68244,
+            "apyPct7D": 0.63649,
+            "apyPct30D": 0.2542,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "multi",
@@ -1651,26 +1651,26 @@
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 0.45687,
-            "sigma": 0.04447,
-            "count": 447,
+            "mu": 0.45758,
+            "sigma": 0.04443,
+            "count": 448,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
-            "apyBase7d": 0.17789,
-            "apyMean30d": 0.25389,
-            "volumeUsd1d": 16368202.74745,
-            "volumeUsd7d": 30434192.69576,
+            "apyBase7d": 0.19799,
+            "apyMean30d": 0.25891,
+            "volumeUsd1d": 17988474.03744,
+            "volumeUsd7d": 33907922.14084,
             "apyBaseInception": null
           },
           {
             "chain": "Ethereum",
             "project": "morpho-blue",
             "symbol": "WSTETH",
-            "tvlUsd": 81764503,
+            "tvlUsd": 81996392,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -1688,9 +1688,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 2.14611,
-            "sigma": 0.22238,
-            "count": 933,
+            "mu": 2.14379,
+            "sigma": 0.22229,
+            "count": 934,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1706,7 +1706,7 @@
             "chain": "Ethereum",
             "project": "compound-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 77494931,
+            "tvlUsd": 77412043,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -1726,7 +1726,7 @@
             "poolMeta": "ETH-pool",
             "mu": 0,
             "sigma": 0,
-            "count": 1318,
+            "count": 1319,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1742,7 +1742,7 @@
             "chain": "Ethereum",
             "project": "crvusd",
             "symbol": "WSTETH",
-            "tvlUsd": 70066011,
+            "tvlUsd": 69984065,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -1762,7 +1762,7 @@
             "poolMeta": null,
             "mu": 0,
             "sigma": 0,
-            "count": 1002,
+            "count": 1003,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1778,7 +1778,7 @@
             "chain": "Ethereum",
             "project": "compound-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 68539080,
+            "tvlUsd": 68457381,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -1798,7 +1798,7 @@
             "poolMeta": "USDT-pool",
             "mu": 0,
             "sigma": 0,
-            "count": 706,
+            "count": 707,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1814,7 +1814,7 @@
             "chain": "Ethereum",
             "project": "sky-lending",
             "symbol": "WSTETH",
-            "tvlUsd": 56614700,
+            "tvlUsd": 56547241,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -1834,7 +1834,7 @@
             "poolMeta": "WSTETH-A",
             "mu": 0,
             "sigma": 0,
-            "count": 1411,
+            "count": 1412,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -1850,7 +1850,7 @@
             "chain": "Ethereum",
             "project": "convex-finance",
             "symbol": "ETH-STETH",
-            "tvlUsd": 55886287,
+            "tvlUsd": 55615973,
             "apyBase": 1.37,
             "apyReward": 0,
             "apy": 1.37,
@@ -1861,9 +1861,9 @@
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
             ],
             "pool": "5ce23e7e-3800-4c9c-ad30-6db3db0515a1",
-            "apyPct1D": 0.18,
-            "apyPct7D": 0.15,
-            "apyPct30D": 0.19,
+            "apyPct1D": 0.17,
+            "apyPct7D": 0.14,
+            "apyPct30D": 0.07,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "multi",
@@ -1873,9 +1873,9 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 3.58975,
-            "sigma": 0.09702,
-            "count": 1670,
+            "mu": 3.58841,
+            "sigma": 0.09703,
+            "count": 1671,
             "outlier": false,
             "underlyingTokens": [
               "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
@@ -1883,7 +1883,7 @@
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 1.24965,
+            "apyMean30d": 1.25101,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1892,7 +1892,7 @@
             "chain": "Arbitrum",
             "project": "aave-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 54956423,
+            "tvlUsd": 55090714,
             "apyBase": 2e-05,
             "apyReward": null,
             "apy": 2e-05,
@@ -1910,16 +1910,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 0.00918,
+            "mu": 0.00917,
             "sigma": 0.00076,
-            "count": 1287,
+            "count": 1288,
             "outlier": false,
             "underlyingTokens": [
               "0x5979D7b546E38E414F7E9822514be443A4800529"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 3e-05,
+            "apyMean30d": 2e-05,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -1928,7 +1928,7 @@
         "liquid_staking_protocols": [
           {
             "name": "Lido",
-            "tvl_usd": 24643325925.55964,
+            "tvl_usd": 24558400578.64113,
             "chains": [
               "Ethereum",
               "Solana",
@@ -1940,7 +1940,7 @@
           },
           {
             "name": "Binance staked ETH",
-            "tvl_usd": 9467109617.044619,
+            "tvl_usd": 9432536337.969358,
             "chains": [
               "Ethereum",
               "Binance"
@@ -1949,19 +1949,19 @@
           },
           {
             "name": "ether.fi Stake",
-            "tvl_usd": 4692587377.880483,
+            "tvl_usd": 4684862162.473841,
             "chains": [
-              "Scroll",
+              "Arbitrum",
               "Ethereum",
               "Base",
-              "Arbitrum",
-              "Optimism"
+              "Optimism",
+              "Scroll"
             ],
             "category": "Liquid Staking"
           },
           {
             "name": "Sanctum Validator LSTs",
-            "tvl_usd": 1550758602.902705,
+            "tvl_usd": 1561981890.1489813,
             "chains": [
               "Solana"
             ],
@@ -1969,31 +1969,31 @@
           },
           {
             "name": "Rocket Pool",
-            "tvl_usd": 1328738866.1477182,
+            "tvl_usd": 1323787423.264834,
             "chains": [
               "Ethereum"
             ],
             "category": "Liquid Staking"
           },
           {
-            "name": "Kinetiq kHYPE",
-            "tvl_usd": 1069464912.887614,
-            "chains": [
-              "Hyperliquid L1"
-            ],
-            "category": "Liquid Staking"
-          },
-          {
             "name": "Binance Staked SOL",
-            "tvl_usd": 1051562535.4707505,
+            "tvl_usd": 1056899929.6891495,
             "chains": [
               "Solana"
             ],
             "category": "Liquid Staking"
           },
           {
+            "name": "Kinetiq kHYPE",
+            "tvl_usd": 1050309459.1347508,
+            "chains": [
+              "Hyperliquid L1"
+            ],
+            "category": "Liquid Staking"
+          },
+          {
             "name": "Jito Liquid Staking",
-            "tvl_usd": 1040610249.2164463,
+            "tvl_usd": 1045624593.5267017,
             "chains": [
               "Solana"
             ],
@@ -2001,7 +2001,7 @@
           },
           {
             "name": "StakeWise V3",
-            "tvl_usd": 962952567.380699,
+            "tvl_usd": 959514512.5599638,
             "chains": [
               "Ethereum",
               "xDai"
@@ -2010,7 +2010,7 @@
           },
           {
             "name": "Liquid Collective",
-            "tvl_usd": 814429756.7539512,
+            "tvl_usd": 811394847.0926317,
             "chains": [
               "Ethereum"
             ],
@@ -2018,7 +2018,7 @@
           },
           {
             "name": "Lista Liquid Staking",
-            "tvl_usd": 760016412.1330073,
+            "tvl_usd": 770466011.6682189,
             "chains": [
               "Binance"
             ],
@@ -2026,7 +2026,7 @@
           },
           {
             "name": "mETH Protocol",
-            "tvl_usd": 607803936.7903521,
+            "tvl_usd": 609355241.0930555,
             "chains": [
               "Ethereum"
             ],
@@ -2034,7 +2034,7 @@
           },
           {
             "name": "Jupiter Staked SOL",
-            "tvl_usd": 523524865.48533285,
+            "tvl_usd": 526232629.24128485,
             "chains": [
               "Solana"
             ],
@@ -2042,7 +2042,7 @@
           },
           {
             "name": "Coinbase Wrapped Staked ETH",
-            "tvl_usd": 481468597.42527604,
+            "tvl_usd": 482417594.7518407,
             "chains": [
               "Ethereum"
             ],
@@ -2050,7 +2050,7 @@
           },
           {
             "name": "Drift Staked SOL",
-            "tvl_usd": 284882980.45290756,
+            "tvl_usd": 286565876.5249987,
             "chains": [
               "Solana"
             ],
@@ -2069,13 +2069,13 @@
       "symbol": "BTC",
       "liquid_staking_intelligence": {
         "source": "defillama_yields",
-        "timestamp": "2026-09-11T21:47:59.724566+00:00",
+        "timestamp": "2026-09-12T11:24:49.088868+00:00",
         "liquid_staking_pools": [
           {
             "chain": "Ethereum",
             "project": "lido",
             "symbol": "STETH",
-            "tvlUsd": 24589813159,
+            "tvlUsd": 24476640363,
             "apyBase": 2.231,
             "apyReward": null,
             "apy": 2.231,
@@ -2093,16 +2093,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 3.43051,
-            "sigma": 0.05385,
-            "count": 1560,
+            "mu": 3.42974,
+            "sigma": 0.05386,
+            "count": 1561,
             "outlier": false,
             "underlyingTokens": [
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 2.22795,
+            "apyMean30d": 2.22905,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2111,7 +2111,7 @@
             "chain": "Ethereum",
             "project": "sparklend",
             "symbol": "WSTETH",
-            "tvlUsd": 3178823333,
+            "tvlUsd": 3190744987,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -2129,9 +2129,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 0.00122,
+            "mu": 0.00121,
             "sigma": 0.00027,
-            "count": 1217,
+            "count": 1218,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2147,7 +2147,7 @@
             "chain": "Ethereum",
             "project": "aave-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 2866405304,
+            "tvlUsd": 2871749060,
             "apyBase": 1e-05,
             "apyReward": null,
             "apy": 1e-05,
@@ -2165,9 +2165,9 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 0.02665,
+            "mu": 0.02663,
             "sigma": 0.00231,
-            "count": 1310,
+            "count": 1311,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2183,15 +2183,15 @@
             "chain": "Ethereum",
             "project": "rocket-pool",
             "symbol": "RETH",
-            "tvlUsd": 1320436049,
-            "apyBase": 2.16802,
+            "tvlUsd": 1323498959,
+            "apyBase": 2.17266,
             "apyReward": null,
-            "apy": 2.16802,
+            "apy": 2.17266,
             "rewardTokens": null,
             "pool": "d4b3c522-6127-4b89-bedf-83641cdcd2eb",
-            "apyPct1D": -0.00244,
-            "apyPct7D": 0.00806,
-            "apyPct30D": -0.05365,
+            "apyPct1D": 0.00464,
+            "apyPct7D": 0.01129,
+            "apyPct30D": -0.03165,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
@@ -2201,16 +2201,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 2.88759,
+            "mu": 2.88706,
             "sigma": 0.03816,
-            "count": 1331,
+            "count": 1332,
             "outlier": false,
             "underlyingTokens": [
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 2.17157,
+            "apyMean30d": 2.17068,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2219,34 +2219,34 @@
             "chain": "Solana",
             "project": "jito-liquid-staking",
             "symbol": "JITOSOL",
-            "tvlUsd": 1053319853,
-            "apyBase": 4.65,
+            "tvlUsd": 1048289286,
+            "apyBase": 4.92,
             "apyReward": null,
-            "apy": 4.65,
+            "apy": 4.92,
             "rewardTokens": null,
             "pool": "0e7d0722-9054-4907-8593-567b353c0900",
-            "apyPct1D": 0,
-            "apyPct7D": -0.27,
-            "apyPct30D": -0.38,
+            "apyPct1D": 0.27,
+            "apyPct7D": 0,
+            "apyPct30D": -0.16,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
             "predictions": {
               "predictedClass": "Down",
-              "predictedProbability": 53,
+              "predictedProbability": 56.00000000000001,
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 6.28829,
+            "mu": 6.28622,
             "sigma": 0.05017,
-            "count": 534,
+            "count": 535,
             "outlier": false,
             "underlyingTokens": [
               "So11111111111111111111111111111111111111112"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 4.95344,
+            "apyMean30d": 4.95022,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2255,7 +2255,7 @@
             "chain": "Ethereum",
             "project": "coinbase-wrapped-staked-eth",
             "symbol": "CBETH",
-            "tvlUsd": 481293252,
+            "tvlUsd": 482309884,
             "apyBase": 2.64721,
             "apyReward": null,
             "apy": 2.64721,
@@ -2273,16 +2273,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 3.16521,
-            "sigma": 0.04599,
-            "count": 1330,
+            "mu": 3.16482,
+            "sigma": 0.04598,
+            "count": 1331,
             "outlier": false,
             "underlyingTokens": [
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 2.37056,
+            "apyMean30d": 2.37665,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2291,7 +2291,7 @@
             "chain": "Ethereum",
             "project": "morpho-blue",
             "symbol": "WSTETH",
-            "tvlUsd": 340927633,
+            "tvlUsd": 340538612,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -2309,9 +2309,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 1.76475,
-            "sigma": 0.25028,
-            "count": 933,
+            "mu": 1.76284,
+            "sigma": 0.25016,
+            "count": 934,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2327,34 +2327,34 @@
             "chain": "Solana",
             "project": "marinade-liquid-staking",
             "symbol": "MSOL",
-            "tvlUsd": 235303039,
-            "apyBase": 4.75824,
+            "tvlUsd": 234221408,
+            "apyBase": 6.01218,
             "apyReward": null,
-            "apy": 4.75824,
+            "apy": 6.01218,
             "rewardTokens": null,
             "pool": "b3f93865-5ec8-4662-90a0-11808e0aa2bd",
-            "apyPct1D": -1.24213,
-            "apyPct7D": -0.20856,
-            "apyPct30D": 0.07788,
+            "apyPct1D": 1.25395,
+            "apyPct7D": 1.04539,
+            "apyPct30D": -0.29059,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
             "predictions": {
-              "predictedClass": "Stable/Up",
+              "predictedClass": "Down",
               "predictedProbability": 55.00000000000001,
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 6.80707,
-            "sigma": 0.07209,
-            "count": 562,
+            "mu": 6.80791,
+            "sigma": 0.07194,
+            "count": 563,
             "outlier": false,
             "underlyingTokens": [
               "So11111111111111111111111111111111111111112"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 5.52353,
+            "apyMean30d": 5.52467,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2363,7 +2363,7 @@
             "chain": "Ethereum",
             "project": "fluid-lending",
             "symbol": "WSTETH",
-            "tvlUsd": 215425515,
+            "tvlUsd": 215170786,
             "apyBase": 0.02,
             "apyReward": null,
             "apy": 0.02,
@@ -2381,16 +2381,16 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 0.15649,
+            "mu": 0.15626,
             "sigma": 0.00546,
-            "count": 613,
+            "count": 614,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 0.02466,
+            "apyMean30d": 0.02447,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2399,7 +2399,7 @@
             "chain": "Ethereum",
             "project": "compound-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 162600386,
+            "tvlUsd": 162406545,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -2419,7 +2419,7 @@
             "poolMeta": "USDC-pool",
             "mu": 0,
             "sigma": 0,
-            "count": 771,
+            "count": 772,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2432,46 +2432,10 @@
             "apyBaseInception": null
           },
           {
-            "chain": "Ethereum",
-            "project": "aave-v3",
-            "symbol": "WSTETH",
-            "tvlUsd": 152164991,
-            "apyBase": 0.03075,
-            "apyReward": null,
-            "apy": 0.03075,
-            "rewardTokens": null,
-            "pool": "d541708e-1283-4feb-bc7a-457fc5f8db2c",
-            "apyPct1D": -0.00024,
-            "apyPct7D": -0.00606,
-            "apyPct30D": -0.01742,
-            "stablecoin": false,
-            "ilRisk": "no",
-            "exposure": "single",
-            "predictions": {
-              "predictedClass": "Stable/Up",
-              "predictedProbability": 96,
-              "binnedConfidence": 3
-            },
-            "poolMeta": "Prime Instance",
-            "mu": 0.2092,
-            "sigma": 0.01219,
-            "count": 672,
-            "outlier": false,
-            "underlyingTokens": [
-              "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
-            ],
-            "il7d": null,
-            "apyBase7d": null,
-            "apyMean30d": 0.03894,
-            "volumeUsd1d": null,
-            "volumeUsd7d": null,
-            "apyBaseInception": null
-          },
-          {
             "chain": "Base",
             "project": "aave-v3",
             "symbol": "CBETH",
-            "tvlUsd": 131351700,
+            "tvlUsd": 131527251,
             "apyBase": 0.00025,
             "apyReward": null,
             "apy": 0.00025,
@@ -2479,7 +2443,7 @@
             "pool": "54470a44-22f4-4508-bbbb-2d8e2770ab77",
             "apyPct1D": 0,
             "apyPct7D": -1e-05,
-            "apyPct30D": 0,
+            "apyPct30D": 1e-05,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
@@ -2489,9 +2453,9 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 0.09999,
+            "mu": 0.09988,
             "sigma": 0.00805,
-            "count": 915,
+            "count": 916,
             "outlier": false,
             "underlyingTokens": [
               "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22"
@@ -2505,9 +2469,45 @@
           },
           {
             "chain": "Ethereum",
+            "project": "aave-v3",
+            "symbol": "WSTETH",
+            "tvlUsd": 128248688,
+            "apyBase": 0.03973,
+            "apyReward": null,
+            "apy": 0.03973,
+            "rewardTokens": null,
+            "pool": "d541708e-1283-4feb-bc7a-457fc5f8db2c",
+            "apyPct1D": 0.00873,
+            "apyPct7D": 0.00314,
+            "apyPct30D": -0.00569,
+            "stablecoin": false,
+            "ilRisk": "no",
+            "exposure": "single",
+            "predictions": {
+              "predictedClass": "Stable/Up",
+              "predictedProbability": 96,
+              "binnedConfidence": 3
+            },
+            "poolMeta": "Prime Instance",
+            "mu": 0.20895,
+            "sigma": 0.01218,
+            "count": 673,
+            "outlier": false,
+            "underlyingTokens": [
+              "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
+            ],
+            "il7d": null,
+            "apyBase7d": null,
+            "apyMean30d": 0.03873,
+            "volumeUsd1d": null,
+            "volumeUsd7d": null,
+            "apyBaseInception": null
+          },
+          {
+            "chain": "Ethereum",
             "project": "concrete",
             "symbol": "ctwstETH+",
-            "tvlUsd": 114937594,
+            "tvlUsd": 114800639,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -2527,7 +2527,7 @@
             "poolMeta": "Concrete wrapped Staked ETH +",
             "mu": 0,
             "sigma": 0,
-            "count": 124,
+            "count": 125,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
@@ -2543,7 +2543,7 @@
             "chain": "Ethereum",
             "project": "aave-v3",
             "symbol": "RETH",
-            "tvlUsd": 106020522,
+            "tvlUsd": 106061887,
             "apyBase": 2e-05,
             "apyReward": null,
             "apy": 2e-05,
@@ -2561,9 +2561,9 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 0.03537,
-            "sigma": 0.00637,
-            "count": 1303,
+            "mu": 0.03534,
+            "sigma": 0.00636,
+            "count": 1304,
             "outlier": false,
             "underlyingTokens": [
               "0xae78736Cd615f374D3085123A210448E74Fc6393"
@@ -2579,7 +2579,7 @@
             "chain": "Ethereum",
             "project": "curve-dex",
             "symbol": "ETH-STETH",
-            "tvlUsd": 103549790,
+            "tvlUsd": 103042902,
             "apyBase": 1.37,
             "apyReward": null,
             "apy": 1.37,
@@ -2587,9 +2587,9 @@
               "0xD533a949740bb3306d119CC777fa900bA034cd52"
             ],
             "pool": "57d30b9c-fc66-4ac2-b666-69ad5f410cce",
-            "apyPct1D": 0.18,
-            "apyPct7D": 0.01,
-            "apyPct30D": 0.19,
+            "apyPct1D": 0.17,
+            "apyPct7D": 0.14,
+            "apyPct30D": 0.07,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "multi",
@@ -2599,9 +2599,9 @@
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 3.06406,
-            "sigma": 0.61005,
-            "count": 1662,
+            "mu": 3.06303,
+            "sigma": 0.60987,
+            "count": 1663,
             "outlier": false,
             "underlyingTokens": [
               "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
@@ -2609,43 +2609,43 @@
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 1.24981,
-            "volumeUsd1d": 8330834.47,
-            "volumeUsd7d": 52356558.23847,
+            "apyMean30d": 1.25117,
+            "volumeUsd1d": 8463361.56,
+            "volumeUsd7d": 53189447.46832,
             "apyBaseInception": null
           },
           {
             "chain": "Solana",
             "project": "kamino-lend",
             "symbol": "JITOSOL",
-            "tvlUsd": 96189826,
-            "apyBase": 0.00035,
+            "tvlUsd": 98570097,
+            "apyBase": 0.00034,
             "apyReward": null,
-            "apy": 0.00035,
+            "apy": 0.00034,
             "rewardTokens": null,
             "pool": "1da10c92-fd2e-4506-a4d1-8c8fa22ff744",
-            "apyPct1D": -2e-05,
-            "apyPct7D": 3e-05,
-            "apyPct30D": -0.00075,
+            "apyPct1D": -1e-05,
+            "apyPct7D": 0,
+            "apyPct30D": -0.00076,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "single",
             "predictions": {
               "predictedClass": "Stable/Up",
-              "predictedProbability": 72,
+              "predictedProbability": 71,
               "binnedConfidence": 2
             },
             "poolMeta": "SOL/BTC Market",
-            "mu": 0.02322,
+            "mu": 0.0232,
             "sigma": 0.00259,
-            "count": 1026,
+            "count": 1027,
             "outlier": false,
             "underlyingTokens": [
               "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 0.00054,
+            "apyMean30d": 0.00052,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2654,7 +2654,7 @@
             "chain": "Ethereum",
             "project": "morpho-blue",
             "symbol": "WSTETH",
-            "tvlUsd": 92890024,
+            "tvlUsd": 95636362,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -2672,9 +2672,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 0.57316,
-            "sigma": 0.05777,
-            "count": 880,
+            "mu": 0.5725,
+            "sigma": 0.05774,
+            "count": 881,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2690,15 +2690,15 @@
             "chain": "Ethereum",
             "project": "fluid-dex",
             "symbol": "WSTETH-ETH",
-            "tvlUsd": 89206665,
-            "apyBase": 0.66973,
+            "tvlUsd": 89298613,
+            "apyBase": 0.73526,
             "apyReward": null,
-            "apy": 0.66973,
+            "apy": 0.73526,
             "rewardTokens": null,
             "pool": "4f715567-420c-400d-9a62-0059331e3940",
-            "apyPct1D": 0.63717,
-            "apyPct7D": 0.50888,
-            "apyPct30D": 0.2322,
+            "apyPct1D": 0.68244,
+            "apyPct7D": 0.63649,
+            "apyPct30D": 0.2542,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "multi",
@@ -2708,26 +2708,26 @@
               "binnedConfidence": 1
             },
             "poolMeta": null,
-            "mu": 0.45687,
-            "sigma": 0.04447,
-            "count": 447,
+            "mu": 0.45758,
+            "sigma": 0.04443,
+            "count": 448,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
               "0x0000000000000000000000000000000000000000"
             ],
             "il7d": null,
-            "apyBase7d": 0.17789,
-            "apyMean30d": 0.25389,
-            "volumeUsd1d": 16368202.74745,
-            "volumeUsd7d": 30434192.69576,
+            "apyBase7d": 0.19799,
+            "apyMean30d": 0.25891,
+            "volumeUsd1d": 17988474.03744,
+            "volumeUsd7d": 33907922.14084,
             "apyBaseInception": null
           },
           {
             "chain": "Ethereum",
             "project": "morpho-blue",
             "symbol": "WSTETH",
-            "tvlUsd": 81764503,
+            "tvlUsd": 81996392,
             "apyBase": 0,
             "apyReward": null,
             "apy": 0,
@@ -2745,9 +2745,9 @@
               "binnedConfidence": null
             },
             "poolMeta": null,
-            "mu": 2.14611,
-            "sigma": 0.22238,
-            "count": 933,
+            "mu": 2.14379,
+            "sigma": 0.22229,
+            "count": 934,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2763,7 +2763,7 @@
             "chain": "Ethereum",
             "project": "compound-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 77494931,
+            "tvlUsd": 77412043,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -2783,7 +2783,7 @@
             "poolMeta": "ETH-pool",
             "mu": 0,
             "sigma": 0,
-            "count": 1318,
+            "count": 1319,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2799,7 +2799,7 @@
             "chain": "Ethereum",
             "project": "crvusd",
             "symbol": "WSTETH",
-            "tvlUsd": 70066011,
+            "tvlUsd": 69984065,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -2819,7 +2819,7 @@
             "poolMeta": null,
             "mu": 0,
             "sigma": 0,
-            "count": 1002,
+            "count": 1003,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2835,7 +2835,7 @@
             "chain": "Ethereum",
             "project": "compound-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 68539080,
+            "tvlUsd": 68457381,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -2855,7 +2855,7 @@
             "poolMeta": "USDT-pool",
             "mu": 0,
             "sigma": 0,
-            "count": 706,
+            "count": 707,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2871,7 +2871,7 @@
             "chain": "Ethereum",
             "project": "sky-lending",
             "symbol": "WSTETH",
-            "tvlUsd": 56614700,
+            "tvlUsd": 56547241,
             "apyBase": null,
             "apyReward": null,
             "apy": 0,
@@ -2891,7 +2891,7 @@
             "poolMeta": "WSTETH-A",
             "mu": 0,
             "sigma": 0,
-            "count": 1411,
+            "count": 1412,
             "outlier": false,
             "underlyingTokens": [
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
@@ -2907,7 +2907,7 @@
             "chain": "Ethereum",
             "project": "convex-finance",
             "symbol": "ETH-STETH",
-            "tvlUsd": 55886287,
+            "tvlUsd": 55615973,
             "apyBase": 1.37,
             "apyReward": 0,
             "apy": 1.37,
@@ -2918,9 +2918,9 @@
               "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
             ],
             "pool": "5ce23e7e-3800-4c9c-ad30-6db3db0515a1",
-            "apyPct1D": 0.18,
-            "apyPct7D": 0.15,
-            "apyPct30D": 0.19,
+            "apyPct1D": 0.17,
+            "apyPct7D": 0.14,
+            "apyPct30D": 0.07,
             "stablecoin": false,
             "ilRisk": "no",
             "exposure": "multi",
@@ -2930,9 +2930,9 @@
               "binnedConfidence": 3
             },
             "poolMeta": null,
-            "mu": 3.58975,
-            "sigma": 0.09702,
-            "count": 1670,
+            "mu": 3.58841,
+            "sigma": 0.09703,
+            "count": 1671,
             "outlier": false,
             "underlyingTokens": [
               "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
@@ -2940,7 +2940,7 @@
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 1.24965,
+            "apyMean30d": 1.25101,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2949,7 +2949,7 @@
             "chain": "Arbitrum",
             "project": "aave-v3",
             "symbol": "WSTETH",
-            "tvlUsd": 54956423,
+            "tvlUsd": 55090714,
             "apyBase": 2e-05,
             "apyReward": null,
             "apy": 2e-05,
@@ -2967,16 +2967,16 @@
               "binnedConfidence": 2
             },
             "poolMeta": null,
-            "mu": 0.00918,
+            "mu": 0.00917,
             "sigma": 0.00076,
-            "count": 1287,
+            "count": 1288,
             "outlier": false,
             "underlyingTokens": [
               "0x5979D7b546E38E414F7E9822514be443A4800529"
             ],
             "il7d": null,
             "apyBase7d": null,
-            "apyMean30d": 3e-05,
+            "apyMean30d": 2e-05,
             "volumeUsd1d": null,
             "volumeUsd7d": null,
             "apyBaseInception": null
@@ -2985,7 +2985,7 @@
         "liquid_staking_protocols": [
           {
             "name": "Lido",
-            "tvl_usd": 24643325925.55964,
+            "tvl_usd": 24558400578.64113,
             "chains": [
               "Ethereum",
               "Solana",
@@ -2997,7 +2997,7 @@
           },
           {
             "name": "Binance staked ETH",
-            "tvl_usd": 9467109617.044619,
+            "tvl_usd": 9432536337.969358,
             "chains": [
               "Ethereum",
               "Binance"
@@ -3006,19 +3006,19 @@
           },
           {
             "name": "ether.fi Stake",
-            "tvl_usd": 4692587377.880483,
+            "tvl_usd": 4684862162.473841,
             "chains": [
-              "Scroll",
+              "Arbitrum",
               "Ethereum",
               "Base",
-              "Arbitrum",
-              "Optimism"
+              "Optimism",
+              "Scroll"
             ],
             "category": "Liquid Staking"
           },
           {
             "name": "Sanctum Validator LSTs",
-            "tvl_usd": 1550758602.902705,
+            "tvl_usd": 1561981890.1489813,
             "chains": [
               "Solana"
             ],
@@ -3026,31 +3026,31 @@
           },
           {
             "name": "Rocket Pool",
-            "tvl_usd": 1328738866.1477182,
+            "tvl_usd": 1323787423.264834,
             "chains": [
               "Ethereum"
             ],
             "category": "Liquid Staking"
           },
           {
-            "name": "Kinetiq kHYPE",
-            "tvl_usd": 1069464912.887614,
-            "chains": [
-              "Hyperliquid L1"
-            ],
-            "category": "Liquid Staking"
-          },
-          {
             "name": "Binance Staked SOL",
-            "tvl_usd": 1051562535.4707505,
+            "tvl_usd": 1056899929.6891495,
             "chains": [
               "Solana"
             ],
             "category": "Liquid Staking"
           },
           {
+            "name": "Kinetiq kHYPE",
+            "tvl_usd": 1050309459.1347508,
+            "chains": [
+              "Hyperliquid L1"
+            ],
+            "category": "Liquid Staking"
+          },
+          {
             "name": "Jito Liquid Staking",
-            "tvl_usd": 1040610249.2164463,
+            "tvl_usd": 1045624593.5267017,
             "chains": [
               "Solana"
             ],
@@ -3058,7 +3058,7 @@
           },
           {
             "name": "StakeWise V3",
-            "tvl_usd": 962952567.380699,
+            "tvl_usd": 959514512.5599638,
             "chains": [
               "Ethereum",
               "xDai"
@@ -3067,7 +3067,7 @@
           },
           {
             "name": "Liquid Collective",
-            "tvl_usd": 814429756.7539512,
+            "tvl_usd": 811394847.0926317,
             "chains": [
               "Ethereum"
             ],
@@ -3075,7 +3075,7 @@
           },
           {
             "name": "Lista Liquid Staking",
-            "tvl_usd": 760016412.1330073,
+            "tvl_usd": 770466011.6682189,
             "chains": [
               "Binance"
             ],
@@ -3083,7 +3083,7 @@
           },
           {
             "name": "mETH Protocol",
-            "tvl_usd": 607803936.7903521,
+            "tvl_usd": 609355241.0930555,
             "chains": [
               "Ethereum"
             ],
@@ -3091,7 +3091,7 @@
           },
           {
             "name": "Jupiter Staked SOL",
-            "tvl_usd": 523524865.48533285,
+            "tvl_usd": 526232629.24128485,
             "chains": [
               "Solana"
             ],
@@ -3099,7 +3099,7 @@
           },
           {
             "name": "Coinbase Wrapped Staked ETH",
-            "tvl_usd": 481468597.42527604,
+            "tvl_usd": 482417594.7518407,
             "chains": [
               "Ethereum"
             ],
@@ -3107,7 +3107,7 @@
           },
           {
             "name": "Drift Staked SOL",
-            "tvl_usd": 284882980.45290756,
+            "tvl_usd": 286565876.5249987,
             "chains": [
               "Solana"
             ],
@@ -3125,12 +3125,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "defillama_yields",
-      "timestamp": "2026-09-11T21:47:59.724566+00:00",
+      "timestamp": "2026-09-12T11:24:49.088868+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:59.732961+00:00",
+        "attached_at": "2026-09-12T11:24:49.097065+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3161,7 +3161,7 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "defillama_rwa",
-        "timestamp": "2026-09-11T21:47:59.851482+00:00",
+        "timestamp": "2026-09-12T11:24:49.213345+00:00",
         "rwa_protocols": [
           {
             "name": "BlackRock BUIDL",
@@ -3182,7 +3182,7 @@
           {
             "name": "Tether Gold",
             "symbol": "XAUt",
-            "tvl_usd": 3079393664.737976,
+            "tvl_usd": 3078551210.535425,
             "chains": [
               "Ethereum"
             ],
@@ -3191,7 +3191,7 @@
           {
             "name": "Spiko",
             "symbol": "-",
-            "tvl_usd": 2634473725.0973663,
+            "tvl_usd": 2635148777.895995,
             "chains": [
               "Stellar",
               "Arbitrum",
@@ -3218,7 +3218,7 @@
           {
             "name": "Ondo Yield Assets",
             "symbol": "ONDO",
-            "tvl_usd": 2562391632.05361,
+            "tvl_usd": 2566530580.0489397,
             "chains": [
               "Ethereum",
               "Stellar",
@@ -3238,7 +3238,7 @@
           {
             "name": "Paxos Gold",
             "symbol": "PAXG",
-            "tvl_usd": 1874036094.75599,
+            "tvl_usd": 1874408913.2664635,
             "chains": [
               "Ethereum"
             ],
@@ -3247,7 +3247,7 @@
           {
             "name": "Centrifuge Protocol",
             "symbol": "CFG",
-            "tvl_usd": 1504655593.6491008,
+            "tvl_usd": 1505311955.5924947,
             "chains": [
               "Ethereum",
               "Avalanche",
@@ -3265,7 +3265,7 @@
           {
             "name": "WisdomTree",
             "symbol": "-",
-            "tvl_usd": 1230488743.4904659,
+            "tvl_usd": 1230479387.3338177,
             "chains": [
               "Ethereum",
               "Stellar"
@@ -3275,7 +3275,7 @@
           {
             "name": "Blockchain Capital",
             "symbol": "BCAP",
-            "tvl_usd": 961966805.4013,
+            "tvl_usd": 961966805.4012998,
             "chains": [
               "zkSync Era"
             ],
@@ -3284,7 +3284,7 @@
           {
             "name": "Ondo Global Markets",
             "symbol": "ONDO",
-            "tvl_usd": 940550089.8132299,
+            "tvl_usd": 940947755.1813362,
             "chains": [
               "Ethereum",
               "Binance",
@@ -3295,7 +3295,7 @@
           {
             "name": "Anemoy Capital",
             "symbol": "-",
-            "tvl_usd": 724948355.9123107,
+            "tvl_usd": 724976788.0628638,
             "chains": [
               "Ethereum",
               "Celo",
@@ -3304,19 +3304,9 @@
             "category": "RWA"
           },
           {
-            "name": "Hastra",
-            "symbol": "-",
-            "tvl_usd": 600164560.5711095,
-            "chains": [
-              "Ethereum",
-              "Solana"
-            ],
-            "category": "RWA"
-          },
-          {
             "name": "Invesco USTB",
             "symbol": "-",
-            "tvl_usd": 598264397.6830084,
+            "tvl_usd": 598769357.8808182,
             "chains": [
               "Ethereum",
               "Plume Mainnet",
@@ -3325,9 +3315,19 @@
             "category": "RWA"
           },
           {
+            "name": "Hastra",
+            "symbol": "-",
+            "tvl_usd": 597950270.8515962,
+            "chains": [
+              "Ethereum",
+              "Solana"
+            ],
+            "category": "RWA"
+          },
+          {
             "name": "Ethena USDtb",
             "symbol": "ENA",
-            "tvl_usd": 483784690.10111606,
+            "tvl_usd": 483769160.52873945,
             "chains": [
               "Ethereum"
             ],
@@ -3336,7 +3336,7 @@
           {
             "name": "Re",
             "symbol": "RE",
-            "tvl_usd": 351214515.24351007,
+            "tvl_usd": 355943035.1765146,
             "chains": [
               "Ethereum",
               "Base",
@@ -3348,7 +3348,7 @@
           {
             "name": "Huma Finance V2",
             "symbol": "-",
-            "tvl_usd": 296760617.1883638,
+            "tvl_usd": 314626022.5107055,
             "chains": [
               "Solana",
               "Ethereum",
@@ -3359,7 +3359,7 @@
           {
             "name": "OnRe",
             "symbol": "-",
-            "tvl_usd": 294746142.76330924,
+            "tvl_usd": 294853253.23216003,
             "chains": [
               "Solana"
             ],
@@ -3368,7 +3368,7 @@
           {
             "name": "USD AI",
             "symbol": "CHIP",
-            "tvl_usd": 294168586.59059083,
+            "tvl_usd": 294808605.44181824,
             "chains": [
               "Arbitrum"
             ],
@@ -3377,7 +3377,7 @@
           {
             "name": "OpenTrade",
             "symbol": "-",
-            "tvl_usd": 262537868.09256253,
+            "tvl_usd": 262801299.5957992,
             "chains": [
               "Avalanche",
               "Ethereum",
@@ -3388,7 +3388,7 @@
           {
             "name": "Aave Horizon RWA",
             "symbol": "AAVE",
-            "tvl_usd": 256384307.93013883,
+            "tvl_usd": 261196022.12227482,
             "chains": [
               "Ethereum"
             ],
@@ -3422,7 +3422,7 @@
           {
             "name": "Plume Vaults",
             "symbol": "-",
-            "tvl_usd": 158406727.7287056,
+            "tvl_usd": 160088228.1390843,
             "chains": [
               "Plume Mainnet",
               "Ethereum",
@@ -3435,7 +3435,7 @@
           {
             "name": "RealT Tokens",
             "symbol": "REG",
-            "tvl_usd": 155091568.79259723,
+            "tvl_usd": 155094264.81808463,
             "chains": [
               "xDai"
             ],
@@ -3444,7 +3444,7 @@
           {
             "name": "Midas RWA",
             "symbol": "-",
-            "tvl_usd": 154543831.4700001,
+            "tvl_usd": 154543841.55000007,
             "chains": [
               "Ethereum",
               "Monad",
@@ -3472,11 +3472,11 @@
               "Berachain",
               "0G",
               "Polygon",
-              "Sapphire",
               "XRPL EVM",
-              "Scroll",
+              "Sapphire",
+              "TAC",
               "Sui",
-              "TAC"
+              "Scroll"
             ],
             "category": "RWA"
           }
@@ -3493,7 +3493,7 @@
       "symbol": "BTC",
       "rwa_intelligence": {
         "source": "defillama_rwa",
-        "timestamp": "2026-09-11T21:47:59.969425+00:00",
+        "timestamp": "2026-09-12T11:24:49.352416+00:00",
         "rwa_protocols": [
           {
             "name": "BlackRock BUIDL",
@@ -3514,7 +3514,7 @@
           {
             "name": "Tether Gold",
             "symbol": "XAUt",
-            "tvl_usd": 3079393664.737976,
+            "tvl_usd": 3078551210.535425,
             "chains": [
               "Ethereum"
             ],
@@ -3523,7 +3523,7 @@
           {
             "name": "Spiko",
             "symbol": "-",
-            "tvl_usd": 2634473725.0973663,
+            "tvl_usd": 2635148777.895995,
             "chains": [
               "Stellar",
               "Arbitrum",
@@ -3550,7 +3550,7 @@
           {
             "name": "Ondo Yield Assets",
             "symbol": "ONDO",
-            "tvl_usd": 2562391632.05361,
+            "tvl_usd": 2566530580.0489397,
             "chains": [
               "Ethereum",
               "Stellar",
@@ -3570,7 +3570,7 @@
           {
             "name": "Paxos Gold",
             "symbol": "PAXG",
-            "tvl_usd": 1874036094.75599,
+            "tvl_usd": 1874408913.2664635,
             "chains": [
               "Ethereum"
             ],
@@ -3579,7 +3579,7 @@
           {
             "name": "Centrifuge Protocol",
             "symbol": "CFG",
-            "tvl_usd": 1504655593.6491008,
+            "tvl_usd": 1505311955.5924947,
             "chains": [
               "Ethereum",
               "Avalanche",
@@ -3597,7 +3597,7 @@
           {
             "name": "WisdomTree",
             "symbol": "-",
-            "tvl_usd": 1230488743.4904659,
+            "tvl_usd": 1230479387.3338177,
             "chains": [
               "Ethereum",
               "Stellar"
@@ -3607,7 +3607,7 @@
           {
             "name": "Blockchain Capital",
             "symbol": "BCAP",
-            "tvl_usd": 961966805.4013,
+            "tvl_usd": 961966805.4012998,
             "chains": [
               "zkSync Era"
             ],
@@ -3616,7 +3616,7 @@
           {
             "name": "Ondo Global Markets",
             "symbol": "ONDO",
-            "tvl_usd": 940550089.8132299,
+            "tvl_usd": 940947755.1813362,
             "chains": [
               "Ethereum",
               "Binance",
@@ -3627,7 +3627,7 @@
           {
             "name": "Anemoy Capital",
             "symbol": "-",
-            "tvl_usd": 724948355.9123107,
+            "tvl_usd": 724976788.0628638,
             "chains": [
               "Ethereum",
               "Celo",
@@ -3636,19 +3636,9 @@
             "category": "RWA"
           },
           {
-            "name": "Hastra",
-            "symbol": "-",
-            "tvl_usd": 600164560.5711095,
-            "chains": [
-              "Ethereum",
-              "Solana"
-            ],
-            "category": "RWA"
-          },
-          {
             "name": "Invesco USTB",
             "symbol": "-",
-            "tvl_usd": 598264397.6830084,
+            "tvl_usd": 598769357.8808182,
             "chains": [
               "Ethereum",
               "Plume Mainnet",
@@ -3657,9 +3647,19 @@
             "category": "RWA"
           },
           {
+            "name": "Hastra",
+            "symbol": "-",
+            "tvl_usd": 597950270.8515962,
+            "chains": [
+              "Ethereum",
+              "Solana"
+            ],
+            "category": "RWA"
+          },
+          {
             "name": "Ethena USDtb",
             "symbol": "ENA",
-            "tvl_usd": 483784690.10111606,
+            "tvl_usd": 483769160.52873945,
             "chains": [
               "Ethereum"
             ],
@@ -3668,7 +3668,7 @@
           {
             "name": "Re",
             "symbol": "RE",
-            "tvl_usd": 351214515.24351007,
+            "tvl_usd": 355943035.1765146,
             "chains": [
               "Ethereum",
               "Base",
@@ -3680,7 +3680,7 @@
           {
             "name": "Huma Finance V2",
             "symbol": "-",
-            "tvl_usd": 296760617.1883638,
+            "tvl_usd": 314626022.5107055,
             "chains": [
               "Solana",
               "Ethereum",
@@ -3691,7 +3691,7 @@
           {
             "name": "OnRe",
             "symbol": "-",
-            "tvl_usd": 294746142.76330924,
+            "tvl_usd": 294853253.23216003,
             "chains": [
               "Solana"
             ],
@@ -3700,7 +3700,7 @@
           {
             "name": "USD AI",
             "symbol": "CHIP",
-            "tvl_usd": 294168586.59059083,
+            "tvl_usd": 294808605.44181824,
             "chains": [
               "Arbitrum"
             ],
@@ -3709,7 +3709,7 @@
           {
             "name": "OpenTrade",
             "symbol": "-",
-            "tvl_usd": 262537868.09256253,
+            "tvl_usd": 262801299.5957992,
             "chains": [
               "Avalanche",
               "Ethereum",
@@ -3720,7 +3720,7 @@
           {
             "name": "Aave Horizon RWA",
             "symbol": "AAVE",
-            "tvl_usd": 256384307.93013883,
+            "tvl_usd": 261196022.12227482,
             "chains": [
               "Ethereum"
             ],
@@ -3754,7 +3754,7 @@
           {
             "name": "Plume Vaults",
             "symbol": "-",
-            "tvl_usd": 158406727.7287056,
+            "tvl_usd": 160088228.1390843,
             "chains": [
               "Plume Mainnet",
               "Ethereum",
@@ -3767,7 +3767,7 @@
           {
             "name": "RealT Tokens",
             "symbol": "REG",
-            "tvl_usd": 155091568.79259723,
+            "tvl_usd": 155094264.81808463,
             "chains": [
               "xDai"
             ],
@@ -3776,7 +3776,7 @@
           {
             "name": "Midas RWA",
             "symbol": "-",
-            "tvl_usd": 154543831.4700001,
+            "tvl_usd": 154543841.55000007,
             "chains": [
               "Ethereum",
               "Monad",
@@ -3804,11 +3804,11 @@
               "Berachain",
               "0G",
               "Polygon",
-              "Sapphire",
               "XRPL EVM",
-              "Scroll",
+              "Sapphire",
+              "TAC",
               "Sui",
-              "TAC"
+              "Scroll"
             ],
             "category": "RWA"
           }
@@ -3824,12 +3824,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "defillama_rwa",
-      "timestamp": "2026-09-11T21:47:59.969425+00:00",
+      "timestamp": "2026-09-12T11:24:49.352416+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:47:59.973150+00:00",
+        "attached_at": "2026-09-12T11:24:49.356358+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3860,7 +3860,7 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "defillama",
-        "timestamp": "2026-09-11T21:47:59.991197+00:00",
+        "timestamp": "2026-09-12T11:24:49.372717+00:00",
         "raises": [],
         "count": 0,
         "free_tier": true
@@ -3874,7 +3874,7 @@
       "symbol": "BTC",
       "raises_funding_rounds": {
         "source": "defillama",
-        "timestamp": "2026-09-11T21:48:00.007792+00:00",
+        "timestamp": "2026-09-12T11:24:49.390579+00:00",
         "raises": [],
         "count": 0,
         "free_tier": true
@@ -3887,12 +3887,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "defillama",
-      "timestamp": "2026-09-11T21:48:00.007792+00:00",
+      "timestamp": "2026-09-12T11:24:49.390579+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.007821+00:00",
+        "attached_at": "2026-09-12T11:24:49.390606+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3923,7 +3923,7 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "defillama_raises",
-        "timestamp": "2026-09-11T21:48:00.028518+00:00",
+        "timestamp": "2026-09-12T11:24:49.410486+00:00",
         "investor_profiles": [],
         "count": 0,
         "free_tier": true
@@ -3937,7 +3937,7 @@
       "symbol": "BTC",
       "investor_profiles": {
         "source": "defillama_raises",
-        "timestamp": "2026-09-11T21:48:00.051624+00:00",
+        "timestamp": "2026-09-12T11:24:49.428661+00:00",
         "investor_profiles": [],
         "count": 0,
         "free_tier": true
@@ -3950,12 +3950,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "defillama_raises",
-      "timestamp": "2026-09-11T21:48:00.051624+00:00",
+      "timestamp": "2026-09-12T11:24:49.428661+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.051651+00:00",
+        "attached_at": "2026-09-12T11:24:49.428688+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -3986,7 +3986,7 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "defillama_proxy_plus_unlock_calendar",
-        "timestamp": "2026-09-11T21:48:00.398469+00:00",
+        "timestamp": "2026-09-12T11:24:49.581997+00:00",
         "scheduled_unlocks": [
           {
             "asset": "SUI",
@@ -4058,7 +4058,7 @@
             "asset": "HYPE",
             "name": "Hyperliquid",
             "locked_supply_pct": 76.7,
-            "market_cap_usd": 17896019625.0,
+            "market_cap_usd": 17746612876.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           },
@@ -4066,7 +4066,7 @@
             "asset": "RAIN",
             "name": "Rain",
             "locked_supply_pct": 37.9,
-            "market_cap_usd": 11050952994.0,
+            "market_cap_usd": 10730533830.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           },
@@ -4074,7 +4074,15 @@
             "asset": "XRP",
             "name": "XRP",
             "locked_supply_pct": 37.1,
-            "market_cap_usd": 85535609822.0,
+            "market_cap_usd": 86200120753.0,
+            "type": "supply_pressure",
+            "source": "coingecko_free"
+          },
+          {
+            "asset": "DOGE",
+            "name": "Dogecoin",
+            "locked_supply_pct": 9.2,
+            "market_cap_usd": 13239633638.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           },
@@ -4082,7 +4090,7 @@
             "asset": "SOL",
             "name": "Solana",
             "locked_supply_pct": 7.5,
-            "market_cap_usd": 60236660113.0,
+            "market_cap_usd": 59833420455.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           }
@@ -4092,214 +4100,214 @@
             "name": "Defi Swap",
             "symbol": "CRO",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 1058001.3636425058,
-            "mcap_usd": 2739259996.990104
+            "tvl_usd": 1061217.0852985277,
+            "mcap_usd": 2800121048.994326
           },
           {
             "name": "Stacks Staking",
             "symbol": "STX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 211694.1881967406,
-            "mcap_usd": 476138863.043475
+            "tvl_usd": 225568.6325181772,
+            "mcap_usd": 506810495.00699586
           },
           {
             "name": "SuperFarm",
             "symbol": "SUPER",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 28280.43308871319,
-            "mcap_usd": 79139218.61705124
+            "tvl_usd": 28728.54662407495,
+            "mcap_usd": 77078641.03965062
           },
           {
             "name": "Whiteheart",
             "symbol": "WHITE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 7690.582232753465,
+            "tvl_usd": 7637.16367507927,
             "mcap_usd": 23943954.73756332
           },
           {
             "name": "Bounce Finance",
             "symbol": "Auction",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 6071.227660779312,
-            "mcap_usd": 24398532.02219833
+            "tvl_usd": 6071.231776044786,
+            "mcap_usd": 24806790.990294322
           },
           {
             "name": "Erasure",
             "symbol": "NMR",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 1854.3876039865117,
-            "mcap_usd": 65253027.49231751
+            "tvl_usd": 1882.2595514981947,
+            "mcap_usd": 66223107.52174633
           },
           {
             "name": "DIEM Relay",
             "symbol": "DIEM",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 1169.0821525727129,
-            "mcap_usd": 67504573.40993196
+            "tvl_usd": 1210.0760423783304,
+            "mcap_usd": 65488736.12140315
           },
           {
             "name": "Edel",
             "symbol": "EDEL",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 860.943502853162,
-            "mcap_usd": 7747847.428912565
+            "tvl_usd": 860.9697518189648,
+            "mcap_usd": 7614629.194453771
           },
           {
             "name": "Numbers Protocol",
             "symbol": "NUM",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 689.5938312687222,
-            "mcap_usd": 2001175.9514595885
+            "tvl_usd": 689.8626214905426,
+            "mcap_usd": 1991302.9192063846
           },
           {
             "name": "Thetanuts Finance",
             "symbol": "NUTS",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 429.478628842241,
-            "mcap_usd": 3242354.161768337
+            "tvl_usd": 434.91558338273984,
+            "mcap_usd": 3238643.308507992
           },
           {
             "name": "HashAI",
             "symbol": "HASHAI",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 346.75791214031636,
-            "mcap_usd": 1138033.1770936742
+            "tvl_usd": 344.60853765274607,
+            "mcap_usd": 1121042.8638077672
           },
           {
             "name": "EthicHub",
             "symbol": "ETHIX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 248.94377300973537,
-            "mcap_usd": 2409675.4623438385
+            "tvl_usd": 248.9836354771776,
+            "mcap_usd": 2382753.587620638
           },
           {
             "name": "DeGate",
             "symbol": "DG",
             "locked_supply_proxy_pct": 100.0,
             "tvl_usd": 159.33558377878262,
-            "mcap_usd": 19978835.37743521
+            "mcap_usd": 19960929.1080187
           },
           {
             "name": "Panther Protocol",
             "symbol": "ZKP",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 102.86460197556882,
-            "mcap_usd": 1184558.32120363
+            "tvl_usd": 103.16392476156469,
+            "mcap_usd": 1186311.5336760534
           },
           {
             "name": "StrikeX",
             "symbol": "STRX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 70.76187420592106,
-            "mcap_usd": 21403682.047902517
+            "tvl_usd": 71.02477440416541,
+            "mcap_usd": 21555386.213329587
           },
           {
             "name": "Sentre",
             "symbol": "SNTR",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 63.989916263716374,
-            "mcap_usd": 145052.89284481856
+            "tvl_usd": 64.21895351362147,
+            "mcap_usd": 145451.50074735555
           },
           {
             "name": "Crystalvale",
             "symbol": "CRYSTAL",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 53.97026186142389,
+            "tvl_usd": 53.992021523552,
             "mcap_usd": 111495.23351522698
           },
           {
             "name": "ELYFI",
             "symbol": "ELFI",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 39.18739019479155,
-            "mcap_usd": 208236.34058494383
+            "tvl_usd": 39.18851179021814,
+            "mcap_usd": 208035.3254808136
           },
           {
             "name": "Genius",
             "symbol": "GENI",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 25.238662654461194,
-            "mcap_usd": 125376.25893650838
+            "tvl_usd": 25.23700206613588,
+            "mcap_usd": 111358.0539569498
           },
           {
             "name": "Elixir",
             "symbol": "ELX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 17.904296195399386,
-            "mcap_usd": 518248.0684311257
+            "tvl_usd": 17.83727803934041,
+            "mcap_usd": 515256.4864261818
           },
           {
             "name": "Snake Finance",
             "symbol": "SNAKE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 14.613733439262978,
-            "mcap_usd": 61396.97108133742
+            "tvl_usd": 14.553447776519441,
+            "mcap_usd": 60294.821677430584
           },
           {
             "name": "Polytrade",
             "symbol": "TRADE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 7.88646868295286,
-            "mcap_usd": 3391418.8116363715
+            "tvl_usd": 7.886701627112408,
+            "mcap_usd": 3515610.9027885906
           },
           {
             "name": "Fei Protocol",
             "symbol": "TRIBE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 7.642487851412571,
-            "mcap_usd": 14669504.669625258
+            "tvl_usd": 7.549400254435833,
+            "mcap_usd": 14619118.989202615
           },
           {
             "name": "UtyabSwap",
             "symbol": "UTYAB",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 6.8053278274575115,
+            "tvl_usd": 6.847108138973996,
             "mcap_usd": 30016.777855597567
           },
           {
             "name": "Zkfair",
             "symbol": "ZKF",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 6.4202591341299025,
+            "tvl_usd": 6.364380494978688,
             "mcap_usd": 48955.9
+          },
+          {
+            "name": "Nusa",
+            "symbol": "NUSA",
+            "locked_supply_proxy_pct": 100.0,
+            "tvl_usd": 5.3406812084322155,
+            "mcap_usd": 491594.1034995181
           },
           {
             "name": "Crocodile Finance",
             "symbol": "CROC",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 4.872806282605421,
+            "tvl_usd": 4.877625979576009,
             "mcap_usd": 810346.3380011242
           },
           {
             "name": "Nexion Yield",
             "symbol": "NEON",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 4.713962898619674,
-            "mcap_usd": 137203.93838409334
-          },
-          {
-            "name": "Nusa",
-            "symbol": "NUSA",
-            "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 3.4985014285293192,
-            "mcap_usd": 484043.03693559405
+            "tvl_usd": 4.313790432984447,
+            "mcap_usd": 133557.1429883918
           },
           {
             "name": "Catton",
             "symbol": "CATTON",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 2.732946673733379,
+            "tvl_usd": 2.7582706064592215,
             "mcap_usd": 31983.102750257487
           },
           {
             "name": "Defidash Agent",
             "symbol": "DEFIDASH",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 0.8949803043436804,
+            "tvl_usd": 0.8909671005351353,
             "mcap_usd": 10596.370772007605
           }
         ],
-        "count": 42,
+        "count": 43,
         "free_tier": true,
         "references": [
           "DeFiLlama",
@@ -4316,7 +4324,7 @@
       "symbol": "BTC",
       "unlocks": {
         "source": "defillama_proxy_plus_unlock_calendar",
-        "timestamp": "2026-09-11T21:48:00.555895+00:00",
+        "timestamp": "2026-09-12T11:24:49.726475+00:00",
         "scheduled_unlocks": [
           {
             "asset": "SUI",
@@ -4388,7 +4396,7 @@
             "asset": "HYPE",
             "name": "Hyperliquid",
             "locked_supply_pct": 76.7,
-            "market_cap_usd": 17896019625.0,
+            "market_cap_usd": 17746612876.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           },
@@ -4396,7 +4404,7 @@
             "asset": "RAIN",
             "name": "Rain",
             "locked_supply_pct": 37.9,
-            "market_cap_usd": 11050952994.0,
+            "market_cap_usd": 10730533830.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           },
@@ -4404,7 +4412,15 @@
             "asset": "XRP",
             "name": "XRP",
             "locked_supply_pct": 37.1,
-            "market_cap_usd": 85535609822.0,
+            "market_cap_usd": 86200120753.0,
+            "type": "supply_pressure",
+            "source": "coingecko_free"
+          },
+          {
+            "asset": "DOGE",
+            "name": "Dogecoin",
+            "locked_supply_pct": 9.2,
+            "market_cap_usd": 13239633638.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           },
@@ -4412,7 +4428,7 @@
             "asset": "SOL",
             "name": "Solana",
             "locked_supply_pct": 7.5,
-            "market_cap_usd": 60236660113.0,
+            "market_cap_usd": 59833420455.0,
             "type": "supply_pressure",
             "source": "coingecko_free"
           }
@@ -4422,214 +4438,214 @@
             "name": "Defi Swap",
             "symbol": "CRO",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 1058001.3636425058,
-            "mcap_usd": 2739259996.990104
+            "tvl_usd": 1061217.0852985277,
+            "mcap_usd": 2800121048.994326
           },
           {
             "name": "Stacks Staking",
             "symbol": "STX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 211694.1881967406,
-            "mcap_usd": 476138863.043475
+            "tvl_usd": 225568.6325181772,
+            "mcap_usd": 506810495.00699586
           },
           {
             "name": "SuperFarm",
             "symbol": "SUPER",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 28280.43308871319,
-            "mcap_usd": 79139218.61705124
+            "tvl_usd": 28728.54662407495,
+            "mcap_usd": 77078641.03965062
           },
           {
             "name": "Whiteheart",
             "symbol": "WHITE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 7690.582232753465,
+            "tvl_usd": 7637.16367507927,
             "mcap_usd": 23943954.73756332
           },
           {
             "name": "Bounce Finance",
             "symbol": "Auction",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 6071.227660779312,
-            "mcap_usd": 24398532.02219833
+            "tvl_usd": 6071.231776044786,
+            "mcap_usd": 24806790.990294322
           },
           {
             "name": "Erasure",
             "symbol": "NMR",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 1854.3876039865117,
-            "mcap_usd": 65253027.49231751
+            "tvl_usd": 1882.2595514981947,
+            "mcap_usd": 66223107.52174633
           },
           {
             "name": "DIEM Relay",
             "symbol": "DIEM",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 1169.0821525727129,
-            "mcap_usd": 67504573.40993196
+            "tvl_usd": 1210.0760423783304,
+            "mcap_usd": 65488736.12140315
           },
           {
             "name": "Edel",
             "symbol": "EDEL",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 860.943502853162,
-            "mcap_usd": 7747847.428912565
+            "tvl_usd": 860.9697518189648,
+            "mcap_usd": 7614629.194453771
           },
           {
             "name": "Numbers Protocol",
             "symbol": "NUM",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 689.5938312687222,
-            "mcap_usd": 2001175.9514595885
+            "tvl_usd": 689.8626214905426,
+            "mcap_usd": 1991302.9192063846
           },
           {
             "name": "Thetanuts Finance",
             "symbol": "NUTS",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 429.478628842241,
-            "mcap_usd": 3242354.161768337
+            "tvl_usd": 434.91558338273984,
+            "mcap_usd": 3238643.308507992
           },
           {
             "name": "HashAI",
             "symbol": "HASHAI",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 346.75791214031636,
-            "mcap_usd": 1138033.1770936742
+            "tvl_usd": 344.60853765274607,
+            "mcap_usd": 1121042.8638077672
           },
           {
             "name": "EthicHub",
             "symbol": "ETHIX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 248.94377300973537,
-            "mcap_usd": 2409675.4623438385
+            "tvl_usd": 248.9836354771776,
+            "mcap_usd": 2382753.587620638
           },
           {
             "name": "DeGate",
             "symbol": "DG",
             "locked_supply_proxy_pct": 100.0,
             "tvl_usd": 159.33558377878262,
-            "mcap_usd": 19978835.37743521
+            "mcap_usd": 19960929.1080187
           },
           {
             "name": "Panther Protocol",
             "symbol": "ZKP",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 102.86460197556882,
-            "mcap_usd": 1184558.32120363
+            "tvl_usd": 103.16392476156469,
+            "mcap_usd": 1186311.5336760534
           },
           {
             "name": "StrikeX",
             "symbol": "STRX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 70.76187420592106,
-            "mcap_usd": 21403682.047902517
+            "tvl_usd": 71.02477440416541,
+            "mcap_usd": 21555386.213329587
           },
           {
             "name": "Sentre",
             "symbol": "SNTR",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 63.989916263716374,
-            "mcap_usd": 145052.89284481856
+            "tvl_usd": 64.21895351362147,
+            "mcap_usd": 145451.50074735555
           },
           {
             "name": "Crystalvale",
             "symbol": "CRYSTAL",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 53.97026186142389,
+            "tvl_usd": 53.992021523552,
             "mcap_usd": 111495.23351522698
           },
           {
             "name": "ELYFI",
             "symbol": "ELFI",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 39.18739019479155,
-            "mcap_usd": 208236.34058494383
+            "tvl_usd": 39.18851179021814,
+            "mcap_usd": 208035.3254808136
           },
           {
             "name": "Genius",
             "symbol": "GENI",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 25.238662654461194,
-            "mcap_usd": 125376.25893650838
+            "tvl_usd": 25.23700206613588,
+            "mcap_usd": 111358.0539569498
           },
           {
             "name": "Elixir",
             "symbol": "ELX",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 17.904296195399386,
-            "mcap_usd": 518248.0684311257
+            "tvl_usd": 17.83727803934041,
+            "mcap_usd": 515256.4864261818
           },
           {
             "name": "Snake Finance",
             "symbol": "SNAKE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 14.613733439262978,
-            "mcap_usd": 61396.97108133742
+            "tvl_usd": 14.553447776519441,
+            "mcap_usd": 60294.821677430584
           },
           {
             "name": "Polytrade",
             "symbol": "TRADE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 7.88646868295286,
-            "mcap_usd": 3391418.8116363715
+            "tvl_usd": 7.886701627112408,
+            "mcap_usd": 3515610.9027885906
           },
           {
             "name": "Fei Protocol",
             "symbol": "TRIBE",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 7.642487851412571,
-            "mcap_usd": 14669504.669625258
+            "tvl_usd": 7.549400254435833,
+            "mcap_usd": 14619118.989202615
           },
           {
             "name": "UtyabSwap",
             "symbol": "UTYAB",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 6.8053278274575115,
+            "tvl_usd": 6.847108138973996,
             "mcap_usd": 30016.777855597567
           },
           {
             "name": "Zkfair",
             "symbol": "ZKF",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 6.4202591341299025,
+            "tvl_usd": 6.364380494978688,
             "mcap_usd": 48955.9
+          },
+          {
+            "name": "Nusa",
+            "symbol": "NUSA",
+            "locked_supply_proxy_pct": 100.0,
+            "tvl_usd": 5.3406812084322155,
+            "mcap_usd": 491594.1034995181
           },
           {
             "name": "Crocodile Finance",
             "symbol": "CROC",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 4.872806282605421,
+            "tvl_usd": 4.877625979576009,
             "mcap_usd": 810346.3380011242
           },
           {
             "name": "Nexion Yield",
             "symbol": "NEON",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 4.713962898619674,
-            "mcap_usd": 137203.93838409334
-          },
-          {
-            "name": "Nusa",
-            "symbol": "NUSA",
-            "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 3.4985014285293192,
-            "mcap_usd": 484043.03693559405
+            "tvl_usd": 4.313790432984447,
+            "mcap_usd": 133557.1429883918
           },
           {
             "name": "Catton",
             "symbol": "CATTON",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 2.732946673733379,
+            "tvl_usd": 2.7582706064592215,
             "mcap_usd": 31983.102750257487
           },
           {
             "name": "Defidash Agent",
             "symbol": "DEFIDASH",
             "locked_supply_proxy_pct": 100.0,
-            "tvl_usd": 0.8949803043436804,
+            "tvl_usd": 0.8909671005351353,
             "mcap_usd": 10596.370772007605
           }
         ],
-        "count": 42,
+        "count": 43,
         "free_tier": true,
         "references": [
           "DeFiLlama",
@@ -4645,12 +4661,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "defillama_proxy_plus_unlock_calendar",
-      "timestamp": "2026-09-11T21:48:00.555895+00:00",
+      "timestamp": "2026-09-12T11:24:49.726475+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.559868+00:00",
+        "attached_at": "2026-09-12T11:24:49.730252+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4685,19 +4701,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.560343+00:00"
+        "timestamp": "2026-09-12T11:24:49.730701+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.560343+00:00",
+      "timestamp": "2026-09-12T11:24:49.730701+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.560357+00:00",
+        "attached_at": "2026-09-12T11:24:49.730716+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4731,19 +4747,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.560474+00:00"
+        "timestamp": "2026-09-12T11:24:49.730830+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.560474+00:00",
+      "timestamp": "2026-09-12T11:24:49.730830+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.560481+00:00",
+        "attached_at": "2026-09-12T11:24:49.730836+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4777,19 +4793,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.560589+00:00"
+        "timestamp": "2026-09-12T11:24:49.730942+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.560589+00:00",
+      "timestamp": "2026-09-12T11:24:49.730942+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.560594+00:00",
+        "attached_at": "2026-09-12T11:24:49.730947+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4823,19 +4839,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.560703+00:00"
+        "timestamp": "2026-09-12T11:24:49.731051+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.560703+00:00",
+      "timestamp": "2026-09-12T11:24:49.731051+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.560707+00:00",
+        "attached_at": "2026-09-12T11:24:49.731055+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4869,19 +4885,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.560813+00:00"
+        "timestamp": "2026-09-12T11:24:49.731161+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.560813+00:00",
+      "timestamp": "2026-09-12T11:24:49.731161+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.560818+00:00",
+        "attached_at": "2026-09-12T11:24:49.731165+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4915,19 +4931,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.560923+00:00"
+        "timestamp": "2026-09-12T11:24:49.731269+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.560923+00:00",
+      "timestamp": "2026-09-12T11:24:49.731269+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.560927+00:00",
+        "attached_at": "2026-09-12T11:24:49.731273+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -4961,19 +4977,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.561034+00:00"
+        "timestamp": "2026-09-12T11:24:49.731375+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.561034+00:00",
+      "timestamp": "2026-09-12T11:24:49.731375+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.561038+00:00",
+        "attached_at": "2026-09-12T11:24:49.731379+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5007,19 +5023,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.561176+00:00"
+        "timestamp": "2026-09-12T11:24:49.731516+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.561176+00:00",
+      "timestamp": "2026-09-12T11:24:49.731516+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.561181+00:00",
+        "attached_at": "2026-09-12T11:24:49.731522+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5053,19 +5069,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.561288+00:00"
+        "timestamp": "2026-09-12T11:24:49.731628+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.561288+00:00",
+      "timestamp": "2026-09-12T11:24:49.731628+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.561292+00:00",
+        "attached_at": "2026-09-12T11:24:49.731632+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5099,19 +5115,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.561397+00:00"
+        "timestamp": "2026-09-12T11:24:49.731736+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.561397+00:00",
+      "timestamp": "2026-09-12T11:24:49.731736+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.561401+00:00",
+        "attached_at": "2026-09-12T11:24:49.731740+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5145,19 +5161,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.561508+00:00"
+        "timestamp": "2026-09-12T11:24:49.731842+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.561508+00:00",
+      "timestamp": "2026-09-12T11:24:49.731842+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.561512+00:00",
+        "attached_at": "2026-09-12T11:24:49.731846+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5191,19 +5207,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.561615+00:00"
+        "timestamp": "2026-09-12T11:24:49.731949+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.561615+00:00",
+      "timestamp": "2026-09-12T11:24:49.731949+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.561620+00:00",
+        "attached_at": "2026-09-12T11:24:49.731954+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5237,19 +5253,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:00.561723+00:00"
+        "timestamp": "2026-09-12T11:24:49.732058+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:00.561723+00:00",
+      "timestamp": "2026-09-12T11:24:49.732058+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:00.561728+00:00",
+        "attached_at": "2026-09-12T11:24:49.732063+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5279,18 +5295,18 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "bloomberg_free_proxy",
-        "timestamp": "2026-09-11T21:48:02.863580+00:00",
+        "timestamp": "2026-09-12T11:24:51.885707+00:00",
         "vendor": "bloomberg",
         "symbol": "BTC",
         "real_time_feeds": [
           {
             "symbol": "BTC",
-            "price_usd": 77332,
+            "price_usd": 77286,
             "source": "coingecko_fallback"
           },
           {
             "symbol": "ETH",
-            "price_usd": 2534.62,
+            "price_usd": 2531.49,
             "source": "coingecko_fallback"
           }
         ],
@@ -5338,8 +5354,8 @@
           },
           "resolved": true,
           "resolved_source": "binance:data-api.binance.vision",
-          "resolved_price": 77311.88,
-          "timestamp": "2026-09-11T21:48:02.863566+00:00"
+          "resolved_price": 77298.48,
+          "timestamp": "2026-09-12T11:24:51.885687+00:00"
         },
         "bridge_mode": "free_tier_composite",
         "free_tier": true,
@@ -5354,18 +5370,18 @@
       "symbol": "BTC",
       "bloomberg_terminal_bridge_proxy": {
         "source": "bloomberg_free_proxy",
-        "timestamp": "2026-09-11T21:48:04.934992+00:00",
+        "timestamp": "2026-09-12T11:24:53.920970+00:00",
         "vendor": "bloomberg",
         "symbol": "BTC",
         "real_time_feeds": [
           {
             "symbol": "BTC",
-            "price_usd": 77332,
+            "price_usd": 77286,
             "source": "coingecko_fallback"
           },
           {
             "symbol": "ETH",
-            "price_usd": 2534.62,
+            "price_usd": 2531.49,
             "source": "coingecko_fallback"
           }
         ],
@@ -5413,8 +5429,8 @@
           },
           "resolved": true,
           "resolved_source": "binance:data-api.binance.vision",
-          "resolved_price": 77311.88,
-          "timestamp": "2026-09-11T21:48:04.934978+00:00"
+          "resolved_price": 77298.48,
+          "timestamp": "2026-09-12T11:24:53.920955+00:00"
         },
         "bridge_mode": "free_tier_composite",
         "free_tier": true,
@@ -5428,12 +5444,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "bloomberg_free_proxy",
-      "timestamp": "2026-09-11T21:48:04.934992+00:00",
+      "timestamp": "2026-09-12T11:24:53.920970+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:04.935018+00:00",
+        "attached_at": "2026-09-12T11:24:53.920994+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5464,18 +5480,18 @@
       "binding_source": "free_tier_explicit",
       "data": {
         "source": "refinitiv_free_proxy",
-        "timestamp": "2026-09-11T21:48:07.033108+00:00",
+        "timestamp": "2026-09-12T11:24:55.943463+00:00",
         "vendor": "refinitiv",
         "symbol": "BTC",
         "real_time_feeds": [
           {
             "symbol": "BTC",
-            "price_usd": 77332,
+            "price_usd": 77286,
             "source": "coingecko_fallback"
           },
           {
             "symbol": "ETH",
-            "price_usd": 2534.62,
+            "price_usd": 2531.49,
             "source": "coingecko_fallback"
           }
         ],
@@ -5523,8 +5539,8 @@
           },
           "resolved": true,
           "resolved_source": "binance:data-api.binance.vision",
-          "resolved_price": 77311.88,
-          "timestamp": "2026-09-11T21:48:07.033094+00:00"
+          "resolved_price": 77298.48,
+          "timestamp": "2026-09-12T11:24:55.943429+00:00"
         },
         "bridge_mode": "free_tier_composite",
         "free_tier": true,
@@ -5539,18 +5555,18 @@
       "symbol": "BTC",
       "refinitiv_eikon_bridge_proxy": {
         "source": "refinitiv_free_proxy",
-        "timestamp": "2026-09-11T21:48:09.138503+00:00",
+        "timestamp": "2026-09-12T11:24:57.982444+00:00",
         "vendor": "refinitiv",
         "symbol": "BTC",
         "real_time_feeds": [
           {
             "symbol": "BTC",
-            "price_usd": 77327,
+            "price_usd": 77286,
             "source": "coingecko_fallback"
           },
           {
             "symbol": "ETH",
-            "price_usd": 2534.44,
+            "price_usd": 2531.49,
             "source": "coingecko_fallback"
           }
         ],
@@ -5598,8 +5614,8 @@
           },
           "resolved": true,
           "resolved_source": "binance:data-api.binance.vision",
-          "resolved_price": 77304.3,
-          "timestamp": "2026-09-11T21:48:09.138487+00:00"
+          "resolved_price": 77298.48,
+          "timestamp": "2026-09-12T11:24:57.982429+00:00"
         },
         "bridge_mode": "free_tier_composite",
         "free_tier": true,
@@ -5613,12 +5629,12 @@
         "binding_source_resolved": "free_tier_explicit"
       },
       "data_source": "refinitiv_free_proxy",
-      "timestamp": "2026-09-11T21:48:09.138503+00:00",
+      "timestamp": "2026-09-12T11:24:57.982444+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.138533+00:00",
+        "attached_at": "2026-09-12T11:24:57.982467+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5653,19 +5669,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.138817+00:00"
+        "timestamp": "2026-09-12T11:24:57.982727+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.138817+00:00",
+      "timestamp": "2026-09-12T11:24:57.982727+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.138828+00:00",
+        "attached_at": "2026-09-12T11:24:57.982739+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5699,19 +5715,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.138960+00:00"
+        "timestamp": "2026-09-12T11:24:57.982853+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.138960+00:00",
+      "timestamp": "2026-09-12T11:24:57.982853+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.138968+00:00",
+        "attached_at": "2026-09-12T11:24:57.982860+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5745,19 +5761,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.139080+00:00"
+        "timestamp": "2026-09-12T11:24:57.982969+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.139080+00:00",
+      "timestamp": "2026-09-12T11:24:57.982969+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.139086+00:00",
+        "attached_at": "2026-09-12T11:24:57.982975+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5791,19 +5807,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.139195+00:00"
+        "timestamp": "2026-09-12T11:24:57.983082+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.139195+00:00",
+      "timestamp": "2026-09-12T11:24:57.983082+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.139200+00:00",
+        "attached_at": "2026-09-12T11:24:57.983086+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5837,19 +5853,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.139310+00:00"
+        "timestamp": "2026-09-12T11:24:57.983190+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.139310+00:00",
+      "timestamp": "2026-09-12T11:24:57.983190+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.139315+00:00",
+        "attached_at": "2026-09-12T11:24:57.983195+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5883,19 +5899,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.139423+00:00"
+        "timestamp": "2026-09-12T11:24:57.983298+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.139423+00:00",
+      "timestamp": "2026-09-12T11:24:57.983298+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.139427+00:00",
+        "attached_at": "2026-09-12T11:24:57.983303+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5929,19 +5945,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.139535+00:00"
+        "timestamp": "2026-09-12T11:24:57.983407+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.139535+00:00",
+      "timestamp": "2026-09-12T11:24:57.983407+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.139540+00:00",
+        "attached_at": "2026-09-12T11:24:57.983411+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -5975,19 +5991,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.139646+00:00"
+        "timestamp": "2026-09-12T11:24:57.983514+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.139646+00:00",
+      "timestamp": "2026-09-12T11:24:57.983514+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.139651+00:00",
+        "attached_at": "2026-09-12T11:24:57.983518+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {
@@ -6021,19 +6037,19 @@
         "inventory_status": "PENDING",
         "success": true,
         "data_source": "826_inventory_reserved_slot",
-        "timestamp": "2026-09-11T21:48:09.139757+00:00"
+        "timestamp": "2026-09-12T11:24:57.983620+00:00"
       },
       "success": true,
       "heuristic": true,
       "methodology_status": "NOT_COMPLETE",
       "methodology_reason": "826 inventory reserved slot — awaiting catalog binding",
       "data_source": "826_inventory_reserved_slot",
-      "timestamp": "2026-09-11T21:48:09.139757+00:00",
+      "timestamp": "2026-09-12T11:24:57.983620+00:00",
       "evidence_class": "SHADOW_LIVE_FORWARD",
       "evidence_metadata": {
         "class": "SHADOW_LIVE_FORWARD",
         "source": null,
-        "attached_at": "2026-09-11T21:48:09.139762+00:00",
+        "attached_at": "2026-09-12T11:24:57.983624+00:00",
         "promotion_policy": "replay_and_simulation_never_become_production_metrics"
       },
       "compliance_footer": {

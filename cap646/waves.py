@@ -35,7 +35,7 @@ WAVE_D: tuple[int, ...] = _wave_d_ids()
 
 USER_FACING: frozenset[int] = frozenset(
     {
-        *range(1, 701),  # Build batches 01–28 — cap646 hub consumer path (Run 021)
+        *range(1, 827),  # Build batches 01–34
         17, 47, 48, 60, 103, 129, 175, 245, 507, 534, 214, 629, 642,
         631, 630, 338, 500, 584, 644, 646,
     }

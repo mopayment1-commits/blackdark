@@ -7788,3 +7788,983 @@
 {"ts": "2026-09-12T11:04:36.915166+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
 {"ts": "2026-09-12T11:04:36.915245+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
 {"ts": "2026-09-12T11:04:36.915319+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:52.644474+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.397228+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.397391+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.397488+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:06:53.397572+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.397649+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:06:53.397723+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.397806+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.397879+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.416378+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.416512+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.416603+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:06:53.416686+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:06:53.416766+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.416841+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.416914+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.416984+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.456912+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.457049+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.457138+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:06:53.457217+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.457296+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:06:53.457382+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.457455+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.457528+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.475516+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:06:53.475643+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.475727+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:06:53.475803+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:06:53.475878+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.475947+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:06:53.476018+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:06:53.476088+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:01.314964+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.103784+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.103931+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.104020+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:07:02.104099+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:07:02.104176+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:07:02.104251+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.104324+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.120914+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.121049+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.121135+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:07:02.121211+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:07:02.121285+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:07:02.121381+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.121459+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.157027+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.157162+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.157251+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:07:02.157339+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:07:02.157417+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:07:02.157490+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.157568+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.173971+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:02.174101+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.174187+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:07:02.174261+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:07:02.174334+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:07:02.174413+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:07:02.174486+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:09.731506+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:19.391152+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:23.662139+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:07:33.148600+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:00.391202+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:00.391350+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:00.391439+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:08:00.391520+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:08:00.391593+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:08:00.391663+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:00.391734+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:00.391804+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:00.391876+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6475}}
+{"ts": "2026-09-12T11:08:00.392162+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.6437}}
+{"ts": "2026-09-12T11:08:00.392391+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.6437}}
+{"ts": "2026-09-12T11:08:00.392603+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.6437}}
+{"ts": "2026-09-12T11:08:00.392822+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6437}}
+{"ts": "2026-09-12T11:08:00.393272+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9451}}
+{"ts": "2026-09-12T11:08:05.932195+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:05.932349+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:05.932440+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:08:05.932524+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:08:05.932600+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:08:05.932674+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:05.932766+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:05.932840+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:05.932912+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6767}}
+{"ts": "2026-09-12T11:08:05.933195+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.6727}}
+{"ts": "2026-09-12T11:08:05.933436+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.6727}}
+{"ts": "2026-09-12T11:08:05.933658+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.6727}}
+{"ts": "2026-09-12T11:08:05.933870+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6727}}
+{"ts": "2026-09-12T11:08:05.934313+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9661}}
+{"ts": "2026-09-12T11:08:47.477571+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:08:47.477727+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:47.477818+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:47.477899+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:08:47.477975+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:08:47.478048+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:08:47.478121+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:47.478195+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:47.478268+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:47.478338+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:47.478410+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8275}}
+{"ts": "2026-09-12T11:08:47.478701+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8275}}
+{"ts": "2026-09-12T11:08:47.478927+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8294}}
+{"ts": "2026-09-12T11:08:47.479139+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8275}}
+{"ts": "2026-09-12T11:08:47.479354+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8275}}
+{"ts": "2026-09-12T11:08:47.479664+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.889}}
+{"ts": "2026-09-12T11:08:47.479864+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.889}}
+{"ts": "2026-09-12T11:08:51.157056+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:08:51.157202+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:51.157293+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:51.157394+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:08:51.157478+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:08:51.157554+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:08:51.157628+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:51.157703+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:51.157776+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:08:51.157847+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:08:51.157920+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8371}}
+{"ts": "2026-09-12T11:08:51.158204+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8371}}
+{"ts": "2026-09-12T11:08:51.158438+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8388}}
+{"ts": "2026-09-12T11:08:51.158664+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8371}}
+{"ts": "2026-09-12T11:08:51.158888+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8371}}
+{"ts": "2026-09-12T11:08:51.159214+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9066}}
+{"ts": "2026-09-12T11:08:51.159530+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9066}}
+{"ts": "2026-09-12T11:09:05.500067+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.500218+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.500304+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:05.500382+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:05.500456+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:05.500527+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.500598+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.500668+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.500749+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8709}}
+{"ts": "2026-09-12T11:09:05.501041+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.501262+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.501494+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.501718+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.501923+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.62, "disappearance_probability": 0.4854}}
+{"ts": "2026-09-12T11:09:05.502122+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9514}}
+{"ts": "2026-09-12T11:09:05.535875+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.536017+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.536106+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:05.536185+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:05.536262+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:05.536337+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.536409+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.536483+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.536558+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8709}}
+{"ts": "2026-09-12T11:09:05.536849+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.537082+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.537295+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.537528+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8693}}
+{"ts": "2026-09-12T11:09:05.537736+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.52, "disappearance_probability": 0.4878}}
+{"ts": "2026-09-12T11:09:05.537947+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9514}}
+{"ts": "2026-09-12T11:09:05.585308+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.585460+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.585557+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:05.585635+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:05.585707+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:05.585776+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.585849+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.585922+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.585994+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8709}}
+{"ts": "2026-09-12T11:09:05.586267+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.586489+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.586704+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.586919+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.587121+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.52, "disappearance_probability": 0.4878}}
+{"ts": "2026-09-12T11:09:05.587325+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9516}}
+{"ts": "2026-09-12T11:09:05.620908+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.621044+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.621130+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:05.621205+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:05.621278+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:05.621364+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.621441+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.621514+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.621585+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8711}}
+{"ts": "2026-09-12T11:09:05.621849+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.622075+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.622284+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.622497+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8695}}
+{"ts": "2026-09-12T11:09:05.622696+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.42, "disappearance_probability": 0.4901}}
+{"ts": "2026-09-12T11:09:05.622925+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9516}}
+{"ts": "2026-09-12T11:09:05.692158+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.692294+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.692382+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:05.692460+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:05.692532+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:05.692605+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.692682+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.692754+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.692827+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8711}}
+{"ts": "2026-09-12T11:09:05.693098+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8697}}
+{"ts": "2026-09-12T11:09:05.693327+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8697}}
+{"ts": "2026-09-12T11:09:05.693558+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8697}}
+{"ts": "2026-09-12T11:09:05.693760+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8697}}
+{"ts": "2026-09-12T11:09:05.693972+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.42, "disappearance_probability": 0.4901}}
+{"ts": "2026-09-12T11:09:05.694180+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9519}}
+{"ts": "2026-09-12T11:09:05.811087+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.811225+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.811316+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:05.811391+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:05.811464+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:05.811535+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.811611+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:05.811682+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:05.811752+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:09:05.812009+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8699}}
+{"ts": "2026-09-12T11:09:05.812236+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8699}}
+{"ts": "2026-09-12T11:09:05.812448+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8699}}
+{"ts": "2026-09-12T11:09:05.812651+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8699}}
+{"ts": "2026-09-12T11:09:05.812852+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.22, "disappearance_probability": 0.4949}}
+{"ts": "2026-09-12T11:09:05.813087+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9521}}
+{"ts": "2026-09-12T11:09:08.555414+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:08.555538+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:08.555635+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:08.555719+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:08.555802+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:08.555884+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:08.555961+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:08.556037+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:10.121537+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:10.121660+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:10.121750+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:10.121830+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:10.121903+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:10.121978+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:10.122049+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:10.122120+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:10.976202+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:10.976349+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:10.976440+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:10.976518+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:10.976592+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:10.976664+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:10.976738+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:10.976812+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:11.084235+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:11.084371+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:11.084461+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:11.084543+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:11.084619+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:11.084691+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:11.084766+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:11.084837+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:18.364157+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:18.364288+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.364387+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:18.364475+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:18.364554+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:18.364631+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:18.364704+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.364777+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.364847+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.364923+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:18.633250+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:09:18.633413+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.633506+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:09:18.633583+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:18.633656+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:09:18.633728+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:09:18.633803+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.633875+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.633948+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:09:18.634019+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:42.936824+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.728173+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.728343+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.728439+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:43.728519+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:43.728597+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:43.728695+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.728770+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.728845+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.728917+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.747375+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.747513+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.747599+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:43.747675+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:43.747747+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:43.747820+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.747891+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.747962+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.748042+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.789929+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.790064+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.790150+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:43.790225+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:43.790299+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:43.790374+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.790451+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.790522+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.790593+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.808074+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.808209+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:43.808296+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:43.808372+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:43.808445+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:43.808516+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.808587+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.808661+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:43.808736+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.075328+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.792779+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:51.792933+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.793026+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.793109+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:51.793185+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:51.793258+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.793364+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.793458+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.793532+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.811079+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:51.811216+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.811298+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.811385+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:51.811458+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:51.811530+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.811601+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.811672+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.811744+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.854294+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:51.854433+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.854521+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.854597+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:51.854680+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:51.854750+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.854820+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.854892+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.854983+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.873346+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:13:51.873484+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.873570+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:51.873646+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:13:51.873726+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:13:51.873801+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.873872+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.873950+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:13:51.874020+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:13:59.142797+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:08.939122+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:13.185686+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:22.496273+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:50.441641+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:50.441804+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:14:50.441895+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:14:50.441972+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:14:50.442047+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:14:50.442120+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:14:50.442193+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:50.442267+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6464}}
+{"ts": "2026-09-12T11:14:50.442564+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.6421}}
+{"ts": "2026-09-12T11:14:50.442794+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.6421}}
+{"ts": "2026-09-12T11:14:50.443006+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.6421}}
+{"ts": "2026-09-12T11:14:50.443219+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6421}}
+{"ts": "2026-09-12T11:14:50.443454+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9444}}
+{"ts": "2026-09-12T11:14:50.443671+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9444}}
+{"ts": "2026-09-12T11:14:55.653059+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:55.653217+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:14:55.653309+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:14:55.653408+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:14:55.653484+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:14:55.653568+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:14:55.653642+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:14:55.653713+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6737}}
+{"ts": "2026-09-12T11:14:55.654010+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.6696}}
+{"ts": "2026-09-12T11:14:55.654237+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.6696}}
+{"ts": "2026-09-12T11:14:55.654453+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.6696}}
+{"ts": "2026-09-12T11:14:55.654666+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6696}}
+{"ts": "2026-09-12T11:14:55.654900+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9622}}
+{"ts": "2026-09-12T11:14:55.655138+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9622}}
+{"ts": "2026-09-12T11:15:38.256055+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:38.256212+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:38.256301+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:38.256380+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:38.256456+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:38.256530+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:38.256601+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:38.256671+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:38.256743+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8286}}
+{"ts": "2026-09-12T11:15:38.257054+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8307}}
+{"ts": "2026-09-12T11:15:38.257289+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8286}}
+{"ts": "2026-09-12T11:15:38.257565+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8286}}
+{"ts": "2026-09-12T11:15:38.257772+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8286}}
+{"ts": "2026-09-12T11:15:38.258087+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9946}}
+{"ts": "2026-09-12T11:15:38.258295+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9946}}
+{"ts": "2026-09-12T11:15:41.949742+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:41.949897+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:41.949990+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:41.950075+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:41.950166+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:41.950244+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:41.950317+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:41.950393+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8401}}
+{"ts": "2026-09-12T11:15:41.950712+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8381}}
+{"ts": "2026-09-12T11:15:41.950946+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8381}}
+{"ts": "2026-09-12T11:15:41.951159+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8381}}
+{"ts": "2026-09-12T11:15:41.951359+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8381}}
+{"ts": "2026-09-12T11:15:41.951560+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9954}}
+{"ts": "2026-09-12T11:15:41.951783+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9954}}
+{"ts": "2026-09-12T11:15:56.885990+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.886144+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:56.886235+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:56.886314+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:56.886389+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:56.886461+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.886536+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.886608+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:56.886679+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.886962+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8729}}
+{"ts": "2026-09-12T11:15:56.887201+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.887429+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.887639+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.887965+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:56.888164+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:56.922864+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.923003+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:56.923089+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:56.923169+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:56.923242+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:56.923314+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.923389+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.923466+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:56.923538+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.923804+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8731}}
+{"ts": "2026-09-12T11:15:56.924027+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.924236+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.924450+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.924786+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:56.924988+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:56.970811+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.970946+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:56.971034+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:56.971112+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:56.971186+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:56.971257+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.971336+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:56.971409+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:56.971481+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.971742+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8731}}
+{"ts": "2026-09-12T11:15:56.971977+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.972194+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.972396+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8715}}
+{"ts": "2026-09-12T11:15:56.972705+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:56.972912+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:57.007570+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.007705+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:57.007793+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:57.007871+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:57.007946+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:57.008020+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.008092+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.008164+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:57.008236+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8717}}
+{"ts": "2026-09-12T11:15:57.008491+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8733}}
+{"ts": "2026-09-12T11:15:57.008713+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8717}}
+{"ts": "2026-09-12T11:15:57.008921+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8717}}
+{"ts": "2026-09-12T11:15:57.009126+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8717}}
+{"ts": "2026-09-12T11:15:57.009477+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:57.009692+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:57.078829+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.078963+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:57.079050+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:57.079129+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:57.079203+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:57.079275+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.079352+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.079430+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:57.079507+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8719}}
+{"ts": "2026-09-12T11:15:57.079765+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8733}}
+{"ts": "2026-09-12T11:15:57.079988+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8719}}
+{"ts": "2026-09-12T11:15:57.080206+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8719}}
+{"ts": "2026-09-12T11:15:57.080414+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8719}}
+{"ts": "2026-09-12T11:15:57.080732+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:57.080940+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:57.219067+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.219201+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:57.219288+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:57.219364+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:57.219438+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:57.219508+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.219580+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:57.219653+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:57.219724+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8721}}
+{"ts": "2026-09-12T11:15:57.219975+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8736}}
+{"ts": "2026-09-12T11:15:57.220224+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8721}}
+{"ts": "2026-09-12T11:15:57.220435+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8721}}
+{"ts": "2026-09-12T11:15:57.220639+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8721}}
+{"ts": "2026-09-12T11:15:57.220965+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:57.221171+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9977}}
+{"ts": "2026-09-12T11:15:59.963351+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:59.963480+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:15:59.963574+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:15:59.963796+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:59.963881+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:15:59.963961+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:15:59.964033+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:15:59.964110+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:01.500557+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:01.500687+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:01.500780+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:16:01.500865+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:16:01.500941+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:16:01.501014+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:01.501092+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:02.345092+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:02.345235+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:02.345325+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:16:02.345437+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:16:02.345516+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:16:02.345598+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:02.345668+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:02.450775+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:02.450912+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:02.451004+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:16:02.451084+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:16:02.451158+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:16:02.451229+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:02.451302+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:09.751022+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:09.751150+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:09.751253+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:16:09.751337+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:16:09.751416+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:16:09.751490+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:09.751561+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:09.751636+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:09.751709+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:10.028896+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:10.029035+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:16:10.029125+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:16:10.029205+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:16:10.029281+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:16:10.029369+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:10.029444+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:10.029515+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:16:10.029588+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:17:58.877035+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.607211+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:00.607367+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.607462+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.607543+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:00.607622+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.607697+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.624748+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.624885+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.624973+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:00.625052+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:00.625132+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.625209+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.659312+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:00.659447+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.659531+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.659605+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:00.659678+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.659748+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.676240+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.676372+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:00.676455+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:00.676527+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:00.676597+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:00.676665+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.057561+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.751036+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:08.751195+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.751288+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.751365+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:18:08.751438+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:08.751511+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.751584+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.768159+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:08.768299+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.768383+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.768457+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:18:08.768529+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:08.768601+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.768673+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.802850+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:08.802985+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.803069+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.803147+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:18:08.803224+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:08.803298+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.803369+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.819935+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:18:08.820068+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.820152+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:08.820226+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:18:08.820297+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:18:08.820366+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:18:08.820436+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:16.039040+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:25.536630+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:29.749783+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:18:39.221348+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:08.247618+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:19:08.247765+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:19:08.247854+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:08.247934+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:08.248008+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:19:08.248081+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:19:08.248157+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:08.248231+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:08.248301+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:08.248374+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:08.248449+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.647}}
+{"ts": "2026-09-12T11:19:08.248744+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.647}}
+{"ts": "2026-09-12T11:19:08.248993+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6566}}
+{"ts": "2026-09-12T11:19:08.249206+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.647}}
+{"ts": "2026-09-12T11:19:08.249427+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6001}}
+{"ts": "2026-09-12T11:19:08.249862+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9465}}
+{"ts": "2026-09-12T11:19:08.250178+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9465}}
+{"ts": "2026-09-12T11:19:13.795001+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:19:13.795154+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:19:13.795246+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:13.795325+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:19:13.795409+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:13.795482+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:19:13.795555+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:13.795629+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:13.795701+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:13.795772+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:13.795843+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.6762}}
+{"ts": "2026-09-12T11:19:13.796121+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6326}}
+{"ts": "2026-09-12T11:19:13.796339+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6845}}
+{"ts": "2026-09-12T11:19:13.796543+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.6762}}
+{"ts": "2026-09-12T11:19:13.796756+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.6762}}
+{"ts": "2026-09-12T11:19:13.797196+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.958}}
+{"ts": "2026-09-12T11:19:13.797525+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.958}}
+{"ts": "2026-09-12T11:19:55.494227+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:19:55.494373+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:55.494460+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:55.494539+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:19:55.494612+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:19:55.494686+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:55.494760+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:55.494831+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:55.494904+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8296}}
+{"ts": "2026-09-12T11:19:55.495199+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.834}}
+{"ts": "2026-09-12T11:19:55.495424+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8296}}
+{"ts": "2026-09-12T11:19:55.495636+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8296}}
+{"ts": "2026-09-12T11:19:55.495851+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8067}}
+{"ts": "2026-09-12T11:19:55.496051+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9931}}
+{"ts": "2026-09-12T11:19:55.496261+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9931}}
+{"ts": "2026-09-12T11:19:59.190822+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:19:59.190970+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:59.191081+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:59.191169+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:19:59.191245+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:19:59.191318+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:19:59.191391+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:19:59.191465+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8391}}
+{"ts": "2026-09-12T11:19:59.191764+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8432}}
+{"ts": "2026-09-12T11:19:59.191989+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8391}}
+{"ts": "2026-09-12T11:19:59.192196+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8391}}
+{"ts": "2026-09-12T11:19:59.192405+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8174}}
+{"ts": "2026-09-12T11:19:59.192609+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9941}}
+{"ts": "2026-09-12T11:19:59.192813+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9941}}
+{"ts": "2026-09-12T11:20:14.128310+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.128498+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.128588+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.128667+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:20:14.128741+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:20:14.128814+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.128886+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.128962+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.129046+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8756}}
+{"ts": "2026-09-12T11:20:14.129344+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8721}}
+{"ts": "2026-09-12T11:20:14.129591+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8721}}
+{"ts": "2026-09-12T11:20:14.129807+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8721}}
+{"ts": "2026-09-12T11:20:14.130009+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8551}}
+{"ts": "2026-09-12T11:20:14.130315+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.130519+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.167240+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.167382+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.167472+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.167551+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:20:14.167623+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:20:14.167695+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.167767+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.167838+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.167911+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8756}}
+{"ts": "2026-09-12T11:20:14.168188+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.168459+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.168683+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.168883+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8551}}
+{"ts": "2026-09-12T11:20:14.169208+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.169433+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.217176+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.217309+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.217415+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.217495+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:20:14.217566+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:20:14.217636+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.217706+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.217778+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.217849+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8756}}
+{"ts": "2026-09-12T11:20:14.218106+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.218345+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.218559+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.218763+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8553}}
+{"ts": "2026-09-12T11:20:14.219075+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.219264+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.253689+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.253843+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.253932+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.254013+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:20:14.254093+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:20:14.254174+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.254251+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.254324+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.254398+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8758}}
+{"ts": "2026-09-12T11:20:14.254656+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.254879+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.255100+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8723}}
+{"ts": "2026-09-12T11:20:14.255305+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8553}}
+{"ts": "2026-09-12T11:20:14.255626+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.255821+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.325998+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.326137+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.326225+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.326300+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:20:14.326372+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:20:14.326442+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.326514+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.326585+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.326656+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8758}}
+{"ts": "2026-09-12T11:20:14.326912+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8725}}
+{"ts": "2026-09-12T11:20:14.327134+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8725}}
+{"ts": "2026-09-12T11:20:14.327356+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8725}}
+{"ts": "2026-09-12T11:20:14.327566+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8555}}
+{"ts": "2026-09-12T11:20:14.327904+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.328101+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.460107+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.460244+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.460330+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.460408+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:20:14.460482+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:20:14.460553+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:20:14.460630+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:20:14.460699+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:20:14.460769+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8761}}
+{"ts": "2026-09-12T11:20:14.461025+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8729}}
+{"ts": "2026-09-12T11:20:14.461256+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8729}}
+{"ts": "2026-09-12T11:20:14.461486+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8729}}
+{"ts": "2026-09-12T11:20:14.461690+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8557}}
+{"ts": "2026-09-12T11:20:14.461992+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:20:14.462185+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9984}}
+{"ts": "2026-09-12T11:22:16.701770+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.470347+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.470495+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:17.470588+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.470671+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.470750+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:17.470825+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.470901+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.470973+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.489796+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.489933+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:17.490019+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.490103+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:17.490178+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.490255+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.490332+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.490408+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.530839+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.530973+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:17.531060+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.531134+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.531206+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:17.531275+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.531346+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.531413+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.549740+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.549872+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:17.549957+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:17.550033+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:17.550104+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.550173+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:17.550242+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:17.550311+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:24.992226+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.681932+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:25.682081+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.682171+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.682250+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:25.682326+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:25.682399+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.682470+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.699262+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.699395+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.699486+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:25.699562+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:25.699633+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:25.699702+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.699772+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.735585+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:25.735723+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.735810+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.735888+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:25.735961+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:25.736033+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.736107+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.752913+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:25.753044+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.753126+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:22:25.753201+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:22:25.753271+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:22:25.753353+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:22:25.753425+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:33.027168+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:42.793961+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:46.989276+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:22:56.556338+00:00", "source": "net_edge_truth", "reason": "missing_trading_fees", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:23:23.645110+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:23:23.645262+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:23:23.645363+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:23:23.645444+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:23:23.645554+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:23:23.645635+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:23:23.645709+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:23:23.645784+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6393}}
+{"ts": "2026-09-12T11:23:23.646063+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.6393}}
+{"ts": "2026-09-12T11:23:23.646288+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.6393}}
+{"ts": "2026-09-12T11:23:23.646492+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.6393}}
+{"ts": "2026-09-12T11:23:23.646686+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6432}}
+{"ts": "2026-09-12T11:23:23.646874+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.9432}}
+{"ts": "2026-09-12T11:23:23.647066+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9432}}
+{"ts": "2026-09-12T11:23:28.737277+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:23:28.737434+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:23:28.737523+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:23:28.737600+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:23:28.737687+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:23:28.737762+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:23:28.737834+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:23:28.737906+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:23:28.737977+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.6665}}
+{"ts": "2026-09-12T11:23:28.738259+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.6665}}
+{"ts": "2026-09-12T11:23:28.738493+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.6665}}
+{"ts": "2026-09-12T11:23:28.738701+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.6665}}
+{"ts": "2026-09-12T11:23:28.738899+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6701}}
+{"ts": "2026-09-12T11:23:28.739095+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.9734}}
+{"ts": "2026-09-12T11:23:28.739407+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.9734}}
+{"ts": "2026-09-12T11:24:10.676095+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:10.676247+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:10.676336+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:10.676414+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:10.676488+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:10.676562+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:10.676639+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:10.676712+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:10.676787+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:10.676861+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8273}}
+{"ts": "2026-09-12T11:24:10.677158+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8251}}
+{"ts": "2026-09-12T11:24:10.677412+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8251}}
+{"ts": "2026-09-12T11:24:10.677639+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8251}}
+{"ts": "2026-09-12T11:24:10.677845+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8251}}
+{"ts": "2026-09-12T11:24:10.678053+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.9969}}
+{"ts": "2026-09-12T11:24:14.445673+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:14.445819+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:14.445911+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:14.445989+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:14.446065+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:14.446138+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:14.446216+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:14.446292+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:14.446366+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:14.446444+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8368}}
+{"ts": "2026-09-12T11:24:14.446747+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8351}}
+{"ts": "2026-09-12T11:24:14.446973+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8351}}
+{"ts": "2026-09-12T11:24:14.447188+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8351}}
+{"ts": "2026-09-12T11:24:14.447400+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8351}}
+{"ts": "2026-09-12T11:24:14.447618+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.9974}}
+{"ts": "2026-09-12T11:24:29.001874+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.002021+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:29.002108+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:29.002187+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.002258+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:29.002330+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.002399+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.002469+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.002538+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.002609+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.002684+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8697}}
+{"ts": "2026-09-12T11:24:29.002977+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8681}}
+{"ts": "2026-09-12T11:24:29.003197+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8681}}
+{"ts": "2026-09-12T11:24:29.003405+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8681}}
+{"ts": "2026-09-12T11:24:29.003604+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8681}}
+{"ts": "2026-09-12T11:24:29.004160+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6282}}
+{"ts": "2026-09-12T11:24:29.004359+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6282}}
+{"ts": "2026-09-12T11:24:29.043340+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.043482+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:29.043577+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:29.043654+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.043725+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:29.043797+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.043870+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.043942+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.044013+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.044081+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.044151+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8697}}
+{"ts": "2026-09-12T11:24:29.044440+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8683}}
+{"ts": "2026-09-12T11:24:29.044666+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8683}}
+{"ts": "2026-09-12T11:24:29.044876+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8683}}
+{"ts": "2026-09-12T11:24:29.045073+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8683}}
+{"ts": "2026-09-12T11:24:29.045642+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6302}}
+{"ts": "2026-09-12T11:24:29.045855+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6302}}
+{"ts": "2026-09-12T11:24:29.242634+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.242774+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:29.242859+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:29.242935+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.243006+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:29.243079+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.243150+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.243220+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.243289+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.243359+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.243442+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8701}}
+{"ts": "2026-09-12T11:24:29.243710+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.243937+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.244149+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.244353+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.244885+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6342}}
+{"ts": "2026-09-12T11:24:29.245088+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6342}}
+{"ts": "2026-09-12T11:24:29.282808+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.282942+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:29.283027+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:29.283104+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.283177+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:29.283247+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.283319+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.283392+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.283462+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.283537+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.283613+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8703}}
+{"ts": "2026-09-12T11:24:29.283869+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.284089+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.284292+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.284496+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8687}}
+{"ts": "2026-09-12T11:24:29.285027+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6342}}
+{"ts": "2026-09-12T11:24:29.285229+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6342}}
+{"ts": "2026-09-12T11:24:29.354378+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.354513+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:29.354601+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:29.354679+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.354755+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:29.354829+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.354900+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.354973+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.355044+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.355114+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.355185+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8705}}
+{"ts": "2026-09-12T11:24:29.355437+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8689}}
+{"ts": "2026-09-12T11:24:29.355659+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8689}}
+{"ts": "2026-09-12T11:24:29.355863+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8689}}
+{"ts": "2026-09-12T11:24:29.356063+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8689}}
+{"ts": "2026-09-12T11:24:29.356598+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6362}}
+{"ts": "2026-09-12T11:24:29.356800+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6362}}
+{"ts": "2026-09-12T11:24:29.485789+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.485921+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BNB"}}
+{"ts": "2026-09-12T11:24:29.486006+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "SOL"}}
+{"ts": "2026-09-12T11:24:29.486082+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.486155+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "XRP"}}
+{"ts": "2026-09-12T11:24:29.486227+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.486300+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.486373+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "ETH"}}
+{"ts": "2026-09-12T11:24:29.486444+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.486524+00:00", "source": "net_edge_truth", "reason": "missing_withdrawal_fee", "meta": {"truth_score": 0.0, "asset": "BTC"}}
+{"ts": "2026-09-12T11:24:29.486598+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.8707}}
+{"ts": "2026-09-12T11:24:29.486857+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BNB", "remaining_seconds": 0.0, "disappearance_probability": 0.8691}}
+{"ts": "2026-09-12T11:24:29.487085+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "SOL", "remaining_seconds": 0.0, "disappearance_probability": 0.8691}}
+{"ts": "2026-09-12T11:24:29.487295+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "ETH", "remaining_seconds": 0.0, "disappearance_probability": 0.8691}}
+{"ts": "2026-09-12T11:24:29.487500+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "XRP", "remaining_seconds": 0.0, "disappearance_probability": 0.8691}}
+{"ts": "2026-09-12T11:24:29.488064+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6381}}
+{"ts": "2026-09-12T11:24:29.488258+00:00", "source": "half_life", "reason": "half_life_kill", "meta": {"asset": "BTC", "remaining_seconds": 0.0, "disappearance_probability": 0.6381}}

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any, Awaitable, Callable
 
 BATCH15_IDS: frozenset[int] = frozenset(range(701, 751))
@@ -20,6 +21,14 @@ def _stamp_batch15(result: dict[str, Any], capability_id: int) -> dict[str, Any]
     result["backend_entrypoint"] = batch15_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
     result["production_spine"] = "batch15_prep"
+
+    nested = result.get("data") if isinstance(result.get("data"), dict) else {}
+    if not result.get("data_source") and not result.get("source"):
+        result["data_source"] = nested.get("data_source") or nested.get("source") or f"cap646.batch15_production#cap{capability_id:03d}"
+    if not result.get("timestamp"):
+        result["timestamp"] = result.get("timestamp") or nested.get("timestamp") or datetime.now(UTC).isoformat()
+    if not result.get("quality"):
+        result["quality"] = {"freshness": "runtime_stamped", "provenance": result.get("data_source")}
     return result
 
 

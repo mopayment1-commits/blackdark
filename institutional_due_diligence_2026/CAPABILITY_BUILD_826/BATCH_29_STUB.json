@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-09-12T11:25:47.973454+00:00",
+  "ids": [
+    701,
+    725
+  ],
+  "build_batch": 29,
+  "complete_v6": 0,
+  "engineering_ready": 0,
+  "partial": 25,
+  "failed": 0,
+  "unbound_heroes": 25,
+  "complete_total": 609,
+  "engineering_total": 82
+}

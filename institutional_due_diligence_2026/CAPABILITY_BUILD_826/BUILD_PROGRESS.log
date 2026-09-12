@@ -36,3 +36,6 @@
 2026-09-12T11:04:37.188262+00:00 BATCH_25 | complete_v6=23/25 (total 537/826) | engineering_ready=2 (total 79) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=af18aa58
 2026-09-12T11:09:28.948013+00:00 BATCH_26 | complete_v6=17/25 (total 554/826) | engineering_ready=2 (total 81) | partial=6 | blocked=0 | unbound_heroes=0 | failed=0 | sha=9941b6a0
 2026-09-12T11:16:20.459067+00:00 BATCH_26 | complete_v6=22/25 (total 559/826) | engineering_ready=3 (total 82) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=fba83710
+2026-09-12T11:20:42.972934+00:00 BATCH_27 | complete_v6=25/25 (total 584/826) | engineering_ready=0 (total 82) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=5ca35dba
+2026-09-12T11:25:24.401219+00:00 BATCH_28 | complete_v6=25/25 (total 609/826) | engineering_ready=0 (total 82) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=5ca35dba
+2026-09-12T11:25:47.961048+00:00 BATCH_29 | complete_v6=0/25 (total 609/826) | engineering_ready=0 (total 82) | partial=25 | blocked=0 | unbound_heroes=25 | failed=0 | sha=5ca35dba

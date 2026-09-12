@@ -1,0 +1,254 @@
+..................................................FFFFFFFFFFFFFFFFFFFFFF [ 96%]
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____________________ test_build_batch29_hero_binding[701] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[702] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[703] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[704] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[705] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[706] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[707] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[708] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[709] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[710] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[711] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[712] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[713] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[714] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[715] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[716] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[717] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[718] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[719] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[720] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[721] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[722] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[723] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[724] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+_____________________ test_build_batch29_hero_binding[725] _____________________
+tests/cap646/test_capability_build_batch29.py:51: in test_build_batch29_hero_binding
+    assert binding["hero_binding_status"] == "BOUND", binding
+E   AssertionError: {'primary_hero': None, 'secondary_heroes': [], 'hero_entry_path': None, 'hero_ui_path': None, ...}
+E   assert 'UNBOUND' == 'BOUND'
+E     
+E     - BOUND
+E     + UNBOUND
+E     ? ++
+=========================== short test summary info ============================
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[701]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[702]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[703]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[704]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[705]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[706]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[707]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[708]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[709]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[710]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[711]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[712]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[713]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[714]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[715]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[716]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[717]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[718]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[719]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[720]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[721]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[722]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[723]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[724]
+FAILED tests/cap646/test_capability_build_batch29.py::test_build_batch29_hero_binding[725]
