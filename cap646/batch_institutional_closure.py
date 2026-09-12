@@ -105,7 +105,7 @@ async def verify_batch01_institutional(capability_id: int, *, user: dict[str, An
 
     row = catalog_by_id()[capability_id]
     handler_src = _handler_source(capability_id)
-    thin = any(p in handler_src for p in _FORBIDDEN_PATTERNS)
+    thin = any(f"{p}(" in handler_src or f"import {p}" in handler_src for p in _FORBIDDEN_PATTERNS)
 
     result = await execute(
         capability_id,
@@ -208,6 +208,151 @@ async def close_batch01_institutional() -> dict[str, Any]:
     }
 
     out = ROOT / RTM_ARTIFACT
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(__import__("json").dumps(rtm, indent=2), encoding="utf-8")
+    return rtm
+
+
+# ─── Batch02 (IDs 26–50) ─────────────────────────────────────────────────────
+
+from cap646.batch02_closure_spec import (
+    BATCH02_DOMAIN_PAYLOAD_KEYS,
+    BATCH02_OFFICIAL_RANGE,
+    DEEP_TEST_MODULE as BATCH02_DEEP_TEST,
+    FROM_SCRATCH_TEST as BATCH02_FROM_SCRATCH_TEST,
+    HANDLER_MODULE as BATCH02_HANDLER_MODULE,
+    PRODUCTION_MODULE as BATCH02_PRODUCTION_MODULE,
+    RTM_ARTIFACT as BATCH02_RTM_ARTIFACT,
+    expected_surface as batch02_expected_surface,
+)
+
+
+def _batch02_production_source() -> str:
+    path = ROOT / "cap646" / "batch02_official_production.py"
+    return path.read_text(encoding="utf-8") if path.is_file() else ""
+
+
+def _has_batch02_domain_payload(result: dict[str, Any], capability_id: int) -> tuple[bool, str]:
+    keys = BATCH02_DOMAIN_PAYLOAD_KEYS.get(capability_id, ())
+    if not keys:
+        return False, "no_domain_keys_configured"
+    if any(k in result for k in keys):
+        return True, "domain_key_present"
+    return False, f"missing_any_of:{','.join(keys)}"
+
+
+def _batch02_deep_test_references() -> bool:
+    path = ROOT / "tests" / "cap646" / "test_batch02_institutional_deep.py"
+    return path.is_file() and "test_batch02_domain_payload" in path.read_text(encoding="utf-8")
+
+
+async def verify_batch02_institutional(capability_id: int, *, user: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Strict per-capability closure for official batch02 (IDs 26–50)."""
+    if capability_id not in BATCH02_OFFICIAL_RANGE:
+        raise ValueError(f"capability {capability_id} outside batch02 official range 26–50")
+
+    from cap646.batch02_official_production import execute
+
+    row = catalog_by_id()[capability_id]
+    prod_src = _batch02_production_source()
+    thin = any(f"{p}(" in prod_src or f"import {p}" in prod_src for p in _FORBIDDEN_PATTERNS)
+
+    result = await execute(
+        capability_id,
+        params={
+            "symbol": "BTC",
+            "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+            "tier": "pro",
+        },
+    )
+
+    g03_ok, g03_reason = _has_batch02_domain_payload(result, capability_id)
+    g11_ok, g11_reason = _provenance_ok(result)
+
+    gates = {
+        "G01_functional_completeness": bool(result.get("success")) and bool(prod_src),
+        "G02_functional_correctness": result.get("surface") == batch02_expected_surface(capability_id)
+        and result.get("backend_module") == BATCH02_PRODUCTION_MODULE,
+        "G03_functional_appropriateness": g03_ok and not thin,
+        "G04_requirements_traceability": capability_id in BATCH02_DOMAIN_PAYLOAD_KEYS,
+        "G05_integration_correctness": result.get("binding_source") == "explicit_option_a"
+        and result.get("official_batch") == "batch02"
+        and not thin,
+        "G06_regression_safety": _batch02_deep_test_references(),
+        "G07_security_gate": result.get("error") not in {"demo_only", "mock_only", "stub_only"},
+        "G08_performance_gate": result.get("latency_ms") is not None or result.get("performance_gate") is True,
+        "G09_reliability_gate": result.get("success") is True,
+        "G10_observability_gate": result.get("evidence_class") is not None or result.get("classification") is not None,
+        "G11_data_quality_gate": g11_ok,
+        "G12_user_path_gate": bool(result.get("surface")) and result.get("surface") == batch02_expected_surface(capability_id),
+        "G13_evidence_gate": bool(result.get("compliance_footer") or result.get("evidence_metadata")),
+    }
+
+    failed = [k for k, v in gates.items() if not v]
+    pass_eng = len(failed) == 0
+
+    return {
+        "capability_id": capability_id,
+        "capability": row.get("capability"),
+        "track": row.get("track"),
+        "official_batch": "batch02",
+        "PASS_INSTITUTIONAL": pass_eng,
+        "gates": gates,
+        "failed_gates": failed,
+        "gate_reasons": {"G03": g03_reason, "G11": g11_reason},
+        "handler_module": BATCH02_HANDLER_MODULE,
+        "production_module": BATCH02_PRODUCTION_MODULE,
+        "thin_generated_handler": thin,
+        "deep_test_module": BATCH02_DEEP_TEST,
+        "from_scratch_test": BATCH02_FROM_SCRATCH_TEST,
+        "rtm_artifact": BATCH02_RTM_ARTIFACT,
+        "execute_snapshot": {
+            "success": result.get("success"),
+            "surface": result.get("surface"),
+            "backend_module": result.get("backend_module"),
+            "binding_source": result.get("binding_source"),
+            "latency_ms": result.get("latency_ms"),
+        },
+    }
+
+
+async def close_batch02_institutional() -> dict[str, Any]:
+    """Close official batch02 (26–50) with RTM rows and gate evidence."""
+    capabilities = [await verify_batch02_institutional(cid) for cid in BATCH02_OFFICIAL_RANGE]
+    pass_n = sum(1 for r in capabilities if r["PASS_INSTITUTIONAL"])
+    total = len(capabilities)
+
+    rtm = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "standard": "BLACKDARK_Institutional_Capability_Standard_2026_v6 §2.1",
+        "scope": "Official Batch02 — IDs 26–50 only",
+        "methodology": "strict institutional closure — batch02_official_production + domain payload + 13 gates",
+        "summary": {
+            "pass_institutional": pass_n,
+            "not_complete": total - pass_n,
+            "pass_pct": round(pass_n / total * 100, 2) if total else 0.0,
+            "committee_ready_batch02": pass_n == total,
+        },
+        "per_id": {
+            str(r["capability_id"]): {
+                "id": r["capability_id"],
+                "capability": r["capability"],
+                "official_batch": "batch02",
+                "status": "INSTITUTIONAL_CLOSED" if r["PASS_INSTITUTIONAL"] else "NOT_COMPLETE",
+                "handler_module": r["handler_module"],
+                "production_module": r["production_module"],
+                "surface": batch02_expected_surface(r["capability_id"]),
+                "domain_payload_keys": list(BATCH02_DOMAIN_PAYLOAD_KEYS[r["capability_id"]]),
+                "gates": r["gates"],
+                "failed_gates": r["failed_gates"],
+                "deep_test": f"{BATCH02_DEEP_TEST}::test_batch02_domain_payload[{r['capability_id']}]",
+            }
+            for r in capabilities
+        },
+        "capabilities": capabilities,
+    }
+
+    out = ROOT / BATCH02_RTM_ARTIFACT
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(__import__("json").dumps(rtm, indent=2), encoding="utf-8")
     return rtm

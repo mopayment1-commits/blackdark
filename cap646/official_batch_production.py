@@ -39,6 +39,10 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
     if batch_num == 1:
         result = await mod.execute(capability_id, params=dict(params or {}))
+    elif batch_num == 2:
+        from cap646.batch02_official_production import execute as batch02_execute
+
+        result = await batch02_execute(capability_id, params=dict(params or {}))
     else:
         dedicated_ids = getattr(mod, f"BATCH{batch_num:02d}_DEDICATED_IDS", frozenset())
         if capability_id not in dedicated_ids:
