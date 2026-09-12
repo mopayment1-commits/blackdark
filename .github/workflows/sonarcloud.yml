@@ -16,6 +16,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   coverage-report:
     name: Coverage XML
@@ -127,6 +131,7 @@ jobs:
     # Default ON now that AA is disabled. Opt out with SONAR_CI_ANALYSIS=false.
     if: ${{ vars.SONAR_CI_ANALYSIS != 'false' }}
     runs-on: ubuntu-latest
+    environment: sonarcloud
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:

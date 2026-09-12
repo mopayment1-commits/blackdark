@@ -22,8 +22,13 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   gate-sample:
+    name: CAP978 Gate Sample
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -52,6 +57,7 @@ jobs:
           python -m pytest tests/cap646/test_institutional_gate.py tests/cap646/test_soft_launch_closure.py -q --tb=short -m "" -k "not test_institutional_gate_full"
 
   gate-full:
+    name: CAP978 Gate Full
     if: github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 30
