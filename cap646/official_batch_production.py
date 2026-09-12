@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from typing import Any, Awaitable, Callable
 
-from cap646.batch_constants import CAPABILITIES_PER_BATCH, TOTAL_CAPABILITIES, batch_number, official_batch_name
+from cap646.batch_constants import (
+    CAPABILITIES_PER_BATCH,
+    TOTAL_CAPABILITIES,
+    legacy_production_batch_for,
+    official_batch_name,
+)
 
 
 def official_entrypoint(capability_id: int) -> str:
@@ -12,9 +17,19 @@ def official_entrypoint(capability_id: int) -> str:
 
 
 def _stamp(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
-    batch = official_batch_name(capability_id)
-    result.setdefault("production_spine", batch)
-    result.setdefault("official_batch", batch)
+    from cap646.institutional_official_production import _BATCH01_OVERLAP_IDS
+
+    handler_module = str(result.get("handler_module") or "")
+    if capability_id in _BATCH01_OVERLAP_IDS or "batch01" in handler_module:
+        batch = "batch01"
+    elif result.get("production_spine"):
+        batch = str(result["production_spine"])
+    elif legacy_production_batch_for(capability_id):
+        batch = legacy_production_batch_for(capability_id)
+    else:
+        batch = official_batch_name(capability_id)
+    result["production_spine"] = batch
+    result["official_batch"] = batch
     result.setdefault("capabilities_per_batch", CAPABILITIES_PER_BATCH)
     if not result.get("backend_module"):
         result["backend_module"] = "cap646.institutional_official_production"

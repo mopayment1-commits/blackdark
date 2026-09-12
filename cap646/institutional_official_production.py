@@ -6,7 +6,13 @@ import importlib
 from functools import lru_cache
 from typing import Any
 
-from cap646.batch_constants import CAPABILITIES_PER_BATCH, batch_id_range, batch_number, official_batch_name
+from cap646.batch_constants import (
+    CAPABILITIES_PER_BATCH,
+    batch_id_range,
+    batch_number,
+    legacy_production_batch_for,
+    official_batch_name,
+)
 from cap646.catalog import canonical_id, catalog_by_id, is_duplicate
 from cap646.evidence_class import ai_compliance_footer
 
@@ -89,9 +95,23 @@ def _surface_registry() -> dict[int, str]:
     return merged
 
 
+def _resolve_production_spine(capability_id: int, handler_module: str) -> str:
+    if capability_id in _BATCH01_OVERLAP_IDS or "batch01" in handler_module:
+        return "batch01"
+    legacy = legacy_production_batch_for(capability_id)
+    if legacy:
+        return legacy
+    import re
+
+    match = re.search(r"batch(\d+)_", handler_module)
+    if match:
+        return f"batch{int(match.group(1)):02d}"
+    return official_batch_name(capability_id)
+
+
 def _stamp(result: dict[str, Any], capability_id: int, *, handler_module: str) -> dict[str, Any]:
     row = catalog_by_id().get(capability_id, {})
-    batch = official_batch_name(capability_id)
+    batch = _resolve_production_spine(capability_id, handler_module)
     surface = expected_surface(capability_id)
     if not result.get("compliance_footer"):
         result = ai_compliance_footer(result)
