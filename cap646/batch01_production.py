@@ -54,10 +54,14 @@ def batch01_entrypoint(capability_id: int) -> str:
 
 
 def _stamp_batch01(result: dict[str, Any], capability_id: int) -> dict[str, Any]:
+    from cap646.batch_constants import CAPABILITIES_PER_BATCH, official_batch_name
+
     result["backend_module"] = "cap646.batch01_production"
     result["backend_entrypoint"] = batch01_entrypoint(capability_id)
     result["binding_source"] = "explicit_option_a"
-    result["production_spine"] = "batch01"
+    result["production_spine"] = official_batch_name(capability_id)
+    result["official_batch"] = official_batch_name(capability_id)
+    result["capabilities_per_batch"] = CAPABILITIES_PER_BATCH
     return result
 
 
@@ -121,8 +125,15 @@ async def execute(capability_id: int, *, params: dict[str, Any] | None = None) -
 
 
 def _make_cap_entrypoint(capability_id: int) -> Callable[..., Awaitable[dict[str, Any]]]:
-    async def _entry(*, params: dict[str, Any] | None = None, capability_id: int = capability_id) -> dict[str, Any]:
-        return await execute(capability_id, params=params)
+    async def _entry(
+        symbol: str = "BTC",
+        *,
+        params: dict[str, Any] | None = None,
+        capability_id: int = capability_id,
+    ) -> dict[str, Any]:
+        merged = dict(params or {})
+        merged.setdefault("symbol", symbol)
+        return await execute(capability_id, params=merged)
 
     _entry.__name__ = batch01_entrypoint(capability_id)
     _entry.__doc__ = f"Batch01 production entrypoint for capability #{capability_id}."

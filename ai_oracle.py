@@ -253,9 +253,11 @@ def _explain_kind_reasons(opportunity: Any, kind: OpportunityKind, metrics: Oppo
         risks.append("Three-leg execution risk: one stale leg collapses the loop.")
         return reasons, risks
     if kind == "spot_futures":
+        exchange = _opportunity_field(opportunity, "exchange", "binance")
+        direction = _opportunity_field(opportunity, "direction", "long_basis")
         reasons.append(
-            f"Spot-perp basis on {opportunity.exchange}: "
-            f"{metrics.basis_bps:.2f} bps ({opportunity.direction})."
+            f"Spot-perp basis on {exchange}: "
+            f"{metrics.basis_bps:.2f} bps ({direction})."
         )
         risks.append("Basis can mean-revert before both legs fill.")
         return reasons, risks

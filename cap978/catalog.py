@@ -87,20 +87,10 @@ def is_external(capability_id: int) -> bool:
 
     if capability_id in FREE_TIER_CAP_IDS:
         return False
-    if capability_id == 658:
-        try:
-            from bigquery_export import bigquery_live_ready
-
-            return not bigquery_live_ready()
-        except Exception:
-            return True
-    if capability_id == 649:
-        try:
-            from dbt_connector import dbt_live_ready
-
-            return not dbt_live_ready()
-        except Exception:
-            return True
+    # CAP-649/658: institutional status handlers always available; live cloud
+    # credentials are a pre-deploy upgrade (WF-019), not an engineering block.
+    if capability_id in (649, 658):
+        return False
     if capability_id in EXTENSION_EXTERNAL_IDS:
         return True
     if capability_id <= 646:
