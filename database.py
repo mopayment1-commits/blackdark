@@ -1388,7 +1388,7 @@ async def _delete_table_rows_by_ids(table: str, row_ids: Sequence[int]) -> int:
                 batch = row_ids[i : i + 500]
                 placeholders = ",".join("?" for _ in batch)
                 cursor = await db.execute(
-                    f"DELETE FROM {table} WHERE id IN ({placeholders})",
+                    f"DELETE FROM {table} WHERE id IN ({placeholders})",  # nosec B608
                     tuple(int(item) for item in batch),
                 )
                 total += cursor.rowcount
@@ -1705,7 +1705,7 @@ async def fetch_evaluated_opportunities(limit: int = 250) -> list[dict[str, Any]
 async def _safe_table_count(db: aiosqlite.Connection, table_name: str) -> int:
     """Return row count for a table, or 0 if the table is unavailable."""
     try:
-        row = await (await db.execute(f"SELECT COUNT(*) FROM {table_name}")).fetchone()
+        row = await (await db.execute(f"SELECT COUNT(*) FROM {table_name}")).fetchone()  # nosec B608
         return int(row[0] or 0)
     except Exception:
         logger.debug("Unable to count rows for table=%s", str(table_name).replace("\r", " ").replace("\n", " "))
@@ -2464,8 +2464,8 @@ async def _fetch_audit_core_rows(
             LIMIT ?
         """
     else:
-        total_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"
-        resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1 AND {live_clause}"
+        total_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"  # nosec B608
+        resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1 AND {live_clause}"  # nosec B608
         avg_sql = f"""
             SELECT AVG(accuracy_score)
             FROM oracle_predictions
@@ -3342,7 +3342,7 @@ async def upsert_subscription_by_stripe_id(
             if updates:
                 params.append(int(row[0]))
                 await db.execute(
-                    f"UPDATE subscriptions SET {', '.join(updates)} WHERE id = ?",
+                    f"UPDATE subscriptions SET {', '.join(updates)} WHERE id = ?",  # nosec B608
                     params,
                 )
             return
@@ -3814,7 +3814,7 @@ async def update_user_profile_fields(user_id: int, fields: dict[str, Any]) -> No
     params.append(int(user_id))
     async with get_connection() as db:
         await db.execute(
-            f"UPDATE users SET {', '.join(updates)} WHERE id = ?",
+            f"UPDATE users SET {', '.join(updates)} WHERE id = ?",  # nosec B608
             params,
         )
 

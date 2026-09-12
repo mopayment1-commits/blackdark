@@ -151,7 +151,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
             "rows_sent": rows_verified,
             "rows_verified": rows_verified,
             "verification_query": (
-                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
+                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"  # nosec B608
             ),
             "product": "BLACKDARK",
             "surface": "white_label_embedded_analytics",
@@ -362,7 +362,7 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
         "rows_verified": verified,
         "manifest_sha256": manifest_sha256,
         "verification_query": (
-            f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
+            f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"  # nosec B608
         ),
         "product": "BLACKDARK",
         "surface": "white_label_embedded_analytics",

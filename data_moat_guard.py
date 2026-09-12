@@ -94,7 +94,7 @@ async def fetch_dataset_stats() -> dict[str, Any]:
 
         live_clause = live_source_sql()
         async with get_connection() as db:
-            live_row = await (await db.execute(f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}")).fetchone()
+            live_row = await (await db.execute(f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}")).fetchone()  # nosec B608
             syn_row = await (
                 await db.execute("SELECT COUNT(*) FROM oracle_predictions WHERE source = 'historical_seed'")
             ).fetchone()
@@ -116,7 +116,7 @@ async def fetch_dataset_stats() -> dict[str, Any]:
                 )
             ).fetchone()
             resolved_row = await (
-                await db.execute(f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause} AND resolved = 1")
+                await db.execute(f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause} AND resolved = 1")  # nosec B608
             ).fetchone()
 
         live = int(live_row[0]) if live_row else 0

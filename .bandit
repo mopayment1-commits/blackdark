@@ -1,5 +1,5 @@
-# BLACKDARK Bandit policy — production security closure.
-# INI format (auto-discovered with `bandit -r .`). Use ./ prefixes for exclude paths.
+# BLACKDARK Bandit CI policy — scope exclusions only (no global test-id skips).
+# ./data is runtime artifact storage (JSON/JSONL/joblib); verified zero .py under data/.
+# Multiline B608 false positives: line-specific .bandit-baseline.json (not rule skips).
 [bandit]
 exclude = ./.venv,./venv,./tests,./data,./node_modules,./.git,./dist,./build
-skips = B101,B608,B310

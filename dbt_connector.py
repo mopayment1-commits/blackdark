@@ -252,7 +252,7 @@ def _run_dbt_sync(*, run_id: str, operator: str) -> dict[str, Any]:
         "mart_rows_verified": mart_rows,
         "staging_rows_verified": int(verified.get("staging_rows") or 0),
         "invocation_id": parsed.get("invocation_id"),
-        "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",
+        "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",  # nosec B608
         "product": "BLACKDARK",
         "surface": "dbt_connector",
         "gate": "CAP-649",
@@ -280,7 +280,7 @@ def _fetch_live_dbt_evidence_from_bigquery() -> dict[str, Any] | None:
             "mart_table_fqn": cfg["mart_table_fqn"],
             "mart_rows_verified": mart_rows,
             "staging_rows_verified": int(verified.get("staging_rows") or 0),
-            "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",
+            "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",  # nosec B608
             "product": "BLACKDARK",
             "surface": "dbt_connector",
             "gate": "CAP-649",

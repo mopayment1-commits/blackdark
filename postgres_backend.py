@@ -314,7 +314,7 @@ async def init_pool() -> None:
             )
             if attempt < retries:
                 await asyncio.sleep(delay * attempt)
-    assert last_exc is not None
+    assert last_exc is not None  # nosec B101
     raise last_exc
 
 
@@ -337,7 +337,7 @@ async def init_postgres() -> None:
     from database import SCHEMA
 
     await init_pool()
-    assert _pool is not None
+    assert _pool is not None  # nosec B101
     ddl = _sqlite_schema_to_pg(SCHEMA)
     async with _pool.acquire() as conn:
         for stmt in ddl.split(";"):
@@ -374,7 +374,7 @@ async def init_postgres() -> None:
 async def pg_connection() -> AsyncIterator[PgConnectionAdapter]:
     if _pool is None:
         await init_pool()
-    assert _pool is not None
+    assert _pool is not None  # nosec B101
     async with _pool.acquire() as conn:
         tx = conn.transaction()
         await tx.start()
