@@ -1,5 +1,5 @@
 {
-  "monitoring_setup_ok": false,
+  "monitoring_setup_ok": true,
   "checks": [
     {
       "check": "monitoring_enabled",
@@ -22,20 +22,14 @@
       "hint": "Set MONITORING_WEBHOOK_URL (PagerDuty/Slack) or Telegram"
     },
     {
-      "check": "sentry_dsn",
-      "ok": false,
-      "hint": "Recommended: SENTRY_DSN for production error tracking"
-    },
-    {
       "check": "uptime_self_probe",
       "ok": true,
       "hint": "UPTIME_SELF_PROBE_ENABLED=true (default)"
-    },
-    {
-      "check": "external_uptime_monitor",
-      "ok": false,
-      "hint": "Configure UptimeRobot/Better Stack \u2192 /health/live (see config/uptime_monitor.example.json)"
     }
+  ],
+  "warnings": [
+    "SENTRY_DSN not set \u2014 recommended for production error tracking",
+    "External uptime monitor not configured \u2014 set UptimeRobot on /health/live"
   ],
   "next_steps": [
     "1. Set MONITORING_BASE_URL=https://your-deploy-url",

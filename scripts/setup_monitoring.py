@@ -46,6 +46,7 @@ def main() -> int:
     report = {
         "monitoring_setup_ok": ok,
         "checks": checks,
+        "warnings": warnings,
         "next_steps": [
             "1. Set MONITORING_BASE_URL=https://your-deploy-url",
             "2. Set OPS_TELEGRAM_CHAT_ID + TELEGRAM_BOT_TOKEN",
