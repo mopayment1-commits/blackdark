@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-09-12T13:05:38.182939+00:00",
+  "group": "AI",
+  "processed": 26,
+  "upgraded_complete_v6": [
+    102, 129, 134, 154, 155, 175, 176, 177, 241, 242, 248, 295, 384, 425, 441,
+    526, 591, 592, 605, 622, 637, 638, 642
+  ],
+  "remaining_engineering_ready": [
+    {"id": 24, "missing_gates": ["v6_13.8_performance_gate", "evidence_pack.8_reliability_performance_evidence"]},
+    {"id": 90, "missing_gates": ["v6_13.8_performance_gate", "evidence_pack.8_reliability_performance_evidence"]},
+    {"id": 101, "missing_gates": ["v6_13.8_performance_gate", "evidence_pack.8_reliability_performance_evidence"]}
+  ],
+  "shared_fixes": [
+    "cap646/evidence_class.py — analysis_only/methodology_status on ai_compliance_footer (NIST SP 800-218A PO.1.2)",
+    "scripts/audit_standards_v6.py — PASS when 800-218A complement checks pass"
+  ],
+  "failed_gate": 0,
+  "totals_after_group": {
+    "COMPLETE_V6": 765,
+    "ENGINEERING_READY": 61,
+    "PARTIAL": 0,
+    "FAILED_GATE": 0
+  }
+}

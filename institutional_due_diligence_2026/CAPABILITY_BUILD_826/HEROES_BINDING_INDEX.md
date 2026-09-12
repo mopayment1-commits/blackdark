@@ -1,6 +1,6 @@
 # Six Heroes Binding Index — CAPABILITY_BUILD_826
 
-**Updated:** 2026-09-12T12:45:31.999393+00:00
+**Updated:** 2026-09-12T13:05:38.180114+00:00
 
 | ID | Capability | Primary Hero | Entry Path | Binding | Build Status |
 |---:|---|---|---|---|---|
@@ -105,7 +105,7 @@
 | 99 | QuickTake / Analyst Insight Feed | B2B Feed | /api/b2b/demo → /api/cap646/99/execute | BOUND | COMPLETE_V6 |
 | 100 | Research Reports | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/100/execute | BOUND | COMPLETE_V6 |
 | 101 | AI Data Analyst / Ask AI | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/101/execute | BOUND | ENGINEERING_READY |
-| 102 | AI-Generated Reporting | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/102/execute | BOUND | ENGINEERING_READY |
+| 102 | AI-Generated Reporting | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/102/execute | BOUND | COMPLETE_V6 |
 | 103 | API Data Platform | B2B Feed | /api/b2b/demo → /api/cap646/103/execute | BOUND | COMPLETE_V6 |
 | 104 | High-Resolution / Block-Level Data Deliv | B2B Feed | /api/b2b/demo → /api/cap646/104/execute | BOUND | COMPLETE_V6 |
 | 105 | Historical Full-Data Layer | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/105/execute | BOUND | COMPLETE_V6 |
@@ -132,12 +132,12 @@
 | 126 | Futures Volume Intelligence | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/126/execute | BOUND | COMPLETE_V6 |
 | 127 | Multi-Factor Market Overview | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/127/execute | BOUND | COMPLETE_V6 |
 | 128 | Momentum Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/128/execute | BOUND | COMPLETE_V6 |
-| 129 | Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/129/execute | BOUND | ENGINEERING_READY |
+| 129 | Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/129/execute | BOUND | COMPLETE_V6 |
 | 130 | Mindshare Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/130/execute | BOUND | COMPLETE_V6 |
 | 131 | Narrative & Sector Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/131/execute | BOUND | COMPLETE_V6 |
 | 132 | Mindshare Gainers / Losers | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/132/execute | BOUND | COMPLETE_V6 |
 | 133 | Curated Crypto News Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/133/execute | BOUND | COMPLETE_V6 |
-| 134 | AI News Summaries | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/134/execute | BOUND | ENGINEERING_READY |
+| 134 | AI News Summaries | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/134/execute | BOUND | COMPLETE_V6 |
 | 135 | Real-Time Industry Event Monitoring | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/135/execute | BOUND | COMPLETE_V6 |
 | 136 | Agentic Monitoring Views | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/136/execute | BOUND | COMPLETE_V6 |
 | 137 | Custom Watchlists | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/137/execute | BOUND | COMPLETE_V6 |
@@ -157,8 +157,8 @@
 | 151 | Quarterly Protocol Performance Reports | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/151/execute | BOUND | COMPLETE_V6 |
 | 152 | Governance & Proposal Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/152/execute | BOUND | COMPLETE_V6 |
 | 153 | Project Monitoring Coverage Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/153/execute | BOUND | COMPLETE_V6 |
-| 154 | AI Crypto Copilot | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/154/execute | BOUND | ENGINEERING_READY |
-| 155 | AI Deep Research | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/155/execute | BOUND | ENGINEERING_READY |
+| 154 | AI Crypto Copilot | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/154/execute | BOUND | COMPLETE_V6 |
+| 155 | AI Deep Research | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/155/execute | BOUND | COMPLETE_V6 |
 | 156 | Crypto Knowledge Graph | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/156/execute | BOUND | COMPLETE_V6 |
 | 157 | Research Library | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/157/execute | BOUND | COMPLETE_V6 |
 | 158 | Institutional Research Feed | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/158/execute | BOUND | COMPLETE_V6 |
@@ -178,9 +178,9 @@
 | 172 | Historical Crypto Trends | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/172/execute | BOUND | ENGINEERING_READY |
 | 173 | Key Narratives Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/173/execute | BOUND | COMPLETE_V6 |
 | 174 | Alpha Narratives Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/174/execute | BOUND | COMPLETE_V6 |
-| 175 | Social Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/175/execute | BOUND | ENGINEERING_READY |
-| 176 | Weighted Social Sentiment | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/176/execute | BOUND | ENGINEERING_READY |
-| 177 | Social Sentiment Balance | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/177/execute | BOUND | ENGINEERING_READY |
+| 175 | Social Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/175/execute | BOUND | COMPLETE_V6 |
+| 176 | Weighted Social Sentiment | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/176/execute | BOUND | COMPLETE_V6 |
+| 177 | Social Sentiment Balance | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/177/execute | BOUND | COMPLETE_V6 |
 | 178 | Social Source Breakdown | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/178/execute | BOUND | COMPLETE_V6 |
 | 179 | Development Activity Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/179/execute | BOUND | ENGINEERING_READY |
 | 180 | Development Activity Contributors | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/180/execute | BOUND | COMPLETE_V6 |
@@ -244,14 +244,14 @@
 | 238 | Pump & Dump Detection | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/238/execute | BOUND | COMPLETE_V6 |
 | 239 | Narrative Tracking | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/239/execute | BOUND | COMPLETE_V6 |
 | 240 | Sector Rotation Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/240/execute | BOUND | COMPLETE_V6 |
-| 241 | Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/241/execute | BOUND | ENGINEERING_READY |
-| 242 | Price Prediction / Multi-Signal Forecast | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/242/execute | BOUND | ENGINEERING_READY |
+| 241 | Sentiment Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/241/execute | BOUND | COMPLETE_V6 |
+| 242 | Price Prediction / Multi-Signal Forecast | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/242/execute | BOUND | COMPLETE_V6 |
 | 243 | Correlation Matrix | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/243/execute | BOUND | COMPLETE_V6 |
 | 244 | New Listings Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/244/execute | BOUND | COMPLETE_V6 |
 | 245 | Market Health & Freshness | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/245/execute | BOUND | COMPLETE_V6 |
 | 246 | Coverage Metadata Registry | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/246/execute | BOUND | ENGINEERING_READY |
 | 247 | Public REST API | B2B Feed | /api/b2b/demo → /api/cap646/247/execute | BOUND | COMPLETE_V6 |
-| 248 | MCP Server for AI Agents | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/248/execute | BOUND | ENGINEERING_READY |
+| 248 | MCP Server for AI Agents | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/248/execute | BOUND | COMPLETE_V6 |
 | 249 | CLI Access | B2B Feed | /api/b2b/demo → /api/cap646/249/execute | BOUND | COMPLETE_V6 |
 | 250 | OpenAPI / SDK Generation | B2B Feed | /api/b2b/demo → /api/cap646/250/execute | BOUND | COMPLETE_V6 |
 | 251 | Cross-Domain Decision Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/251/execute | BOUND | COMPLETE_V6 |
@@ -298,7 +298,7 @@
 | 292 | Custom Alerts | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/292/execute | BOUND | COMPLETE_V6 |
 | 293 | Private Labels | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/293/execute | BOUND | COMPLETE_V6 |
 | 294 | Archive / Historical Portfolio Snapshot | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/294/execute | BOUND | ENGINEERING_READY |
-| 295 | AI Market Insights | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/295/execute | BOUND | ENGINEERING_READY |
+| 295 | AI Market Insights | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/295/execute | BOUND | COMPLETE_V6 |
 | 296 | Whale Movement Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/296/execute | BOUND | COMPLETE_V6 |
 | 297 | Fraud / Suspicious Activity Intelligence | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/297/execute | BOUND | ENGINEERING_READY |
 | 298 | API On-Chain Intelligence | B2B Feed | /api/b2b/demo → /api/cap646/298/execute | BOUND | COMPLETE_V6 |
@@ -387,7 +387,7 @@
 | 381 | Datashare | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/381/execute | BOUND | COMPLETE_V6 |
 | 382 | dbt Connector | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/382/execute | BOUND | COMPLETE_V6 |
 | 383 | BI Connectors | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/383/execute | BOUND | COMPLETE_V6 |
-| 384 | MCP for AI Agents | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/384/execute | BOUND | ENGINEERING_READY |
+| 384 | MCP for AI Agents | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/384/execute | BOUND | COMPLETE_V6 |
 | 385 | Prompt-to-SQL Agent | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/385/execute | BOUND | COMPLETE_V6 |
 | 386 | Dashboard-from-Prompt | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/386/execute | BOUND | COMPLETE_V6 |
 | 387 | Scheduled Queries | Whale Signal vs Noise | /api/whale/signal-vs-noise → /api/cap646/387/execute | BOUND | COMPLETE_V6 |
@@ -428,7 +428,7 @@
 | 422 | Sector/Ecosystem Comparables | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/422/execute | BOUND | COMPLETE_V6 |
 | 423 | Equities + Crypto Research | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/423/execute | BOUND | COMPLETE_V6 |
 | 424 | Consensus Estimates | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/424/execute | BOUND | COMPLETE_V6 |
-| 425 | AI Analyst | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/425/execute | BOUND | ENGINEERING_READY |
+| 425 | AI Analyst | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/425/execute | BOUND | COMPLETE_V6 |
 | 426 | Thesis Research Workspace | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/426/execute | BOUND | COMPLETE_V6 |
 | 427 | Comparable Company / Protocol Analysis | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/427/execute | BOUND | COMPLETE_V6 |
 | 428 | Excel / Sheets Integration | B2B Feed | /api/b2b/demo → /api/cap646/428/execute | BOUND | COMPLETE_V6 |
@@ -444,7 +444,7 @@
 | 438 | Lending Market Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/438/execute | BOUND | COMPLETE_V6 |
 | 439 | Collateral Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/439/execute | BOUND | COMPLETE_V6 |
 | 440 | Liquidation Risk | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/440/execute | BOUND | COMPLETE_V6 |
-| 441 | Oracle Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/441/execute | BOUND | ENGINEERING_READY |
+| 441 | Oracle Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/441/execute | BOUND | COMPLETE_V6 |
 | 442 | Liquidity Risk | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/442/execute | BOUND | COMPLETE_V6 |
 | 443 | Protocol Exploit Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/443/execute | BOUND | COMPLETE_V6 |
 | 444 | Stablecoin Risk Intelligence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/444/execute | BOUND | COMPLETE_V6 |
@@ -529,7 +529,7 @@
 | 523 | Data Health / SLA Monitoring | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/523/execute | BOUND | COMPLETE_V6 |
 | 524 | Symbol Mapping Engine | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/524/execute | BOUND | COMPLETE_V6 |
 | 525 | Cross-Venue Data Quality Score | Public Accuracy Ledger | /api/oracle/audit-chain/verify → /api/cap646/525/execute | BOUND | COMPLETE_V6 |
-| 526 | AI Market Data Grounding Layer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/526/execute | BOUND | ENGINEERING_READY |
+| 526 | AI Market Data Grounding Layer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/526/execute | BOUND | COMPLETE_V6 |
 | 527 | Liquidation Heatmap | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/527/execute | BOUND | COMPLETE_V6 |
 | 528 | Liquidation Levels | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/528/execute | BOUND | COMPLETE_V6 |
 | 529 | Liquidation Cascade Model | Arbitrage Scanner | /api/arbitrage/scanner/status → /api/cap646/529/execute | BOUND | COMPLETE_V6 |
@@ -594,8 +594,8 @@
 | 588 | High_Precision_Backtesting | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/588/execute | BOUND | COMPLETE_V6 |
 | 589 | Strategy_Vetting_Algorithm | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/589/execute | BOUND | COMPLETE_V6 |
 | 590 | AI_Quant_Rating_Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/590/execute | BOUND | COMPLETE_V6 |
-| 591 | Sentiment_Analysis_Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/591/execute | BOUND | ENGINEERING_READY |
-| 592 | Social_Sentiment_Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/592/execute | BOUND | ENGINEERING_READY |
+| 591 | Sentiment_Analysis_Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/591/execute | BOUND | COMPLETE_V6 |
+| 592 | Social_Sentiment_Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/592/execute | BOUND | COMPLETE_V6 |
 | 593 | Social_Hype_Analyzer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/593/execute | BOUND | COMPLETE_V6 |
 | 594 | Narrative_Alert_System | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/594/execute | BOUND | COMPLETE_V6 |
 | 595 | AI_Digest_Generator | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/595/execute | BOUND | COMPLETE_V6 |
@@ -608,7 +608,7 @@
 | 602 | Developer_Wallet_Tracker | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/602/execute | BOUND | COMPLETE_V6 |
 | 603 | Miner_Flow_Monitor | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/603/execute | BOUND | COMPLETE_V6 |
 | 604 | Token_Unlock_Forecaster | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/604/execute | BOUND | COMPLETE_V6 |
-| 605 | Governance_Sentiment_Monitor | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/605/execute | BOUND | ENGINEERING_READY |
+| 605 | Governance_Sentiment_Monitor | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/605/execute | BOUND | COMPLETE_V6 |
 | 606 | Dev_Health_Score | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/606/execute | BOUND | COMPLETE_V6 |
 | 607 | Financial_Health_Scoring | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/607/execute | BOUND | COMPLETE_V6 |
 | 608 | Custom_Ratio_Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/608/execute | BOUND | COMPLETE_V6 |
@@ -625,7 +625,7 @@
 | 619 | Trend_Metric_Collector | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/619/execute | BOUND | COMPLETE_V6 |
 | 620 | MTF_Core_Logic | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/620/execute | BOUND | COMPLETE_V6 |
 | 621 | Pattern_Recognition_Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/621/execute | BOUND | COMPLETE_V6 |
-| 622 | Prediction_Trend_Analyzer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/622/execute | BOUND | ENGINEERING_READY |
+| 622 | Prediction_Trend_Analyzer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/622/execute | BOUND | COMPLETE_V6 |
 | 623 | Execution_Latency_Monitor | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/623/execute | BOUND | COMPLETE_V6 |
 | 624 | Low_Latency_Execution_Node | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/624/execute | BOUND | COMPLETE_V6 |
 | 625 | Rust_Execution_Module | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/625/execute | BOUND | COMPLETE_V6 |
@@ -640,12 +640,12 @@
 | 634 | Liquidity/Full-Fill Feasibility | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/634/execute | BOUND | COMPLETE_V6 |
 | 635 | Unified Arbitrage Opportunity Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/635/execute | BOUND | COMPLETE_V6 |
 | 636 | Market/Data Drift Monitoring | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/636/execute | BOUND | COMPLETE_V6 |
-| 637 | Scenario Engine (probabilistic scenarios | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/637/execute | BOUND | ENGINEERING_READY |
-| 638 | Claims/Prediction Verification Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/638/execute | BOUND | ENGINEERING_READY |
+| 637 | Scenario Engine (probabilistic scenarios | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/637/execute | BOUND | COMPLETE_V6 |
+| 638 | Claims/Prediction Verification Engine | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/638/execute | BOUND | COMPLETE_V6 |
 | 639 | Net-Edge Truth Score | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/639/execute | BOUND | COMPLETE_V6 |
 | 640 | Public Accuracy Ledger | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/640/execute | BOUND | COMPLETE_V6 |
 | 641 | Decision Certificate + Institutional DD  | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/641/execute | BOUND | COMPLETE_V6 |
-| 642 | AI Output Provenance / Compliance Footer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/642/execute | BOUND | ENGINEERING_READY |
+| 642 | AI Output Provenance / Compliance Footer | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/642/execute | BOUND | COMPLETE_V6 |
 | 643 | End-to-End Decision Traceability | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/643/execute | BOUND | COMPLETE_V6 |
 | 644 | Capacity / Load Evidence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/644/execute | BOUND | COMPLETE_V6 |
 | 645 | Security Verification Evidence | Single-Sentence Oracle | /api/oracle/persona-clarity/demo → /api/cap646/645/execute | BOUND | COMPLETE_V6 |

@@ -1,0 +1,2268 @@
+{
+  "count": 84,
+  "ids": [
+    17,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    41,
+    53,
+    66,
+    69,
+    81,
+    90,
+    97,
+    98,
+    101,
+    102,
+    110,
+    111,
+    129,
+    134,
+    148,
+    149,
+    154,
+    155,
+    159,
+    161,
+    162,
+    167,
+    172,
+    175,
+    176,
+    177,
+    179,
+    181,
+    192,
+    200,
+    204,
+    219,
+    221,
+    241,
+    242,
+    246,
+    248,
+    260,
+    268,
+    272,
+    294,
+    295,
+    297,
+    302,
+    324,
+    339,
+    341,
+    366,
+    367,
+    375,
+    376,
+    380,
+    384,
+    425,
+    429,
+    441,
+    466,
+    492,
+    499,
+    514,
+    526,
+    548,
+    562,
+    563,
+    591,
+    592,
+    605,
+    622,
+    637,
+    638,
+    642
+  ],
+  "rows": [
+    {
+      "id": 17,
+      "capability": "Smart Alerts",
+      "build_batch": 1,
+      "official_batch": "batch01",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 24,
+      "capability": "AI Research Agent Grounded in Platform Data",
+      "build_batch": 1,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence",
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence",
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI",
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 25,
+      "capability": "Signal \u2192 Explanation Workflow",
+      "build_batch": 1,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 26,
+      "capability": "Price-Move Explanation",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 27,
+      "capability": "Smart Money Historical Trend Analysis",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 28,
+      "capability": "Smart Money Conviction Engine",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 29,
+      "capability": "Cross-Market Decision Intelligence Engine",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 30,
+      "capability": "Evidence & Confidence Layer",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 31,
+      "capability": "Cross-Signal Confirmation",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 32,
+      "capability": "Contradiction Detection",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 33,
+      "capability": "Smart Money Actionability Score",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 34,
+      "capability": "Beginner Decision Mode",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 35,
+      "capability": "Market Compass / Market Regime Engine",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 41,
+      "capability": "SOPR / Profitability Intelligence",
+      "build_batch": 2,
+      "official_batch": "batch01",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 53,
+      "capability": "BTC-to-Macro Coupling",
+      "build_batch": 3,
+      "official_batch": "batch02",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 66,
+      "capability": "Market Regime Written Read",
+      "build_batch": 3,
+      "official_batch": "batch02",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 69,
+      "capability": "Cross-Domain Decision Intelligence Layer",
+      "build_batch": 3,
+      "official_batch": "batch02",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 81,
+      "capability": "Whale Accumulation / Distribution Intelligence",
+      "build_batch": 4,
+      "official_batch": "batch02",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 90,
+      "capability": "Derivatives Market Sentiment Composite",
+      "build_batch": 4,
+      "official_batch": "batch02",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence",
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence",
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI",
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 97,
+      "capability": "Custom Metric Alerts",
+      "build_batch": 4,
+      "official_batch": "batch02",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 98,
+      "capability": "Whale Movement Alerts",
+      "build_batch": 4,
+      "official_batch": "batch02",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 101,
+      "capability": "AI Data Analyst / Ask AI",
+      "build_batch": 5,
+      "official_batch": "batch03",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence",
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence",
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI",
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 102,
+      "capability": "AI-Generated Reporting",
+      "build_batch": 5,
+      "official_batch": "batch03",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 110,
+      "capability": "Cross-Domain Decision Intelligence Layer",
+      "build_batch": 5,
+      "official_batch": "batch03",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 111,
+      "capability": "Exchange Flow Actionability Score",
+      "build_batch": 5,
+      "official_batch": "batch03",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 129,
+      "capability": "Sentiment Intelligence",
+      "build_batch": 6,
+      "official_batch": "batch03",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 134,
+      "capability": "AI News Summaries",
+      "build_batch": 6,
+      "official_batch": "batch03",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 148,
+      "capability": "Due Diligence Report Engine",
+      "build_batch": 6,
+      "official_batch": "batch03",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 149,
+      "capability": "Automated Risk Scoring from Diligence",
+      "build_batch": 6,
+      "official_batch": "batch03",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.8_performance_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 154,
+      "capability": "AI Crypto Copilot",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 155,
+      "capability": "AI Deep Research",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 159,
+      "capability": "API Data Platform",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "B2B Feed",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 161,
+      "capability": "Institutional Data Delivery & Entitlements",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "B2B Feed",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 162,
+      "capability": "Evidence & Provenance Layer",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 167,
+      "capability": "Social Volume Intelligence",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 172,
+      "capability": "Historical Crypto Trends",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 175,
+      "capability": "Social Sentiment Intelligence",
+      "build_batch": 7,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 176,
+      "capability": "Weighted Social Sentiment",
+      "build_batch": 8,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 177,
+      "capability": "Social Sentiment Balance",
+      "build_batch": 8,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 179,
+      "capability": "Development Activity Intelligence",
+      "build_batch": 8,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 181,
+      "capability": "Ecosystem Development Dashboard",
+      "build_batch": 8,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 192,
+      "capability": "Network Activity Intelligence",
+      "build_batch": 8,
+      "official_batch": "batch04",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 200,
+      "capability": "Token Circulation Intelligence",
+      "build_batch": 8,
+      "official_batch": "batch04",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 204,
+      "capability": "DeFi Protocol Activity Intelligence",
+      "build_batch": 9,
+      "official_batch": "batch05",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 219,
+      "capability": "Metric Availability Registry",
+      "build_batch": 9,
+      "official_batch": "batch05",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 221,
+      "capability": "Data Quality & Provenance Layer",
+      "build_batch": 9,
+      "official_batch": "batch05",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 241,
+      "capability": "Sentiment Intelligence",
+      "build_batch": 10,
+      "official_batch": "batch05",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 242,
+      "capability": "Price Prediction / Multi-Signal Forecast",
+      "build_batch": 10,
+      "official_batch": "batch05",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 246,
+      "capability": "Coverage Metadata Registry",
+      "build_batch": 10,
+      "official_batch": "batch05",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 248,
+      "capability": "MCP Server for AI Agents",
+      "build_batch": 10,
+      "official_batch": "batch05",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 260,
+      "capability": "Futures Volume Intelligence",
+      "build_batch": 11,
+      "official_batch": "batch06",
+      "primary_hero": "Arbitrage Scanner",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 268,
+      "capability": "Historical Derivatives Data",
+      "build_batch": 11,
+      "official_batch": "batch06",
+      "primary_hero": "Arbitrage Scanner",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 272,
+      "capability": "API Data Platform",
+      "build_batch": 11,
+      "official_batch": "batch06",
+      "primary_hero": "B2B Feed",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 294,
+      "capability": "Archive / Historical Portfolio Snapshot",
+      "build_batch": 12,
+      "official_batch": "batch06",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 295,
+      "capability": "AI Market Insights",
+      "build_batch": 12,
+      "official_batch": "batch06",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 297,
+      "capability": "Fraud / Suspicious Activity Intelligence",
+      "build_batch": 12,
+      "official_batch": "batch06",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 302,
+      "capability": "Technical Indicator Library",
+      "build_batch": 13,
+      "official_batch": "batch07",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 324,
+      "capability": "Reference Data Registry",
+      "build_batch": 13,
+      "official_batch": "batch07",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 339,
+      "capability": "Data Provenance & Audit",
+      "build_batch": 14,
+      "official_batch": "batch07",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 341,
+      "capability": "Historical Data Archive",
+      "build_batch": 14,
+      "official_batch": "batch07",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 366,
+      "capability": "Data Methodology Registry",
+      "build_batch": 15,
+      "official_batch": "batch08",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 367,
+      "capability": "Source Data Provenance",
+      "build_batch": 15,
+      "official_batch": "batch08",
+      "primary_hero": "Public Accuracy Ledger",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 375,
+      "capability": "Dashboard Builder",
+      "build_batch": 15,
+      "official_batch": "batch08",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 376,
+      "capability": "Public Dashboard Sharing",
+      "build_batch": 16,
+      "official_batch": "batch08",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 380,
+      "capability": "Real-Time Feed",
+      "build_batch": 16,
+      "official_batch": "batch08",
+      "primary_hero": "Whale Signal vs Noise",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 384,
+      "capability": "MCP for AI Agents",
+      "build_batch": 16,
+      "official_batch": "batch08",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 425,
+      "capability": "AI Analyst",
+      "build_batch": 17,
+      "official_batch": "batch09",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 429,
+      "capability": "API Data Platform",
+      "build_batch": 18,
+      "official_batch": "batch09",
+      "primary_hero": "B2B Feed",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 441,
+      "capability": "Oracle Risk",
+      "build_batch": 18,
+      "official_batch": "batch09",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 466,
+      "capability": "Market Data Feed",
+      "build_batch": 19,
+      "official_batch": "batch10",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 492,
+      "capability": "Historical Market Archive",
+      "build_batch": 20,
+      "official_batch": "batch10",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 499,
+      "capability": "API Coverage Registry",
+      "build_batch": 20,
+      "official_batch": "batch10",
+      "primary_hero": "B2B Feed",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 514,
+      "capability": "Historical Flat Files",
+      "build_batch": 21,
+      "official_batch": "batch11",
+      "primary_hero": "B2B Feed",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 526,
+      "capability": "AI Market Data Grounding Layer",
+      "build_batch": 22,
+      "official_batch": "batch11",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 548,
+      "capability": "Derivatives Dashboard",
+      "build_batch": 22,
+      "official_batch": "batch11",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 562,
+      "capability": "Historical Data",
+      "build_batch": 23,
+      "official_batch": "batch12",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 563,
+      "capability": "API Data Access",
+      "build_batch": 23,
+      "official_batch": "batch12",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "failure_columns": [
+        "v6_13.1_functional_completeness",
+        "v6_13.5_integration_correctness",
+        "v6_13.8_performance_gate",
+        "v6_13.9_reliability_gate",
+        "v6_13.10_observability_gate",
+        "evidence_pack.8_reliability_performance_evidence"
+      ],
+      "groups": [
+        "GROUP_GIPS",
+        "GROUP_OTHER"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "N/A",
+      "ai_note": null
+    },
+    {
+      "id": 591,
+      "capability": "Sentiment_Analysis_Engine",
+      "build_batch": 24,
+      "official_batch": "batch12",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 592,
+      "capability": "Social_Sentiment_Engine",
+      "build_batch": 24,
+      "official_batch": "batch12",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 605,
+      "capability": "Governance_Sentiment_Monitor",
+      "build_batch": 25,
+      "official_batch": "batch13",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 622,
+      "capability": "Prediction_Trend_Analyzer",
+      "build_batch": 25,
+      "official_batch": "batch13",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 637,
+      "capability": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
+      "build_batch": 26,
+      "official_batch": "batch13",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 638,
+      "capability": "Claims/Prediction Verification Engine",
+      "build_batch": 26,
+      "official_batch": "batch13",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    },
+    {
+      "id": 642,
+      "capability": "AI Output Provenance / Compliance Footer",
+      "build_batch": 26,
+      "official_batch": "batch13",
+      "primary_hero": "Single-Sentence Oracle",
+      "blocker_register": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "failure_columns": [
+        "ai_rmf_800_218a_applied"
+      ],
+      "groups": [
+        "GROUP_AI"
+      ],
+      "ai_218a_failed": [],
+      "ai_status": "FAIL",
+      "ai_note": "AI-RISK-UNMANAGED: no NIST AI RMF grounding in response"
+    }
+  ],
+  "group_ids": {
+    "GROUP_AI": [
+      24,
+      90,
+      101,
+      102,
+      129,
+      134,
+      154,
+      155,
+      175,
+      176,
+      177,
+      241,
+      242,
+      248,
+      295,
+      384,
+      425,
+      441,
+      526,
+      591,
+      592,
+      605,
+      622,
+      637,
+      638,
+      642
+    ],
+    "GROUP_GIPS": [
+      17,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      41,
+      53,
+      66,
+      69,
+      81,
+      90,
+      97,
+      98,
+      101,
+      110,
+      111,
+      148,
+      149,
+      159,
+      161,
+      162,
+      167,
+      172,
+      179,
+      181,
+      192,
+      200,
+      204,
+      219,
+      221,
+      246,
+      260,
+      268,
+      272,
+      294,
+      297,
+      302,
+      324,
+      339,
+      341,
+      366,
+      367,
+      375,
+      376,
+      380,
+      429,
+      466,
+      492,
+      499,
+      514,
+      548,
+      562,
+      563
+    ],
+    "GROUP_OTHER": [
+      159,
+      161,
+      162,
+      167,
+      172,
+      179,
+      181,
+      192,
+      200,
+      204,
+      219,
+      221,
+      246,
+      260,
+      268,
+      272,
+      294,
+      297,
+      302,
+      324,
+      339,
+      341,
+      366,
+      367,
+      375,
+      376,
+      380,
+      429,
+      466,
+      492,
+      499,
+      514,
+      548,
+      562,
+      563
+    ]
+  },
+  "group_counts": {
+    "GROUP_AI": 26,
+    "GROUP_GIPS": 61,
+    "GROUP_OTHER": 35
+  }
+}

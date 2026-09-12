@@ -46,3 +46,6 @@
 2026-09-12T12:10:29.673725+00:00 BATCH_33 | complete_v6=25/25 (total 734/826) | engineering_ready=0 (total 82) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=2c407c78
 2026-09-12T12:14:48.679612+00:00 BATCH_34 | complete_v6=1/1 (total 735/826) | engineering_ready=0 (total 82) | partial=0 | blocked=0 | unbound_heroes=0 | failed=0 | sha=2c407c78
 2026-09-12T12:45:32.000327+00:00 PARTIAL_REPROCESS | ids=129,175,214,245,338,500,507,534,584 | complete_v6=7/9 (total 742/826) | engineering_ready=2 (total 84) | partial=0 (total 0) | failed=0 (total 0) | unbound=0 (total 0) | sha=2979cffa
+2026-09-12T13:05:11.944919+00:00 ENG_READY_GIPS | upgraded=0/61 | complete_v6_total=742/826 | engineering_ready_total=84 | partial_total=0 | failed=0 | sha=37ba3c7a
+2026-09-12T13:05:38.181620+00:00 ENG_READY_OTHER | upgraded=23/58 | complete_v6_total=765/826 | engineering_ready_total=61 | partial_total=0 | failed=0 | sha=37ba3c7a
+2026-09-12T13:06:06.017734+00:00 ENG_READY_84_CLOSURE | complete_v6=765/826 | engineering_ready=61 | partial=0 | failed=0 | unbound=0 | upgraded=23 | sha=37ba3c7a

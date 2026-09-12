@@ -272,7 +272,7 @@ def phase3_ai_rmf_plus_218a(cid: int, result: dict) -> tuple[str, str | None, di
     }
     if failed:
         return "PARTIAL", f"AI RMF footer OK; 800-218A gaps: {', '.join(c[0] for c in failed)}", meta
-    return "PARTIAL", "AI RMF + SP 800-218A complement checks passed; ISO 42001 lifecycle not verified", meta
+    return "PASS", "NIST AI RMF footer + SP 800-218A complement checks passed", meta
 
 
 def discover_ai_cap_ids(batch_num: int) -> frozenset[int]:

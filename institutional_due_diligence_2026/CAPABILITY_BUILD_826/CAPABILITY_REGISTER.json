@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T12:45:31.987738+00:00",
+  "generated_at": "2026-09-12T13:05:38.168099+00:00",
   "governing_standard": "institutional_due_diligence_2026/BLACKDARK_Institutional_Capability_Standard_2026_v6.md",
   "total_ids": 826,
   "batch_size": 25,
@@ -373,7 +373,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:16:02.005443+00:00",
+      "updated_at": "2026-09-12T13:05:11.930079+00:00",
       "runtime_success": true,
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
@@ -528,10 +528,9 @@
       ],
       "blocker": [
         "v6_13.8_performance_gate",
-        "evidence_pack.8_reliability_performance_evidence",
-        "ai_rmf_800_218a_applied"
+        "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:16:02.005484+00:00",
+      "updated_at": "2026-09-12T13:05:11.930101+00:00",
       "runtime_success": true,
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
@@ -556,7 +555,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:16:02.005491+00:00",
+      "updated_at": "2026-09-12T13:05:11.930111+00:00",
       "runtime_success": true,
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
@@ -581,7 +580,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080901+00:00",
+      "updated_at": "2026-09-12T13:05:11.930118+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/26/execute",
@@ -606,7 +605,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080926+00:00",
+      "updated_at": "2026-09-12T13:05:11.930126+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/27/execute",
@@ -631,7 +630,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080938+00:00",
+      "updated_at": "2026-09-12T13:05:11.930131+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/28/execute",
@@ -656,7 +655,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080947+00:00",
+      "updated_at": "2026-09-12T13:05:11.930139+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/29/execute",
@@ -681,7 +680,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080954+00:00",
+      "updated_at": "2026-09-12T13:05:11.930145+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/30/execute",
@@ -706,7 +705,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080962+00:00",
+      "updated_at": "2026-09-12T13:05:11.930151+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/31/execute",
@@ -731,7 +730,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080969+00:00",
+      "updated_at": "2026-09-12T13:05:11.930157+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/32/execute",
@@ -756,7 +755,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080976+00:00",
+      "updated_at": "2026-09-12T13:05:11.930164+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/33/execute",
@@ -781,7 +780,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080983+00:00",
+      "updated_at": "2026-09-12T13:05:11.930170+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/34/execute",
@@ -806,7 +805,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.080990+00:00",
+      "updated_at": "2026-09-12T13:05:11.930176+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/35/execute",
@@ -944,7 +943,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T00:15:51.081037+00:00",
+      "updated_at": "2026-09-12T13:05:11.930184+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/41/execute",
@@ -1218,7 +1217,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T03:27:14.437674+00:00",
+      "updated_at": "2026-09-12T13:05:11.930191+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/53/execute",
@@ -1507,7 +1506,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T03:27:14.437760+00:00",
+      "updated_at": "2026-09-12T13:05:11.930199+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/66/execute",
@@ -1576,7 +1575,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T03:27:14.437779+00:00",
+      "updated_at": "2026-09-12T13:05:11.930206+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [
         "Arbitrage Scanner"
@@ -1845,7 +1844,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T03:29:33.152641+00:00",
+      "updated_at": "2026-09-12T13:05:11.930214+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [
         "B2B Feed"
@@ -2060,10 +2059,9 @@
       ],
       "blocker": [
         "v6_13.8_performance_gate",
-        "evidence_pack.8_reliability_performance_evidence",
-        "ai_rmf_800_218a_applied"
+        "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T03:29:33.152700+00:00",
+      "updated_at": "2026-09-12T13:05:11.930221+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/90/execute",
@@ -2224,7 +2222,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T03:29:33.152748+00:00",
+      "updated_at": "2026-09-12T13:05:11.930228+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/97/execute",
@@ -2249,7 +2247,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T03:29:33.152755+00:00",
+      "updated_at": "2026-09-12T13:05:11.930233+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [
         "B2B Feed"
@@ -2320,10 +2318,9 @@
       ],
       "blocker": [
         "v6_13.8_performance_gate",
-        "evidence_pack.8_reliability_performance_evidence",
-        "ai_rmf_800_218a_applied"
+        "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:15:01.227784+00:00",
+      "updated_at": "2026-09-12T13:05:11.930241+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/101/execute",
@@ -2337,17 +2334,15 @@
       "capability": "AI-Generated Reporting",
       "official_batch": "batch03",
       "build_batch": 5,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch05_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:15:01.227805+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167664+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/102/execute",
@@ -2526,7 +2521,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:15:01.227857+00:00",
+      "updated_at": "2026-09-12T13:05:11.930247+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/110/execute",
@@ -2551,7 +2546,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:15:01.227865+00:00",
+      "updated_at": "2026-09-12T13:05:11.930254+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/111/execute",
@@ -2939,17 +2934,15 @@
       "capability": "Sentiment Intelligence",
       "official_batch": "batch03",
       "build_batch": 6,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch06_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T12:45:31.987657+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167681+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/129/execute",
@@ -3051,17 +3044,15 @@
       "capability": "AI News Summaries",
       "official_batch": "batch03",
       "build_batch": 6,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch06_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:16:20.000990+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167689+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/134/execute",
@@ -3372,7 +3363,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:16:20.001071+00:00",
+      "updated_at": "2026-09-12T13:05:11.930262+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/148/execute",
@@ -3397,7 +3388,7 @@
         "v6_13.8_performance_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:16:20.001078+00:00",
+      "updated_at": "2026-09-12T13:05:11.930268+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/149/execute",
@@ -3499,17 +3490,15 @@
       "capability": "AI Crypto Copilot",
       "official_batch": "batch04",
       "build_batch": 7,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch07_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:21:20.469641+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167697+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/154/execute",
@@ -3523,17 +3512,15 @@
       "capability": "AI Deep Research",
       "official_batch": "batch04",
       "build_batch": 7,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch07_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:21:20.469651+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167703+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/155/execute",
@@ -3628,7 +3615,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:21:20.469682+00:00",
+      "updated_at": "2026-09-12T13:05:38.167715+00:00",
       "primary_hero": "B2B Feed",
       "secondary_heroes": [],
       "hero_entry_path": "/api/b2b/demo → /api/cap646/159/execute",
@@ -3679,7 +3666,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:21:20.469697+00:00",
+      "updated_at": "2026-09-12T13:05:38.167724+00:00",
       "primary_hero": "B2B Feed",
       "secondary_heroes": [],
       "hero_entry_path": "/api/b2b/demo → /api/cap646/161/execute",
@@ -3708,7 +3695,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:21:20.469707+00:00",
+      "updated_at": "2026-09-12T13:05:38.167732+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/162/execute",
@@ -3825,7 +3812,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:21:20.469743+00:00",
+      "updated_at": "2026-09-12T13:05:38.167739+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/167/execute",
@@ -3942,7 +3929,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:21:20.469775+00:00",
+      "updated_at": "2026-09-12T13:05:38.167747+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/172/execute",
@@ -4000,17 +3987,15 @@
       "capability": "Social Sentiment Intelligence",
       "official_batch": "batch04",
       "build_batch": 7,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch07_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T12:45:31.987679+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167753+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/175/execute",
@@ -4024,17 +4009,15 @@
       "capability": "Weighted Social Sentiment",
       "official_batch": "batch04",
       "build_batch": 8,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch08_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:23:50.551831+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167758+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/176/execute",
@@ -4048,17 +4031,15 @@
       "capability": "Social Sentiment Balance",
       "official_batch": "batch04",
       "build_batch": 8,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch08_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:23:50.551855+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167763+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/177/execute",
@@ -4109,7 +4090,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:23:50.551873+00:00",
+      "updated_at": "2026-09-12T13:05:38.167769+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/179/execute",
@@ -4160,7 +4141,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:23:50.551889+00:00",
+      "updated_at": "2026-09-12T13:05:38.167775+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/181/execute",
@@ -4409,7 +4390,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:23:50.551974+00:00",
+      "updated_at": "2026-09-12T13:05:38.167783+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/192/execute",
@@ -4592,7 +4573,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:23:50.552026+00:00",
+      "updated_at": "2026-09-12T13:05:38.167791+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/200/execute",
@@ -4687,7 +4668,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:25:49.614906+00:00",
+      "updated_at": "2026-09-12T13:05:38.167798+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/204/execute",
@@ -5024,7 +5005,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:25:49.615011+00:00",
+      "updated_at": "2026-09-12T13:05:38.167806+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/219/execute",
@@ -5075,7 +5056,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:25:49.615026+00:00",
+      "updated_at": "2026-09-12T13:05:38.167813+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/221/execute",
@@ -5507,17 +5488,15 @@
       "capability": "Sentiment Intelligence",
       "official_batch": "batch05",
       "build_batch": 10,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch10_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:28:59.035077+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167819+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/241/execute",
@@ -5531,17 +5510,15 @@
       "capability": "Price Prediction / Multi-Signal Forecast",
       "official_batch": "batch05",
       "build_batch": 10,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch10_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:28:59.035084+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167825+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/242/execute",
@@ -5636,7 +5613,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:28:59.035117+00:00",
+      "updated_at": "2026-09-12T13:05:38.167832+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/246/execute",
@@ -5672,17 +5649,15 @@
       "capability": "MCP Server for AI Agents",
       "official_batch": "batch05",
       "build_batch": 10,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch10_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:28:59.035133+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167838+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/248/execute",
@@ -5953,7 +5928,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:37:58.889265+00:00",
+      "updated_at": "2026-09-12T13:05:38.167848+00:00",
       "primary_hero": "Arbitrage Scanner",
       "secondary_heroes": [],
       "hero_entry_path": "/api/arbitrage/scanner/status → /api/cap646/260/execute",
@@ -6136,7 +6111,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:37:58.889325+00:00",
+      "updated_at": "2026-09-12T13:05:38.167857+00:00",
       "primary_hero": "Arbitrage Scanner",
       "secondary_heroes": [],
       "hero_entry_path": "/api/arbitrage/scanner/status → /api/cap646/268/execute",
@@ -6231,7 +6206,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:37:58.889356+00:00",
+      "updated_at": "2026-09-12T13:05:38.167865+00:00",
       "primary_hero": "B2B Feed",
       "secondary_heroes": [],
       "hero_entry_path": "/api/b2b/demo → /api/cap646/272/execute",
@@ -6722,7 +6697,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:41:18.750840+00:00",
+      "updated_at": "2026-09-12T13:05:38.167873+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/294/execute",
@@ -6736,17 +6711,15 @@
       "capability": "AI Market Insights",
       "official_batch": "batch06",
       "build_batch": 12,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch12_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:41:18.750849+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167879+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/295/execute",
@@ -6797,7 +6770,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:41:18.750866+00:00",
+      "updated_at": "2026-09-12T13:05:38.167886+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/297/execute",
@@ -6914,7 +6887,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:44:12.541595+00:00",
+      "updated_at": "2026-09-12T13:05:38.167894+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/302/execute",
@@ -7405,7 +7378,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:44:12.541778+00:00",
+      "updated_at": "2026-09-12T13:05:38.167903+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/324/execute",
@@ -7742,7 +7715,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:47:22.274641+00:00",
+      "updated_at": "2026-09-12T13:05:38.167910+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/339/execute",
@@ -7793,7 +7766,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:47:22.274658+00:00",
+      "updated_at": "2026-09-12T13:05:38.167918+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/341/execute",
@@ -8350,7 +8323,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:50:47.771238+00:00",
+      "updated_at": "2026-09-12T13:05:38.167926+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/366/execute",
@@ -8379,7 +8352,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:50:47.771249+00:00",
+      "updated_at": "2026-09-12T13:05:38.167934+00:00",
       "primary_hero": "Public Accuracy Ledger",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/audit-chain/verify → /api/cap646/367/execute",
@@ -8562,7 +8535,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:50:47.771307+00:00",
+      "updated_at": "2026-09-12T13:05:38.167943+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/375/execute",
@@ -8591,7 +8564,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:54:44.267607+00:00",
+      "updated_at": "2026-09-12T13:05:38.167951+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/376/execute",
@@ -8686,7 +8659,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T04:54:44.267658+00:00",
+      "updated_at": "2026-09-12T13:05:38.167959+00:00",
       "primary_hero": "Whale Signal vs Noise",
       "secondary_heroes": [],
       "hero_entry_path": "/api/whale/signal-vs-noise → /api/cap646/380/execute",
@@ -8766,17 +8739,15 @@
       "capability": "MCP for AI Agents",
       "official_batch": "batch08",
       "build_batch": 16,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch16_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T04:54:44.267689+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167966+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/384/execute",
@@ -9670,17 +9641,15 @@
       "capability": "AI Analyst",
       "official_batch": "batch09",
       "build_batch": 17,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch17_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T09:34:43.693738+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167974+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/425/execute",
@@ -9775,7 +9744,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T09:38:27.508860+00:00",
+      "updated_at": "2026-09-12T13:05:38.167981+00:00",
       "primary_hero": "B2B Feed",
       "secondary_heroes": [],
       "hero_entry_path": "/api/b2b/demo → /api/cap646/429/execute",
@@ -10031,17 +10000,15 @@
       "capability": "Oracle Risk",
       "official_batch": "batch09",
       "build_batch": 18,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch18_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T09:38:27.508945+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.167988+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/441/execute",
@@ -10598,7 +10565,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T09:42:30.610702+00:00",
+      "updated_at": "2026-09-12T13:05:38.167997+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/466/execute",
@@ -11177,7 +11144,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T09:47:58.997509+00:00",
+      "updated_at": "2026-09-12T13:05:38.168005+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/492/execute",
@@ -11338,7 +11305,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T09:47:58.997562+00:00",
+      "updated_at": "2026-09-12T13:05:38.168013+00:00",
       "primary_hero": "B2B Feed",
       "secondary_heroes": [],
       "hero_entry_path": "/api/b2b/demo → /api/cap646/499/execute",
@@ -11675,7 +11642,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T10:23:22.655963+00:00",
+      "updated_at": "2026-09-12T13:05:38.168020+00:00",
       "primary_hero": "B2B Feed",
       "secondary_heroes": [],
       "hero_entry_path": "/api/b2b/demo → /api/cap646/514/execute",
@@ -11931,17 +11898,15 @@
       "capability": "AI Market Data Grounding Layer",
       "official_batch": "batch11",
       "build_batch": 22,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch22_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T10:28:32.513215+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168027+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/526/execute",
@@ -12432,7 +12397,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T10:28:32.513411+00:00",
+      "updated_at": "2026-09-12T13:05:38.168034+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/548/execute",
@@ -12747,7 +12712,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T10:32:24.815864+00:00",
+      "updated_at": "2026-09-12T13:05:38.168042+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/562/execute",
@@ -12776,7 +12741,7 @@
         "v6_13.10_observability_gate",
         "evidence_pack.8_reliability_performance_evidence"
       ],
-      "updated_at": "2026-09-12T10:32:24.815872+00:00",
+      "updated_at": "2026-09-12T13:05:38.168050+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/563/execute",
@@ -13384,17 +13349,15 @@
       "capability": "Sentiment_Analysis_Engine",
       "official_batch": "batch12",
       "build_batch": 24,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch24_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T10:36:15.890514+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168057+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/591/execute",
@@ -13408,17 +13371,15 @@
       "capability": "Social_Sentiment_Engine",
       "official_batch": "batch12",
       "build_batch": 24,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch24_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T10:36:15.890520+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168062+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/592/execute",
@@ -13696,17 +13657,15 @@
       "capability": "Governance_Sentiment_Monitor",
       "official_batch": "batch13",
       "build_batch": 25,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch25_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T11:04:37.186495+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168070+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/605/execute",
@@ -14072,17 +14031,15 @@
       "capability": "Prediction_Trend_Analyzer",
       "official_batch": "batch13",
       "build_batch": 25,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch25_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T11:04:37.186612+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168077+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/622/execute",
@@ -14404,17 +14361,15 @@
       "capability": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch26_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T11:16:20.457471+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168084+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/637/execute",
@@ -14428,17 +14383,15 @@
       "capability": "Claims/Prediction Verification Engine",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch26_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T11:16:20.457480+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168090+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/638/execute",
@@ -14518,17 +14471,15 @@
       "capability": "AI Output Provenance / Compliance Footer",
       "official_batch": "batch13",
       "build_batch": 26,
-      "status": "ENGINEERING_READY",
+      "status": "COMPLETE_V6",
       "code_reality": "IMPLEMENTED_UNVERIFIED",
-      "v6_fully_compliant": false,
+      "v6_fully_compliant": true,
       "evidence_paths": [
         "EVIDENCE/batch26_pytest.log",
         "institutional_due_diligence_2026/V6_LITERAL_COMPLIANCE_AUDIT_826.json"
       ],
-      "blocker": [
-        "ai_rmf_800_218a_applied"
-      ],
-      "updated_at": "2026-09-12T11:16:20.457510+00:00",
+      "blocker": null,
+      "updated_at": "2026-09-12T13:05:38.168097+00:00",
       "primary_hero": "Single-Sentence Oracle",
       "secondary_heroes": [],
       "hero_entry_path": "/api/oracle/persona-clarity/demo → /api/cap646/642/execute",
