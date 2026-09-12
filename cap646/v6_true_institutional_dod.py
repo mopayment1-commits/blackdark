@@ -13,7 +13,6 @@ This module is intentionally stricter than cap646.v6_strict_dod:
 from __future__ import annotations
 
 import re
-import subprocess
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -87,17 +86,20 @@ def _dedicated_entrypoint_ids() -> frozenset[int]:
 @lru_cache(maxsize=1)
 def _test_referenced_ids() -> frozenset[int]:
     ids: set[int] = set()
-    proc = subprocess.run(
-        ["rg", "-o", r"capability_id[\"']?\\s*[:=]\\s*(\\d+)|cap_(\\d{3})|test_cap_(\\d+)", "tests/", "-r", "$1$2$3"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
-    for line in proc.stdout.splitlines():
-        for token in re.findall(r"\d+", line):
-            val = int(token)
-            if 1 <= val <= 826:
-                ids.add(val)
+    tests_root = ROOT / "tests"
+    if tests_root.is_dir():
+        pattern = re.compile(
+            r"capability_id[\"']?\s*[:=]\s*(\d+)|cap_(\d{3})|test_cap_?(\d{1,3})"
+        )
+        for path in tests_root.rglob("*.py"):
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            for match in pattern.finditer(text):
+                for group in match.groups():
+                    if not group:
+                        continue
+                    val = int(group)
+                    if 1 <= val <= 826:
+                        ids.add(val)
     import importlib
 
     try:
