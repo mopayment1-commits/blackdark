@@ -1,0 +1,13 @@
+{
+  "schema_id": "decision_ledger",
+  "current_version": "1.0.0",
+  "compatibility": "backward",
+  "required_fields": [
+    "decision_id",
+    "prediction_id",
+    "decision_action",
+    "evidence_class"
+  ],
+  "migration_policy": "append_new_fields_only",
+  "registered_at": "2026-09-12T14:02:50.632670+00:00"
+}

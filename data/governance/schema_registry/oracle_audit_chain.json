@@ -1,0 +1,11 @@
+{
+  "schema_id": "oracle_audit_chain",
+  "current_version": "1.0.0",
+  "compatibility": "strict",
+  "required_fields": [
+    "chain_hash",
+    "prev_hash"
+  ],
+  "migration_policy": "version_bump_with_migration_record",
+  "registered_at": "2026-09-12T14:02:50.632749+00:00"
+}

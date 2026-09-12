@@ -1,0 +1,12 @@
+{
+  "schema_id": "signal_registry",
+  "current_version": "1.0.0",
+  "compatibility": "backward",
+  "required_fields": [
+    "signal_id",
+    "signal_type",
+    "evidence_class"
+  ],
+  "migration_policy": "append_new_fields_only",
+  "registered_at": "2026-09-12T14:02:50.632574+00:00"
+}

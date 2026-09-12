@@ -1,0 +1,25 @@
+{
+  "assets": {
+    "net_edge_truth": {
+      "asset_id": "net_edge_truth",
+      "classification": "proprietary",
+      "owner": "platform-intelligence",
+      "rights_profile_id": "rp_proprietary_internal",
+      "value_evidence": "core_decision_gate"
+    },
+    "provenance_score": {
+      "asset_id": "provenance_score",
+      "classification": "proprietary",
+      "owner": "platform-trust",
+      "rights_profile_id": "rp_proprietary_internal",
+      "value_evidence": "decision_grade_bands"
+    },
+    "ohlcv_normalized": {
+      "asset_id": "ohlcv_normalized",
+      "classification": "commodity",
+      "owner": "platform-data",
+      "rights_profile_id": "rp_market_data_derived",
+      "value_evidence": "standard_transform"
+    }
+  }
+}

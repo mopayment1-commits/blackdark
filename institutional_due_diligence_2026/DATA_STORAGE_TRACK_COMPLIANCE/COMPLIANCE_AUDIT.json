@@ -1,0 +1,85 @@
+{
+  "assessed_at": "2026-09-12T14:03:27.925197+00:00",
+  "contracts": {
+    "count": 6,
+    "all_valid": true
+  },
+  "prelaunch_core": {
+    "live_shadow_collection": true,
+    "historical_backfill": true,
+    "signal_registry": true,
+    "prediction_ledger": true,
+    "decision_ledger": true,
+    "automated_outcome_evaluator": true,
+    "data_provenance": true,
+    "algorithm_model_versioning": true,
+    "historical_replay_engine": true,
+    "market_event_library": true,
+    "failure_registry": true,
+    "evidence_store": true
+  },
+  "prelaunch_core_complete": true,
+  "asset_graph": {
+    "chain_length": 17,
+    "anchored_stages": 8,
+    "present_anchors": {
+      "signal": true,
+      "decision": true,
+      "event": true,
+      "error": true,
+      "evidence": true,
+      "prediction": true,
+      "outcome": true,
+      "model_version": true
+    },
+    "coverage_pct": 100.0,
+    "fully_traceable": true
+  },
+  "cost_guards_complete": true,
+  "checks": {
+    "all_material_contracts": true,
+    "rights_enforceable": true,
+    "pit_replay_integrity": true,
+    "signal_decision_trace": true,
+    "no_history_erase": true,
+    "quality_no_silent_stale": true,
+    "restore_evidence": true,
+    "evidence_class_separation": true,
+    "no_unresolved_lineage_conflicts": true,
+    "asset_graph_traceable": true,
+    "cost_guards_complete": true,
+    "red_flags": [],
+    "blocked_external": [
+      "PASS_LIVE requires G6 production environment",
+      "PRODUCTION_VERIFIED track record requires post-launch real users",
+      "Independent G7 assurance requires external auditor"
+    ]
+  },
+  "gate": {
+    "gate": "PROPRIETARY_ASSET_ACCUMULATION_DATA_FLYWHEEL_READINESS",
+    "state": "PASS_ENGINEERING",
+    "engineering_pass": true,
+    "ready": true,
+    "failed_checks": [],
+    "red_flags": [],
+    "blocked_external": [
+      "PASS_LIVE requires G6 production environment",
+      "PRODUCTION_VERIFIED track record requires post-launch real users",
+      "Independent G7 assurance requires external auditor"
+    ],
+    "verdict": "PASS_ENGINEERING"
+  },
+  "data_room": {
+    "completeness_pct": 100.0
+  },
+  "restore_drill": {
+    "rto_met": true,
+    "integrity": true
+  },
+  "manifest_chain": {
+    "valid": true,
+    "records": 9,
+    "broken_at": null
+  },
+  "oracle_chain_valid": true
+}

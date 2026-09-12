@@ -1,0 +1,67 @@
+{
+  "index_version": "1.0.0",
+  "built_at": "2026-09-12T14:03:43.334016+00:00",
+  "completeness_pct": 100.0,
+  "artifacts": [
+    {
+      "artifact_id": "signal_registry",
+      "owner": "platform-intelligence",
+      "scope": "Signal accumulation",
+      "path": "data/signal_registry.jsonl",
+      "evidence_strength": "engineering_verified",
+      "exists": true,
+      "freshness": "current",
+      "last_modified": "2026-09-12T13:04:43.479265+00:00",
+      "residual_risk": "none",
+      "indexed_at": "2026-09-12T14:03:43.334016+00:00"
+    },
+    {
+      "artifact_id": "decision_ledger",
+      "owner": "platform-intelligence",
+      "scope": "Decision\u2192outcome chain",
+      "path": "data/decision_ledger.jsonl",
+      "evidence_strength": "shadow_simulated_only",
+      "exists": true,
+      "freshness": "current",
+      "last_modified": "2026-09-12T13:05:19.955138+00:00",
+      "residual_risk": "none",
+      "indexed_at": "2026-09-12T14:03:43.334016+00:00"
+    },
+    {
+      "artifact_id": "oracle_audit_chain",
+      "owner": "platform-trust",
+      "scope": "Tamper-evident predictions",
+      "path": "data/oracle_audit_chain.jsonl",
+      "evidence_strength": "hash_chain_verified",
+      "exists": true,
+      "freshness": "current",
+      "last_modified": "2026-09-12T13:02:01.043887+00:00",
+      "residual_risk": "none",
+      "indexed_at": "2026-09-12T14:03:43.334016+00:00"
+    },
+    {
+      "artifact_id": "governance_contracts",
+      "owner": "platform-governance",
+      "scope": "Data asset contracts",
+      "path": "data/governance/contracts",
+      "evidence_strength": "canonical",
+      "exists": true,
+      "freshness": "current",
+      "last_modified": "2026-09-12T14:02:50.291400+00:00",
+      "residual_risk": "none",
+      "indexed_at": "2026-09-12T14:03:43.334016+00:00"
+    },
+    {
+      "artifact_id": "corporate_data_room",
+      "owner": "platform-corporate",
+      "scope": "DD snapshot",
+      "path": "data/corporate/DATA_ROOM_SNAPSHOT.json",
+      "evidence_strength": "partial",
+      "exists": true,
+      "freshness": "current",
+      "last_modified": "2026-09-11T01:07:53.325322+00:00",
+      "residual_risk": "none",
+      "indexed_at": "2026-09-12T14:03:43.334016+00:00"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "registry_version": "1.0.0",
+  "universes": {
+    "squeeze_detection_v1": {
+      "universe_id": "squeeze_detection_v1",
+      "event_type": "squeeze",
+      "eligibility_window": "24h",
+      "detection_rule": "funding_oi_volatility_composite",
+      "ground_truth": "market_event_library.squeeze_confirmed",
+      "exclusions": [
+        "low_liquidity_symbols"
+      ],
+      "denominator_required": true
+    },
+    "oracle_direction_v1": {
+      "universe_id": "oracle_direction_v1",
+      "event_type": "directional_move",
+      "eligibility_window": "4h",
+      "detection_rule": "oracle_emitted_predictions",
+      "ground_truth": "forward_price_move_at_horizon",
+      "exclusions": [
+        "historical_seed",
+        "simulated"
+      ],
+      "denominator_required": true,
+      "includes_abstentions": true,
+      "includes_misses": true
+    }
+  },
+  "registered_at": "2026-09-12T14:02:50.632960+00:00"
+}

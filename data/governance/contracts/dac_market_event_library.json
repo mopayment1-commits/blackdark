@@ -1,0 +1,46 @@
+{
+  "asset_id": "dac_market_event_library",
+  "canonical_name": "Market Event Library",
+  "owner": "platform-intelligence",
+  "purpose": "Searchable versioned market event knowledge base",
+  "consumers": [
+    "oracle",
+    "replay_engine",
+    "cap646"
+  ],
+  "schema_version": "1.0.0",
+  "event_time_field": "recorded_at",
+  "ingest_time_field": "recorded_at",
+  "freshness_sla_seconds": 3600,
+  "completeness_threshold": 0.9,
+  "validity_rules": {
+    "required": [
+      "event_id",
+      "event_name",
+      "category"
+    ]
+  },
+  "uniqueness_key": "event_id",
+  "reconciliation_policy": "append_only",
+  "missing_corrupt_behavior": "degrade_similarity_search",
+  "lineage_upstream": [
+    "market_data",
+    "on_chain_events"
+  ],
+  "rights_profile_id": "rp_market_data_derived",
+  "retention_class": "rc_operational_warm",
+  "fallback_policy": "empty_with_state",
+  "monitoring_hooks": [
+    "market_event_library.event_library_stats"
+  ],
+  "evidence_refs": [
+    "data/market_event_library.jsonl",
+    "market_event_library.py"
+  ],
+  "storage_tier": "WARM",
+  "security_classification": "internal",
+  "failure_behavior": "degrade_not_fake",
+  "physical_path": "data/market_event_library.jsonl",
+  "contract_version": "1.0.0",
+  "materialized_at": "2026-09-12T14:02:50.295521+00:00"
+}
