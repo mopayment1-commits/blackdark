@@ -1,0 +1,1778 @@
+{
+  "generated_at": "2026-09-11T23:54:18.869556+00:00",
+  "standard": "BLACKDARK_Institutional_Capability_Standard_2026_v6 \u00a72.1",
+  "scope": "Official Batch01 \u2014 IDs 1\u201325 only",
+  "methodology": "strict institutional closure \u2014 dedicated handler + domain payload + 13 gates",
+  "summary": {
+    "pass_institutional": 25,
+    "not_complete": 0,
+    "pass_pct": 100.0,
+    "committee_ready_batch01": true
+  },
+  "per_id": {
+    "1": {
+      "id": 1,
+      "capability": "Smart Money Leaderboard",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "smart_money_leaderboard",
+      "domain_payload_keys": [
+        "smart_money_leaderboard"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[1]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[1]"
+    },
+    "2": {
+      "id": 2,
+      "capability": "Wallet Profiler",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "wallet_profiler",
+      "domain_payload_keys": [
+        "wallet_profiler"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[2]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[2]"
+    },
+    "3": {
+      "id": 3,
+      "capability": "Wallet Profiler for Token",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "wallet_profiler_for_token",
+      "domain_payload_keys": [
+        "wallet_profiler_for_token"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[3]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[3]"
+    },
+    "4": {
+      "id": 4,
+      "capability": "Smart Money Tracking",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "smart_money_tracking",
+      "domain_payload_keys": [
+        "smart_money_tracking"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[4]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[4]"
+    },
+    "5": {
+      "id": 5,
+      "capability": "Smart Money Accumulation / Distribution Detection",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "smart_money_accumulation_detection",
+      "domain_payload_keys": [
+        "smart_money_accumulation_detection"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[5]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[5]"
+    },
+    "6": {
+      "id": 6,
+      "capability": "Smart Money Token Screener",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "smart_money_token_screener",
+      "domain_payload_keys": [
+        "screener"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[6]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[6]"
+    },
+    "7": {
+      "id": 7,
+      "capability": "Holder Distribution Intelligence",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "holder_distribution_intelligence",
+      "domain_payload_keys": [
+        "holder_distribution",
+        "holder_metrics"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[7]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[7]"
+    },
+    "8": {
+      "id": 8,
+      "capability": "Top Holders Concentration Analysis",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "top_holders_concentration_analysis",
+      "domain_payload_keys": [
+        "top_holders_concentration",
+        "holder_metrics"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[8]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[8]"
+    },
+    "9": {
+      "id": 9,
+      "capability": "Distribution Score",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "distribution_score",
+      "domain_payload_keys": [
+        "distribution_score",
+        "holder_metrics"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[9]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[9]"
+    },
+    "10": {
+      "id": 10,
+      "capability": "Wallet PnL Analysis",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "wallet_pnl_analysis",
+      "domain_payload_keys": [
+        "wallet_pnl_analysis"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[10]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[10]"
+    },
+    "11": {
+      "id": 11,
+      "capability": "Wallet Historical Performance & Win Rate",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "wallet_historical_performance_win_rate",
+      "domain_payload_keys": [
+        "historical_series",
+        "win_rate_pct"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[11]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[11]"
+    },
+    "12": {
+      "id": 12,
+      "capability": "Wallet Entry / Exit Analysis",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "wallet_entry_exit_analysis",
+      "domain_payload_keys": [
+        "entries",
+        "exits"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[12]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[12]"
+    },
+    "13": {
+      "id": 13,
+      "capability": "Wallet Counterparty & Relationship Analysis",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "wallet_counterparty_relationship_analysis",
+      "domain_payload_keys": [
+        "wallet_clusters",
+        "counterparty_risk"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[13]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[13]"
+    },
+    "14": {
+      "id": 14,
+      "capability": "Entity-Aware Wallet Intelligence",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "entity_aware_wallet_intelligence",
+      "domain_payload_keys": [
+        "entity_label",
+        "labels"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[14]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[14]"
+    },
+    "15": {
+      "id": 15,
+      "capability": "Exchange Flow Intelligence",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "exchange_flow_intelligence",
+      "domain_payload_keys": [
+        "exchange_flow",
+        "netflow_proxy"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[15]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[15]"
+    },
+    "16": {
+      "id": 16,
+      "capability": "Candle / Price-Move Investigator",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "candle_price_move_investigator",
+      "domain_payload_keys": [
+        "candle_investigation"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[16]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[16]"
+    },
+    "17": {
+      "id": 17,
+      "capability": "Smart Alerts",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "smart_alerts",
+      "domain_payload_keys": [
+        "alert_evaluation",
+        "metric_trigger"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[17]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[17]"
+    },
+    "18": {
+      "id": 18,
+      "capability": "Custom Wallet Labels",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "custom_wallet_labels",
+      "domain_payload_keys": [
+        "labels"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[18]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[18]"
+    },
+    "19": {
+      "id": 19,
+      "capability": "Wallet & Token Watchlists",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "wallet_token_watchlists",
+      "domain_payload_keys": [
+        "wallet_watchlists"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[19]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[19]"
+    },
+    "20": {
+      "id": 20,
+      "capability": "Multi-Chain Portfolio Intelligence",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "multi_chain_portfolio_intelligence",
+      "domain_payload_keys": [
+        "portfolio",
+        "wallet_balance"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[20]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[20]"
+    },
+    "21": {
+      "id": 21,
+      "capability": "Transaction Decoder",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "transaction_decoder",
+      "domain_payload_keys": [
+        "transaction_decoder"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[21]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[21]"
+    },
+    "22": {
+      "id": 22,
+      "capability": "Instant Wallet Due Diligence",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "instant_wallet_due_diligence",
+      "domain_payload_keys": [
+        "due_diligence"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[22]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[22]"
+    },
+    "23": {
+      "id": 23,
+      "capability": "Instant Token Due Diligence",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "instant_token_due_diligence",
+      "domain_payload_keys": [
+        "token_due_diligence"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[23]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[23]"
+    },
+    "24": {
+      "id": 24,
+      "capability": "AI Research Agent Grounded in Platform Data",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "ai_research_agent_grounded",
+      "domain_payload_keys": [
+        "research_agent"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[24]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[24]"
+    },
+    "25": {
+      "id": 25,
+      "capability": "Signal \u2192 Explanation Workflow",
+      "official_batch": "batch01",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "surface": "signal_explanation_workflow",
+      "domain_payload_keys": [
+        "explanation",
+        "workflow",
+        "signal"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch01_institutional_deep::test_batch01_domain_payload[25]",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch::test_batch01_from_scratch_closure[25]"
+    }
+  },
+  "capabilities": [
+    {
+      "capability_id": 1,
+      "capability": "Smart Money Leaderboard",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_money_leaderboard",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.67
+      }
+    },
+    {
+      "capability_id": 2,
+      "capability": "Wallet Profiler",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "wallet_profiler",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.05
+      }
+    },
+    {
+      "capability_id": 3,
+      "capability": "Wallet Profiler for Token",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "wallet_profiler_for_token",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.05
+      }
+    },
+    {
+      "capability_id": 4,
+      "capability": "Smart Money Tracking",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_money_tracking",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.03
+      }
+    },
+    {
+      "capability_id": 5,
+      "capability": "Smart Money Accumulation / Distribution Detection",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_money_accumulation_detection",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.03
+      }
+    },
+    {
+      "capability_id": 6,
+      "capability": "Smart Money Token Screener",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_money_token_screener",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 7,
+      "capability": "Holder Distribution Intelligence",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "holder_distribution_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 8,
+      "capability": "Top Holders Concentration Analysis",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "top_holders_concentration_analysis",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 9,
+      "capability": "Distribution Score",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "distribution_score",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 10,
+      "capability": "Wallet PnL Analysis",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "wallet_pnl_analysis",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.04
+      }
+    },
+    {
+      "capability_id": 11,
+      "capability": "Wallet Historical Performance & Win Rate",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "wallet_historical_performance_win_rate",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 12,
+      "capability": "Wallet Entry / Exit Analysis",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "wallet_entry_exit_analysis",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 13,
+      "capability": "Wallet Counterparty & Relationship Analysis",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "wallet_counterparty_relationship_analysis",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 14,
+      "capability": "Entity-Aware Wallet Intelligence",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "entity_aware_wallet_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 15,
+      "capability": "Exchange Flow Intelligence",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "exchange_flow_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 16,
+      "capability": "Candle / Price-Move Investigator",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "candle_price_move_investigator",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 17,
+      "capability": "Smart Alerts",
+      "track": "T13",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_alerts",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 18,
+      "capability": "Custom Wallet Labels",
+      "track": "T16",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "custom_wallet_labels",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 19,
+      "capability": "Wallet & Token Watchlists",
+      "track": "T16",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "wallet_token_watchlists",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 20,
+      "capability": "Multi-Chain Portfolio Intelligence",
+      "track": "T09",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "multi_chain_portfolio_intelligence",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 21,
+      "capability": "Transaction Decoder",
+      "track": "T01",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "transaction_decoder",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.04
+      }
+    },
+    {
+      "capability_id": 22,
+      "capability": "Instant Wallet Due Diligence",
+      "track": "T17",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "instant_wallet_due_diligence",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 23,
+      "capability": "Instant Token Due Diligence",
+      "track": "T17",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "instant_token_due_diligence",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 24,
+      "capability": "AI Research Agent Grounded in Platform Data",
+      "track": "T12",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "ai_research_agent_grounded",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 25,
+      "capability": "Signal \u2192 Explanation Workflow",
+      "track": "T12",
+      "official_batch": "batch01",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch01_dedicated",
+      "production_module": "cap646.batch01_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch01_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch01_from_scratch",
+      "rtm_artifact": "docs/BATCH01_INSTITUTIONAL_CLOSURE_1_25.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "signal_explanation_workflow",
+        "backend_module": "cap646.batch01_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    }
+  ]
+}

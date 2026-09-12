@@ -1,0 +1,190 @@
+{
+  "timestamp_utc": "2026-09-11T12:50:23.961839+00:00",
+  "steps": [
+    {
+      "cmd": [
+        "/workspace/.venv/bin/python3",
+        "scripts/batch_closure_verify.py"
+      ],
+      "exit_code": 0,
+      "tail": "09-11 13:04:19,806 | WARNING | BLACKDARK.SecretsVault | SECRETS_MASTER_KEY not set \u2014 using dev-only vault key\n2026-09-11 13:04:19,807 | WARNING | BLACKDARK.SecretsVault | SECRETS_MASTER_KEY not set \u2014 using dev-only vault key\n2026-09-11 13:04:19,807 | WARNING | BLACKDARK.SecretsVault | SECRETS_MASTER_KEY not set \u2014 using dev-only vault key\n2026-09-11 13:04:19,839 | WARNING | BLACKDARK.SecretsVault | SECRETS_MASTER_KEY not set \u2014 using dev-only vault key\n2026-09-11 13:04:19,840 | WARNING | BLACKDARK.SecretsVault | SECRETS_MASTER_KEY not set \u2014 using dev-only vault key\n2026-09-11 13:04:19,840 | WARNING | BLACKDARK.SecretsVault | SECRETS_MASTER_KEY not set \u2014 using dev-only vault key\n2026-09-11 13:04:19,969 | WARNING | BLACKDARK.SecretsVault | SECRETS_MASTER_KEY not set \u2014 using dev-only vault key\n"
+    },
+    {
+      "cmd": [
+        "/workspace/.venv/bin/python3",
+        "scripts/full_completion_bootstrap.py"
+      ],
+      "exit_code": 0,
+      "tail": "{\n  \"generated_at\": \"2026-09-11T13:04:20.746164+00:00\",\n  \"batch_closure_verified_count\": 826,\n  \"done\": 756,\n  \"remaining\": 70,\n  \"automatable_remaining\": 25,\n  \"human_team_remaining\": 45,\n  \"phase_counts\": {\n    \"P0_TRUTH_BASELINE\": 0,\n    \"P1_DEDUPLICATION\": 49,\n    \"P2_SPLIT_BRAIN\": 21,\n    \"P3_GOVERNANCE_PACKAGES\": 0,\n    \"P4_BATCH_CLOSURE\": 0,\n    \"P5_UI_E2E\": 0,\n    \"P6_PRODUCTION_HARDENING\": 0,\n    \"P7_EXTERNAL_ASSURANCE\": 0,\n    \"DONE\": 756\n  },\n  \"executor_counts\": {\n    \"AI_AGENT\": 781,\n    \"ENGINEERING_TEAM\": 45\n  }\n}\n"
+    },
+    {
+      "cmd": [
+        "/workspace/.venv/bin/python3",
+        "scripts/war_room_24h_orchestrator.py"
+      ],
+      "exit_code": 1,
+      "tail": "py\",\n      \"exit_code\": 0,\n      \"tail\": \".....                                                                    [100%]\\n\"\n    },\n    \"extension_registry\": {\n      \"target\": \"tests/test_war_room_extension_registry.py\",\n      \"exit_code\": 1,\n      \"tail\": \"uction_binding[708]\\nFAILED tests/test_war_room_extension_registry.py::test_phantom_ids_have_production_binding[725]\\nFAILED tests/test_war_room_extension_registry.py::test_phantom_ids_have_production_binding[812]\\nFAILED tests/test_war_room_extension_registry.py::test_phantom_ids_have_production_binding[813]\\nFAILED tests/test_war_room_extension_registry.py::test_phantom_ids_have_production_binding[814]\\nFAILED tests/test_war_room_extension_registry.py::test_phantom_ids_have_production_binding[815]\\n\"\n    }\n  },\n  \"all_green\": false\n}\n"
+    },
+    {
+      "cmd": [
+        "/workspace/.venv/bin/python3",
+        "-m",
+        "pytest",
+        "tests/test_split_brain_unification.py",
+        "tests/test_data_governance_reconciliation.py",
+        "-q",
+        "--tb=no"
+      ],
+      "exit_code": 0,
+      "tail": ".......                                                                  [100%]\n"
+    }
+  ],
+  "batch_closure": {
+    "generated_at": "2026-09-11T12:50:24.004108+00:00",
+    "batches": [
+      {
+        "batch": "batch01",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch02",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch03",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch04",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch05",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch06",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch07",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch08",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch09",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch10",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch11",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch12",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch13",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch14",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch15",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch16",
+        "total": 50,
+        "ok": 50,
+        "fail": 0,
+        "failures": []
+      },
+      {
+        "batch": "batch17",
+        "total": 26,
+        "ok": 26,
+        "fail": 0,
+        "failures": []
+      }
+    ]
+  },
+  "phase_summary": {
+    "generated_at": "2026-09-11T13:04:20.746164+00:00",
+    "batch_closure_verified_count": 826,
+    "done": 756,
+    "remaining": 70,
+    "automatable_remaining": 25,
+    "human_team_remaining": 45,
+    "phase_counts": {
+      "P0_TRUTH_BASELINE": 0,
+      "P1_DEDUPLICATION": 49,
+      "P2_SPLIT_BRAIN": 21,
+      "P3_GOVERNANCE_PACKAGES": 0,
+      "P4_BATCH_CLOSURE": 0,
+      "P5_UI_E2E": 0,
+      "P6_PRODUCTION_HARDENING": 0,
+      "P7_EXTERNAL_ASSURANCE": 0,
+      "DONE": 756
+    },
+    "executor_counts": {
+      "AI_AGENT": 781,
+      "ENGINEERING_TEAM": 45
+    }
+  },
+  "all_green": false
+}
