@@ -1,7 +1,7 @@
 # CodeQL Institutional Reconciliation
 
 - Original analyzed SHA: `f038bc331a06ed52aeb85035c9c01ad1b4492f2b`
-- Final analyzed SHA: `da818a887bf088a7831028d78a82089208e28cbe`
+- Final analyzed SHA: `1181fd9cbacf368bc6569b924e0d85da70d8146c`
 - Canonical original inventory: `docs/evidence/blackdark-codeql-original-911.csv` (911 findings)
 - Original security / quality: **38** / **873**
 - Original reconciliation complete: **911 / 911**
