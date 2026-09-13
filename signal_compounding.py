@@ -64,6 +64,17 @@ async def store_signal(
         "version": version,
         "payload_hash": payload_hash,
     }
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    row = enforce_material_write(
+        "signal",
+        {
+            **row,
+            "source_id": source,
+            "asset": sym,
+            "purpose": "signal_compounding",
+        },
+    )
     row["signature"] = row_signature(row, _SIGNAL_SIGN)
 
     async with get_connection() as db:

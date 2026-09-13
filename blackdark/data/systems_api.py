@@ -138,6 +138,9 @@ async def create_market_event(
     __: None = Depends(_ensure_ready),
     idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
+    from blackdark.data.governance_bridge import govern_sql_write
+
+    governed = govern_sql_write("market_event", {**body.model_dump(), "symbol": body.symbol})
     async with get_session() as session:
         event_id = await insert_market_event(
             session,
@@ -145,6 +148,7 @@ async def create_market_event(
                 **body.model_dump(),
                 "start_time": _parse_dt(body.start_time),
                 "end_time": _parse_dt(body.end_time) if body.end_time else None,
+                "governance_enforced": governed.get("governance_enforced"),
             },
         )
     return idempotent_response(idempotency_key, 201, {"ok": True, "id": event_id, "event_type": body.event_type})
@@ -158,6 +162,18 @@ async def register_signal(
 ):
     signal_id = f"sig_{uuid4().hex[:16]}"
     features_hash = body.features_hash or hash_payload(json.dumps(body.metadata, sort_keys=True))
+    from blackdark.data.governance_bridge import govern_sql_write
+
+    govern_sql_write(
+        "signal",
+        {
+            "signal_id": signal_id,
+            "symbol": body.symbol,
+            "signal_type": body.signal_type,
+            "source_id": body.metadata.get("source_id", "data_engine"),
+            "purpose": "analytics",
+        },
+    )
     async with get_session() as session:
         row_id = await insert_signal(
             session,
@@ -204,6 +220,17 @@ async def seal_prediction(
         **body.payload,
     }
     sealed_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    from blackdark.data.governance_bridge import govern_sql_write
+
+    govern_sql_write(
+        "prediction",
+        {
+            "prediction_id": prediction_id,
+            "symbol": body.symbol,
+            "source": "data_engine",
+            "purpose": "analytics",
+        },
+    )
     async with get_session() as session:
         row_id = await insert_prediction(
             session,
@@ -255,6 +282,18 @@ async def record_decision(
             sort_keys=True,
         )
     )
+    from blackdark.data.governance_bridge import govern_sql_write
+
+    govern_sql_write(
+        "decision",
+        {
+            "decision_id": decision_id,
+            "prediction_id": body.prediction_id,
+            "symbol": body.symbol,
+            "source": "data_engine",
+            "purpose": "analytics",
+        },
+    )
     async with get_session() as session:
         row_id = await insert_decision(
             session,
@@ -290,6 +329,9 @@ async def evaluate_outcome(
     _: None = Depends(_ensure_ready),
     idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
+    from blackdark.data.governance_bridge import govern_sql_write
+
+    govern_sql_write("outcome", {"prediction_id": body.prediction_id, "source": "data_engine"})
     async with get_session() as session:
         row_id = await insert_outcome_evaluation(
             session,
@@ -322,6 +364,9 @@ async def store_evidence(
 ):
     evidence_id = f"ev_{uuid4().hex[:16]}"
     payload_hash = hash_payload(json.dumps(body.payload, sort_keys=True))
+    from blackdark.data.governance_bridge import govern_sql_write
+
+    govern_sql_write("evidence", {"evidence_id": evidence_id, "source": "data_engine"})
     async with get_session() as session:
         row_id = await insert_evidence(
             session,
@@ -354,6 +399,16 @@ async def record_failure_miss(
     _: None = Depends(_ensure_ready),
     idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
+    from blackdark.data.governance_bridge import govern_sql_write
+
+    govern_sql_write(
+        "failure",
+        {
+            "failure_type": body.failure_type,
+            "symbol": body.symbol,
+            "source": "data_engine",
+        },
+    )
     async with get_session() as session:
         row_id = await insert_failure_miss(
             session,

@@ -91,8 +91,8 @@ def intelligence_receipt(payload: dict[str, Any], *, surface: str) -> dict[str, 
 
 
 def require_capability_dna(payload: dict[str, Any], *, surface: str) -> None:
-    """REQ-0167 — Capability DNA required on decision material rows."""
-    if surface != "decision":
+    """REQ-0167 — Capability DNA required on decision + cap646 execute rows."""
+    if surface not in {"decision", "cap_execute"}:
         return
     dna = payload.get("capability_dna")
     if not isinstance(dna, dict):
@@ -116,6 +116,10 @@ _INTERNAL_SOURCES = frozenset(
         "platform_chain_e2e",
         "institutional_controls",
         "qa_harness",
+        "cap646",
+        "data_engine",
+        "data_engine_systems_api",
+        "signal_compounding",
     }
 )
 
@@ -215,10 +219,13 @@ def enforce_material_write(
     out["governance_surface"] = surface
     out["governance_operation"] = operation
 
-    if surface == "decision" and "capability_dna" not in out:
+    if surface in {"decision", "cap_execute"} and "capability_dna" not in out:
         out["capability_dna"] = _default_capability_dna(out)
 
     try:
+        from data_governance.pipeline import run_material_pipeline
+
+        out = run_material_pipeline(surface, out)
         _check_rights(out)
         _check_freshness(out)
         if out.get("target_evidence_class") or out.get("promote_to"):

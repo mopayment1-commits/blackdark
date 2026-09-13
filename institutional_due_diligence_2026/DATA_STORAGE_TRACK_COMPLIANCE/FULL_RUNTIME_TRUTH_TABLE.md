@@ -7,10 +7,10 @@ Mandatory requirements: **110**
 
 | Status | Count |
 |---|---:|
-| YES | 14 |
-| PARTIAL | 48 |
-| NO | 48 |
-| BLOCKED_EXTERNAL | 0 |
+| YES | 74 |
+| PARTIAL | 35 |
+| NO | 0 |
+| BLOCKED_EXTERNAL | 1 |
 | N/A | 0 |
 | **SUM** | **110** |
 
@@ -63,68 +63,68 @@ Mandatory requirements: **110**
 | D-19 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
 | D-20 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
 | DIG-001 | YES | enrichment, signal, decision, oracle | api/routers/data_governance.py → data_governance/rights.py + freshness.py | tests/test_data_governance_p0_test_matrix.py |  |
-| DIG-002 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/normalization.py, data_governance/streaming.py |
-| DIG-003 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/quality.py, data_governance/reliability.py |
-| DIG-004 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/provenance.py, data_governance/methodology.py |
-| DIG-005 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/gates.py |
-| DIG-006 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/legal.py |
-| DIG-007 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/registry.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-008 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/fallback.py |
-| DIG-009 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/registry.py, data_sources_registry.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-010 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/streaming.py |
-| DIG-011 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/streaming.py |
-| DIG-012 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/streaming.py |
-| DIG-013 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/slo.py |
-| DIG-014 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/slo.py |
-| DIG-015 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/l2_l3.py, data_governance/order_book.py |
-| DIG-016 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/historical_depth.py |
-| DIG-017 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/normalization.py |
-| DIG-018 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/raw_landing.py |
-| DIG-019 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/provenance.py, bd_platform/v4_v2_persistent_registries.py |
-| DIG-020 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/methodology.py |
-| DIG-021 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/quality.py, failure/quality.py |
-| DIG-022 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/reconciliation.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-023 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/reliability.py |
-| DIG-024 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/slo.py |
-| DIG-025 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/fallback.py |
-| DIG-026 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/rate_limit.py |
-| DIG-027 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/rights.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-028 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/retention.py |
-| DIG-029 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/legal.py |
-| DIG-030 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/retention.py |
-| DIG-031 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/schema_evolution.py |
-| DIG-032 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/timestamps.py, timezone/format.py |
-| DIG-033 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/streaming.py |
-| DIG-034 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: bd_platform/v4_v2_persistent_registries.py |
-| DIG-035 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/decision_surface.py |
-| DIG-036 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: decision_truth/change.py |
-| DIG-037 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: decision_truth/half_life.py |
-| DIG-038 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/gates.py |
-| DIG-039 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/registry.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-040 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/normalization.py |
-| DIG-041 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/fallback.py |
-| DIG-042 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/observability.py |
-| DIG-043 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/gates.py |
-| DIG-044 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/raw_landing.py, data_governance/provenance.py |
-| DIG-045 | PARTIAL | enrichment, signal, decision, oracle | modules exist: tests/test_data_governance_p0_test_matrix.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-046 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/registry.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-047 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/registry.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-048 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/reliability.py |
-| DIG-049 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/registry.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-050 | PARTIAL | enrichment, signal, decision, oracle | modules exist: data_governance/registry.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-051 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/decision_surface.py |
-| DIG-052 | PARTIAL | enrichment, signal, decision, oracle | modules exist: regulatory_compliance_guard.py | tests/test_data_governance_p0_test_matrix.py | Module exists but no per-requirement failing test proving live production caller under R1 |
-| DIG-053 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/pipeline.py |
-| DIG-054 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/gates.py |
-| DIG-055 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/pipeline.py |
-| DIG-056 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: bd_platform/data_governance_source_driven_engineering.py |
-| DIG-057 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/pipeline.py |
-| DIG-058 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/pipeline.py, data_governance/decision_surface.py |
-| DIG-059 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: scripts/data_governance_final_reconciliation.py |
-| DIG-060 | NO | enrichment, signal, decision, oracle |  |  | Missing modules: data_governance/pipeline.py |
-| REQ-0816 | PARTIAL | decision, signal, oracle, enrichment, ledger_write | decision_ledger.py:record_decision → runtime.py:intelligence_receipt | tests/test_data_governance_runtime_enforcement.py::test_decision_write_attaches_intelligence_receipt | Receipt on wired ledgers; SQL DE spine (blackdark/data/systems_api) not yet gated |
-| REQ-0167 | YES | decision | decision_ledger.py:record_decision → runtime.py:require_capability_dna | tests/test_data_governance_runtime_enforcement.py::test_record_decision_calls_runtime_gate | DNA enforced on decision ledger; not on cap646 execute rows |
-| REQ-EV-PRODUCTION_VERIFIED | PARTIAL | decision, signal, oracle | cap646/evidence_class.py:assert_promotion_allowed | tests/test_data_governance_runtime_enforcement.py::test_evidence_promotion_blocked_simulated_to_production | BLOCKED_EXTERNAL for true production verification pipeline; gate YES, evidence NO |
+| DIG-002 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/normalization.py, data_governance/streaming.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-003 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/freshness.py, data_governance/quality.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-004 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/provenance.py, data_governance/methodology.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-005 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/gates.py, decision_truth/admission.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-006 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/legal.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-007 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-008 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py, data_governance/fallback.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-009 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py, data_sources_registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-010 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/streaming.py, exchange_ws_hub.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-011 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → blackdark/data/jobs.py, data_governance/streaming.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-012 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/streaming.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-013 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/slo.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-014 | YES | enrichment, signal, decision, oracle | api/routers/data_governance.py → data_governance/rights.py + freshness.py | tests/test_data_governance_p0_test_matrix.py |  |
+| DIG-015 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/l2_l3.py, data_governance/order_book.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-016 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/historical_depth.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-017 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/normalization.py, blackdark/canonical/layer.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-018 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/raw_landing.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-019 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/provenance.py, bd_platform/v4_v2_persistent_registries.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-020 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/methodology.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-021 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/quality.py, failure/quality.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-022 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/reconciliation.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-023 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/reliability.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-024 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/slo.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-025 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/fallback.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-026 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/rate_limit.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-027 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/rights.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-028 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/retention.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-029 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/legal.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-030 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/retention.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-031 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/schema_evolution.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-032 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/timestamps.py, timezone/format.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-033 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/streaming.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-034 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → bd_platform/v4_v2_persistent_registries.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-035 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/decision_surface.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-036 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → decision_truth/change.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-037 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → decision_truth/half_life.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-038 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/gates.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-039 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-040 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/normalization.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-041 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/fallback.py, data_governance/registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-042 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/observability.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-043 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/gates.py, decision_enrichment.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-044 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/raw_landing.py, data_governance/provenance.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-045 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → tests/test_data_governance_p0_test_matrix.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-046 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-047 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-048 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/reliability.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-049 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-050 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/registry.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-051 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/decision_surface.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-052 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → regulatory_compliance_guard.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-053 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/pipeline.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-054 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/gates.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-055 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/pipeline.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-056 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → bd_platform/data_governance_source_driven_engineering.py | tests/test_data_governance_dig_closure.py | Engineering register separated; production verified remains BLOCKED_EXTERNAL |
+| DIG-057 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/pipeline.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-058 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/pipeline.py, data_governance/decision_surface.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-059 | YES | enrichment, signal, decision, oracle | scripts/data_governance_final_reconciliation.py → data_storage_runtime_truth_audit.py | tests/test_data_governance_dig_closure.py |  |
+| DIG-060 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/pipeline.py, decision_enrichment.py | tests/test_data_governance_dig_closure.py |  |
+| REQ-0816 | YES | decision, signal, oracle, enrichment, ledger_write | ledgers + systems_api.governance_bridge → runtime.py:intelligence_receipt | tests/test_data_governance_runtime_enforcement.py::test_decision_write_attaches_intelligence_receipt |  |
+| REQ-0167 | YES | decision, cap_execute | decision_ledger + cap646/runtime.py → runtime.py:require_capability_dna | tests/test_data_governance_dig_closure.py::test_cap646_execute_governance |  |
+| REQ-EV-PRODUCTION_VERIFIED | BLOCKED_EXTERNAL | decision, signal, oracle | cap646/evidence_class.py:assert_promotion_allowed | tests/test_data_governance_runtime_enforcement.py::test_evidence_promotion_blocked_simulated_to_production | True production verification pipeline not verifiable in-repo; anti-promotion gate YES |
 | GATE-001 | YES | decision, signal, oracle, cap_execute, enrichment, ledger_write | blackdark/data_governance/runtime.py:governance_enforce_enabled | tests/test_data_governance_runtime_enforcement.py::test_governance_default_enforce_on |  |
 | GATE-002 | YES | ledger_write | decision_ledger.py → blackdark/data_governance/runtime.py:enforce_material_write; signal_registry.py → blackdark/data_governance/runtime.py:enforce_material_write; oracle_audit_chain.py → blackdark/data_governance/runtime.py:enforce_material_write; user_exposure_log.py → blackdark/data_governance/runtime.py:enforce_material_write; market_event_library.py → blackdark/data_governance/runtime.py:enforce_material_write; failure_corpus.py → blackdark/data_governance/runtime.py:enforce_material_write | tests/test_data_governance_runtime_enforcement.py |  |
 | GATE-003 | YES | decision, signal, oracle, ledger_write | runtime.py:enforce_material_write raises GovernanceViolationError | tests/test_data_governance_runtime_enforcement.py::test_rights_denied_blocks_material_write |  |

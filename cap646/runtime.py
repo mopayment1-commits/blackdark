@@ -96,6 +96,19 @@ async def execute_capability(
     skip_entitlement: bool = False,
 ) -> dict[str, Any]:
     params = dict(params or {})
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    _governance = enforce_material_write(
+        "cap_execute",
+        {
+            "capability_id": capability_id,
+            "source": "cap646",
+            "purpose": "capability_execute",
+            "user_id": (user or {}).get("id"),
+            "org_id": org_id,
+            "params_hash": str(hash(frozenset(params.items())))[:16] if params else None,
+        },
+    )
     row = catalog_by_id().get(capability_id)
     if not row and 647 <= capability_id <= 826:
         try:
@@ -192,4 +205,6 @@ async def execute_capability(
         result["backend_entrypoint"] = getattr(handler, "__name__", "unknown")
     from cap646.domain_enrichment import enrich_capability_result
 
+    result.setdefault("governance_enforced", _governance.get("governance_enforced"))
+    result.setdefault("intelligence_receipt", _governance.get("intelligence_receipt"))
     return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)
