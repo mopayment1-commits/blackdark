@@ -4,7 +4,7 @@
   "governing_spec_target": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
   "captured_at_utc": "2026-09-13T14:56:00Z",
   "branch": "cursor/bandit-audit-correction-358c",
-  "baseline_sha": "56b31e5f19bcbbaafd4a207d57ef6ce6f44941cd",
+  "baseline_sha": "7486d5bffdce1f339c63e34446a5fccc73d95891",
   "working_tree_status": {
     "summary": "dirty_unrelated_runtime_artifacts",
     "tracked_modified_count": 13,
