@@ -1,0 +1,2826 @@
+{
+  "normalized": [
+    {
+      "id": "AIV4-SRC-0001",
+      "source_line": 11,
+      "section": "\u00a70",
+      "kind": "prose_normative",
+      "text": "\u0635\u064a\u063a\u0629 \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0641\u064a Cursor: \u0647\u0630\u0647 \u0627\u0644\u0646\u0633\u062e\u0629 Markdown \u0647\u064a \u0627\u0644\u0645\u0631\u062c\u0639 \u0627\u0644\u062a\u0634\u063a\u064a\u0644\u064a \u0627\u0644\u0645\u0642\u0631\u0648\u0621 \u0622\u0644\u064a\u064b\u0627 \u0644\u0647\u0630\u0647 \u0627\u0644\u0645\u0648\u0627\u0635\u0641\u0629. \u064a\u062c\u0628 \u062a\u0646\u0641\u064a\u0630\u0647\u0627 \u0645\u0639 SSOT \u0627\u0644\u062d\u0627\u0643\u0645 \u0644\u0644\u0645\u0634\u0631\u0648\u0639\u060c \u0648\u0644\u0627 \u062a\u064f\u0633\u062a\u062e\u062f\u0645 \u0644\u062a\u062d\u0644 \u0645\u062d\u0644 v6 \u0623\u0648 v4_v2 \u0623\u0648 Temporal Intelligence.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0001",
+      "source_ids": [
+        "AIV4-SRC-0001"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0002",
+      "source_line": 29,
+      "section": "\u00a70",
+      "kind": "prose_normative",
+      "text": "\u0644\u0627 \u064a\u062c\u0648\u0632 \u0627\u0644\u0627\u062f\u0639\u0627\u0621 \u0628\u0623\u0646 \u0647\u0630\u0647 \u0627\u0644\u0648\u062b\u064a\u0642\u0629 \u201c\u0645\u0637\u0627\u0628\u0642\u0629 \u0644\u0640ISO/NIST\u201d \u0644\u0645\u062c\u0631\u062f \u0627\u0644\u0627\u0633\u062a\u0634\u0647\u0627\u062f \u0628\u0647\u0627. \u0627\u0644\u0645\u0639\u0627\u064a\u064a\u0631 \u0627\u0644\u0645\u0630\u0643\u0648\u0631\u0629 \u062a\u0648\u0641\u0631 \u0645\u0628\u0627\u062f\u0626 \u0648\u0646\u0645\u0627\u0630\u062c \u0648\u0639\u0645\u0644\u064a\u0627\u062a \u0645\u0631\u062c\u0639\u064a\u0629\u061b \u0623\u0645\u0627 \u0628\u0646\u064a\u0629 BLACKDARK \u0627\u0644\u062a\u0641\u0635\u064a\u0644\u064a\u0629 (Six Heroes\u060c Router\u060c Decision Contract\u060c Data Room...) \u0641\u0647\u064a \u0642\u0631\u0627\u0631\u0627\u062a \u062a\u0635\u0645\u064a\u0645 \u0645\u0634\u0631\u0648\u0639 \u064a\u062c\u0628 \u0625\u062b\u0628\u0627\u062a \u062c\u0648\u062f\u062a\u0647\u0627 \u0628\u0627\u0644\u0627\u062e\u062a\u0628\u0627\u0631 \u0648\u0627\u0644\u0623\u062f\u0644\u0629.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0002",
+      "source_ids": [
+        "AIV4-SRC-0002"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0003",
+      "source_line": 37,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "ISO 9241-210:2019: \u0639\u0645\u0644\u064a\u0629 \u0627\u0644\u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0645\u062a\u0645\u062d\u0648\u0631 \u062d\u0648\u0644 \u0627\u0644\u0625\u0646\u0633\u0627\u0646 \u0639\u0628\u0631 \u062f\u0648\u0631\u0629 \u0627\u0644\u062d\u064a\u0627\u0629 | \u0644\u0627 \u064a\u0641\u0631\u0636 \u0634\u0643\u0644 Dashboard \u0623\u0648 Progressive Disclosure \u0628\u0639\u064a\u0646\u0647.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0003",
+      "source_ids": [
+        "AIV4-SRC-0003"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0004",
+      "source_line": 39,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "ISO 9241-11:2018: \u0641\u0647\u0645 usability \u0643\u0646\u062a\u064a\u062c\u0629 \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0645\u0631\u062a\u0628\u0637\u0629 \u0628\u0627\u0644\u0633\u064a\u0627\u0642 \u0648\u0627\u0644\u0623\u0647\u062f\u0627\u0641 | \u0644\u0627 \u064a\u0641\u0631\u0636 \u0645\u0642\u064a\u0627\u0633\u064b\u0627 \u0628\u0639\u064a\u0646\u0647 \u0648\u0644\u0627 \u064a\u062b\u0628\u062a \u0646\u062c\u0627\u062d UX \u0628\u062f\u0648\u0646 \u0627\u062e\u062a\u0628\u0627\u0631 \u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0004",
+      "source_ids": [
+        "AIV4-SRC-0004"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0005",
+      "source_line": 41,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "ISO/IEC 25010:2023: \u0646\u0645\u0648\u0630\u062c \u0645\u0631\u062c\u0639\u064a \u0644\u062a\u062d\u062f\u064a\u062f \u0648\u0642\u064a\u0627\u0633 \u0648\u062a\u0642\u064a\u064a\u0645 \u062c\u0648\u062f\u0629 \u0645\u0646\u062a\u062c\u0627\u062a ICT/software | \u0644\u0627 \u064a\u0641\u0631\u0636 Data Room \u0623\u0648 Router \u0623\u0648 \u0647\u064a\u0643\u0644 BLACKDARK.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0005",
+      "source_ids": [
+        "AIV4-SRC-0005"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0006",
+      "source_line": 43,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "ISO/IEC 25012:2008: \u0646\u0645\u0648\u0630\u062c \u0639\u0627\u0645 \u0644\u062c\u0648\u062f\u0629 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a \u0648\u062a\u062d\u062f\u064a\u062f/\u062a\u0642\u064a\u064a\u0645 \u0645\u062a\u0637\u0644\u0628\u0627\u062a\u0647\u0627 | \u0644\u0627 \u064a\u062b\u0628\u062a \u062c\u0648\u062f\u0629 \u0628\u064a\u0627\u0646\u0627\u062a BLACKDARK \u0628\u062f\u0648\u0646 \u0642\u064a\u0627\u0633 \u0641\u0639\u0644\u064a.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0006",
+      "source_ids": [
+        "AIV4-SRC-0006"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0007",
+      "source_line": 45,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "NIST AI RMF 1.0: valid/reliable, safe, secure/resilient, accountable/transparent, explainable/interpretable, privacy-enhanced \u0648\u063a\u064a\u0631\u0647\u0627 | \u0625\u0637\u0627\u0631 \u0637\u0648\u0639\u064a\u061b \u0644\u0627 \u064a\u0641\u0631\u0636 Trust Card \u0623\u0648 Confidence formula \u0645\u062d\u062f\u062f\u0629.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0007",
+      "source_ids": [
+        "AIV4-SRC-0007"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0008",
+      "source_line": 47,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "ISO/IEC 23894:2023: \u0625\u0631\u0634\u0627\u062f \u0644\u0625\u062f\u0627\u0631\u0629 \u0645\u062e\u0627\u0637\u0631 AI \u0648\u062f\u0645\u062c\u0647\u0627 \u0641\u064a \u0627\u0644\u0623\u0646\u0634\u0637\u0629 | \u0644\u0627 \u064a\u062d\u062f\u062f \u0648\u062d\u062f\u0647 \u0622\u0644\u064a\u0629 Decision Boundary.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0008",
+      "source_ids": [
+        "AIV4-SRC-0008"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0009",
+      "source_line": 49,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "ISO/IEC 42001:2023: \u0646\u0638\u0627\u0645 \u0625\u062f\u0627\u0631\u0629 \u0644\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0648\u0627\u0644\u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u0645\u0633\u062a\u0645\u0631 | \u0647\u0630\u0647 \u0627\u0644\u0648\u062b\u064a\u0642\u0629 \u0644\u064a\u0633\u062a \u0634\u0647\u0627\u062f\u0629 42001.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0009",
+      "source_ids": [
+        "AIV4-SRC-0009"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0010",
+      "source_line": 51,
+      "section": "\u00a70.1",
+      "kind": "standards_reference",
+      "text": "WCAG 2.2: \u0645\u0639\u0627\u064a\u064a\u0631 \u0646\u062c\u0627\u062d \u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u0627\u062e\u062a\u0628\u0627\u0631 \u0644\u0625\u062a\u0627\u062d\u0629 \u0627\u0644\u0648\u064a\u0628\u061b W3C \u064a\u0648\u0635\u064a \u0628\u0627\u0644\u0625\u0635\u062f\u0627\u0631 2.2 | \u0647\u062f\u0641 \u0627\u0644\u062a\u0635\u0645\u064a\u0645: AA \u062d\u064a\u062b \u064a\u0646\u0637\u0628\u0642\u061b \u064a\u062c\u0628 \u0625\u062b\u0628\u0627\u062a \u0627\u0644\u0645\u0637\u0627\u0628\u0642\u0629 \u0628\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0641\u0639\u0644\u064a\u0629.",
+      "parent_control": "AIV4-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0010",
+      "source_ids": [
+        "AIV4-SRC-0010"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0011",
+      "source_line": 59,
+      "section": "\u00a71",
+      "kind": "prose_normative",
+      "text": "Calm Surface: \u0627\u0644\u0633\u0637\u062d \u0627\u0644\u064a\u0648\u0645\u064a \u064a\u062c\u0628 \u0623\u0646 \u064a\u062c\u064a\u0628 \u201c\u0645\u0627\u0630\u0627 \u064a\u0647\u0645 \u0627\u0644\u0622\u0646\u061f\u201d \u0628\u062f\u0644 \u0623\u0646 \u064a\u0639\u0631\u0636 \u0645\u0626\u0627\u062a \u0627\u0644\u0623\u062f\u0648\u0627\u062a.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0011",
+      "source_ids": [
+        "AIV4-SRC-0011"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0012",
+      "source_line": 61,
+      "section": "\u00a71",
+      "kind": "principle",
+      "text": "Six Heroes \u064a\u0638\u0644\u0648\u0646 Primary User Decision Surfaces \u0648\u0644\u0627 \u064a\u062a\u062d\u0648\u0644\u0648\u0646 \u0625\u0644\u0649 \u0642\u0648\u0627\u0626\u0645 capabilities.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0012",
+      "source_ids": [
+        "AIV4-SRC-0012"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0013",
+      "source_line": 63,
+      "section": "\u00a71",
+      "kind": "prose_normative",
+      "text": "Complexity On Demand: \u0627\u0644\u062a\u0641\u0627\u0635\u064a\u0644 \u0645\u062a\u0627\u062d\u0629 \u0644\u0643\u0646 \u0644\u0627 \u062a\u064f\u0641\u0631\u0636 \u0639\u0644\u0649 \u0643\u0644 \u0645\u0633\u062a\u062e\u062f\u0645.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0013",
+      "source_ids": [
+        "AIV4-SRC-0013"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0014",
+      "source_line": 65,
+      "section": "\u00a71",
+      "kind": "principle",
+      "text": "Evidence Always: \u0644\u0627 \u0642\u0631\u0627\u0631 \u0628\u0644\u0627 \u0645\u0635\u062f\u0631/\u0632\u0645\u0646/\u062d\u0627\u0644\u0629 \u0628\u064a\u0627\u0646\u0627\u062a/\u0642\u064a\u0648\u062f \u062c\u0648\u0647\u0631\u064a\u0629 \u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u0648\u0635\u0648\u0644.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0014",
+      "source_ids": [
+        "AIV4-SRC-0014"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0015",
+      "source_line": 67,
+      "section": "\u00a71",
+      "kind": "prose_normative",
+      "text": "Safety Floor Never Hidden: \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u062a\u064a \u064a\u0645\u0643\u0646 \u0623\u0646 \u062a\u063a\u064a\u0651\u0631 \u0627\u0644\u0642\u0631\u0627\u0631 \u0644\u0627 \u064a\u062c\u0648\u0632 \u0625\u062e\u0641\u0627\u0624\u0647\u0627 \u0628\u0633\u0628\u0628 Progressive Disclosure.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0015",
+      "source_ids": [
+        "AIV4-SRC-0015"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0016",
+      "source_line": 69,
+      "section": "\u00a71",
+      "kind": "principle",
+      "text": "The user chooses the goal; BLACKDARK chooses the machinery \u2014 \u0645\u0639 \u062d\u0642 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645 \u0641\u064a \u0627\u0644\u0641\u0647\u0645 \u0648\u0627\u0644\u0631\u0641\u0636/\u0627\u0644\u062a\u0639\u062f\u064a\u0644.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0016",
+      "source_ids": [
+        "AIV4-SRC-0016"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0017",
+      "source_line": 71,
+      "section": "\u00a71",
+      "kind": "prose_normative",
+      "text": "No false precision: \u0644\u0627 \u062a\u0639\u0631\u0636 \u0646\u0633\u0628\u0629 \u062b\u0642\u0629 \u0631\u0642\u0645\u064a\u0629 \u0625\u0644\u0627 \u0625\u0630\u0627 \u0643\u0627\u0646 \u0645\u0639\u0646\u0627\u0647\u0627 \u0648\u0645\u0639\u0627\u064a\u0631\u062a\u0647\u0627 empirically defined.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0017",
+      "source_ids": [
+        "AIV4-SRC-0017"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0018",
+      "source_line": 73,
+      "section": "\u00a71",
+      "kind": "principle",
+      "text": "No evidence-class promotion: Historical Replay \u2260 Forward Shadow \u2260 Verified Production \u2260 Independent Assurance.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0018",
+      "source_ids": [
+        "AIV4-SRC-0018"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0019",
+      "source_line": 75,
+      "section": "\u00a71",
+      "kind": "prose_normative",
+      "text": "Reuse before build: \u0623\u064a Router/Graph/Data Room/Trust layer \u064a\u062c\u0628 \u0623\u0646 \u064a\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0628\u0646\u064a\u0629 \u0627\u0644\u062d\u0627\u0644\u064a\u0629 \u0628\u062f\u0644 \u0625\u0646\u0634\u0627\u0621 \u0645\u0633\u0627\u0631\u0627\u062a \u0645\u0648\u0627\u0632\u064a\u0629.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0019",
+      "source_ids": [
+        "AIV4-SRC-0019"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0020",
+      "source_line": 83,
+      "section": "\u00a71.1",
+      "kind": "doctrine_rule",
+      "text": "1. \u064a\u0628\u062f\u0623 Router \u0628\u0645\u0646\u0637\u0642 deterministic/transparent \u0642\u0627\u0628\u0644 \u0644\u0644\u0627\u062e\u062a\u0628\u0627\u0631 \u0648\u0627\u0644\u0634\u0631\u062d\u060c \u0648\u0644\u064a\u0633 orchestration \u0630\u0627\u062a\u064a \u063a\u0627\u0645\u0636 \u0623\u0648 AI \u0643\u0627\u0645\u0644 \u0645\u0646 \u0627\u0644\u064a\u0648\u0645 \u0627\u0644\u0623\u0648\u0644.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0020",
+      "source_ids": [
+        "AIV4-SRC-0020"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0021",
+      "source_line": 84,
+      "section": "\u00a71.1",
+      "kind": "doctrine_rule",
+      "text": "2. \u0644\u0627 \u064a\u064f\u0633\u0645\u062d \u0644\u0644\u0640Router \u0628\u0625\u0635\u062f\u0627\u0631 \u0642\u0631\u0627\u0631 \u062f\u0648\u0646 evidence/freshness/conflict/dependence controls \u0627\u0644\u0645\u0637\u0628\u0642\u0629 \u0639\u0644\u0649 \u0627\u0644\u0645\u0633\u0627\u0631.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0021",
+      "source_ids": [
+        "AIV4-SRC-0021"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0022",
+      "source_line": 85,
+      "section": "\u00a71.1",
+      "kind": "doctrine_rule",
+      "text": "3. \u0623\u064a Decision Contract \u0623\u0648 Boundary \u062c\u062f\u064a\u062f \u064a\u0639\u0645\u0644 \u0623\u0648\u0644\u064b\u0627 \u0641\u064a replay/shadow/evaluation \u0642\u0628\u0644 \u0627\u0644\u0627\u0639\u062a\u0645\u0627\u062f \u0627\u0644\u062d\u064a.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0022",
+      "source_ids": [
+        "AIV4-SRC-0022"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0023",
+      "source_line": 86,
+      "section": "\u00a71.1",
+      "kind": "doctrine_rule",
+      "text": "4. \u0644\u0627 \u064a\u064f\u0639\u0631\u0636 numeric confidence \u0623\u0648 probabilistic boundary \u0642\u0628\u0644 \u0648\u062c\u0648\u062f calibration \u0645\u0648\u062b\u0642\u0629 \u0648outcome history \u0643\u0627\u0641\u064a\u0629.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0023",
+      "source_ids": [
+        "AIV4-SRC-0023"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0024",
+      "source_line": 87,
+      "section": "\u00a71.1",
+      "kind": "doctrine_rule",
+      "text": "5. \u0623\u064a \u062a\u0631\u0642\u064a\u0629 \u0645\u0646 rule-based \u0625\u0644\u0649 adaptive/probabilistic behavior \u062a\u062d\u062a\u0627\u062c evidence\u060c regression\u060c human validation\u060c \u0648\u062d\u062f\u0648\u062f rollback/abstention.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0024",
+      "source_ids": [
+        "AIV4-SRC-0024"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0025",
+      "source_line": 88,
+      "section": "\u00a71.1",
+      "kind": "doctrine_rule",
+      "text": "6. Live promotion \u0647\u064a \u0622\u062e\u0631 \u0645\u0631\u062d\u0644\u0629\u060c \u0648\u0644\u0627 \u062a\u064f\u0633\u062a\u0646\u062a\u062c \u0645\u0646 PASS_ENGINEERING \u0623\u0648 replay \u0623\u0648 shadow evidence.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0025",
+      "source_ids": [
+        "AIV4-SRC-0025"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0026",
+      "source_line": 89,
+      "section": "\u00a71.1",
+      "kind": "doctrine_rule",
+      "text": "7. \u0625\u0630\u0627 \u0644\u0645 \u062a\u062a\u0648\u0627\u0641\u0631 \u0628\u064a\u0627\u0646\u0627\u062a \u0643\u0627\u0641\u064a\u0629 \u0644\u0644\u0645\u0639\u0627\u064a\u0631\u0629\u060c \u064a\u0643\u0648\u0646 \u0627\u0644\u0633\u0644\u0648\u0643 \u0627\u0644\u0635\u062d\u064a\u062d \u0647\u0648 qualitative uncertainty / Data Limited / ABSTAIN\u060c \u0648\u0644\u064a\u0633 \u0627\u062e\u062a\u0631\u0627\u0639 \u0646\u0633\u0628\u0629 \u0631\u0642\u0645\u064a\u0629.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0026",
+      "source_ids": [
+        "AIV4-SRC-0026"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0027",
+      "source_line": 99,
+      "section": "\u00a72",
+      "kind": "principle",
+      "text": "USER \u2192 Calm Surface / Universal Command \u2192 Intent & Context Resolver \u2192 Intelligence Router \u2192 Playbook/Capability Selection \u2192 Decision Engine \u2192 Decision Contract \u2192 Six Heroes / Workspaces / Contextual Surfaces \u2192 Evidence & Trust Views \u2192 Capability Explorer / Graph / Institutional Data Room",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0027",
+      "source_ids": [
+        "AIV4-SRC-0027"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0028",
+      "source_line": 101,
+      "section": "\u00a72",
+      "kind": "prose_normative",
+      "text": "\u0644\u0627 \u064a\u062c\u0648\u0632 \u0623\u0646 \u064a\u0642\u0641\u0632 \u0623\u064a \u0645\u0633\u0627\u0631 \u0645\u0646 \u0627\u0644\u0637\u0644\u0628 \u0645\u0628\u0627\u0634\u0631\u0629 \u0625\u0644\u0649 \u0646\u062a\u064a\u062c\u0629 \u0642\u0631\u0627\u0631 \u0628\u062f\u0648\u0646 \u0627\u0644\u0645\u0631\u0648\u0631 \u0628\u0627\u0644\u0636\u0648\u0627\u0628\u0637 \u0627\u0644\u0645\u0637\u0628\u0642\u0629 \u0639\u0644\u064a\u0647: entitlement\u060c data freshness\u060c evidence class\u060c conflict/uncertainty handling\u060c \u0648runtime canonical binding.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0028",
+      "source_ids": [
+        "AIV4-SRC-0028"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0029",
+      "source_line": 117,
+      "section": "\u00a74",
+      "kind": "prose_normative",
+      "text": "\u064a\u0638\u0644 \u0627\u0644\u0623\u0628\u0637\u0627\u0644 \u0627\u0644\u0633\u062a\u0629 \u0627\u0644\u0648\u0627\u062c\u0647\u0629 \u0627\u0644\u064a\u0648\u0645\u064a\u0629 \u0627\u0644\u0645\u0628\u0633\u0637\u0629. \u0627\u0644\u0642\u062f\u0631\u0627\u062a \u064a\u0645\u0643\u0646 \u0623\u0646 \u062a\u063a\u0630\u064a Hero \u0623\u0648 \u062a\u0642\u062f\u0645 Context \u0623\u0648 \u0644\u0627 \u062a\u0631\u062a\u0628\u0637 \u0628\u0647. \u0627\u0644\u0639\u0644\u0627\u0642\u0629 \u0644\u0627 \u062a\u0639\u0646\u064a causal ownership. \u0623\u064a \u0631\u0628\u0637 \u0641\u064a Capability Graph \u064a\u062c\u0628 \u0623\u0646 \u064a\u0643\u0648\u0646 typed edge.",
+      "parent_control": "AIE-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0029",
+      "source_ids": [
+        "AIV4-SRC-0029"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0030",
+      "source_line": 121,
+      "section": "\u00a75",
+      "kind": "prose_normative",
+      "text": "\u064a\u0639\u0631\u0636 \u0645\u0644\u062e\u0635\u064b\u0627 \u0642\u0635\u064a\u0631\u064b\u0627 \u0645\u062b\u0644 Market State / Main Opportunity / Primary Risk / What Changed\u060c \u0644\u0643\u0646 \u0643\u0644 \u0646\u062a\u064a\u062c\u0629 \u064a\u062c\u0628 \u0623\u0646 \u062a\u062d\u0645\u0644 Safety Floor \u0645\u062e\u062a\u0635\u0631\u064b\u0627.",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0030",
+      "source_ids": [
+        "AIV4-SRC-0030"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0031",
+      "source_line": 123,
+      "section": "\u00a75",
+      "kind": "safety_floor_field",
+      "text": "\u0639\u0646\u0635\u0631 Safety Floor: \u0627\u0644\u062d\u062f \u0627\u0644\u0623\u062f\u0646\u0649 \u0627\u0644\u0638\u0627\u0647\u0631",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0031",
+      "source_ids": [
+        "AIV4-SRC-0031"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0032",
+      "source_line": 127,
+      "section": "\u00a75",
+      "kind": "safety_floor_field",
+      "text": "Freshness: timestamp \u0623\u0648 freshness band",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0032",
+      "source_ids": [
+        "AIV4-SRC-0032"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0033",
+      "source_line": 129,
+      "section": "\u00a75",
+      "kind": "safety_floor_field",
+      "text": "Evidence state: Historical/Shadow/Live/Delayed \u062d\u0633\u0628 \u0627\u0644\u062d\u0642\u064a\u0642\u0629",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0033",
+      "source_ids": [
+        "AIV4-SRC-0033"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0034",
+      "source_line": 131,
+      "section": "\u00a75",
+      "kind": "safety_floor_field",
+      "text": "Uncertainty: High/Medium/Low \u0623\u0648 calibrated probability \u0625\u0630\u0627 \u062b\u0628\u062a\u062a",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0034",
+      "source_ids": [
+        "AIV4-SRC-0034"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0035",
+      "source_line": 133,
+      "section": "\u00a75",
+      "kind": "safety_floor_field",
+      "text": "Critical contradiction: \u0623\u0647\u0645 \u062a\u0639\u0627\u0631\u0636 \u0645\u0627\u062f\u064a \u0625\u0646 \u0648\u064f\u062c\u062f",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0035",
+      "source_ids": [
+        "AIV4-SRC-0035"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0036",
+      "source_line": 135,
+      "section": "\u00a75",
+      "kind": "safety_floor_field",
+      "text": "Critical limitation: \u0623\u064a \u0642\u064a\u062f \u064a\u0645\u0643\u0646 \u0623\u0646 \u064a\u063a\u064a\u0631 \u062a\u0641\u0633\u064a\u0631 \u0627\u0644\u0646\u062a\u064a\u062c\u0629",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0036",
+      "source_ids": [
+        "AIV4-SRC-0036"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0037",
+      "source_line": 137,
+      "section": "\u00a75",
+      "kind": "safety_floor_field",
+      "text": "Invalidation / Next check: \u0645\u062a\u0649 \u064a\u0639\u0627\u062f \u0627\u0644\u062a\u0642\u064a\u064a\u0645 \u0623\u0648 \u0645\u062a\u0649 \u064a\u0635\u0628\u062d \u0627\u0644\u0627\u0633\u062a\u0646\u062a\u0627\u062c \u063a\u064a\u0631 \u0635\u0627\u0644\u062d",
+      "parent_control": "AIE-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0037",
+      "source_ids": [
+        "AIV4-SRC-0037"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0038",
+      "source_line": 145,
+      "section": "\u00a76",
+      "kind": "prose_normative",
+      "text": "\u0627\u0644\u0628\u062d\u062b \u0644\u0627 \u064a\u0642\u062a\u0635\u0631 \u0639\u0644\u0649 \u0623\u0633\u0645\u0627\u0621 \u0627\u0644\u0642\u062f\u0631\u0627\u062a. \u064a\u062c\u0628 \u0623\u0646 \u064a\u062f\u0639\u0645 \u0633\u0624\u0627\u0644 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645 \u0628\u0627\u0644\u0644\u063a\u0629 \u0627\u0644\u0637\u0628\u064a\u0639\u064a\u0629\u060c \u0648\u0627\u0644\u0623\u0635\u0648\u0644\u060c \u0648\u0627\u0644\u0640Playbooks\u060c \u0648\u0627\u0644\u0640Alerts\u060c \u0648\u0627\u0644\u0640Research\u060c \u0648\u0627\u0644\u0640API resources. Intent Search \u064a\u0641\u0643\u0643 \u0627\u0644\u0637\u0644\u0628 \u0625\u0644\u0649 Intent Contract \u0628\u062f\u0644\u0627\u064b \u0645\u0646 \u0627\u0633\u062a\u062f\u0639\u0627\u0621 \u0642\u062f\u0631\u0627\u062a \u0628\u0635\u0648\u0631\u0629 \u0639\u0634\u0648\u0627\u0626\u064a\u0629.",
+      "parent_control": "AIE-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0038",
+      "source_ids": [
+        "AIV4-SRC-0038"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0039",
+      "source_line": 147,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Intent Contract: \u0627\u0644\u0645\u062d\u062a\u0648\u0649",
+      "parent_control": "AIE-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0039",
+      "source_ids": [
+        "AIV4-SRC-0039"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0040",
+      "source_line": 151,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Goal: \u0645\u0627 \u0627\u0644\u0630\u064a \u064a\u062d\u0627\u0648\u0644 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645 \u0645\u0639\u0631\u0641\u062a\u0647/\u0641\u0639\u0644\u0647\u061f",
+      "parent_control": "AIE-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0040",
+      "source_ids": [
+        "AIV4-SRC-0040"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0041",
+      "source_line": 153,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Asset / scope: \u0627\u0644\u0623\u0635\u0644\u060c \u0627\u0644\u0633\u0648\u0642\u060c \u0627\u0644\u0645\u062d\u0641\u0638\u0629\u060c chain \u0623\u0648 universe",
+      "parent_control": "AIE-004",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0041",
+      "source_ids": [
+        "AIV4-SRC-0041"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0042",
+      "source_line": 155,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Horizon: \u0644\u062d\u0638\u064a / intraday / \u0623\u064a\u0627\u0645 / \u0623\u0633\u0627\u0628\u064a\u0639...",
+      "parent_control": "AIE-004",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0042",
+      "source_ids": [
+        "AIV4-SRC-0042"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0043",
+      "source_line": 157,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Decision type: Opportunity / Risk / Due Diligence / Monitoring...",
+      "parent_control": "AIE-004",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0043",
+      "source_ids": [
+        "AIV4-SRC-0043"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0044",
+      "source_line": 159,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Required safety lenses: \u0639\u0648\u0627\u0645\u0644 \u0644\u0627 \u064a\u062c\u0648\u0632 \u0625\u0633\u0642\u0627\u0637\u0647\u0627 \u0644\u0647\u0630\u0627 \u0627\u0644\u0646\u0648\u0639 \u0645\u0646 \u0627\u0644\u0642\u0631\u0627\u0631",
+      "parent_control": "AIE-004",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0044",
+      "source_ids": [
+        "AIV4-SRC-0044"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0045",
+      "source_line": 161,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Evidence minimum: \u0627\u0644\u062d\u062f \u0627\u0644\u0623\u062f\u0646\u0649 \u0627\u0644\u0645\u0642\u0628\u0648\u0644 \u0645\u0646 freshness/coverage/trust",
+      "parent_control": "AIE-004",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0045",
+      "source_ids": [
+        "AIV4-SRC-0045"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0046",
+      "source_line": 163,
+      "section": "\u00a76",
+      "kind": "intent_field",
+      "text": "Output mode: Answer / Playbook / Alert / Deep Dive",
+      "parent_control": "AIE-004",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0046",
+      "source_ids": [
+        "AIV4-SRC-0046"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0047",
+      "source_line": 171,
+      "section": "\u00a77",
+      "kind": "prose_normative",
+      "text": "\u062a\u0628\u0642\u0649 Workspaces \u0637\u0628\u0642\u0629 \u062a\u0646\u0638\u064a\u0645\u064a\u0629 \u0628\u064a\u0646 Dashboard \u0648\u0627\u0644\u0645\u0643\u062a\u0628\u0629\u060c \u0644\u0643\u0646 \u0644\u0627 \u062a\u064f\u0639\u0627\u0645\u0644 \u0643\u0644 \u0645\u0633\u0627\u062d\u0629 \u0639\u0645\u0644 \u0643\u0646\u0638\u0627\u0645 \u0645\u0633\u062a\u0642\u0644. \u0647\u064a composition views \u062a\u0639\u064a\u062f \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0642\u062f\u0631\u0627\u062a \u0648\u0627\u0644\u0640Playbooks \u0648\u0627\u0644\u0640SSOT \u0627\u0644\u062d\u0627\u0644\u064a\u0629. \u064a\u0641\u0636\u0644 \u0625\u0637\u0644\u0627\u0642 \u0639\u062f\u062f \u0645\u062d\u062f\u0648\u062f \u0623\u0648\u0644\u064b\u0627 \u062b\u0645 \u0627\u0644\u062a\u0648\u0633\u0639 \u0628\u0646\u0627\u0621\u064b \u0639\u0644\u0649 \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645.",
+      "parent_control": "AIE-012",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0047",
+      "source_ids": [
+        "AIV4-SRC-0047"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0048",
+      "source_line": 179,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Playbook Contract: \u0645\u0637\u0644\u0648\u0628",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0048",
+      "source_ids": [
+        "AIV4-SRC-0048"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0049",
+      "source_line": 183,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Purpose / decision: \u0627\u0644\u0642\u0631\u0627\u0631 \u0623\u0648 \u0627\u0644\u0633\u0624\u0627\u0644 \u0627\u0644\u0630\u064a \u064a\u062e\u062f\u0645\u0647",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0049",
+      "source_ids": [
+        "AIV4-SRC-0049"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0050",
+      "source_line": 185,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Eligible regimes: \u0627\u0644\u0623\u0633\u0648\u0627\u0642/\u0627\u0644\u0638\u0631\u0648\u0641 \u0627\u0644\u062a\u064a \u064a\u0643\u0648\u0646 \u0635\u0627\u0644\u062d\u064b\u0627 \u0641\u064a\u0647\u0627",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0050",
+      "source_ids": [
+        "AIV4-SRC-0050"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0051",
+      "source_line": 187,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Required capabilities: \u0627\u0644\u0645\u062f\u062e\u0644\u0627\u062a \u0627\u0644\u0625\u0644\u0632\u0627\u0645\u064a\u0629 \u0648\u0627\u0644\u0627\u062e\u062a\u064a\u0627\u0631\u064a\u0629",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0051",
+      "source_ids": [
+        "AIV4-SRC-0051"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0052",
+      "source_line": 189,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Dependence model: \u062a\u062c\u0645\u064a\u0639 \u0627\u0644\u0625\u0634\u0627\u0631\u0627\u062a \u0627\u0644\u0645\u0634\u062a\u0631\u0643\u0629 \u0627\u0644\u0645\u0635\u062f\u0631/\u0627\u0644\u0646\u0645\u0648\u0630\u062c \u062d\u062a\u0649 \u0644\u0627 \u062a\u064f\u062d\u0633\u0628 \u0645\u0633\u062a\u0642\u0644\u0629",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0052",
+      "source_ids": [
+        "AIV4-SRC-0052"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0053",
+      "source_line": 191,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Rules / weights: \u0642\u0648\u0627\u0639\u062f \u0627\u0644\u062f\u0645\u062c\u060c \u0627\u0644\u062a\u0639\u0627\u0631\u0636\u060c \u0648\u0627\u0644\u0623\u0648\u0644\u0648\u064a\u0629",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0053",
+      "source_ids": [
+        "AIV4-SRC-0053"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0054",
+      "source_line": 193,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Version & lineage: \u0646\u0633\u062e\u0629 \u0627\u0644\u0642\u0648\u0627\u0639\u062f \u0648\u0627\u0644\u0645\u0635\u0627\u062f\u0631/\u0627\u0644\u0646\u0645\u0627\u0630\u062c",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0054",
+      "source_ids": [
+        "AIV4-SRC-0054"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0055",
+      "source_line": 195,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Validation: replay / walk-forward / shadow \u062d\u0633\u0628 applicability",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0055",
+      "source_ids": [
+        "AIV4-SRC-0055"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0056",
+      "source_line": 197,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Failure & abstention: \u0645\u062a\u0649 \u064a\u0631\u0641\u0636 \u0625\u0635\u062f\u0627\u0631 \u0646\u062a\u064a\u062c\u0629",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0056",
+      "source_ids": [
+        "AIV4-SRC-0056"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0057",
+      "source_line": 199,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Expiry / revalidation: \u0635\u0644\u0627\u062d\u064a\u0629 \u0648\u0625\u0639\u0627\u062f\u0629 \u062a\u062d\u0642\u0642",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0057",
+      "source_ids": [
+        "AIV4-SRC-0057"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0058",
+      "source_line": 201,
+      "section": "\u00a78",
+      "kind": "playbook_field",
+      "text": "Change history: \u0633\u0628\u0628 \u0648\u0623\u062b\u0631 \u0627\u0644\u062a\u063a\u064a\u064a\u0631",
+      "parent_control": "AIE-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0058",
+      "source_ids": [
+        "AIV4-SRC-0058"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0059",
+      "source_line": 211,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "\u062d\u0642\u0648\u0644 \u0627\u0644\u0628\u0637\u0627\u0642\u0629: \u0645\u0644\u0627\u062d\u0638\u0627\u062a",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0059",
+      "source_ids": [
+        "AIV4-SRC-0059"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0060",
+      "source_line": 215,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Name + one-line purpose: \u0644\u063a\u0629 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u060c \u0644\u0627 \u0627\u0644\u0645\u0635\u0637\u0644\u062d\u0627\u062a \u0627\u0644\u062f\u0627\u062e\u0644\u064a\u0629",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0060",
+      "source_ids": [
+        "AIV4-SRC-0060"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0061",
+      "source_line": 217,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "When should I use it?: \u062d\u0627\u0644\u0629 \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0648\u0627\u062d\u062f\u0629 \u0648\u0627\u0636\u062d\u0629",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0061",
+      "source_ids": [
+        "AIV4-SRC-0061"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0062",
+      "source_line": 219,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Category / Asset / Chain / Horizon: faceted taxonomy",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0062",
+      "source_ids": [
+        "AIV4-SRC-0062"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0063",
+      "source_line": 221,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Tier / API availability: \u0645\u0646 entitlement SSOT",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0063",
+      "source_ids": [
+        "AIV4-SRC-0063"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0064",
+      "source_line": 223,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Freshness / Coverage: \u0623\u0628\u0639\u0627\u062f \u0645\u0633\u062a\u0642\u0644\u0629",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0064",
+      "source_ids": [
+        "AIV4-SRC-0064"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0065",
+      "source_line": 225,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Assurance / Maturity: \u0623\u0628\u0639\u0627\u062f \u0645\u0633\u062a\u0642\u0644\u0629 \u0639\u0646 freshness",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0065",
+      "source_ids": [
+        "AIV4-SRC-0065"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0066",
+      "source_line": 227,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Known limitations: \u0638\u0627\u0647\u0631 \u0648\u064a\u0645\u0643\u0646 \u0641\u062a\u062d \u0627\u0644\u062a\u0641\u0627\u0635\u064a\u0644",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0066",
+      "source_ids": [
+        "AIV4-SRC-0066"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0067",
+      "source_line": 229,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Methodology / Lineage / Evidence: \u0631\u0648\u0627\u0628\u0637 \u0625\u0644\u0649 \u0627\u0644\u0645\u0635\u062f\u0631 \u0627\u0644\u062d\u0627\u0643\u0645",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0067",
+      "source_ids": [
+        "AIV4-SRC-0067"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0068",
+      "source_line": 231,
+      "section": "\u00a79",
+      "kind": "explorer_field",
+      "text": "Actions: Open / Add to My Stack / Use in Playbook / Create Alert",
+      "parent_control": "AIE-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0068",
+      "source_ids": [
+        "AIV4-SRC-0068"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0069",
+      "source_line": 239,
+      "section": "\u00a710",
+      "kind": "prose_normative",
+      "text": "\u0644\u0627 \u062a\u0633\u062a\u062e\u062f\u0645 \u0634\u062c\u0631\u0629 \u0648\u0627\u062d\u062f\u0629. capability \u0642\u062f \u062a\u0643\u0648\u0646 Whale + On-chain + Risk + BTC + Elite. \u0627\u0644\u0623\u0628\u0639\u0627\u062f \u062a\u0643\u0648\u0646 faceted \u0648\u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u0628\u062d\u062b. \u064a\u0645\u0646\u0639 \u0625\u0646\u0634\u0627\u0621 tags \u062d\u0631\u0629 \u063a\u064a\u0631 \u0645\u062d\u0643\u0648\u0645\u0629 \u0625\u0630\u0627 \u0643\u0627\u0646\u062a \u0633\u062a\u062a\u062d\u0648\u0644 \u0625\u0644\u0649 SSOT \u063a\u064a\u0631 \u0645\u0646\u0636\u0628\u0637.",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0069",
+      "source_ids": [
+        "AIV4-SRC-0069"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0070",
+      "source_line": 245,
+      "section": "\u00a711",
+      "kind": "trust_dimension",
+      "text": "\u0627\u0644\u0628\u0639\u062f: \u0642\u064a\u0645 \u0645\u062b\u0627\u0644 | \u0645\u0644\u0627\u062d\u0638\u0629",
+      "parent_control": "AIE-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0070",
+      "source_ids": [
+        "AIV4-SRC-0070"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0071",
+      "source_line": 249,
+      "section": "\u00a711",
+      "kind": "trust_dimension",
+      "text": "Assurance: Verified / Experimental / Unverified | \u0644\u0627 \u064a\u0639\u0646\u064a live.",
+      "parent_control": "AIE-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0071",
+      "source_ids": [
+        "AIV4-SRC-0071"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0072",
+      "source_line": 251,
+      "section": "\u00a711",
+      "kind": "trust_dimension",
+      "text": "Freshness: Live / Near-live / Delayed / Stale | \u0632\u0645\u0646 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a \u0641\u0642\u0637.",
+      "parent_control": "AIE-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0072",
+      "source_ids": [
+        "AIV4-SRC-0072"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0073",
+      "source_line": 253,
+      "section": "\u00a711",
+      "kind": "trust_dimension",
+      "text": "Availability: Healthy / Degraded / Unavailable | \u062d\u0627\u0644\u0629 \u0627\u0644\u062e\u062f\u0645\u0629.",
+      "parent_control": "AIE-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0073",
+      "source_ids": [
+        "AIV4-SRC-0073"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0074",
+      "source_line": 255,
+      "section": "\u00a711",
+      "kind": "trust_dimension",
+      "text": "Coverage: Full / Partial / Limited | \u0646\u0637\u0627\u0642 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a.",
+      "parent_control": "AIE-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0074",
+      "source_ids": [
+        "AIV4-SRC-0074"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0075",
+      "source_line": 257,
+      "section": "\u00a711",
+      "kind": "trust_dimension",
+      "text": "Methodology maturity: Stable / New / Under Review | \u0646\u0636\u062c \u0627\u0644\u0645\u0646\u0647\u062c.",
+      "parent_control": "AIE-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0075",
+      "source_ids": [
+        "AIV4-SRC-0075"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0076",
+      "source_line": 259,
+      "section": "\u00a711",
+      "kind": "trust_dimension",
+      "text": "Evidence class: Replay / Forward Shadow / Verified Production / Independent | \u0644\u0627 \u062a\u0631\u0642\u064a\u0629 \u0636\u0645\u0646\u064a\u0629.",
+      "parent_control": "AIE-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0076",
+      "source_ids": [
+        "AIV4-SRC-0076"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0077",
+      "source_line": 275,
+      "section": "\u00a712",
+      "kind": "prose_normative",
+      "text": "\u0627\u0644\u0645\u0633\u062a\u0648\u064a\u0627\u062a \u0627\u0644\u062e\u0645\u0633\u0629 \u062a\u0628\u0642\u0649: Answer \u2192 Why \u2192 Drivers \u2192 Evidence \u2192 Expert. \u0644\u0643\u0646 \u0644\u0627 \u064a\u062c\u0648\u0632 \u0623\u0646 \u064a\u064f\u062e\u0641\u064a \u0627\u0644\u0645\u0633\u062a\u0648\u0649 \u0627\u0644\u0623\u0648\u0644 \u0623\u064a \u0645\u0639\u0644\u0648\u0645\u0629 \u0645\u0627\u062f\u064a\u0629 \u0642\u062f \u062a\u063a\u064a\u0651\u0631 \u0627\u0644\u0642\u0631\u0627\u0631.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0077",
+      "source_ids": [
+        "AIV4-SRC-0077"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0078",
+      "source_line": 277,
+      "section": "\u00a712",
+      "kind": "disclosure_level",
+      "text": "\u0627\u0644\u0645\u0633\u062a\u0648\u0649: \u0627\u0644\u0645\u062d\u062a\u0648\u0649",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0078",
+      "source_ids": [
+        "AIV4-SRC-0078"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0079",
+      "source_line": 281,
+      "section": "\u00a712",
+      "kind": "disclosure_level",
+      "text": "Level 1 \u2014 Answer: \u0627\u0644\u0646\u062a\u064a\u062c\u0629 + uncertainty + freshness + critical contradiction/limitation + invalidation/next check",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0079",
+      "source_ids": [
+        "AIV4-SRC-0079"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0080",
+      "source_line": 283,
+      "section": "\u00a712",
+      "kind": "disclosure_level",
+      "text": "Level 2 \u2014 Why: \u0633\u0628\u0628 \u0645\u062e\u062a\u0635\u0631 \u0648\u0645\u0641\u0647\u0648\u0645",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0080",
+      "source_ids": [
+        "AIV4-SRC-0080"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0081",
+      "source_line": 285,
+      "section": "\u00a712",
+      "kind": "disclosure_level",
+      "text": "Level 3 \u2014 Drivers: \u0627\u0644\u0639\u0648\u0627\u0645\u0644 \u0627\u0644\u062d\u0627\u0633\u0645\u0629 \u0648\u0627\u062a\u062c\u0627\u0647 \u0643\u0644 \u0639\u0627\u0645\u0644",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0081",
+      "source_ids": [
+        "AIV4-SRC-0081"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0082",
+      "source_line": 287,
+      "section": "\u00a712",
+      "kind": "disclosure_level",
+      "text": "Level 4 \u2014 Evidence: \u0627\u0644\u0645\u0635\u0627\u062f\u0631\u060c \u0627\u0644\u0632\u0645\u0646\u060c lineage\u060c historical/shadow evidence",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0082",
+      "source_ids": [
+        "AIV4-SRC-0082"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0083",
+      "source_line": 289,
+      "section": "\u00a712",
+      "kind": "disclosure_level",
+      "text": "Level 5 \u2014 Expert: methodology/formula/model/version/assumptions/limitations/API",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0083",
+      "source_ids": [
+        "AIV4-SRC-0083"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0084",
+      "source_line": 297,
+      "section": "\u00a713",
+      "kind": "principle",
+      "text": "My Stack \u064a\u062d\u0641\u0638 Favorites / Recent / Saved Searches / Playbooks / Alerts \u0648\u064a\u062a\u064a\u062d Dashboard \u0634\u062e\u0635\u064a\u064b\u0627. \u0627\u0644\u062a\u062e\u0635\u064a\u0635 \u0644\u0627 \u064a\u063a\u064a\u0631 \u0627\u0644\u062d\u0642\u064a\u0642\u0629 \u0627\u0644\u0623\u0633\u0627\u0633\u064a\u0629 \u0644\u0644\u0642\u062f\u0631\u0629\u060c \u0648\u0644\u0627 \u064a\u0633\u0645\u062d \u0628\u0623\u0646 \u064a\u0635\u0628\u062d preference \u062f\u0644\u064a\u0644\u0627\u064b \u0645\u0627\u0644\u064a\u064b\u0627.",
+      "parent_control": "AIE-015",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0084",
+      "source_ids": [
+        "AIV4-SRC-0084"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0085",
+      "source_line": 305,
+      "section": "\u00a715",
+      "kind": "prose_normative",
+      "text": "\u064a\u062c\u0628 \u0627\u0644\u0641\u0635\u0644 \u0645\u0639\u0645\u0627\u0631\u064a\u064b\u0627 \u0628\u064a\u0646 Popularity \u0648Relevance \u0648Quality \u0648Trust \u0648Personalization \u062d\u062a\u0649 \u0644\u0627 \u062a\u062a\u062d\u0648\u0644 \u0627\u0644\u0634\u0639\u0628\u064a\u0629 \u0625\u0644\u0649 \u062d\u0644\u0642\u0629 \u062a\u063a\u0630\u064a\u0629 \u0630\u0627\u062a\u064a\u0629.",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0085",
+      "source_ids": [
+        "AIV4-SRC-0085"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0086",
+      "source_line": 307,
+      "section": "\u00a715",
+      "kind": "recommendation_signal",
+      "text": "Signal: \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0645\u0633\u0645\u0648\u062d",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0086",
+      "source_ids": [
+        "AIV4-SRC-0086"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0087",
+      "source_line": 311,
+      "section": "\u00a715",
+      "kind": "recommendation_signal",
+      "text": "Popularity: \u0627\u0643\u062a\u0634\u0627\u0641 \u0627\u062c\u062a\u0645\u0627\u0639\u064a \u0641\u0642\u0637\u061b \u0644\u0627 \u064a\u0639\u0627\u062f\u0644 \u062c\u0648\u062f\u0629 \u0623\u0648 \u0645\u0644\u0627\u0621\u0645\u0629",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0087",
+      "source_ids": [
+        "AIV4-SRC-0087"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0088",
+      "source_line": 313,
+      "section": "\u00a715",
+      "kind": "recommendation_signal",
+      "text": "Relevance: \u0627\u0631\u062a\u0628\u0627\u0637 \u0628\u0627\u0644\u0633\u064a\u0627\u0642/\u0627\u0644\u0623\u0635\u0644/\u0627\u0644\u0647\u062f\u0641 \u0627\u0644\u062d\u0627\u0644\u064a",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0088",
+      "source_ids": [
+        "AIV4-SRC-0088"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0089",
+      "source_line": 315,
+      "section": "\u00a715",
+      "kind": "recommendation_signal",
+      "text": "Trust/Quality: \u0647\u0644 \u0627\u0644\u062f\u0644\u064a\u0644 \u0643\u0627\u0641\u064d\u060c \u062d\u062f\u064a\u062b\u060c \u0645\u0648\u062b\u0648\u0642\u061f",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0089",
+      "source_ids": [
+        "AIV4-SRC-0089"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0090",
+      "source_line": 317,
+      "section": "\u00a715",
+      "kind": "recommendation_signal",
+      "text": "Personalization: \u062a\u0641\u0636\u064a\u0644\u0627\u062a \u0648\u0633\u0644\u0648\u0643 \u0628\u0625\u0630\u0646 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u061b \u0644\u0627 \u064a\u064f\u0639\u0627\u0645\u0644 \u0643\u062d\u0642\u064a\u0642\u0629 \u0633\u0648\u0642",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0090",
+      "source_ids": [
+        "AIV4-SRC-0090"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0091",
+      "source_line": 319,
+      "section": "\u00a715",
+      "kind": "recommendation_signal",
+      "text": "Novelty: \u064a\u0645\u0643\u0646 \u0627\u0633\u062a\u062e\u062f\u0627\u0645\u0647 \u0644\u0644\u062a\u0646\u0648\u0639\u060c \u0644\u0627 \u0644\u0631\u0641\u0639 \u0627\u0644\u062b\u0642\u0629 \u062a\u0644\u0642\u0627\u0626\u064a\u064b\u0627",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0091",
+      "source_ids": [
+        "AIV4-SRC-0091"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0092",
+      "source_line": 325,
+      "section": "\u00a715",
+      "kind": "prose_normative",
+      "text": "\u0643\u0644 \u062a\u0648\u0635\u064a\u0629 \u0630\u0643\u064a\u0629 \u064a\u062c\u0628 \u0623\u0646 \u062a\u062d\u0645\u0644 \u201cWhy this is being recommended\u201d \u0648\u0645\u0635\u062f\u0631 \u0627\u0644\u0639\u0648\u0627\u0645\u0644 \u0627\u0644\u0645\u0624\u062b\u0631\u0629\u060c \u0645\u0639 \u0645\u0646\u0639 feedback loop \u0627\u0644\u0630\u064a \u064a\u062c\u0639\u0644 \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0646\u0641\u0633\u0647 \u062f\u0644\u064a\u0644\u064b\u0627 \u0639\u0644\u0649 \u0627\u0644\u0645\u0644\u0627\u0621\u0645\u0629.",
+      "parent_control": "AIV4-005",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0092",
+      "source_ids": [
+        "AIV4-SRC-0092"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0093",
+      "source_line": 333,
+      "section": "\u00a717",
+      "kind": "surface_type",
+      "text": "\u0627\u0644\u0633\u0637\u062d: \u0627\u0644\u063a\u0631\u0636",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0093",
+      "source_ids": [
+        "AIV4-SRC-0093"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0094",
+      "source_line": 337,
+      "section": "\u00a717",
+      "kind": "surface_type",
+      "text": "Operational Intelligence: \u0642\u0631\u0627\u0631\u0627\u062a \u064a\u0648\u0645\u064a\u0629 \u0639\u0628\u0631 Dashboard/Heroes/Widgets/Workspaces",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0094",
+      "source_ids": [
+        "AIV4-SRC-0094"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0095",
+      "source_line": 339,
+      "section": "\u00a717",
+      "kind": "surface_type",
+      "text": "Specialist Intelligence: \u062a\u062d\u0644\u064a\u0644 \u0639\u0645\u064a\u0642 \u0639\u0628\u0631 Explorer/Deep Dive/Playbooks",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0095",
+      "source_ids": [
+        "AIV4-SRC-0095"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0096",
+      "source_line": 341,
+      "section": "\u00a717",
+      "kind": "surface_type",
+      "text": "Institutional Infrastructure: lineage, APIs, models, methodology, controls, SLO/evidence \u0639\u0628\u0631 Data Room",
+      "parent_control": "AIV4-001",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0096",
+      "source_ids": [
+        "AIV4-SRC-0096"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0097",
+      "source_line": 349,
+      "section": "\u00a718",
+      "kind": "prose_normative",
+      "text": "\u064a\u062d\u062a\u0641\u0638 \u0628\u0627\u0644\u0645\u0641\u0647\u0648\u0645\u060c \u0644\u0643\u0646 \u0643\u0644 edge \u064a\u062c\u0628 \u0623\u0646 \u064a\u0643\u0648\u0646 \u0644\u0647 \u0646\u0648\u0639\u061b \u0645\u0645\u0646\u0648\u0639 \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0633\u0647\u0645 \u0645\u0628\u0647\u0645 \u064a\u0648\u062d\u064a \u0628\u0627\u0644\u0633\u0628\u0628\u064a\u0629.",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0097",
+      "source_ids": [
+        "AIV4-SRC-0097"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0098",
+      "source_line": 351,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "Edge Type: \u0627\u0644\u0645\u0639\u0646\u0649",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0098",
+      "source_ids": [
+        "AIV4-SRC-0098"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0099",
+      "source_line": 355,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "DATA_FEEDS: A \u064a\u0632\u0648\u0651\u062f B \u0628\u0628\u064a\u0627\u0646\u0627\u062a",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0099",
+      "source_ids": [
+        "AIV4-SRC-0099"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0100",
+      "source_line": 357,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "DERIVED_FROM: B \u0645\u0634\u062a\u0642 \u0645\u0646 A",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0100",
+      "source_ids": [
+        "AIV4-SRC-0100"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0101",
+      "source_line": 359,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "SUPPORTS: A \u064a\u062f\u0639\u0645 \u0627\u0644\u0627\u0633\u062a\u0646\u062a\u0627\u062c B \u062f\u0648\u0646 \u0625\u062b\u0628\u0627\u062a \u0633\u0628\u0628\u064a\u0629",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0101",
+      "source_ids": [
+        "AIV4-SRC-0101"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0102",
+      "source_line": 361,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "CONTRADICTS: A \u064a\u0639\u0627\u0631\u0636 B",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0102",
+      "source_ids": [
+        "AIV4-SRC-0102"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0103",
+      "source_line": 363,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "USED_BY: A \u064a\u0633\u062a\u062e\u062f\u0645\u0647 workflow/hero B",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0103",
+      "source_ids": [
+        "AIV4-SRC-0103"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0104",
+      "source_line": 365,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "CANONICAL_REUSE: ID \u064a\u0639\u064a\u062f \u0627\u0633\u062a\u062e\u062f\u0627\u0645 canonical owner",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0104",
+      "source_ids": [
+        "AIV4-SRC-0104"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0105",
+      "source_line": 367,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "EVIDENCE_FOR: artifact \u064a\u062f\u0639\u0645 claim",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0105",
+      "source_ids": [
+        "AIV4-SRC-0105"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0106",
+      "source_line": 369,
+      "section": "\u00a718",
+      "kind": "edge_type",
+      "text": "CAUSES: \u0645\u0645\u0646\u0648\u0639 \u0625\u0644\u0627 \u0628\u062f\u0644\u064a\u0644 \u0633\u0628\u0628\u064a \u0645\u0635\u0631\u062d \u0648\u0645\u0646\u0627\u0633\u0628",
+      "parent_control": "AIE-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0106",
+      "source_ids": [
+        "AIV4-SRC-0106"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0107",
+      "source_line": 377,
+      "section": "\u00a719",
+      "kind": "principle",
+      "text": "Data Room \u0644\u0627 \u064a\u0628\u0646\u064a Registries \u0645\u0648\u0627\u0632\u064a\u0629. \u0647\u0648 \u0637\u0628\u0642\u0629 \u0628\u062d\u062b \u0648\u0639\u0631\u0636 \u062a\u062c\u0645\u0639 \u0627\u0644\u0645\u0635\u0627\u062f\u0631 \u0627\u0644\u062d\u0627\u0643\u0645\u0629 \u0627\u0644\u0645\u0648\u062c\u0648\u062f\u0629 \u0628\u0627\u0644\u0641\u0639\u0644. \u062a\u0638\u0647\u0631 \u0641\u0642\u0637 registries \u0627\u0644\u0641\u0639\u0644\u064a\u0629 \u0627\u0644\u0645\u0648\u062c\u0648\u062f\u0629\u060c \u0648\u064a\u0636\u0627\u0641 \u0623\u064a registry \u062c\u062f\u064a\u062f \u0641\u0642\u0637 \u0639\u0646\u062f \u0648\u062c\u0648\u062f \u0645\u062a\u0637\u0644\u0628 \u0645\u0633\u062a\u0642\u0644 \u062d\u0642\u064a\u0642\u064a.",
+      "parent_control": "AIE-019",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0107",
+      "source_ids": [
+        "AIV4-SRC-0107"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0108",
+      "source_line": 383,
+      "section": "\u00a720",
+      "kind": "prose_normative",
+      "text": "\u064a\u062c\u0648\u0632 \u0625\u0638\u0647\u0627\u0631 teaser \u0644\u0644\u0642\u062f\u0631\u0627\u062a \u0627\u0644\u0645\u062f\u0641\u0648\u0639\u0629 \u0628\u0645\u0627 \u064a\u062a\u0648\u0627\u0641\u0642 \u0645\u0639 \u062e\u0637\u0629 \u0627\u0644\u062a\u0633\u0639\u064a\u0631\u060c \u0644\u0643\u0646 \u0644\u0627 \u064a\u062c\u0648\u0632 \u0639\u0631\u0636 claim \u062d\u064a \u0623\u0648 \u0646\u062a\u064a\u062c\u0629 \u0645\u062e\u0635\u0635\u0629 \u063a\u064a\u0631 \u0645\u062a\u0627\u062d\u0629 \u0641\u0639\u0644\u064a\u064b\u0627 \u062b\u0645 \u0625\u062e\u0641\u0627\u0621 \u0627\u0644\u062f\u0644\u064a\u0644 \u062e\u0644\u0641 \u0627\u0644\u062f\u0641\u0639. Preview \u064a\u062c\u0628 \u0623\u0646 \u064a\u0643\u0648\u0646 \u0635\u0627\u062f\u0642\u064b\u0627 \u0648\u0642\u0627\u0628\u0644\u064b\u0627 \u0644\u0644\u062a\u0641\u0633\u064a\u0631 \u0648\u064a\u0628\u064a\u0651\u0646 \u0645\u0627 \u0647\u0648 \u0645\u062a\u0627\u062d \u0648\u0645\u0627 \u064a\u062a\u0637\u0644\u0628 \u062a\u0631\u0642\u064a\u0629.",
+      "parent_control": "AIV4-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0108",
+      "source_ids": [
+        "AIV4-SRC-0108"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0109",
+      "source_line": 387,
+      "section": "\u00a721",
+      "kind": "prose_normative",
+      "text": "\u0647\u062f\u0641 \u0627\u0644\u0625\u062a\u0627\u062d\u0629: WCAG 2.2 AA \u062d\u064a\u062b \u064a\u0646\u0637\u0628\u0642. \u062a\u0634\u0645\u0644 \u0627\u0644\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0627\u0644\u0641\u0639\u0644\u064a\u0629 keyboard navigation\u060c focus visibility \u0648\u0639\u062f\u0645 \u062d\u062c\u0628\u0647\u060c target size\u060c predictable navigation\u060c accessible authentication\u060c screen-reader semantics\u060c \u0648\u0639\u062f\u0645 \u0627\u0644\u0627\u0639\u062a\u0645\u0627\u062f \u0639\u0644\u0649 \u0627\u0644\u0644\u0648\u0646 \u0648\u062d\u062f\u0647. \u0627\u062e\u062a\u0635\u0627\u0631 Cmd/Ctrl+K \u064a\u062c\u0628 \u0623\u0644\u0627 \u064a\u0635\u0637\u062f\u0645 \u0628\u0642\u0648\u0627\u0639\u062f keyboard shortcuts \u0648\u064a\u062c\u0628 \u0623\u0646 \u062a\u0648\u062c\u062f \u0648\u0633\u064a\u0644\u0629 \u0628\u062f\u064a\u0644\u0629 \u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u0627\u0643\u062a\u0634\u0627\u0641.",
+      "parent_control": "AIV4-007",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0109",
+      "source_ids": [
+        "AIV4-SRC-0109"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0110",
+      "source_line": 391,
+      "section": "\u00a722",
+      "kind": "prose_normative",
+      "text": "\u0627\u0644\u0640Router \u0644\u064a\u0633 UI helper\u061b \u0647\u0648 decision-orchestration subsystem. \u0644\u0630\u0644\u0643 \u0644\u0627 \u064a\u062c\u0648\u0632 \u0628\u0646\u0627\u0621\u0647 \u0643\u0640black-box \u201c\u064a\u062e\u062a\u0627\u0631 \u0623\u0641\u0636\u0644 8\u201d \u0628\u062f\u0648\u0646 \u0639\u0642\u062f \u0627\u062e\u062a\u064a\u0627\u0631 \u0648\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a.",
+      "parent_control": "AIE-002",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0110",
+      "source_ids": [
+        "AIV4-SRC-0110"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0111",
+      "source_line": 395,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "\u0627\u0644\u0645\u0631\u062d\u0644\u0629: \u0627\u0644\u0642\u0627\u0639\u062f\u0629",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0111",
+      "source_ids": [
+        "AIV4-SRC-0111"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0112",
+      "source_line": 399,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "1 Intent: \u062a\u062d\u0648\u064a\u0644 \u0627\u0644\u0633\u0624\u0627\u0644 \u0625\u0644\u0649 goal/scope/horizon/decision type",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0112",
+      "source_ids": [
+        "AIV4-SRC-0112"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0113",
+      "source_line": 401,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "2 Mandatory controls: \u0625\u0636\u0627\u0641\u0629 lenses \u0625\u0644\u0632\u0627\u0645\u064a\u0629 \u062d\u0633\u0628 \u0646\u0648\u0639 \u0627\u0644\u0642\u0631\u0627\u0631\u061b \u0644\u0627 \u064a\u0645\u0643\u0646 \u062d\u0630\u0641\u0647\u0627 \u0644\u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u0633\u0631\u0639\u0629",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0113",
+      "source_ids": [
+        "AIV4-SRC-0113"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0114",
+      "source_line": 403,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "3 Candidate eligibility: \u0627\u0633\u062a\u0628\u0639\u0627\u062f \u0645\u0627 \u0644\u0627 \u064a\u062d\u0642\u0642 freshness/coverage/rights/availability/entitlement",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0114",
+      "source_ids": [
+        "AIV4-SRC-0114"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0115",
+      "source_line": 405,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "4 Dependence clustering: \u062a\u062c\u0645\u064a\u0639 \u0627\u0644\u0642\u062f\u0631\u0627\u062a \u0630\u0627\u062a source/model ancestry \u0627\u0644\u0645\u0634\u062a\u0631\u0643 \u0644\u0645\u0646\u0639 \u0639\u062f\u0647\u0627 \u0643\u0623\u062f\u0644\u0629 \u0645\u0633\u062a\u0642\u0644\u0629",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0115",
+      "source_ids": [
+        "AIV4-SRC-0115"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0116",
+      "source_line": 407,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "5 Conflict coverage: \u0636\u0645\u0627\u0646 \u0648\u062c\u0648\u062f evidence \u0645\u0624\u064a\u062f \u0648\u0645\u0639\u0627\u0631\u0636/\u0645\u0636\u0627\u062f \u0639\u0646\u062f\u0645\u0627 \u064a\u0643\u0648\u0646 \u0627\u0644\u0642\u0631\u0627\u0631 \u062d\u0633\u0627\u0633\u064b\u0627",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0116",
+      "source_ids": [
+        "AIV4-SRC-0116"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0117",
+      "source_line": 409,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "6 Marginal value: \u0625\u0636\u0627\u0641\u0629 \u0642\u062f\u0631\u0629 \u0641\u0642\u0637 \u0625\u0630\u0627 \u062a\u0636\u064a\u0641 information/coverage \u0645\u0627\u062f\u064a\u0629",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0117",
+      "source_ids": [
+        "AIV4-SRC-0117"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0118",
+      "source_line": 411,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "7 Budget: \u062d\u062f latency/compute/cost \u0648\u0627\u0636\u062d",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0118",
+      "source_ids": [
+        "AIV4-SRC-0118"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0119",
+      "source_line": 413,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "8 Stop: \u0627\u0644\u062a\u0648\u0642\u0641 \u0639\u0646\u062f\u0645\u0627 \u062a\u062a\u062d\u0642\u0642 coverage requirements \u0648\u0644\u0627 \u062a\u0648\u062c\u062f \u0625\u0636\u0627\u0641\u0629 \u0645\u0627\u062f\u064a\u0629 \u0636\u0645\u0646 \u0627\u0644\u0645\u064a\u0632\u0627\u0646\u064a\u0629",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0119",
+      "source_ids": [
+        "AIV4-SRC-0119"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0120",
+      "source_line": 415,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "9 Abstain: \u0625\u0630\u0627 \u0644\u0645 \u064a\u062a\u062d\u0642\u0642 minimum evidence \u0623\u0648 \u0627\u0644\u062a\u0639\u0627\u0631\u0636 \u063a\u064a\u0631 \u0645\u062d\u0633\u0648\u0645 \u0623\u0648 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a \u0645\u062a\u062f\u0647\u0648\u0631\u0629 \u0628\u0635\u0648\u0631\u0629 \u0645\u0627\u062f\u064a\u0629",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0120",
+      "source_ids": [
+        "AIV4-SRC-0120"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0121",
+      "source_line": 417,
+      "section": "\u00a722.1",
+      "kind": "router_stage",
+      "text": "10 Explain: \u0625\u0638\u0647\u0627\u0631 \u0644\u0645\u0627\u0630\u0627 \u0627\u062e\u062a\u064a\u0631\u062a/\u0627\u0633\u062a\u0628\u0639\u062f\u062a \u0623\u0647\u0645 \u0627\u0644\u0642\u062f\u0631\u0627\u062a",
+      "parent_control": "AIE-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0121",
+      "source_ids": [
+        "AIV4-SRC-0121"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0122",
+      "source_line": 435,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "\u0627\u0644\u062d\u0642\u0644: \u0627\u0644\u0645\u0637\u0644\u0648\u0628",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0122",
+      "source_ids": [
+        "AIV4-SRC-0122"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0123",
+      "source_line": 439,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Current stance: Opportunity / Risk / Neutral / Abstain \u0623\u0648 domain-specific",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0123",
+      "source_ids": [
+        "AIV4-SRC-0123"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0124",
+      "source_line": 441,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Decision scope: asset/universe/horizon/user context",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0124",
+      "source_ids": [
+        "AIV4-SRC-0124"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0125",
+      "source_line": 443,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Confidence vector: Evidence coverage / Data quality / Signal agreement / Calibration / Regime familiarity / Staleness",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0125",
+      "source_ids": [
+        "AIV4-SRC-0125"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0126",
+      "source_line": 445,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Key drivers: 3\u20135 \u0639\u0648\u0627\u0645\u0644 \u062d\u0627\u0633\u0645\u0629",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0126",
+      "source_ids": [
+        "AIV4-SRC-0126"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0127",
+      "source_line": 447,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Contradictions: \u0623\u0647\u0645 \u0639\u0648\u0627\u0645\u0644 \u0627\u0644\u0645\u0639\u0627\u0631\u0636\u0629 \u0648\u0648\u0632\u0646\u0647\u0627/\u0623\u0647\u0645\u064a\u062a\u0647\u0627",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0127",
+      "source_ids": [
+        "AIV4-SRC-0127"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0128",
+      "source_line": 449,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Decision Boundary: \u0627\u0644\u0634\u0631\u0648\u0637 \u0627\u0644\u062a\u064a \u0633\u062a\u063a\u064a\u0631 \u0627\u0644\u0642\u0631\u0627\u0631",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0128",
+      "source_ids": [
+        "AIV4-SRC-0128"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0129",
+      "source_line": 451,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Invalidation conditions: \u0645\u062a\u0649 \u064a\u0635\u0628\u062d \u0627\u0644\u0642\u0631\u0627\u0631 \u063a\u064a\u0631 \u0635\u0627\u0644\u062d",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0129",
+      "source_ids": [
+        "AIV4-SRC-0129"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0130",
+      "source_line": 453,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Validity window: \u0625\u0644\u0649 \u0645\u062a\u0649 \u064a\u0628\u0642\u0649 \u0627\u0644\u0642\u0631\u0627\u0631 \u0642\u0627\u0628\u0644\u064b\u0627 \u0644\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0642\u0628\u0644 \u0625\u0639\u0627\u062f\u0629 \u0627\u0644\u062a\u0642\u064a\u064a\u0645",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0130",
+      "source_ids": [
+        "AIV4-SRC-0130"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0131",
+      "source_line": 455,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Next check / trigger: \u0632\u0645\u0646 \u0623\u0648 \u062d\u062f\u062b \u064a\u0639\u064a\u062f \u0627\u0644\u062d\u0633\u0627\u0628",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0131",
+      "source_ids": [
+        "AIV4-SRC-0131"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0132",
+      "source_line": 457,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Evidence class: replay/shadow/live/... \u0628\u062f\u0648\u0646 \u062a\u0631\u0642\u064a\u0629",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0132",
+      "source_ids": [
+        "AIV4-SRC-0132"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0133",
+      "source_line": 459,
+      "section": "\u00a723",
+      "kind": "contract_field",
+      "text": "Version lineage: rule/model/data/evaluator version",
+      "parent_control": "AIE-006",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0133",
+      "source_ids": [
+        "AIV4-SRC-0133"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0134",
+      "source_line": 469,
+      "section": "\u00a724",
+      "kind": "prose_normative",
+      "text": "\u0644\u0627 \u062a\u0633\u062a\u062e\u062f\u0645 agreement count \u0643\u0627\u062d\u062a\u0645\u0627\u0644.",
+      "parent_control": "AIV4-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0134",
+      "source_ids": [
+        "AIV4-SRC-0134"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0135",
+      "source_line": 471,
+      "section": "\u00a724",
+      "kind": "prose_normative",
+      "text": "\u0644\u0627 \u062a\u0639\u062f \u0625\u0634\u0627\u0631\u0627\u062a \u0645\u062a\u0631\u0627\u0628\u0637\u0629 \u0643\u0623\u062f\u0644\u0629 \u0645\u0633\u062a\u0642\u0644\u0629.",
+      "parent_control": "AIV4-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0135",
+      "source_ids": [
+        "AIV4-SRC-0135"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0136",
+      "source_line": 473,
+      "section": "\u00a724",
+      "kind": "prose_normative",
+      "text": "\u0639\u0646\u062f \u0646\u0642\u0635 evidence \u064a\u062c\u0628 \u062e\u0641\u0636 confidence \u0623\u0648 abstain\u060c \u0644\u0627 \u062a\u0639\u0648\u064a\u0636\u0647 \u0628\u0644\u063a\u0629 \u0648\u0627\u062b\u0642\u0629.",
+      "parent_control": "AIV4-008",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0136",
+      "source_ids": [
+        "AIV4-SRC-0136"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0137",
+      "source_line": 479,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "\u0627\u0644\u062d\u0642\u0644: \u0627\u0644\u062a\u0639\u0631\u064a\u0641",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0137",
+      "source_ids": [
+        "AIV4-SRC-0137"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0138",
+      "source_line": 483,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Variable(s): \u0627\u0644\u0645\u062a\u063a\u064a\u0631 \u0623\u0648 \u0645\u062c\u0645\u0648\u0639\u0629 \u0627\u0644\u0645\u062a\u063a\u064a\u0631\u0627\u062a \u0627\u0644\u062d\u0627\u0633\u0645\u0629",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0138",
+      "source_ids": [
+        "AIV4-SRC-0138"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0139",
+      "source_line": 485,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Direction: above/below/cross/condition change",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0139",
+      "source_ids": [
+        "AIV4-SRC-0139"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0140",
+      "source_line": 487,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Threshold: \u0642\u064a\u0645\u0629 \u0623\u0648 \u0642\u0627\u0639\u062f\u0629 \u0642\u0627\u0628\u0644\u0629 \u0644\u0625\u0639\u0627\u062f\u0629 \u0627\u0644\u0625\u0646\u062a\u0627\u062c",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0140",
+      "source_ids": [
+        "AIV4-SRC-0140"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0141",
+      "source_line": 489,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Uncertainty band: \u0646\u0637\u0627\u0642 \u0639\u062f\u0645 \u064a\u0642\u064a\u0646 \u062d\u0648\u0644 \u0627\u0644\u062d\u062f \u0625\u0646 \u0648\u062c\u062f",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0141",
+      "source_ids": [
+        "AIV4-SRC-0141"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0142",
+      "source_line": 491,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Persistence: \u0645\u062f\u0629/\u0639\u062f\u062f \u0645\u0634\u0627\u0647\u062f\u0627\u062a \u0642\u0628\u0644 \u0627\u0639\u062a\u0628\u0627\u0631 \u0627\u0644\u0643\u0633\u0631 \u062d\u0642\u064a\u0642\u064a\u064b\u0627",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0142",
+      "source_ids": [
+        "AIV4-SRC-0142"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0143",
+      "source_line": 493,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Regime: \u0627\u0644\u0633\u064a\u0627\u0642 \u0627\u0644\u0630\u064a \u064a\u0643\u0648\u0646 \u0627\u0644\u062d\u062f \u0635\u0627\u0644\u062d\u064b\u0627 \u0641\u064a\u0647",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0143",
+      "source_ids": [
+        "AIV4-SRC-0143"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0144",
+      "source_line": 495,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Validity window: \u0635\u0644\u0627\u062d\u064a\u0629 \u0632\u0645\u0646\u064a\u0629 \u0644\u0644\u062d\u062f",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0144",
+      "source_ids": [
+        "AIV4-SRC-0144"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0145",
+      "source_line": 497,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Conflict rule: \u0645\u0627\u0630\u0627 \u064a\u062d\u062f\u062b \u0625\u0630\u0627 \u062a\u062d\u0642\u0642\u062a \u0634\u0631\u0648\u0637 \u0645\u062a\u0639\u0627\u0631\u0636\u0629",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0145",
+      "source_ids": [
+        "AIV4-SRC-0145"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0146",
+      "source_line": 499,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Recompute trigger: \u0645\u062a\u0649 \u064a\u064f\u0639\u0627\u062f \u062d\u0633\u0627\u0628 \u0627\u0644\u062d\u062f",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0146",
+      "source_ids": [
+        "AIV4-SRC-0146"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0147",
+      "source_line": 501,
+      "section": "\u00a725",
+      "kind": "boundary_field",
+      "text": "Evidence: \u0627\u0644\u062f\u0644\u064a\u0644/\u0627\u0644\u0645\u0639\u0627\u064a\u0631\u0629/\u0627\u0644\u0646\u0633\u062e\u0629",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0147",
+      "source_ids": [
+        "AIV4-SRC-0147"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0148",
+      "source_line": 507,
+      "section": "\u00a725",
+      "kind": "prose_normative",
+      "text": "\u064a\u0645\u0646\u0639 oscillation \u063a\u064a\u0631 \u0627\u0644\u0645\u0641\u064a\u062f \u0639\u0628\u0631 hysteresis/persistence \u0639\u0646\u062f \u0627\u0644\u062d\u0627\u062c\u0629. \u0627\u0644\u062d\u062f\u0648\u062f \u063a\u064a\u0631 \u0627\u0644\u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u0645\u0639\u0627\u064a\u0631\u0629 \u0644\u0627 \u062a\u064f\u0639\u0631\u0636 \u0643\u0623\u0631\u0642\u0627\u0645 \u062f\u0642\u064a\u0642\u0629\u061b \u064a\u0645\u0643\u0646 \u0639\u0631\u0636 qualitative invalidation condition.",
+      "parent_control": "AIV4-009",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0148",
+      "source_ids": [
+        "AIV4-SRC-0148"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0149",
+      "source_line": 511,
+      "section": "\u00a726",
+      "kind": "prose_normative",
+      "text": "\u064a\u064f\u062d\u062a\u0641\u0638 \u0628\u0641\u0643\u0631\u0629 \u0627\u0636\u0645\u062d\u0644\u0627\u0644 \u0627\u0644\u062b\u0642\u0629\u060c \u0644\u0643\u0646 \u062a\u064f\u0632\u0627\u0644 \u0623\u064a \u0646\u0633\u0628\u0629 \u0625\u0644\u0649 Grinold Fundamental Law. decay \u064a\u062c\u0628 \u0623\u0646 \u064a\u064f\u0634\u062a\u0642 \u0645\u0646 predictive horizon\u060c source staleness\u060c regime drift\u060c calibration history \u0623\u0648 empirical half-life \u062d\u064a\u062b \u062a\u062a\u0648\u0641\u0631 \u0627\u0644\u0623\u062f\u0644\u0629. \u0625\u0630\u0627 \u0644\u0645 \u062a\u062a\u0648\u0641\u0631 \u0645\u0639\u0627\u064a\u0631\u0629\u060c \u064a\u0639\u0631\u0636 \u0627\u0644\u0646\u0638\u0627\u0645 next recheck/freshness \u0628\u062f\u0644 \u201c\u0633\u0627\u0639\u0629 \u0639\u0644\u0645\u064a\u0629\u201d \u0632\u0627\u0626\u0641\u0629.",
+      "parent_control": "AIV4-010",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0149",
+      "source_ids": [
+        "AIV4-SRC-0149"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0150",
+      "source_line": 515,
+      "section": "\u00a727",
+      "kind": "prose_normative",
+      "text": "\u0644\u0627 \u062a\u0639\u0631\u0636 \u201c7 \u062a\u0624\u064a\u062f / 2 \u062a\u0639\u0627\u0631\u0636\u201d \u0628\u0627\u0639\u062a\u0628\u0627\u0631\u0647\u0627 9 \u0623\u0635\u0648\u0627\u062a \u0645\u0633\u062a\u0642\u0644\u0629. \u062a\u0639\u0631\u0636 \u0634\u0628\u0643\u0629 \u0627\u0644\u062a\u0623\u0643\u064a\u062f \u0639\u062f\u062f\u064b\u0627 \u062e\u0627\u0645\u064b\u0627 + effective independent evidence \u0628\u0639\u062f clustering \u0644\u0644\u0645\u0635\u0627\u062f\u0631/\u0627\u0644\u0646\u0645\u0627\u0630\u062c/\u0627\u0644\u0645\u0634\u062a\u0642\u0627\u062a \u0627\u0644\u0645\u0634\u062a\u0631\u0643\u0629\u060c \u0645\u0639 \u0625\u0628\u0631\u0627\u0632 contradictions \u0627\u0644\u062d\u0642\u064a\u0642\u064a\u0629.",
+      "parent_control": "AIV4-011",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0150",
+      "source_ids": [
+        "AIV4-SRC-0150"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0151",
+      "source_line": 525,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "\u0627\u0644\u0645\u0642\u064a\u0627\u0633: \u0645\u062b\u0627\u0644 \u0642\u0628\u0648\u0644 \u0623\u0648\u0644\u064a \u2014 \u064a\u062d\u062f\u062f \u0627\u0644\u0645\u0634\u0631\u0648\u0639 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0646\u0647\u0627\u0626\u064a \u0642\u0628\u0644 \u0627\u0644\u0627\u062e\u062a\u0628\u0627\u0631",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0151",
+      "source_ids": [
+        "AIV4-SRC-0151"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0152",
+      "source_line": 529,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Task success: \u0647\u0644 \u0623\u0643\u0645\u0644 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0645\u0647\u0645\u0629 \u0627\u0644\u0635\u062d\u064a\u062d\u0629 \u062f\u0648\u0646 \u0645\u0633\u0627\u0639\u062f\u0629\u061f",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0152",
+      "source_ids": [
+        "AIV4-SRC-0152"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0153",
+      "source_line": 531,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Time-to-insight: \u0627\u0644\u0648\u0642\u062a \u0644\u0644\u0648\u0635\u0648\u0644 \u0625\u0644\u0649 \u0627\u0633\u062a\u0646\u062a\u0627\u062c \u0642\u0627\u0628\u0644 \u0644\u0644\u062a\u0635\u0631\u0641",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0153",
+      "source_ids": [
+        "AIV4-SRC-0153"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0154",
+      "source_line": 533,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Comprehension: \u0647\u0644 \u0641\u0647\u0645 \u0627\u0644\u0633\u0628\u0628/\u0627\u0644\u0642\u064a\u0648\u062f/\u0639\u062f\u0645 \u0627\u0644\u064a\u0642\u064a\u0646\u061f",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0154",
+      "source_ids": [
+        "AIV4-SRC-0154"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0155",
+      "source_line": 535,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Critical omission rate: \u0647\u0644 \u0641\u0627\u062a\u062a\u0647 limitation \u0623\u0648 contradiction \u0645\u0627\u062f\u064a\u0629\u061f",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0155",
+      "source_ids": [
+        "AIV4-SRC-0155"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0156",
+      "source_line": 537,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Decision reversal after explanation: \u0647\u0644 \u0627\u0644\u062a\u0641\u0633\u064a\u0631 \u0643\u0634\u0641 \u0641\u0647\u0645\u064b\u0627 \u062e\u0627\u0637\u0626\u064b\u0627\u061f",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0156",
+      "source_ids": [
+        "AIV4-SRC-0156"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0157",
+      "source_line": 539,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Over-reliance / automation bias indicators: \u0647\u0644 \u0627\u062a\u0628\u0639 \u0627\u0644\u0646\u0638\u0627\u0645 \u0631\u063a\u0645 evidence \u0636\u0639\u064a\u0641 \u0623\u0648 warning \u0648\u0627\u0636\u062d\u061f",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0157",
+      "source_ids": [
+        "AIV4-SRC-0157"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0158",
+      "source_line": 541,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Perceived control: \u0647\u0644 \u064a\u0639\u0631\u0641 \u0643\u064a\u0641 \u064a\u0641\u062a\u062d \u0627\u0644\u0623\u062f\u0644\u0629/\u064a\u063a\u064a\u0631 \u0627\u0644\u0647\u062f\u0641/\u064a\u0631\u0641\u0636 recommendation\u061f",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0158",
+      "source_ids": [
+        "AIV4-SRC-0158"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0159",
+      "source_line": 543,
+      "section": "\u00a729",
+      "kind": "hv_metric",
+      "text": "Accessibility task completion: keyboard/screen reader/focus/authentication tasks",
+      "parent_control": "AIV4-013",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0159",
+      "source_ids": [
+        "AIV4-SRC-0159"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0160",
+      "source_line": 559,
+      "section": "\u00a730",
+      "kind": "prose_normative",
+      "text": "\u064a\u062c\u0628 \u0623\u0644\u0627 \u064a\u062a\u062d\u0648\u0644 Router \u0625\u0644\u0649 \u0639\u0646\u0642 \u0632\u062c\u0627\u062c\u0629. \u0643\u0644 intent/playbook \u064a\u0645\u0644\u0643 budget: maximum candidate set\u060c maximum selected set\u060c latency class\u060c cache policy\u060c degradation path\u060c cost ceiling\u060c \u0648\u0645\u062a\u0649 \u064a\u0646\u062a\u0642\u0644 \u0625\u0644\u0649 asynchronous/deep analysis. \u0627\u0644\u0642\u064a\u0627\u0633 \u0627\u0644\u0641\u0639\u0644\u064a \u064a\u062d\u062f\u062f \u0627\u0644\u062d\u062f\u0648\u062f\u061b \u0644\u0627 \u062a\u064f\u0641\u0631\u0636 \u0623\u0631\u0642\u0627\u0645 Nielsen \u0623\u0648 p95 \u0628\u0644\u0627 \u0623\u0633\u0627\u0633 \u0645\u0627\u062f\u064a.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0160",
+      "source_ids": [
+        "AIV4-SRC-0160"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0161",
+      "source_line": 563,
+      "section": "\u00a731",
+      "kind": "prose_normative",
+      "text": "\u0647\u0630\u0647 \u0627\u0644\u0648\u062b\u064a\u0642\u0629 \u0644\u0627 \u062a\u0639\u064a\u0634 \u0641\u064a \u0639\u0627\u0644\u0645 \u0645\u0648\u0627\u0632\u064d. \u0642\u0628\u0644 \u062a\u0646\u0641\u064a\u0630 \u0623\u064a \u0639\u0646\u0635\u0631\u060c \u064a\u062c\u0628 \u0623\u0646 \u064a\u064f\u0631\u0628\u0637 \u0628\u0627\u0644\u0640SSOT \u0627\u0644\u062d\u0627\u0644\u064a \u0644\u0644\u0645\u0634\u0631\u0648\u0639: capability IDs\u060c canonical decisions\u060c RTM\u060c runtime bindings\u060c entitlement\u060c evidence/Temporal classes\u060c data provenance\u060c active status dimensions. \u0644\u0627 \u064a\u062c\u0648\u0632 \u0625\u0646\u0634\u0627\u0621 \u201c\u0645\u0643\u062a\u0628\u0629 \u062c\u062f\u064a\u062f\u0629\u201d \u062a\u0646\u0633\u062e \u0646\u0641\u0633 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0161",
+      "source_ids": [
+        "AIV4-SRC-0161"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0162",
+      "source_line": 565,
+      "section": "\u00a731",
+      "kind": "integration_rule",
+      "text": "\u0642\u0627\u0639\u062f\u0629: \u0627\u0644\u062a\u0637\u0628\u064a\u0642",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0162",
+      "source_ids": [
+        "AIV4-SRC-0162"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0163",
+      "source_line": 569,
+      "section": "\u00a731",
+      "kind": "integration_rule",
+      "text": "Canonical identity: \u0643\u0644 UI card/router candidate \u064a\u0633\u062a\u062e\u062f\u0645 canonical ID/alias \u0645\u0646 \u0627\u0644\u0645\u0635\u062f\u0631 \u0627\u0644\u062d\u0627\u0643\u0645",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0163",
+      "source_ids": [
+        "AIV4-SRC-0163"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0164",
+      "source_line": 571,
+      "section": "\u00a731",
+      "kind": "integration_rule",
+      "text": "Runtime truth: \u0623\u064a capability \u064a\u0631\u0634\u062d\u0647\u0627 Router \u064a\u062c\u0628 \u0623\u0646 \u062a\u0635\u0644 \u0641\u0639\u0644\u064a\u064b\u0627 \u0625\u0644\u0649 canonical runtime proven implementation",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0164",
+      "source_ids": [
+        "AIV4-SRC-0164"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0165",
+      "source_line": 573,
+      "section": "\u00a731",
+      "kind": "integration_rule",
+      "text": "Status truth: \u0648\u0627\u062c\u0647\u0629 Trust Dimensions \u062a\u064f\u0634\u062a\u0642 \u0645\u0646 \u0627\u0644\u0623\u0628\u0639\u0627\u062f \u0627\u0644\u062d\u0627\u0643\u0645\u0629 \u0648\u0644\u0627 \u062a\u062e\u062a\u0631\u0639 status \u062c\u062f\u064a\u062f\u064b\u0627 \u063a\u064a\u0631 \u0642\u0627\u0628\u0644 \u0644\u0644\u062a\u062a\u0628\u0639",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0165",
+      "source_ids": [
+        "AIV4-SRC-0165"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0166",
+      "source_line": 575,
+      "section": "\u00a731",
+      "kind": "integration_rule",
+      "text": "Evidence truth: Decision Contract \u064a\u0631\u0628\u0637 artifacts/versions \u0648\u0627\u0644\u062a\u0635\u0646\u064a\u0641 \u0627\u0644\u0632\u0645\u0646\u064a \u0627\u0644\u0635\u062d\u064a\u062d",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0166",
+      "source_ids": [
+        "AIV4-SRC-0166"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0167",
+      "source_line": 577,
+      "section": "\u00a731",
+      "kind": "integration_rule",
+      "text": "Entitlement: \u0643\u0644 surface \u064a\u0633\u062a\u062e\u062f\u0645 \u0646\u0641\u0633 entitlement authority\u061b \u0644\u0627 bypass",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0167",
+      "source_ids": [
+        "AIV4-SRC-0167"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0168",
+      "source_line": 579,
+      "section": "\u00a731",
+      "kind": "integration_rule",
+      "text": "Historical preservation: \u0623\u064a \u062a\u063a\u064a\u0631 status/binding \u0644\u0627 \u064a\u0645\u062d\u0648 evidence \u062a\u0627\u0631\u064a\u062e\u064a \u0644\u0643\u0646\u0647 \u0644\u0627 \u064a\u0628\u0642\u064a\u0647 claim \u062d\u0627\u0644\u064a\u064b\u0627",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0168",
+      "source_ids": [
+        "AIV4-SRC-0168"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0169",
+      "source_line": 587,
+      "section": "\u00a732",
+      "kind": "phase_row",
+      "text": "\u0627\u0644\u0645\u0631\u062d\u0644\u0629: \u0627\u0644\u0645\u0643\u0648\u0646\u0627\u062a | \u0634\u0631\u0637 \u0627\u0644\u0627\u0646\u062a\u0642\u0627\u0644",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0169",
+      "source_ids": [
+        "AIV4-SRC-0169"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0170",
+      "source_line": 591,
+      "section": "\u00a732",
+      "kind": "phase_row",
+      "text": "P0 \u2014 Foundations: Capability metadata contract\u060c Trust Dimensions\u060c typed graph edges\u060c Safety Floor\u060c SSOT adapters | \u0644\u0627 stale/parallel truth\u061b metadata completeness \u0639\u0644\u0649 \u0627\u0644\u0639\u064a\u0646\u0629 \u0627\u0644\u0645\u0633\u062a\u0647\u062f\u0641\u0629",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0170",
+      "source_ids": [
+        "AIV4-SRC-0170"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0171",
+      "source_line": 593,
+      "section": "\u00a732",
+      "kind": "phase_row",
+      "text": "P1 \u2014 Sellable UX Core: Calm Surface\u060c Six Heroes\u060c Today\u2019s Focus\u060c Universal Command/Intent v1\u060c Capability Explorer | \u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 + task success/comprehension \u0645\u0642\u0628\u0648\u0644\u0629",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0171",
+      "source_ids": [
+        "AIV4-SRC-0171"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0172",
+      "source_line": 595,
+      "section": "\u00a732",
+      "kind": "phase_row",
+      "text": "P2 \u2014 Guided Intelligence: Official Playbooks\u060c Contextual Capabilities\u060c My Stack\u060c Workspaces \u0645\u062d\u062f\u0648\u062f\u0629 | playbook validation + retention/usage evidence",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0172",
+      "source_ids": [
+        "AIV4-SRC-0172"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0173",
+      "source_line": 597,
+      "section": "\u00a732",
+      "kind": "phase_row",
+      "text": "P3 \u2014 Router v1 + Decision Contract: deterministic/transparent routing\u060c mandatory controls\u060c conflict handling\u060c abstention\u060c boundaries | runtime semantic proof + calibration/decision safety evaluation",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0173",
+      "source_ids": [
+        "AIV4-SRC-0173"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0174",
+      "source_line": 599,
+      "section": "\u00a732",
+      "kind": "phase_row",
+      "text": "P4 \u2014 Smart Discovery: recommendations\u060c dependence-aware confirmation\u060c temporal validity | feedback-loop controls + recommendation evaluation",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0174",
+      "source_ids": [
+        "AIV4-SRC-0174"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0175",
+      "source_line": 601,
+      "section": "\u00a732",
+      "kind": "phase_row",
+      "text": "P5 \u2014 Personal/Institutional Expansion: Mirror Ledger\u060c advanced personalization\u060c Institutional Data Room views | privacy/consent + B2B/user evidence",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0175",
+      "source_ids": [
+        "AIV4-SRC-0175"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0176",
+      "source_line": 607,
+      "section": "\u00a732",
+      "kind": "prose_normative",
+      "text": "\u0644\u0627 \u064a\u0628\u062f\u0623 P3 \u0641\u0642\u0637 \u0644\u0623\u0646 P1/P2 \u0645\u0643\u062a\u0648\u0628\u0629 \u0641\u064a \u0627\u0644\u0645\u0648\u0627\u0635\u0641\u0629\u061b \u064a\u0628\u062f\u0623 \u0639\u0646\u062f\u0645\u0627 \u062a\u0643\u0648\u0646 foundation evidence \u0648\u0627\u0644\u0640human validation \u062c\u0627\u0647\u0632\u0629. \u0648\u064a\u0645\u0643\u0646 \u062a\u0646\u0641\u064a\u0630 \u0628\u0639\u0636 \u0627\u0644\u0628\u0646\u064a\u0629 \u062a\u062d\u062a\u064a\u0629 \u0628\u0627\u0644\u062a\u0648\u0627\u0632\u064a \u0625\u0630\u0627 \u0643\u0627\u0646\u062a \u0645\u0648\u062c\u0648\u062f\u0629 \u0628\u0627\u0644\u0641\u0639\u0644 \u0641\u064a v4_v2/Temporal\u060c \u0644\u0643\u0646 \u0644\u0627 \u064a\u064f\u0646\u0634\u0623 \u0628\u062f\u064a\u0644 \u062c\u062f\u064a\u062f.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0176",
+      "source_ids": [
+        "AIV4-SRC-0176"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0177",
+      "source_line": 611,
+      "section": "\u00a732.1",
+      "kind": "prose_normative",
+      "text": "\u0647\u0630\u0647 \u0627\u0644\u0645\u062e\u0627\u0637\u0631 \u0644\u064a\u0633\u062a \u0639\u064a\u0648\u0628\u064b\u0627 \u0645\u0641\u062a\u0648\u062d\u0629 \u0641\u064a \u0627\u0644\u0648\u062b\u064a\u0642\u0629 \u0627\u0644\u062a\u0635\u0645\u064a\u0645\u064a\u0629 \u0646\u0641\u0633\u0647\u0627\u061b \u0647\u064a \u0645\u062e\u0627\u0637\u0631 \u062a\u0646\u0641\u064a\u0630/\u062a\u062d\u0642\u0642 \u064a\u062c\u0628 \u0623\u0646 \u062a\u0628\u0642\u0649 \u0638\u0627\u0647\u0631\u0629 \u062d\u062a\u0649 \u062a\u062b\u0628\u062a \u0628\u0627\u0644\u0623\u062f\u0644\u0629.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0177",
+      "source_ids": [
+        "AIV4-SRC-0177"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0178",
+      "source_line": 613,
+      "section": "\u00a732.1",
+      "kind": "risk_row",
+      "text": "\u0627\u0644\u062e\u0637\u0631: \u0627\u0644\u0645\u0633\u062a\u0648\u0649 | \u0627\u0644\u0645\u0639\u0627\u0644\u062c\u0629 \u0627\u0644\u0625\u0644\u0632\u0627\u0645\u064a\u0629 | \u0634\u0631\u0637 \u062e\u0641\u0636 \u0627\u0644\u062e\u0637\u0631",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0178",
+      "source_ids": [
+        "AIV4-SRC-0178"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0179",
+      "source_line": 615,
+      "section": "\u00a732.1",
+      "kind": "risk_row",
+      "text": "Router + Decision Contract production complexity: \u0639\u0627\u0644\u064a | \u062a\u0646\u0641\u064a\u0630 \u0645\u0631\u062d\u0644\u064a deterministic\u060c observability\u060c replay/shadow\u060c rollback\u060c abstention | \u0627\u0633\u062a\u0642\u0631\u0627\u0631 \u0633\u0644\u0648\u0643 runtime \u062a\u062d\u062a \u0628\u064a\u0627\u0646\u0627\u062a \u0648\u062a\u0639\u0627\u0631\u0636\u0627\u062a \u062d\u0642\u064a\u0642\u064a\u0629",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0179",
+      "source_ids": [
+        "AIV4-SRC-0179"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0180",
+      "source_line": 616,
+      "section": "\u00a732.1",
+      "kind": "risk_row",
+      "text": "Confidence/Boundary calibration: \u0639\u0627\u0644\u064a | \u0644\u0627 false precision\u061b confidence vector \u0623\u0648\u0644\u064b\u0627\u061b calibration \u0641\u0642\u0637 \u0645\u0646 outcome history \u0645\u0646\u0627\u0633\u0628\u0629 | calibration error/coverage/validity \u0645\u0648\u062b\u0642\u0629 \u062d\u0633\u0628 use case",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0180",
+      "source_ids": [
+        "AIV4-SRC-0180"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0181",
+      "source_line": 617,
+      "section": "\u00a732.1",
+      "kind": "risk_row",
+      "text": "Concept/subsystem density: \u0645\u062a\u0648\u0633\u0637 | \u0627\u0644\u0627\u0644\u062a\u0632\u0627\u0645 \u0627\u0644\u0635\u0627\u0631\u0645 \u0628\u0640P0\u2013P2 \u0648\u0639\u062f\u0645 \u0628\u0646\u0627\u0621 P3\u2013P5 \u0642\u0628\u0644 \u0628\u0648\u0627\u0628\u0627\u062a\u0647\u0627 | \u0639\u062f\u0645 \u062a\u062c\u0627\u0648\u0632 Surface Budget \u0648roadmap gates",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0181",
+      "source_ids": [
+        "AIV4-SRC-0181"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0182",
+      "source_line": 618,
+      "section": "\u00a732.1",
+      "kind": "risk_row",
+      "text": "Human Validation: \u0645\u062a\u0648\u0633\u0637 | \u0627\u062e\u062a\u0628\u0627\u0631 \u0645\u0628\u0643\u0631 \u0645\u0639 \u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 \u0645\u0645\u062b\u0644\u064a\u0646 \u0648\u0645\u0647\u0627\u0645 \u0648\u0627\u0642\u0639\u064a\u0629 \u0648\u0642\u064a\u0627\u0633\u0627\u062a comprehension/task success | evidence \u0645\u0646 \u062f\u0648\u0631\u0627\u062a \u0627\u062e\u062a\u0628\u0627\u0631 \u062d\u0642\u064a\u0642\u064a\u0629 + \u0625\u0635\u0644\u0627\u062d \u0648\u0625\u0639\u0627\u062f\u0629 \u0627\u062e\u062a\u0628\u0627\u0631",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0182",
+      "source_ids": [
+        "AIV4-SRC-0182"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0183",
+      "source_line": 619,
+      "section": "\u00a732.1",
+      "kind": "risk_row",
+      "text": "Runtime/Cost Budget: \u0645\u062a\u0648\u0633\u0637 | instrumentation \u0648\u0642\u064a\u0627\u0633 latency/compute/cache/data/API cost | budgets \u0631\u0642\u0645\u064a\u0629 \u0645\u0628\u0646\u064a\u0629 \u0639\u0644\u0649 \u0642\u064a\u0627\u0633 \u0641\u0639\u0644\u064a \u0644\u0627 \u062a\u0642\u062f\u064a\u0631",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0183",
+      "source_ids": [
+        "AIV4-SRC-0183"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0184",
+      "source_line": 620,
+      "section": "\u00a732.1",
+      "kind": "risk_row",
+      "text": "Competitive differentiation claims: \u0645\u0646\u062e\u0641\u0636\u2013\u0645\u062a\u0648\u0633\u0637 | \u0627\u0639\u062a\u0628\u0627\u0631\u0647\u0627 hypothesis \u062d\u062a\u0649 competitive verification \u062d\u062f\u064a\u062b | evidence market/competitor/user validation",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0184",
+      "source_ids": [
+        "AIV4-SRC-0184"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0185",
+      "source_line": 622,
+      "section": "\u00a732.1",
+      "kind": "prose_normative",
+      "text": "**\u0642\u0627\u0639\u062f\u0629 \u0627\u0644\u0645\u062e\u0627\u0637\u0631:** \u0644\u0627 \u064a\u062c\u0648\u0632 \u062a\u062d\u0648\u064a\u0644 \u0623\u064a \u0639\u0646\u0635\u0631 \u0641\u064a \u0647\u0630\u0627 \u0627\u0644\u062c\u062f\u0648\u0644 \u0625\u0644\u0649 CLOSED \u0644\u0645\u062c\u0631\u062f \u0623\u0646 \u0627\u0644\u062a\u0635\u0645\u064a\u0645 \u064a\u0630\u0643\u0631 \u0636\u0627\u0628\u0637\u064b\u0627 \u0644\u0647\u061b \u0627\u0644\u0625\u063a\u0644\u0627\u0642 \u064a\u062d\u062a\u0627\u062c evidence \u0645\u0646 \u0627\u0644\u062a\u0646\u0641\u064a\u0630 \u0623\u0648 \u0627\u0644\u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u0645\u0646\u0627\u0633\u0628.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0185",
+      "source_ids": [
+        "AIV4-SRC-0185"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0186",
+      "source_line": 652,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "\u0627\u0644\u0639\u064a\u0628: \u0627\u0644\u062e\u0637\u0648\u0631\u0629 | \u0627\u0644\u0645\u0639\u0627\u0644\u062c\u0629 \u0641\u064a v4 | \u0627\u0644\u062d\u0627\u0644\u0629",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0186",
+      "source_ids": [
+        "AIV4-SRC-0186"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0187",
+      "source_line": 656,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Router \u201cminimum sufficient\u201d \u0628\u0644\u0627 \u062a\u0639\u0631\u064a\u0641: Critical | Router Selection Contract + mandatory controls + dependence + stop/abstain | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0187",
+      "source_ids": [
+        "AIV4-SRC-0187"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0188",
+      "source_line": 658,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Confidence 82% \u0628\u0644\u0627 \u0645\u0639\u0646\u0649/\u0645\u0639\u0627\u064a\u0631\u0629: Critical | Confidence vector + numeric only when calibrated | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0188",
+      "source_ids": [
+        "AIV4-SRC-0188"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0189",
+      "source_line": 660,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Decision Boundary \u0646\u0638\u0631\u064a: Critical | Boundary Contract: threshold/band/persistence/regime/validity | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0189",
+      "source_ids": [
+        "AIV4-SRC-0189"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0190",
+      "source_line": 662,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Trust Status \u0623\u062d\u0627\u062f\u064a \u0627\u0644\u0623\u0628\u0639\u0627\u062f: Critical | Multi-dimensional Trust Dimensions | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0190",
+      "source_ids": [
+        "AIV4-SRC-0190"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0191",
+      "source_line": 664,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Progressive Disclosure \u064a\u062e\u0641\u064a \u0645\u062e\u0627\u0637\u0631: Critical | Safety Floor always visible | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0191",
+      "source_ids": [
+        "AIV4-SRC-0191"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0192",
+      "source_line": 666,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Graph \u064a\u0648\u062d\u064a \u0628\u0627\u0644\u0633\u0628\u0628\u064a\u0629: Critical | Typed edges\u061b CAUSES \u0641\u0642\u0637 \u0628\u062f\u0644\u064a\u0644 | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0192",
+      "source_ids": [
+        "AIV4-SRC-0192"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0193",
+      "source_line": 668,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "\u063a\u064a\u0627\u0628 Human Validation Loop: Critical | \u0645\u0642\u0627\u064a\u064a\u0633 \u0648\u062f\u0648\u0631\u0627\u062a \u0627\u062e\u062a\u0628\u0627\u0631 \u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0193",
+      "source_ids": [
+        "AIV4-SRC-0193"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0194",
+      "source_line": 670,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "\u0643\u062b\u0627\u0641\u0629 \u0627\u0644\u0637\u0628\u0642\u0627\u062a: High | Surface Budget + phased rollout | MITIGATED",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0194",
+      "source_ids": [
+        "AIV4-SRC-0194"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0195",
+      "source_line": 672,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Router \u0645\u0635\u0646\u0641 \u0643\u0640UI \u0628\u0633\u064a\u0637: High | \u062a\u0639\u0631\u064a\u0641\u0647 \u0643\u0640orchestration subsystem | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0195",
+      "source_ids": [
+        "AIV4-SRC-0195"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0196",
+      "source_line": 674,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "\u0644\u0627 MVP sequencing: High | P0\u2013P5 roadmap | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0196",
+      "source_ids": [
+        "AIV4-SRC-0196"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0197",
+      "source_line": 676,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Data Room \u0645\u062a\u0636\u062e\u0645: High | Views over existing SSOT\u061b \u0644\u0627 registries \u0645\u0648\u0627\u0632\u064a\u0629 | MITIGATED",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0197",
+      "source_ids": [
+        "AIV4-SRC-0197"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0198",
+      "source_line": 678,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Popularity feedback loop: High | \u0641\u0635\u0644 popularity/relevance/trust/personalization | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0198",
+      "source_ids": [
+        "AIV4-SRC-0198"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0199",
+      "source_line": 680,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Playbook credibility: High | Playbook Governance Contract | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0199",
+      "source_ids": [
+        "AIV4-SRC-0199"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0200",
+      "source_line": 682,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Confidence Decay misattributed to Grinold: Scientific | \u0625\u0632\u0627\u0644\u0629 \u0627\u0644\u0646\u0633\u0628\u0629\u061b empirical temporal validity | CLOSED",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0200",
+      "source_ids": [
+        "AIV4-SRC-0200"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0201",
+      "source_line": 684,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Signal concurrence \u064a\u0639\u062f \u0627\u0644\u0645\u062a\u0631\u0627\u0628\u0637 \u0645\u0633\u062a\u0642\u0644\u064b\u0627: High | Dependence-aware effective evidence | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0201",
+      "source_ids": [
+        "AIV4-SRC-0201"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0202",
+      "source_line": 686,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "Mirror Ledger \u0627\u0639\u062a\u0628\u0631 moat \u062a\u0644\u0642\u0627\u0626\u064a\u064b\u0627: Medium | Potential moat \u0641\u0642\u0637 + privacy/consent/outcome requirements | CORRECTED",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0202",
+      "source_ids": [
+        "AIV4-SRC-0202"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0203",
+      "source_line": 688,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "\u0641\u0635\u0644 \u0627\u0644\u0631\u0624\u064a\u0629 \u0639\u0646 \u0627\u0644\u0643\u0648\u062f/SSOT: Critical Execution | Integration Contract + reuse-before-build | CLOSED IN DESIGN",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0203",
+      "source_ids": [
+        "AIV4-SRC-0203"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0204",
+      "source_line": 690,
+      "section": "\u00a734",
+      "kind": "defect_row",
+      "text": "\u062a\u0643\u0644\u0641\u0629 \u0627\u0644\u062a\u0634\u063a\u064a\u0644 \u063a\u064a\u0631 \u0645\u062d\u062f\u062f\u0629: High | Runtime/Cost/Performance Budget | MITIGATED",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0204",
+      "source_ids": [
+        "AIV4-SRC-0204"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0205",
+      "source_line": 698,
+      "section": "\u00a735",
+      "kind": "review_level",
+      "text": "\u0627\u0644\u0645\u0633\u062a\u0648\u0649: \u0645\u0627 \u062a\u0645 \u0641\u062d\u0635\u0647 | \u0627\u0644\u062d\u0643\u0645",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0205",
+      "source_ids": [
+        "AIV4-SRC-0205"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0206",
+      "source_line": 702,
+      "section": "\u00a735",
+      "kind": "review_level",
+      "text": "L1 \u2014 Completeness: \u0627\u0644\u0623\u0642\u0633\u0627\u0645 1\u201320 + \u0627\u0644\u0625\u0636\u0627\u0641\u0629 + \u0627\u0644\u0634\u0643\u0644 \u0627\u0644\u0646\u0647\u0627\u0626\u064a + \u0627\u0644\u0645\u0639\u064a\u0627\u0631 \u0627\u0644\u062e\u062a\u0627\u0645\u064a | \u0643\u0644 \u0627\u0644\u0623\u0641\u0643\u0627\u0631 \u0627\u0644\u062c\u0648\u0647\u0631\u064a\u0629 \u0645\u062d\u0641\u0648\u0638\u0629 \u0623\u0648 \u0645\u0635\u062d\u062d\u0629 \u0635\u0631\u0627\u062d\u0629\u061b \u0644\u0627 \u0625\u0633\u0642\u0627\u0637 \u062c\u0648\u0647\u0631\u064a.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0206",
+      "source_ids": [
+        "AIV4-SRC-0206"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0207",
+      "source_line": 704,
+      "section": "\u00a735",
+      "kind": "review_level",
+      "text": "L2 \u2014 Defect Reconciliation: \u062a\u0642\u0631\u064a\u0631 \u0627\u0644\u0639\u064a\u0648\u0628 1 + \u062a\u0642\u0631\u064a\u0631 \u0627\u0644\u0639\u064a\u0648\u0628 2 + \u0627\u0644\u0639\u064a\u0648\u0628 \u0627\u0644\u0644\u0627\u062d\u0642\u0629 | \u0643\u0644 Critical/High defect \u0644\u0647 \u0645\u0639\u0627\u0644\u062c\u0629 \u0623\u0648 \u0642\u064a\u062f \u062a\u0646\u0641\u064a\u0630 \u0648\u0627\u0636\u062d.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0207",
+      "source_ids": [
+        "AIV4-SRC-0207"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0208",
+      "source_line": 706,
+      "section": "\u00a735",
+      "kind": "review_level",
+      "text": "L3 \u2014 Standards Attribution: ISO 9241-210/11\u060c ISO 25010/25012\u060c NIST AI RMF\u060c ISO 23894/42001\u060c WCAG 2.2 | \u062a\u0645 \u0641\u0635\u0644 \u0645\u0627 \u062a\u062f\u0639\u0645\u0647 \u0627\u0644\u0645\u0639\u0627\u064a\u064a\u0631 \u0639\u0646 Project Design\u061b \u0625\u0632\u0627\u0644\u0629 attribution \u0627\u0644\u062e\u0627\u0637\u0626.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0208",
+      "source_ids": [
+        "AIV4-SRC-0208"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0209",
+      "source_line": 708,
+      "section": "\u00a735",
+      "kind": "review_level",
+      "text": "L4 \u2014 Decision Safety: confidence\u060c boundary\u060c contradictions\u060c abstention\u060c automation-bias risks | \u0623\u0636\u064a\u0641 Decision Safety & Orchestration Contract.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0209",
+      "source_ids": [
+        "AIV4-SRC-0209"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0210",
+      "source_line": 710,
+      "section": "\u00a735",
+      "kind": "review_level",
+      "text": "L5 \u2014 Engineering Executability: SSOT\u060c runtime binding\u060c entitlement\u060c reuse\u060c performance/cost\u060c phases | \u062a\u062d\u0648\u0644\u062a \u0627\u0644\u0631\u0624\u064a\u0629 \u0625\u0644\u0649 \u0639\u0642\u0648\u062f \u062a\u0646\u0641\u064a\u0630 \u0648\u0645\u0631\u062d\u0644\u064a\u0629\u061b \u0644\u0627 \u062a\u064f\u0628\u0646\u0649 \u0623\u0646\u0638\u0645\u0629 \u0645\u0648\u0627\u0632\u064a\u0629.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0210",
+      "source_ids": [
+        "AIV4-SRC-0210"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0211",
+      "source_line": 712,
+      "section": "\u00a735",
+      "kind": "review_level",
+      "text": "L6 \u2014 Traceability & Acceptance: \u0642\u0628\u0648\u0644 \u0627\u0644\u062a\u0635\u0645\u064a\u0645\u060c human validation\u060c evidence/status lineage | \u0623\u0636\u064a\u0641\u062a gates \u0648\u0627\u0636\u062d\u0629 \u0642\u0628\u0644 \u0627\u0644\u0627\u0646\u062a\u0642\u0627\u0644 \u0648\u0627\u0644\u062a\u0646\u0641\u064a\u0630 \u0627\u0644\u0648\u0627\u0633\u0639.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0211",
+      "source_ids": [
+        "AIV4-SRC-0211"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0212",
+      "source_line": 740,
+      "section": "\u00a736",
+      "kind": "table_row",
+      "text": "Progressive Disclosure \u201c\u0645\u062a\u0648\u0627\u0641\u0642 \u0645\u0639 ISO 9241\u201d: PARTIALLY SUPPORTED | \u0647\u0648 \u0642\u0631\u0627\u0631 HCD/UX \u0645\u062a\u0633\u0642 \u0645\u0639 \u0645\u0628\u0627\u062f\u0626 \u062a\u0642\u0644\u064a\u0644 \u0627\u0644\u062a\u0639\u0642\u064a\u062f\u061b ISO \u0644\u0627 \u064a\u0641\u0631\u0636 \u0647\u0630\u0647 \u0627\u0644\u062a\u0642\u0646\u064a\u0629 \u0628\u0639\u064a\u0646\u0647\u0627.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0212",
+      "source_ids": [
+        "AIV4-SRC-0212"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0213",
+      "source_line": 742,
+      "section": "\u00a736",
+      "kind": "table_row",
+      "text": "Trust Card \u201c\u0645\u062a\u0637\u0644\u0628 NIST\u201d: MISATTRIBUTED \u0625\u0630\u0627 \u0635\u064a\u063a \u0643\u0630\u0644\u0643 | \u0647\u0648 \u062a\u0635\u0645\u064a\u0645 BLACKDARK \u064a\u062f\u0639\u0645 transparency/explainability/validity objectives.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0213",
+      "source_ids": [
+        "AIV4-SRC-0213"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0214",
+      "source_line": 744,
+      "section": "\u00a736",
+      "kind": "table_row",
+      "text": "Data Room 15 registries \u201c\u0648\u0641\u0642 ISO 25010/25012\u201d: PROJECT DESIGN | \u0627\u0644\u0645\u0639\u064a\u0627\u0631\u0627\u0646 \u064a\u0642\u062f\u0645\u0627\u0646 \u0646\u0645\u0627\u0630\u062c \u062c\u0648\u062f\u0629\u061b \u0644\u0627 \u064a\u0641\u0631\u0636\u0627\u0646 \u0647\u0630\u0647 \u0627\u0644\u0628\u0646\u064a\u0629.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0214",
+      "source_ids": [
+        "AIV4-SRC-0214"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0215",
+      "source_line": 746,
+      "section": "\u00a736",
+      "kind": "table_row",
+      "text": "Confidence Decay \u062a\u0637\u0628\u064a\u0642 \u0645\u0628\u0627\u0634\u0631 \u0644\u0640Grinold: MISATTRIBUTED | \u064a\u0628\u0646\u0649 \u0639\u0644\u0649 staleness/horizon/drift/calibration empirical evidence.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0215",
+      "source_ids": [
+        "AIV4-SRC-0215"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0216",
+      "source_line": 748,
+      "section": "\u00a736",
+      "kind": "table_row",
+      "text": "Decision Boundary \u0641\u0631\u064a\u062f \u0648\u0644\u0627 \u0645\u0646\u0627\u0641\u0633 \u064a\u0642\u062f\u0645\u0647: UNVERIFIED COMPETITIVE CLAIM | \u064a\u062d\u062a\u0627\u062c \u0628\u062d\u062b\u064b\u0627 \u062a\u0646\u0627\u0641\u0633\u064a\u064b\u0627 \u062d\u062f\u064a\u062b\u064b\u0627 \u0642\u0628\u0644 \u0627\u0633\u062a\u062e\u062f\u0627\u0645\u0647 \u062a\u0633\u0648\u064a\u0642\u064a\u064b\u0627.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0216",
+      "source_ids": [
+        "AIV4-SRC-0216"
+      ]
+    },
+    {
+      "id": "AIV4-SRC-0217",
+      "source_line": 750,
+      "section": "\u00a736",
+      "kind": "table_row",
+      "text": "70% \u0645\u0639\u0631\u0648\u0641 / 2 \u0639\u0646\u0627\u0635\u0631 \u0641\u0642\u0637 \u0645\u0645\u064a\u0632\u0629: QUALITATIVE | \u0631\u0623\u064a \u062a\u062d\u0644\u064a\u0644\u064a \u0648\u0644\u064a\u0633 \u0642\u064a\u0627\u0633\u064b\u0627 \u0639\u0644\u0645\u064a\u064b\u0627.",
+      "parent_control": "AIE-003",
+      "normative": true,
+      "normalized_id": "AIV4-NORM-0217",
+      "source_ids": [
+        "AIV4-SRC-0217"
+      ]
+    }
+  ],
+  "count": 217
+}

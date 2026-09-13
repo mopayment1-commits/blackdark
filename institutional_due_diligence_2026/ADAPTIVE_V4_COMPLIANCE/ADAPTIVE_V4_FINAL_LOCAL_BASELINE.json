@@ -1,0 +1,95 @@
+{
+  "record_version": "adaptive-v4-final-local-baseline-1",
+  "specification": "governing-sources-population/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4_CURSOR (1).md",
+  "baseline_sha": "07bb40495d506ff425715edc26d5f3ec2c3a9218",
+  "baseline_sha_short": "07bb4049",
+  "branch": "cursor/adaptive-v4-local-completion-358c",
+  "pr": 427,
+  "completion_state": {
+    "ADAPTIVE_V4_FINAL_LOCAL_COMPLETION": true,
+    "LOCALLY_REMEDIABLE_REMAINING": 0
+  },
+  "locally_remediable_remaining": 0,
+  "accepted_external_gates": [
+    "LIVE_DEPLOYMENT_GATED",
+    "PRODUCTION_SLO_EVIDENCE_GATED",
+    "EMPIRICAL_CALIBRATION_EVIDENCE_GATED",
+    "EXTERNAL_HUMAN_EVIDENCE_GATED"
+  ],
+  "atomic_requirement_count": 226,
+  "primary_requirement_count": 217,
+  "unmapped_atomic_obligations": 0,
+  "security_findings": {
+    "applicable_security_categories_total": 34,
+    "security_categories_verified": 34,
+    "unresolved_local_adaptive_security_findings": 0,
+    "security_local_verification_complete": true
+  },
+  "accessibility_findings": {
+    "applicable_local_accessibility_checks": 38,
+    "accessibility_checks_verified": 38,
+    "unresolved_local_accessibility_defects": 0,
+    "accessibility_local_interaction_verification_complete": true
+  },
+  "regression_status": {
+    "full_relevant_regression_green": true,
+    "changed_production_modules_without_test_coverage": 0,
+    "affected_canonical_modules_without_regression_coverage": 0
+  },
+  "performance_local_status": {
+    "status": "LOCAL_PERFORMANCE_ENGINEERING_COMPLETE",
+    "local_reliability_verification_complete": true,
+    "representative_e2e_workloads_tested": true,
+    "production_slo_evidence_gated": true
+  },
+  "ssot_status": {
+    "SSOT_INTEGRITY_VERIFIED": true,
+    "canonical_spec_path": "governing-sources-population/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4_CURSOR (1).md",
+    "canonical_compliance_root": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/"
+  },
+  "calibration_local_status": {
+    "CALIBRATION_INFRASTRUCTURE_COMPLETE": true,
+    "FALSE_PRECISION_BLOCKED": true,
+    "UNCALIBRATED_NUMERIC_CONFIDENCE_BLOCKED": true,
+    "EMPIRICAL_CALIBRATION_EVIDENCE_GATED": true
+  },
+  "evidence_artifacts": {
+    "manifest": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_EVIDENCE_MANIFEST.json",
+    "primary_to_atomic_mapping": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/PRIMARY_TO_ATOMIC_REQUIREMENT_MAPPING.json",
+    "historical_requirement_provenance": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
+    "security_verification_matrix": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+    "accessibility_verification_matrix": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_MATRIX.json",
+    "accessibility_verification_report": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
+    "local_performance_evidence": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
+    "regression_impact_matrix": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json",
+    "residual_risk_32_1": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/RESIDUAL_RISK_32_1.json",
+    "working_tree_reconciliation": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
+    "rtm": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/RTM.json",
+    "rtm_hierarchical": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/RTM_HIERARCHICAL.json",
+    "source_requirements": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/SOURCE_REQUIREMENTS.json",
+    "independent_requirement_audit": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/INDEPENDENT_REQUIREMENT_AUDIT.json",
+    "requirement_reconciliation": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/REQUIREMENT_RECONCILIATION.json",
+    "child_requirements": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/CHILD_REQUIREMENTS.json",
+    "final_gate_assertions": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
+    "closure_summary": "ADAPTIVE_V4_FINAL_LOCAL_CLOSURE.md",
+    "reopen_conditions": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REOPEN_CONDITIONS.md"
+  },
+  "gate_runner": {
+    "script": "scripts/adaptive_v4_gate_runner.py",
+    "baseline_integrity_script": "scripts/adaptive_v4_baseline_integrity.py",
+    "working_tree_reconciliation_script": "scripts/adaptive_v4_working_tree_reconciliation.py"
+  },
+  "record_created_from_repository_state": {
+    "git_head_at_registration": "07bb40495d506ff425715edc26d5f3ec2c3a9218",
+    "registration_note": "All institutional evidence gates 1-5 verified at baseline; ephemeral working-tree noise at commit time excluded from accepted completion semantics"
+  },
+  "closure_semantics": {
+    "claims_local_implementation_complete": true,
+    "claims_production_live_complete": false,
+    "claims_empirical_calibration_valid": false,
+    "claims_representative_user_validation_complete": false,
+    "claims_formal_standards_certification": false,
+    "material_modification_requires_reverification": true,
+    "documentation_only_changes_do_not_auto_reopen": true
+  }
+}

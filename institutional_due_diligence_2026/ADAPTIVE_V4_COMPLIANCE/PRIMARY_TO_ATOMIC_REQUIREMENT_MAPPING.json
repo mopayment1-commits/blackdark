@@ -1,0 +1,5132 @@
+{
+  "PRIMARY_REQUIREMENTS": 217,
+  "INDEPENDENT_ATOMIC_OBLIGATIONS": 226,
+  "ATOMIC_OBLIGATIONS_MAPPED": 226,
+  "UNMAPPED_ATOMIC_OBLIGATIONS": 0,
+  "UNIMPLEMENTED_LOCAL_ATOMIC_OBLIGATIONS": 0,
+  "UNEXPLAINED_ATOMICITY_DELTA": 0,
+  "atomicity_delta_explanation": {
+    "primary_count": 217,
+    "atomic_count": 226,
+    "delta": 9,
+    "compound_clause_splits": 0,
+    "table_cell_obligations": 174,
+    "numbered_rule_obligations": 7,
+    "methodology": "Independent audit splits compound normative clauses and table cells; each atomic maps to ≥1 primary without semantic loss."
+  },
+  "primary_to_atomic": [
+    {
+      "primary_requirement_id": "AIV4-SRC-0001",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0001",
+        "IND-AIV4-0002"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0002",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0003"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0003",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0004",
+        "IND-AIV4-0005"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0004",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0006"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0005",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0007"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0006",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0008"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0007",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0009"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0008",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0010"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0009",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0011"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0010",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0012",
+        "IND-AIV4-0013"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0011",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0014"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0012",
+      "atomic_obligation_ids": [],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0013",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0015"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0014",
+      "atomic_obligation_ids": [],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0015",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0016"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0016",
+      "atomic_obligation_ids": [],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0017",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0017"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0018",
+      "atomic_obligation_ids": [],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0019",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0018"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0020",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0019"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0021",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0020",
+        "IND-AIV4-0021"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0022",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0022"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0023",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0023",
+        "IND-AIV4-0024"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0024",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0025"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0025",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0026",
+        "IND-AIV4-0027"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0026",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0028"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0027",
+      "atomic_obligation_ids": [],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0028",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0029"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0029",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0030"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/heroes.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0030",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0031"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0031",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0032"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0032",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0033"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0033",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0034"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0034",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0035"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0035",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0036"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0036",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0037"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0037",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0038"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0038",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0039"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intent_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0039",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0040"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intent_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0040",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0041"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intent_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0041",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0042"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0042",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0043"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0043",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0044"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0044",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0045",
+        "IND-AIV4-0046"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0045",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0047"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0046",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0048"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0047",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0049"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/workspaces.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-012"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0048",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0050"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0049",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0051"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0050",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0052"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0051",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0053",
+        "IND-AIV4-0054"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0052",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0055",
+        "IND-AIV4-0056"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0053",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0057"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0054",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0058"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0055",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0059"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0056",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0060"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0057",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0061"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0058",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0062"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0059",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0063"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0060",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0064"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0061",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0065"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0062",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0066"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0063",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0067"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0064",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0068"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0065",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0069"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0066",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0070"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0067",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0071"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0068",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0072"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0069",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0073"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0070",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0074"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0071",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0075"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0072",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0076"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0073",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0077"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0074",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0078"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0075",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0079"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0076",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0080"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0077",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0082"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0078",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0083"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0079",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0084"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0080",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0085"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0081",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0086"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0082",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0087"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0083",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0088"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0084",
+      "atomic_obligation_ids": [],
+      "implementation": "bd_platform/adaptive_intelligence/my_stack.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-015"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0085",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0089"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0086",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0090"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0087",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0091"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0088",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0092"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0089",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0093"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0090",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0094",
+        "IND-AIV4-0095"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0091",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0096"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0092",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0097"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0093",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0098"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0094",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0099"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0095",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0100"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0096",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0101"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0097",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0102"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0098",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0103"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0099",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0104"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0100",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0105"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0101",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0106"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0102",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0107"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0103",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0108"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0104",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0109"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0105",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0110"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0106",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0111",
+        "IND-AIV4-0112"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0107",
+      "atomic_obligation_ids": [],
+      "implementation": "bd_platform/adaptive_intelligence/data_room_view.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-019"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0108",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0113"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/entitlement_gate.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0109",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0114"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/accessibility.py",
+      "test": "tests/test_adaptive_v4_a11y_interaction.py",
+      "evidence": "ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
+      "parent_control": "AIV4-007"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0110",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0115"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-002"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0111",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0116"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0112",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0117"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0113",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0118"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0114",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0119"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0115",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0120"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0116",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0121"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0117",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0122"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0118",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0123"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0119",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0124"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0120",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0125"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0121",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0126"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0122",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0128"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0123",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0129"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0124",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0130"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0125",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0131"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0126",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0132"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0127",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0133"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0128",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0134"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0129",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0135"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0130",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0136"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0131",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0137"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0132",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0138"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0133",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0139"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0134",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0140"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0135",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0141"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0136",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0142"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-008"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0137",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0143"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0138",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0144"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0139",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0145"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0140",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0146"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0141",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0147"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0142",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0148"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0143",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0149"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0144",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0150"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0145",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0151"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0146",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0152"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0147",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0153"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0148",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0154"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0149",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0155"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/temporal_validity.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-010"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0150",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0156"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/silent_confirmation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-011"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0151",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0157"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0152",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0158"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0153",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0159"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0154",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0160"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0155",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0161"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0156",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0162"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0157",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0163"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0158",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0164"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0159",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0165"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0160",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0166"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0161",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0081",
+        "IND-AIV4-0167"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0162",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0168"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0163",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0169"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0164",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0170",
+        "IND-AIV4-0171"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0165",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0172"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0166",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0173"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0167",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0174"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0168",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0175"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0169",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0176"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0170",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0177"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0171",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0178"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0172",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0179"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0173",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0180"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0174",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0181"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0175",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0182"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0176",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0183"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0177",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0184"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0178",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0185"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0179",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0186"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0180",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0187"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0181",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0188"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0182",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0189"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0183",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0190"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0184",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0191"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0185",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0192"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0186",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0193"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0187",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0127",
+        "IND-AIV4-0194"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0188",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0195"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0189",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0196"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0190",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0197"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0191",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0198"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0192",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0199"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0193",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0200"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0194",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0201"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0195",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0202"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0196",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0203"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0197",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0204"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0198",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0205"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0199",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0206"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0200",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0207"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0201",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0208"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0202",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0209"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0203",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0210"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0204",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0211"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0205",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0212"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0206",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0213"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0207",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0214"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0208",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0215"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0209",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0216"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0210",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0217",
+        "IND-AIV4-0218"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0211",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0219"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0212",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0220",
+        "IND-AIV4-0221"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0213",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0222"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0214",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0223"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0215",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0224"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0216",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0225"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    },
+    {
+      "primary_requirement_id": "AIV4-SRC-0217",
+      "atomic_obligation_ids": [
+        "IND-AIV4-0226"
+      ],
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003"
+    }
+  ],
+  "atomic_to_primary": [
+    {
+      "atomic_obligation_id": "IND-AIV4-0001",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0001"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0002",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0001"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0003",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0002"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0004",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0003"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0005",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0003"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0006",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0004"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0007",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0005"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0008",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0006"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0009",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0007"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0010",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0008"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0011",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0009"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0012",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0010"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0013",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0010"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-003",
+      "section": "§0.1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0014",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0011"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0015",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0013"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0016",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0015"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0017",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0017"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0018",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0019"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0019",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0020"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "numbered_rule"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0020",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0021"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0021",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0021"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "numbered_rule"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0022",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0022"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "numbered_rule"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0023",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0023"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0024",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0023"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "numbered_rule"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0025",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0024"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "numbered_rule"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0026",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0025"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0027",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0025"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "numbered_rule"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0028",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0026"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§1.1",
+      "kind": "numbered_rule"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0029",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0028"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§2",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0030",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0029"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/heroes.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-001",
+      "section": "§4",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0031",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0030"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0032",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0031"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0033",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0032"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0034",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0033"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0035",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0034"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0036",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0035"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0037",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0036"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0038",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0037"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/today_focus.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-005",
+      "section": "§5",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0039",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0038"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intent_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-009",
+      "section": "§6",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0040",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0039"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intent_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-009",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0041",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0040"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intent_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-009",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0042",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0041"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0043",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0042"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0044",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0043"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0045",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0044"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0046",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0044"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004",
+      "section": "§6",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0047",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0045"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0048",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0046"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/universal_command.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-004",
+      "section": "§6",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0049",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0047"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/workspaces.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-012",
+      "section": "§7",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0050",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0048"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0051",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0049"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0052",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0050"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0053",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0051"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0054",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0051"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0055",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0052"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0056",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0052"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0057",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0053"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0058",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0054"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0059",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0055"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0060",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0056"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0061",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0057"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0062",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0058"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/playbook_governance.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-010",
+      "section": "§8",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0063",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0059"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0064",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0060"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0065",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0061"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0066",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0062"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0067",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0063"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0068",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0064"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0069",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0065"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0070",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0066"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0071",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0067"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0072",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0068"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_explorer.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-008",
+      "section": "§9",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0073",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0069"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§10",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0074",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0070"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007",
+      "section": "§11",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0075",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0071"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007",
+      "section": "§11",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0076",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0072"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007",
+      "section": "§11",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0077",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0073"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007",
+      "section": "§11",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0078",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0074"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007",
+      "section": "§11",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0079",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0075"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007",
+      "section": "§11",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0080",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0076"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/trust_dimensions.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-007",
+      "section": "§11",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0081",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0161"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§11",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0082",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0077"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§12",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0083",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0078"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§12",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0084",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0079"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§12",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0085",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0080"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§12",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0086",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0081"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§12",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0087",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0082"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§12",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0088",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0083"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§12",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0089",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0085"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0090",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0086"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0091",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0087"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0092",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0088"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0093",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0089"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0094",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0090"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0095",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0090"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0096",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0091"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0097",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0092"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/recommendation_engine.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-005",
+      "section": "§15",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0098",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0093"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§17",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0099",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0094"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§17",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0100",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0095"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§17",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0101",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0096"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-001",
+      "section": "§17",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0102",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0097"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0103",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0098"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0104",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0099"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0105",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0100"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0106",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0101"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0107",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0102"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0108",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0103"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0109",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0104"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0110",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0105"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0111",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0106"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0112",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0106"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/capability_graph.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-011",
+      "section": "§18",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0113",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0108"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/entitlement_gate.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-006",
+      "section": "§20",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0114",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0109"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/accessibility.py",
+      "test": "tests/test_adaptive_v4_a11y_interaction.py",
+      "evidence": "ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
+      "parent_control": "AIV4-007",
+      "section": "§21",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0115",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0110"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-002",
+      "section": "§22",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0116",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0111"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0117",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0112"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0118",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0113"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0119",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0114"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0120",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0115"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0121",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0116"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0122",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0117"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0123",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0118"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0124",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0119"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0125",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0120"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0126",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0121"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/intelligence_router.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-013",
+      "section": "§22.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0127",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0187"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§22.1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0128",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0122"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0129",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0123"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0130",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0124"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0131",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0125"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0132",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0126"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0133",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0127"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0134",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0128"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0135",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0129"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0136",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0130"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0137",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0131"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0138",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0132"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0139",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0133"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-006",
+      "section": "§23",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0140",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0134"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-008",
+      "section": "§24",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0141",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0135"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-008",
+      "section": "§24",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0142",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0136"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/decision_contract.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-008",
+      "section": "§24",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0143",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0137"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0144",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0138"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0145",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0139"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0146",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0140"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0147",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0141"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0148",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0142"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0149",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0143"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0150",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0144"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0151",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0145"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0152",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0146"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0153",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0147"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0154",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0148"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/decision_boundary.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-009",
+      "section": "§25",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0155",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0149"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/temporal_validity.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-010",
+      "section": "§26",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0156",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0150"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/silent_confirmation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-011",
+      "section": "§27",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0157",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0151"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0158",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0152"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0159",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0153"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0160",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0154"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0161",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0155"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0162",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0156"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0163",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0157"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0164",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0158"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0165",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0159"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/human_validation.py",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIV4-013",
+      "section": "§29",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0166",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0160"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§30",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0167",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0161"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0168",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0162"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0169",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0163"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0170",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0164"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0171",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0164"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0172",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0165"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0173",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0166"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0174",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0167"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0175",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0168"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§31",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0176",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0169"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0177",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0170"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0178",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0171"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0179",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0172"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0180",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0173"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0181",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0174"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0182",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0175"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0183",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0176"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0184",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0177"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0185",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0178"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0186",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0179"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0187",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0180"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0188",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0181"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0189",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0182"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0190",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0183"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0191",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0184"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0192",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0185"
+      ],
+      "mapping_method": "exact_hash",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§32.1",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0193",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0186"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0194",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0187"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0195",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0188"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0196",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0189"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0197",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0190"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0198",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0191"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0199",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0192"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0200",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0193"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0201",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0194"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0202",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0195"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0203",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0196"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0204",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0197"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0205",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0198"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0206",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0199"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0207",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0200"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0208",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0201"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0209",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0202"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0210",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0203"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0211",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0204"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§34",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0212",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0205"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0213",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0206"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0214",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0207"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0215",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0208"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0216",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0209"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0217",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0210"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0218",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0210"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "normative_clause"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0219",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0211"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§35",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0220",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0212"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§36",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0221",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0212"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§36",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0222",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0213"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§36",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0223",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0214"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§36",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0224",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0215"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§36",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0225",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0216"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§36",
+      "kind": "table_cell"
+    },
+    {
+      "atomic_obligation_id": "IND-AIV4-0226",
+      "primary_requirement_ids": [
+        "AIV4-SRC-0217"
+      ],
+      "mapping_method": "line_or_overlap",
+      "implementation": "bd_platform/adaptive_intelligence/calm_surface.py",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "evidence": "RTM.json",
+      "parent_control": "AIE-003",
+      "section": "§36",
+      "kind": "table_cell"
+    }
+  ],
+  "unmapped_samples": []
+}

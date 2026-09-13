@@ -1,0 +1,240 @@
+{
+  "status": "LOCAL_PERFORMANCE_ENGINEERING_COMPLETE",
+  "environment": {
+    "platform": "Linux-6.12.94+-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "measurement": "local_fastapi_testclient_and_direct_router"
+  },
+  "REPRESENTATIVE_E2E_WORKLOADS_TESTED": true,
+  "CONCURRENCY_VERIFIED": true,
+  "DEGRADATION_VERIFIED": true,
+  "CANDIDATE_EXPLOSION_VERIFIED": true,
+  "LOCAL_RELIABILITY_VERIFICATION_COMPLETE": true,
+  "PRODUCTION_SLO_EVIDENCE_GATED": true,
+  "microbenchmark_router": {
+    "operation": "route_intelligence_request",
+    "iterations": 50,
+    "p50_ms": 0.015,
+    "p95_ms": 0.02,
+    "p99_ms": 0.046,
+    "mean_ms": 0.016,
+    "local_measurement": true,
+    "production_slo_gated": true
+  },
+  "workloads": {
+    "1_minimal_intent": {
+      "class": "minimal_intent",
+      "iterations": 100,
+      "concurrency": 1,
+      "p50_ms": 17.503,
+      "p95_ms": 25.871,
+      "p99_ms": 93.708,
+      "max_ms": 275.9,
+      "mean_ms": 21.612,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0,
+      "candidate_count": null
+    },
+    "2_typical_intent": {
+      "class": "typical_intent",
+      "iterations": 100,
+      "concurrency": 1,
+      "p50_ms": 18.405,
+      "p95_ms": 22.508,
+      "p99_ms": 23.672,
+      "max_ms": 24.779,
+      "mean_ms": 17.87,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0
+    },
+    "3_full_universal_command_path": {
+      "class": "full_path",
+      "iterations": 80,
+      "concurrency": 1,
+      "p50_ms": 34.571,
+      "p95_ms": 44.509,
+      "p99_ms": 46.49,
+      "max_ms": 46.504,
+      "mean_ms": 34.055,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0
+    },
+    "4_capability_explorer": {
+      "class": "capability_explorer",
+      "iterations": 100,
+      "concurrency": 1,
+      "p50_ms": 17.821,
+      "p95_ms": 21.514,
+      "p99_ms": 22.642,
+      "max_ms": 23.103,
+      "mean_ms": 16.238,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0
+    },
+    "5_high_candidate_count": {
+      "class": "high_candidate_count",
+      "iterations": 80,
+      "concurrency": 1,
+      "p50_ms": 0.016,
+      "p95_ms": 0.048,
+      "p99_ms": 0.057,
+      "max_ms": 0.175,
+      "mean_ms": 0.021,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0,
+      "candidate_count": 20
+    },
+    "6_max_configured_candidate_count": {
+      "class": "max_configured_candidate_count",
+      "iterations": 80,
+      "concurrency": 1,
+      "p50_ms": 0.016,
+      "p95_ms": 0.026,
+      "p99_ms": 0.051,
+      "max_ms": 0.052,
+      "mean_ms": 0.018,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0,
+      "candidate_count": 24
+    },
+    "7_entitlement_denied": {
+      "class": "entitlement_denied",
+      "iterations": 80,
+      "concurrency": 1,
+      "p50_ms": 0.008,
+      "p95_ms": 0.011,
+      "p99_ms": 0.025,
+      "max_ms": 0.031,
+      "mean_ms": 0.009,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 80
+    },
+    "8_conflicting_evidence": {
+      "class": "conflicting_evidence",
+      "iterations": 60,
+      "concurrency": 1,
+      "p50_ms": 0.015,
+      "p95_ms": 0.019,
+      "p99_ms": 0.022,
+      "max_ms": 0.023,
+      "mean_ms": 0.015,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0,
+      "note": "Router conflict_coverage stage exercised; abstains on unresolved_material_conflict when all contradict"
+    },
+    "9_dependence_clustering": {
+      "class": "dependence_clustering",
+      "iterations": 80,
+      "concurrency": 1,
+      "p50_ms": 0.017,
+      "p95_ms": 0.051,
+      "p99_ms": 0.055,
+      "max_ms": 0.061,
+      "mean_ms": 0.021,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 0,
+      "note": "dependence_clustering stage in 10-stage router"
+    },
+    "10_stale_degraded_evidence": {
+      "class": "stale_degraded_evidence",
+      "iterations": 80,
+      "concurrency": 1,
+      "p50_ms": 0.008,
+      "p95_ms": 0.024,
+      "p99_ms": 0.032,
+      "max_ms": 0.042,
+      "mean_ms": 0.01,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 80,
+      "expected": "ABSTAIN"
+    },
+    "11_unavailable_dependency": {
+      "class": "unavailable_dependency",
+      "iterations": 80,
+      "concurrency": 1,
+      "p50_ms": 0.007,
+      "p95_ms": 0.014,
+      "p99_ms": 0.024,
+      "max_ms": 0.037,
+      "mean_ms": 0.008,
+      "errors": 0,
+      "timeouts": 0,
+      "abstentions": 80,
+      "expected": "ABSTAIN no_eligible_candidates"
+    },
+    "12_budget_exhaustion": {
+      "class": "budget_exhaustion",
+      "iterations": 50,
+      "errors": 50,
+      "note": "PerformanceBudget max_latency_ms=0.001 triggers budget_latency_exceeded",
+      "expected": "ValueError budget_latency_exceeded",
+      "verified": true
+    },
+    "13_concurrent_requests": {
+      "class": "concurrent_requests",
+      "concurrency_levels": [
+        8
+      ],
+      "completed_requests": 80,
+      "failures": 0,
+      "state_corruption": false,
+      "unique_stances": [
+        "NEUTRAL"
+      ],
+      "p50_ms": 0.019,
+      "p95_ms": 0.067,
+      "latency_degradation_ratio": 3.49
+    }
+  },
+  "degradation_scenarios": [
+    {
+      "workload": "stale_degraded_evidence",
+      "dependency_state_injected": "force_degraded=True",
+      "expected_safe_behavior": "ABSTAIN",
+      "actual_behavior": "ABSTAIN"
+    },
+    {
+      "workload": "unavailable_dependency",
+      "dependency_state_injected": "force_empty_candidates=True",
+      "expected_safe_behavior": "ABSTAIN no_eligible_candidates",
+      "actual_behavior": "ABSTAIN"
+    },
+    {
+      "workload": "entitlement_denied",
+      "dependency_state_injected": "force_entitlement_denied=True",
+      "expected_safe_behavior": "ABSTAIN",
+      "actual_behavior": "ABSTAIN"
+    },
+    {
+      "workload": "budget_exhaustion",
+      "dependency_state_injected": "max_latency_ms=0.001",
+      "expected_safe_behavior": "ValueError budget_latency_exceeded",
+      "actual_behavior": "ValueError raised"
+    }
+  ],
+  "concurrency": {
+    "class": "concurrent_requests",
+    "concurrency_levels": [
+      8
+    ],
+    "completed_requests": 80,
+    "failures": 0,
+    "state_corruption": false,
+    "unique_stances": [
+      "NEUTRAL"
+    ],
+    "p50_ms": 0.019,
+    "p95_ms": 0.067,
+    "latency_degradation_ratio": 3.49
+  }
+}

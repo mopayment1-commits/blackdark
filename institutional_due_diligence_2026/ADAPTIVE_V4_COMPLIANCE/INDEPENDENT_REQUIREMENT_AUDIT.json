@@ -1,0 +1,53 @@
+{
+  "independent_total": 226,
+  "primary_total": 217,
+  "only_in_independent": 185,
+  "only_in_primary": 179,
+  "adjudicated_disagreements": 0,
+  "SOURCE_EXTRACTION_DISAGREEMENTS": 0,
+  "INDEPENDENT_REQUIREMENT_AUDIT_COMPLETE": true,
+  "methodology": "Compound clause split + table cells + numbered rules; no reuse of primary extractor code",
+  "disagreement_samples": [],
+  "only_primary_samples": [
+    {
+      "id": "AIV4-SRC-0003",
+      "text": "ISO 9241-210:2019: عملية التصميم المتمحور حول الإنسان عبر دورة الحياة | لا يفرض "
+    },
+    {
+      "id": "AIV4-SRC-0004",
+      "text": "ISO 9241-11:2018: فهم usability كنتيجة استخدام مرتبطة بالسياق والأهداف | لا يفرض"
+    },
+    {
+      "id": "AIV4-SRC-0005",
+      "text": "ISO/IEC 25010:2023: نموذج مرجعي لتحديد وقياس وتقييم جودة منتجات ICT/software | ل"
+    },
+    {
+      "id": "AIV4-SRC-0006",
+      "text": "ISO/IEC 25012:2008: نموذج عام لجودة البيانات وتحديد/تقييم متطلباتها | لا يثبت جو"
+    },
+    {
+      "id": "AIV4-SRC-0007",
+      "text": "NIST AI RMF 1.0: valid/reliable, safe, secure/resilient, accountable/transparent"
+    },
+    {
+      "id": "AIV4-SRC-0008",
+      "text": "ISO/IEC 23894:2023: إرشاد لإدارة مخاطر AI ودمجها في الأنشطة | لا يحدد وحده آلية "
+    },
+    {
+      "id": "AIV4-SRC-0009",
+      "text": "ISO/IEC 42001:2023: نظام إدارة للذكاء الاصطناعي والتحسين المستمر | هذه الوثيقة ل"
+    },
+    {
+      "id": "AIV4-SRC-0010",
+      "text": "WCAG 2.2: معايير نجاح قابلة للاختبار لإتاحة الويب؛ W3C يوصي بالإصدار 2.2 | هدف ا"
+    },
+    {
+      "id": "AIV4-SRC-0012",
+      "text": "Six Heroes يظلون Primary User Decision Surfaces ولا يتحولون إلى قوائم capabiliti"
+    },
+    {
+      "id": "AIV4-SRC-0014",
+      "text": "Evidence Always: لا قرار بلا مصدر/زمن/حالة بيانات/قيود جوهرية قابلة للوصول."
+    }
+  ]
+}

@@ -692,10 +692,33 @@
         @media (prefers-reduced-motion: reduce) {
             .hero-bleed-img { animation: none; }
         }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus,
+        .skip-link:focus-visible {
+            position: fixed;
+            left: 1rem;
+            top: 1rem;
+            z-index: 100;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            background: var(--accent);
+            color: #0a0a0f;
+            padding: 0.5rem 0.75rem;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Trust Pulse</a>
+    <a href="#trust-pulse" class="skip-link">Skip to Trust Pulse</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 

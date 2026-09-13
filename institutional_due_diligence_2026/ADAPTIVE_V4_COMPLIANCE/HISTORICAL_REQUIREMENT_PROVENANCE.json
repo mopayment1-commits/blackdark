@@ -1,0 +1,253 @@
+{
+  "provenance_version": "adaptive-v4-normative-217",
+  "artifacts": [
+    {
+      "artifact": "docs/ADAPTIVE_FULL_SOURCE_UNIVERSE.json",
+      "commit": "747d4945f616a16c3e76679cb3d24b1139140358",
+      "spec_version": "BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4.md",
+      "claimed_source_count": 336,
+      "claimed_normalized_count": null,
+      "actual_semantics": "Line-level source decomposition: every substantive spec line (>=12 chars) classified by disposition",
+      "relationship_to_current_spec": "Same governing spec file; methodology counts all substantive lines not only normative clauses",
+      "mapping_to_current_requirement_ids": "See row_mappings below",
+      "reason_for_delta": "Current 217 uses normative-only filter (tables, MUST/SHALL, doctrine); 336 includes narrative and design prose lines",
+      "unmapped_items": []
+    },
+    {
+      "artifact": "docs/ADAPTIVE_SOURCE_DRIVEN_FINAL_FREEZE.json",
+      "commit": "747d4945f616a16c3e76679cb3d24b1139140358",
+      "spec_version": "same",
+      "claimed_source_count": 336,
+      "claimed_normalized_count": 296,
+      "actual_semantics": "Implementation ledger normalized total after rebuild: LOCAL(192)+MATURITY(1)+LIVE(1)+NOT_APPLICABLE(102)=296",
+      "relationship_to_current_spec": "Ledger entries for implementation-addressable items from 336-line universe",
+      "mapping_to_current_requirement_ids": "Mapped via bd_platform/adaptive_source_driven_engineering.py (removed on v4 branch; superseded by bd_platform/adaptive_intelligence/)",
+      "reason_for_delta": "40 source lines (336-296) classified NOT_IMPLEMENTATION_INTENDED/GOVERNANCE_ONLY without ledger entry",
+      "unmapped_items": []
+    },
+    {
+      "artifact": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/SOURCE_REQUIREMENTS.json",
+      "commit": "current HEAD",
+      "spec_version": "BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4_CURSOR (1).md",
+      "claimed_source_count": 217,
+      "claimed_normalized_count": 217,
+      "actual_semantics": "Normative obligation extraction: tables, MUST/SHALL prose, doctrine rules, acceptance/defect rows",
+      "relationship_to_current_spec": "Current authoritative normative inventory for v4 local completion",
+      "mapping_to_current_requirement_ids": "AIV4-SRC-* with parent_control AIE/AIV4-*",
+      "reason_for_delta": "Stricter normative filter than 336-line decomposition",
+      "unmapped_items": []
+    },
+    {
+      "artifact": "cap646 capability IDs #296 / #336",
+      "commit": "N/A",
+      "spec_version": "N/A",
+      "claimed_source_count": null,
+      "claimed_normalized_count": null,
+      "actual_semantics": "CAP646 catalog capability identifiers (whale_movement_intelligence_296, market_surveillance_336)",
+      "relationship_to_current_spec": "Unrelated namespace — NOT the source of historical Adaptive 336/296 counts",
+      "mapping_to_current_requirement_ids": "N/A",
+      "reason_for_delta": "Prior falsification report incorrectly attributed 336/296 to cap646; forensic git evidence refutes this",
+      "unmapped_items": []
+    }
+  ],
+  "historical_disposition_distribution": {
+    "LOCALLY_BUILDABLE": 248,
+    "NOT_IMPLEMENTATION_INTENDED": 80,
+    "LIVE_OR_CHRONOLOGICAL_GATED": 4,
+    "GOVERNANCE_ONLY": 3,
+    "EXTERNAL_ASSURANCE_GATED": 1
+  },
+  "historical_source_total": 336,
+  "historical_normalized_total": 296,
+  "current_normative_total": 217,
+  "current_parent_controls": 44,
+  "reconciliation_narrative": "336 = line-level source universe (commit 747d4945, adaptive_full_source_decomposition.py). 296 = implementation ledger normalized entries (192 LOCAL + 1 MATURITY + 1 LIVE + 102 NOT_APPLICABLE). 217 = current normative-only extraction (tables + MUST/SHALL + gates). 44 = parent engineering control groups. These are different counting methodologies on the same spec, not competing truths.",
+  "HISTORICAL_UNEXPLAINED_REQUIREMENTS": 0,
+  "CURRENT_SPEC_OMITTED_REQUIREMENTS": 0,
+  "HISTORICAL_GENUINE_REQUIREMENTS_LOST": 0,
+  "lost_genuine_ids_sample": [],
+  "COUNT_PROVENANCE_RECONCILED": true,
+  "row_mapping_sample": [
+    {
+      "historical_id": "ADAPTIVE_SRC_0001_0001",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "BLACKDARK Adaptive Intelligence Experience"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0002_0001",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "# المواصفة المؤسسية النهائية المنقحة لمكتبة القدرات وتجربة ذكاء القرار"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0002_0003",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "Institutional Final Specification — Design, Decision Safety, Governance & Execution"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0002_0005",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "الإصدار v4 — النسخة المؤسسية التنفيذية المنقحة لـCursor بعد دمج المراجعة السداسية + تقريري العيوب + "
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0002_0007",
+      "disposition": "LIVE_OR_CHRONOLOGICAL_GATED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "حالة الوثيقة: DESIGN / GOVERNANCE SPECIFICATION — لا تعني بذاتها اكتمال التنفيذ أو PASS_LIVE"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0002_0009",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "AIV4-SRC-0001",
+      "text_preview": "صيغة الاستخدام في Cursor: هذه النسخة Markdown هي المرجع التشغيلي المقروء آليًا لهذه المواصفة. يجب تن"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0002_0011",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "تاريخ الإصدار: 7 سبتمبر 2026"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0003_0001",
+      "disposition": "GOVERNANCE_ONLY",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "# 0. قرار الاعتماد ونطاق الوثيقة"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0003_0003",
+      "disposition": "GOVERNANCE_ONLY",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "هذه النسخة تحافظ على الفكرة المركزية للوثيقة الأصلية: واجهة هادئة فوق محرك ضخم من القدرات، بحيث يحدد"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0003_0005",
+      "disposition": "GOVERNANCE_ONLY",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| القاعدة الحاكمة — هذه الوثيقة لا تنشئ SSOT أو بنية موازية. أي تنفيذ برمجي يجب أن يُربط أولًا بالمع"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0003_0013",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "AIV4-SRC-0002",
+      "text_preview": "لا يجوز الادعاء بأن هذه الوثيقة “مطابقة لـISO/NIST” لمجرد الاستشهاد بها. المعايير المذكورة توفر مباد"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0001",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "## 0.1 الأساس المعياري والعلمي المستخدم"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0003",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| المرجع | ما يدعمه في هذه المواصفة | حدود الاستشهاد |"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0005",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| --- | --- | --- |"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0007",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| ISO 9241-210:2019 | عملية التصميم المتمحور حول الإنسان عبر دورة الحياة | لا يفرض شكل Dashboard أو "
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0009",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| ISO 9241-11:2018 | فهم usability كنتيجة استخدام مرتبطة بالسياق والأهداف | لا يفرض مقياسًا بعينه ول"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0011",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "parent:AIE-002",
+      "text_preview": "| ISO/IEC 25010:2023 | نموذج مرجعي لتحديد وقياس وتقييم جودة منتجات ICT/software | لا يفرض Data Room "
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0013",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| ISO/IEC 25012:2008 | نموذج عام لجودة البيانات وتحديد/تقييم متطلباتها | لا يثبت جودة بيانات BLACKDA"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0015",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "parent:AIE-007",
+      "text_preview": "| NIST AI RMF 1.0 | valid/reliable, safe, secure/resilient, accountable/transparent, explainable/int"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0017",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| ISO/IEC 23894:2023 | إرشاد لإدارة مخاطر AI ودمجها في الأنشطة | لا يحدد وحده آلية Decision Boundary"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0019",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| ISO/IEC 42001:2023 | نظام إدارة للذكاء الاصطناعي والتحسين المستمر | هذه الوثيقة ليست شهادة 42001. "
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0004_0021",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "| WCAG 2.2 | معايير نجاح قابلة للاختبار لإتاحة الويب؛ W3C يوصي بالإصدار 2.2 | هدف التصميم: AA حيث ين"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0001",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "parent:AIV4-003",
+      "text_preview": "# 1. المبادئ غير القابلة للتفاوض"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0003",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "AIV4-SRC-0011",
+      "text_preview": "Calm Surface: السطح اليومي يجب أن يجيب “ماذا يهم الآن؟” بدل أن يعرض مئات الأدوات."
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0005",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "AIV4-SRC-0012",
+      "text_preview": "Six Heroes يظلون Primary User Decision Surfaces ولا يتحولون إلى قوائم capabilities."
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0007",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "AIV4-SRC-0013",
+      "text_preview": "Complexity On Demand: التفاصيل متاحة لكن لا تُفرض على كل مستخدم."
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0009",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "AIV4-SRC-0014",
+      "text_preview": "Evidence Always: لا قرار بلا مصدر/زمن/حالة بيانات/قيود جوهرية قابلة للوصول."
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0011",
+      "disposition": "LOCALLY_BUILDABLE",
+      "mapped_to_current": "AIV4-SRC-0015",
+      "text_preview": "Safety Floor Never Hidden: المعلومات التي يمكن أن تغيّر القرار لا يجوز إخفاؤها بسبب Progressive Disc"
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0013",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "AIV4-SRC-0016",
+      "text_preview": "The user chooses the goal; BLACKDARK chooses the machinery — مع حق المستخدم في الفهم والرفض/التعديل."
+    },
+    {
+      "historical_id": "ADAPTIVE_SRC_0005_0015",
+      "disposition": "NOT_IMPLEMENTATION_INTENDED",
+      "mapped_to_current": "AIV4-SRC-0017",
+      "text_preview": "No false precision: لا تعرض نسبة ثقة رقمية إلا إذا كان معناها ومعايرتها empirically defined."
+    }
+  ],
+  "row_mapping_total": 336
+}

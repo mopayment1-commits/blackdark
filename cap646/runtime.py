@@ -22,14 +22,17 @@ from cap646.handlers.verified import handle_verified_capability
 from cap646.batch01_production import BATCH01_IDS
 from cap646.batch02_production import BATCH02_IDS
 from cap646.batch03_production import BATCH03_IDS
+from cap646.batch_constants import TOTAL_CAPABILITIES
+from cap646.batch_range_production import BATCH_RANGE_IDS
 from cap646.batch_spine import execute_and_enrich_batch
 from cap646.handlers.batch01 import handle_batch01_capability
 from cap646.handlers.batch02 import handle_batch02_capability
 from cap646.handlers.batch03 import handle_batch03_capability
+from cap646.handlers.batch_range import handle_batch_range_capability
 from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
-OPTION_A_IDS = frozenset({338, 500, 507, 534}) | BATCH01_IDS | BATCH02_IDS | BATCH03_IDS
+OPTION_A_IDS = frozenset(range(1, TOTAL_CAPABILITIES + 1))
 WAVE_D_SET = set(WAVE_D)
 
 
@@ -44,6 +47,8 @@ def _route_handler(track: str, name: str, capability_id: int):
             return handle_batch02_capability
         if capability_id in BATCH03_IDS:
             return handle_batch03_capability
+        if capability_id in BATCH_RANGE_IDS:
+            return handle_batch_range_capability
         if capability_id in {338, 500}:
             return handle_data_capability
         return handle_market_capability
@@ -91,9 +96,34 @@ async def execute_capability(
     skip_entitlement: bool = False,
 ) -> dict[str, Any]:
     params = dict(params or {})
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    _governance = enforce_material_write(
+        "cap_execute",
+        {
+            "capability_id": capability_id,
+            "source": "cap646",
+            "purpose": "capability_execute",
+            "user_id": (user or {}).get("id"),
+            "org_id": org_id,
+            "params_hash": str(hash(frozenset(params.items())))[:16] if params else None,
+        },
+    )
     row = catalog_by_id().get(capability_id)
+    if not row and 647 <= capability_id <= 826:
+        try:
+            from cap978.catalog import catalog_by_id as catalog978_by_id
+
+            row = catalog978_by_id().get(capability_id)
+        except Exception:
+            row = None
     if not row:
         return ai_compliance_footer({"success": False, "error": "unknown_capability_id", "capability_id": capability_id})
+
+    if capability_id >= 647 and capability_id <= 826 and capability_id not in BATCH_RANGE_IDS:
+        from cap978.verify import execute_extension
+
+        return await execute_extension(capability_id, user=user, params=params)
 
     if is_external(capability_id):
         return ai_compliance_footer(
@@ -123,30 +153,26 @@ async def execute_capability(
 
     from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
 
-    if capability_id in BATCH01_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch01_capability, capability_id, row=row, params=params
-        )
-
-    if capability_id in BATCH02_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch02_capability, capability_id, row=row, params=params
-        )
-
-    if capability_id in BATCH03_IDS:
-        return await execute_and_enrich_batch(
-            handle_batch03_capability, capability_id, row=row, params=params
-        )
-
     if is_duplicate(capability_id) and target_id != capability_id:
-        canonical = await execute_capability(target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement)
+        canonical = await execute_capability(
+            target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement
+        )
         canonical["duplicate_of"] = target_id
         canonical["requested_capability_id"] = capability_id
         canonical["classification"] = "DUPLICATE/ALREADY_COVERED"
         return canonical
 
-    # Batch spine is reached only via direct BATCH0x_IDS (L112-125) or duplicate
-    # recursion (L128-133). No further target_id batch delegation exists in catalog.
+    if 1 <= capability_id <= TOTAL_CAPABILITIES:
+        from cap646.handlers.official_batch import handle_official_batch_capability
+
+        return await execute_and_enrich_batch(
+            handle_official_batch_capability, capability_id, row=row, params=params
+        )
+
+    if capability_id in BATCH_RANGE_IDS:
+        return await execute_and_enrich_batch(
+            handle_batch_range_capability, capability_id, row=row, params=params
+        )
 
     if capability_id in FREE_TIER_BASE_IDS:
         free_result = await execute_free_tier_capability(capability_id, params=params)
@@ -179,4 +205,6 @@ async def execute_capability(
         result["backend_entrypoint"] = getattr(handler, "__name__", "unknown")
     from cap646.domain_enrichment import enrich_capability_result
 
+    result.setdefault("governance_enforced", _governance.get("governance_enforced"))
+    result.setdefault("intelligence_receipt", _governance.get("intelligence_receipt"))
     return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)

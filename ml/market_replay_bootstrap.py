@@ -183,7 +183,9 @@ async def _bootstrap_asset_samples(
 ) -> tuple[int, int, int]:
     klines = await _fetch_hourly_klines(session, asset, limit=min(1000, lookback_hours + 48))
     if len(klines) < 48:
-        logger.warning("Insufficient klines for bootstrap | asset=%s", asset)
+        from log_safety import sanitize_asset
+
+        logger.warning("Insufficient klines for bootstrap | asset=%s", sanitize_asset(asset))
         return 0, 0, 0
     max_i = len(klines) - 25
     step = max(1, max_i // 40)

@@ -1,0 +1,445 @@
+{
+  "impact_classification": {
+    "adaptive_production_modules_changed": 6,
+    "canonical_external_modules_affected": 4,
+    "ui_api_modules_affected": 3,
+    "persistence_governance_modules_affected": 3,
+    "total_affected_modules": 10,
+    "clarification": "Prior '7 affected modules' referred to total changed+affected surface (adaptive + canonical reuse), not canonical-only count."
+  },
+  "adaptive_production_modules": [
+    {
+      "module": "bd_platform/adaptive_intelligence/",
+      "change_type": "new_implementation",
+      "direct_dependents": [
+        "api/routers/adaptive_intelligence.py",
+        "governance/adaptive_ux_governance.py",
+        "dashboard.py"
+      ],
+      "critical_indirect_dependents": [
+        "templates/landing.html",
+        "templates/utility.html"
+      ],
+      "tests": [
+        "tests/test_adaptive_v4_closure.py",
+        "tests/test_adaptive_v4_falsification.py",
+        "tests/test_adaptive_v4_security.py",
+        "tests/test_adaptive_v4_a11y_interaction.py",
+        "tests/test_adaptive_v4_browser_a11y.py",
+        "tests/test_adaptive_v4_performance.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_closure.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "............................................                             [100%]"
+        },
+        {
+          "path": "tests/test_adaptive_v4_falsification.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_security.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_a11y_interaction.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_browser_a11y.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "....                                                                     [100%]"
+        },
+        {
+          "path": "tests/test_adaptive_v4_performance.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "api/routers/adaptive_intelligence.py",
+      "change_type": "new_api_surface",
+      "direct_dependents": [
+        "dashboard.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_security.py",
+        "tests/test_adaptive_v4_performance.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_security.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_performance.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "governance/adaptive_ux_requirements.py",
+      "change_type": "governance_spine_extension",
+      "direct_dependents": [
+        "scripts/governing_specs_11_verifier.py"
+      ],
+      "critical_indirect_dependents": [
+        "governance/adaptive_ux_governance.py"
+      ],
+      "tests": [
+        "tests/test_pre_launch_governance_spine.py",
+        "tests/test_governing_specs_11_full.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_pre_launch_governance_spine.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...                                                                      [100%]"
+        },
+        {
+          "path": "tests/test_governing_specs_11_full.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...............                                                          [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "governance/adaptive_ux_governance.py",
+      "change_type": "governance_runtime",
+      "direct_dependents": [
+        "bd_platform/adaptive_intelligence/"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_closure.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_closure.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "............................................                             [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "templates/landing.html",
+      "change_type": "a11y_remediation",
+      "direct_dependents": [
+        "dashboard.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_browser_a11y.py",
+        "tests/test_adaptive_v4_a11y_interaction.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_browser_a11y.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "....                                                                     [100%]"
+        },
+        {
+          "path": "tests/test_adaptive_v4_a11y_interaction.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "templates/utility.html",
+      "change_type": "a11y_remediation",
+      "direct_dependents": [
+        "dashboard.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_browser_a11y.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_browser_a11y.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "....                                                                     [100%]"
+        }
+      ],
+      "all_passed": true
+    }
+  ],
+  "canonical_external_modules": [
+    {
+      "module": "decision_truth/ (reuse)",
+      "change_type": "canonical_reuse",
+      "direct_dependents": [
+        "bd_platform/adaptive_intelligence/decision_contract.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_decision_truth_pipeline.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_decision_truth_pipeline.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...                                                                      [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "cap646/entitlements.py (reuse)",
+      "change_type": "canonical_reuse",
+      "direct_dependents": [
+        "bd_platform/adaptive_intelligence/entitlement_gate.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/cap646/test_get_entitlement.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/cap646/test_get_entitlement.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "blackdark/data_governance/ (reuse)",
+      "change_type": "canonical_reuse",
+      "direct_dependents": [],
+      "critical_indirect_dependents": [
+        "bd_platform/adaptive_intelligence/decision_contract.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_runtime_enforcement.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_data_governance_runtime_enforcement.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "..........                                                               [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "intent_router.py (reuse)",
+      "change_type": "canonical_reuse",
+      "direct_dependents": [
+        "bd_platform/adaptive_intelligence/intent_contract.py"
+      ],
+      "critical_indirect_dependents": [
+        "bd_platform/adaptive_intelligence/intelligence_router.py"
+      ],
+      "tests": [
+        "tests/test_trust_os_lenses_ux.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_trust_os_lenses_ux.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": ".....                                                                    [100%]"
+        }
+      ],
+      "all_passed": true
+    }
+  ],
+  "ui_api_modules": [
+    {
+      "module": "api/routers/adaptive_intelligence.py",
+      "change_type": "new_api_surface",
+      "direct_dependents": [
+        "dashboard.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_security.py",
+        "tests/test_adaptive_v4_performance.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_security.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_performance.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "templates/landing.html",
+      "change_type": "a11y_remediation",
+      "direct_dependents": [
+        "dashboard.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_browser_a11y.py",
+        "tests/test_adaptive_v4_a11y_interaction.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_browser_a11y.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "....                                                                     [100%]"
+        },
+        {
+          "path": "tests/test_adaptive_v4_a11y_interaction.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "templates/utility.html",
+      "change_type": "a11y_remediation",
+      "direct_dependents": [
+        "dashboard.py"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_browser_a11y.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_browser_a11y.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "....                                                                     [100%]"
+        }
+      ],
+      "all_passed": true
+    }
+  ],
+  "persistence_governance_modules": [
+    {
+      "module": "governance/adaptive_ux_requirements.py",
+      "change_type": "governance_spine_extension",
+      "direct_dependents": [
+        "scripts/governing_specs_11_verifier.py"
+      ],
+      "critical_indirect_dependents": [
+        "governance/adaptive_ux_governance.py"
+      ],
+      "tests": [
+        "tests/test_pre_launch_governance_spine.py",
+        "tests/test_governing_specs_11_full.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_pre_launch_governance_spine.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...                                                                      [100%]"
+        },
+        {
+          "path": "tests/test_governing_specs_11_full.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...............                                                          [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "governance/adaptive_ux_governance.py",
+      "change_type": "governance_runtime",
+      "direct_dependents": [
+        "bd_platform/adaptive_intelligence/"
+      ],
+      "critical_indirect_dependents": [],
+      "tests": [
+        "tests/test_adaptive_v4_closure.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_closure.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "............................................                             [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "blackdark/data_governance/ (reuse)",
+      "change_type": "canonical_reuse",
+      "direct_dependents": [],
+      "critical_indirect_dependents": [
+        "bd_platform/adaptive_intelligence/decision_contract.py"
+      ],
+      "tests": [
+        "tests/test_data_governance_runtime_enforcement.py"
+      ],
+      "test_results": [
+        {
+          "path": "tests/test_data_governance_runtime_enforcement.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "..........                                                               [100%]"
+        }
+      ],
+      "all_passed": true
+    }
+  ],
+  "unique_test_suites_executed": [
+    "tests/cap646/test_get_entitlement.py",
+    "tests/test_adaptive_v4_a11y_interaction.py",
+    "tests/test_adaptive_v4_browser_a11y.py",
+    "tests/test_adaptive_v4_closure.py",
+    "tests/test_adaptive_v4_falsification.py",
+    "tests/test_adaptive_v4_performance.py",
+    "tests/test_adaptive_v4_security.py",
+    "tests/test_data_governance_runtime_enforcement.py",
+    "tests/test_decision_truth_pipeline.py",
+    "tests/test_governing_specs_11_full.py",
+    "tests/test_pre_launch_governance_spine.py",
+    "tests/test_trust_os_lenses_ux.py"
+  ],
+  "CHANGED_PRODUCTION_MODULES_WITHOUT_TEST_COVERAGE": 0,
+  "AFFECTED_CANONICAL_MODULES_WITHOUT_REGRESSION_COVERAGE": 0,
+  "UNRESOLVED_RELEVANT_REGRESSION_FAILURES": 0,
+  "FULL_RELEVANT_REGRESSION_GREEN": true,
+  "AFFECTED_MODULES_WITHOUT_REGRESSION_COVERAGE": 0
+}

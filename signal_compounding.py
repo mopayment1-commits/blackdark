@@ -64,6 +64,17 @@ async def store_signal(
         "version": version,
         "payload_hash": payload_hash,
     }
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    row = enforce_material_write(
+        "signal",
+        {
+            **row,
+            "source_id": source,
+            "asset": sym,
+            "purpose": "signal_compounding",
+        },
+    )
     row["signature"] = row_signature(row, _SIGNAL_SIGN)
 
     async with get_connection() as db:
@@ -107,7 +118,9 @@ async def store_signal(
                     edge_type="influenced_by",
                 )
     except Exception:
-        logger.exception("KG signal ingest failed for %s", sid)
+        from log_safety import sanitize_log_value
+
+        logger.exception("KG signal ingest failed for %s", sanitize_log_value(sid))
 
     return _signal_api(row)
 

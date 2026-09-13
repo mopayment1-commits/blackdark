@@ -24,10 +24,21 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
 
     if style == "none":
         return fn() if not inspect.iscoroutinefunction(fn) else await fn()
+    if style == "asset":
+        return fn(asset=symbol) if not inspect.iscoroutinefunction(fn) else await fn(asset=symbol)
+    if style == "query":
+        return fn(query=symbol) if not inspect.iscoroutinefunction(fn) else await fn(query=symbol)
+    if style == "raw":
+        chain = params.get("chain")
+        if chain is not None:
+            return fn(symbol, chain=chain) if not inspect.iscoroutinefunction(fn) else await fn(symbol, chain=chain)
+        return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
     if style == "symbol":
         sig = inspect.signature(fn)
         if "symbol" in sig.parameters:
             return fn(symbol=symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol=symbol)
+        if "asset" in sig.parameters:
+            return fn(asset=symbol) if not inspect.iscoroutinefunction(fn) else await fn(asset=symbol)
         if "limit" in sig.parameters:
             return fn(limit=int(params.get("limit") or 5)) if not inspect.iscoroutinefunction(fn) else await fn(limit=int(params.get("limit") or 5))
         return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
@@ -55,8 +66,15 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         email = str(params.get("email") or "anonymous")
         return await fn(user_email=email) if "user_email" in inspect.signature(fn).parameters else fn(email)
     if style == "assets":
-        return await fn(assets=[symbol], min_samples=1)
+        sig = inspect.signature(fn)
+        kw: dict[str, Any] = {"assets": [symbol]}
+        if "min_samples" in sig.parameters:
+            kw["min_samples"] = int(params.get("min_samples") or 1)
+        return await fn(**kw) if inspect.iscoroutinefunction(fn) else fn(**kw)
     if style == "books":
+        sig = inspect.signature(fn)
+        if len(sig.parameters) == 0:
+            return fn() if not inspect.iscoroutinefunction(fn) else await fn()
         from live_book_hub import get_live_books_if_fresh
 
         live = get_live_books_if_fresh()
@@ -100,11 +118,38 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         if hasattr(hub, "client_count"):
             stats["client_count"] = hub.client_count()
         return stats
+    if style == "exchange_asset":
+        exchange = str(params.get("exchange") or "binance")
+        if inspect.iscoroutinefunction(fn):
+            return await fn(exchange=exchange, asset=symbol)
+        return fn(exchange=exchange, asset=symbol)
+    if style == "execution_intelligence":
+        amount_usd = float(params.get("amount_usd") or 10_000.0)
+        chain = str(params.get("chain") or "ethereum")
+        if inspect.iscoroutinefunction(fn):
+            return await fn(asset=symbol, amount_usd=amount_usd, chain=chain)
+        return fn(asset=symbol, amount_usd=amount_usd, chain=chain)
     if style == "opportunity":
         from ai_oracle import evaluate_opportunity
 
-        opp = {"asset": symbol, "symbol": f"{symbol}/USDT"}
-        return await evaluate_opportunity(opp)
+        opp = {
+            "asset": symbol,
+            "symbol": f"{symbol}/USDT",
+            "exchange": str(params.get("exchange") or "binance"),
+            "direction": str(params.get("direction") or "long_basis"),
+            "basis_bps": float(params.get("basis_bps") or 12.0),
+            "net_profit_usdt": float(params.get("net_profit_usdt") or 5.0),
+            "net_profit_percent": float(params.get("net_profit_percent") or 0.5),
+            "total_slippage_bps": float(params.get("total_slippage_bps") or 8.0),
+            "quote_amount": float(params.get("quote_amount") or 1000.0),
+        }
+        kind = str(params.get("opportunity_kind") or "spot_futures")
+        evaluated = await evaluate_opportunity(opp, kind=kind)
+        if hasattr(evaluated, "model_dump"):
+            return evaluated.model_dump()
+        if isinstance(evaluated, dict):
+            return evaluated
+        return {"evaluated": evaluated, "success": True}
 
     return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
 

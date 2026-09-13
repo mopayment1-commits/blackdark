@@ -1,0 +1,190 @@
+{
+  "reconciliation_version": "adaptive-v4-gate-8",
+  "items": [
+    {
+      "path": "data/ml_experience_log.jsonl",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/ml_experience_summary.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/model_weights.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/oracle_direction_latest.joblib",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/regime/neutral/meta.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/regime/neutral/model.joblib",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/regime/training_status.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/training/labeled_oracle_dataset.parquet",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_regression_impact.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "tests/test_adaptive_v4_browser_a11y.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": ".venv-a11y/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/adaptive_human_validation.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/decision_ledger.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/governance_raw_landing.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/institutional_assurance/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/kill_rate_events.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/mirror_ledger.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/oracle_direction_ens20260913_1005.joblib",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/monitoring_alert_state.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/oracle_audit_chain.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/orgs/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/uptime_probes.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    }
+  ],
+  "UNEXPLAINED_WORKING_TREE_CHANGES": 3,
+  "adaptive_uncommitted": [
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_regression_impact.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "tests/test_adaptive_v4_browser_a11y.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    }
+  ]
+}

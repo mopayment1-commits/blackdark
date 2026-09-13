@@ -36,6 +36,7 @@ CHECK_ID_CATALOG: tuple[str, ...] = (
     "viral_soft_launch_unset",
     "sentry_observability",
     "uptime_self_probe",
+    "monitoring_ops_alerting",
     "telegram_bot",
     "telegram_webhook_secret",
     "price_feed_railway",
@@ -150,6 +151,17 @@ def _telegram_active() -> bool:
     return env_configured("TELEGRAM_BOT_TOKEN")
 
 
+def _monitoring_ops_configured() -> bool:
+    if not _env_truthy("MONITORING_ENABLED", "true"):
+        return False
+    base = env_configured("MONITORING_BASE_URL") or env_configured("APP_BASE_URL") or env_configured("PUBLIC_BASE_URL")
+    telegram_ops = env_configured("TELEGRAM_BOT_TOKEN") and (
+        env_configured("OPS_TELEGRAM_CHAT_ID") or env_configured("TELEGRAM_CHAT_ID")
+    )
+    webhook = env_configured("MONITORING_WEBHOOK_URL")
+    return bool(base and (telegram_ops or webhook))
+
+
 def _collect_guard_context() -> dict[str, Any]:
     from billing_service import billing_configured
     from postgres_backend import use_postgres
@@ -178,6 +190,7 @@ def _collect_guard_context() -> dict[str, Any]:
         "billing": billing_configured(),
         "sentry": env_configured("SENTRY_DSN"),
         "uptime_probe": _env_truthy("UPTIME_SELF_PROBE_ENABLED", "true"),
+        "monitoring_ops": _monitoring_ops_configured(),
         "lemon": lemon,
         "stripe": stripe,
         "telegram": _telegram_active(),
@@ -258,6 +271,8 @@ def _build_guard_checks(ctx: dict[str, Any]) -> list[dict[str, Any]]:
                hint="Set SENTRY_DSN for production error tracking"),
         _check("uptime_self_probe", ctx["uptime_probe"], required=False,
                hint="UPTIME_SELF_PROBE_ENABLED=true (default) + UptimeRobot external"),
+        _check("monitoring_ops_alerting", ctx["monitoring_ops"], required=strict_prod,
+               hint="Set MONITORING_BASE_URL + OPS_TELEGRAM_CHAT_ID (or MONITORING_WEBHOOK_URL). Run scripts/setup_monitoring.py"),
         _check("telegram_bot", telegram, required=False,
                hint="Set TELEGRAM_BOT_TOKEN + webhook for GTM growth loop"),
         _check("telegram_webhook_secret", (not telegram) or ctx["telegram_secret"], required=bool(telegram),
@@ -353,6 +368,7 @@ def _production_guard_state() -> dict[str, Any]:
         "billing": billing_configured(),
         "sentry": env_configured("SENTRY_DSN"),
         "uptime_probe": _env_flag("UPTIME_SELF_PROBE_ENABLED", "true"),
+        "monitoring_ops": _monitoring_ops_configured(),
         "lemon": lemon,
         "stripe": stripe,
         "lemon_whale": env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE"),
@@ -494,6 +510,12 @@ def _observability_growth_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
     return [
         _check("sentry_observability", s["sentry"], required=False, hint="Set SENTRY_DSN for production error tracking"),
         _check("uptime_self_probe", s["uptime_probe"], required=False, hint="UPTIME_SELF_PROBE_ENABLED=true (default) + UptimeRobot external"),
+        _check(
+            "monitoring_ops_alerting",
+            s["monitoring_ops"],
+            required=bool(s.get("strict_prod")),
+            hint="MONITORING_BASE_URL + OPS_TELEGRAM_CHAT_ID or MONITORING_WEBHOOK_URL. Run scripts/setup_monitoring.py",
+        ),
         _check("telegram_bot", s["telegram"], required=False, hint="Set TELEGRAM_BOT_TOKEN + webhook for GTM growth loop"),
         _check("telegram_webhook_secret", (not s["telegram"]) or s["telegram_secret"], required=bool(s["telegram"]), hint="Set TELEGRAM_WEBHOOK_SECRET when TELEGRAM_BOT_TOKEN is set"),
         _check("price_feed_railway", not getattr(config, "PRICE_FEED_WS_ONLY", True), required=False, hint="PRICE_FEED_WS_ONLY=false on Railway cloud"),

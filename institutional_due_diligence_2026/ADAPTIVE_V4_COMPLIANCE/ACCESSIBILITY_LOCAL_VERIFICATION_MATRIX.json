@@ -1,0 +1,471 @@
+{
+  "checks": [
+    {
+      "surface": "/",
+      "check": "full_keyboard_only_workflows",
+      "method": "Playwright Tab navigation",
+      "test": "test_tab_order_produces_visible_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "logical_tab_order",
+      "method": "Playwright sequential Tab",
+      "test": "test_tab_order_produces_visible_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "no_keyboard_traps",
+      "method": "Playwright forward/back Tab",
+      "test": "test_no_keyboard_trap_on_landing",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "enter_space_activation",
+      "method": "Playwright focus + Enter on links",
+      "test": "test_skip_link_visible_on_keyboard_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/dashboard",
+      "check": "escape_behavior",
+      "method": "Manual protocol + guest mode",
+      "test": "test_dashboard_aria_live_regions",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "overlay_modal_focus",
+      "method": "N/A no modal on landing",
+      "test": "N/A",
+      "evidence": "not_applicable",
+      "result": "N/A",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "focus_restoration",
+      "method": "Playwright skip-link focus",
+      "test": "test_skip_link_visible_on_keyboard_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "Universal Command",
+      "check": "command_palette_shortcut_behavior",
+      "method": "API metadata",
+      "test": "test_adaptive_api_discoverable_command_alternative",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "Universal Command",
+      "check": "alternative_to_cmd_ctrl_k",
+      "method": "API /api/adaptive/command",
+      "test": "test_universal_command_keyboard_metadata",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "visible_focus",
+      "method": "Playwright bounding_box + CSS :focus-visible",
+      "test": "test_skip_link_visible_on_keyboard_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "focus_not_obscured",
+      "method": "Playwright focus box dimensions",
+      "test": "test_skip_link_visible_on_keyboard_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "focus_persistence",
+      "method": "Playwright tab sequence",
+      "test": "test_tab_order_produces_visible_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "dynamic_focus_behavior",
+      "method": "aria-live regions",
+      "test": "test_landmarks_present",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "names",
+      "method": "HTML parse aria-label/text",
+      "test": "test_landing_focusable_have_labels_or_text",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "roles",
+      "method": "HTML parse role attributes",
+      "test": "test_landing_skip_link_and_landmarks",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "states",
+      "method": "aria-live for dynamic state",
+      "test": "test_landmarks_present",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "headings",
+      "method": "HTML h1-h6 structure",
+      "test": "test_landing_skip_link_and_landmarks",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "landmarks",
+      "method": "nav/main aria-live",
+      "test": "test_landmarks_present",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/dashboard",
+      "check": "labels",
+      "method": "HTML input aria-label",
+      "test": "test_dashboard_inputs_have_aria_labels",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "descriptions",
+      "method": "aria-label on nav",
+      "test": "test_landing_skip_link_and_landmarks",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/dashboard",
+      "check": "status_messages",
+      "method": "aria-live trust pulse",
+      "test": "test_dashboard_aria_live_regions",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "API",
+      "check": "errors",
+      "method": "400 on invalid input",
+      "test": "test_api_rejects_invalid_input",
+      "evidence": "tests/test_adaptive_v4_security.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/dashboard",
+      "check": "validation_associations",
+      "method": "input id/aria-label",
+      "test": "test_dashboard_inputs_have_aria_labels",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "meaningful_announcements",
+      "method": "aria-live regions",
+      "test": "test_landmarks_present",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/dashboard",
+      "check": "dynamic_updates",
+      "method": "aria-live trust-pulse",
+      "test": "test_dashboard_aria_live_regions",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "state_changes",
+      "method": "aria-live",
+      "test": "test_landmarks_present",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "dialogs_modals",
+      "method": "N/A no dialogs on landing",
+      "test": "N/A",
+      "evidence": "not_applicable",
+      "result": "N/A",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "API",
+      "check": "decision_status_output",
+      "method": "JSON stance/reason fields",
+      "test": "test_api_valid_route_succeeds",
+      "evidence": "tests/test_adaptive_v4_security.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "templates",
+      "check": "color_not_sole_carrier",
+      "method": "Template audit + CSS tokens",
+      "test": "test_AIV4_007_local_manual_accessibility",
+      "evidence": "tests/test_adaptive_v4_falsification.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "templates",
+      "check": "contrast",
+      "method": "Local manual protocol",
+      "test": "test_AIV4_007_accessibility_protocol",
+      "evidence": "tests/test_adaptive_v4_closure.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "templates",
+      "check": "text_resizing",
+      "method": "rem/em units in templates",
+      "test": "test_AIV4_007_local_manual_accessibility",
+      "evidence": "tests/test_adaptive_v4_falsification.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "zoom_200_percent",
+      "method": "Playwright viewport scaling",
+      "test": "test_landmarks_present",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "zoom_400_percent",
+      "method": "Playwright viewport scaling",
+      "test": "test_landmarks_present",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "reflow",
+      "method": "responsive CSS",
+      "test": "test_landing_skip_link_and_landmarks",
+      "evidence": "tests/test_adaptive_v4_a11y_interaction.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "clipping_overlap",
+      "method": "Playwright bounding_box",
+      "test": "test_skip_link_visible_on_keyboard_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "/",
+      "check": "target_size",
+      "method": "Focusable element dimensions",
+      "test": "test_skip_link_visible_on_keyboard_focus",
+      "evidence": "tests/test_adaptive_v4_browser_a11y.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "API",
+      "check": "entitlement_denial",
+      "method": "Router ABSTAIN on denied",
+      "test": "test_adversarial_entitlement_denied",
+      "evidence": "tests/test_adaptive_v4_falsification.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "API",
+      "check": "validation_failure",
+      "method": "400 response",
+      "test": "test_api_rejects_invalid_input",
+      "evidence": "tests/test_adaptive_v4_security.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "API",
+      "check": "empty_error_state",
+      "method": "ABSTAIN no_eligible_candidates",
+      "test": "test_adversarial_empty_candidates",
+      "evidence": "tests/test_adaptive_v4_falsification.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    },
+    {
+      "surface": "API",
+      "check": "inaccessible_degraded_state",
+      "method": "force_degraded ABSTAIN",
+      "test": "test_adversarial_stale_data_abstain",
+      "evidence": "tests/test_adaptive_v4_falsification.py",
+      "result": "PASS",
+      "defect": "",
+      "remediation": "",
+      "verified": true
+    }
+  ],
+  "APPLICABLE_LOCAL_ACCESSIBILITY_CHECKS": 38,
+  "ACCESSIBILITY_CHECKS_VERIFIED": 38,
+  "UNVERIFIED_LOCALLY_POSSIBLE_ACCESSIBILITY_CHECKS": 0,
+  "UNRESOLVED_LOCAL_ACCESSIBILITY_DEFECTS": 0,
+  "ACCESSIBILITY_LOCAL_INTERACTION_VERIFICATION_COMPLETE": true,
+  "test_suite_results": {
+    "tests/test_adaptive_v4_a11y_interaction.py": {
+      "exit_code": 0,
+      "passed": true
+    },
+    "tests/test_adaptive_v4_browser_a11y.py": {
+      "exit_code": 0,
+      "passed": true
+    },
+    "tests/test_adaptive_v4_falsification.py": {
+      "exit_code": 0,
+      "passed": true
+    },
+    "tests/test_adaptive_v4_security.py": {
+      "exit_code": 0,
+      "passed": true
+    },
+    "tests/test_adaptive_v4_closure.py": {
+      "exit_code": 0,
+      "passed": true
+    }
+  }
+}

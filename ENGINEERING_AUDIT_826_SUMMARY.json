@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-09-12T03:38:23.723250+00:00",
+  "type_a_buildable_gaps": 0,
+  "pass_engineering_count": 788,
+  "canonically_covered_count": 36,
+  "external_blocked_count": 0,
+  "engineering_closure_count": 824,
+  "type_a_zero": true,
+  "batches_with_type_a": [],
+  "PASS_LIVE_NOT_CLAIMED": true
+}
