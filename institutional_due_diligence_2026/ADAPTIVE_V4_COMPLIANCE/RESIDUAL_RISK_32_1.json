@@ -1,0 +1,58 @@
+{
+  "risks": [
+    {
+      "original_risk": "Router + Decision Contract production complexity",
+      "level": "high",
+      "control_id": "AIV4-R01",
+      "implementation": "intelligence_router.py deterministic 10-stage + observability",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "local_status": "VERIFIED_IMPLEMENTED",
+      "external_remaining": "live_stability_under_production_traffic"
+    },
+    {
+      "original_risk": "Confidence/Boundary calibration",
+      "level": "high",
+      "control_id": "AIV4-R02",
+      "implementation": "decision_contract.py + decision_boundary.py no false precision",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "local_status": "VERIFIED_IMPLEMENTED",
+      "external_remaining": "empirical_calibration_history"
+    },
+    {
+      "original_risk": "Concept/subsystem density",
+      "level": "medium",
+      "control_id": "AIV4-016",
+      "implementation": "calm_surface.py surface_budget + phased P0-P5 register",
+      "test": "tests/test_adaptive_v4_closure.py",
+      "local_status": "VERIFIED_IMPLEMENTED",
+      "external_remaining": "usage_evidence_for_surface_expansion"
+    },
+    {
+      "original_risk": "Human Validation",
+      "level": "medium",
+      "control_id": "AIV4-013",
+      "implementation": "human_validation.py protocol + instrumentation",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "local_status": "EXTERNAL_HUMAN_EVIDENCE_GATED",
+      "external_remaining": "genuine_representative_user_studies"
+    },
+    {
+      "original_risk": "Runtime/Cost Budget",
+      "level": "medium",
+      "control_id": "AIV4-R04",
+      "implementation": "performance_benchmarks.py local measurements",
+      "test": "tests/test_adaptive_v4_falsification.py",
+      "local_status": "VERIFIED_IMPLEMENTED",
+      "external_remaining": "production_slo_numeric_ceilings"
+    },
+    {
+      "original_risk": "Competitive differentiation claims",
+      "level": "low-medium",
+      "control_id": "AIV4-R05",
+      "implementation": "NOT_IMPLEMENTATION_INTENDED_BY_SPEC",
+      "test": "N/A",
+      "local_status": "NOT_IMPLEMENTATION_INTENDED_BY_SPEC",
+      "external_remaining": "competitive_market_research"
+    }
+  ]
+}

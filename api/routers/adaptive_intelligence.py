@@ -4,9 +4,17 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, Body, Query
+from fastapi import APIRouter, Body, HTTPException, Query
 
 router = APIRouter(tags=["adaptive-intelligence"])
+
+
+def _validate(body: dict) -> None:
+    from bd_platform.adaptive_intelligence.security_controls import validate_adaptive_input
+
+    result = validate_adaptive_input(body)
+    if not result["ok"]:
+        raise HTTPException(status_code=400, detail={"error": "invalid_input", "issues": result["errors"]})
 
 
 @router.get("/api/adaptive/status")
@@ -32,6 +40,7 @@ async def adaptive_today_focus() -> dict[str, Any]:
 
 @router.post("/api/adaptive/command")
 async def adaptive_command(body: dict[str, Any] = Body(default_factory=dict)) -> dict[str, Any]:
+    _validate(body)
     from bd_platform.adaptive_intelligence.universal_command import universal_command_search
 
     return universal_command_search(
@@ -43,6 +52,7 @@ async def adaptive_command(body: dict[str, Any] = Body(default_factory=dict)) ->
 
 @router.post("/api/adaptive/route")
 async def adaptive_route(body: dict[str, Any] = Body(default_factory=dict)) -> dict[str, Any]:
+    _validate(body)
     from bd_platform.adaptive_intelligence.intelligence_router import route_intelligence_request
 
     return route_intelligence_request(
@@ -118,3 +128,52 @@ async def adaptive_accessibility_checklist() -> dict[str, Any]:
     from bd_platform.adaptive_intelligence.accessibility import accessibility_checklist
 
     return accessibility_checklist()
+
+
+@router.get("/api/adaptive/accessibility/local-verification")
+async def adaptive_accessibility_local() -> dict[str, Any]:
+    from bd_platform.adaptive_intelligence.accessibility import run_local_manual_verification
+
+    return run_local_manual_verification()
+
+
+@router.get("/api/adaptive/role-preferences")
+async def adaptive_role_preferences(role: str = Query("retail")) -> dict[str, Any]:
+    from bd_platform.adaptive_intelligence.role_preferences import get_role_preferences
+
+    return get_role_preferences(role)
+
+
+@router.get("/api/adaptive/contextual/{context}")
+async def adaptive_contextual(context: str) -> dict[str, Any]:
+    from bd_platform.adaptive_intelligence.contextual_capabilities import contextual_capabilities
+
+    return contextual_capabilities(context)
+
+
+@router.get("/api/adaptive/playbooks")
+async def adaptive_playbooks() -> dict[str, Any]:
+    from bd_platform.adaptive_intelligence.playbook_governance import list_playbooks
+
+    return {"items": list_playbooks()}
+
+
+@router.get("/api/adaptive/benchmarks")
+async def adaptive_benchmarks() -> dict[str, Any]:
+    from bd_platform.adaptive_intelligence.performance_benchmarks import run_local_benchmarks
+
+    return run_local_benchmarks()
+
+
+@router.get("/api/adaptive/security/threat-model")
+async def adaptive_threat_model() -> dict[str, Any]:
+    from bd_platform.adaptive_intelligence.security_controls import threat_model_delta
+
+    return threat_model_delta()
+
+
+@router.get("/api/adaptive/human-validation/protocol")
+async def adaptive_hv_protocol() -> dict[str, Any]:
+    from bd_platform.adaptive_intelligence.human_validation import task_protocol
+
+    return {"tasks": task_protocol()}

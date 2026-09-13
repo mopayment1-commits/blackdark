@@ -45,3 +45,25 @@ def get_playbook(playbook_id: str) -> PlaybookContract | None:
 
 def list_playbooks() -> list[dict[str, Any]]:
     return [p.to_dict() for p in _REGISTRY.values()]
+
+
+def _bootstrap_official_playbooks() -> None:
+    if _REGISTRY:
+        return
+    register_playbook(
+        PlaybookContract(
+            playbook_id="official-risk-scan-v1",
+            version="1.0.0",
+            purpose="Scan portfolio risk with mandatory safety lenses",
+            eligible_regimes=["intraday", "swing"],
+            required_capabilities=["portfolio_ai"],
+            optional_capabilities=["whale_signal_vs_noise"],
+            validation_state="shadow",
+            failure_abstention=["stale_data", "unresolved_conflict"],
+            expiry_at="2027-01-01",
+            change_history=[{"version": "1.0.0", "reason": "initial_shadow"}],
+        )
+    )
+
+
+_bootstrap_official_playbooks()

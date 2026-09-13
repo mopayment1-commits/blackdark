@@ -73,6 +73,8 @@ def route_intelligence_request(
     decision_type: str | None = None,
     budget: PerformanceBudget | None = None,
     force_degraded: bool = False,
+    force_entitlement_denied: bool = False,
+    force_empty_candidates: bool = False,
 ) -> dict[str, Any]:
     """10-stage router: intent → controls → eligibility → dependence → conflict → marginal → budget → stop → abstain → explain."""
     started = time.perf_counter()
@@ -92,9 +94,14 @@ def route_intelligence_request(
     stages.append("mandatory_controls")
 
     candidates = _candidate_catalog()
+    if force_empty_candidates:
+        candidates = []
     if force_degraded:
         for c in candidates:
             c["freshness_ok"] = False
+    if force_entitlement_denied:
+        for c in candidates:
+            c["entitled"] = False
     eligible = [
         c
         for c in candidates
