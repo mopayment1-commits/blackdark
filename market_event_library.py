@@ -26,7 +26,9 @@ _DATA_BASE = Path(__file__).resolve().parent / "data"
 
 
 def _utcnow() -> str:
-    return datetime.now(UTC).isoformat()
+    from blackdark.timezone import utc_now_iso
+
+    return utc_now_iso()
 
 
 def _persist(row: dict[str, Any]) -> None:

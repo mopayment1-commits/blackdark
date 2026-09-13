@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from datetime import datetime
+
+from blackdark.timezone import utc_now
 from decimal import Decimal
 from typing import Any
 from uuid import UUID
@@ -37,8 +39,8 @@ class DataSource(Base):
     rate_limit_rps: Mapped[Decimal] = mapped_column(Numeric(4, 2), default=Decimal("1.0"))
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     metadata_json: Mapped[dict[str, Any]] = mapped_column("metadata", JSONB, default=dict)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
 
 class IngestionRun(Base):
@@ -48,7 +50,7 @@ class IngestionRun(Base):
     source_id: Mapped[int | None] = mapped_column(ForeignKey("data_sources.id"))
     run_type: Mapped[str] = mapped_column(String(32), nullable=False)
     status: Mapped[str] = mapped_column(String(32), default="running")
-    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     records_fetched: Mapped[int] = mapped_column(Integer, default=0)
     records_inserted: Mapped[int] = mapped_column(Integer, default=0)
@@ -57,7 +59,7 @@ class IngestionRun(Base):
     params: Mapped[dict[str, Any]] = mapped_column(JSONB, default=dict)
     error_log: Mapped[str | None] = mapped_column(Text)
     triggered_by: Mapped[str] = mapped_column(String(64), default="system")
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
 
 class OhlcvData(Base):
@@ -83,5 +85,5 @@ class OhlcvData(Base):
     trades_count: Mapped[int | None] = mapped_column(Integer)
     taker_buy_base_volume: Mapped[Decimal | None] = mapped_column(Numeric(36, 18))
     taker_buy_quote_volume: Mapped[Decimal | None] = mapped_column(Numeric(36, 18))
-    fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+    fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
     provenance_hash: Mapped[str | None] = mapped_column(String(64))

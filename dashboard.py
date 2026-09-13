@@ -855,6 +855,13 @@ except Exception:
     logger.exception("Data Governance router unavailable")
 
 try:
+    from api.routers.timezone import router as timezone_router
+
+    app.include_router(timezone_router)
+except Exception:
+    logger.exception("Timezone router unavailable")
+
+try:
     from api.routers.monitoring import router as monitoring_router
 
     app.include_router(monitoring_router)

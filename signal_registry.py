@@ -124,7 +124,9 @@ SIGNAL_TYPE_LEXICON: dict[str, dict[str, Any]] = {
 
 
 def _utcnow() -> str:
-    return datetime.now(UTC).isoformat()
+    from blackdark.timezone import utc_now_iso
+
+    return utc_now_iso()
 
 
 def _features_hash(features: dict[str, Any] | None) -> str:

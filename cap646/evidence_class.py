@@ -48,7 +48,9 @@ _PROMOTION_ALLOWED: dict[EvidenceClass, set[EvidenceClass]] = {
 
 
 def _utcnow() -> str:
-    return datetime.now(UTC).isoformat()
+    from blackdark.timezone import utc_now_iso
+
+    return utc_now_iso()
 
 
 def infer_evidence_class(

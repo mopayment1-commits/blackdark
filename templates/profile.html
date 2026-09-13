@@ -62,7 +62,7 @@
                 <label for="ux_mode_pref">UX mode</label>
                 <select id="ux_mode_pref"><option value="beginner">Beginner</option><option value="pro">Pro</option></select>
                 <label for="timezone">Timezone</label>
-                <input id="timezone" maxlength="64" placeholder="UTC">
+                <input id="timezone" maxlength="64" placeholder="UTC" oninput="this.dataset.userEdited='1'">
                 <label for="telegram_chat_id">Telegram chat ID (alerts)</label>
                 <input id="telegram_chat_id" maxlength="64">
                 <button class="btn-primary" data-bd-call="saveProfile">Save profile</button>
@@ -129,7 +129,18 @@
         document.getElementById('username').value = p.username || '';
         document.getElementById('ui_lang').value = p.ui_lang || 'en';
         document.getElementById('ux_mode_pref').value = p.ux_mode_pref || 'beginner';
-        document.getElementById('timezone').value = p.timezone || 'UTC';
+        const tzEl = document.getElementById('timezone');
+        const savedTz = p.timezone || '';
+        if (!savedTz || savedTz === 'UTC') {
+            try {
+                const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (detected && !tzEl.dataset.userEdited) {
+                    tzEl.value = detected;
+                    tzEl.placeholder = 'Detected: ' + detected;
+                }
+            } catch (e) { /* TZ-003 suggestion only */ }
+        }
+        tzEl.value = savedTz || tzEl.value || 'UTC';
         document.getElementById('telegram_chat_id').value = p.telegram_chat_id || '';
         document.getElementById('avatarImg').src = (p.avatar_url || ('/api/auth/avatar/' + u.id + '.svg')) + '?t=' + Date.now();
         document.getElementById('emailLine').textContent = u.email + (p.email_verified ? ' · verified' : ' · verification pending');

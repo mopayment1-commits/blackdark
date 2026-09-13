@@ -29,7 +29,9 @@ def chain_path() -> Path:
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(UTC).isoformat()
+    from blackdark.timezone import utc_now_iso
+
+    return utc_now_iso()
 
 
 def _hash_record(payload: dict[str, Any], prev_hash: str) -> str:

@@ -1,36 +1,28 @@
-"""Global timezone governance — IANA zones, UTC canonical storage (BGS-007)."""
+"""Global timezone governance — delegates to blackdark.timezone canonical API (BGS-007)."""
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
 from typing import Any
-from zoneinfo import ZoneInfo, available_timezones
+
+from blackdark.timezone import (
+    format_iso_z,
+    safe_timezone,
+    to_display_tz,
+    utc_now,
+    utc_now_iso as canonical_utc_now_iso,
+    validate_iana_timezone,
+)
 
 
 def utc_now_iso() -> str:
-    return datetime.now(UTC).isoformat()
+    return canonical_utc_now_iso()
 
 
-def to_user_local(dt: datetime, tz_name: str) -> datetime:
-    zone = ZoneInfo(tz_name)
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=UTC)
-    return dt.astimezone(zone)
-
-
-def validate_iana_timezone(tz_name: str) -> bool:
-    return tz_name in available_timezones()
+def to_user_local(dt, tz_name: str):
+    return to_display_tz(dt, tz_name)
 
 
 def timezone_status() -> dict[str, Any]:
-    sample = "America/New_York"
-    now = datetime.now(UTC)
-    local = to_user_local(now, sample)
-    return {
-        "canonical_storage": "UTC",
-        "iana_available": True,
-        "sample_zone": sample,
-        "sample_local": local.isoformat(),
-        "dst_aware": local.dst() is not None,
-        "supported_zones_count": len(available_timezones()),
-    }
+    from blackdark.timezone import timezone_status as _status
+
+    return _status()
