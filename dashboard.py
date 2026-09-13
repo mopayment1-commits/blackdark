@@ -3833,12 +3833,20 @@ async def alerts_inbox(
     unread_only: bool = False,
     user: dict | None = Depends(optional_user),
 ):
+    from blackdark.timezone.display import resolve_user_tz
     from in_app_alerts import inbox_stats, list_in_app_alerts
 
     email = (user or {}).get("email")
+    tz = resolve_user_tz(user)
     return {
         "stats": inbox_stats(user_email=email),
-        "alerts": list_in_app_alerts(limit=limit, user_email=email, unread_only=unread_only),
+        "alerts": list_in_app_alerts(
+            limit=limit,
+            user_email=email,
+            unread_only=unread_only,
+            user_timezone=tz,
+        ),
+        "display_timezone": tz,
         "works_without_telegram": True,
     }
 
@@ -4296,9 +4304,13 @@ async def api_security_events(
 ):
     from security_events import recent_security_events, security_events_stats
 
+    from blackdark.timezone.display import resolve_user_tz
+
+    tz = resolve_user_tz(_admin)
     return {
         "stats": security_events_stats(),
-        "events": recent_security_events(limit=min(limit, 200), kind=kind),
+        "events": recent_security_events(limit=min(limit, 200), kind=kind, user_timezone=tz),
+        "display_timezone": tz,
     }
 
 

@@ -7,6 +7,7 @@
     <title>{{ t('meta.title.dashboard_room') }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
+    <script defer src="/static/js/blackdark-timezone.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
@@ -244,6 +245,7 @@
                 <select id="chartIv" data-bd-change-call="loadChart"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
                 <button class="btn secondary" data-bd-call="loadChart">Refresh</button>
             </div>
+            <span id="chartTzLabel" class="hint" style="display:block;margin:.35rem 0" title="Explicit chart display timezone (TZ-017)"></span>
             <div id="chart"></div>
         </section>
 
@@ -972,6 +974,13 @@
             });
             series = chart.addCandlestickSeries({ upColor: '#22c55e', downColor: '#ef4444', borderVisible: false });
             new ResizeObserver(() => chart.applyOptions({ width: el.clientWidth })).observe(el);
+            if (window.BlackdarkTimezone) {
+                BlackdarkTimezone.resolveTimezone().then(function(tz) {
+                    BlackdarkTimezone.applyChartTimezone(chart);
+                    const badge = document.getElementById('chartTzLabel');
+                    if (badge) badge.textContent = 'Chart TZ: ' + tz;
+                });
+            }
         }
 
         async function loadChart() {
@@ -983,6 +992,10 @@
                 const payload = await res.json();
                 const rows = payload.klines || payload || [];
                 series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
+                if (window.BlackdarkTimezone && payload.chart) {
+                    BlackdarkTimezone.setDisplayTimezone(payload.chart.display_timezone || 'UTC');
+                    BlackdarkTimezone.applyChartTimezone(chart);
+                }
                 chart.timeScale().fitContent();
             } catch (error) { console.debug(error); }
         }
@@ -1173,7 +1186,7 @@
                     <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
                         <strong>${esc(a.title||'Alert')}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem" data-timezone="${esc(a.display_timezone||data.display_timezone||'UTC')}">${esc(a.created_at_display || (a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }

@@ -41,7 +41,18 @@ async def send_telegram_message(text: str, chat_id: str | None = None) -> bool:
         return False
 
 
-def send_email_alert(to_email: str, subject: str, body: str) -> bool:
+def _localize_alert_body(body: str, *, user_timezone: str | None = None) -> str:
+    from blackdark.timezone import utc_now_iso
+    from blackdark.timezone.display import format_email
+
+    tz = user_timezone or "UTC"
+    stamp = format_email(utc_now_iso(), tz)
+    header = f"[BLACKDARK · {stamp}]\n\n" if stamp else ""
+    return header + body
+
+
+def send_email_alert(to_email: str, subject: str, body: str, *, user_timezone: str | None = None) -> bool:
+    body = _localize_alert_body(body, user_timezone=user_timezone)
     host = os.getenv("SMTP_HOST", "")
     port = int(os.getenv("SMTP_PORT", "587"))
     user = os.getenv("SMTP_USER", "")
@@ -181,7 +192,8 @@ async def _dispatch_subscription_alert(
             sub_result["outbox_id"] = queued.get("id")
             push_in_app_alert(title, body, payload=payload, user_email=str(email), level="signal")
         else:
-            sub_result["email"] = send_email_alert(email, title, full_text)
+            tz = (payload or {}).get("user_timezone") or sub.get("timezone") or "UTC"
+            sub_result["email"] = send_email_alert(email, title, full_text, user_timezone=tz)
     tg_chat = sub.get("telegram_chat_id")
     if tg_chat:
         sub_result["telegram"] = await send_telegram_message(full_text, chat_id=tg_chat)

@@ -1,0 +1,16 @@
+{
+  "last_wave": "4",
+  "counts": {
+    "YES": 34,
+    "PARTIAL": 0,
+    "NO": 0,
+    "BLOCKED_EXTERNAL": 2,
+    "N/A": 0
+  },
+  "in_repo_time_compliance": true,
+  "live_launch_ready": false,
+  "blocked_external": [
+    "TZ-011",
+    "TZ-036"
+  ]
+}

@@ -13,9 +13,12 @@ router = APIRouter(prefix="/api/privacy", tags=["privacy"], responses=COMMON_ERR
 
 @router.get("/status")
 async def privacy_status():
+    from blackdark.timezone.display import timezone_detection_privacy
     from gdpr_service import gdpr_compliance_status
 
-    return gdpr_compliance_status()
+    status = gdpr_compliance_status()
+    status["timezone_detection"] = timezone_detection_privacy()
+    return status
 
 
 @router.post("/dsr/export", responses=COMMON_ERROR_RESPONSES)

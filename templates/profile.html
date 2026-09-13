@@ -175,6 +175,20 @@
         document.getElementById('gate').style.display = 'none';
         document.getElementById('app').style.display = 'grid';
         const tierId = fillProfileFields(d);
+        const p = d.profile || {};
+        if (!p.timezone || p.timezone === 'UTC') {
+            try {
+                const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (detected) {
+                    await fetch('/api/timezone/session', {
+                        method: 'POST',
+                        headers: authHeaders(),
+                        credentials: 'same-origin',
+                        body: JSON.stringify({ timezone: detected, detected_browser: detected }),
+                    });
+                }
+            } catch (e) { /* TZ-003 suggestion only */ }
+        }
         await syncNextUpgrade(tierId);
         showWelcomeMessage();
         loadSubscriberValue(tierId);

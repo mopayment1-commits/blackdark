@@ -59,18 +59,28 @@ async def billing_status(user: dict | None = Depends(optional_user)):
         }
         if not user:
             return {"authenticated": False, **base}
+        from blackdark.timezone.display import enrich_fields, format_billing, resolve_user_tz
+
         sub = await fetch_active_subscription_for_email(user["email"])
         entitlements = await resolve_entitlements_for_user(int(user["id"]))
         customer_id = await fetch_user_stripe_customer_id(user["email"])
-        return {
-            "authenticated": True,
-            **base,
-            "stripe_customer_id": customer_id,
-            "subscription": sub,
-            "entitlements": entitlements,
-            "tier": entitlements.get("effective_plan") or user.get("tier"),
-            "has_billing_portal": bool(customer_id) or bool(lemon_squeezy_portal_url()),
-        }
+        tz = resolve_user_tz(user)
+        sub_out = dict(sub) if sub else {}
+        for field in ("current_period_start", "current_period_end", "trial_end", "grace_period_end"):
+            if sub_out.get(field):
+                sub_out[f"{field}_display"] = format_billing(sub_out[field], tz).get("label")
+        return enrich_fields(
+            {
+                "authenticated": True,
+                **base,
+                "stripe_customer_id": customer_id,
+                "subscription": sub_out,
+                "entitlements": entitlements,
+                "tier": entitlements.get("effective_plan") or user.get("tier"),
+                "has_billing_portal": bool(customer_id) or bool(lemon_squeezy_portal_url()),
+            },
+            tz,
+        )
     except Exception:
         return {
             "authenticated": bool(user),

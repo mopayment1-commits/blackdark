@@ -56,7 +56,12 @@ def record_security_event(
     return event
 
 
-def recent_security_events(*, limit: int = 50, kind: str | None = None) -> list[dict[str, Any]]:
+def recent_security_events(
+    *,
+    limit: int = 50,
+    kind: str | None = None,
+    user_timezone: str | None = None,
+) -> list[dict[str, Any]]:
     with _LOCK:
         rows = list(_BUFFER)
     if kind:
@@ -70,7 +75,19 @@ def recent_security_events(*, limit: int = 50, kind: str | None = None) -> list[
                 rows = [json.loads(x) for x in lines if x.strip()]
             except Exception:
                 rows = []
-    return rows[-limit:]
+    rows = rows[-limit:]
+    if user_timezone:
+        from blackdark.timezone.display import format_activity_log
+
+        out = []
+        for row in rows:
+            item = dict(row)
+            disp = format_activity_log(item.get("iso"), user_timezone)
+            item["iso_display"] = disp.get("label")
+            item["display_timezone"] = disp.get("timezone")
+            out.append(item)
+        return out
+    return rows
 
 
 def security_events_stats() -> dict[str, Any]:

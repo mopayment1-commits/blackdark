@@ -71,6 +71,64 @@ async def timezone_format(body: TimezoneFormatBody) -> dict[str, Any]:
     return out
 
 
+class SessionTimezoneBody(BaseModel):
+    timezone: str
+    detected_browser: str | None = None
+
+
+@router.post("/api/timezone/session")
+async def timezone_session_persist(
+    body: SessionTimezoneBody,
+    user: dict | None = Depends(optional_user),
+) -> dict[str, Any]:
+    """TZ-003 — persist session/browser timezone suggestion (not immutable identity)."""
+    from blackdark.timezone import safe_timezone, validate_iana_timezone
+
+    tz = safe_timezone(body.timezone)
+    if not validate_iana_timezone(tz) and tz.upper() != "UTC":
+        raise HTTPException(status_code=400, detail="invalid_iana_timezone")
+    if user and not (user.get("timezone") or "").strip():
+        from database import update_user_profile_fields
+
+        await update_user_profile_fields(int(user["id"]), {"timezone": tz})
+        persisted = "account"
+    else:
+        persisted = "session_only"
+    return {
+        "timezone": tz,
+        "persisted": persisted,
+        "suggestion_only": persisted == "session_only",
+        "detected_browser": body.detected_browser,
+    }
+
+
+@router.get("/api/timezone/schedules")
+async def timezone_list_schedules() -> dict[str, Any]:
+    from blackdark.timezone.schedules import list_schedules
+
+    return {"schedules": list_schedules()}
+
+
+@router.post("/api/timezone/schedules")
+async def timezone_register_schedule(body: dict[str, Any]) -> dict[str, Any]:
+    from blackdark.timezone.schedules import RecurringSchedule, register_schedule
+
+    sched = RecurringSchedule(
+        schedule_id=str(body.get("schedule_id") or body.get("id")),
+        iana_zone=str(body.get("iana_zone") or body.get("timezone") or "UTC"),
+        wall_clock_rule=str(body.get("wall_clock_rule") or body.get("cron") or ""),
+        label=str(body.get("label") or ""),
+    )
+    return register_schedule(sched).to_dict()
+
+
+@router.get("/api/timezone/cross-surface")
+async def timezone_cross_surface() -> dict[str, Any]:
+    from blackdark.timezone.display import cross_surface_status
+
+    return cross_surface_status()
+
+
 @router.get("/api/timezone/validate/{tz_name}")
 async def timezone_validate(tz_name: str) -> dict[str, Any]:
     from blackdark.timezone import safe_timezone, validate_iana_timezone

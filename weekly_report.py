@@ -146,11 +146,17 @@ async def build_weekly_report(*, persist: bool = True) -> dict[str, Any]:
     return report
 
 
-def report_to_markdown(report: dict[str, Any]) -> str:
+def report_to_markdown(report: dict[str, Any], *, display_timezone: str = "UTC") -> str:
+    from blackdark.timezone.display import export_metadata, format_with_label
+
+    meta = export_metadata(display_timezone)
+    gen = format_with_label(report.get("generated_at"), display_timezone)
     lines = [
         "# BLACKDARK Weekly Intelligence Report",
         "",
-        f"Generated: {report.get('generated_at', '')}",
+        f"Generated (local): {gen.get('label')}",
+        f"Generated (UTC): {gen.get('utc')}",
+        f"Display timezone: {meta.get('display_timezone')}",
         "",
         report.get("narrative", ""),
         "",

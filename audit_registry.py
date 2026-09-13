@@ -207,11 +207,15 @@ async def fetch_audit_logs(
     return out
 
 
-def export_audit_logs_csv(rows: list[dict[str, Any]]) -> str:
+def export_audit_logs_csv(rows: list[dict[str, Any]], *, display_timezone: str = "UTC") -> str:
+    from blackdark.timezone.display import format_activity_log
+
     buf = io.StringIO()
+    buf.write(f"# canonical_storage=UTC display_timezone={display_timezone}\n")
     fields = [
         "id",
         "timestamp",
+        "timestamp_display",
         "actor",
         "action",
         "payload_hash",
@@ -224,7 +228,10 @@ def export_audit_logs_csv(rows: list[dict[str, Any]]) -> str:
     writer = csv.DictWriter(buf, fieldnames=fields, extrasaction="ignore")
     writer.writeheader()
     for row in rows:
-        writer.writerow({k: row.get(k, "") for k in fields})
+        out_row = dict(row)
+        disp = format_activity_log(out_row.get("timestamp"), display_timezone)
+        out_row["timestamp_display"] = disp.get("label") or ""
+        writer.writerow({k: out_row.get(k, "") for k in fields})
     return buf.getvalue()
 
 

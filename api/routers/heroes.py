@@ -80,12 +80,21 @@ async def decision_certificate_api(payload: dict = Body(...)):
 
 
 @router.get("/api/locked-predictions")
-async def list_locked(limit: int = Query(20, ge=1, le=100)):
+async def list_locked(
+    limit: int = Query(20, ge=1, le=100),
+    user: dict | None = Depends(optional_user_from_request),
+):
+    from blackdark.timezone.display import enrich_fields, resolve_user_tz
     from locked_predictions import glass_box_status, list_locked_predictions
 
+    tz = resolve_user_tz(user)
+    preds = []
+    for row in list_locked_predictions(limit=limit):
+        preds.append(enrich_fields(dict(row), tz, "locked_at", "unlock_at"))
     return {
-        "predictions": list_locked_predictions(limit=limit),
+        "predictions": preds,
         "status": glass_box_status(),
+        "display_timezone": tz,
     }
 
 
