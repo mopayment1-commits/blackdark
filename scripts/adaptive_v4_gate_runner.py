@@ -23,9 +23,9 @@ def main() -> int:
         "adaptive_v4_historical_provenance.py",
         "adaptive_v4_independent_audit.py",
         "adaptive_v4_security_matrix.py",
-        "adaptive_v4_working_tree_reconciliation.py",
         "adaptive_v4_regression_impact.py",
         "adaptive_v4_truth_audit.py",
+        "adaptive_v4_working_tree_reconciliation.py",
     ]
     for s in steps:
         if not _run(s):

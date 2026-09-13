@@ -18,6 +18,14 @@ ADAPTIVE_PREFIXES = (
     "scripts/adaptive_v4",
     "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/",
 )
+UNRELATED_SAFE_PREFIXES = (
+    "data/",
+    "docs/CODEQL",
+    ".codeql",
+    ".codeql-db/",
+    ".venv-a11y/",
+    "blackdark/data/",
+)
 
 
 def main() -> None:
@@ -29,10 +37,16 @@ def main() -> None:
             continue
         status, path = line[:2].strip(), line[3:].strip()
         related = any(path.startswith(p) for p in ADAPTIVE_PREFIXES)
-        safe = not related and status in {"M", "??"} and (
-            path.startswith("data/") or path.startswith("docs/CODEQL") or path.endswith(".json")
+        safe = not related and (
+            any(path.startswith(p) for p in UNRELATED_SAFE_PREFIXES)
+            or path.endswith(".json")
+            or path.endswith(".jsonl")
+            or path.endswith(".joblib")
+            or path.endswith(".parquet")
         )
-        if not related and not safe and status != " ":
+        if related:
+            unexplained += 1
+        elif not safe and status.strip():
             unexplained += 1
         items.append(
             {
@@ -44,7 +58,7 @@ def main() -> None:
             }
         )
     payload = {
-        "generated_at_utc": datetime.now(UTC).isoformat(),
+        "reconciliation_version": "adaptive-v4-gate-8",
         "items": items,
         "UNEXPLAINED_WORKING_TREE_CHANGES": unexplained,
         "adaptive_uncommitted": [i for i in items if i["related_to_adaptive"]],

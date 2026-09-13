@@ -132,7 +132,7 @@ def main() -> None:
         disposition_hist[d] = disposition_hist.get(d, 0) + 1
 
     result = {
-        "generated_at_utc": datetime.now(UTC).isoformat(),
+        "provenance_version": "adaptive-v4-normative-217",
         "artifacts": artifacts,
         "historical_disposition_distribution": disposition_hist,
         "historical_source_total": len(hist_rows),

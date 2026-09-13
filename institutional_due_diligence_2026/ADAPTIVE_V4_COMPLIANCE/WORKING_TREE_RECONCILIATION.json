@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-13T05:47:52.835144+00:00",
+  "generated_at_utc": "2026-09-13T05:49:22.054245+00:00",
   "items": [
     {
       "path": "FREE_API_RATE_LIMIT_AUDIT.json",
@@ -87,13 +87,6 @@
     },
     {
       "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/REQUIREMENT_RECONCILIATION.json",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
@@ -441,20 +434,6 @@
       "related_to_adaptive": false,
       "safe_to_exclude": true,
       "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "tests/test_adaptive_v4_a11y_interaction.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "tests/test_adaptive_v4_performance.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
     }
   ],
   "UNEXPLAINED_WORKING_TREE_CHANGES": 5,
@@ -469,27 +448,6 @@
     {
       "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
       "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/REQUIREMENT_RECONCILIATION.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "tests/test_adaptive_v4_a11y_interaction.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "tests/test_adaptive_v4_performance.py",
-      "status": "??",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"
