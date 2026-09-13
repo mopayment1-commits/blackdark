@@ -9,7 +9,15 @@ import re
 from pathlib import Path
 from typing import Any
 
+import sys
+
 ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = Path(__file__).resolve().parent
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
+
+from bandit_exception_analysis import analyze_b110_b112
+from bandit_nlwp_provenance import build_nlwp_record
 CORPUS = ROOT / "docs" / "evidence" / "bandit-full-4703-compact.json"
 RECON = ROOT / "docs" / "evidence" / "bandit-reconciliation" / "BANDIT_FINDING_RECONCILIATION_4703.json"
 OUT = ROOT / "docs" / "evidence" / "bandit-reconciliation"
@@ -141,40 +149,8 @@ def _subprocess_evidence(fn: str, line: int) -> dict[str, Any]:
     return evidence
 
 
-def _exception_evidence(fn: str, line: int) -> dict[str, Any]:
-    block = _context_block(fn, line, 5)
-    low = block.lower()
-    exc_types = re.findall(r"except\s+([\w.]+)", block)
-    continues = "continue" in block or "pass" in block
-    reraises = "raise" in block
-    sensitive = any(tok in fn.lower() for tok in SECURITY_SENSITIVE) or any(
-        tok in low for tok in SECURITY_SENSITIVE
-    )
-    consequence = "unknown"
-    if "password" in low or "reset" in low:
-        consequence = "anti_enumeration_generic_response_preserved"
-    elif "auth" in low or "session" in low:
-        consequence = "optional_enrichment_failure_no_session_issued"
-    elif "json.loads" in low:
-        consequence = "skip_corrupt_jsonl_record"
-    elif "cancellederror" in low:
-        consequence = "async_cancel_propagation"
-    elif "billing" in low or "subscription" in low:
-        consequence = "non_authoritative_side_effect_failure"
-    elif "execution" in low or "risk" in low:
-        consequence = "degraded_non_security_path"
-    return {
-        "source_context_block": block,
-        "exception_types": exc_types,
-        "execution_continues": continues and not reraises,
-        "reraises": reraises,
-        "security_sensitive_path": sensitive,
-        "integrity_consequence": consequence,
-        "why_safe": (
-            "Failure isolated to optional/non-authoritative step; does not grant credentials, "
-            "bypass authorization, or mutate protected security state without separate gate"
-        ),
-    }
+def _exception_evidence(fn: str, line: int, test_id: str) -> dict[str, Any]:
+    return analyze_b110_b112(fn, line, test_id)["exception_analysis"]
 
 
 def _b608_export_id_dataflow() -> dict[str, Any]:
@@ -212,31 +188,7 @@ def _b608_export_id_dataflow() -> dict[str, Any]:
 
 
 def _no_longer_present_proof(row: dict[str, Any]) -> dict[str, Any]:
-    fn = row["original_filename"]
-    line = int(row["original_line"])
-    test_id = row["test_id"]
-    current = row.get("current_context", "")
-    lines = _read_lines(ROOT / fn)
-    search_hits = []
-    if lines:
-        for i, ln in enumerate(lines, start=1):
-            if "f\"" in ln or "f'" in ln:
-                if any(tok in ln.lower() for tok in ("select", "from", "where", "update", "delete")):
-                    search_hits.append({"line": i, "text": ln.strip()[:120]})
-    return {
-        "original_finding_id": row["original_finding_id"],
-        "original_context_recovery": _recover_original_context(fn, line),
-        "old_semantic_operation": f"Dynamic SQL f-string flagged by {test_id} at corpus line {line}",
-        "current_binding": {"line": row.get("current_line"), "context": current},
-        "f_string_sql_sites_remaining_in_file": search_hits[:5],
-        "not_line_drift_proof": (
-            "Current line bound via nosec/proximity has no SQL f-string at original semantic site; "
-            "remaining f-strings in file use sql_safety allowlists or static clause templates"
-        ),
-        "not_merged_proof": (
-            "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
-        ),
-    }
+    return build_nlwp_record(row)
 
 
 def main() -> int:
@@ -302,7 +254,7 @@ def main() -> int:
                 "original_finding_id": r["original_finding_id"],
                 "test_id": r["test_id"],
                 "original_context_recovery": _recover_original_context(fn, line),
-                "exception_analysis": _exception_evidence(fn, int(r["current_line"] or line)),
+                "exception_analysis": _exception_evidence(fn, int(r["current_line"] or line), r["test_id"]),
                 "final_disposition": r["disposition"],
                 "finding_specific_justification": r.get("justification", ""),
             }
@@ -318,7 +270,7 @@ def main() -> int:
         "BANDIT_B603_EVIDENCE_58.json": {"count": len(b603_rows), "records": b603_rows},
         "BANDIT_B607_PARENT_MAP_26.json": {"count": len(b607_rows), "records": b607_rows},
         "BANDIT_B110_B112_EVIDENCE_97.json": {"count": len(b110_b112_rows), "records": b110_b112_rows},
-        "BANDIT_NO_LONGER_PRESENT_9.json": {"count": len(nlwp_rows), "records": nlwp_rows},
+        "BANDIT_NO_LONGER_PRESENT_10.json": {"count": len(nlwp_rows), "records": nlwp_rows},
         "BANDIT_B608_EXPORT_ID_DATAFLOW.json": _b608_export_id_dataflow(),
     }
     for name, payload in exports.items():

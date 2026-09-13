@@ -60,7 +60,7 @@ def test_b607_all_duplicate_of_b603():
     assert all("|B603" in r["duplicate_parent"] for r in b607)
 
 
-def test_reconciliation_script_exits_zero():
+def test_reconciliation_script_validates_and_accounts_for_4703():
     proc = subprocess.run(
         [str(ROOT / ".venv" / "bin" / "python") if (ROOT / ".venv" / "bin" / "python").is_file() else "python3",
          "scripts/bandit_full_reconciliation.py", "--skip-bandit"],
@@ -68,4 +68,12 @@ def test_reconciliation_script_exits_zero():
         capture_output=True,
         text=True,
     )
-    assert proc.returncode == 0, proc.stderr or proc.stdout
+    payload = json.loads(proc.stdout)
+    assert payload["RECONCILED_FINDINGS"] == EXPECTED
+    assert not payload["validation_errors"]
+    assert sum(payload["disposition_counts"].values()) == EXPECTED
+    # Non-zero exit is expected when OWNER_DECISION_REQUIRED items remain open.
+    if payload["OWNER_DECISION_REQUIRED_COUNT"]:
+        assert proc.returncode == 1
+    else:
+        assert proc.returncode == 0

@@ -1,11 +1,18 @@
 {
-  "CURRENT_FULL_SHA_BEFORE_WORK": "d9b9e2981517280b361e15a4895d8ee1c5c612a6",
+  "CURRENT_FULL_SHA_BEFORE_WORK": "fb41e7c9c5a2cc44e3cf9ddd5b9989fc018dd695",
+  "CORPUS_BASELINE_SHA": "ffa2d6158a97407e7f04acdce610ad04bc2fb43b",
+  "CORPUS_BASELINE_METADATA": {
+    "baseline_sha": "ffa2d6158a97407e7f04acdce610ad04bc2fb43b",
+    "baseline_subject": "chore(audit): record 826/826 PASS_ENGINEERING v6 strict institutional audit",
+    "recovery_method": "git show <baseline_sha>:<file>"
+  },
   "ORIGINAL_FINDINGS": 4703,
   "RECONCILED_FINDINGS": 4703,
   "disposition_counts": {
-    "FALSE_POSITIVE_PROVEN": 305,
+    "FALSE_POSITIVE_PROVEN": 302,
     "TRUE_POSITIVE_FIXED": 6,
     "NO_LONGER_PRESENT_WITH_PROVENANCE": 10,
+    "OWNER_DECISION_REQUIRED": 3,
     "DUPLICATE_PROVEN": 27,
     "TEST_ONLY_PROVEN": 4355
   },
@@ -26,7 +33,8 @@
       "TEST_ONLY_PROVEN": 3
     },
     "B110": {
-      "FALSE_POSITIVE_PROVEN": 93
+      "FALSE_POSITIVE_PROVEN": 90,
+      "OWNER_DECISION_REQUIRED": 3
     },
     "B112": {
       "FALSE_POSITIVE_PROVEN": 4
@@ -54,12 +62,12 @@
       "NO_LONGER_PRESENT_WITH_PROVENANCE": 10
     }
   },
-  "UNIQUE_SECURITY_DEFECTS_FOUND": 4,
+  "UNIQUE_SECURITY_DEFECTS_FOUND": 7,
   "UNIQUE_SECURITY_DEFECTS_FIXED": 4,
-  "UNIQUE_SECURITY_DEFECTS_REMAINING": 0,
-  "OWNER_DECISION_REQUIRED_COUNT": 0,
+  "UNIQUE_SECURITY_DEFECTS_REMAINING": 3,
+  "OWNER_DECISION_REQUIRED_COUNT": 3,
   "validation_errors": [],
-  "FINAL_STATUS": "REMEDIATION_COMPLETE_PENDING_INDEPENDENT_AUDIT",
+  "FINAL_STATUS": "BLOCKED_WITH_OPEN_ITEMS",
   "ci_bandit": {
     "command": "bandit -r . --ini .bandit -ll -f json -q",
     "exit_code": 0,

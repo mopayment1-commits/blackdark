@@ -15,6 +15,13 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = Path(__file__).resolve().parent
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
+
+from bandit_exception_analysis import analyze_b110_b112
+from bandit_nlwp_provenance import CORPUS_BASELINE_SHA, baseline_metadata
+
 ORIGINAL_CORPUS = ROOT / "docs" / "evidence" / "bandit-full-4703-compact.json"
 OUT_DIR = ROOT / "docs" / "evidence" / "bandit-reconciliation"
 EXPECTED_TOTAL = 4703
@@ -372,61 +379,11 @@ def _classify_b311(fn: str, line: int, context: str) -> dict[str, Any]:
 
 
 def _classify_b110_b112(fn: str, line: int, context: str, test_id: str) -> dict[str, Any]:
-    scope = _scope(fn)
-    sensitive = _is_security_sensitive_path(fn)
-    lines = _read_lines(ROOT / fn)
-    block = ""
-    if 0 <= line - 1 < len(lines):
-        start = max(0, line - 3)
-        block = "\n".join(lines[start : line + 2])
-
-    if "except asyncio.CancelledError" in block:
-        return {
-            "disposition": "FALSE_POSITIVE_PROVEN",
-            "justification": (
-                f"{test_id} at {fn}:{line} re-raises CancelledError; other exceptions handled separately"
-            ),
-        }
-    if "json.loads" in block and "continue" in block:
-        return {
-            "disposition": "FALSE_POSITIVE_PROVEN",
-            "justification": (
-                f"{test_id} at {fn}:{line} skips corrupt JSONL lines in {fn}; "
-                "does not bypass security control; fail-safe skip of malformed records"
-            ),
-        }
-    if sensitive and "password" in block.lower() and "pass" in block:
-        if "debug_token" in block or "If an account exists" in block:
-            return {
-                "disposition": "FALSE_POSITIVE_PROVEN",
-                "justification": (
-                    f"{test_id} at {fn}:{line} in password-reset flow: email send failure swallowed "
-                    "to preserve anti-enumeration generic response; does not grant auth/session"
-                ),
-            }
-    if sensitive and "auth" in fn.lower():
-        if "mfa" in block.lower() or "oauth" in block.lower():
-            return {
-                "disposition": "FALSE_POSITIVE_PROVEN",
-                "justification": (
-                    f"{test_id} at {fn}:{line} optional enrichment failure; primary auth path "
-                    "already validated; failure does not issue session or elevate privilege"
-                ),
-            }
-    if scope == "tooling":
-        return {
-            "disposition": "FALSE_POSITIVE_PROVEN",
-            "justification": (
-                f"{test_id} in tooling script {fn}:{line}; non-production; graceful degradation "
-                "of optional audit/enrichment step"
-            ),
-        }
+    result = analyze_b110_b112(fn, line, test_id)
     return {
-        "disposition": "FALSE_POSITIVE_PROVEN",
-        "justification": (
-            f"{test_id} at {fn}:{line} optional non-security-critical enrichment; "
-            "failure does not bypass authorization or mutate protected state; context: {context[:80]}"
-        ),
+        "disposition": result["disposition"],
+        "justification": result["justification"],
+        "exception_analysis": result.get("exception_analysis"),
     }
 
 
@@ -652,6 +609,8 @@ def main() -> int:
 
     summary = {
         "CURRENT_FULL_SHA_BEFORE_WORK": sha_before,
+        "CORPUS_BASELINE_SHA": CORPUS_BASELINE_SHA,
+        "CORPUS_BASELINE_METADATA": baseline_metadata(),
         "ORIGINAL_FINDINGS": EXPECTED_TOTAL,
         "RECONCILED_FINDINGS": payload["reconciled_total"],
         "disposition_counts": payload["disposition_counts"],
