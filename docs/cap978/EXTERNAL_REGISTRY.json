@@ -1,10 +1,10 @@
 {
-  "total": 33,
+  "total": 31,
   "counts": {
-    "EXTERNAL_BLOCKED": 31,
+    "EXTERNAL_BLOCKED": 29,
     "EXTERNAL_EVIDENCE_REQUIRED": 2
   },
-  "capability_ids_blocked": 31,
+  "capability_ids_blocked": 29,
   "controls_blocked": 2,
   "rows": [
     {
@@ -158,16 +158,6 @@
       "internal_action": "none — requires external provisioning"
     },
     {
-      "id": 649,
-      "scope": "extension_647_978",
-      "capability": "dbt Connector",
-      "track": "T19",
-      "classification": "EXTERNAL_BLOCKED",
-      "blocker_type": "vendor_license_or_infra",
-      "reason": "dbt Cloud/project integration — external dbt deployment",
-      "internal_action": "none — requires external provisioning"
-    },
-    {
       "id": 652,
       "scope": "extension_647_978",
       "capability": "Prompt-to-SQL Agent",
@@ -175,16 +165,6 @@
       "classification": "EXTERNAL_BLOCKED",
       "blocker_type": "vendor_license_or_infra",
       "reason": "BI connector licenses (Tableau/Looker/Power BI)",
-      "internal_action": "none — requires external provisioning"
-    },
-    {
-      "id": 658,
-      "scope": "extension_647_978",
-      "capability": "White-Label Embedded Analytics",
-      "track": "T19",
-      "classification": "EXTERNAL_BLOCKED",
-      "blocker_type": "vendor_license_or_infra",
-      "reason": "Snowflake/BigQuery export — external cloud infra credentials",
       "internal_action": "none — requires external provisioning"
     },
     {

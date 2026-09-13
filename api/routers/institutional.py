@@ -254,18 +254,31 @@ async def list_orgs(user: dict = Depends(require_authenticated)) -> dict[str, An
 
 
 @router.get("/orgs/{org_id}/members")
-async def org_members(org_id: str) -> dict[str, Any]:
-    from org_tenant import list_members
+async def org_members(org_id: str, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+    from org_tenant import assert_org_access, list_members
 
+    email = str(user.get("email") or "").strip().lower()
+    try:
+        assert_org_access(org_id, email, min_role="viewer")
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
     return {"org_id": org_id, "members": list_members(org_id)}
 
 
 @router.post("/orgs/{org_id}/members", responses=COMMON_ERROR_RESPONSES)
-async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
-    from org_tenant import add_member
+async def org_add_member(
+    org_id: str,
+    body: MemberAdd,
+    user: dict = Depends(require_authenticated),
+) -> dict[str, Any]:
+    from org_tenant import add_member, assert_org_access
 
+    email = str(user.get("email") or "").strip().lower()
     try:
+        assert_org_access(org_id, email, min_role="admin")
         return add_member(org_id, body.email, body.role)
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
 

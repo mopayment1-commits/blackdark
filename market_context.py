@@ -48,7 +48,7 @@ async def _rest_get(
     try:
         if owns_session:
             session = aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS)
-        assert session is not None
+        assert session is not None  # nosec B101
         async with session.get(url, params=params, headers=headers) as resp:
             if resp.status != 200:
                 logger.debug(

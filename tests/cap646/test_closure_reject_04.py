@@ -21,7 +21,9 @@ async def test_runtime_execute_batch01_spine(tmp_path, monkeypatch):
     from cap646.runtime import execute_capability
 
     for cid in (1, 5, 47, 50):
-        result = await execute_capability(cid, params={"symbol": "BTC", "kind": "spot_futures"})
+        result = await execute_capability(
+            cid, params={"symbol": "BTC", "kind": "spot_futures"}, skip_entitlement=True
+        )
         assert result.get("success") is True or result.get("classification")
         assert result.get("classification") in {"PRODUCTION-ALIGNED", "NOT_COMPLETE", None}
 
@@ -38,7 +40,9 @@ async def test_runtime_execute_batch02_spine(tmp_path, monkeypatch):
     from cap646.runtime import execute_capability
 
     for cid in (51, 53, 57, 85, 100):
-        result = await execute_capability(cid, params={"symbol": "BTC", "kind": "spot_futures"})
+        result = await execute_capability(
+            cid, params={"symbol": "BTC", "kind": "spot_futures"}, skip_entitlement=True
+        )
         assert result.get("success") is True or result.get("classification")
         assert "VERIFIED_COMPLETE" not in str(result.get("classification"))
 

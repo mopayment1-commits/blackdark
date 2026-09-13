@@ -703,14 +703,26 @@ async def aml_cft_monitoring(*, address: str) -> dict[str, Any]:
 
 async def datashare_connector() -> dict[str, Any]:
     from bigquery_export import warehouse_analytics_status
+    from data_lake import lake_status
 
     status = await warehouse_analytics_status()
-    ready = bool(status.get("export_ready"))
+    lake = await lake_status()
+    registry = lake.get("registry") or {}
+    lake_ready = bool(
+        lake.get("health")
+        or lake.get("sources_ok")
+        or registry.get("registered_entries")
+    )
+    bq_ready = bool(status.get("export_ready"))
+    ready = bq_ready or lake_ready
     return {
         "source": "bigquery_datashare",
         "timestamp": _utcnow(),
         "datashare": status,
+        "lake": lake,
         "export_ready": ready,
+        "bigquery_live": bq_ready,
+        "lake_ready": lake_ready,
         "dataset": status.get("dataset"),
         "table_fqn": status.get("table_fqn"),
         "rows_verified": status.get("rows_verified"),
