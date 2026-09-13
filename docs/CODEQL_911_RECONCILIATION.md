@@ -1,93 +1,106 @@
 # CodeQL Institutional Reconciliation
 
-- Original analyzed SHA (reproduced): `f9e06f136f54fda777cc740a33e6b6b9fa14902f`
-- Final SARIF findings: **924** (reference inventory claimed 911; original CSV/SARIF not in repo)
-- Security in final SARIF: **33** + **5** remediated absent = **38** original security
-- Quality in final SARIF: **891** (reference quality: 873)
-- Final SARIF disposition complete: **924 / 924**
-- Original security disposition complete: **38 / 38** (33 in SARIF + 5 remediated closed)
+- Original analyzed SHA: `f038bc331a06ed52aeb85035c9c01ad1b4492f2b`
+- Final analyzed SHA: `da818a887bf088a7831028d78a82089208e28cbe`
+- Canonical original inventory: `docs/evidence/blackdark-codeql-original-911.csv` (911 findings)
+- Original security / quality: **38** / **873**
+- Original reconciliation complete: **911 / 911**
+- Final SARIF findings (post-remediation scan): **924**
+- Security disposition complete: **38 / 38**
 
 ## Closure status
 
-**CODEQL SOURCE-LEVEL REVIEW COMPLETE — FINAL CLOSURE BLOCKED BY EXTERNAL VERIFICATION**
+**CODEQL INSTITUTIONAL RECONCILIATION CLOSED**
 
-Reason: original `blackdark-codeql-911.csv` unavailable; reproduced pre-fix inventory was 928 not 911. Cannot assert 911/911 byte-level reconciliation without reference artifact.
-
-## Remediated findings absent from final SARIF
-
-- address segment joined into URL path without validation; remediated _safe_address_segment.
-- scale_readiness_report nested artifact_error exposed str(exc); remediated to type name.
-- viral_readiness_report embeds scale_readiness_report; canonical scale_readiness.py.
-- build_info returned str(exc); remediated to type(exc).__name__.
-- vendor_rate_limit_status returned str(exc); remediated in ops/vendor_rate_limit_watchdog.py.
-
-
-## Disposition totals (final SARIF)
+## Numerical reconciliation (original 911)
 
 | Bucket | Count |
 |---|---:|
-| TP | 8 |
-| FP | 20 |
+| TP | 12 |
+| FP | 19 |
 | TEST_ONLY | 5 |
-| DUPLICATE | 1 |
-| QUALITY_DEBT | 890 |
+| DUPLICATE | 3 |
+| QUALITY_DEBT | 872 |
 | RAV | 0 |
-| **SUM** | **924** |
+| **SUM** | **911** |
 
 ## Security reconciliation (38/38)
 
 | Bucket | Count |
 |---|---:|
-| TP | 8 |
-| FP | 20 |
+| TP | 12 |
+| FP | 19 |
 | TEST_ONLY | 4 |
-| DUPLICATE | 1 |
+| DUPLICATE | 3 |
 | RAV | 0 |
-| remediated | 8 |
+| remediated | 12 |
 
-## Rule breakdown
+## Remediated findings absent from final SARIF
 
-| ruleId | original_total | TP | FP | TEST_ONLY | DUPLICATE | QUALITY_DEBT | RAV | remediated |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| py/catch-base-exception | 2 | 0 | 0 | 0 | 0 | 2 | 0 | 0 |
-| py/clear-text-logging-sensitive-data | 17 | 1 | 15 | 1 | 0 | 0 | 0 | 1 |
-| py/clear-text-storage-sensitive-data | 3 | 0 | 1 | 2 | 0 | 0 | 0 | 0 |
-| py/constant-conditional-expression | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
-| py/cyclic-import | 302 | 0 | 0 | 0 | 0 | 302 | 0 | 0 |
-| py/duplicate-key-dict-literal | 2 | 0 | 0 | 0 | 0 | 2 | 0 | 0 |
-| py/empty-except | 191 | 0 | 0 | 0 | 0 | 191 | 0 | 0 |
-| py/file-not-closed | 3 | 0 | 0 | 1 | 0 | 2 | 0 | 0 |
-| py/import-and-import-from | 23 | 0 | 0 | 0 | 0 | 23 | 0 | 0 |
-| py/incomplete-url-substring-sanitization | 3 | 0 | 2 | 1 | 0 | 0 | 0 | 0 |
-| py/log-injection | 9 | 7 | 1 | 0 | 1 | 0 | 0 | 7 |
-| py/loop-variable-capture | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
-| py/multiple-definition | 3 | 0 | 0 | 0 | 0 | 3 | 0 | 0 |
-| py/redundant-comparison | 2 | 0 | 0 | 0 | 0 | 2 | 0 | 0 |
-| py/repeated-import | 10 | 0 | 0 | 0 | 0 | 10 | 0 | 0 |
-| py/undefined-export | 9 | 0 | 0 | 0 | 0 | 9 | 0 | 0 |
-| py/uninitialized-local-variable | 3 | 0 | 0 | 0 | 0 | 3 | 0 | 0 |
-| py/unnecessary-lambda | 2 | 0 | 0 | 0 | 0 | 2 | 0 | 0 |
-| py/unreachable-statement | 6 | 0 | 0 | 0 | 0 | 6 | 0 | 0 |
-| py/unsafe-cyclic-import | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
-| py/unused-global-variable | 72 | 0 | 0 | 0 | 0 | 72 | 0 | 0 |
-| py/unused-import | 192 | 0 | 0 | 0 | 0 | 192 | 0 | 0 |
-| py/unused-local-variable | 66 | 0 | 0 | 0 | 0 | 66 | 0 | 0 |
-| py/weak-sensitive-data-hashing | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
+- `dashboard.py:2123` — py/stack-trace-exposure — scale_readiness_report nested artifact_error exposed str(exc); remediated to type name.
+- `dashboard.py:4564` — py/stack-trace-exposure — build_info returned str(exc); remediated to type(exc).__name__.
+- `api/routers/monitoring.py:32` — py/stack-trace-exposure — vendor_rate_limit_status returned str(exc); remediated in ops/vendor_rate_limit_watchdog.py.
+- `blackdark/ingestion/arkham_connector.py:73` — py/partial-ssrf — address segment joined into URL path without validation; remediated _safe_address_segment.
 
-## Confirmed true positives remediated
+## Remediated findings still flagged in final SARIF (CodeQL taint limitation)
 
-- `billing/audit_ledger.py:73` — py/clear-text-logging-sensitive-data — PII email logged cleartext; remediated via sanitize_log_value at sink (CodeQL may still trace taint).
-- `bd_platform/address_intelligence.py:67` — py/log-injection — Snapshot key logged; remediated via sanitize_log_value.
-- `billing/audit_ledger.py:73` — py/log-injection — User email interpolated into log line; remediated via sanitize_log_value CRLF scrub.
-- `audit_registry.py:295` — py/log-injection — decision_id in exception log; remediated via sanitize_log_value.
-- `audit_registry.py:371` — py/log-injection — User-supplied decision_id in exception log; remediated via sanitize_log_value.
-- `api/routers/didit_webhook.py:51` — py/log-injection — Webhook event_id attacker-controlled; remediated via sanitize_log_value.
-- `ml/market_replay_bootstrap.py:188` — py/log-injection — asset interpolated in log; remediated via sanitize_asset.
-- `signal_compounding.py:112` — py/log-injection — signal id logged; remediated via sanitize_log_value.
+- `billing/audit_ledger.py:71` — py/clear-text-logging-sensitive-data — PII email logged cleartext; remediated via sanitize_log_value at sink (CodeQL may still trace taint). (still_present_near_line_73)
+- `bd_platform/address_intelligence.py:65` — py/log-injection — Snapshot key logged; remediated via sanitize_log_value. (still_present_near_line_67)
+- `billing/audit_ledger.py:71` — py/log-injection — User email interpolated into log line; remediated via sanitize_log_value CRLF scrub. (still_present_near_line_73)
+- `audit_registry.py:302` — py/log-injection — decision_id in exception log; remediated via sanitize_log_value. (still_present_near_line_295)
+- `audit_registry.py:376` — py/log-injection — User-supplied decision_id in exception log; remediated via sanitize_log_value. (still_present_near_line_371)
+- `api/routers/didit_webhook.py:47` — py/log-injection — Webhook event_id attacker-controlled; remediated via sanitize_log_value. (still_present_near_line_51)
+- `ml/market_replay_bootstrap.py:186` — py/log-injection — asset interpolated in log; remediated via sanitize_asset. (still_present_near_line_188)
+- `signal_compounding.py:110` — py/log-injection — signal id logged; remediated via sanitize_log_value. (still_present_near_line_112)
+
+## Rule breakdown (original 911)
+
+| ruleId | original_total | TP | FP | TEST_ONLY | DUPLICATE | QUALITY_DEBT | RAV |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| py/clear-text-logging-sensitive-data | 17 | 1 | 15 | 1 | 0 | 0 | 0 |
+| py/clear-text-storage-sensitive-data | 3 | 0 | 1 | 2 | 0 | 0 | 0 |
+| py/constant-conditional-expression | 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| py/cyclic-import | 302 | 0 | 0 | 0 | 0 | 302 | 0 |
+| py/duplicate-key-dict-literal | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| py/empty-except | 191 | 0 | 0 | 0 | 0 | 191 | 0 |
+| py/file-not-closed | 3 | 0 | 0 | 1 | 0 | 2 | 0 |
+| py/import-and-import-from | 22 | 0 | 0 | 0 | 0 | 22 | 0 |
+| py/incomplete-url-substring-sanitization | 3 | 0 | 1 | 1 | 1 | 0 | 0 |
+| py/log-injection | 9 | 7 | 1 | 0 | 1 | 0 | 0 |
+| py/loop-variable-capture | 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| py/multiple-definition | 3 | 0 | 0 | 0 | 0 | 3 | 0 |
+| py/partial-ssrf | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
+| py/redundant-comparison | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| py/repeated-import | 10 | 0 | 0 | 0 | 0 | 10 | 0 |
+| py/stack-trace-exposure | 4 | 3 | 0 | 0 | 1 | 0 | 0 |
+| py/undefined-export | 9 | 0 | 0 | 0 | 0 | 9 | 0 |
+| py/uninitialized-local-variable | 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| py/unnecessary-lambda | 2 | 0 | 0 | 0 | 0 | 2 | 0 |
+| py/unreachable-statement | 5 | 0 | 0 | 0 | 0 | 5 | 0 |
+| py/unsafe-cyclic-import | 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| py/unused-global-variable | 64 | 0 | 0 | 0 | 0 | 64 | 0 |
+| py/unused-import | 189 | 0 | 0 | 0 | 0 | 189 | 0 |
+| py/unused-local-variable | 65 | 0 | 0 | 0 | 0 | 65 | 0 |
+| py/weak-sensitive-data-hashing | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
+
+## Confirmed true positives (original inventory)
+
+- `dashboard.py:2123` — py/stack-trace-exposure — scale_readiness_report nested artifact_error exposed str(exc); remediated to type name. [remediated_absent; absent_from_final_sarif]
+- `dashboard.py:4564` — py/stack-trace-exposure — build_info returned str(exc); remediated to type(exc).__name__. [remediated_absent; absent_from_final_sarif]
+- `api/routers/monitoring.py:32` — py/stack-trace-exposure — vendor_rate_limit_status returned str(exc); remediated in ops/vendor_rate_limit_watchdog.py. [remediated_absent; absent_from_final_sarif]
+- `billing/audit_ledger.py:71` — py/clear-text-logging-sensitive-data — PII email logged cleartext; remediated via sanitize_log_value at sink (CodeQL may still trace taint). [remediated_still_flagged; still_present_near_line_73]
+- `bd_platform/address_intelligence.py:65` — py/log-injection — Snapshot key logged; remediated via sanitize_log_value. [remediated_still_flagged; still_present_near_line_67]
+- `billing/audit_ledger.py:71` — py/log-injection — User email interpolated into log line; remediated via sanitize_log_value CRLF scrub. [remediated_still_flagged; still_present_near_line_73]
+- `audit_registry.py:302` — py/log-injection — decision_id in exception log; remediated via sanitize_log_value. [remediated_still_flagged; still_present_near_line_295]
+- `audit_registry.py:376` — py/log-injection — User-supplied decision_id in exception log; remediated via sanitize_log_value. [remediated_still_flagged; still_present_near_line_371]
+- `api/routers/didit_webhook.py:47` — py/log-injection — Webhook event_id attacker-controlled; remediated via sanitize_log_value. [remediated_still_flagged; still_present_near_line_51]
+- `ml/market_replay_bootstrap.py:186` — py/log-injection — asset interpolated in log; remediated via sanitize_asset. [remediated_still_flagged; still_present_near_line_188]
+- `signal_compounding.py:110` — py/log-injection — signal id logged; remediated via sanitize_log_value. [remediated_still_flagged; still_present_near_line_112]
+- `blackdark/ingestion/arkham_connector.py:73` — py/partial-ssrf — address segment joined into URL path without validation; remediated _safe_address_segment. [remediated_absent; absent_from_final_sarif]
 
 ## RAV
 
-- None
+- None (0)
 
 ## Global suppressions
 
