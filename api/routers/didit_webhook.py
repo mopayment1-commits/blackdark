@@ -44,11 +44,10 @@ async def didit_webhook(request: Request) -> dict:
     try:
         result = process_webhook_event(body)
     except Exception:
-        from log_safety import sanitize_log_value
-
+        _event_id = body.get("event_id")
         logger.exception(
             "didit_webhook_processing_failed event_id=%s",
-            sanitize_log_value(body.get("event_id")),
+            str(_event_id).replace("\r", " ").replace("\n", " "),
         )
         raise HTTPException(status_code=500, detail="processing_failed") from None
     return result

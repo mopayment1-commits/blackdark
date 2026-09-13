@@ -107,9 +107,10 @@ async def store_signal(
                     edge_type="influenced_by",
                 )
     except Exception:
-        from log_safety import sanitize_log_value
-
-        logger.exception("KG signal ingest failed for %s", sanitize_log_value(sid))
+        logger.exception(
+            "KG signal ingest failed for %s",
+            str(sid).replace("\r", " ").replace("\n", " "),
+        )
 
     return _signal_api(row)
 
