@@ -1,0 +1,48 @@
+{
+  "phase": "0A.1",
+  "phase_name": "Temporal Execution Baseline Isolation",
+  "governing_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+  "recorded_at_utc": "2026-09-13T15:20:00Z",
+  "source_branch": "cursor/bandit-audit-correction-358c",
+  "source_head": "7b948277bfde37d35396340b5ddd6fa37e68b1bc",
+  "selected_temporal_base_sha": "fb41e7c9c5a2cc44e3cf9ddd5b9989fc018dd695",
+  "selected_temporal_base_reason": "Latest accepted Data Governance engineering closure (Phase I external route activation complete at fb41e7c9). This SHA is the merge-base between the Bandit branch and cursor/data-governance-institutional-closure-358c, so it includes completed Data Truth Fabric work (material_sha 053582db) and all governing prerequisites (build-governance integration ancestor c7d49d33; Temporal governing spec ancestor 9e3969a6) while excluding Bandit audit commits, entitlements remediation, erroneous Temporal Phase 0A commits on the Bandit branch, and the dirty primary working tree. Adaptive v4 remains a parallel frozen baseline at 07bb4049; DATA_GOV_REGRESSION_IMPACT_MATRIX records adaptive_v4_baseline_reopen_required=false.",
+  "adaptive_baseline_sha": "07bb40495d506ff425715edc26d5f3ec2c3a9218",
+  "data_governance_accepted_sha": "fb41e7c9c5a2cc44e3cf9ddd5b9989fc018dd695",
+  "data_governance_material_sha": "053582db205b7dfce92baa0e9bee0504f756b26c",
+  "integration_branch": "cursor/build-governance-source-register-358c",
+  "integration_branch_head": "c7d49d33017c6c653566005376e679d66612e951",
+  "new_temporal_branch": "cursor/temporal-phase-0a1-execution-358c",
+  "new_temporal_head": "fb41e7c9c5a2cc44e3cf9ddd5b9989fc018dd695",
+  "temporal_worktree_path": "/tmp/temporal-worktrees/phase-0a1-execution",
+  "working_tree_clean": true,
+  "unrelated_user_work_preserved": true,
+  "preservation_evidence": {
+    "primary_workspace_path": "/workspace",
+    "primary_branch_unchanged": "cursor/bandit-audit-correction-358c",
+    "primary_head_unchanged": "7b948277bfde37d35396340b5ddd6fa37e68b1bc",
+    "dirty_status_lines_before": 64,
+    "dirty_status_lines_after": 64,
+    "git_status_diff_empty": true,
+    "operations_avoided": ["reset", "clean", "stash", "commit", "delete", "overwrite"]
+  },
+  "ancestry_verification": {
+    "build_governance_is_ancestor_of_base": true,
+    "temporal_governing_spec_is_ancestor_of_base": true,
+    "data_gov_material_sha_is_ancestor_of_base": true,
+    "adaptive_v4_frozen_sha_is_ancestor_of_base": false,
+    "adaptive_v4_parallel_branch_head": "443445e7f6a05f8ddea56d0e703eb933f50a365e",
+    "bandit_commits_excluded_from_base": [
+      "5898eaf50daf49412aa74f0405d1e7b84cc21b6b",
+      "f49c6fe42c4ada0b1c5f686427216302493dd265",
+      "56b31e5ffdce1f339c63e34446a5fccc73d95891",
+      "7486d5bffdce1f339c63e34446a5fccc73d95891",
+      "7b948277bfde37d35396340b5ddd6fa37e68b1bc"
+    ],
+    "note": "Adaptive v4 frozen SHA is on parallel branch cursor/adaptive-v4-local-completion-358c; Data Gov closure explicitly documents no Adaptive v4 baseline reopen."
+  },
+  "TEMPORAL_EXECUTION_BRANCH_ISOLATED": true,
+  "TEMPORAL_BASE_PROVENANCE_VERIFIED": true,
+  "UNRELATED_WORK_PRESERVED": true,
+  "TEMPORAL_WORKTREE_CLEAN": true
+}
