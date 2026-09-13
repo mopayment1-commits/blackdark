@@ -41,7 +41,7 @@ def main() -> int:
         "controls": rows,
         "UNRESOLVED_LOCAL_ADAPTIVE_SECURITY_FINDINGS": 0 if ok else 1,
         "SECURITY_LOCAL_VERIFICATION_COMPLETE": ok,
-        "pytest_summary": (proc.stdout + proc.stderr).strip().split("\n")[-1],
+        "pytest_exit_code": proc.returncode,
     }
     OUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"security_complete": ok, "findings": payload["UNRESOLVED_LOCAL_ADAPTIVE_SECURITY_FINDINGS"]}, indent=2))

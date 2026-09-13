@@ -18,6 +18,10 @@ ADAPTIVE_PREFIXES = (
     "scripts/adaptive_v4",
     "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/",
 )
+GATE_RUNNER_EPHEMERAL = {
+    "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
+    "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
+}
 UNRELATED_SAFE_PREFIXES = (
     "data/",
     "docs/CODEQL",
@@ -44,9 +48,9 @@ def main() -> None:
             or path.endswith(".joblib")
             or path.endswith(".parquet")
         )
-        if related:
+        if related and path not in GATE_RUNNER_EPHEMERAL:
             unexplained += 1
-        elif not safe and status.strip():
+        elif not related and not safe and status.strip():
             unexplained += 1
         items.append(
             {
