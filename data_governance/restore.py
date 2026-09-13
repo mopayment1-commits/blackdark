@@ -4,19 +4,18 @@ from __future__ import annotations
 
 from typing import Any
 
-from data_governance.registry import list_sources
+from data_governance.phase_i import verify_phase_i_gate
 from data_governance.reconciliation import reconcile_observations
 
 
 def restore_001_staged_sources_only() -> dict[str, Any]:
     """Do not integrate 100 sources at once — Phase I cap enforced."""
-    count = len(list_sources())
-    max_phase_i = 35
+    gate = verify_phase_i_gate()
     return {
         "requirement_id": "RESTORE-001",
-        "ok": count <= max_phase_i,
-        "registered_sources": count,
-        "max_phase_i_sources": max_phase_i,
+        "ok": gate["ok"],
+        "phase_i_count": gate["phase_i_count"],
+        "premature_expansion": gate["premature_expansion"],
     }
 
 
@@ -91,15 +90,15 @@ def restore_010_phase_i_gate() -> dict[str, Any]:
 
 
 def restore_011_closure_reconciliation() -> dict[str, Any]:
-    from data_governance.requirements import dat_summary
+    from data_governance.phase_i import phase_i_summary
 
-    dat = dat_summary()
-    ok = dat["counts"].get("IMPLEMENTED", 0) >= 3 and restore_010_phase_i_gate()["ok"]
+    phase = phase_i_summary()
+    ok = phase["within_bounds"] and restore_010_phase_i_gate()["ok"]
     return {
         "requirement_id": "RESTORE-011",
         "ok": ok,
         "PASS_ENGINEERING_DATA": ok,
-        "dat_implemented": dat["counts"].get("IMPLEMENTED", 0),
+        "phase_i_sources": phase["phase_i_source_count"],
     }
 
 

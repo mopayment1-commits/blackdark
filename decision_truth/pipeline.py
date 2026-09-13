@@ -78,6 +78,8 @@ def evaluate_opportunity(
         net_edge_reject=net_edge_reject,
         risk_ok=risk_ok,
         uncertainty_high=uncertainty_high,
+        data_governance_state=opportunity.get("data_governance_state"),
+        data_governance_failed_gates=opportunity.get("data_governance_failed_gates"),
     )
 
     if admission_state == DecisionState.ADMITTED:
@@ -118,3 +120,37 @@ def evaluate_opportunity(
     if record:
         record_outcome(contract)
     return contract
+
+
+def evaluate_decision_truth(
+    payload: dict[str, Any],
+    *,
+    lang: str = "en",
+    previous_decision_state: str | None = None,
+    record: bool = False,
+) -> dict[str, Any]:
+    """Attach Decision Truth evaluation to an enriched oracle/decision payload."""
+    out = dict(payload)
+    contract = evaluate_opportunity(out, record=record)
+    admission_state = contract.decision_state.value if hasattr(contract.decision_state, "value") else str(contract.decision_state)
+    gates = {"freshness": {"pass": contract.freshness.get("ok", True)}, "data_governance": out.get("data_governance", {}).get("gates")}
+    out["decision_truth"] = {
+        "contract": contract.to_dict() if hasattr(contract, "to_dict") else {
+            "decision_state": admission_state,
+            "symbol": contract.symbol,
+            "freshness_state": (contract.freshness or {}).get("ok"),
+            "data_quality_state": out.get("data_quality_state"),
+            "detected_at": (out.get("timestamps") or {}).get("observed_at"),
+            "methodology_versions": {"net_edge": "net_edge_truth_v1"},
+        },
+        "admission": {
+            "admission_state": admission_state,
+            "failed_gates": out.get("data_governance_failed_gates") or [],
+            "gates": gates,
+        },
+        "why_not": {"human_explanation": contract.why_not},
+        "risk": contract.risk,
+        "lang": lang,
+        "previous_decision_state": previous_decision_state,
+    }
+    return out
