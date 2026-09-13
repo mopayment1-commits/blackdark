@@ -1,0 +1,218 @@
+{
+  "phase": "0A",
+  "phase_name": "Repository Baseline Capture",
+  "governing_spec_target": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+  "captured_at_utc": "2026-09-13T14:56:00Z",
+  "branch": "cursor/bandit-audit-correction-358c",
+  "baseline_sha": "6cdf9ccf07e48c7c172ab60fc1c249b83362bc79",
+  "working_tree_status": {
+    "summary": "dirty_unrelated_runtime_artifacts",
+    "tracked_modified_count": 13,
+    "untracked_count": 51,
+    "staged_count": 0,
+    "temporal_phase_0a_changes_staged": false,
+    "notes": [
+      "Modified files are predominantly runtime data artifacts (data/*.json, data/*.jsonl, model weights) and unrelated institutional falsification JSON.",
+      "No Temporal implementation changes present at capture time.",
+      "This artifact itself is the only Phase 0A deliverable pending commit."
+    ],
+    "tracked_modified_paths_sample": [
+      "FREE_API_RATE_LIMIT_AUDIT.json",
+      "data/grid_bots.json",
+      "data/ml_experience_log.jsonl",
+      "data/models/oracle_direction_latest.joblib",
+      "institutional_due_diligence_2026/DATA_GOV_COMPLIANCE/DATA_GOV_FIVE_PASS_FALSIFICATION.json"
+    ]
+  },
+  "current_pr": {
+    "number": 429,
+    "title": "fix(bandit): independent-audit corrections for B110/B112 and NLWP provenance",
+    "url": "https://github.com/mopayment1-commits/blackdark/pull/429",
+    "state": "OPEN",
+    "base_branch": "cursor/build-governance-source-register-358c",
+    "note": "Open PR is Bandit audit work; not Temporal-specific."
+  },
+  "relevant_frozen_baselines": [
+    {
+      "name": "Adaptive v4",
+      "baseline_sha": "07bb40495d506ff425715edc26d5f3ec2c3a9218",
+      "baseline_sha_short": "07bb4049",
+      "status": "FROZEN_NOT_REOPENED",
+      "evidence": [
+        "institutional_due_diligence_2026/DATA_GOV_COMPLIANCE/DATA_GOV_REGRESSION_IMPACT_MATRIX.json",
+        "institutional_due_diligence_2026/DATA_GOV_COMPLIANCE/DATA_GOV_FINAL_CLOSURE_REPORT.md"
+      ],
+      "note": "adaptive_v4_baseline_reopen_required=false; wiring extensions only."
+    },
+    {
+      "name": "Data Governance",
+      "status": "ENGINEERING_CLOSED_LOCAL",
+      "evidence": [
+        "institutional_due_diligence_2026/DATA_GOV_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
+        "docs/DATA_GOVERNANCE_FINAL_RECONCILIATION.json",
+        "institutional_due_diligence_2026/DATA_GOV_COMPLIANCE/DATA_GOV_RTM.json"
+      ],
+      "material_sha": "053582db205b7dfce92baa0e9bee0504f756b26c",
+      "assertions": {
+        "PASS_ENGINEERING_DATA": true,
+        "DECISION_TRUTH_DATA_GOVERNANCE_INTEGRATION_PASS": true
+      },
+      "closure_branch": "cursor/data-governance-institutional-closure-358c",
+      "note": "Local engineering closure recorded; live/production not claimed."
+    },
+    {
+      "name": "Decision Truth / governing architecture",
+      "status": "PARTIAL_MVP_FROZEN_SURFACE",
+      "evidence": [
+        "decision_truth/requirements.py",
+        "decision_truth/pipeline.py",
+        "docs/BLACKDARK_DECISION_TRUTH_SYSTEM_INSTITUTIONAL_FINAL_v1.md",
+        "governing-sources-population/BLACKDARK_DECISION_TRUTH_SYSTEM_INSTITUTIONAL_FINAL_v1(1).md",
+        "docs/GOVERNING_SPECS_11_FILES_HONEST_ASSESSMENT_AR_2026.md"
+      ],
+      "honest_completion_estimate": "~25%",
+      "note": "DTS spine exists; full DTS-004→060 and walk-forward surfaces not complete."
+    },
+    {
+      "name": "Three-spec incremental ledger baseline",
+      "baseline_sha": "d72c962d05cb7d475080ef5402d6fb13025cf744",
+      "status": "FROZEN_LEDGER_REFERENCE",
+      "evidence": [
+        "PRE_BATCH_CONTINUITY_RECORD.json",
+        "docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json",
+        "docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_MASTER_PLAN.md"
+      ],
+      "note": "Cross-spec implementation ledger including Temporal leakage-firewall planned modules."
+    },
+    {
+      "name": "Bandit security reconciliation",
+      "status": "PENDING_INDEPENDENT_FINAL_VERIFICATION",
+      "evidence": [
+        "docs/evidence/bandit-reconciliation/BANDIT_RECONCILIATION_SUMMARY.json",
+        "docs/evidence/bandit-full-4703-compact.json"
+      ],
+      "note": "Security baseline adjacent to evidence/provenance vocabulary; not Temporal runtime."
+    }
+  ],
+  "existing_relevant_modules": [
+    {"path": "governance/temporal_governance.py", "responsibility": "Temporal governance status probes (PIT, replay bootstrap, freshness, leakage firewall flags)", "classification": "EXISTING_RELEVANT"},
+    {"path": "governance/temporal_requirements.py", "responsibility": "TIE-001→020 temporal intelligence requirement spine catalog", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/market_replay_bootstrap.py", "responsibility": "Honest market-replay bootstrap from klines using point-in-time features", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/training_utils.py", "responsibility": "Chronological temporal_train_test_split and leak-free schema helpers", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/train_baseline.py", "responsibility": "Baseline training with chronological hold-out", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/train_regime_models.py", "responsibility": "Per-regime model training with temporal split", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/train_ensemble.py", "responsibility": "Ensemble training with temporal split guard", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/regime_models.py", "responsibility": "Per-regime model registry and artifact honesty", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/regime_router.py", "responsibility": "Regime-conditional inference routing", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/drift_monitor.py", "responsibility": "Drift/OOD detection and enforcement actions", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/labeling_pipeline.py", "responsibility": "Prediction resolution labeling at 1h/4h/24h horizons", "classification": "EXISTING_RELEVANT"},
+    {"path": "ml/public_accuracy.py", "responsibility": "Public accuracy surfaces with live/synthetic separation", "classification": "EXISTING_RELEVANT"},
+    {"path": "bd_platform/v4_v2_persistent_registries.py", "responsibility": "PIT availability index register/query with as_of_cutoff", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/timestamps.py", "responsibility": "UTC source/observed/ingested/processed timestamp bundles", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/freshness.py", "responsibility": "Freshness SLO evaluation with as_of for decision surfaces", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/historical_depth.py", "responsibility": "Historical depth sufficiency registry per domain", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/retention.py", "responsibility": "Hot/warm/cold retention tiers including audit_replay", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/provenance.py", "responsibility": "Unified provenance/lineage assembly for governance pipeline", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/pipeline.py", "responsibility": "Unified data governance gate evaluation pipeline", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/gates.py", "responsibility": "Admission gates including historical_sufficiency", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/decision_surface.py", "responsibility": "Today's Decision Surface with evidence strip (as_of, freshness)", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_governance/methodology.py", "responsibility": "Methodology cards with minimum_history_days", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_truth/pipeline.py", "responsibility": "Decision Truth orchestrated pipeline to outcome ledger", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_truth/admission.py", "responsibility": "Signal admission gate with evidence-class and freshness checks", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_truth/contract.py", "responsibility": "Machine-readable DecisionContract with evidence_class", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_truth/ledger.py", "responsibility": "Append-only decision outcome ledger (DTS MVP)", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_truth/half_life.py", "responsibility": "Decision expiry / half-life integration", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_truth/change.py", "responsibility": "Material change detection between decision snapshots", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_truth/requirements.py", "responsibility": "DTS-001→060 requirement spine catalog", "classification": "EXISTING_RELEVANT"},
+    {"path": "decision_ledger.py", "responsibility": "Unified prediction→certificate→exposure→outcome ledger", "classification": "EXISTING_RELEVANT"},
+    {"path": "signal_registry.py", "responsibility": "Sovereign signal registry with asof/features_hash/provenance", "classification": "EXISTING_RELEVANT"},
+    {"path": "oracle_audit_chain.py", "responsibility": "Immutable append-only hash chain for oracle predictions", "classification": "EXISTING_RELEVANT"},
+    {"path": "oracle_track_record.py", "responsibility": "Bridge prediction insert/resolve to audit chain", "classification": "EXISTING_RELEVANT"},
+    {"path": "oracle_integrity.py", "responsibility": "Separates live vs synthetic historical_seed predictions", "classification": "EXISTING_RELEVANT"},
+    {"path": "cap646/evidence_class.py", "responsibility": "Evidence classes incl. SHADOW_LIVE_FORWARD / PRODUCTION_VERIFIED", "classification": "EXISTING_RELEVANT"},
+    {"path": "blackdark/data/provenance.py", "responsibility": "Provenance hashing and DB persistence for ingestion", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_provenance_score.py", "responsibility": "Per-decision provenance score composition", "classification": "EXISTING_RELEVANT"},
+    {"path": "failure_corpus.py", "responsibility": "Failure registry for vetoes, kill events, provenance downgrades", "classification": "EXISTING_RELEVANT"},
+    {"path": "feed_lag_scanner.py", "responsibility": "Venue feed lag / stale book detection", "classification": "EXISTING_RELEVANT"},
+    {"path": "hot_storage.py", "responsibility": "High-frequency market snapshot hot pipeline", "classification": "EXISTING_RELEVANT"},
+    {"path": "data_lake.py", "responsibility": "Structured historical ingestion snapshot warehouse", "classification": "EXISTING_RELEVANT"},
+    {"path": "since_you_left.py", "responsibility": "Point-in-time snapshot capture for user-return deltas", "classification": "EXISTING_RELEVANT"},
+    {"path": "scripts/seed_oracle_history.py", "responsibility": "Historical backfill with point-in-time verdict rules", "classification": "EXISTING_RELEVANT"},
+    {"path": "api/routers/decision_truth.py", "responsibility": "REST endpoints for Decision Truth status/evaluate/ledger", "classification": "EXISTING_RELEVANT"},
+    {"path": "api/routers/data_governance.py", "responsibility": "REST endpoints for data governance evaluate/status", "classification": "EXISTING_RELEVANT"},
+    {"path": "d5_regime_honesty.py", "responsibility": "Regime bootstrap honesty board surfacing synthetic flags", "classification": "EXISTING_RELEVANT"},
+    {"path": "contradiction_replay.py", "responsibility": "UX contradiction replay clip generation (not market replay)", "classification": "NEEDS_LATER_VERIFICATION"},
+    {"path": "governance/timezone_governance.py", "responsibility": "Wall-clock timezone governance (TZ spine)", "classification": "CLEARLY_UNRELATED"},
+    {"path": "billing/audit_ledger.py", "responsibility": "Billing audit ledger only", "classification": "CLEARLY_UNRELATED"},
+    {"path": "scripts/bandit_nlwp_provenance.py", "responsibility": "Bandit security finding provenance export", "classification": "CLEARLY_UNRELATED"},
+    {"path": "temporal_leakage_firewall.py", "responsibility": "Referenced in master plan and v4_v2 registries; file absent", "classification": "NEEDS_LATER_VERIFICATION"},
+    {"path": "evaluation_contamination_registry.py", "responsibility": "Referenced in master plan; file absent", "classification": "NEEDS_LATER_VERIFICATION"},
+    {"path": "reproducibility_manifest.py", "responsibility": "Referenced in master plan; file absent", "classification": "NEEDS_LATER_VERIFICATION"},
+    {"path": "(spec_only) Market Time Machine", "responsibility": "Specified in Temporal governing doc §23; no dedicated module found", "classification": "NEEDS_LATER_VERIFICATION"},
+    {"path": "(spec_only) walk-forward evaluation", "responsibility": "Required in DTS/Temporal specs; no walk_forward*.py module found", "classification": "NEEDS_LATER_VERIFICATION"}
+  ],
+  "existing_relevant_tests": [
+    {"path": "tests/test_decision_truth_pipeline.py", "covers": "decision_truth pipeline MVP", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_data_governance_p0_test_matrix.py", "covers": "data_governance gates incl. historical_depth", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_ml_integrity.py", "covers": "temporal split, synthetic exclusion, look-ahead remediation", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_flywheel_bootstrap.py", "covers": "ml/market_replay_bootstrap source and PIT features", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_regime_models.py", "covers": "ml/regime_models honest artifact registry", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_regime_train_and_complete.py", "covers": "regime training completion path", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_latency_drift_fix.py", "covers": "ml/drift_monitor OOD fail-closed enforcement", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_oracle_audit_chain.py", "covers": "oracle_audit_chain integrity", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_oracle_track_record.py", "covers": "oracle_track_record bridge to audit chain", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_track_record_backfill.py", "covers": "oracle audit chain backfill integrity", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_signal_registry_public.py", "covers": "signal registry public block safety", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_unique_differentiators.py", "covers": "signal_registry roundtrip and evidence pack", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_nonhuman_100_closure.py", "covers": "signal_registry lexicon and attach", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_launch_readiness.py", "covers": "regime_router attachment", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_report_gap_closure.py", "covers": "regime_router artifact path preference", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_pre_launch_governance_spine.py", "covers": "governance spine incl. temporal probes", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_governing_specs_11_full.py", "covers": "cross-governing-spec verification incl. temporal requirements", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/cap646/test_triple_closure.py", "covers": "decision_ledger record/stats", "classification": "EXISTING_RELEVANT"},
+    {"path": "tests/test_phase_i_external_route_activation.py", "covers": "data governance external routes (adjacent)", "classification": "NEEDS_LATER_VERIFICATION"},
+    {"path": "tests/test_bandit_reconciliation_validator.py", "covers": "Bandit security evidence reconciliation", "classification": "CLEARLY_UNRELATED"}
+  ],
+  "existing_temporal_artifacts": [
+    {"path": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md", "type": "governing_spec", "classification": "EXISTING_RELEVANT"},
+    {"path": "governing-sources-population/BLACKDARK Temporal Intelligence & Evidence Acceleration System (1).md", "type": "governing_spec_copy", "classification": "EXISTING_RELEVANT"},
+    {"path": "docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_MASTER_PLAN.md", "type": "implementation_plan", "classification": "EXISTING_RELEVANT"},
+    {"path": "docs/THREE_SPEC_INCREMENTAL_IMPLEMENTATION_LEDGER.json", "type": "implementation_ledger", "classification": "EXISTING_RELEVANT"},
+    {"path": "docs/GOVERNING_SPECS_11_FILES_HONEST_ASSESSMENT_AR_2026.md", "type": "honest_gap_assessment", "classification": "EXISTING_RELEVANT"},
+    {"path": "blackdark/data/migrations/012_de_prediction_ledger.sql", "type": "db_schema", "classification": "EXISTING_RELEVANT"},
+    {"path": "blackdark/data/migrations/013_de_decision_ledger.sql", "type": "db_schema", "classification": "EXISTING_RELEVANT"},
+    {"path": "blackdark/data/migrations/014_de_outcome_evaluations.sql", "type": "db_schema", "classification": "EXISTING_RELEVANT"},
+    {"path": "blackdark/data/migrations/015_de_evidence_store.sql", "type": "db_schema", "classification": "EXISTING_RELEVANT"},
+    {"path": "blackdark/data/migrations/007_data_provenance.sql", "type": "db_schema", "classification": "EXISTING_RELEVANT"},
+    {"path": "data/decision_ledger.jsonl", "type": "runtime_ledger", "classification": "EXISTING_RELEVANT"},
+    {"path": "data/oracle_audit_chain.jsonl", "type": "runtime_ledger", "classification": "EXISTING_RELEVANT"},
+    {"path": "data/contradiction_replays.jsonl", "type": "runtime_artifact", "classification": "NEEDS_LATER_VERIFICATION"},
+    {"path": "data/transparency/performance_ledger.jsonl", "type": "runtime_ledger", "classification": "EXISTING_RELEVANT"},
+    {"path": "data/models/regime/training_status.json", "type": "model_artifact", "classification": "EXISTING_RELEVANT"},
+    {"path": "evidence.schema.json", "type": "schema", "classification": "EXISTING_RELEVANT"},
+    {"path": "docs/data-room/MODEL_PROVENANCE.md", "type": "documentation", "classification": "EXISTING_RELEVANT"}
+  ],
+  "inventory_counts": {
+    "existing_relevant_modules": 44,
+    "existing_relevant_modules_existing_relevant": 38,
+    "existing_relevant_modules_needs_later_verification": 5,
+    "existing_relevant_modules_clearly_unrelated": 3,
+    "existing_relevant_tests": 20,
+    "existing_temporal_artifacts": 17
+  },
+  "honest_surface_assessment": {
+    "temporal_intelligence_completion_estimate": "~10%",
+    "source": "docs/GOVERNING_SPECS_11_FILES_HONEST_ASSESSMENT_AR_2026.md",
+    "notable_gaps": [
+      "temporal_leakage_firewall.py missing",
+      "evaluation_contamination_registry.py missing",
+      "reproducibility_manifest.py missing",
+      "Market Time Machine module absent",
+      "walk-forward evaluation module absent"
+    ]
+  },
+  "PHASE_0A_BASELINE_CAPTURED": true,
+  "PHASE_0A_REPOSITORY_STATE_KNOWN": true,
+  "PHASE_0A_RELEVANT_BASELINES_IDENTIFIED": true,
+  "PHASE_0A_EXISTING_TEMPORAL_SURFACE_INVENTORIED": true
+}
