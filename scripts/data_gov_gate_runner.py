@@ -33,6 +33,11 @@ def main() -> int:
         "data_gov_source_extractor.py",
         "data_gov_atomic_mapping.py",
         "build_data_governance_implementation_index.py",
+        "data_gov_independent_audit.py",
+        "data_gov_rtm_builder.py",
+        "data_gov_security_matrix.py",
+        "data_gov_regression_matrix.py",
+        "data_gov_external_gates.py",
     ]
     for s in steps:
         if not _run(s):
@@ -108,6 +113,15 @@ def main() -> int:
         + (0 if pytest_ok else 1)
         + (0 if core_pass else 1)
     )
+
+    (OUT_DIR / "FINAL_GATE_ASSERTIONS.json").write_text(json.dumps(assertions, indent=2) + "\n", encoding="utf-8")
+
+    # Five-pass falsification runs after assertions are written
+    fals_proc = subprocess.run([sys.executable, str(ROOT / "scripts/data_gov_falsification_audit.py")], cwd=ROOT)
+    if fals_proc.returncode != 0:
+        core_pass = False
+        assertions["PASS_ENGINEERING_DATA"] = False
+        assertions["READY_FOR_INTENDED_LOCAL_USE"] = False
 
     (OUT_DIR / "FINAL_GATE_ASSERTIONS.json").write_text(json.dumps(assertions, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(assertions, indent=2))
