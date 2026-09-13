@@ -1,0 +1,17 @@
+{
+  "classification": "NON_EXECUTABLE_EVIDENCE_DISPLAY_ONLY",
+  "executable_query_path": "_verify_export_rows uses ScalarQueryParameter export_id=@export_id",
+  "interpolated_verification_query_sites": [
+    "bigquery_export.py:_fetch_latest_export_evidence_from_bigquery (evidence dict only)",
+    "bigquery_export.py:_export_rows_sync (evidence dict only)"
+  ],
+  "client_query_call_sites": [
+    "bigquery_export.py:127 GROUP BY export_id (no value interpolation in WHERE)",
+    "bigquery_export.py:311 WHERE export_id = @export_id (parameterized)"
+  ],
+  "verification_query_consumers_outside_evidence_writer": [
+    "scripts/bandit_audit_evidence_export.py"
+  ],
+  "proof": "verification_query dict values are written to JSON evidence files and RVM audit artifacts; grep shows no client.query(verification_query) or eval/exec of the interpolated string. Row count verification executes only via _verify_export_rows with @export_id binding.",
+  "remediation_applied": "verification_query display strings updated to parameterized @export_id form"
+}

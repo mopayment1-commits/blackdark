@@ -108,6 +108,22 @@ async def test_cap658_not_external_when_bigquery_ready(monkeypatch, tmp_path, bi
     assert is_external(658) is False
 
 
+def test_verification_query_is_display_only_not_executed(bigquery_env):
+    """verification_query in evidence dict must not interpolate export_id or be passed to client.query."""
+    from bigquery_export import _export_rows_sync, _verification_query_display
+
+    table_ref = "proj.dataset.table"
+    display = _verification_query_display(table_ref)
+    assert "@export_id" in display
+    assert "exp_" not in display
+    assert "client.query" not in display
+    # Evidence writer stores display string; execution uses _verify_export_rows parameter binding.
+    src = __import__("bigquery_export").__file__
+    text = open(src, encoding="utf-8").read()
+    assert "client.query(verification_query" not in text
+    assert "client.query(evidence" not in text
+
+
 @pytest.mark.asyncio
 async def test_cap658_execute_when_ready(monkeypatch, tmp_path, bigquery_env):
     import config

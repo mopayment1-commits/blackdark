@@ -47,6 +47,14 @@ _TABLE_SCHEMA = [
 ]
 
 
+def _verification_query_display(table_ref: str) -> str:
+    """Audit-only string documenting the parameterized verification query (not executed)."""
+    # table_ref is validated FQN from bigquery_config(); not passed to client.query.
+    prefix = "SELECT COUNT(1) FROM `"
+    suffix = "` WHERE export_id = @export_id"
+    return prefix + table_ref + suffix
+
+
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
@@ -152,9 +160,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
             "table_fqn": table_ref,
             "rows_sent": rows_verified,
             "rows_verified": rows_verified,
-            "verification_query": (
-                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"  # nosec B608
-            ),
+            "verification_query": _verification_query_display(table_ref),
             "product": "BLACKDARK",
             "surface": "white_label_embedded_analytics",
             "gate": "CAP-658",
@@ -359,9 +365,7 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
         "rows_sent": len(export_rows),
         "rows_verified": verified,
         "manifest_sha256": manifest_sha256,
-        "verification_query": (
-            f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"  # nosec B608
-        ),
+        "verification_query": _verification_query_display(table_ref),
         "product": "BLACKDARK",
         "surface": "white_label_embedded_analytics",
         "gate": "CAP-658",

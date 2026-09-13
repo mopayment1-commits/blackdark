@@ -77,6 +77,24 @@ def _read_lines(path: Path) -> list[str]:
     return path.read_text(encoding="utf-8", errors="replace").splitlines()
 
 
+def _recover_original_context(fn: str, orig_line: int) -> tuple[str, str]:
+    """Compact corpus stores filename|line|test_id only — recover source at corpus coordinates."""
+    lines = _read_lines(ROOT / fn)
+    if not lines:
+        return "", "UNRESOLVED_FILE_MISSING"
+    idx = orig_line - 1
+    if 0 <= idx < len(lines):
+        text = lines[idx].strip()
+        if text:
+            return text, "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE"
+        for delta in range(1, 4):
+            for j in (idx - delta, idx + delta):
+                if 0 <= j < len(lines) and lines[j].strip():
+                    return lines[j].strip(), "RECOVERED_FROM_NEAREST_NONEMPTY_AT_CORPUS_LINE"
+        return "", "RECOVERED_BLANK_LINE_AT_CORPUS_COORDINATES"
+    return "", "UNRESOLVED_LINE_OUT_OF_RANGE"
+
+
 def _bind_current_line(fn: str, orig_line: int, test_id: str) -> tuple[int, str]:
     """Bind original report line to current source via nosec marker or proximity."""
     path = ROOT / fn
@@ -442,6 +460,7 @@ def classify_finding(
     key = (fn, orig_line, test_id)
 
     cur_line, context = _bind_current_line(fn, orig_line, test_id)
+    orig_ctx, orig_ctx_prov = _recover_original_context(fn, orig_line)
     path = ROOT / fn
     if not path.is_file():
         base = {
@@ -452,7 +471,9 @@ def classify_finding(
             "current_filename": fn,
             "current_line": None,
             "scope": _scope(fn),
-            "original_context": finding.get("issue_text", ""),
+            "original_context": orig_ctx,
+            "original_context_provenance": orig_ctx_prov,
+            "original_context_note": "Immutable compact corpus has no Bandit issue_text; recovered from source coordinates where possible",
             "current_context": "",
             "disposition": "NO_LONGER_PRESENT_WITH_PROVENANCE",
             "justification": f"Source file {fn} removed or relocated; original line {orig_line}",
@@ -494,7 +515,9 @@ def classify_finding(
         "current_filename": fn,
         "current_line": cur_line,
         "scope": _scope(fn),
-        "original_context": finding.get("issue_text", ""),
+        "original_context": orig_ctx,
+        "original_context_provenance": orig_ctx_prov,
+        "original_context_note": "Immutable compact corpus has no Bandit issue_text; recovered from source at corpus line_number",
         "current_context": context,
         **extra,
     }

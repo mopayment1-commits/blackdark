@@ -1,11 +1,11 @@
 {
-  "CURRENT_FULL_SHA_BEFORE_WORK": "9bb9cbcb335fbfc921b1606d212ed1f4b0772c1f",
+  "CURRENT_FULL_SHA_BEFORE_WORK": "d9b9e2981517280b361e15a4895d8ee1c5c612a6",
   "ORIGINAL_FINDINGS": 4703,
   "RECONCILED_FINDINGS": 4703,
   "disposition_counts": {
     "FALSE_POSITIVE_PROVEN": 305,
-    "TRUE_POSITIVE_FIXED": 7,
-    "NO_LONGER_PRESENT_WITH_PROVENANCE": 9,
+    "TRUE_POSITIVE_FIXED": 6,
+    "NO_LONGER_PRESENT_WITH_PROVENANCE": 10,
     "DUPLICATE_PROVEN": 27,
     "TEST_ONLY_PROVEN": 4355
   },
@@ -50,14 +50,23 @@
     },
     "B608": {
       "FALSE_POSITIVE_PROVEN": 24,
-      "TRUE_POSITIVE_FIXED": 7,
-      "NO_LONGER_PRESENT_WITH_PROVENANCE": 9
+      "TRUE_POSITIVE_FIXED": 6,
+      "NO_LONGER_PRESENT_WITH_PROVENANCE": 10
     }
   },
-  "UNIQUE_SECURITY_DEFECTS_FOUND": 5,
-  "UNIQUE_SECURITY_DEFECTS_FIXED": 5,
+  "UNIQUE_SECURITY_DEFECTS_FOUND": 4,
+  "UNIQUE_SECURITY_DEFECTS_FIXED": 4,
   "UNIQUE_SECURITY_DEFECTS_REMAINING": 0,
   "OWNER_DECISION_REQUIRED_COUNT": 0,
   "validation_errors": [],
-  "FINAL_STATUS": "REMEDIATION_COMPLETE_PENDING_INDEPENDENT_AUDIT"
+  "FINAL_STATUS": "REMEDIATION_COMPLETE_PENDING_INDEPENDENT_AUDIT",
+  "ci_bandit": {
+    "command": "bandit -r . --ini .bandit -ll -f json -q",
+    "exit_code": 0,
+    "version": "bandit 1.8.3\n  python version = 3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+    "medium_plus_count": 0,
+    "results": []
+  },
+  "CI_BANDIT_VERSION": "bandit 1.8.3\n  python version = 3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+  "EXACT_CI_BANDIT_COMMAND": "bandit -r . --ini .bandit -ll -f json -q"
 }

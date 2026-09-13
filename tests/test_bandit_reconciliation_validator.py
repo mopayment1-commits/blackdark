@@ -37,6 +37,15 @@ def test_every_finding_has_allowed_disposition_and_evidence():
     for row in payload["findings"]:
         assert row["disposition"] in ALLOWED
         assert len(row.get("justification", "")) >= 15
+        prov = row.get("original_context_provenance", "")
+        if prov in {"RECOVERED_FROM_SOURCE_AT_CORPUS_LINE", "RECOVERED_FROM_NEAREST_NONEMPTY_AT_CORPUS_LINE"}:
+            assert row.get("original_context", "").strip()
+        elif prov:
+            assert prov in {
+                "UNRESOLVED_FILE_MISSING",
+                "UNRESOLVED_LINE_OUT_OF_RANGE",
+                "RECOVERED_BLANK_LINE_AT_CORPUS_COORDINATES",
+            }
         if row["disposition"] == "DUPLICATE_PROVEN":
             assert row.get("duplicate_parent")
         if row["disposition"] == "TEST_ONLY_PROVEN":

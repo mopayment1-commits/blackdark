@@ -1,0 +1,1431 @@
+{
+  "count": 26,
+  "records": [
+    {
+      "b607_finding_id": "scripts/audit_pdf_capabilities_checklist.py|223|B607",
+      "canonical_b603_parent_id": "scripts/audit_pdf_capabilities_checklist.py|223|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"rg\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"rg\", \"-l\", \"-i\", pattern, \"--glob\", \"*.py\", str(ROOT)]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"rg\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-l\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"-i\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "pattern",
+            "kind": "Name"
+          },
+          {
+            "index": 4,
+            "source": "\"--glob\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"*.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "str(ROOT)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "b603_parent_justification": "subprocess at scripts/audit_pdf_capabilities_checklist.py:223 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/complete_pdf_capabilities_826.py|92|B607",
+      "canonical_b603_parent_id": "scripts/complete_pdf_capabilities_826.py|92|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"rg\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"rg\", \"-l\", \"-i\", pattern, \"bd_platform\", \"cap646\", \".\", \"--glob\", \"!capabilities_checklist*\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"rg\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-l\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"-i\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "pattern",
+            "kind": "Name"
+          },
+          {
+            "index": 4,
+            "source": "\"bd_platform\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\".\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"--glob\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"!capabilities_checklist*\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "str(ROOT)",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "b603_parent_justification": "subprocess at scripts/complete_pdf_capabilities_826.py:92 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/dd_batch_001_execute.py|21|B607",
+      "canonical_b603_parent_id": "scripts/dd_batch_001_execute.py|21|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess list-argv without shell=True at scripts/dd_batch_001_execute.py:21; executable/args from script constants; context: return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/dd_batch_001_execute.py|46|B607",
+      "canonical_b603_parent_id": "scripts/dd_batch_001_execute.py|46|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"branch\", \"--show-current\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"branch\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--show-current\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess list-argv without shell=True at scripts/dd_batch_001_execute.py:46; executable/args from script constants; context: \"branch_or_worktree\": subprocess.check_output([\"git\", \"branch\", \"--show-current\"",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/dd_gate_bootstrap.py|138|B607",
+      "canonical_b603_parent_id": "scripts/dd_gate_bootstrap.py|138|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess list-argv without shell=True at scripts/dd_gate_bootstrap.py:138; executable/args from script constants; context: return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/dd_gate_bootstrap.py|495|B607",
+      "canonical_b603_parent_id": "scripts/dd_gate_bootstrap.py|495|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"diff\", \"--name-only\", baseline_sha, current_sha]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"diff\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--name-only\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "baseline_sha",
+            "kind": "Name"
+          },
+          {
+            "index": 4,
+            "source": "current_sha",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/dd_gate_bootstrap.py:495 uses argv list without shell expansion; scope=tooling; context: out = subprocess.check_output(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/dd_gate_bootstrap.py|561|B607",
+      "canonical_b603_parent_id": "scripts/dd_gate_bootstrap.py|561|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-list\", \"--count\", f\"{baseline_sha}..{current_sha}\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-list\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--count\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "f\"{baseline_sha}..{current_sha}\"",
+            "kind": "JoinedStr"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/dd_gate_bootstrap.py:561 uses argv list without shell expansion; scope=tooling; context: subprocess.check_output(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/generate_final_integrity_summary.py|54|B607",
+      "canonical_b603_parent_id": "scripts/generate_final_integrity_summary.py|54|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"pytest\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"not slow\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-rA\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/generate_final_integrity_summary.py:54 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/generate_supplemental_closure_report.py|471|B607",
+      "canonical_b603_parent_id": "scripts/generate_supplemental_closure_report.py|471|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"log\", \"origin/main\", \"--format=%h %ci %s\", \"--until=2026-09-02T17:33:00Z\", \"-5\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"log\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"origin/main\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--format=%h %ci %s\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"--until=2026-09-02T17:33:00Z\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-5\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/generate_supplemental_closure_report.py:471 uses argv list without shell expansion; scope=tooling; context: result = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/honest_deep_institutional_audit.py|24|B607",
+      "canonical_b603_parent_id": "scripts/honest_deep_institutional_audit.py|24|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"rg\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"rg\", \"-l\", pattern, *paths]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"rg\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-l\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "pattern",
+            "kind": "Name"
+          },
+          {
+            "index": 3,
+            "source": "*paths",
+            "kind": "Starred"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/honest_deep_institutional_audit.py:24 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/master_integrity_reconciliation.py|89|B607",
+      "canonical_b603_parent_id": "scripts/master_integrity_reconciliation.py|89|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"pytest\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"not slow\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-rA\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/master_integrity_reconciliation.py:89 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/retrospective_deep_audit.py|115|B607",
+      "canonical_b603_parent_id": "scripts/retrospective_deep_audit.py|115|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"cat-file\", \"-e\", f\"origin/main:{path}\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cat-file\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"-e\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "f\"origin/main:{path}\"",
+            "kind": "JoinedStr"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/retrospective_deep_audit.py:115 uses argv list without shell expansion; scope=tooling; context: subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_cap_dedup_audit_1_100.py|195|B607",
+      "canonical_b603_parent_id": "scripts/run_cap_dedup_audit_1_100.py|195|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"--disable=all\", \"--enable=duplicate-code\", \"cap646/\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_cap_dedup_audit_1_100.py:195 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_completion.py|74|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_completion.py|74|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_completion.py:74 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_completion.py|101|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_completion.py|101|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\n            \"npx\",\n            \"--yes\",\n            \"jscpd@4.0.5\",\n            \"cap646/batch01_production.py\",\n            \"cap646/batch01_dedicated.py\",\n            \"cap646/batch02_production.py\",\n            \"cap646/batch02_dedicated.py\",\n            \"cap646/batch03_dedicated.py\",\n            \"cap646/runtime.py\",\n            \"cap646/batch_spine.py\",\n            \"cap646/dedicated_common.py\",\n            \"cap646/handlers\",\n            \"--min-lines\",\n            \"5\",\n            \"--min-tokens\",\n            \"50\",\n            \"--reporters\",\n            \"json\",\n            \"--output\",\n            str(out_dir),\n        ]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd@4.0.5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/batch01_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"cap646/batch01_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646/batch02_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"cap646/batch02_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"cap646/batch03_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"cap646/runtime.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"cap646/batch_spine.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "\"cap646/dedicated_common.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 11,
+            "source": "\"cap646/handlers\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 12,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 13,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 14,
+            "source": "\"--min-tokens\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 15,
+            "source": "\"50\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 16,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 17,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 18,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 19,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_completion.py:101 uses argv list without shell expansion; scope=tooling; context: subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_final.py|85|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_final.py|85|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"bandit\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"bandit\", \"-r\", \"cap646/\", \"-f\", \"json\", \"-q\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"bandit\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-r\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"-f\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_final.py:85 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_final.py|98|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_final.py|98|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_final.py:98 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_final.py|109|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_final.py|109|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\n            \"npx\", \"--yes\", \"jscpd@4.0.5\",\n            \"cap646/batch01_production.py\", \"cap646/batch01_dedicated.py\",\n            \"cap646/batch02_production.py\", \"cap646/batch02_dedicated.py\",\n            \"cap646/runtime.py\", \"cap646/batch_spine.py\", \"cap646/handlers\",\n            \"--min-lines\", \"5\", \"--min-tokens\", \"50\", \"--reporters\", \"json\",\n            \"--output\", str(out_dir),\n        ]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd@4.0.5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/batch01_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"cap646/batch01_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646/batch02_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"cap646/batch02_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"cap646/runtime.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"cap646/batch_spine.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"cap646/handlers\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 11,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 12,
+            "source": "\"--min-tokens\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 13,
+            "source": "\"50\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 14,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 15,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 16,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 17,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_final.py:109 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_final.py|174|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_final.py|174|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"bandit\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"bandit\", \"-r\", \"scripts/\", \"-f\", \"json\", \"-q\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"bandit\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-r\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"scripts/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"-f\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_final.py:174 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_final.py|187|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_final.py|187|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"radon\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"radon\", \"cc\", \"cap646/\", \"-a\", \"-nc\", \"-j\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"radon\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cc\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"-a\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-nc\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-j\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_final.py:187 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_last.py|367|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_last.py|367|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"npx\", \"--yes\", \"jscpd\", *official_paths, *hero_paths, \"--min-lines\", \"5\", \"--reporters\", \"json\", \"--output\", str(out_dir)]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "*official_paths",
+            "kind": "Starred"
+          },
+          {
+            "index": 4,
+            "source": "*hero_paths",
+            "kind": "Starred"
+          },
+          {
+            "index": 5,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_mandate_last.py:367 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_last.py|382|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_last.py|382|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess list-argv without shell=True at scripts/run_closure_mandate_last.py:382; executable/args from script constants; context: proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=Tru",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_mandate_last.py|403|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_mandate_last.py|403|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess list-argv without shell=True at scripts/run_closure_mandate_last.py:403; executable/args from script constants; context: pylint_proc = subprocess.run([\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=du",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_reject_04_audit.py|38|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_reject_04_audit.py|38|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\", \"--msg-template={path}:{line}:{column}: {msg_id}: {msg}\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"--msg-template={path}:{line}:{column}: {msg_id}: {msg}\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_reject_04_audit.py:38 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_closure_reject_04_audit.py|92|B607",
+      "canonical_b603_parent_id": "scripts/run_closure_reject_04_audit.py|92|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\n            \"npx\",\n            \"--yes\",\n            \"jscpd@4.0.5\",\n            \"cap646/batch01_production.py\",\n            \"cap646/batch01_dedicated.py\",\n            \"cap646/batch02_production.py\",\n            \"cap646/batch02_dedicated.py\",\n            \"cap646/handlers\",\n            \"cap646/runtime.py\",\n            \"--min-lines\",\n            \"5\",\n            \"--min-tokens\",\n            \"50\",\n            \"--reporters\",\n            \"json\",\n            \"--output\",\n            str(out_dir),\n        ]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd@4.0.5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/batch01_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"cap646/batch01_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646/batch02_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"cap646/batch02_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"cap646/handlers\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"cap646/runtime.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 11,
+            "source": "\"--min-tokens\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 12,
+            "source": "\"50\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 13,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 14,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 15,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 16,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess at scripts/run_closure_reject_04_audit.py:92 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "security_closed_via_parent": true
+    },
+    {
+      "b607_finding_id": "scripts/run_gate_full_provenance.py|25|B607",
+      "canonical_b603_parent_id": "scripts/run_gate_full_provenance.py|25|B603",
+      "b603_parent_disposition": "FALSE_POSITIVE_PROVEN",
+      "b603_parent_subprocess_analysis": {
+        "executable_provenance": "variable:command",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 0,
+            "source": "command",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "b603_parent_justification": "subprocess list-argv without shell=True at scripts/run_gate_full_provenance.py:25; executable/args from script constants; context: commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=T",
+      "security_closed_via_parent": true
+    }
+  ]
+}
