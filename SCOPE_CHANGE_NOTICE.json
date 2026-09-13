@@ -1,0 +1,14 @@
+{
+  "scope_change_id": "",
+  "detected_at_utc": "",
+  "baseline_freeze_id": "",
+  "trigger": "NEW_MATERIAL_COMPONENT_OR_RISK",
+  "description": "",
+  "affected_domains": [],
+  "risk_level": "",
+  "owner_notice_required": true,
+  "requires_refreeze": true,
+  "status": "OPEN",
+  "owner_notified_at_utc": "",
+  "owner_notice_evidence_path": ""
+}
