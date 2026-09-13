@@ -10,11 +10,14 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
+import re
 import time
 from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
+
+_SAFE_ADDRESS_RE = re.compile(r"^[A-Za-z0-9]{4,128}$")
 
 logger = logging.getLogger("BLACKDARK.ArkhamConnector")
 
@@ -58,6 +61,13 @@ def _cache_get(key: str) -> Any | None:
 
 def _cache_set(key: str, value: Any) -> None:
     _CACHE[key] = (time.time(), value)
+
+
+def _safe_address_segment(address: str) -> str:
+    cleaned = str(address).strip()
+    if not _SAFE_ADDRESS_RE.fullmatch(cleaned):
+        raise ValueError(f"Unsafe Arkham address segment: {address!r}")
+    return cleaned
 
 
 async def _api_get(path: str, *, params: dict[str, Any] | None = None) -> dict[str, Any] | None:
@@ -128,7 +138,8 @@ async def fetch_entity_intelligence_input(
 
     api_data = None
     if address and _api_key():
-        api_data = await _api_get(f"/intelligence/address/{address}")
+        safe_address = _safe_address_segment(address)
+        api_data = await _api_get(f"/intelligence/address/{safe_address}")
     elif _api_key():
         query = _ENTITY_QUERIES.get(sym, sym.lower())
         api_data = await _api_get("/intelligence/search", params={"query": query})

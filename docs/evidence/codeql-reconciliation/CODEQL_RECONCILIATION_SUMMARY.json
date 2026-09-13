@@ -1,0 +1,47 @@
+{
+  "ORIGINAL_BASELINE_SHA": "f038bc331a06ed52aeb85035c9c01ad1b4492f2b",
+  "CURRENT_HEAD_SHA": "4f800832f7d47c20b60d0d86cc605e408bf5f7b9",
+  "CODEQL_CLI_VERSION": "2.27.0",
+  "CODEQL_PACK_VERSION": "codeql/python-queries@1.8.10",
+  "EXACT_ANALYZE_COMMAND": "codeql database create /tmp/codeql-db --language=python --source-root=. && codeql database analyze /tmp/codeql-db /tmp/codeql/qlpacks/codeql/python-queries/1.8.10/codeql-suites/python-security-and-quality.qls --format=sarif-latest --output=docs/evidence/codeql-reconciliation/CODEQL_CURRENT_HEAD.sarif",
+  "ORIGINAL_TOTAL": 911,
+  "RECONCILED_TOTAL": 911,
+  "UNACCOUNTED": 0,
+  "DUPLICATE_ACCOUNTED": 3,
+  "SECURITY_ORIGINAL": 38,
+  "SECURITY_RECONCILED": 38,
+  "SECURITY_OPEN": 8,
+  "QUALITY_ORIGINAL": 873,
+  "QUALITY_RECONCILED": 873,
+  "QUALITY_OPEN": 0,
+  "disposition_totals": {
+    "DUPLICATE_PROVEN": 3,
+    "FALSE_POSITIVE_PROVEN": 19,
+    "NO_LONGER_PRESENT_WITH_PROVENANCE": 14,
+    "QUALITY_ACCEPTED_WITH_PROOF": 858,
+    "TEST_ONLY_PROVEN": 5,
+    "TRUE_POSITIVE_FIXED": 12
+  },
+  "security_disposition_totals": {
+    "DUPLICATE_PROVEN": 3,
+    "FALSE_POSITIVE_PROVEN": 19,
+    "TEST_ONLY_PROVEN": 4,
+    "TRUE_POSITIVE_FIXED": 12
+  },
+  "quality_disposition_totals": {
+    "NO_LONGER_PRESENT_WITH_PROVENANCE": 14,
+    "QUALITY_ACCEPTED_WITH_PROOF": 858,
+    "TEST_ONLY_PROVEN": 1
+  },
+  "current_sarif_path": "docs/evidence/codeql-reconciliation/CODEQL_CURRENT_HEAD.sarif",
+  "current_sarif_total": 908,
+  "current_sarif_note": "Post-remediation scan at CURRENT_HEAD; does not replace immutable 911 original corpus.",
+  "FINAL_STATUS": "REMEDIATION_COMPLETE_PENDING_INDEPENDENT_AUDIT",
+  "CODEQL_CLOSED": false,
+  "artifact_sha256": {
+    "CODEQL_911_FINDING_RECONCILIATION.json": "76651f6af5ceab4effbfc7f812424dd0b1b3221b19938a7f6b5dbd2da32ba65a",
+    "CODEQL_38_SECURITY_RECONCILIATION.json": "b5feb00b8ea5b6ca1bd10144d670e2f54ae2abc7dad6c308c8bfa6425a844c8e",
+    "CODEQL_873_QUALITY_RECONCILIATION.json": "18a9476152afcb6678b95a375013e7d5daa14270eaa21b1d5849f0abd1e0757a",
+    "CODEQL_CURRENT_HEAD.sarif": "f19b88327d4b5c86dd5c4e7e0f254d41f88bb965ae9ea3805f8b448c7dfdf044"
+  }
+}

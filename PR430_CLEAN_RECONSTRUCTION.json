@@ -1,0 +1,58 @@
+{
+  "source_pr": 430,
+  "source_head": "0ddf938daa65fca7091dc8e22ee00fd76a04c091",
+  "clean_base_sha": "e4a9136d66e4056b6c11e3e3b45071ae92ab8f29",
+  "source_commits_considered": [
+    "c71580dc",
+    "da818a88",
+    "1181fd9c",
+    "4f800832",
+    "3b85fc03",
+    "0ddf938d"
+  ],
+  "commits_or_patches_applied": "six-commit unified patch (c71580dc^..0ddf938d) excluding ops/vendor_rate_limit_watchdog.py; test skip for absent vendor watchdog on clean main",
+  "files_changed": [
+    "api/routers/didit_webhook.py",
+    "audit_registry.py",
+    "bd_platform/address_intelligence.py",
+    "billing/audit_ledger.py",
+    "blackdark-codeql-911.csv",
+    "blackdark-codeql-results.sarif",
+    "blackdark/ingestion/arkham_connector.py",
+    "dashboard.py",
+    "data/institutional_assurance/signed_capacity.json",
+    "docs/CODEQL_911_RECONCILIATION.md",
+    "docs/CODEQL_BASELINE.json",
+    "docs/evidence/blackdark-codeql-original-911.csv",
+    "docs/evidence/codeql-reconciliation/CODEQL_38_SECURITY_RECONCILIATION.json",
+    "docs/evidence/codeql-reconciliation/CODEQL_873_QUALITY_RECONCILIATION.json",
+    "docs/evidence/codeql-reconciliation/CODEQL_911_FINDING_RECONCILIATION.json",
+    "docs/evidence/codeql-reconciliation/CODEQL_CURRENT_HEAD.sarif",
+    "docs/evidence/codeql-reconciliation/CODEQL_RECONCILIATION_SUMMARY.json",
+    "ml/market_replay_bootstrap.py",
+    "runtime_verification.py",
+    "scale_readiness.py",
+    "scripts/codeql_disposition_audit.py",
+    "scripts/codeql_full_reconciliation.py",
+    "signal_compounding.py",
+    "tests/test_codeql_arkham_ssrf_remediation.py",
+    "tests/test_codeql_security_gate_8_closure.py",
+    "tests/test_codeql_stack_trace_remediation.py"
+  ],
+  "excluded_inherited_files": [
+    "ops/vendor_rate_limit_watchdog.py"
+  ],
+  "codeql_scope_only": true,
+  "runtime_leakage": 0,
+  "completion_program_leakage": 0,
+  "focused_tests": [
+    "tests/test_codeql_arkham_ssrf_remediation.py",
+    "tests/test_codeql_stack_trace_remediation.py",
+    "tests/test_codeql_security_gate_8_closure.py"
+  ],
+  "codeql_result": "FOCUSED_TESTS_PASSED_13_1_SKIPPED",
+  "working_tree_clean": true,
+  "created_at_utc": "2026-09-13T23:37:03.602944+00:00",
+  "new_branch": "cursor/codeql-clean-reconstruction-358c",
+  "new_head": "f7e68dd9f8339c6a429cefc2748c3ce6bc8e6f35"
+}
