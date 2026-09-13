@@ -1,0 +1,500 @@
+{
+  "PHASE_I_SELECTED_SOURCE_ROUTES": 31,
+  "UNIQUE_RUNTIME_CONNECTORS": 16,
+  "FULLY_ACCOUNTED_PHASE_I_SOURCE_ROUTES": 31,
+  "INCOMPLETE_LOCAL_PHASE_I_SOURCE_ROUTES": 0,
+  "UNEXPLAINED_PHASE_I_ROWS": 0,
+  "PHASE_I_SOURCE_SCOPE_RECONCILED": true,
+  "PHASE_I_RUNTIME_WIRING_RECONCILED": true,
+  "LOCALLY_REMEDIABLE_REMAINING": 0,
+  "explanation": "31 Phase I entries are logical source/routes in scope. 16 unique runtime connector modules serve them via shared adapters (e.g. binance_rest serves spot/futures/funding/OI; coingecko_rest serves prices/derivatives). 12 routes have direct catalog source_id matches; 19 resolve via catalog alias or external gate. This is intentional staged Phase I \u2014 not 31 independent connectors.",
+  "rows": [
+    {
+      "source_route": "aave_v3",
+      "catalog_source_id": "aave_subgraph",
+      "connector_runtime_owner": "ingestion_fetchers.subgraph_reference",
+      "shared_with_routes": [
+        "uniswap_v3"
+      ],
+      "actually_wired": false,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "notes": "Resolves via catalog alias aave_subgraph"
+    },
+    {
+      "source_route": "binance_funding",
+      "catalog_source_id": "binance_futures",
+      "connector_runtime_owner": "ingestion_fetchers.binance_rest",
+      "shared_with_routes": [
+        "binance_spot",
+        "binance_futures",
+        "binance_oi"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias binance_futures"
+    },
+    {
+      "source_route": "binance_futures",
+      "catalog_source_id": "binance_futures",
+      "connector_runtime_owner": "ingestion_fetchers.binance_rest",
+      "shared_with_routes": [
+        "binance_spot",
+        "binance_funding",
+        "binance_oi"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "binance_oi",
+      "catalog_source_id": "binance_futures",
+      "connector_runtime_owner": "ingestion_fetchers.binance_rest",
+      "shared_with_routes": [
+        "binance_spot",
+        "binance_futures",
+        "binance_funding"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias binance_futures"
+    },
+    {
+      "source_route": "binance_spot",
+      "catalog_source_id": "binance_spot",
+      "connector_runtime_owner": "ingestion_fetchers.binance_rest",
+      "shared_with_routes": [
+        "binance_futures",
+        "binance_funding",
+        "binance_oi"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "binance_ws",
+      "catalog_source_id": "binance_ws",
+      "connector_runtime_owner": "binance_ws_ingest.py",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "bitcoin_rpc",
+      "catalog_source_id": "blockchain_com",
+      "connector_runtime_owner": "ingestion_fetchers.blockchain_rest",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": "Resolves via catalog alias blockchain_com"
+    },
+    {
+      "source_route": "bybit_spot",
+      "catalog_source_id": "bybit_spot",
+      "connector_runtime_owner": "ingestion_fetchers.bybit_rest",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "cftc_reports",
+      "catalog_source_id": "cftc_rss",
+      "connector_runtime_owner": "ingestion_fetchers.rss_feed",
+      "shared_with_routes": [
+        "sec_edgar",
+        "messari"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias cftc_rss"
+    },
+    {
+      "source_route": "chainlink_oracle",
+      "catalog_source_id": null,
+      "connector_runtime_owner": null,
+      "shared_with_routes": [],
+      "actually_wired": false,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "notes": "On-chain oracle feed requires dedicated node/RPC subscription"
+    },
+    {
+      "source_route": "coinbase_spot",
+      "catalog_source_id": "coinbase_spot",
+      "connector_runtime_owner": "ingestion_fetchers.coinbase_rest",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "coingecko_derivatives",
+      "catalog_source_id": "coingecko_prices",
+      "connector_runtime_owner": "ingestion_fetchers.coingecko_rest",
+      "shared_with_routes": [
+        "coingecko_prices"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias coingecko_prices"
+    },
+    {
+      "source_route": "coingecko_prices",
+      "catalog_source_id": "coingecko_prices",
+      "connector_runtime_owner": "ingestion_fetchers.coingecko_rest",
+      "shared_with_routes": [
+        "coingecko_derivatives"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "coinmarketcap_prices",
+      "catalog_source_id": "coinmarketcap",
+      "connector_runtime_owner": "ingestion_fetchers.coinmarketcap",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": "Resolves via catalog alias coinmarketcap"
+    },
+    {
+      "source_route": "cryptopanic",
+      "catalog_source_id": "cryptopanic",
+      "connector_runtime_owner": "ingestion_fetchers.generic_keyed_rest",
+      "shared_with_routes": [
+        "newsapi_crypto",
+        "glassnode",
+        "ethereum_rpc"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "curve_finance",
+      "catalog_source_id": "curve_pools",
+      "connector_runtime_owner": "ingestion_fetchers.generic_rest",
+      "shared_with_routes": [
+        "defillama_tvl"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias curve_pools"
+    },
+    {
+      "source_route": "defillama_tvl",
+      "catalog_source_id": "defillama_tvl",
+      "connector_runtime_owner": "ingestion_fetchers.defillama_rest",
+      "shared_with_routes": [
+        "curve_finance"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "dune_analytics",
+      "catalog_source_id": null,
+      "connector_runtime_owner": null,
+      "shared_with_routes": [],
+      "actually_wired": false,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "notes": "Dune API key and query quota required"
+    },
+    {
+      "source_route": "dydx",
+      "catalog_source_id": null,
+      "connector_runtime_owner": null,
+      "shared_with_routes": [],
+      "actually_wired": false,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "notes": "Perp-DEX v4 API integration not admitted to catalog"
+    },
+    {
+      "source_route": "ethereum_rpc",
+      "catalog_source_id": "etherscan",
+      "connector_runtime_owner": "ingestion_fetchers.generic_keyed_rest",
+      "shared_with_routes": [
+        "cryptopanic",
+        "newsapi_crypto",
+        "glassnode"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias etherscan"
+    },
+    {
+      "source_route": "fred",
+      "catalog_source_id": "fred",
+      "connector_runtime_owner": "ingestion_fetchers.fred_rest",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "glassnode",
+      "catalog_source_id": "glassnode_free",
+      "connector_runtime_owner": "ingestion_fetchers.generic_keyed_rest",
+      "shared_with_routes": [
+        "cryptopanic",
+        "newsapi_crypto",
+        "ethereum_rpc"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias glassnode_free"
+    },
+    {
+      "source_route": "hyperliquid",
+      "catalog_source_id": null,
+      "connector_runtime_owner": null,
+      "shared_with_routes": [],
+      "actually_wired": false,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "notes": "Hyperliquid API integration not admitted to catalog"
+    },
+    {
+      "source_route": "kraken_spot",
+      "catalog_source_id": "kraken_spot",
+      "connector_runtime_owner": "ingestion_fetchers.kraken_rest",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "lunarcrush",
+      "catalog_source_id": "lunarcrush",
+      "connector_runtime_owner": "bd_platform.free_integrations.lunarcrush_social",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "messari",
+      "catalog_source_id": "messari_rss",
+      "connector_runtime_owner": "ingestion_fetchers.rss_feed",
+      "shared_with_routes": [
+        "sec_edgar",
+        "cftc_reports"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias messari_rss"
+    },
+    {
+      "source_route": "newsapi_crypto",
+      "catalog_source_id": "newsapi",
+      "connector_runtime_owner": "ingestion_fetchers.generic_keyed_rest",
+      "shared_with_routes": [
+        "cryptopanic",
+        "glassnode",
+        "ethereum_rpc"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias newsapi"
+    },
+    {
+      "source_route": "okx_spot",
+      "catalog_source_id": "okx_spot",
+      "connector_runtime_owner": "ingestion_fetchers.okx_rest",
+      "shared_with_routes": [],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "FULLY_WIRED",
+      "notes": ""
+    },
+    {
+      "source_route": "pyth_network",
+      "catalog_source_id": null,
+      "connector_runtime_owner": null,
+      "shared_with_routes": [],
+      "actually_wired": false,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "notes": "Pyth price service requires dedicated websocket/RPC integration"
+    },
+    {
+      "source_route": "sec_edgar",
+      "catalog_source_id": "sec_rss",
+      "connector_runtime_owner": "ingestion_fetchers.rss_feed",
+      "shared_with_routes": [
+        "cftc_reports",
+        "messari"
+      ],
+      "actually_wired": true,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "notes": "Resolves via catalog alias sec_rss"
+    },
+    {
+      "source_route": "uniswap_v3",
+      "catalog_source_id": "uniswap_subgraph",
+      "connector_runtime_owner": "ingestion_fetchers.subgraph_reference",
+      "shared_with_routes": [
+        "aave_v3"
+      ],
+      "actually_wired": false,
+      "normalization_bound": true,
+      "quality_freshness_bound": true,
+      "reconciliation_bound": true,
+      "provenance_bound": true,
+      "decision_path_bound": true,
+      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "notes": "Resolves via catalog alias uniswap_subgraph"
+    }
+  ]
+}

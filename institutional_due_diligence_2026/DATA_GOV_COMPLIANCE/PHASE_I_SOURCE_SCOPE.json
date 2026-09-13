@@ -3,6 +3,8 @@
   "phase_i_source_count": 31,
   "phase_i_admitted_or_registered": 12,
   "phase_i_wired_connectors": 12,
+  "phase_i_unique_runtime_connectors": 16,
+  "PHASE_I_RUNTIME_WIRING_RECONCILED": true,
   "phase_i_min": 25,
   "phase_i_max": 35,
   "within_bounds": true,

@@ -58,14 +58,19 @@ def phase_i_entries() -> list[dict[str, Any]]:
 
 
 def phase_i_summary() -> dict[str, Any]:
+    from data_governance.phase_i_runtime import build_phase_i_runtime_reconciliation
+
     entries = phase_i_entries()
     admitted = [e for e in entries if e.get("admission_state", "").startswith("ADMITTED") or e.get("admission_state") == "REGISTERED_PHASE_I"]
     count = len([e for e in entries if e.get("current_connector_state") != "NOT_IN_CATALOG"])
+    runtime = build_phase_i_runtime_reconciliation()
     return {
         "PHASE_I_SOURCE_SCOPE_DEFINED": True,
         "phase_i_source_count": len(entries),
         "phase_i_admitted_or_registered": len(admitted),
         "phase_i_wired_connectors": count,
+        "phase_i_unique_runtime_connectors": runtime["UNIQUE_RUNTIME_CONNECTORS"],
+        "PHASE_I_RUNTIME_WIRING_RECONCILED": runtime["PHASE_I_RUNTIME_WIRING_RECONCILED"],
         "phase_i_min": PHASE_I_MIN,
         "phase_i_max": PHASE_I_MAX,
         "within_bounds": PHASE_I_MIN <= len(entries) <= PHASE_I_MAX,

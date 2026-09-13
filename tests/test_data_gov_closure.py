@@ -43,6 +43,18 @@ def test_atomic_mapping_complete():
     assert data["INDEPENDENT_ATOMIC_OBLIGATIONS"] > 0
 
 
+def test_phase_i_runtime_reconciliation():
+    from data_governance.phase_i_runtime import build_phase_i_runtime_reconciliation
+
+    r = build_phase_i_runtime_reconciliation()
+    assert r["PHASE_I_SELECTED_SOURCE_ROUTES"] == 31
+    assert r["FULLY_ACCOUNTED_PHASE_I_SOURCE_ROUTES"] == 31
+    assert r["INCOMPLETE_LOCAL_PHASE_I_SOURCE_ROUTES"] == 0
+    assert r["UNEXPLAINED_PHASE_I_ROWS"] == 0
+    assert r["PHASE_I_RUNTIME_WIRING_RECONCILED"] is True
+    assert len(r["rows"]) == 31
+
+
 def test_data_truth_fabric_pipeline():
     from data_governance.pipeline import evaluate_data_governance
 

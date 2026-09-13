@@ -33,6 +33,7 @@ def main() -> int:
         "data_gov_source_extractor.py",
         "data_gov_atomic_mapping.py",
         "build_data_governance_implementation_index.py",
+        "phase_i_runtime_reconciliation.py",
         "data_gov_independent_audit.py",
         "data_gov_rtm_builder.py",
         "data_gov_security_matrix.py",
@@ -45,11 +46,14 @@ def main() -> int:
             return 1
 
     from data_governance.phase_i import write_phase_i_scope, verify_phase_i_gate
+    from data_governance.phase_i_runtime import write_phase_i_runtime_reconciliation, verify_phase_i_runtime_gate
     from data_governance.restore import verify_all_restore
     from data_governance.pipeline import evaluate_data_governance
     from scripts.data_governance_final_reconciliation import audit_runtime_wiring, audit_acceptance_gates
 
     phase_i = write_phase_i_scope()
+    phase_i_runtime = write_phase_i_runtime_reconciliation()
+    phase_i_runtime_gate = verify_phase_i_runtime_gate()
     restore = verify_all_restore()
     pytest_ok = _pytest_ok()
     wiring = audit_runtime_wiring()
@@ -71,6 +75,13 @@ def main() -> int:
         "RESTORED_PRIOR_DECISIONS_MISSED": [] if restore.get("ok", 0) >= 10 else ["restore_incomplete"],
         "PHASE_I_SOURCE_SCOPE_DEFINED": phase_i.get("PHASE_I_SOURCE_SCOPE_DEFINED", False),
         "PREMATURE_100_SOURCE_EXPANSION": phase_i.get("PREMATURE_100_SOURCE_EXPANSION", True),
+        "PHASE_I_SELECTED_SOURCE_ROUTES": phase_i_runtime.get("PHASE_I_SELECTED_SOURCE_ROUTES", 0),
+        "UNIQUE_RUNTIME_CONNECTORS": phase_i_runtime.get("UNIQUE_RUNTIME_CONNECTORS", 0),
+        "FULLY_ACCOUNTED_PHASE_I_SOURCE_ROUTES": phase_i_runtime.get("FULLY_ACCOUNTED_PHASE_I_SOURCE_ROUTES", 0),
+        "INCOMPLETE_LOCAL_PHASE_I_SOURCE_ROUTES": phase_i_runtime.get("INCOMPLETE_LOCAL_PHASE_I_SOURCE_ROUTES", 1),
+        "UNEXPLAINED_PHASE_I_ROWS": phase_i_runtime.get("UNEXPLAINED_PHASE_I_ROWS", 1),
+        "PHASE_I_SOURCE_SCOPE_RECONCILED": phase_i_runtime.get("PHASE_I_SOURCE_SCOPE_RECONCILED", False),
+        "PHASE_I_RUNTIME_WIRING_RECONCILED": phase_i_runtime.get("PHASE_I_RUNTIME_WIRING_RECONCILED", False),
         "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
         "ATOMIC_REQUIREMENTS_UNMAPPED": atomic.get("UNMAPPED_ATOMIC_REQUIREMENTS", 1),
         "LOCAL_BUILDABLE_DATA_REQUIREMENTS_REMAINING": atomic.get("UNMAPPED_ATOMIC_REQUIREMENTS", 1),
@@ -102,6 +113,7 @@ def main() -> int:
         and not wiring.get("UNWIRED_DATA_GOVERNANCE_MODULES")
         and restore.get("ok", 0) >= 10
         and phase_i.get("within_bounds")
+        and phase_i_runtime_gate.get("ok")
         and pipeline_demo.get("data_governance_state") in {"ADMITTED", "DEGRADED", "ABSTAINED", "REJECTED"}
     )
     assertions["PASS_ENGINEERING_DATA"] = core_pass
