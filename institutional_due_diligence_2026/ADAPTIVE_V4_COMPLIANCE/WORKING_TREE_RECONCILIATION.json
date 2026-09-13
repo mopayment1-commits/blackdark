@@ -1,0 +1,498 @@
+{
+  "generated_at_utc": "2026-09-13T05:47:52.835144+00:00",
+  "items": [
+    {
+      "path": "FREE_API_RATE_LIMIT_AUDIT.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/ml_experience_log.jsonl",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/ml_experience_summary.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/model_weights.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/oracle_direction_latest.joblib",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/regime/neutral/meta.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/regime/neutral/model.joblib",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/regime/training_status.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/training/labeled_oracle_dataset.parquet",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "docs/CODEQL_911_RECONCILIATION.md",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "docs/CODEQL_BASELINE.json",
+      "status": "M",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/REQUIREMENT_RECONCILIATION.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": ".codeql-db/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": ".codeql/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": ".venv-a11y/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "BATCH04_17_FAILURE_SCAN.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "EXECUTE_826_VERIFY_SUMMARY.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "blackdark/data/timezone_preference_audit.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/adaptive_human_validation.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/address_balance_snapshots.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/alert_passport.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/aml_screening_audit.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/anti_hype_mode.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/contradiction_replays.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/corporate/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/decision_ledger.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/enterprise_sso.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/failure_corpus.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/gdpr_consent_log.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/gdpr_deletion_audit.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/glass_box_announce_schedule.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/governance_raw_landing.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/in_app_alerts.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/industry_silence_events.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/institutional/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/institutional_assurance/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/institutional_commerce/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/institutional_rbac_audit.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/intelligence_flywheel_feedback.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/kill_rate_events.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/launch_checklist.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/locked_predictions.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/market_event_library.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/mirror_ledger.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/models/oracle_direction_ens20260913_0532.joblib",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/monitoring_alert_state.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/oracle_audit_chain.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/orgs/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/proof_arena.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/sealed_desk_duels.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/security_events.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/signal_registry.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/since_you_left.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/sovereign_signal_definitions.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/streaming_event_queue.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/transparency/",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/trust_debt.json",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/uptime_probes.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/usage_analytics_events.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "data/user_exposure_log.jsonl",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "scripts/execute_826_verify.py",
+      "status": "??",
+      "related_to_adaptive": false,
+      "safe_to_exclude": true,
+      "reason": "pre_existing_unrelated_artifact"
+    },
+    {
+      "path": "tests/test_adaptive_v4_a11y_interaction.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "tests/test_adaptive_v4_performance.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    }
+  ],
+  "UNEXPLAINED_WORKING_TREE_CHANGES": 5,
+  "adaptive_uncommitted": [
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/REQUIREMENT_RECONCILIATION.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "tests/test_adaptive_v4_a11y_interaction.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "tests/test_adaptive_v4_performance.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    }
+  ]
+}

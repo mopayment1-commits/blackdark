@@ -13,6 +13,7 @@
         "tests/test_adaptive_v4_falsification.py",
         "tests/test_adaptive_v4_security.py",
         "tests/test_adaptive_v4_a11y_interaction.py",
+        "tests/test_adaptive_v4_browser_a11y.py",
         "tests/test_adaptive_v4_performance.py"
       ],
       "reason": "Direct adaptive implementation",
@@ -40,6 +41,12 @@
           "exit_code": 0,
           "passed": true,
           "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_browser_a11y.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "....                                                                     [100%]"
         },
         {
           "path": "tests/test_adaptive_v4_performance.py",
@@ -186,6 +193,7 @@
   "unique_test_suites": [
     "tests/cap646/test_get_entitlement.py",
     "tests/test_adaptive_v4_a11y_interaction.py",
+    "tests/test_adaptive_v4_browser_a11y.py",
     "tests/test_adaptive_v4_closure.py",
     "tests/test_adaptive_v4_falsification.py",
     "tests/test_adaptive_v4_performance.py",

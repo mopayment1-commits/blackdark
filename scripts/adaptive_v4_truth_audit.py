@@ -169,8 +169,9 @@ def _risk_32_1() -> list[dict[str, Any]]:
             "control_id": "AIV4-R02",
             "implementation": "decision_contract.py + decision_boundary.py no false precision",
             "test": TEST_CLOSURE,
-            "local_status": "VERIFIED_IMPLEMENTED",
+            "local_status": "CALIBRATION_INFRASTRUCTURE_COMPLETE",
             "external_remaining": "empirical_calibration_history",
+            "empirical_calibration_demonstrated": False,
         },
         {
             "original_risk": "Concept/subsystem density",
@@ -255,7 +256,22 @@ def main() -> int:
 
     OUT_RTM.write_text(json.dumps({"parents": parents, "counts": counts}, indent=2), encoding="utf-8")
     OUT_HIER.write_text(json.dumps({"hierarchy": hier, "source_total": recon.get("SOURCE_REQUIREMENTS_TOTAL")}, indent=2), encoding="utf-8")
-    OUT_RISK.write_text(json.dumps({"risks": risks}, indent=2), encoding="utf-8")
+    OUT_RISK.write_text(
+        json.dumps(
+            {
+                "calibration_semantics": {
+                    "CALIBRATION_INFRASTRUCTURE_COMPLETE": True,
+                    "FALSE_PRECISION_BLOCKED": True,
+                    "UNCALIBRATED_NUMERIC_CONFIDENCE_BLOCKED": True,
+                    "EMPIRICAL_CALIBRATION_EVIDENCE_GATED": True,
+                    "note": "Infrastructure and safe qualitative/ABSTAIN behavior implemented; probabilistic validity NOT empirically established",
+                },
+                "risks": risks,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
     lines = [
         "# Adaptive v4 FULL TRUTH TABLE (post-falsification)",
@@ -273,22 +289,6 @@ def main() -> int:
     lines.append(f"\n**ADAPTIVE_V4_FINAL_LOCAL_COMPLETION={'true' if verdict else 'false'}**\n")
     OUT_TABLE.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    final = [
-        "# FINAL INSTITUTIONAL REPORT (Falsification Audit)",
-        "",
-        f"ADAPTIVE_V4_FINAL_LOCAL_COMPLETION={'true' if verdict else 'false'}",
-        f"SOURCE_REQUIREMENTS_COMPLETE={'true' if recon.get('UNMAPPED_REQUIREMENTS')==0 else 'false'}",
-        f"REQUIREMENT_COUNT_RECONCILED={'true' if recon.get('UNEXPLAINED_COUNT_DELTA')==0 else 'false'}",
-        f"FULL_RELEVANT_REGRESSION_GREEN={'true' if tests['all_ok'] else 'false'}",
-        f"LOCALLY_REMEDIABLE_REMAINING={locally_remediable}",
-        "",
-        "## Source Universe",
-        json.dumps(recon, indent=2),
-        "",
-        "## Tests",
-        json.dumps(tests, indent=2),
-    ]
-    OUT_FINAL.write_text("\n".join(final) + "\n", encoding="utf-8")
     print(OUT_TABLE.read_text(encoding="utf-8"))
     return 0 if verdict else 1
 

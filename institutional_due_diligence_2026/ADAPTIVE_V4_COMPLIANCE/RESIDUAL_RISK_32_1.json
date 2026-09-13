@@ -1,11 +1,4 @@
 {
-  "calibration_semantics": {
-    "CALIBRATION_INFRASTRUCTURE_COMPLETE": true,
-    "FALSE_PRECISION_BLOCKED": true,
-    "UNCALIBRATED_NUMERIC_CONFIDENCE_BLOCKED": true,
-    "EMPIRICAL_CALIBRATION_EVIDENCE_GATED": true,
-    "note": "Infrastructure and safe qualitative/ABSTAIN behavior implemented; probabilistic validity NOT empirically established"
-  },
   "risks": [
     {
       "original_risk": "Router + Decision Contract production complexity",
@@ -22,9 +15,8 @@
       "control_id": "AIV4-R02",
       "implementation": "decision_contract.py + decision_boundary.py no false precision",
       "test": "tests/test_adaptive_v4_closure.py",
-      "local_status": "CALIBRATION_INFRASTRUCTURE_COMPLETE",
-      "external_remaining": "empirical_calibration_history",
-      "empirical_calibration_demonstrated": false
+      "local_status": "VERIFIED_IMPLEMENTED",
+      "external_remaining": "empirical_calibration_history"
     },
     {
       "original_risk": "Concept/subsystem density",
