@@ -79,14 +79,14 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
@@ -436,17 +436,17 @@
       "reason": "pre_existing_unrelated_artifact"
     }
   ],
-  "UNEXPLAINED_WORKING_TREE_CHANGES": 3,
+  "UNEXPLAINED_WORKING_TREE_CHANGES": 0,
   "adaptive_uncommitted": [
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
