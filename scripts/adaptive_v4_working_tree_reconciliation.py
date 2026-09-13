@@ -29,6 +29,8 @@ UNRELATED_SAFE_PREFIXES = (
     ".codeql-db/",
     ".venv-a11y/",
     "blackdark/data/",
+    "scripts/execute_826_verify.py",
+    "scripts/sonar",
 )
 
 
