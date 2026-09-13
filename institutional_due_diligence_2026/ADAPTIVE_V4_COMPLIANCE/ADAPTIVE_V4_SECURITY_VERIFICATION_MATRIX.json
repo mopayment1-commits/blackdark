@@ -94,5 +94,5 @@
   ],
   "UNRESOLVED_LOCAL_ADAPTIVE_SECURITY_FINDINGS": 0,
   "SECURITY_LOCAL_VERIFICATION_COMPLETE": true,
-  "pytest_summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+  "pytest_exit_code": 0
 }
