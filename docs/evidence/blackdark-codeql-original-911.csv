@@ -1,0 +1,951 @@
+﻿ruleId,name,problem_severity,security_severity,precision,tags,file,line,message
+py/incomplete-url-substring-sanitization,py/incomplete-url-substring-sanitization,warning,7.8,high,correctness;security;external/cwe/cwe-020,enterprise_sso.py,496,The string [auth0.com](1) may be at an arbitrary position in the sanitized URL.
+py/incomplete-url-substring-sanitization,py/incomplete-url-substring-sanitization,warning,7.8,high,correctness;security;external/cwe/cwe-020,enterprise_sso.py,496,The string [okta.com](1) may be at an arbitrary position in the sanitized URL.
+py/incomplete-url-substring-sanitization,py/incomplete-url-substring-sanitization,warning,7.8,high,correctness;security;external/cwe/cwe-020,tests/test_production_e2e_hardening.py,398,The string [api.binance.com](1) may be at an arbitrary position in the sanitized URL.
+py/stack-trace-exposure,py/stack-trace-exposure,error,5.4,high,security;external/cwe/cwe-209;external/cwe/cwe-497,dashboard.py,2123,[Stack trace information](1) flows to this location and may be exposed to an external user.
+py/stack-trace-exposure,py/stack-trace-exposure,error,5.4,high,security;external/cwe/cwe-209;external/cwe/cwe-497,dashboard.py,2131,[Stack trace information](1) flows to this location and may be exposed to an external user.
+py/stack-trace-exposure,py/stack-trace-exposure,error,5.4,high,security;external/cwe/cwe-209;external/cwe/cwe-497,dashboard.py,4564,[Stack trace information](1) flows to this location and may be exposed to an external user.
+py/stack-trace-exposure,py/stack-trace-exposure,error,5.4,high,security;external/cwe/cwe-209;external/cwe/cwe-497,api/routers/monitoring.py,32,"[Stack trace information](1) flows to this location and may be exposed to an external user.
+[Stack trace information](2) flows to this location and may be exposed to an external user."
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,billing/audit_ledger.py,71,"This expression logs [sensitive data (private)](1) as clear text.
+This expression logs [sensitive data (private)](2) as clear text.
+This expression logs [sensitive data (private)](3) as clear text.
+This expression logs [sensitive data (private)](4) as clear text.
+This expression logs [sensitive data (private)](5) as clear text."
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/pre_launch_gate_assessor.py,22,This expression logs [sensitive data (secret)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_billing_production.py,53,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_billing_production.py,58,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_billing_production.py,62,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_billing_production.py,83,"This expression logs [sensitive data (private)](1) as clear text.
+This expression logs [sensitive data (private)](1) as clear text."
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_billing_production.py,79,"This expression logs [sensitive data (private)](1) as clear text.
+This expression logs [sensitive data (private)](1) as clear text."
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_payments_usd.py,24,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_payments_usd.py,28,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_payments_usd.py,31,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_payments_usd.py,32,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_payments_usd.py,34,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_stripe_production.py,55,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_stripe_production.py,60,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/setup_stripe_production.py,101,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,billing/sweeper.py,45,This expression logs [sensitive data (private)](1) as clear text.
+py/clear-text-logging-sensitive-data,py/clear-text-logging-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-359;external/cwe/cwe-532,scripts/verify_institutional_owner_secret.py,93,"This expression logs [sensitive data (secret)](1) as clear text.
+This expression logs [sensitive data (secret)](2) as clear text.
+This expression logs [sensitive data (secret)](3) as clear text.
+This expression logs [sensitive data (secret)](4) as clear text."
+py/clear-text-storage-sensitive-data,py/clear-text-storage-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-315;external/cwe/cwe-359,institutional_commerce.py,48,This expression stores [sensitive data (private)](1) as clear text.
+py/clear-text-storage-sensitive-data,py/clear-text-storage-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-315;external/cwe/cwe-359,scripts/institutional_readiness_matrix.py,216,This expression stores [sensitive data (secret)](1) as clear text.
+py/clear-text-storage-sensitive-data,py/clear-text-storage-sensitive-data,error,7.5,high,security;external/cwe/cwe-312;external/cwe/cwe-315;external/cwe/cwe-359,scripts/pre_launch_gate_assessor.py,21,This expression stores [sensitive data (secret)](1) as clear text.
+py/weak-sensitive-data-hashing,py/weak-sensitive-data-hashing,warning,7.5,high,security;external/cwe/cwe-327;external/cwe/cwe-328;external/cwe/cwe-916,audit_registry.py,42,"[Sensitive data (password)](1) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.
+[Sensitive data (password)](2) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function."
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,bd_platform/address_intelligence.py,65,"This log entry depends on a [user-provided value](1).
+This log entry depends on a [user-provided value](2).
+This log entry depends on a [user-provided value](3).
+This log entry depends on a [user-provided value](4).
+This log entry depends on a [user-provided value](5).
+This log entry depends on a [user-provided value](6)."
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,billing/audit_ledger.py,71,"This log entry depends on a [user-provided value](1).
+This log entry depends on a [user-provided value](2).
+This log entry depends on a [user-provided value](3)."
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,billing/audit_ledger.py,73,"This log entry depends on a [user-provided value](1).
+This log entry depends on a [user-provided value](2).
+This log entry depends on a [user-provided value](3).
+This log entry depends on a [user-provided value](4)."
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,audit_registry.py,302,This log entry depends on a [user-provided value](1).
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,audit_registry.py,376,This log entry depends on a [user-provided value](1).
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,api/routers/didit_webhook.py,47,This log entry depends on a [user-provided value](1).
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,ml/market_replay_bootstrap.py,186,"This log entry depends on a [user-provided value](1).
+This log entry depends on a [user-provided value](2)."
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,runtime_verification.py,39,This log entry depends on a [user-provided value](1).
+py/log-injection,py/log-injection,error,6.1,medium,security;external/cwe/cwe-117,signal_compounding.py,110,This log entry depends on a [user-provided value](1).
+py/partial-ssrf,py/partial-ssrf,error,9.1,medium,security;external/cwe/cwe-918,blackdark/ingestion/arkham_connector.py,73,"Part of the URL of this request depends on a [user-provided value](1).
+Part of the URL of this request depends on a [user-provided value](2)."
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/_secret_io.py,31,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/_secret_io.py,37,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,acquirer_evidence_pack.py,171,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/activate_100_exchanges.py,25,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/activate_cex_dex.py,25,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/activate_live_execution.py,25,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/adaptive_ux_governance.py,24,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/adaptive_ux_governance.py,30,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/advanced_ta_risk_layer.py,682,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,aggregator.py,964,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,ai_oracle.py,436,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,ai_oracle.py,813,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,ai_oracle.py,980,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/anonymous_visitor_governance.py,26,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,api/routers/arbitrage.py,116,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/arbitrage_portfolio_ux_layer.py,182,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/arbitrage_portfolio_ux_layer.py,189,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/arbitrage_portfolio_ux_layer.py,576,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/arbitrage_portfolio_ux_layer.py,630,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/arbitrage_portfolio_ux_layer.py,641,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/assessor.py,123,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,api/routers/auth.py,247,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,api/routers/auth.py,514,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,auth_service.py,336,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,auth_service.py,468,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/auto_connect_keys.py,27,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,b2b_websocket_hub.py,78,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,b2b_websocket_hub.py,109,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,cap646/batch_spine.py,23,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bigquery_export.py,103,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,api/routers/billing.py,224,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/billing_governance.py,23,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/cex_dex_arbitrage.py,43,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/cex_dex_arbitrage.py,53,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/cex_dex_arbitrage.py,139,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,config.py,186,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,config.py,521,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,tests/conftest.py,74,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/connect_platform_keys.py,79,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,contradiction_replay.py,103,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,contradiction_replay.py,109,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/coverage_report.py,31,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,232,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,609,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,616,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,719,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,726,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,733,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,740,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,747,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,754,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,761,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,768,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,775,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,782,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,789,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,803,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,899,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,1509,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,2614,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,2633,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,2987,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dashboard.py,4472,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,data_freshness.py,64,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,data_freshness.py,73,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/data_sources_layer.py,463,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/data_sources_layer.py,546,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,data_sources_registry.py,221,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,database.py,3684,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,database.py,3983,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,db_upgrade.py,82,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dbt_connector.py,80,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,decision_ledger.py,38,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,api/deps.py,88,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/derivatives_ta_research_layer.py,552,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,dex_fetcher.py,180,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,distribution_compounding.py,57,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,due_diligence.py,52,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,encoding_bootstrap.py,16,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,encoding_bootstrap.py,21,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,cap646/entitlements.py,74,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,cap646/entitlements.py,129,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,cap646/entitlements.py,143,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,execution_keys.py,166,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,execution_keys.py,278,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,failure_corpus.py,34,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,failure_corpus.py,66,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,fee_matrix.py,218,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,fee_matrix.py,223,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,gas_oracle.py,124,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/generate_supplemental_closure_report.py,476,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/generate_template_stub_311_remediation_plan.py,30,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,graphql_schema.py,167,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,gtm_service.py,137,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,api/routers/heroes.py,281,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,hot_tier_reader.py,148,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,i18n_service.py,576,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,i18n_service.py,582,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,i18n_service.py,591,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/identity_governance.py,16,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/identity_governance.py,26,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/identity_governance.py,34,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,in_app_alerts.py,54,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/infra_intelligence_layer.py,161,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/infra_intelligence_layer.py,462,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,infra_metrics.py,56,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,institutional_assurance.py,558,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/intelligence_market_extensions_layer.py,596,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/intelligence_ux_extensions_layer.py,560,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/intelligence_ux_extensions_layer.py,568,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/intelligence_ux_extensions_layer.py,576,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,kill_rate_board.py,43,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,ml/labeling_pipeline.py,192,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/legal_commercial_layer.py,347,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,microservices/lifecycle.py,127,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,microservices/lifecycle.py,212,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,liquidity_discovery.py,755,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/market_analysis_layer.py,745,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_event_library.py,38,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,22,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,28,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,34,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,40,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,51,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,57,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,71,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,78,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,85,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_fetcher_hub.py,187,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,market_intel.py,123,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,ops/monitoring_alerting.py,142,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/onchain_defi_sources_layer.py,508,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/onchain_defi_sources_layer.py,516,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/onchain_platform_layer.py,327,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/onchain_platform_layer.py,333,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/onchain_platform_layer.py,643,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,oracle_audit_chain.py,129,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,oracle_unified.py,246,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,parquet_compactor.py,619,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,platform_api.py,863,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,postgres_backend.py,332,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,price_stream_engine.py,204,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,price_stream_engine.py,212,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,price_stream_processor.py,117,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,price_stream_processor.py,161,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/pro_trader_layer.py,409,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/pro_trader_layer.py,415,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/pro_trader_layer.py,529,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/pro_trader_layer.py,601,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/pro_trader_layer.py,607,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/pro_trader_layer.py,746,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/pro_trader_layer.py,801,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,redis_price_cache.py,148,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/retail_intelligence_layer.py,286,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/risk_infrastructure_layer.py,556,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/risk_infrastructure_layer.py,582,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,risk_manager.py,131,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/run_plan_audit.py,17,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,run_service.py,81,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,run_service.py,91,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scale_readiness.py,45,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,security_middleware.py,44,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,security_middleware.py,59,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,security_middleware.py,99,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,service_bus.py,169,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,scripts/setup_telegram_production.py,71,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,signal_registry.py,474,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/slippage_tolerance_optimizer.py,65,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/slippage_tolerance_optimizer.py,77,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/slippage_tolerance_optimizer.py,99,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/sse_stream.py,39,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,stealth_execution_advisor.py,52,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/storage_governance.py,35,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,billing/subscription_engine.py,675,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/temporal_governance.py,16,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/temporal_governance.py,22,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,governance/temporal_governance.py,28,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,tests/test_site_companion_services.py,52,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,ml/train_regime_models.py,51,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,trust_pulse.py,572,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,user_exposure_log.py,38,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,cap646/v6_true_institutional_dod.py,109,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,cap646/v6_true_institutional_dod.py,116,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,viral_capacity.py,108,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,voice_service.py,102,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,wave_00_hardening.py,132,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,whale_signal_classifier.py,132,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,whale_signal_classifier.py,136,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/whales_institutional_layer.py,192,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/whales_institutional_layer.py,215,'except' clause does nothing but pass and there is no explanatory comment.
+py/empty-except,py/empty-except,recommendation,,high,quality;reliability;error-handling;external/cwe/cwe-390,bd_platform/whales_institutional_layer.py,221,'except' clause does nothing but pass and there is no explanatory comment.
+py/redundant-comparison,py/redundant-comparison,warning,,high,quality;maintainability;useless-code;external/cwe/cwe-561;external/cwe/cwe-570;external/cwe/cwe-571,bd_platform/slippage_tolerance_optimizer.py,251,"Test is always true, because of [this condition](1)."
+py/redundant-comparison,py/redundant-comparison,warning,,high,quality;maintainability;useless-code;external/cwe/cwe-561;external/cwe/cwe-570;external/cwe/cwe-571,billing/subscription_engine.py,704,"Test is always false, because of [this condition](1)."
+py/duplicate-key-dict-literal,py/duplicate-key-dict-literal,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561,cap646/backend_registry.py,206,Dictionary key 'graphql_schema.py' is subsequently [overwritten](1).
+py/duplicate-key-dict-literal,py/duplicate-key-dict-literal,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561,scripts/verify_entitlement_batch02_gateway_proof.py,60,Dictionary key '55_overlap_batch01' is subsequently [overwritten](1).
+py/unnecessary-lambda,py/unnecessary-lambda,recommendation,,high,quality;maintainability;useless-code,scripts/dd_gate_bootstrap.py,668,This 'lambda' is just a simple wrapper around a callable object. Use that object directly.
+py/unnecessary-lambda,py/unnecessary-lambda,recommendation,,high,quality;maintainability;useless-code,tests/test_sonar_new_coverage_closure.py,630,This 'lambda' is just a simple wrapper around a callable object. Use that object directly.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,acquirer_evidence_pack.py,112,Import of module [corpus_passport](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,admin_mfa.py,35,Import of module [mfa_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,admin_mfa.py,47,Import of module [mfa_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/advanced_ta_risk_layer.py,573,Import of module [bd_platform.retail_intelligence_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/advanced_ta_risk_layer.py,667,Import of module [bd_platform.institutional_b2b_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/advanced_ta_risk_layer.py,668,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/advanced_ta_risk_layer.py,669,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,aggregator.py,21,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,aggregator.py,22,Import of module [exchange_adapters](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,aggregator.py,23,Import of module [hot_storage](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,aggregator.py,29,Import of module [liquidity_discovery](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,aggregator.py,800,Import of module [market_fetcher_hub](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,alert_service.py,123,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,alert_service.py,201,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/arbitrage_portfolio_ux_layer.py,179,Import of module [bd_platform.retail_intelligence_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/arbitrage_portfolio_ux_layer.py,185,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/arbitrage_portfolio_ux_layer.py,194,Import of module [bd_platform.intelligence_ux_extensions_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/arbitrage_portfolio_ux_layer.py,573,Import of module [bd_platform.onchain_defi_sources_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/arbitrage_portfolio_ux_layer.py,579,Import of module [bd_platform.intelligence_ux_extensions_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/arbitrage_portfolio_ux_layer.py,626,Import of module [bd_platform.intelligence_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/arbitrage_portfolio_ux_layer.py,634,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,arbitrage_service.py,918,Import of module [scan_coordinator](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,audience_routing.py,84,Import of module [trust_os_lenses](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/audit_ledger.py,35,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/audit_ledger.py,79,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,audit_registry.py,298,Import of module [knowledge_graph](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,224,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,225,Import of module [billing.subscription_engine](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,226,Import of module [billing.subscription_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,248,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,249,Import of module [billing.subscription_engine](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,250,Import of module [identity_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,394,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,395,Import of module [security_auth](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,435,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,436,Import of module [mfa_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,437,Import of module [security_auth](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,461,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,462,Import of module [security_auth](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,478,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,479,Import of module [security_auth](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,495,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,496,Import of module [security_auth](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,534,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,574,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,auth_service.py,575,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_executor.py,9,Import of module [cap646.backend_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,84,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,105,Import of module [cap646.batch02_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,126,Import of module [cap646.batch03_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,151,Import of module [cap646.batch_range_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,425,Import of module [cap646.batch_range_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,440,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,465,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,466,Import of module [cap646.batch02_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,467,Import of module [cap646.batch03_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,469,Import of module [cap646.official_batch_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,494,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,495,Import of module [cap646.batch02_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,496,Import of module [cap646.batch03_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,545,Import of module [cap978.extension_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/backend_registry.py,560,Import of module [cap978.extension_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch01_closure_spec.py,5,Import of module [cap646.batch01_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch01_dedicated.py,11,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch01_production.py,48,Import of module [cap646.batch01_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch01_production.py,75,Import of module [cap646.batch01_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch01_production.py,112,Import of module [cap646.handlers.onchain](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_closure_spec.py,5,Import of module [cap646.batch02_official_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_dedicated.py,11,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_dedicated.py,12,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_dedicated.py,13,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_dedicated.py,14,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_dedicated.py,15,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_official_production.py,7,Import of module [cap646.batch01_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_production.py,15,Import of module [cap646.batch02_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch02_production.py,48,Import of module [cap646.batch02_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch03_dedicated.py,12,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch03_dedicated.py,13,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch03_dedicated.py,14,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch03_dedicated.py,15,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch03_dedicated.py,16,Import of module [cap646.dedicated_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch03_production.py,14,Import of module [cap646.batch03_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch03_production.py,41,Import of module [cap646.batch03_dedicated](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch_dedicated_invoke.py,10,Import of module [cap646.backend_executor](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch_dedicated_invoke.py,11,Import of module [cap646.backend_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch_range_production.py,63,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch_range_production.py,66,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/batch_range_production.py,73,Import of module [cap646.backend_executor](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing_service.py,214,Import of module [billing.webhook_processor](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing_service.py,234,Import of module [billing.webhook_processor](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ccxt_market_fetcher.py,15,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ccxt_market_fetcher.py,195,Import of module [aggregator](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ccxt_market_fetcher.py,233,Import of module [aggregator](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,coingecko_cex_fetcher.py,107,Import of module [blackdark.ingestion.coingecko_connector](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/ingestion/coingecko_connector.py,24,Import of module [blackdark.canonical.resolver](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/ingestion/coingecko_connector.py,26,Import of module [data_lake](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/ingestion/coingecko_connector.py,27,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,commercial_msa.py,56,Import of module [site_services](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,commercial_sla.py,57,Import of module [site_services](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,commercial_support.py,56,Import of module [site_services](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,committee_one_pager.py,55,Import of module [acquirer_evidence_pack](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,compounding_common.py,10,Import of module [audit_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,config.py,358,Import of module [market_fetcher_hub](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,corpus_passport.py,12,Import of module [committee_one_pager](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,data_lake.py,16,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,data_lake.py,18,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,data_lake.py,50,Import of module [blackdark.canonical.resolver](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,data_moat_guard.py,15,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,data_moat_guard.py,93,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,data_sources_extra.py,8,Import of module [data_sources_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/data_sources_layer.py,54,Import of module [bd_platform.institutional_b2b_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/data_sources_layer.py,460,Import of module [bd_platform.intelligence_ux_extensions_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/data_sources_layer.py,542,Import of module [bd_platform.retail_intelligence_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,23,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,555,Import of module [postgres_backend](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,584,Import of module [postgres_backend](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,2202,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,2262,Import of module [data_moat_guard](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,2301,Import of module [oracle_track_record](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,3602,Import of module [billing.subscription_engine](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,3603,Import of module [billing.subscription_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,database.py,4100,Import of module [auth_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/data/db.py,76,Import of module [blackdark.data.migrate](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/dedicated_common.py,83,Import of module [cap646.batch_dedicated_invoke](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/derivatives_ta_research_layer.py,480,Import of module [bd_platform.data_sources_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/derivatives_ta_research_layer.py,548,Import of module [bd_platform.onchain_platform_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,dex_fetcher.py,17,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,dex_fetcher.py,216,Import of module [aggregator](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,didit_kyc.py,205,Import of module [institutional_commerce](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,email_outbox.py,167,Import of module [alert_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,exchange_adapters.py,11,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap978/extension_registry.py,10,Import of module [cap646.backend_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/functional_dod.py,10,Import of module [cap646.runtime](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,hot_storage.py,28,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,hot_storage.py,501,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,hot_storage.py,513,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,identity_service.py,177,Import of module [oauth_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,identity_service.py,224,Import of module [email_outbox](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,identity_service.py,237,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,identity_service.py,254,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,identity_service.py,310,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,identity_service.py,317,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ml/inference.py,30,Import of module [ml.regime_router](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/infra_intelligence_layer.py,158,Import of module [bd_platform.intelligence_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/infra_intelligence_layer.py,391,Import of module [bd_platform.onchain_platform_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/infra_intelligence_layer.py,444,Import of module [bd_platform.risk_infrastructure_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/infra_intelligence_layer.py,605,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,institutional_assurance.py,130,Import of module [commercial_sla](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,institutional_assurance.py,292,Import of module [commercial_msa](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,institutional_assurance.py,542,Import of module [commercial_support](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/institutional_b2b_layer.py,76,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/institutional_b2b_layer.py,77,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/institutional_b2b_layer.py,351,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/institutional_b2b_layer.py,379,Import of module [bd_platform.advanced_ta_risk_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,institutional_commerce.py,255,Import of module [didit_kyc](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/institutional_official_production.py,154,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/institutional_official_production.py,155,Import of module [cap646.batch02_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/institutional_official_production.py,184,Import of module [cap646.batch01_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/institutional_official_production.py,185,Import of module [cap646.batch02_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/institutional_official_production.py,218,Import of module [cap646.backend_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/institutional_official_production.py,226,Import of module [cap646.batch01_closure_spec](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/institutional_official_production.py,227,Import of module [cap646.batch02_closure_spec](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_analysis_layer.py,149,Import of module [bd_platform.arbitrage_portfolio_ux_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_analysis_layer.py,491,Import of module [bd_platform.data_sources_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_analysis_layer.py,492,Import of module [bd_platform.institutional_b2b_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_analysis_layer.py,493,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_analysis_layer.py,494,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_market_extensions_layer.py,590,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_ux_extensions_layer.py,556,Import of module [bd_platform.data_sources_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_ux_extensions_layer.py,564,Import of module [bd_platform.intelligence_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/intelligence_ux_extensions_layer.py,572,Import of module [bd_platform.onchain_platform_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,knowledge_graph.py,10,Import of module [compounding_common](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,knowledge_graph.py,11,Import of module [audit_registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ml/labeling_pipeline.py,313,Import of module [ml.live_sample_collector](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ml/labeling_pipeline.py,326,Import of module [ml.market_replay_bootstrap](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,liquidity_discovery.py,18,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,liquidity_discovery.py,90,Import of module [platform_universe](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,liquidity_discovery.py,564,Import of module [platform_universe](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,liquidity_discovery.py,752,Import of module [platform_universe](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ml/live_sample_collector.py,29,Import of module [ml.labeling_pipeline](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/market_analysis_layer.py,726,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/market_analysis_layer.py,727,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,9,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,19,Import of module [ccxt_market_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,25,Import of module [coingecko_cex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,31,Import of module [dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,37,Import of module [perp_dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,48,Import of module [ccxt_market_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,54,Import of module [perp_dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,67,Import of module [dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,74,Import of module [perp_dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,81,Import of module [coingecko_cex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,95,Import of module [dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,107,Import of module [ccxt_market_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,116,Import of module [perp_dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,122,Import of module [exchange_adapters](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,130,Import of module [exchange_adapters](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,144,Import of module [ccxt_market_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,153,Import of module [coingecko_cex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,162,Import of module [dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,171,Import of module [perp_dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,market_fetcher_hub.py,184,Import of module [ccxt_market_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ml/market_replay_bootstrap.py,19,Import of module [ml.labeling_pipeline](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,mfa_service.py,16,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,mfa_service.py,107,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,mfa_service.py,120,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,mfa_service.py,135,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,mfa_service.py,160,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,mfa_service.py,177,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/data/migrate.py,12,Import of module [blackdark.data.db](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,model_weights_guard.py,83,Import of module [weight_aggregator](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,oauth_service.py,158,Import of module [auth_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,oauth_service.py,159,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/official_batch_production.py,46,Import of module [cap646.institutional_official_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/handlers/onchain.py,53,Import of module [cap646.batch02_production](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_defi_sources_layer.py,499,Import of module [bd_platform.intelligence_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_defi_sources_layer.py,512,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_platform_layer.py,134,Import of module [bd_platform.risk_infrastructure_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_platform_layer.py,324,Import of module [bd_platform.risk_infrastructure_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_platform_layer.py,330,Import of module [bd_platform.derivatives_ta_research_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_platform_layer.py,336,Import of module [bd_platform.intelligence_ux_extensions_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_platform_layer.py,635,Import of module [bd_platform.infra_intelligence_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/onchain_platform_layer.py,636,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,oracle_track_record.py,136,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,116,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,153,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,161,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,172,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,201,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,223,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,235,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,243,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant.py,284,Import of module [org_tenant_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,org_tenant_store.py,10,Import of module [org_tenant](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,pentest_attestation.py,290,Import of module [security_posture](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,perp_dex_fetcher.py,16,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,perp_dex_fetcher.py,190,Import of module [dex_fetcher](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,perp_dex_fetcher.py,203,Import of module [aggregator](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,perp_dex_fetcher.py,242,Import of module [aggregator](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,platform_universe.py,21,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,platform_universe.py,79,Import of module [blackdark.canonical.resolver](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,platform_universe.py,104,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,postgres_backend.py,18,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,postgres_backend.py,183,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,postgres_backend.py,337,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,295,Import of module [bd_platform.retail_intelligence_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,406,Import of module [bd_platform.market_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,412,Import of module [bd_platform.arbitrage_portfolio_ux_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,418,Import of module [bd_platform.onchain_defi_sources_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,526,Import of module [bd_platform.market_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,532,Import of module [bd_platform.onchain_platform_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,598,Import of module [bd_platform.market_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,604,Import of module [bd_platform.arbitrage_portfolio_ux_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,610,Import of module [bd_platform.intelligence_market_extensions_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,743,Import of module [bd_platform.advanced_ta_risk_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,749,Import of module [bd_platform.intelligence_market_extensions_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,785,Import of module [bd_platform.retail_intelligence_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/pro_trader_layer.py,794,Import of module [bd_platform.institutional_b2b_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,ml/regime_router.py,93,Import of module [ml.inference](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/canonical/registry.py,10,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/canonical/registry.py,19,Import of module [platform_universe](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,blackdark/canonical/resolver.py,7,Import of module [blackdark.canonical.registry](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/retail_intelligence_layer.py,283,Import of module [bd_platform.data_sources_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/risk_infrastructure_layer.py,447,Import of module [bd_platform.institutional_b2b_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/risk_infrastructure_layer.py,470,Import of module [bd_platform.institutional_b2b_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/risk_infrastructure_layer.py,552,Import of module [bd_platform.onchain_platform_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/risk_infrastructure_layer.py,575,Import of module [bd_platform.whales_institutional_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap646/runtime.py,111,Import of module [cap978.verify](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,scale_readiness.py,40,Import of module [institutional_assurance](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,scale_readiness.py,79,Import of module [viral_capacity](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,scan_coordinator.py,51,Import of module [arbitrage_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,security_auth.py,181,Import of module [auth_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,security_auth.py,236,Import of module [admin_mfa](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,security_posture.py,12,Import of module [pentest_attestation](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,site_services.py,56,Import of module [commercial_support](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,site_services.py,352,Import of module [viral_capacity](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_engine.py,14,Import of module [config](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_engine.py,16,Import of module [billing.audit_ledger](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_engine.py,18,Import of module [billing.subscription_store](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_engine.py,60,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_engine.py,63,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_engine.py,132,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_store.py,35,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_store.py,81,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_store.py,94,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_store.py,113,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_store.py,153,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_store.py,227,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/subscription_store.py,248,Import of module [database](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,trust_os_lenses.py,196,Import of module [audience_routing](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap978/verify.py,12,Import of module [cap646.functional_dod](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap978/verify.py,50,Import of module [cap646.runtime](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,cap978/verify.py,108,Import of module [cap646.functional_dod](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,viral_capacity.py,507,Import of module [scale_readiness](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,billing/webhook_processor.py,147,Import of module [billing_service](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,weight_aggregator.py,15,Import of module [model_weights_guard](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/whales_institutional_layer.py,189,Import of module [bd_platform.market_analysis_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/whales_institutional_layer.py,212,Import of module [bd_platform.advanced_ta_risk_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/whales_institutional_layer.py,218,Import of module [bd_platform.risk_infrastructure_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/whales_institutional_layer.py,224,Import of module [bd_platform.arbitrage_portfolio_ux_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/whales_institutional_layer.py,407,Import of module [bd_platform.pro_trader_layer](1) begins an import cycle.
+py/cyclic-import,py/cyclic-import,recommendation,,high,reliability;maintainability;modularity,bd_platform/whales_institutional_layer.py,475,Import of module [bd_platform.market_analysis_layer](1) begins an import cycle.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_b2b_websocket_lifecycle.py,19,Module 'b2b_websocket_hub' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_b2b_websocket_lifecycle.py,34,Module 'b2b_websocket_hub' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_b2b_websocket_lifecycle.py,45,Module 'b2b_websocket_hub' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_b2b_websocket_lifecycle.py,71,Module 'b2b_websocket_hub' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_billing_subscription_engine.py,11,Module 'database' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/cap646/test_dedicated_common.py,84,Module 'cap646.dedicated_common' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_fee_matrix.py,9,Module 'fee_matrix' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_heroes_strategy.py,59,Module 'discipline_mirror' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_pentest_attestation.py,34,Module 'pentest_attestation' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_pentest_attestation.py,51,Module 'pentest_attestation' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_pentest_attestation.py,66,Module 'pentest_attestation' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_pentest_attestation.py,102,Module 'pentest_attestation' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_postgres_migration_integrity.py,30,Module 'postgres_backend' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_postgres_migration_integrity.py,68,Module 'postgres_backend' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_postgres_migration_integrity.py,125,Module 'postgres_backend' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_production_e2e_hardening.py,13,Module 'database' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_production_e2e_hardening.py,34,Module 'database' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_site_companion_services.py,40,Module 'site_services' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_sonar_new_coverage_closure.py,18,Module 'arbitrage_engine' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_sonar_new_coverage_closure.py,138,Module 'path_safety' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_universe_rollout.py,36,Module 'universe_rollout' is imported with both 'import' and 'import from'.
+py/import-and-import-from,py/import-and-import-from,recommendation,,very-high,quality;maintainability;readability,tests/test_viral_capacity.py,170,Module 'viral_capacity' is imported with both 'import' and 'import from'.
+py/unsafe-cyclic-import,py/unsafe-cyclic-import,error,,high,reliability;correctness;types,data_sources_registry.py,218,"'EXTRA_DATA_SOURCES' may not be defined if module [data_sources_extra](1) is imported before module [data_sources_registry](2), as the [definition](3) of EXTRA_DATA_SOURCES occurs after the cyclic [import](4) of data_sources_registry."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,dashboard.py,4660,"This import of module config is redundant, as it was previously imported [on line 49](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,dashboard.py,4688,"This import of module config is redundant, as it was previously imported [on line 49](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,database.py,2202,"This import of module config is redundant, as it was previously imported [on line 23](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,database.py,3643,"This import of module config is redundant, as it was previously imported [on line 23](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,database.py,4616,"This import of module json is redundant, as it was previously imported [on line 13](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,database.py,4662,"This import of module json is redundant, as it was previously imported [on line 13](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/institutional_official_production.py,205,"This import of module importlib is redundant, as it was previously imported [on line 5](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_production_e2e_hardening.py,33,"This import of module asyncio is redundant, as it was previously imported [on line 5](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_subscription_dialect_safety.py,73,"This import of module asyncio is redundant, as it was previously imported [on line 5](1)."
+py/repeated-import,py/repeated-import,recommendation,,very-high,quality;maintainability;useless-code,viral_capacity.py,99,"This import of module json is redundant, as it was previously imported [on line 18](1)."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,api/routers/admin_billing.py,7,Import of 'Depends' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,decision_truth/admission.py,5,Import of 'Any' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/advanced_ta_risk_layer.py,12,Import of 'math' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/advanced_ta_risk_layer.py,14,Import of 'uuid' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/advanced_ta_risk_layer.py,17,Import of 'Literal' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/alpha_factor_ranking.py,5,Import of 'asyncio' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,blackdark/ingestion/alternative_me_connector.py,10,Import of 'json' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,arbitrage_engine.py,51,Import of 'WITHDRAWAL_FEE_USDT' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/audit_pdf_capabilities_checklist.py,6,Import of 'json' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch01_production.py,49,Import of 'ai_compliance_footer' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch02_dedicated.py,8,Import of 'time' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch02_dedicated.py,11,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch02_dedicated.py,15,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch02_production.py,16,Import of 'ai_compliance_footer' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch03_dedicated.py,12,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch03_dedicated.py,16,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch03_dedicated.py,17,Import of 'ai_compliance_footer' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch03_production.py,15,Import of 'ai_compliance_footer' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch07_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch07_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch08_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch08_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch09_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch09_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch10_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch10_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch11_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch11_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch12_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch12_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch13_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch13_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch14_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch14_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch15_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch15_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch16_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch16_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch17_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch17_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch18_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch18_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch19_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch19_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch20_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch20_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch21_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch21_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch22_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch22_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch23_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch23_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch24_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch24_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch25_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch25_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch26_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch26_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch27_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch27_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch28_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch28_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch29_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch29_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch30_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch30_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch31_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch31_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch32_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch32_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch33_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch33_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch34_dedicated.py,10,Import of '_addr' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch34_dedicated.py,13,Import of '_sym' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/batch_execute_closure.py,17,Import of 'batch_number' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch_institutional_closure.py,6,Import of 're' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/batch_range_production.py,8,Import of 'total_batch_count' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bigquery_export.py,20,Import of 'config' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,billing_service.py,17,Import of 'config' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,blackdark/data/ingestors/binance.py,6,Import of 'os' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,blackdark/data/ingestors/binance.py,10,Import of 'UUID' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,rvm/build.py,9,Import of 'RVMEntry' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,api/routers/cap646.py,13,Import of 'verify_dod' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,api/routers/cap646.py,14,Import of 'verify_functional' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,api/routers/cap646.py,18,Import of 'execute_capability' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/catalog.py,47,"Import of 'EXTERNAL_IDS' is not used.
+Import of 'REPEAT_CANONICAL' is not used.
+Import of 'matrix_by_id' is not used."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,blackdark/data/circuit_breaker.py,6,Import of 'field' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/close_sec006_production.py,8,Import of 'sys' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,compounding_common.py,10,Import of 'hash_payload' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,dashboard.py,33,Import of 'encoding_bootstrap' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/derivatives_onchain_intelligence_layer.py,10,Import of 'hashlib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/derivatives_onchain_intelligence_layer.py,13,Import of 'uuid' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/derivatives_ta_research_layer.py,14,Import of 'uuid' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/domain_enrichment.py,5,Import of 'asyncio' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap646/entitlements.py,14,Import of 'effective_plan' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,exchange_currency_status.py,9,Import of 'asyncio' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,exchange_currency_status.py,14,Import of 'config' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,expert_execution.py,13,Import of 'URLError' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/extension_registry.py,5,Import of 're' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/extension_registry.py,6,Import of 'dataclass' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/generate_batch_range_dedicated.py,7,Import of 're' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/generate_hash_lock.py,10,Import of 'urllib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/generate_supplemental_closure_report.py,7,Import of 'hashlib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,api/idempotency.py,5,Import of 'json' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/institutional_gate.py,11,Import of 'BASE_EXTERNAL_IDS' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/institutional_gate.py,12,"Import of 'EXTERNAL_EVIDENCE_SLOTS' is not used.
+Import of 'SIGNED_INFRA_SLOTS' is not used."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/institutional_gate.py,13,Import of 'EXTENSION_EXTERNAL_IDS' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/intelligence_market_extensions_layer.py,11,Import of 'hashlib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,knowledge_graph.py,11,Import of 'hash_payload' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/launch_verify.py,16,Import of 'encoding_bootstrap' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,learning_compounding.py,6,"Import of 'UTC' is not used.
+Import of 'datetime' is not used.
+Import of 'timedelta' is not used."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/legal_commercial_layer.py,15,Import of 'Literal' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/load_test.py,9,Import of 'urllib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,lp_il_simulator.py,20,Import of 'safe_url_segment' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,api/routers/market.py,11,Import of 'fetch_binance_market_overview' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/market_analysis_layer.py,10,Import of 'hashlib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/market_analysis_layer.py,13,Import of 'math' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/market_analysis_layer.py,18,Import of 'Literal' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/onchain_defi_sources_layer.py,14,Import of 'uuid' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/onchain_platform_layer.py,14,Import of 'statistics' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,payments_usd.py,12,Import of 'normalize_plan' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/pentagonal_closure_evidence.py,5,Import of 'ast' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/pentagonal_closure_evidence.py,7,Import of 'inspect' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/pentagonal_closure_evidence.py,9,Import of 'statistics' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/pentagonal_closure_evidence.py,10,Import of 'datetime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/rename_deferred_early_batch.py,7,Import of 're' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/rename_deferred_early_batch.py,8,Import of 'sys' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,blackdark/data/repository.py,6,Import of 'timedelta' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,blackdark/canonical/resolver.py,8,Import of 'CanonicalAsset' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/retrospective_deep_audit.py,30,Import of 'batch_test_module_for' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/risk_infrastructure_layer.py,14,Import of 'math' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/risk_infrastructure_layer.py,15,Import of 'statistics' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,bd_platform/risk_infrastructure_layer.py,17,Import of 'uuid' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/run_batch03_deep_closure.py,17,Import of 'CHECKLIST' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/run_batch04_deep_closure.py,17,"Import of '_classify' is not used.
+Import of '_git_on_main' is not used.
+Import of '_resolve_binding' is not used.
+Import of '_run_independent_test' is not used.
+Import of '_scan_independent_tests' is not used.
+Import of '_underlying_real_code' is not used.
+Import of '_detect_reuse_link' is not used."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/run_batch04_deep_closure.py,34,"Import of '_binding_from_live' is not used.
+Import of '_live_verify' is not used."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/run_batch04_deep_closure.py,35,Import of 'classify_implementation' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/run_closure_mandate_last.py,10,Import of 'time' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/run_closure_mandate_last.py,12,Import of 'product' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/run_closure_reject_04_audit.py,12,Import of 'combinations' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,run_service.py,20,Import of 'encoding_bootstrap' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/setup_payments_usd.py,6,Import of 'os' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/setup_production_launch.py,7,Import of 'urllib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,signal_compounding.py,7,"Import of 'UTC' is not used.
+Import of 'datetime' is not used."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,governance/spine_base.py,6,Import of 'lru_cache' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,governance/spine_base.py,8,Import of 'Callable' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,subscription_analytics.py,5,Import of 'Path' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,billing/subscription_engine.py,18,Import of 'get_by_email' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,blackdark/data/systems_api.py,8,"Import of 'UTC' is not used.
+Import of 'datetime' is not used."
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,governance/temporal_requirements.py,7,Import of 'build_catalog' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_address_intelligence.py,7,Import of 'Path' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_alpha_engine.py,10,Import of 'gather_alpha_inputs' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/cap646/test_closure_reject_04.py,6,Import of 'os' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_codeql_cleartext_logging_closure.py,5,Import of 'io' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_codeql_cleartext_logging_closure.py,10,Import of 'pytest' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_decision_truth_pipeline.py,5,Import of 'pytest' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_didit_kyc.py,10,Import of 'pytest' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_enterprise_sso_auth0.py,5,Import of 'asyncio' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,10,Import of 'verify_aie_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,11,Import of 'verify_av_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,12,Import of 'verify_bill_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,13,Import of 'verify_err_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,14,Import of 'verify_fds_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,15,Import of 'verify_id_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,16,Import of 'verify_dsr_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,17,Import of 'verify_tie_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_governing_specs_11_full.py,18,Import of 'verify_tz_runtime' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_p0_authz_hardening.py,5,Import of 'os' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_pentest_attestation.py,5,Import of 'json' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_rvm_system.py,10,Import of 'load_baseline' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_slippage_intelligence.py,7,Import of '_volatility_adjustment' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_sonar_pr356_new_code_coverage.py,11,Import of 'Path' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_spine_database.py,6,Import of 'timedelta' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_subscription_dialect_safety.py,8,Import of 'Path' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_war_room_extension_registry.py,7,Import of 'resolve_binding' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_wave_00_hardening.py,7,Import of 'pytest' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/test_wave_01_systems.py,6,Import of 'Decimal' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,tests/cap646/test_wave_dod_e2e.py,7,Import of 'WAVE_D' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,trade_simulator.py,14,Import of 'config' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,trust_compounding.py,6,Import of 'Path' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/upgrade_partial_capabilities.py,19,Import of 'execute_capability' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/verify.py,5,Import of 'importlib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/verify.py,6,Import of 'inspect' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/verify.py,10,Import of 'BackendBinding' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,cap978/verify.py,12,Import of '_payload' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/verify_buyer.py,8,Import of 'urllib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/verify_buyer.py,9,Import of 'urllib' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,scripts/verify_buyer.py,16,Import of 'encoding_bootstrap' is not used.
+py/unused-import,py/unused-import,recommendation,,very-high,quality;maintainability;useless-code,wave_00_hardening.py,12,Import of 'time' is not used.
+py/file-not-closed,py/file-not-closed,warning,,high,quality;reliability;correctness;performance;external/cwe/cwe-772,scale_readiness.py,50,File is opened but is not closed.
+py/file-not-closed,py/file-not-closed,warning,,high,quality;reliability;correctness;performance;external/cwe/cwe-772,scale_readiness.py,70,File is opened but is not closed.
+py/file-not-closed,py/file-not-closed,warning,,high,quality;reliability;correctness;performance;external/cwe/cwe-772,tests/test_p0_authz_hardening.py,133,File is opened but is not closed.
+py/constant-conditional-expression,py/constant-conditional-expression,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561;external/cwe/cwe-570;external/cwe/cwe-571,scripts/generate_hero_batch_01.py,229,Testing a constant will always give the same result.
+py/unreachable-statement,py/unreachable-statement,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561,scripts/generate_charting_market_intelligence_layer.py,9,This statement is unreachable.
+py/unreachable-statement,py/unreachable-statement,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561,scripts/generate_defi_yield_intelligence_layer.py,9,This statement is unreachable.
+py/unreachable-statement,py/unreachable-statement,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561,scripts/generate_derivatives_onchain_layer.py,9,This statement is unreachable.
+py/unreachable-statement,py/unreachable-statement,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561,scripts/generate_institutional_delivery_intelligence_layer.py,9,This statement is unreachable.
+py/unreachable-statement,py/unreachable-statement,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-561,institutional_assurance.py,558,This statement is unreachable.
+py/loop-variable-capture,py/loop-variable-capture,error,,high,quality;reliability;correctness,scripts/verify_entitlement_get_proof.py,62,"This function captures the loop variable [label](1), and may escape the loop by being stored at [this location](2).
+This function captures the loop variable [user](3), and may escape the loop by being stored at [this location](2)."
+py/multiple-definition,py/multiple-definition,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/close_sec006_production.py,28,This assignment to 'opener' is unnecessary as it is [redefined](1) before this value is used.
+py/multiple-definition,py/multiple-definition,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/dd_batch_001_execute.py,280,This assignment to 'r' is unnecessary as it is [redefined](1) before this value is used.
+py/multiple-definition,py/multiple-definition,warning,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,ml/feature_store.py,66,"This assignment to 'momentum' is unnecessary as it is [redefined](1) before this value is used.
+This assignment to 'momentum' is unnecessary as it is [redefined](2) before this value is used."
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,6,The name 'handle_data_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,7,The name 'handle_market_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,8,The name 'handle_derivatives_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,9,The name 'handle_execution_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,10,The name 'handle_onchain_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,11,The name 'handle_ai_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,12,The name 'handle_alerts_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,13,The name 'handle_institutional_capability' is exported by __all__ but is not defined.
+py/undefined-export,py/undefined-export,error,,high,quality;reliability;correctness,cap646/handlers/__init__.py,14,The name 'handle_verified_capability' is exported by __all__ but is not defined.
+py/uninitialized-local-variable,py/uninitialized-local-variable,error,,medium,quality;reliability;correctness,governance/billing_governance.py,31,Local variable 'SELF_SERVE_PLANS' may be used before it is initialized.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/arbitrage_portfolio_ux_layer.py,288,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/arbitrage_portfolio_ux_layer.py,305,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/arbitrage_portfolio_ux_layer.py,322,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/arbitrage_portfolio_ux_layer.py,339,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/arbitrage_portfolio_ux_layer.py,373,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/arbitrage_portfolio_ux_layer.py,390,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/backend_executor.py,187,Variable prov is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/charting_market_intelligence_layer.py,57,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/handlers/data.py,56,Variable prov is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/data_sources_layer.py,273,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/data_sources_layer.py,295,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/data_sources_layer.py,477,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/dd_gate_bootstrap.py,788,Variable bgs_gate is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/dd_gate_bootstrap.py,848,Variable contradictions is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/defi_yield_intelligence_layer.py,56,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/derivatives_onchain_intelligence_layer.py,60,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/derivatives_ta_research_layer.py,103,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,didit_kyc.py,232,Variable fallback_id is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,emotion_tax_receipt.py,37,Variable mirror is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,enterprise_sso.py,430,Variable code is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,cap978/evidence_room.py,66,Variable sample_ids is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/execution_rejected_layer.py,68,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/generate_final_integrity_summary.py,90,Variable integrity_issue_classes is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/generate_pentagonal_hero_binding_report.py,735,Variable exit_code is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/generate_supplemental_closure_report.py,250,Variable rows is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/honest_deep_institutional_audit.py,96,Variable catalog_only_pct is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/infra_intelligence_layer.py,232,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/institutional_b2b_layer.py,449,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/institutional_controls.py,210,Variable sql is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/institutional_controls.py,448,Variable ok is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/institutional_delivery_intelligence_layer.py,57,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/institutional_readiness_matrix.py,163,Variable automatable_completion_pct is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_analysis_layer.py,160,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_analysis_layer.py,263,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_market_extensions_layer.py,55,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_market_extensions_layer.py,142,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_market_extensions_layer.py,443,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_ux_extensions_layer.py,172,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_ux_extensions_layer.py,271,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_ux_extensions_layer.py,341,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/legal_commercial_layer.py,140,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/master_integrity_reconciliation.py,137,Variable batch01_with_725_historical is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/onchain_defi_sources_layer.py,210,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/onchain_defi_sources_layer.py,385,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/onchain_platform_layer.py,533,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/oneinch_connector.py,169,Variable canonical_id is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,decision_truth/requirements.py,60,Variable engineering_pass is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/retail_intelligence_layer.py,412,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/risk_infrastructure_layer.py,144,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/risk_infrastructure_layer.py,243,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/risk_infrastructure_layer.py,428,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/risk_infrastructure_layer.py,493,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,scripts/run_closure_mandate_last.py,407,Variable gate_elapsed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/security_trust_data_layer.py,189,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/security_trust_data_layer.py,436,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/security_trust_data_layer.py,555,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/slippage_tolerance_optimizer.py,348,Variable price is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,billing/subscription_engine.py,742,Variable sub is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,tests/test_dbt_connector.py,67,Variable subprocess_result is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,tests/test_spine_database_auth.py,25,Variable uid is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,rvm/verify.py,190,Variable checklist is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,cap978/verify.py,64,Variable symbol is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/whales_institutional_layer.py,512,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/whales_institutional_layer.py,540,Variable seed is not used.
+py/unused-local-variable,py/unused-local-variable,recommendation,,very-high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/whales_institutional_layer.py,543,Variable total is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,alembic/versions/20260808_0001_baseline_mfa_oauth.py,16,The global variable 'revision' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,alembic/versions/20260808_0001_baseline_mfa_oauth.py,17,The global variable 'down_revision' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,alembic/versions/20260808_0001_baseline_mfa_oauth.py,18,The global variable 'branch_labels' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,alembic/versions/20260808_0001_baseline_mfa_oauth.py,19,The global variable 'depends_on' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,blackdark/ingestion/alternative_me_connector.py,88,The global variable '_RATE_LIMIT_UNTIL' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,arbitrage_service.py,313,The global variable '_institutional_cache_at' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,blackdark/ingestion/arkham_connector.py,75,The global variable '_RATE_LIMIT_UNTIL' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch07_dedicated.py,51,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch08_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch09_dedicated.py,48,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch10_dedicated.py,47,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch11_dedicated.py,45,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch12_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch13_dedicated.py,50,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch14_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch15_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch16_dedicated.py,49,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch17_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch18_dedicated.py,51,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch19_dedicated.py,50,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch20_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch21_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch22_dedicated.py,49,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch23_dedicated.py,51,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch24_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch27_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch28_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch29_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch30_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch31_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch32_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch33_dedicated.py,52,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/batch34_dedicated.py,28,The global variable '_wrap' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,blackdark/data/db.py,110,The global variable '_bootstrapped' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,exchange_currency_status.py,81,The global variable '_cache_ts' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,exchange_ingress_guard.py,92,The global variable '_proxy_index' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,exchange_ws_hub.py,274,The global variable '_tasks' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/free_tier_capabilities.py,19,The global variable 'FREE_TIER_CAP_IDS' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/grid_bot.py,70,The global variable '_LOADED' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,ingestion_scheduler.py,134,The global variable '_scheduler_task' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap978/institutional_gate.py,21,The global variable '_COMMERCIAL_CHECKLIST' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_analysis_layer.py,34,The global variable '_DEFAULT_VENUES' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/intelligence_ux_extensions_layer.py,97,The global variable '_REASONING_TEMPLATES' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,blackdark/data/jobs.py,183,The global variable '_started' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/market_analysis_layer.py,23,The global variable '_LIQUIDATION_ANCHORS' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,market_context.py,86,The global variable '_COINGECKO_IDS' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,ml_flywheel_scheduler.py,67,The global variable '_flywheel_task' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,bd_platform/oneinch_connector.py,132,The global variable '_RATE_LIMIT_UNTIL' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,parquet_compactor.py,1041,The global variable '_last_background_compaction_at' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,pdf_capability_registry.py,186,The global variable '_FUNC_NAME_INDEX' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,pentest_attestation.py,25,The global variable '_REPO_EVIDENCE' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,postgres_backend.py,273,The global variable '_LAST_POOL_ERROR' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,redis_price_cache.py,93,The global variable '_client' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,regulatory_compliance_guard.py,35,The global variable '_INTERNAL_NEUTRAL' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,security_auth.py,53,The global variable '_rate_limit_backend' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,security_auth.py,103,The global variable '_redis_fail_until' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,security_auth.py,106,The global variable '_redis_fail_until' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,storage_tier_manager.py,26,The global variable '_legacy_cleanup_task' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,storage_tier_manager.py,412,The global variable '_legacy_cleanup_task' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,storage_tier_manager.py,463,The global variable '_scheduler_task' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,governance/temporal_requirements.py,10,The global variable '_PREFIX' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,cap646/v6_strict_closure.py,27,The global variable '_THIN_WRAPPER_ONLY' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,viral_capacity.py,167,The global variable '_redis_fail_until' is not used.
+py/unused-global-variable,py/unused-global-variable,recommendation,,high,quality;maintainability;useless-code;external/cwe/cwe-563,viral_capacity.py,174,The global variable '_redis_fail_until' is not used.
