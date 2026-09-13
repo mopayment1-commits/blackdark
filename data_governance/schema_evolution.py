@@ -9,6 +9,13 @@ PARSER_VERSIONS: dict[str, str] = {
     "coingecko_prices": "1.0.0",
     "kraken_spot": "1.0.0",
     "oracle_payload": "1.0.0",
+    "aave_v3": "1.0.0",
+    "uniswap_v3": "1.0.0",
+    "chainlink_oracle": "1.0.0",
+    "dune_analytics": "1.0.0",
+    "dydx": "1.0.0",
+    "hyperliquid": "1.0.0",
+    "pyth_network": "1.0.0",
 }
 
 

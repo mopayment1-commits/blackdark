@@ -1,9 +1,19 @@
 {
   "PHASE_I_SELECTED_SOURCE_ROUTES": 31,
+  "DISPOSITION_COUNT_SUM": 31,
+  "DISPOSITION_COUNT_MISMATCH": 0,
+  "DISPOSITION_COUNTS": {
+    "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED": 7,
+    "SHARED_CONNECTOR_FULLY_WIRED": 15,
+    "FULLY_WIRED": 9
+  },
   "UNIQUE_RUNTIME_CONNECTORS": 16,
   "FULLY_ACCOUNTED_PHASE_I_SOURCE_ROUTES": 31,
   "INCOMPLETE_LOCAL_PHASE_I_SOURCE_ROUTES": 0,
   "UNEXPLAINED_PHASE_I_ROWS": 0,
+  "EXTERNAL_GATED_ROUTES_AUDITED": 7,
+  "EXTERNAL_GATED_ROUTES_WITH_LOCAL_ENGINEERING_REMAINING": 0,
+  "EXTERNAL_GATED_ROUTES_WITHOUT_ACTIVATION_READINESS": 0,
   "PHASE_I_SOURCE_SCOPE_RECONCILED": true,
   "PHASE_I_RUNTIME_WIRING_RECONCILED": true,
   "LOCALLY_REMEDIABLE_REMAINING": 0,
@@ -22,7 +32,11 @@
       "reconciliation_bound": true,
       "provenance_bound": true,
       "decision_path_bound": true,
-      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
+      "EXTERNAL_DEPENDENCY": "The Graph hosted indexer availability for production query quota",
+      "LOCAL_ENGINEERING_COMPLETE": true,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
       "notes": "Resolves via catalog alias aave_subgraph"
     },
     {
@@ -41,6 +55,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias binance_futures"
     },
     {
@@ -59,6 +77,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -77,6 +99,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias binance_futures"
     },
     {
@@ -95,6 +121,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -109,6 +139,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -123,6 +157,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias blockchain_com"
     },
     {
@@ -137,6 +175,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -154,12 +196,16 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias cftc_rss"
     },
     {
       "source_route": "chainlink_oracle",
       "catalog_source_id": null,
-      "connector_runtime_owner": null,
+      "connector_runtime_owner": "data_governance.phase_i_external_adapters.parse_oracle_price",
       "shared_with_routes": [],
       "actually_wired": false,
       "normalization_bound": true,
@@ -167,7 +213,11 @@
       "reconciliation_bound": true,
       "provenance_bound": true,
       "decision_path_bound": true,
-      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
+      "EXTERNAL_DEPENDENCY": "Chainlink feed RPC/node subscription or Data Streams API credential",
+      "LOCAL_ENGINEERING_COMPLETE": true,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
       "notes": "On-chain oracle feed requires dedicated node/RPC subscription"
     },
     {
@@ -182,6 +232,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -198,6 +252,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias coingecko_prices"
     },
     {
@@ -214,6 +272,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -228,6 +290,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias coinmarketcap"
     },
     {
@@ -246,6 +312,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -262,6 +332,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias curve_pools"
     },
     {
@@ -278,12 +352,16 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
       "source_route": "dune_analytics",
       "catalog_source_id": null,
-      "connector_runtime_owner": null,
+      "connector_runtime_owner": "data_governance.phase_i_external_adapters.parse_dune_query_result",
       "shared_with_routes": [],
       "actually_wired": false,
       "normalization_bound": true,
@@ -291,13 +369,17 @@
       "reconciliation_bound": true,
       "provenance_bound": true,
       "decision_path_bound": true,
-      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
+      "EXTERNAL_DEPENDENCY": "DUNE_API_KEY and approved query execution quota",
+      "LOCAL_ENGINEERING_COMPLETE": true,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
       "notes": "Dune API key and query quota required"
     },
     {
       "source_route": "dydx",
       "catalog_source_id": null,
-      "connector_runtime_owner": null,
+      "connector_runtime_owner": "data_governance.phase_i_external_adapters.parse_perp_dex_market",
       "shared_with_routes": [],
       "actually_wired": false,
       "normalization_bound": true,
@@ -305,7 +387,11 @@
       "reconciliation_bound": true,
       "provenance_bound": true,
       "decision_path_bound": true,
-      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
+      "EXTERNAL_DEPENDENCY": "dYdX indexer endpoint access and production rate-limit headroom",
+      "LOCAL_ENGINEERING_COMPLETE": true,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
       "notes": "Perp-DEX v4 API integration not admitted to catalog"
     },
     {
@@ -324,6 +410,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias etherscan"
     },
     {
@@ -338,6 +428,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -356,12 +450,16 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias glassnode_free"
     },
     {
       "source_route": "hyperliquid",
       "catalog_source_id": null,
-      "connector_runtime_owner": null,
+      "connector_runtime_owner": "data_governance.phase_i_external_adapters.parse_perp_dex_market",
       "shared_with_routes": [],
       "actually_wired": false,
       "normalization_bound": true,
@@ -369,7 +467,11 @@
       "reconciliation_bound": true,
       "provenance_bound": true,
       "decision_path_bound": true,
-      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
+      "EXTERNAL_DEPENDENCY": "Hyperliquid API endpoint access and production rate-limit headroom",
+      "LOCAL_ENGINEERING_COMPLETE": true,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
       "notes": "Hyperliquid API integration not admitted to catalog"
     },
     {
@@ -384,6 +486,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -398,6 +504,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
@@ -415,6 +525,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias messari_rss"
     },
     {
@@ -433,6 +547,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias newsapi"
     },
     {
@@ -447,12 +565,16 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": ""
     },
     {
       "source_route": "pyth_network",
       "catalog_source_id": null,
-      "connector_runtime_owner": null,
+      "connector_runtime_owner": "data_governance.phase_i_external_adapters.parse_oracle_price",
       "shared_with_routes": [],
       "actually_wired": false,
       "normalization_bound": true,
@@ -460,7 +582,11 @@
       "reconciliation_bound": true,
       "provenance_bound": true,
       "decision_path_bound": true,
-      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
+      "EXTERNAL_DEPENDENCY": "Pyth Hermes/API or on-chain price service subscription",
+      "LOCAL_ENGINEERING_COMPLETE": true,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
       "notes": "Pyth price service requires dedicated websocket/RPC integration"
     },
     {
@@ -478,6 +604,10 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "SHARED_CONNECTOR_FULLY_WIRED",
+      "EXTERNAL_DEPENDENCY": null,
+      "LOCAL_ENGINEERING_COMPLETE": null,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": null,
+      "NO_LOCAL_ENGINEERING_REMAINS": null,
       "notes": "Resolves via catalog alias sec_rss"
     },
     {
@@ -493,7 +623,11 @@
       "reconciliation_bound": true,
       "provenance_bound": true,
       "decision_path_bound": true,
-      "final_disposition": "GENUINE_EXTERNAL_DEPENDENCY_GATED",
+      "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
+      "EXTERNAL_DEPENDENCY": "The Graph hosted indexer availability for production query quota",
+      "LOCAL_ENGINEERING_COMPLETE": true,
+      "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
+      "NO_LOCAL_ENGINEERING_REMAINS": true,
       "notes": "Resolves via catalog alias uniswap_subgraph"
     }
   ]

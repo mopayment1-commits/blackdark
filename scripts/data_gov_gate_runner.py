@@ -20,7 +20,7 @@ def _run(script: str) -> bool:
 
 def _pytest_ok() -> bool:
     proc = subprocess.run(
-        [sys.executable, "-m", "pytest", "tests/test_data_governance_p0_test_matrix.py", "tests/test_data_gov_closure.py", "tests/test_data_gov_fault_injection.py", "-q", "--tb=no"],
+        [sys.executable, "-m", "pytest", "tests/test_data_governance_p0_test_matrix.py", "tests/test_data_gov_closure.py", "tests/test_data_gov_fault_injection.py", "tests/test_phase_i_external_gate_readiness.py", "-q", "--tb=no"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -34,6 +34,7 @@ def main() -> int:
         "data_gov_atomic_mapping.py",
         "build_data_governance_implementation_index.py",
         "phase_i_runtime_reconciliation.py",
+        "phase_i_external_gate_readiness.py",
         "data_gov_independent_audit.py",
         "data_gov_rtm_builder.py",
         "data_gov_security_matrix.py",
@@ -82,6 +83,12 @@ def main() -> int:
         "UNEXPLAINED_PHASE_I_ROWS": phase_i_runtime.get("UNEXPLAINED_PHASE_I_ROWS", 1),
         "PHASE_I_SOURCE_SCOPE_RECONCILED": phase_i_runtime.get("PHASE_I_SOURCE_SCOPE_RECONCILED", False),
         "PHASE_I_RUNTIME_WIRING_RECONCILED": phase_i_runtime.get("PHASE_I_RUNTIME_WIRING_RECONCILED", False),
+        "DISPOSITION_COUNT_SUM": phase_i_runtime.get("DISPOSITION_COUNT_SUM", 0),
+        "DISPOSITION_COUNT_MISMATCH": phase_i_runtime.get("DISPOSITION_COUNT_MISMATCH", 1),
+        "DISPOSITION_COUNTS": phase_i_runtime.get("DISPOSITION_COUNTS", {}),
+        "EXTERNAL_GATED_ROUTES_AUDITED": phase_i_runtime.get("EXTERNAL_GATED_ROUTES_AUDITED", 0),
+        "EXTERNAL_GATED_ROUTES_WITH_LOCAL_ENGINEERING_REMAINING": phase_i_runtime.get("EXTERNAL_GATED_ROUTES_WITH_LOCAL_ENGINEERING_REMAINING", 1),
+        "EXTERNAL_GATED_ROUTES_WITHOUT_ACTIVATION_READINESS": phase_i_runtime.get("EXTERNAL_GATED_ROUTES_WITHOUT_ACTIVATION_READINESS", 1),
         "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
         "ATOMIC_REQUIREMENTS_UNMAPPED": atomic.get("UNMAPPED_ATOMIC_REQUIREMENTS", 1),
         "LOCAL_BUILDABLE_DATA_REQUIREMENTS_REMAINING": atomic.get("UNMAPPED_ATOMIC_REQUIREMENTS", 1),
@@ -96,7 +103,7 @@ def main() -> int:
         "LOCAL_DATA_CORRECTNESS_FINDINGS": 0,
         "LOCAL_RESILIENCE_FINDINGS": 0,
         "AFFECTED_MODULES_WITHOUT_REGRESSION_COVERAGE": 0,
-        "LOCALLY_REMEDIABLE_REMAINING": 0,
+        "LOCALLY_REMEDIABLE_REMAINING": phase_i_runtime.get("LOCALLY_REMEDIABLE_REMAINING", 1),
         "EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING": True,
         "PASS_ENGINEERING_DATA": False,
         "READY_FOR_INTENDED_LOCAL_USE": False,
@@ -114,6 +121,8 @@ def main() -> int:
         and restore.get("ok", 0) >= 10
         and phase_i.get("within_bounds")
         and phase_i_runtime_gate.get("ok")
+        and assertions.get("DISPOSITION_COUNT_MISMATCH", 1) == 0
+        and assertions.get("EXTERNAL_GATED_ROUTES_WITH_LOCAL_ENGINEERING_REMAINING", 1) == 0
         and pipeline_demo.get("data_governance_state") in {"ADMITTED", "DEGRADED", "ABSTAINED", "REJECTED"}
     )
     assertions["PASS_ENGINEERING_DATA"] = core_pass
