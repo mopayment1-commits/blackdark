@@ -1,0 +1,332 @@
+{
+  "schema_version": "1.0",
+  "governing_file": "docs/BLACKDARK_GLOBAL_TIME_TIMEZONE_SPEC_v1.md",
+  "governing_upload": "/home/ubuntu/.cursor/projects/workspace/uploads/BLACKDARK_GLOBAL_TIME_TIMEZONE_SPEC_v1_707b.md",
+  "mandatory_total": 36,
+  "requirements": [
+    {
+      "req_id": "TZ-001",
+      "section": "TZ-001 — Canonical internal time",
+      "quote_summary": "Persist absolute timestamps as UTC-aware instants; never use local wall-clock time as the canonical event timestamp.",
+      "mandatory": true,
+      "category": "canonical_utc",
+      "acceptance_criteria": "All material storage/compute/ledger/event ordering uses UTC-aware instants.",
+      "applicable_surfaces": ["api", "workers", "ledgers", "cap646", "db", "ui", "integration"]
+    },
+    {
+      "req_id": "TZ-002",
+      "section": "TZ-002 — IANA time zones",
+      "quote_summary": "Use IANA TZDB identifiers; fixed offsets are not canonical user time zones.",
+      "mandatory": true,
+      "category": "parsing",
+      "acceptance_criteria": "User/profile/API timezone fields accept only IANA identifiers (UTC allowed).",
+      "applicable_surfaces": ["api", "db", "ui"]
+    },
+    {
+      "req_id": "TZ-003",
+      "section": "TZ-003 — Automatic detection",
+      "quote_summary": "Detect browser/device timezone via standards-based API; detection is a suggestion only.",
+      "mandatory": true,
+      "category": "ui",
+      "acceptance_criteria": "First eligible visit suggests browser zone without treating it as immutable identity.",
+      "applicable_surfaces": ["ui", "api"]
+    },
+    {
+      "req_id": "TZ-004",
+      "section": "TZ-004 — Preference precedence",
+      "quote_summary": "Resolve: request override > account > session/browser > detected > UTC.",
+      "mandatory": true,
+      "category": "api",
+      "acceptance_criteria": "Single resolver implements documented precedence chain.",
+      "applicable_surfaces": ["api", "ui", "workers"]
+    },
+    {
+      "req_id": "TZ-005",
+      "section": "TZ-005 — Persistence",
+      "quote_summary": "Authenticated users must have a persisted preferred timezone.",
+      "mandatory": true,
+      "category": "storage",
+      "acceptance_criteria": "Account timezone column persisted and returned on profile reads.",
+      "applicable_surfaces": ["db", "api", "ui"]
+    },
+    {
+      "req_id": "TZ-006",
+      "section": "TZ-006 — Manual override",
+      "quote_summary": "Profile preferences allow manual timezone selection; explicit choice wins over detection.",
+      "mandatory": true,
+      "category": "ui",
+      "acceptance_criteria": "Profile UI + PATCH profile API persist explicit user timezone.",
+      "applicable_surfaces": ["ui", "api", "db"]
+    },
+    {
+      "req_id": "TZ-007",
+      "section": "TZ-007 — Travel/device mismatch",
+      "quote_summary": "Do not silently overwrite explicit timezone when device reports different zone.",
+      "mandatory": true,
+      "category": "api",
+      "acceptance_criteria": "Resolver and profile flow preserve saved account timezone over detected browser zone.",
+      "applicable_surfaces": ["api", "ui"]
+    },
+    {
+      "req_id": "TZ-008",
+      "section": "TZ-008 — DST correctness",
+      "quote_summary": "All conversion uses IANA rules for DST and governmental changes.",
+      "mandatory": true,
+      "category": "dst",
+      "acceptance_criteria": "Display conversion uses ZoneInfo/TZDB; DST transitions tested.",
+      "applicable_surfaces": ["api", "ui", "workers"]
+    },
+    {
+      "req_id": "TZ-009",
+      "section": "TZ-009 — Language separation",
+      "quote_summary": "Language/locale must not determine timezone.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "No code path derives timezone solely from ui_lang/locale.",
+      "applicable_surfaces": ["api", "ui"]
+    },
+    {
+      "req_id": "TZ-010",
+      "section": "TZ-010 — Country separation",
+      "quote_summary": "Country/region must not be sole timezone source.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "No code path maps country alone to timezone without user preference.",
+      "applicable_surfaces": ["api", "ui"]
+    },
+    {
+      "req_id": "TZ-011",
+      "section": "TZ-011 — Server clock discipline",
+      "quote_summary": "Production hosts use synchronized clocks (NTP) and UTC server default.",
+      "mandatory": true,
+      "category": "jobs",
+      "acceptance_criteria": "Production NTP/chrony evidence required; not verifiable from repo alone.",
+      "applicable_surfaces": ["workers", "integration"]
+    },
+    {
+      "req_id": "TZ-012",
+      "section": "TZ-012 — Database semantics",
+      "quote_summary": "Timezone-aware DB semantics (TIMESTAMPTZ equivalent); avoid naive datetime ambiguity.",
+      "mandatory": true,
+      "category": "storage",
+      "acceptance_criteria": "ORM models use timezone=True columns and UTC-aware defaults.",
+      "applicable_surfaces": ["db", "api"]
+    },
+    {
+      "req_id": "TZ-013",
+      "section": "TZ-013 — API contract",
+      "quote_summary": "Expose absolute timestamps as ISO-8601/RFC3339 with Z or explicit offset.",
+      "mandatory": true,
+      "category": "api",
+      "acceptance_criteria": "API/ledger timestamps use unambiguous Z/offset serialization.",
+      "applicable_surfaces": ["api", "ledgers", "integration"]
+    },
+    {
+      "req_id": "TZ-014",
+      "section": "TZ-014 — User-facing rendering",
+      "quote_summary": "Convert canonical instants to resolved user timezone before display.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Display paths call canonical to_display_tz or format API.",
+      "applicable_surfaces": ["ui", "api"]
+    },
+    {
+      "req_id": "TZ-015",
+      "section": "TZ-015 — Locale formatting",
+      "quote_summary": "Date/time formatting follows locale; timezone remains independent preference.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Locale formatters do not override timezone preference.",
+      "applicable_surfaces": ["ui", "api"]
+    },
+    {
+      "req_id": "TZ-016",
+      "section": "TZ-016 — Timezone clarity",
+      "quote_summary": "Where time affects decisions, show clear timezone context/label.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Decision-critical UI shows timezone label alongside local time.",
+      "applicable_surfaces": ["ui"]
+    },
+    {
+      "req_id": "TZ-017",
+      "section": "TZ-017 — Charts",
+      "quote_summary": "Chart axes/tooltips use one explicit display timezone; no silent zone mixing.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Chart components bind to resolved display timezone.",
+      "applicable_surfaces": ["ui"]
+    },
+    {
+      "req_id": "TZ-018",
+      "section": "TZ-018 — Market/source timestamps",
+      "quote_summary": "Preserve source provenance and canonical ordering; localization is display-only.",
+      "mandatory": true,
+      "category": "ordering",
+      "acceptance_criteria": "Market events stored UTC; ordering by canonical instant.",
+      "applicable_surfaces": ["ledgers", "workers", "api"]
+    },
+    {
+      "req_id": "TZ-019",
+      "section": "TZ-019 — AI outputs",
+      "quote_summary": "AI user-facing times use resolved user timezone unless user requests otherwise.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "AI response formatters resolve user timezone for time strings.",
+      "applicable_surfaces": ["api", "ui"]
+    },
+    {
+      "req_id": "TZ-020",
+      "section": "TZ-020 — Notifications",
+      "quote_summary": "Notification scheduling/display honors user timezone; canonical events remain UTC.",
+      "mandatory": true,
+      "category": "integration",
+      "acceptance_criteria": "Notification pipeline localizes display times from UTC canonical.",
+      "applicable_surfaces": ["workers", "ui", "integration"]
+    },
+    {
+      "req_id": "TZ-021",
+      "section": "TZ-021 — Email",
+      "quote_summary": "Transactional emails render times in user/account timezone and locale.",
+      "mandatory": true,
+      "category": "integration",
+      "acceptance_criteria": "Email templates format times with account timezone.",
+      "applicable_surfaces": ["workers", "integration"]
+    },
+    {
+      "req_id": "TZ-022",
+      "section": "TZ-022 — Reports and exports",
+      "quote_summary": "Reports state timezone; exports preserve UTC timestamps and metadata.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Export headers include timezone metadata; body retains UTC.",
+      "applicable_surfaces": ["api", "ui"]
+    },
+    {
+      "req_id": "TZ-023",
+      "section": "TZ-023 — Activity/security logs",
+      "quote_summary": "User-visible activity renders local time; audit evidence retains UTC.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Activity UI localizes; audit rows store UTC.",
+      "applicable_surfaces": ["ui", "api", "db"]
+    },
+    {
+      "req_id": "TZ-024",
+      "section": "TZ-024 — Billing",
+      "quote_summary": "Billing dates localize display without changing provider authority or cycle semantics.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Billing UI shows localized times; ledger/order remains UTC.",
+      "applicable_surfaces": ["ui", "api", "integration"]
+    },
+    {
+      "req_id": "TZ-025",
+      "section": "TZ-025 — Recurring schedules",
+      "quote_summary": "Recurring schedules store IANA zone + wall-clock rule, not fixed UTC offset.",
+      "mandatory": true,
+      "category": "storage",
+      "acceptance_criteria": "Schedule model stores iana_zone + local rule fields.",
+      "applicable_surfaces": ["db", "workers", "api"]
+    },
+    {
+      "req_id": "TZ-026",
+      "section": "TZ-026 — DST fold/gap handling",
+      "quote_summary": "Ambiguous/nonexistent local times have deterministic documented behavior and tests.",
+      "mandatory": true,
+      "category": "dst",
+      "acceptance_criteria": "resolve_local_to_utc documents fold/gap policy with failing tests.",
+      "applicable_surfaces": ["api", "workers"]
+    },
+    {
+      "req_id": "TZ-027",
+      "section": "TZ-027 — Historical integrity",
+      "quote_summary": "Changing user timezone must never mutate historical canonical instants.",
+      "mandatory": true,
+      "category": "storage",
+      "acceptance_criteria": "Preference change does not rewrite stored UTC instants.",
+      "applicable_surfaces": ["db", "api", "ledgers"]
+    },
+    {
+      "req_id": "TZ-028",
+      "section": "TZ-028 — Auditability",
+      "quote_summary": "Material timezone preference changes should be auditable.",
+      "mandatory": true,
+      "category": "storage",
+      "acceptance_criteria": "Timezone changes append immutable audit record with UTC timestamp.",
+      "applicable_surfaces": ["api", "db"]
+    },
+    {
+      "req_id": "TZ-029",
+      "section": "TZ-029 — I18N integration",
+      "quote_summary": "Reuse existing 38-locale i18n; no parallel date/time localization subsystem.",
+      "mandatory": true,
+      "category": "display",
+      "acceptance_criteria": "Time display reuses i18n locale formatters where applicable.",
+      "applicable_surfaces": ["ui", "api"]
+    },
+    {
+      "req_id": "TZ-030",
+      "section": "TZ-030 — Cross-surface coverage",
+      "quote_summary": "Audit dashboards, heroes, alerts, charts, reports, emails, notifications, billing, APIs, AI.",
+      "mandatory": true,
+      "category": "api",
+      "acceptance_criteria": "All listed surfaces wired to canonical time policy.",
+      "applicable_surfaces": ["api", "ui", "workers", "ledgers", "integration"]
+    },
+    {
+      "req_id": "TZ-031",
+      "section": "TZ-031 — No naive datetime policy",
+      "quote_summary": "Reject or normalize naive datetimes at canonical boundaries; tests detect accidental usage.",
+      "mandatory": true,
+      "category": "canonical_utc",
+      "acceptance_criteria": "ensure_aware_utc fail-closed when enforcement ON; regression tests.",
+      "applicable_surfaces": ["api", "workers", "ledgers", "db"]
+    },
+    {
+      "req_id": "TZ-032",
+      "section": "TZ-032 — Timezone data updates",
+      "quote_summary": "Use maintained IANA TZDB data; operators do not manually edit clock rules.",
+      "mandatory": true,
+      "category": "parsing",
+      "acceptance_criteria": "Runtime uses zoneinfo/IANA TZDB, not hard-coded offset tables.",
+      "applicable_surfaces": ["api", "workers"]
+    },
+    {
+      "req_id": "TZ-033",
+      "section": "TZ-033 — Fallback behavior",
+      "quote_summary": "Invalid timezone falls back to UTC for rendering with observability.",
+      "mandatory": true,
+      "category": "parsing",
+      "acceptance_criteria": "safe_timezone returns UTC and logs warning for invalid input.",
+      "applicable_surfaces": ["api", "ui"]
+    },
+    {
+      "req_id": "TZ-034",
+      "section": "TZ-034 — Privacy",
+      "quote_summary": "Timezone detection is preference signal only; not location/identity proof.",
+      "mandatory": true,
+      "category": "api",
+      "acceptance_criteria": "No authorization or identity decisions based solely on detected timezone.",
+      "applicable_surfaces": ["api", "ui"]
+    },
+    {
+      "req_id": "TZ-035",
+      "section": "TZ-035 — Engineering acceptance",
+      "quote_summary": "No engineering closure claim without repo-wide UTC canon, IANA handling, DST, cross-surface proof.",
+      "mandatory": true,
+      "category": "api",
+      "acceptance_criteria": "Truth table shows mandatory items YES or honest PARTIAL/BLOCKED with evidence.",
+      "applicable_surfaces": ["api", "ui", "workers", "ledgers", "db", "integration"]
+    },
+    {
+      "req_id": "TZ-036",
+      "section": "TZ-036 — Live gate",
+      "quote_summary": "Live readiness requires production evidence for clock sync, browser detection, DST notifications, cross-device.",
+      "mandatory": true,
+      "category": "integration",
+      "acceptance_criteria": "PASS_LIVE only with production verification; not from local tests alone.",
+      "applicable_surfaces": ["integration", "workers", "ui"]
+    }
+  ]
+}

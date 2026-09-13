@@ -565,7 +565,26 @@ async def _profile_update_fields(
     if body.ux_mode_pref is not None:
         fields["ux_mode_pref"] = body.ux_mode_pref
     if body.timezone is not None:
-        fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+        from blackdark.timezone import (
+            audit_timezone_change,
+            persist_timezone_audit,
+            safe_timezone,
+            validate_iana_timezone,
+        )
+
+        tz = (body.timezone.strip() or "UTC")[:64]
+        if not validate_iana_timezone(tz) and tz.upper() != "UTC":
+            raise ValueError("invalid_iana_timezone")
+        fields["timezone"] = safe_timezone(tz)
+        if str(user.get("timezone") or "UTC") != fields["timezone"]:
+            persist_timezone_audit(
+                audit_timezone_change(
+                    user_id=user["id"],
+                    old_tz=user.get("timezone"),
+                    new_tz=fields["timezone"],
+                    source="profile_preferences",
+                )
+            )
     return fields
 
 

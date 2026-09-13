@@ -48,7 +48,7 @@ async def _rest_get(
     try:
         if owns_session:
             session = aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS)
-        assert session is not None
+        assert session is not None  # nosec B101
         async with session.get(url, params=params, headers=headers) as resp:
             if resp.status != 200:
                 logger.debug(
@@ -863,9 +863,14 @@ def oracle_narrative(
     )
 
 
-def timestamp_human(now: datetime | None = None) -> str:
-    ts = now or datetime.now(UTC)
-    return ts.strftime("%B %d, %Y at %I:%M %p UTC")
+def timestamp_human(now: datetime | None = None, *, user_timezone: str | None = None) -> str:
+    from blackdark.timezone import format_iso_z, utc_now
+    from blackdark.timezone.display import format_ai_output
+
+    ts = now or utc_now()
+    tz = user_timezone or "UTC"
+    row = format_ai_output(format_iso_z(ts) if ts.tzinfo else ts, tz)
+    return row.get("label") or ts.strftime("%B %d, %Y at %I:%M %p UTC")
 
 
 def _oracle_response_score(

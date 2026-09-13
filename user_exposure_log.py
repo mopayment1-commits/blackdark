@@ -26,7 +26,9 @@ _DATA_BASE = Path(__file__).resolve().parent / "data"
 
 
 def _utcnow() -> str:
-    return datetime.now(UTC).isoformat()
+    from blackdark.timezone import utc_now_iso
+
+    return utc_now_iso()
 
 
 def _persist(row: dict[str, Any]) -> None:
@@ -52,6 +54,8 @@ def record_user_exposure(
     meta: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Record a user-facing exposure event with evidence class."""
+    from blackdark.data_governance.runtime import enforce_material_write
+
     cls = evidence_class or infer_evidence_class(source=source or "oracle")
     exposure_id = f"exp_{uuid4().hex[:16]}"
     row = attach_evidence_metadata(
@@ -70,6 +74,7 @@ def record_user_exposure(
         source=source or "oracle",
     )
     row["evidence_class"] = cls
+    row = enforce_material_write("exposure", row)
     with _LOCK:
         _MEMORY[exposure_id] = row
         while len(_MEMORY) > _MAX_MEMORY:

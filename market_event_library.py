@@ -26,7 +26,9 @@ _DATA_BASE = Path(__file__).resolve().parent / "data"
 
 
 def _utcnow() -> str:
-    return datetime.now(UTC).isoformat()
+    from blackdark.timezone import utc_now_iso
+
+    return utc_now_iso()
 
 
 def _persist(row: dict[str, Any]) -> None:
@@ -51,6 +53,8 @@ def record_market_event(
     source: str | None = None,
 ) -> dict[str, Any]:
     """Record a governed market event with evidence metadata."""
+    from blackdark.data_governance.runtime import enforce_material_write
+
     cls = evidence_class or infer_evidence_class(source=source or "oracle")
     event_id = f"evt_{uuid4().hex[:16]}"
     row = attach_evidence_metadata(
@@ -68,6 +72,7 @@ def record_market_event(
         source=source or "oracle",
     )
     row["evidence_class"] = cls
+    row = enforce_material_write("market_event", row)
     with _LOCK:
         _MEMORY[event_id] = row
         while len(_MEMORY) > _MAX_MEMORY:

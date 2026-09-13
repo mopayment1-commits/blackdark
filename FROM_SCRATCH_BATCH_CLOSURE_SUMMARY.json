@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-09-11T22:54:00+00:00",
+  "status": "RETRACTED",
+  "retraction_reason": "Owner rejected report #5 — 826/826 claim was audit theater, not v6 governing-file complete build",
+  "prior_false_claim": {
+    "pass_from_scratch": 826,
+    "pass_pct": 100.0,
+    "retracted_at": "2026-09-11T22:54:00+00:00"
+  },
+  "honest_handler_audit": {
+    "template_execute_from_scratch": 24,
+    "legacy_reexport_wrappers": 757,
+    "substantive_domain_handlers_approx": 35,
+    "material_non_duplicate_capabilities": 790,
+    "true_from_scratch_pct_estimate": 4.4
+  },
+  "methodology": "Manual code inspection — handlers classified by body content, not self-audit scripts",
+  "committee_ready_full_completion_claim": false,
+  "next_valid_step": "Batch 02 (IDs 26–50) — build one capability at a time with real domain logic, owner review before batch 03"
+}

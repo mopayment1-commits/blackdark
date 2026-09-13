@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "governing_file": "docs/standards/domain/BLACKDARK_مرجع_حاكم_للبيانات_والتخزين_والتراك_Institutional_Hardened_v4_v2.md",
+  "mandatory_total": 110,
+  "composition": {
+    "DSR-001..024": 24,
+    "D-01..D-20": 20,
+    "DIG-001..060": 60,
+    "cross_cutting": 3,
+    "runtime_gates": 3
+  },
+  "cross_cutting_ids": [
+    "REQ-0816",
+    "REQ-0167",
+    "REQ-EV-PRODUCTION_VERIFIED"
+  ],
+  "runtime_gate_ids": [
+    "GATE-001",
+    "GATE-002",
+    "GATE-003"
+  ],
+  "dsr_ids": [
+    "DSR-001", "DSR-002", "DSR-003", "DSR-004", "DSR-005", "DSR-006", "DSR-007",
+    "DSR-008", "DSR-009", "DSR-010", "DSR-011", "DSR-012", "DSR-013", "DSR-014",
+    "DSR-015", "DSR-016", "DSR-017", "DSR-018", "DSR-019", "DSR-020", "DSR-021",
+    "DSR-022", "DSR-023", "DSR-024"
+  ],
+  "defect_ids": [
+    "D-01", "D-02", "D-03", "D-04", "D-05", "D-06", "D-07", "D-08", "D-09", "D-10",
+    "D-11", "D-12", "D-13", "D-14", "D-15", "D-16", "D-17", "D-18", "D-19", "D-20"
+  ],
+  "dig_ids": [
+    "DIG-001", "DIG-002", "DIG-003", "DIG-004", "DIG-005", "DIG-006", "DIG-007",
+    "DIG-008", "DIG-009", "DIG-010", "DIG-011", "DIG-012", "DIG-013", "DIG-014",
+    "DIG-015", "DIG-016", "DIG-017", "DIG-018", "DIG-019", "DIG-020", "DIG-021",
+    "DIG-022", "DIG-023", "DIG-024", "DIG-025", "DIG-026", "DIG-027", "DIG-028",
+    "DIG-029", "DIG-030", "DIG-031", "DIG-032", "DIG-033", "DIG-034", "DIG-035",
+    "DIG-036", "DIG-037", "DIG-038", "DIG-039", "DIG-040", "DIG-041", "DIG-042",
+    "DIG-043", "DIG-044", "DIG-045", "DIG-046", "DIG-047", "DIG-048", "DIG-049",
+    "DIG-050", "DIG-051", "DIG-052", "DIG-053", "DIG-054", "DIG-055", "DIG-056",
+    "DIG-057", "DIG-058", "DIG-059", "DIG-060"
+  ]
+}

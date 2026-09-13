@@ -454,6 +454,12 @@ async def _start_web_microservice(app: FastAPI) -> None:
         app.state.uptime_probe_task = start_uptime_probe_loop()
     except Exception:
         logger.exception("Uptime self-probe failed in web mode")
+    try:
+        from ops.monitoring_alerting import start_monitoring_loop
+
+        app.state.monitoring_task = start_monitoring_loop()
+    except Exception:
+        logger.exception("Monitoring alerting loop failed to start")
 
 
 async def _start_background_runtime(app: FastAPI) -> None:
@@ -847,6 +853,20 @@ try:
     app.include_router(data_governance_router)
 except Exception:
     logger.exception("Data Governance router unavailable")
+
+try:
+    from api.routers.timezone import router as timezone_router
+
+    app.include_router(timezone_router)
+except Exception:
+    logger.exception("Timezone router unavailable")
+
+try:
+    from api.routers.monitoring import router as monitoring_router
+
+    app.include_router(monitoring_router)
+except Exception:
+    logger.exception("Monitoring router unavailable")
 
 try:
     from api.routers.compounding import router as compounding_router
@@ -3813,12 +3833,20 @@ async def alerts_inbox(
     unread_only: bool = False,
     user: dict | None = Depends(optional_user),
 ):
+    from blackdark.timezone.display import resolve_user_tz
     from in_app_alerts import inbox_stats, list_in_app_alerts
 
     email = (user or {}).get("email")
+    tz = resolve_user_tz(user)
     return {
         "stats": inbox_stats(user_email=email),
-        "alerts": list_in_app_alerts(limit=limit, user_email=email, unread_only=unread_only),
+        "alerts": list_in_app_alerts(
+            limit=limit,
+            user_email=email,
+            unread_only=unread_only,
+            user_timezone=tz,
+        ),
+        "display_timezone": tz,
         "works_without_telegram": True,
     }
 
@@ -4276,9 +4304,13 @@ async def api_security_events(
 ):
     from security_events import recent_security_events, security_events_stats
 
+    from blackdark.timezone.display import resolve_user_tz
+
+    tz = resolve_user_tz(_admin)
     return {
         "stats": security_events_stats(),
-        "events": recent_security_events(limit=min(limit, 200), kind=kind),
+        "events": recent_security_events(limit=min(limit, 200), kind=kind, user_timezone=tz),
+        "display_timezone": tz,
     }
 
 
@@ -4546,7 +4578,7 @@ async def build_info():
         cap646_import_ok = True
         cap646_routes = len(_cap646_router.routes)
     except Exception as exc:
-        cap646_import_error = str(exc)
+        cap646_import_error = type(exc).__name__
         cap646_routes = 0
     return {
         "ui_language": "en",

@@ -273,7 +273,14 @@ async def send_verification_email(user_id: int, email: str) -> dict[str, Any]:
     raw = await issue_auth_token(user_id, "email_verify")
     base = (os.getenv("APP_BASE_URL") or "http://127.0.0.1:8080").rstrip("/")
     link = f"{base}/verify-email?token={raw}"
+    from blackdark.timezone.display import format_email
+    from database import fetch_user_by_id
+
+    user_row = await fetch_user_by_id(user_id)
+    tz = (user_row or {}).get("timezone") or "UTC"
+    sent_line = format_email(__import__("blackdark.timezone", fromlist=["utc_now_iso"]).utc_now_iso(), tz)
     body = (
+        f"Sent: {sent_line}\n\n"
         "Verify your BLACKDARK email.\n\n"
         f"Open this link within {TOKEN_TTL_MINUTES['email_verify']} minutes:\n{link}\n\n"
         "If you did not create an account, ignore this message.\n"
@@ -291,7 +298,14 @@ async def send_password_reset_email(user_id: int, email: str) -> dict[str, Any]:
     raw = await issue_auth_token(user_id, "password_reset")
     base = (os.getenv("APP_BASE_URL") or "http://127.0.0.1:8080").rstrip("/")
     link = f"{base}/reset-password?token={raw}"
+    from blackdark.timezone.display import format_email
+    from database import fetch_user_by_id
+
+    user_row = await fetch_user_by_id(user_id)
+    tz = (user_row or {}).get("timezone") or "UTC"
+    sent_line = format_email(__import__("blackdark.timezone", fromlist=["utc_now_iso"]).utc_now_iso(), tz)
     body = (
+        f"Sent: {sent_line}\n\n"
         "Reset your BLACKDARK account access.\n\n"
         f"Open this one-time link within {TOKEN_TTL_MINUTES['password_reset']} minutes:\n{link}\n\n"
         "If you did not request this, ignore this message. "

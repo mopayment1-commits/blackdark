@@ -29,7 +29,9 @@ def chain_path() -> Path:
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(UTC).isoformat()
+    from blackdark.timezone import utc_now_iso
+
+    return utc_now_iso()
 
 
 def _hash_record(payload: dict[str, Any], prev_hash: str) -> str:
@@ -102,6 +104,9 @@ def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
     Fail closed if the existing chain is already broken — never extend a
     tampered or corrupted audit log.
     """
+    from blackdark.data_governance.runtime import enforce_material_write
+
+    record = enforce_material_write("oracle", dict(record))
     with _APPEND_LOCK:
         path = chain_path()
         integrity = verify_chain(path)

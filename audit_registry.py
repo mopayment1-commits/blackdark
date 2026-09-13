@@ -189,17 +189,8 @@ async def fetch_audit_logs(
     params.append(max(1, min(limit, 10_000)))
 
     async with get_connection() as db:
-        result = await db.execute(
-            f"""
-            SELECT id, timestamp, actor, action, payload_hash, outcome,
-                   signature, request_method, request_path, metadata_json
-            FROM audit_logs
-            {where}
-            ORDER BY timestamp DESC, id DESC
-            LIMIT ?
-            """,
-            tuple(params),
-        )
+        audit_sql = f"SELECT id, timestamp, actor, action, payload_hash, outcome, signature, request_method, request_path, metadata_json FROM audit_logs {where} ORDER BY timestamp DESC, id DESC LIMIT ?"  # nosec B608
+        result = await db.execute(audit_sql, tuple(params))
         rows = await result.fetchall()
 
     out: list[dict[str, Any]] = []
@@ -216,11 +207,15 @@ async def fetch_audit_logs(
     return out
 
 
-def export_audit_logs_csv(rows: list[dict[str, Any]]) -> str:
+def export_audit_logs_csv(rows: list[dict[str, Any]], *, display_timezone: str = "UTC") -> str:
+    from blackdark.timezone.display import format_activity_log
+
     buf = io.StringIO()
+    buf.write(f"# canonical_storage=UTC display_timezone={display_timezone}\n")
     fields = [
         "id",
         "timestamp",
+        "timestamp_display",
         "actor",
         "action",
         "payload_hash",
@@ -233,7 +228,10 @@ def export_audit_logs_csv(rows: list[dict[str, Any]]) -> str:
     writer = csv.DictWriter(buf, fieldnames=fields, extrasaction="ignore")
     writer.writeheader()
     for row in rows:
-        writer.writerow({k: row.get(k, "") for k in fields})
+        out_row = dict(row)
+        disp = format_activity_log(out_row.get("timestamp"), display_timezone)
+        out_row["timestamp_display"] = disp.get("label") or ""
+        writer.writerow({k: out_row.get(k, "") for k in fields})
     return buf.getvalue()
 
 
@@ -299,7 +297,9 @@ async def create_decision(
 
         await ingest_decision(api_row)
     except Exception:
-        logger.exception("KG ingest failed for decision %s", did)
+        from log_safety import sanitize_log_value
+
+        logger.exception("KG ingest failed for decision %s", sanitize_log_value(did))
     return api_row
 
 
@@ -373,7 +373,9 @@ async def create_decision_version(
 
         await ingest_decision(api_row)
     except Exception:
-        logger.exception("KG ingest failed for decision version %s", decision_id)
+        from log_safety import sanitize_log_value
+
+        logger.exception("KG ingest failed for decision version %s", sanitize_log_value(decision_id))
     return api_row
 
 
@@ -458,24 +460,8 @@ async def search_decisions(
     params.append(max(1, min(limit, 1000)))
 
     async with get_connection() as db:
-        result = await db.execute(
-            f"""
-            SELECT d.decision_id, d.context, d.prediction, d.confidence,
-                   d.timestamp, d.outcome, d.version, d.signature
-            FROM decisions d
-            INNER JOIN (
-                SELECT decision_id, MAX(version) AS max_version
-                FROM decisions
-                GROUP BY decision_id
-            ) latest
-                ON d.decision_id = latest.decision_id
-               AND d.version = latest.max_version
-            WHERE 1=1 {where}
-            ORDER BY d.timestamp DESC
-            LIMIT ?
-            """,
-            tuple(params),
-        )
+        decision_sql = f"SELECT d.decision_id, d.context, d.prediction, d.confidence, d.timestamp, d.outcome, d.version, d.signature FROM decisions d INNER JOIN ( SELECT decision_id, MAX(version) AS max_version FROM decisions GROUP BY decision_id ) latest ON d.decision_id = latest.decision_id AND d.version = latest.max_version WHERE 1=1 {where} ORDER BY d.timestamp DESC LIMIT ?"  # nosec B608
+        result = await db.execute(decision_sql, tuple(params))
         rows = await result.fetchall()
 
     out: list[dict[str, Any]] = []

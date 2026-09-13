@@ -176,10 +176,15 @@ async def market_klines(
     except (aiohttp.ClientError, TypeError, ValueError) as exc:
         raise HTTPException(status_code=502, detail="Klines fetch failed") from exc
 
+    from blackdark.timezone import format_iso_z, utc_now
+    from blackdark.timezone.display import chart_config
+
     return {
         "symbol": sym,
         "interval": interval,
         "klines": rows if isinstance(rows, list) else [],
         "source": "binance",
-        "timestamp": datetime.now(UTC).isoformat(),
+        "timestamp": format_iso_z(utc_now()),
+        "chart": chart_config("UTC"),
+        "canonical_kline_time": "utc_epoch_ms",
     }

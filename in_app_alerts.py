@@ -61,6 +61,7 @@ def list_in_app_alerts(
     limit: int = 30,
     user_email: str | None = None,
     unread_only: bool = False,
+    user_timezone: str | None = None,
 ) -> list[dict[str, Any]]:
     with _LOCK:
         rows = list(_INBOX)
@@ -72,7 +73,19 @@ def list_in_app_alerts(
         rows = [r for r in rows if not r.get("user_email")]
     if unread_only:
         rows = [r for r in rows if not r.get("read")]
-    return rows[: max(1, min(limit, 100))]
+    rows = rows[: max(1, min(limit, 100))]
+    if user_timezone:
+        from blackdark.timezone.display import format_notification
+
+        enriched = []
+        for row in rows:
+            item = dict(row)
+            disp = format_notification(item.get("created_at"), user_timezone)
+            item["created_at_display"] = disp.get("label")
+            item["display_timezone"] = disp.get("timezone")
+            enriched.append(item)
+        return enriched
+    return rows
 
 
 def mark_read(alert_id: str, *, user_email: str | None = None) -> dict[str, Any] | None:

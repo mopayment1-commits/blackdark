@@ -62,7 +62,9 @@ def _read_snapshots(address: str, chain: str, *, limit: int = 500) -> list[dict[
             if row.get("key") == key:
                 rows.append(row)
     except (OSError, json.JSONDecodeError):
-        logger.debug("snapshot read failed for %s", key)
+        from log_safety import sanitize_log_value
+
+        logger.debug("snapshot read failed for %s", sanitize_log_value(key))
     return rows[-limit:]
 
 
