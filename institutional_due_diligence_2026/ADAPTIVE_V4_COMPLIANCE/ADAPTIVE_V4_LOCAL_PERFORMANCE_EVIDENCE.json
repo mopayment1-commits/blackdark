@@ -1,0 +1,30 @@
+{
+  "status": "LOCAL_PERFORMANCE_ENGINEERING_COMPLETE",
+  "router": {
+    "operation": "route_intelligence_request",
+    "iterations": 50,
+    "p50_ms": 0.014,
+    "p95_ms": 0.034,
+    "p99_ms": 0.202,
+    "mean_ms": 0.019,
+    "local_measurement": true,
+    "production_slo_gated": true
+  },
+  "decision_contract": {
+    "operation": "build_adaptive_decision_contract",
+    "iterations": 30,
+    "p50_ms": 0.033,
+    "p95_ms": 0.055,
+    "mean_ms": 0.078,
+    "local_measurement": true
+  },
+  "production_slo_evidence_gated": true,
+  "workloads": {
+    "api_route": "test_workload_minimal_intent_api",
+    "api_command": "test_workload_typical_command_path",
+    "explorer": "test_workload_explorer_query",
+    "full_path": "test_workload_full_path_route_to_contract",
+    "concurrency": "test_concurrent_routing_no_corruption"
+  },
+  "LOCAL_RELIABILITY_VERIFICATION_COMPLETE": true
+}

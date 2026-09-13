@@ -50,10 +50,31 @@
         .legal-grid a:hover { border-color:var(--accent); color:var(--accent); }
         .changelog-row { border-bottom:1px solid var(--line); padding:1rem 0; }
         .changelog-row .date { font-size:.75rem; color:var(--accent); }
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus,
+        .skip-link:focus-visible {
+            position: fixed;
+            left: 1rem;
+            top: 1rem;
+            z-index: 99;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            padding: 0.5rem;
+            background: #22d3ee;
+            color: #0a0a0f;
+        }
     </style>
 </head>
 <body>
-    <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" class="skip-link" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.width='auto';this.style.height='auto';this.style.padding='.5rem';this.style.background='#22d3ee';this.style.color='#0a0a0f';this.style.zIndex='99'">Skip to content</a>
+    <a href="#main" class="skip-link">Skip to content</a>
     <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/faq">FAQ</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/contact">Contact</a></div></div></nav>
     <main id="main" role="main" tabindex="-1">
         <h1>{{ title }}</h1>

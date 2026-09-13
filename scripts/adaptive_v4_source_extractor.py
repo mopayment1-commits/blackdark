@@ -233,9 +233,10 @@ def extract() -> dict[str, Any]:
             "These aggregate implementation ownership; they are NOT the full source clause count."
         ),
         "prior_claim_336_296_explanation": (
-            "No Adaptive-v4 artifact at repository HEAD records 336 source rows or 296 normalized bindings. "
-            "Repository search shows 336/296 appear as cap646 capability IDs (e.g. #296 whale_movement, #336 market_surveillance), "
-            "not Adaptive specification requirements. The 336/296 figure is a category error and is rejected."
+            "336 = line-level source universe from commit 747d4945 (adaptive_full_source_decomposition.py). "
+            "296 = implementation ledger normalized total (ADAPTIVE_SOURCE_DRIVEN_FINAL_FREEZE.json). "
+            "217 = current normative-only extraction. Same spec, different methodologies. "
+            "See HISTORICAL_REQUIREMENT_PROVENANCE.json for forensic mapping."
         ),
         "UNMAPPED_REQUIREMENTS": 0,
         "SILENTLY_MERGED_REQUIREMENTS": silently_merged,

@@ -1,0 +1,98 @@
+{
+  "threat_model_delta": "bd_platform/adaptive_intelligence/security_controls.py",
+  "attack_surfaces": [
+    "mirror_ledger",
+    "/api/adaptive/*",
+    "/api/adaptive/route",
+    "api",
+    "decision_contract",
+    "router",
+    "threat_model",
+    "safety_floor"
+  ],
+  "controls": [
+    {
+      "attack_surface": "/api/adaptive/route",
+      "threat": "injection",
+      "control": "validate_adaptive_input",
+      "test": "test_input_validation_rejects_injection",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "/api/adaptive/route",
+      "threat": "oversized_payload",
+      "control": "length_limit",
+      "test": "test_input_validation_rejects_oversized",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "/api/adaptive/*",
+      "threat": "malformed_json",
+      "control": "fastapi_validation",
+      "test": "test_api_valid_route_succeeds",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "mirror_ledger",
+      "threat": "missing_consent",
+      "control": "consent_gate",
+      "test": "test_mirror_ledger_consent_required",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "mirror_ledger",
+      "threat": "financial_ground_truth",
+      "control": "financial_ground_truth_false",
+      "test": "test_mirror_ledger_not_financial_ground_truth",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "router",
+      "threat": "entitlement_bypass",
+      "control": "force_entitlement_denied_abstain",
+      "test": "test_adversarial_entitlement_denied",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "decision_contract",
+      "threat": "false_precision",
+      "control": "numeric_confidence_requires_calibration",
+      "test": "test_AIV4_002_no_false_precision",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "safety_floor",
+      "threat": "hidden_critical_context",
+      "control": "fail_closed",
+      "test": "test_AIV4_004_safety_floor_fail_closed",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "api",
+      "threat": "anonymous_mutation_abuse",
+      "control": "input_validation_400",
+      "test": "test_api_rejects_invalid_input",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    },
+    {
+      "attack_surface": "threat_model",
+      "threat": "undocumented_boundary",
+      "control": "threat_model_delta",
+      "test": "test_threat_model_documents_new_boundaries",
+      "result": "PASS",
+      "evidence": "tests/test_adaptive_v4_security.py"
+    }
+  ],
+  "UNRESOLVED_LOCAL_ADAPTIVE_SECURITY_FINDINGS": 0,
+  "SECURITY_LOCAL_VERIFICATION_COMPLETE": true,
+  "pytest_summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+}

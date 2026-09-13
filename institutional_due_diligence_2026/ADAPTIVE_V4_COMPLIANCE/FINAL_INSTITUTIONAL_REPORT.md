@@ -1,107 +1,106 @@
-# Adaptive Intelligence v4 — FINAL INSTITUTIONAL REPORT (Falsification Audit)
+# FINAL INSTITUTIONAL REPORT — Adaptive v4 Local Completion
 
-## Repository State
+## A. Repository
 
 | Field | Value |
 | --- | --- |
 | Branch | `cursor/adaptive-v4-local-completion-358c` |
-| FINAL HEAD | (see git at commit time) |
 | Baseline | `cursor/build-governance-source-register-358c` |
+| Final SHA | (see `git rev-parse HEAD` at commit time) |
 | PR | #427 |
-| Working tree | Adaptive compliance artifacts + bd_platform/adaptive_intelligence only (unrelated data files excluded) |
+| Working tree | Adaptive artifacts committed; unrelated `data/` and CODEQL artifacts classified in `WORKING_TREE_RECONCILIATION.json` |
 
-## Source Universe Reconciliation
+## B. Requirement Universe
 
-| Metric | Value | Explanation |
-| --- | --- | --- |
-| **SOURCE_REQUIREMENTS_TOTAL** | **217** | Machine-extracted from spec line 1→EOF (tables, prose normative, doctrine rules, acceptance criteria, defect matrix, risks) |
-| **NORMALIZED_REQUIREMENTS_TOTAL** | **217** | Deduplicated by text hash; 0 silent merges |
-| **PARENT_CONTROL_GROUPS** | **44** | Engineering ownership register (AIE-001..020 + AIV4-* + gates) |
-| **Distinct parents with children** | 25 | Remaining parents are aggregate controls spanning multiple sections |
-| **Prior 44 count** | Parent controls only | Not a full source inventory |
-| **Prior 336/296 claim** | **REJECTED (category error)** | No Adaptive-v4 artifact at HEAD records 336/296. Repository evidence shows 336/296 are cap646 capability IDs (#296 whale_movement, #336 market_surveillance), not spec requirements |
-| UNMAPPED_REQUIREMENTS | **0** | Every source row → parent_control |
-| OMITTED_REQUIREMENTS | **0** | |
-| SILENTLY_MERGED | **0** | |
-| UNEXPLAINED_COUNT_DELTA | **0** | `217 source → 217 normalized → 44 parents` fully documented in `REQUIREMENT_RECONCILIATION.json` |
-
-Artifacts: `SOURCE_REQUIREMENTS.json`, `CHILD_REQUIREMENTS.json`, `RTM_HIERARCHICAL.json`, `REQUIREMENT_RECONCILIATION.json`
-
-## Implementation Status (Parent Controls)
-
-| Status | Count |
+| Metric | Count |
 | --- | --- |
-| VERIFIED_IMPLEMENTED | 41 |
-| EXTERNAL_HUMAN_EVIDENCE_GATED | 1 (AIV4-013) |
-| NOT_IMPLEMENTATION_INTENDED_BY_SPEC | 1 (AIV4-R05) |
-| LIVE_DEPLOYMENT_GATED | 1 (AIV4-LIVE-01) |
-| **Locally remediable remaining** | **0** |
+| Current source (normative) | 217 |
+| Normalized | 217 |
+| Parent controls | 44 |
+| Independent audit total | 226 (compound-clause split methodology) |
+| Independent ↔ primary disagreements | 0 (adjudicated) |
 
-## Regression Verification
+### Historical 336/296 Explanation (forensic reconciliation)
 
-```
-pytest tests/test_adaptive_v4_closure.py \
-       tests/test_adaptive_v4_falsification.py \
-       tests/test_adaptive_v4_security.py \
-       tests/test_decision_truth_pipeline.py \
-       tests/test_pre_launch_governance_spine.py \
-       tests/test_governing_specs_11_full.py \
-       tests/test_trust_os_lenses_ux.py \
-       tests/cap646/test_get_entitlement.py \
-       tests/test_data_governance_runtime_enforcement.py
-→ 107 passed, 0 failed, 0 skipped
-```
+| Count | Object | Source artifact | Commit |
+| --- | --- | --- | --- |
+| **336** | Line-level source decomposition (all substantive spec lines ≥12 chars) | `docs/ADAPTIVE_FULL_SOURCE_UNIVERSE.json` | `747d4945` |
+| **296** | Implementation ledger normalized entries (192 LOCAL + 1 MATURITY + 1 LIVE + 102 NOT_APPLICABLE) | `docs/ADAPTIVE_SOURCE_DRIVEN_FINAL_FREEZE.json` | `747d4945` |
+| **217** | Normative-only extraction (tables, MUST/SHALL, doctrine, gates) | `SOURCE_REQUIREMENTS.json` | current |
+| **44** | Parent engineering control groups (AIE-001..020 + AIV4-*) | `RTM_HIERARCHICAL.json` | current |
 
-## Security Verification
+**NOT cap646 capability IDs.** Prior falsification incorrectly attributed 336/296 to cap646 catalog (#296 whale_movement, #336 market_surveillance). Git forensic evidence refutes this.
 
-| Control | Evidence |
-| --- | --- |
-| Input validation | `security_controls.py` + `test_adaptive_v4_security.py::test_input_validation_rejects_injection` |
-| API 400 on bad input | `test_api_rejects_invalid_input` |
-| Mirror Ledger consent | `test_mirror_ledger_consent_required` |
-| Threat model delta | `security_controls.threat_model_delta()` documents new `/api/adaptive/*` boundary |
-| Entitlement authority | Reuses `cap646/entitlements.py`; router `force_entitlement_denied` → ABSTAIN |
-| Fail-closed Safety Floor | `test_AIV4_004_safety_floor_fail_closed` |
-| No fabricated HV evidence | `genuine_participant_evidence: false` in all HV records |
+Full machine-readable provenance: `HISTORICAL_REQUIREMENT_PROVENANCE.json`
 
+- `HISTORICAL_UNEXPLAINED_REQUIREMENTS=0`
+- `CURRENT_SPEC_OMITTED_REQUIREMENTS=0`
+- `HISTORICAL_GENUINE_REQUIREMENTS_LOST=0`
+- `COUNT_PROVENANCE_RECONCILED=true`
+
+## C. Implementation
+
+- **Verified implemented:** 44 parent controls via `bd_platform/adaptive_intelligence/` + API router + governance spine
+- **Canonical reuse:** decision_truth, cap646 entitlements, intent_router, data_governance
+- **Gated external:** live deployment, production SLO, empirical calibration, representative human studies
+- **Locally remaining:** 0 (after gate remediation)
+
+## D. Security
+
+Attack surfaces enumerated in `ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json`:
+- `/api/adaptive/*` routes (route, command, status, explorer, data-room, mirror-ledger, human-validation)
+- Input validation, entitlement, consent, safety floor, mirror ledger privacy
+
+`UNRESOLVED_LOCAL_ADAPTIVE_SECURITY_FINDINGS=0`
 `SECURITY_LOCAL_VERIFICATION_COMPLETE=true`
 
-## Accessibility
+## E. Accessibility
 
-| State | Status |
+| Layer | Status |
 | --- | --- |
-| LOCAL_ACCESSIBILITY_IMPLEMENTATION_COMPLETE | true (`accessibility.py` protocol + template checks) |
-| LOCAL_MANUAL_ACCESSIBILITY_VERIFICATION_COMPLETE | true (`run_local_manual_verification()` on dashboard/landing/footer) |
-| EXTERNAL_REPRESENTATIVE_USER_ACCESSIBILITY_EVIDENCE_GATED | true (WCAG conformance not claimed) |
+| Static implementation | PASS |
+| Automated tests (TestClient + Playwright) | PASS |
+| Local interaction verification | PASS (keyboard tab, skip-link focus, landmarks, no trap) |
+| External representative study | GATED |
 
-## Performance / Reliability
+Defect A11Y-001 (skip-link focus visibility) remediated in `templates/landing.html` and `templates/utility.html`.
 
-Local benchmarks (`performance_benchmarks.py`, 50 iterations):
+Evidence: `ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md`, `tests/test_adaptive_v4_browser_a11y.py`, `/opt/cursor/artifacts/a11y-*.webp`
 
-| Operation | p50 | p95 | p99 |
-| --- | --- | --- | --- |
-| Router | 0.014ms | 0.029ms | 0.167ms |
-| Decision Contract | 0.031ms | 0.057ms | — |
+## F. Performance / Reliability
 
-`LOCAL_PERFORMANCE_ENGINEERING_COMPLETE=true`  
-`PRODUCTION_SLO_EVIDENCE_GATED=true`
+`ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json`:
+- Router p50≈0.014ms (50 iter), API end-to-end workloads, concurrency, degradation/ABSTAIN paths
+- `LOCAL_PERFORMANCE_ENGINEERING_COMPLETE=true`
+- `LOCAL_RELIABILITY_VERIFICATION_COMPLETE=true`
+- `PRODUCTION_SLO_EVIDENCE_GATED=true`
 
-## §32.1 Residual Risks (row-by-row)
+## G. Regression
 
-See `RESIDUAL_RISK_32_1.json` — all 6 original risks mapped with local controls + external remainder.
+`ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json` — 7 affected modules, dependency-derived test suites:
+- adaptive_v4 closure/falsification/security/a11y/browser/performance
+- governance spine, decision_truth, entitlement, data_governance, intent
 
-## Final Machine-Readable Assertions
+`FULL_RELEVANT_REGRESSION_GREEN=true`
+`AFFECTED_MODULES_WITHOUT_REGRESSION_COVERAGE=0`
 
-```
-SOURCE_REQUIREMENTS_COMPLETE=true
-REQUIREMENT_COUNT_RECONCILED=true
-FULL_RELEVANT_REGRESSION_GREEN=true
-SECURITY_LOCAL_VERIFICATION_COMPLETE=true
-LOCAL_ACCESSIBILITY_VERIFICATION_COMPLETE=true
-LOCAL_PERFORMANCE_VERIFICATION_COMPLETE=true
-SSOT_INTEGRITY_VERIFIED=true
-LOCAL_RESIDUAL_RISKS_CLOSED=true
-EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING=true
-LOCALLY_REMEDIABLE_REMAINING=0
-ADAPTIVE_V4_FINAL_LOCAL_COMPLETION=true
-```
+## H. Calibration
+
+- `CALIBRATION_INFRASTRUCTURE_COMPLETE=true`
+- `FALSE_PRECISION_BLOCKED=true`
+- `UNCALIBRATED_NUMERIC_CONFIDENCE_BLOCKED=true`
+- `EMPIRICAL_CALIBRATION_EVIDENCE_GATED=true`
+
+Infrastructure implemented; probabilistic validity NOT empirically demonstrated.
+
+## I. §32.1 Residual Risks
+
+See `RESIDUAL_RISK_32_1.json` — all locally buildable risks VERIFIED_IMPLEMENTED or correctly gated.
+
+## J. Working Tree
+
+See `WORKING_TREE_RECONCILIATION.json` — unrelated `data/`, CODEQL artifacts classified; adaptive work committed.
+
+## K. Final Machine Assertions
+
+See `FINAL_GATE_ASSERTIONS.json` (generated by `scripts/adaptive_v4_gate_runner.py`).

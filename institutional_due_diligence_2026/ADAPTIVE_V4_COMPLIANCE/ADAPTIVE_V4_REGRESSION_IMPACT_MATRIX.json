@@ -1,0 +1,201 @@
+{
+  "modules": [
+    {
+      "module": "bd_platform/adaptive_intelligence/",
+      "subsystem": "adaptive_v4_runtime",
+      "dependents": [
+        "api/routers/adaptive_intelligence.py",
+        "governance/adaptive_ux_governance.py",
+        "dashboard.py"
+      ],
+      "tests": [
+        "tests/test_adaptive_v4_closure.py",
+        "tests/test_adaptive_v4_falsification.py",
+        "tests/test_adaptive_v4_security.py",
+        "tests/test_adaptive_v4_a11y_interaction.py",
+        "tests/test_adaptive_v4_performance.py"
+      ],
+      "reason": "Direct adaptive implementation",
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_closure.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "............................................                             [100%]"
+        },
+        {
+          "path": "tests/test_adaptive_v4_falsification.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_security.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_a11y_interaction.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_performance.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "api/routers/adaptive_intelligence.py",
+      "subsystem": "api_routing",
+      "dependents": [
+        "dashboard.py"
+      ],
+      "tests": [
+        "tests/test_adaptive_v4_security.py",
+        "tests/test_adaptive_v4_performance.py"
+      ],
+      "reason": "New API surface",
+      "test_results": [
+        {
+          "path": "tests/test_adaptive_v4_security.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        },
+        {
+          "path": "tests/test_adaptive_v4_performance.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "governance/adaptive_ux_requirements.py",
+      "subsystem": "governance_spine",
+      "dependents": [
+        "scripts/governing_specs_11_verifier.py"
+      ],
+      "tests": [
+        "tests/test_pre_launch_governance_spine.py",
+        "tests/test_governing_specs_11_full.py"
+      ],
+      "reason": "AIE spine runtime verification",
+      "test_results": [
+        {
+          "path": "tests/test_pre_launch_governance_spine.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...                                                                      [100%]"
+        },
+        {
+          "path": "tests/test_governing_specs_11_full.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...............                                                          [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "decision_truth/ (reuse)",
+      "subsystem": "decision_truth",
+      "dependents": [
+        "bd_platform/adaptive_intelligence/decision_contract.py"
+      ],
+      "tests": [
+        "tests/test_decision_truth_pipeline.py"
+      ],
+      "reason": "Canonical decision contract reuse",
+      "test_results": [
+        {
+          "path": "tests/test_decision_truth_pipeline.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "...                                                                      [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "cap646/entitlements.py (reuse)",
+      "subsystem": "entitlement",
+      "dependents": [
+        "bd_platform/adaptive_intelligence/entitlement_gate.py"
+      ],
+      "tests": [
+        "tests/cap646/test_get_entitlement.py"
+      ],
+      "reason": "Entitlement authority reuse",
+      "test_results": [
+        {
+          "path": "tests/cap646/test_get_entitlement.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "blackdark/data_governance/ (reuse)",
+      "subsystem": "data_governance",
+      "dependents": [],
+      "tests": [
+        "tests/test_data_governance_runtime_enforcement.py"
+      ],
+      "reason": "Evidence class / runtime integration path",
+      "test_results": [
+        {
+          "path": "tests/test_data_governance_runtime_enforcement.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": "..........                                                               [100%]"
+        }
+      ],
+      "all_passed": true
+    },
+    {
+      "module": "intent_router.py (reuse)",
+      "subsystem": "intent",
+      "dependents": [
+        "bd_platform/adaptive_intelligence/intent_contract.py"
+      ],
+      "tests": [
+        "tests/test_trust_os_lenses_ux.py"
+      ],
+      "reason": "Intent resolution reuse",
+      "test_results": [
+        {
+          "path": "tests/test_trust_os_lenses_ux.py",
+          "exit_code": 0,
+          "passed": true,
+          "summary": ".....                                                                    [100%]"
+        }
+      ],
+      "all_passed": true
+    }
+  ],
+  "unique_test_suites": [
+    "tests/cap646/test_get_entitlement.py",
+    "tests/test_adaptive_v4_a11y_interaction.py",
+    "tests/test_adaptive_v4_closure.py",
+    "tests/test_adaptive_v4_falsification.py",
+    "tests/test_adaptive_v4_performance.py",
+    "tests/test_adaptive_v4_security.py",
+    "tests/test_data_governance_runtime_enforcement.py",
+    "tests/test_decision_truth_pipeline.py",
+    "tests/test_governing_specs_11_full.py",
+    "tests/test_pre_launch_governance_spine.py",
+    "tests/test_trust_os_lenses_ux.py"
+  ],
+  "AFFECTED_MODULES_WITHOUT_REGRESSION_COVERAGE": 0,
+  "FULL_RELEVANT_REGRESSION_GREEN": true
+}
