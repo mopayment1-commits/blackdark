@@ -19,6 +19,13 @@ from uuid import uuid4
 
 import config
 from path_safety import ensure_under, project_data_dir
+from sql_safety import (
+    require_bq_dataset_id,
+    require_bq_location,
+    require_bq_table_fqn,
+    require_bq_table_id,
+    require_gcp_project_id,
+)
 
 logger = logging.getLogger("BLACKDARK.BigQueryExport")
 
@@ -45,24 +52,28 @@ def _utcnow() -> str:
 
 
 def bigquery_config() -> dict[str, Any]:
-    project = (
+    raw_project = (
         os.getenv("BIGQUERY_PROJECT_ID", "").strip()
         or os.getenv("GCP_PROJECT_ID", "").strip()
         or os.getenv("GOOGLE_CLOUD_PROJECT", "").strip()
     )
-    dataset = os.getenv("BIGQUERY_DATASET", "blackdark").strip() or "blackdark"
-    table = os.getenv("BIGQUERY_TABLE", "ingestion_snapshots").strip() or "ingestion_snapshots"
-    location = os.getenv("BIGQUERY_LOCATION", "US").strip() or "US"
+    raw_dataset = os.getenv("BIGQUERY_DATASET", "blackdark").strip() or "blackdark"
+    raw_table = os.getenv("BIGQUERY_TABLE", "ingestion_snapshots").strip() or "ingestion_snapshots"
+    raw_location = os.getenv("BIGQUERY_LOCATION", "US").strip() or "US"
+    project = require_gcp_project_id(raw_project) if raw_project else None
+    dataset = require_bq_dataset_id(raw_dataset)
+    table = require_bq_table_id(raw_table)
+    location = require_bq_location(raw_location)
     creds_file = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
     creds_json = bool(os.getenv("BIGQUERY_CREDENTIALS_JSON", "").strip())
     enabled = os.getenv("BIGQUERY_EXPORT_ENABLED", "true").lower() in {"1", "true", "yes"}
     return {
         "enabled": enabled,
-        "project_id": project or None,
+        "project_id": project,
         "dataset_id": dataset,
         "table_id": table,
         "location": location,
-        "table_fqn": f"{project}.{dataset}.{table}" if project else None,
+        "table_fqn": require_bq_table_fqn(project, dataset, table) if project else None,
         "credentials_file": bool(creds_file),
         "credentials_json": creds_json,
         "credentials_configured": bool(creds_file or creds_json),
@@ -112,7 +123,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
     try:
         cfg = bigquery_config()
         client = _build_client()
-        table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
+        table_ref = cfg["table_fqn"]
         query = f"SELECT export_id, COUNT(1) AS rows_verified, MAX(exported_at) AS exported_at FROM `{table_ref}` GROUP BY export_id ORDER BY exported_at DESC LIMIT 1"  # nosec B608
         rows = list(client.query(query, location=cfg["location"]).result())
         if not rows:
@@ -284,7 +295,7 @@ def _ensure_table(client: Any) -> tuple[str, str]:
 
     cfg = bigquery_config()
     _, dataset_location = _ensure_dataset(client)
-    table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
+    table_ref = cfg["table_fqn"]
     schema = [bigquery.SchemaField(**field) for field in _TABLE_SCHEMA]
     table = bigquery.Table(table_ref, schema=schema)
     try:

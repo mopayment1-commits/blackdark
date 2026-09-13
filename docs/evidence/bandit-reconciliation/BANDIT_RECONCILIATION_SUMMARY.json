@@ -1,0 +1,63 @@
+{
+  "CURRENT_FULL_SHA_BEFORE_WORK": "9bb9cbcb335fbfc921b1606d212ed1f4b0772c1f",
+  "ORIGINAL_FINDINGS": 4703,
+  "RECONCILED_FINDINGS": 4703,
+  "disposition_counts": {
+    "FALSE_POSITIVE_PROVEN": 305,
+    "TRUE_POSITIVE_FIXED": 7,
+    "NO_LONGER_PRESENT_WITH_PROVENANCE": 9,
+    "DUPLICATE_PROVEN": 27,
+    "TEST_ONLY_PROVEN": 4355
+  },
+  "per_rule": {
+    "B101": {
+      "FALSE_POSITIVE_PROVEN": 17,
+      "TEST_ONLY_PROVEN": 4324
+    },
+    "B105": {
+      "FALSE_POSITIVE_PROVEN": 49,
+      "TEST_ONLY_PROVEN": 20,
+      "DUPLICATE_PROVEN": 1
+    },
+    "B106": {
+      "TEST_ONLY_PROVEN": 3
+    },
+    "B108": {
+      "TEST_ONLY_PROVEN": 3
+    },
+    "B110": {
+      "FALSE_POSITIVE_PROVEN": 93
+    },
+    "B112": {
+      "FALSE_POSITIVE_PROVEN": 4
+    },
+    "B310": {
+      "FALSE_POSITIVE_PROVEN": 2,
+      "TEST_ONLY_PROVEN": 2
+    },
+    "B311": {
+      "FALSE_POSITIVE_PROVEN": 21
+    },
+    "B404": {
+      "FALSE_POSITIVE_PROVEN": 40
+    },
+    "B603": {
+      "FALSE_POSITIVE_PROVEN": 55,
+      "TEST_ONLY_PROVEN": 3
+    },
+    "B607": {
+      "DUPLICATE_PROVEN": 26
+    },
+    "B608": {
+      "FALSE_POSITIVE_PROVEN": 24,
+      "TRUE_POSITIVE_FIXED": 7,
+      "NO_LONGER_PRESENT_WITH_PROVENANCE": 9
+    }
+  },
+  "UNIQUE_SECURITY_DEFECTS_FOUND": 5,
+  "UNIQUE_SECURITY_DEFECTS_FIXED": 5,
+  "UNIQUE_SECURITY_DEFECTS_REMAINING": 0,
+  "OWNER_DECISION_REQUIRED_COUNT": 0,
+  "validation_errors": [],
+  "FINAL_STATUS": "REMEDIATION_COMPLETE_PENDING_INDEPENDENT_AUDIT"
+}

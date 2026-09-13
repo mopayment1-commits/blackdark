@@ -1,0 +1,49 @@
+{
+  "defects": [
+    {
+      "root_id": "bigquery_export.py|127|B608",
+      "test_id": "B608",
+      "file": "bigquery_export.py",
+      "line": 127,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:127 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "root_id": "bigquery_export.py|311|B608",
+      "test_id": "B608",
+      "file": "bigquery_export.py",
+      "line": 311,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:311 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "root_id": "bigquery_export.py|363|B608",
+      "test_id": "B608",
+      "file": "bigquery_export.py",
+      "line": 363,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:363 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "root_id": "dbt_connector.py|195|B608",
+      "test_id": "B608",
+      "file": "dbt_connector.py",
+      "line": 195,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at dbt_connector.py:195 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "root_id": "dbt_connector.py|260|B608",
+      "test_id": "B608",
+      "file": "dbt_connector.py",
+      "line": 260,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at dbt_connector.py:260 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    }
+  ]
+}

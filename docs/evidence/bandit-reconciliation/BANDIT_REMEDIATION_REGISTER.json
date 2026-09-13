@@ -1,0 +1,102 @@
+{
+  "remediations": [
+    {
+      "original_finding_id": "bigquery_export.py|116|B608",
+      "test_id": "B608",
+      "original_filename": "bigquery_export.py",
+      "original_line": 116,
+      "current_filename": "bigquery_export.py",
+      "current_line": 127,
+      "scope": "production",
+      "original_context": "",
+      "current_context": "query = f\"SELECT export_id, COUNT(1) AS rows_verified, MAX(exported_at) AS exported_at FROM `{table_ref}` GROUP BY export_id ORDER BY exported_at DESC LIMIT 1\"  # nosec B608",
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:127 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "original_finding_id": "bigquery_export.py|154|B608",
+      "test_id": "B608",
+      "original_filename": "bigquery_export.py",
+      "original_line": 154,
+      "current_filename": "bigquery_export.py",
+      "current_line": 127,
+      "scope": "production",
+      "original_context": "",
+      "current_context": "query = f\"SELECT export_id, COUNT(1) AS rows_verified, MAX(exported_at) AS exported_at FROM `{table_ref}` GROUP BY export_id ORDER BY exported_at DESC LIMIT 1\"  # nosec B608",
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:127 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "original_finding_id": "bigquery_export.py|309|B608",
+      "test_id": "B608",
+      "original_filename": "bigquery_export.py",
+      "original_line": 309,
+      "current_filename": "bigquery_export.py",
+      "current_line": 311,
+      "scope": "production",
+      "original_context": "",
+      "current_context": "query = f\"SELECT COUNT(1) AS row_count FROM `{table_ref}` WHERE export_id = @export_id\"  # nosec B608",
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:311 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "original_finding_id": "bigquery_export.py|365|B608",
+      "test_id": "B608",
+      "original_filename": "bigquery_export.py",
+      "original_line": 365,
+      "current_filename": "bigquery_export.py",
+      "current_line": 363,
+      "scope": "production",
+      "original_context": "",
+      "current_context": "f\"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'\"  # nosec B608",
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:363 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "original_finding_id": "dbt_connector.py|186|B608",
+      "test_id": "B608",
+      "original_filename": "dbt_connector.py",
+      "original_line": 186,
+      "current_filename": "dbt_connector.py",
+      "current_line": 195,
+      "scope": "production",
+      "original_context": "",
+      "current_context": "query = f\"SELECT (SELECT COUNT(1) FROM `{mart_fqn}`) AS mart_rows, (SELECT COUNT(1) FROM `{staging_fqn}`) AS staging_rows\"  # nosec B608",
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at dbt_connector.py:195 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "original_finding_id": "dbt_connector.py|255|B608",
+      "test_id": "B608",
+      "original_filename": "dbt_connector.py",
+      "original_line": 255,
+      "current_filename": "dbt_connector.py",
+      "current_line": 260,
+      "scope": "production",
+      "original_context": "",
+      "current_context": "\"verification_query\": f\"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`\",  # nosec B608",
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at dbt_connector.py:260 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "original_finding_id": "dbt_connector.py|283|B608",
+      "test_id": "B608",
+      "original_filename": "dbt_connector.py",
+      "original_line": 283,
+      "current_filename": "dbt_connector.py",
+      "current_line": 260,
+      "scope": "production",
+      "original_context": "",
+      "current_context": "\"verification_query\": f\"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`\",  # nosec B608",
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at dbt_connector.py:260 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    }
+  ]
+}

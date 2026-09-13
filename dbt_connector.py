@@ -19,6 +19,12 @@ from typing import Any
 from uuid import uuid4
 
 from path_safety import ensure_under, project_data_dir
+from sql_safety import (
+    require_bq_dataset_id,
+    require_bq_location,
+    require_bq_table_fqn,
+    require_gcp_project_id,
+)
 
 logger = logging.getLogger("BLACKDARK.DbtConnector")
 
@@ -42,23 +48,26 @@ def _utcnow() -> str:
 
 
 def dbt_config() -> dict[str, Any]:
-    project = (
+    raw_project = (
         os.getenv("BIGQUERY_PROJECT_ID", "").strip()
         or os.getenv("GCP_PROJECT_ID", "").strip()
         or os.getenv("GOOGLE_CLOUD_PROJECT", "").strip()
     )
-    dataset = os.getenv("DBT_DATASET", "").strip() or os.getenv("BIGQUERY_DATASET", "blackdark_analytics").strip()
-    location = os.getenv("DBT_LOCATION", "").strip() or os.getenv("BIGQUERY_LOCATION", "US").strip()
+    raw_dataset = os.getenv("DBT_DATASET", "").strip() or os.getenv("BIGQUERY_DATASET", "blackdark_analytics").strip()
+    raw_location = os.getenv("DBT_LOCATION", "").strip() or os.getenv("BIGQUERY_LOCATION", "US").strip()
+    project = require_gcp_project_id(raw_project) if raw_project else None
+    dataset = require_bq_dataset_id(raw_dataset)
+    location = require_bq_location(raw_location)
     enabled = os.getenv("DBT_RUN_ENABLED", "true").lower() in {"1", "true", "yes"}
     creds_json = bool(os.getenv("BIGQUERY_CREDENTIALS_JSON", "").strip())
     creds_file = bool(os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "").strip())
     return {
         "enabled": enabled,
-        "project_id": project or None,
+        "project_id": project,
         "dataset_id": dataset,
         "location": location,
-        "mart_table_fqn": f"{project}.{dataset}.{_MART_MODEL}" if project else None,
-        "staging_table_fqn": f"{project}.{dataset}.{_STAGING_MODEL}" if project else None,
+        "mart_table_fqn": require_bq_table_fqn(project, dataset, _MART_MODEL) if project else None,
+        "staging_table_fqn": require_bq_table_fqn(project, dataset, _STAGING_MODEL) if project else None,
         "credentials_json": creds_json,
         "credentials_file": creds_file,
         "credentials_configured": bool(creds_json or creds_file),
