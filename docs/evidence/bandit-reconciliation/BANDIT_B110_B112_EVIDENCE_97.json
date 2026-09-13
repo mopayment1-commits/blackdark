@@ -425,19 +425,19 @@
       "original_finding_id": "cap646/entitlements.py|74|B110",
       "test_id": "B110",
       "original_context_recovery": {
-        "original_context": "except Exception:",
+        "original_context": ") -> dict[str, Any]:",
         "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
         "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
       },
       "exception_analysis": {
-        "source_context_block": "   69|                     return {\n   70|                         \"allowed\": False,\n   71|                         \"reason\": \"external_blocked\",\n   72|                         \"capability_id\": capability_id,\n   73|                     }\n   74|             except Exception:\n   75|                 pass\n   76| \n   77|         row = catalog646_by_id().get(capability_id) or {}\n   78|         if capability_id >= 647 and not row:\n   79|             try:",
-        "try_block_start_line": 65,
+        "source_context_block": "   86|                     return {\n   87|                         \"allowed\": False,\n   88|                         \"reason\": \"external_blocked\",\n   89|                         \"capability_id\": capability_id,\n   90|                     }\n   91|             except Exception:\n   92|                 return _auth_eval_deny(capability_id, \"external_catalog_check\")\n   93| \n   94|         row = catalog646_by_id().get(capability_id) or {}\n   95|         if capability_id >= 647 and not row:\n   96|             try:",
+        "try_block_start_line": 82,
         "operation_under_try": "from cap978.catalog import is_external as is_external978",
         "operation_can_fail_because": "import_error,callee_exception",
         "failure_effect": "authorization helper import/check aborted",
         "execution_continues": true,
         "reraises": false,
-        "handler_action": "pass",
+        "handler_action": "return",
         "exception_types": [
           "Exception"
         ],
@@ -446,26 +446,26 @@
         "integrity_consequence": "entitlement_gate_may_fail_open_if_helper_unavailable",
         "why_safe": "Fail-open risk: swallowed exception skips deny branch in entitlement gate"
       },
-      "final_disposition": "OWNER_DECISION_REQUIRED",
-      "finding_specific_justification": "B110 at cap646/entitlements.py:74 wraps `from cap978.catalog import is_external as is_external978`; on failure: authorization helper import/check aborted; sensitivity=security-sensitive; handler=pass (Exception).  Fail-open risk: swallowed exception skips deny branch in entitlement gate"
+      "final_disposition": "TRUE_POSITIVE_FIXED",
+      "finding_specific_justification": "B110 at cap646/entitlements.py:74 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py"
     },
     {
       "original_finding_id": "cap646/entitlements.py|129|B110",
       "test_id": "B110",
       "original_context_recovery": {
-        "original_context": "except Exception:",
+        "original_context": "\"capability_id\": capability_id,",
         "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
         "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
       },
       "exception_analysis": {
-        "source_context_block": "  124|                         \"allowed\": False,\n  125|                         \"reason\": \"missing_org_permission\",\n  126|                         \"permission\": perm,\n  127|                         \"capability_id\": capability_id,\n  128|                     }\n  129|             except Exception:\n  130|                 pass\n  131| \n  132|         try:\n  133|             from auth_service import feature_allowed\n  134| ",
-        "try_block_start_line": 118,
+        "source_context_block": "  141|                         \"allowed\": False,\n  142|                         \"reason\": \"missing_org_permission\",\n  143|                         \"permission\": perm,\n  144|                         \"capability_id\": capability_id,\n  145|                     }\n  146|             except Exception:\n  147|                 return _auth_eval_deny(capability_id, \"org_rbac_permission\")\n  148| \n  149|         try:\n  150|             from auth_service import feature_allowed\n  151| ",
+        "try_block_start_line": 135,
         "operation_under_try": "from org_rbac import has_permission",
         "operation_can_fail_because": "import_error,callee_exception",
         "failure_effect": "authorization helper import/check aborted",
         "execution_continues": true,
         "reraises": false,
-        "handler_action": "pass",
+        "handler_action": "return",
         "exception_types": [
           "Exception"
         ],
@@ -474,26 +474,26 @@
         "integrity_consequence": "entitlement_gate_may_fail_open_if_helper_unavailable",
         "why_safe": "Fail-open risk: swallowed exception skips deny branch in entitlement gate"
       },
-      "final_disposition": "OWNER_DECISION_REQUIRED",
-      "finding_specific_justification": "B110 at cap646/entitlements.py:129 wraps `from org_rbac import has_permission`; on failure: authorization helper import/check aborted; sensitivity=security-sensitive; handler=pass (Exception).  Fail-open risk: swallowed exception skips deny branch in entitlement gate"
+      "final_disposition": "TRUE_POSITIVE_FIXED",
+      "finding_specific_justification": "B110 at cap646/entitlements.py:129 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py"
     },
     {
       "original_finding_id": "cap646/entitlements.py|143|B110",
       "test_id": "B110",
       "original_context_recovery": {
-        "original_context": "except Exception:",
+        "original_context": "\"permission\": perm,",
         "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
         "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
       },
       "exception_analysis": {
-        "source_context_block": "  138|                     \"allowed\": False,\n  139|                     \"reason\": \"feature_disabled\",\n  140|                     \"feature\": feature_key,\n  141|                     \"capability_id\": capability_id,\n  142|                 }\n  143|         except Exception:\n  144|             pass\n  145| \n  146|         if user and user.get(\"id\"):\n  147|             from billing.usage_meter import check_and_increment\n  148| ",
-        "try_block_start_line": 132,
-        "operation_under_try": "from auth_service import feature_allowed",
+        "source_context_block": "  141|                         \"allowed\": False,\n  142|                         \"reason\": \"missing_org_permission\",\n  143|                         \"permission\": perm,\n  144|                         \"capability_id\": capability_id,\n  145|                     }\n  146|             except Exception:\n  147|                 return _auth_eval_deny(capability_id, \"org_rbac_permission\")\n  148| \n  149|         try:\n  150|             from auth_service import feature_allowed\n  151| ",
+        "try_block_start_line": 135,
+        "operation_under_try": "from org_rbac import has_permission",
         "operation_can_fail_because": "import_error,callee_exception",
         "failure_effect": "authorization helper import/check aborted",
         "execution_continues": true,
         "reraises": false,
-        "handler_action": "pass",
+        "handler_action": "return",
         "exception_types": [
           "Exception"
         ],
@@ -502,8 +502,8 @@
         "integrity_consequence": "entitlement_gate_may_fail_open_if_helper_unavailable",
         "why_safe": "Fail-open risk: swallowed exception skips deny branch in entitlement gate"
       },
-      "final_disposition": "OWNER_DECISION_REQUIRED",
-      "finding_specific_justification": "B110 at cap646/entitlements.py:143 wraps `from auth_service import feature_allowed`; on failure: authorization helper import/check aborted; sensitivity=security-sensitive; handler=pass (Exception).  Fail-open risk: swallowed exception skips deny branch in entitlement gate"
+      "final_disposition": "TRUE_POSITIVE_FIXED",
+      "finding_specific_justification": "B110 at cap646/entitlements.py:143 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py"
     },
     {
       "original_finding_id": "cap646/institutional_official_production.py|93|B112",

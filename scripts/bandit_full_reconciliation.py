@@ -26,6 +26,12 @@ ORIGINAL_CORPUS = ROOT / "docs" / "evidence" / "bandit-full-4703-compact.json"
 OUT_DIR = ROOT / "docs" / "evidence" / "bandit-reconciliation"
 EXPECTED_TOTAL = 4703
 
+REMEDIATED_B110_RBAC_FAIL_OPEN = {
+    ("cap646/entitlements.py", 74, "B110"),
+    ("cap646/entitlements.py", 129, "B110"),
+    ("cap646/entitlements.py", 143, "B110"),
+}
+
 REVIEWED_NOSEC_B101_B310 = {
     ("aggregator.py", 1069, "B101"),
     ("hot_storage.py", 192, "B101"),
@@ -379,6 +385,18 @@ def _classify_b311(fn: str, line: int, context: str) -> dict[str, Any]:
 
 
 def _classify_b110_b112(fn: str, line: int, context: str, test_id: str) -> dict[str, Any]:
+    key = (_norm(fn), line, test_id)
+    if key in REMEDIATED_B110_RBAC_FAIL_OPEN:
+        return {
+            "disposition": "TRUE_POSITIVE_FIXED",
+            "justification": (
+                f"{test_id} at {fn}:{line} was RBAC fail-open (except/pass); remediated to "
+                "fail-closed deny via _auth_eval_deny; regression tests in "
+                "tests/cap646/test_entitlement_fail_closed_rbac.py"
+            ),
+            "remediation": "cap646/entitlements.py fail-closed authorization_evaluation_failed",
+            "exception_analysis": analyze_b110_b112(fn, line, test_id).get("exception_analysis"),
+        }
     result = analyze_b110_b112(fn, line, test_id)
     return {
         "disposition": result["disposition"],

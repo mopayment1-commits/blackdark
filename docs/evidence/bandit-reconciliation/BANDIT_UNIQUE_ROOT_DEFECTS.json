@@ -23,27 +23,27 @@
       "test_id": "B110",
       "file": "cap646/entitlements.py",
       "line": 74,
-      "disposition": "OWNER_DECISION_REQUIRED",
-      "justification": "B110 at cap646/entitlements.py:74 wraps `from cap978.catalog import is_external as is_external978`; on failure: authorization helper import/check aborted; sensitivity=security-sensitive; handler=pass (Exception).  Fail-open risk: swallowed exception skips deny branch in entitlement gate",
-      "remediation": null
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "B110 at cap646/entitlements.py:74 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py",
+      "remediation": "cap646/entitlements.py fail-closed authorization_evaluation_failed"
     },
     {
       "root_id": "cap646/entitlements.py|129|B110",
       "test_id": "B110",
       "file": "cap646/entitlements.py",
       "line": 129,
-      "disposition": "OWNER_DECISION_REQUIRED",
-      "justification": "B110 at cap646/entitlements.py:129 wraps `from org_rbac import has_permission`; on failure: authorization helper import/check aborted; sensitivity=security-sensitive; handler=pass (Exception).  Fail-open risk: swallowed exception skips deny branch in entitlement gate",
-      "remediation": null
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "B110 at cap646/entitlements.py:129 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py",
+      "remediation": "cap646/entitlements.py fail-closed authorization_evaluation_failed"
     },
     {
       "root_id": "cap646/entitlements.py|143|B110",
       "test_id": "B110",
       "file": "cap646/entitlements.py",
       "line": 143,
-      "disposition": "OWNER_DECISION_REQUIRED",
-      "justification": "B110 at cap646/entitlements.py:143 wraps `from auth_service import feature_allowed`; on failure: authorization helper import/check aborted; sensitivity=security-sensitive; handler=pass (Exception).  Fail-open risk: swallowed exception skips deny branch in entitlement gate",
-      "remediation": null
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "B110 at cap646/entitlements.py:143 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py",
+      "remediation": "cap646/entitlements.py fail-closed authorization_evaluation_failed"
     },
     {
       "root_id": "dbt_connector.py|195|B608",
