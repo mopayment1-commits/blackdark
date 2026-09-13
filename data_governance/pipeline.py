@@ -40,5 +40,8 @@ def run_material_pipeline(surface: str, payload: dict[str, Any]) -> dict[str, An
         raise GovernanceViolationError(f"pipeline_gate_denied:{','.join(gate['reasons'])}")
     record_raw_landing(out, surface=surface)
     emit_governance_event(surface, out)
+    from data_governance.dsr_checkpoints import apply_dsr_checkpoints
+
+    out = apply_dsr_checkpoints(surface, out)
     out["pipeline_enforced"] = True
     return out

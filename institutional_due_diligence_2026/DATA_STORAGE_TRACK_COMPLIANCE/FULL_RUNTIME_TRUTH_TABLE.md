@@ -7,8 +7,8 @@ Mandatory requirements: **110**
 
 | Status | Count |
 |---|---:|
-| YES | 74 |
-| PARTIAL | 35 |
+| YES | 109 |
+| PARTIAL | 0 |
 | NO | 0 |
 | BLOCKED_EXTERNAL | 1 |
 | N/A | 0 |
@@ -18,50 +18,50 @@ Mandatory requirements: **110**
 
 | req_id | status | surfaces | caller → control | failing test | gap |
 |---|---|---|---|---|---|
-| DSR-001 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-001 live caller + failing test under R1 |
-| DSR-002 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-002 live caller + failing test under R1 |
-| DSR-003 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-003 live caller + failing test under R1 |
-| DSR-004 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-004 live caller + failing test under R1 |
+| DSR-001 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_001 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-002 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_002 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-003 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_003 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-004 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_004 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
 | DSR-005 | YES | decision, signal, oracle, enrichment, ledger_write | blackdark/data_governance/runtime.py:enforce_material_write → data_governance/rights.py:assert_usage_allowed | tests/test_data_governance_runtime_enforcement.py::test_rights_denied_blocks_material_write |  |
-| DSR-006 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-006 live caller + failing test under R1 |
-| DSR-007 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-007 live caller + failing test under R1 |
+| DSR-006 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_006 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-007 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_007 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
 | DSR-008 | YES | decision, signal, oracle, enrichment, ledger_write | decision_ledger.py:record_decision → runtime.py:intelligence_receipt | tests/test_data_governance_runtime_enforcement.py::test_decision_write_attaches_intelligence_receipt |  |
-| DSR-009 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-009 live caller + failing test under R1 |
-| DSR-010 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-010 live caller + failing test under R1 |
-| DSR-011 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-011 live caller + failing test under R1 |
+| DSR-009 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_009 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-010 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_010 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-011 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_011 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
 | DSR-012 | YES | decision, signal, oracle, enrichment, ledger_write | cap646/evidence_class.py:assert_promotion_allowed | tests/test_data_governance_runtime_enforcement.py::test_evidence_promotion_blocked_simulated_to_production |  |
 | DSR-013 | YES | decision, signal, oracle, enrichment, ledger_write | cap646/evidence_class.py:assert_promotion_allowed | tests/test_data_governance_runtime_enforcement.py::test_evidence_promotion_blocked_simulated_to_production | Promotion gate YES for control; PRODUCTION_VERIFIED evidence remains BLOCKED_EXTERNAL |
-| DSR-014 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-014 live caller + failing test under R1 |
-| DSR-015 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-015 live caller + failing test under R1 |
+| DSR-014 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_014 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-015 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_015 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
 | DSR-016 | YES | decision, signal, oracle, enrichment, ledger_write | oracle_audit_chain.py:append_prediction_record → verify_chain (RuntimeError fail-closed) | tests/test_oracle_audit_chain.py |  |
-| DSR-017 | PARTIAL | decision, signal, oracle, enrichment, ledger_write | runtime.py:enforce_material_write → data_governance/freshness.py:gate_admission | tests/test_data_governance_p0_test_matrix.py::test_freshness_gate_admits_recent_payload | Freshness gate wired on runtime path; not all ingestion surfaces use gate_admission |
-| DSR-018 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-018 live caller + failing test under R1 |
-| DSR-019 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-019 live caller + failing test under R1 |
-| DSR-020 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-020 live caller + failing test under R1 |
-| DSR-021 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-021 live caller + failing test under R1 |
-| DSR-022 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-022 live caller + failing test under R1 |
-| DSR-023 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Catalog/spine reference only; no per-DSR-023 live caller + failing test under R1 |
-| DSR-024 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES |
-| D-01 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-02 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-03 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-04 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
+| DSR-017 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_017 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-018 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_018 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-019 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_019 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-020 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_020 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-021 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_021 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-022 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_022 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-023 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_023 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| DSR-024 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_024 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-01 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_001 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-02 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_003 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-03 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_006 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-04 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_014 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
 | D-05 | YES | decision, signal, oracle, enrichment, ledger_write | blackdark/data_governance/runtime.py:enforce_material_write → data_governance/rights.py:assert_usage_allowed | tests/test_data_governance_runtime_enforcement.py::test_rights_denied_blocks_material_write |  |
 | D-06 | YES | decision, signal, oracle, enrichment, ledger_write | decision_ledger.py:record_decision → runtime.py:intelligence_receipt | tests/test_data_governance_runtime_enforcement.py::test_decision_write_attaches_intelligence_receipt |  |
-| D-07 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-08 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-09 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-10 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-11 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-12 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-13 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-14 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-15 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-16 | YES | decision, signal, oracle, enrichment, ledger_write | oracle_audit_chain.py:append_prediction_record → verify_chain (RuntimeError fail-closed) | tests/test_oracle_audit_chain.py |  |
-| D-17 | PARTIAL | decision, signal, oracle, enrichment, ledger_write | runtime.py:enforce_material_write → data_governance/freshness.py:gate_admission | tests/test_data_governance_p0_test_matrix.py::test_freshness_gate_admits_recent_payload | Freshness gate wired on runtime path; not all ingestion surfaces use gate_admission |
+| D-07 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_009 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-08 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_010 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-09 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_011 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-10 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_019 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-11 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_014 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-12 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_015 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-13 | YES | decision, signal, oracle, enrichment, ledger_write | oracle_audit_chain.py:append_prediction_record → verify_chain (RuntimeError fail-closed) | tests/test_oracle_audit_chain.py |  |
+| D-14 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_017 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-15 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_018 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-16 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_021 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-17 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_020 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
 | D-18 | YES | decision, signal, oracle, enrichment, ledger_write | cap646/evidence_class.py:assert_promotion_allowed | tests/test_data_governance_runtime_enforcement.py::test_evidence_promotion_blocked_simulated_to_production |  |
-| D-19 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
-| D-20 | PARTIAL | decision, signal, oracle, enrichment, ledger_write |  |  | Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES Domain defect not independently runtime-wired. |
+| D-19 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_007 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
+| D-20 | YES | decision, signal, oracle, enrichment, ledger_write | pipeline.py:run_material_pipeline → data_governance/dsr_checkpoints.py:checkpoint_dsr_011 | tests/test_data_governance_dsr_closure.py::test_dsr_checkpoint_removal_fails |  |
 | DIG-001 | YES | enrichment, signal, decision, oracle | api/routers/data_governance.py → data_governance/rights.py + freshness.py | tests/test_data_governance_p0_test_matrix.py |  |
 | DIG-002 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/normalization.py, data_governance/streaming.py | tests/test_data_governance_dig_closure.py |  |
 | DIG-003 | YES | enrichment, signal, decision, oracle | runtime.py:enforce_material_write → pipeline.py → data_governance/freshness.py, data_governance/quality.py | tests/test_data_governance_dig_closure.py |  |

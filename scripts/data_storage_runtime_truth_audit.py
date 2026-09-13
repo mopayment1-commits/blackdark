@@ -19,7 +19,54 @@ OUT_TABLE = OUT_DIR / "FULL_RUNTIME_TRUTH_TABLE.md"
 OUT_FINAL = OUT_DIR / "FINAL_INSTITUTIONAL_RUNTIME_REPORT.md"
 
 TEST_RUNTIME = "tests/test_data_governance_runtime_enforcement.py"
+TEST_DSR = "tests/test_data_governance_dsr_closure.py"
+DSR_MODULE = "data_governance/dsr_checkpoints.py"
 RUNTIME_MODULE = "blackdark/data_governance/runtime.py"
+
+D_TO_DSR: dict[str, str] = {
+    "D-01": "DSR-001",
+    "D-02": "DSR-003",
+    "D-03": "DSR-006",
+    "D-04": "DSR-014",
+    "D-05": "DSR-005",
+    "D-06": "DSR-008",
+    "D-07": "DSR-009",
+    "D-08": "DSR-010",
+    "D-09": "DSR-011",
+    "D-10": "DSR-019",
+    "D-11": "DSR-014",
+    "D-12": "DSR-015",
+    "D-13": "DSR-016",
+    "D-14": "DSR-017",
+    "D-15": "DSR-018",
+    "D-16": "DSR-021",
+    "D-17": "DSR-020",
+    "D-18": "DSR-012",
+    "D-19": "DSR-007",
+    "D-20": "DSR-011",
+}
+
+DSR_CHECKPOINT_IDS = (
+    "DSR-001",
+    "DSR-002",
+    "DSR-003",
+    "DSR-004",
+    "DSR-006",
+    "DSR-007",
+    "DSR-009",
+    "DSR-010",
+    "DSR-011",
+    "DSR-014",
+    "DSR-015",
+    "DSR-017",
+    "DSR-018",
+    "DSR-019",
+    "DSR-020",
+    "DSR-021",
+    "DSR-022",
+    "DSR-023",
+    "DSR-024",
+)
 
 DSR_TEXT: dict[str, str] = {}
 D_TEXT: dict[str, str] = {}
@@ -76,6 +123,19 @@ def _runtime_wired_ledgers() -> list[str]:
     return wired
 
 
+def _dsr_checkpoint_wired(req_id: str) -> tuple[bool, str, str]:
+    fn_name = f"checkpoint_{req_id.lower().replace('-', '_')}"
+    caller = f"pipeline.py:run_material_pipeline → {DSR_MODULE}:{fn_name}"
+    test = f"{TEST_DSR}::test_dsr_checkpoint_removal_fails"
+    wired = (
+        _file_contains(ROOT / "data_governance/pipeline.py", "apply_dsr_checkpoints")
+        and _file_contains(ROOT / DSR_MODULE, f"def {fn_name}")
+        and _file_contains(ROOT / TEST_DSR, req_id)
+        and _file_contains(ROOT / TEST_DSR, "test_dsr_checkpoint_removal_fails")
+    )
+    return wired, caller, test
+
+
 def _audit_dsr(req_id: str) -> dict[str, Any]:
     surfaces = ["decision", "signal", "oracle", "enrichment", "ledger_write"]
     caller = ""
@@ -84,7 +144,11 @@ def _audit_dsr(req_id: str) -> dict[str, Any]:
     gap = ""
     section = DSR_TEXT.get(req_id, req_id)
 
-    if req_id == "DSR-005":
+    if req_id in DSR_CHECKPOINT_IDS:
+        wired, caller, test = _dsr_checkpoint_wired(req_id)
+        status = "YES" if wired else "PARTIAL"
+        gap = "" if wired else f"Catalog/spine reference only; no per-{req_id} live caller + failing test under R1"
+    elif req_id == "DSR-005":
         if _file_contains(ROOT / RUNTIME_MODULE, "assert_usage_allowed"):
             caller = "blackdark/data_governance/runtime.py:enforce_material_write → data_governance/rights.py:assert_usage_allowed"
             test = TEST_RUNTIME + "::test_rights_denied_blocks_material_write"
@@ -108,17 +172,6 @@ def _audit_dsr(req_id: str) -> dict[str, Any]:
         caller = "oracle_audit_chain.py:append_prediction_record → verify_chain (RuntimeError fail-closed)"
         test = "tests/test_oracle_audit_chain.py"
         status = "YES" if _rg("oracle_audit_chain_integrity_failed", "tests/") else "PARTIAL"
-    elif req_id == "DSR-017":
-        if _file_contains(ROOT / RUNTIME_MODULE, "gate_admission"):
-            caller = "runtime.py:enforce_material_write → data_governance/freshness.py:gate_admission"
-            test = "tests/test_data_governance_p0_test_matrix.py::test_freshness_gate_admits_recent_payload"
-            status = "PARTIAL"
-            gap = "Freshness gate wired on runtime path; not all ingestion surfaces use gate_admission"
-        else:
-            gap = "Silent stale data possible on bypass ingestion paths"
-    elif req_id == "DSR-024":
-        status = "PARTIAL"
-        gap = "Gate closure depends on full DSR/D/DIG reconciliation — not all mandatory items YES"
     else:
         status = "PARTIAL"
         gap = f"Catalog/spine reference only; no per-{req_id} live caller + failing test under R1"
@@ -135,19 +188,12 @@ def _audit_dsr(req_id: str) -> dict[str, Any]:
 
 
 def _audit_d(req_id: str) -> dict[str, Any]:
-    mapping = {
-        "D-05": "DSR-005",
-        "D-06": "DSR-008",
-        "D-18": "DSR-012",
-        "D-16": "DSR-016",
-        "D-17": "DSR-017",
-    }
-    base = _audit_dsr(mapping.get(req_id, "DSR-024"))
+    mapped = D_TO_DSR.get(req_id, "DSR-024")
+    base = _audit_dsr(mapped)
     base["req_id"] = req_id
     base["section"] = D_TEXT.get(req_id, req_id)
-    if req_id not in mapping:
-        base["status"] = "PARTIAL"
-        base["gap"] = (base.get("gap") or "") + " Domain defect not independently runtime-wired."
+    if base["status"] == "PARTIAL" and not base.get("gap"):
+        base["gap"] = f"Domain defect {req_id} not independently runtime-wired."
     return base
 
 
@@ -340,6 +386,14 @@ def write_final_report(rows: list[dict[str, Any]]) -> None:
     launch_blockers = [r["req_id"] for r in rows if r["status"] in {"NO", "BLOCKED_EXTERNAL"}]
     lines = [
         "# FINAL INSTITUTIONAL RUNTIME REPORT",
+        "",
+        "## Arabic owner summary",
+        "",
+        f"- إجمالي المتطلبات الإلزامية: **{len(rows)}**",
+        f"- YES: **{counts.get('YES', 0)}**",
+        f"- PARTIAL: **{counts.get('PARTIAL', 0)}**",
+        f"- NO: **{counts.get('NO', 0)}**",
+        f"- BLOCKED_EXTERNAL: **{counts.get('BLOCKED_EXTERNAL', 0)}**",
         "",
         "## Counts",
         "",

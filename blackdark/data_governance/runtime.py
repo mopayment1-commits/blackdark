@@ -126,16 +126,20 @@ _INTERNAL_SOURCES = frozenset(
 _INTERNAL_SUFFIXES = ("_library", "_ledger", "_corpus", "_log", "_registry", "_chain")
 
 
-def _check_rights(payload: dict[str, Any]) -> None:
-    source_id = payload.get("source_id") or payload.get("source")
+def _is_internal_source(source_id: str | None) -> bool:
     if not source_id:
-        return
+        return True
     sid = str(source_id).strip().lower()
-    if (
+    return (
         sid in _INTERNAL_SOURCES
         or sid.startswith(("internal_", "qa_", "test_", "verify_"))
         or any(sid.endswith(s) for s in _INTERNAL_SUFFIXES)
-    ):
+    )
+
+
+def _check_rights(payload: dict[str, Any]) -> None:
+    source_id = payload.get("source_id") or payload.get("source")
+    if not source_id or _is_internal_source(str(source_id)):
         return
     from data_governance.rights import assert_usage_allowed
 
@@ -153,15 +157,22 @@ def _check_freshness(payload: dict[str, Any]) -> None:
         observed_at = float(observed)
     except (TypeError, ValueError):
         return
-    from data_governance.freshness import gate_admission
+    from data_governance.freshness import evaluate_freshness, gate_admission
 
+    max_age = float(payload.get("max_age_seconds") or 300.0)
+    freshness = evaluate_freshness(observed_at=observed_at, max_age_seconds=max_age)
+    if not freshness["ok"]:
+        raise GovernanceViolationError("freshness_or_rights_admission_denied")
+    source_id = payload.get("source_id") or payload.get("source")
+    if _is_internal_source(str(source_id) if source_id else None):
+        return
     result = gate_admission(
         {
             "observed_at": observed_at,
-            "source_id": payload.get("source_id") or payload.get("source") or "internal_cache",
+            "source_id": source_id or "internal_cache",
             "purpose": payload.get("purpose") or "analytics",
         },
-        max_age_seconds=float(payload.get("max_age_seconds") or 300.0),
+        max_age_seconds=max_age,
     )
     if not result.get("admitted"):
         raise GovernanceViolationError("freshness_or_rights_admission_denied")

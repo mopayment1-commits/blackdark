@@ -1,8 +1,7 @@
 {
-  "updated_at": "2026-09-13T01:17:59.777173+00:00",
+  "updated_at": "2026-09-13T04:38:01.149524+00:00",
   "counts": {
-    "PARTIAL": 35,
-    "YES": 74,
+    "YES": 109,
     "BLOCKED_EXTERNAL": 1
   },
   "waves_completed": [
