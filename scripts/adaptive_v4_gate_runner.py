@@ -86,6 +86,16 @@ def main() -> int:
 
     _run("adaptive_v4_working_tree_reconciliation.py")
     wt = json.loads((OUT_DIR / "WORKING_TREE_RECONCILIATION.json").read_text())
+
+    baseline_proc = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/adaptive_v4_baseline_integrity.py")],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    baseline_result = json.loads(baseline_proc.stdout or "{}")
+    baseline_ok = baseline_result.get("BASELINE_INTEGRITY_VERIFIED", False)
+    assertions["BASELINE_INTEGRITY_VERIFIED"] = baseline_ok
     assertions["UNEXPLAINED_WORKING_TREE_CHANGES"] = wt.get("UNEXPLAINED_WORKING_TREE_CHANGES", 1)
     assertions["LOCALLY_REMEDIABLE_REMAINING"] = (
         assertions["UNMAPPED_ATOMIC_OBLIGATIONS"]
@@ -129,6 +139,7 @@ def main() -> int:
         and assertions["LOCALLY_REMEDIABLE_REMAINING"] == 0
         and assertions["UNEXPLAINED_WORKING_TREE_CHANGES"] == 0
         and assertions["EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING"]
+        and assertions["BASELINE_INTEGRITY_VERIFIED"]
     )
     assertions["ADAPTIVE_V4_FINAL_LOCAL_COMPLETION"] = all_true
 

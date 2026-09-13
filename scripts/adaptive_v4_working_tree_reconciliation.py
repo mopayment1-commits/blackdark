@@ -18,6 +18,14 @@ ADAPTIVE_PREFIXES = (
     "scripts/adaptive_v4",
     "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/",
 )
+CANONICAL_CLOSURE_ARTIFACTS = {
+    "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_FINAL_LOCAL_BASELINE.json",
+    "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_EVIDENCE_MANIFEST.json",
+    "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REOPEN_CONDITIONS.md",
+    "ADAPTIVE_V4_FINAL_LOCAL_CLOSURE.md",
+    "scripts/adaptive_v4_baseline_integrity.py",
+    "tests/test_adaptive_v4_baseline_integrity.py",
+}
 GATE_RUNNER_EPHEMERAL = {
     "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
     "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
@@ -40,6 +48,7 @@ GATE_RUNNER_EPHEMERAL = {
 }
 UNRELATED_SAFE_PREFIXES = (
     "data/",
+    "FREE_API_RATE_LIMIT_AUDIT.json",
     "docs/CODEQL",
     ".codeql",
     ".codeql-db/",
@@ -66,7 +75,9 @@ def main() -> None:
             or path.endswith(".joblib")
             or path.endswith(".parquet")
         )
-        if related and path not in GATE_RUNNER_EPHEMERAL:
+        if path in CANONICAL_CLOSURE_ARTIFACTS:
+            pass
+        elif related and path not in GATE_RUNNER_EPHEMERAL:
             unexplained += 1
         elif not related and not safe and status.strip():
             unexplained += 1

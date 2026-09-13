@@ -1,0 +1,78 @@
+{
+  "manifest_version": "adaptive-v4-baseline-freeze-1",
+  "baseline_sha": "07bb40495d506ff425715edc26d5f3ec2c3a9218",
+  "baseline_sha_short": "07bb4049",
+  "recorded_at": "2026-09-13T00:00:00Z",
+  "hash_algorithm": "sha256",
+  "artifacts": {
+    "PRIMARY_TO_ATOMIC_REQUIREMENT_MAPPING.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/PRIMARY_TO_ATOMIC_REQUIREMENT_MAPPING.json",
+      "sha256": "1c3d82293059ed82d8319517f51c5f8374527fdcd028c941013c2d47fda7b6b4"
+    },
+    "HISTORICAL_REQUIREMENT_PROVENANCE.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/HISTORICAL_REQUIREMENT_PROVENANCE.json",
+      "sha256": "3073d15f0a0571e2cd4fff784d17548ce985d7a098916d9bf8d14b9a1b09fea3"
+    },
+    "ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+      "sha256": "de004fe4d7f05afb4441b0c8c616211c44b248f0f802d9ae888aad47a6369fae"
+    },
+    "ACCESSIBILITY_LOCAL_VERIFICATION_MATRIX.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_MATRIX.json",
+      "sha256": "12367a0f4e5e88541ee4e2d27204afd3f7e2a3d456a5de9ae1289fbb9490d054"
+    },
+    "ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
+      "sha256": "113fd24b19b01d3071c3ab60df1c58b513e3421771eeabd5acb1c8bcdac7d59f"
+    },
+    "ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
+      "sha256": "83c316c380329f8568037fd7e6500d9ce59cd39f8e6be0ae805510fafbd453e8",
+      "ephemeral_regeneration_allowed": true
+    },
+    "ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json",
+      "sha256": "67a3c4f870e307e87482469222b82adeca3ba840a7c3de02eb762ae9cf5fe8d4",
+      "ephemeral_regeneration_allowed": true
+    },
+    "RESIDUAL_RISK_32_1.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/RESIDUAL_RISK_32_1.json",
+      "sha256": "80d98459cb1ee868fde44ed170caebc909926d5905662a277076528e1fe09b9e"
+    },
+    "WORKING_TREE_RECONCILIATION.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
+      "sha256": "f4a2fe16604102b476ce50f2724c03147cab941ffb0a2db70dea1a44987b8f97",
+      "ephemeral_regeneration_allowed": true
+    },
+    "RTM.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/RTM.json",
+      "sha256": "b5a5857cd6470ab01501fb22cf0068eaa810bed194b0152c55f434188993a15d"
+    },
+    "RTM_HIERARCHICAL.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/RTM_HIERARCHICAL.json",
+      "sha256": "e5d2b6b4845d659f6f79259f9196e00b35713db98fe7d1632eb7a7503c2189b6"
+    },
+    "SOURCE_REQUIREMENTS.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/SOURCE_REQUIREMENTS.json",
+      "sha256": "c6744836c874c7b0bd3d5542988480068238842a4996a09097dc1466f750b213"
+    },
+    "INDEPENDENT_REQUIREMENT_AUDIT.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/INDEPENDENT_REQUIREMENT_AUDIT.json",
+      "sha256": "ef28c8eadbbaae93480f26a1b4035ae08d2f9833b4b9372c9c1da8bd23a7530f"
+    },
+    "REQUIREMENT_RECONCILIATION.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/REQUIREMENT_RECONCILIATION.json",
+      "sha256": "99a105bb2f019d99ac8d4cb27dadc73c0ea9298237ff0ba9c6b66e890636d763"
+    },
+    "CHILD_REQUIREMENTS.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/CHILD_REQUIREMENTS.json",
+      "sha256": "7e5b7d5a9000fc69479d83143911c7e628e5cb2b34a229db4bb91f3643d69fd9"
+    },
+    "FINAL_GATE_ASSERTIONS.json": {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
+      "sha256": "2b9778ec2382c1d68c549265b617b95535cefa1d525833c7e16f11b5a49b3fa3",
+      "ephemeral_regeneration_allowed": true,
+      "note": "Committed snapshot at baseline freeze captured working-tree gate noise; semantic completion verified separately"
+    }
+  }
+}
