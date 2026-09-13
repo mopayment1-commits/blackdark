@@ -1,0 +1,235 @@
+[
+  {
+    "procedure_id": "PROC-B01-001",
+    "requirement_id": "GOV-001",
+    "universe_ids": [
+      "UNIV-GOVERNANCE-PACKAGE"
+    ],
+    "domain": "governance",
+    "risk_level": "CRITICAL",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Verify V4.2 package integrity and gate verifier byte conformance.",
+    "population_denominator": 14,
+    "method": [
+      "EXAMINE",
+      "TEST"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "PROGRAM_PACKAGE_GATE=PASS and gate_verifier.txt hash matches gate_verifier.py.",
+    "failure_criteria": "Missing package file or verifier hash mismatch.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-001",
+      "EVID-B01-002"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-002",
+    "requirement_id": "OWNER-ACCEPTANCE",
+    "universe_ids": [
+      "UNIV-ENGAGEMENT"
+    ],
+    "domain": "governance",
+    "risk_level": "CRITICAL",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Verify owner acceptance provenance for CLASS_A internal examination.",
+    "population_denominator": 1,
+    "method": [
+      "EXAMINE"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "OWNER_ACCEPTANCE_RECORD acceptance_status=ACCEPTED with valid source artifact hash.",
+    "failure_criteria": "Missing owner artifact or hash mismatch.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-003"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-003",
+    "requirement_id": "BGS-GATE",
+    "universe_ids": [
+      "UNIV-BGS-12"
+    ],
+    "domain": "governance",
+    "risk_level": "CRITICAL",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Verify 12/12 build/governance sources registered and fully read.",
+    "population_denominator": 12,
+    "method": [
+      "EXAMINE"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "BUILD_GOVERNANCE_SOURCE_GATE=PASS with 12 registered and 12 fully read.",
+    "failure_criteria": "Any governing source missing or unread.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-004"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-004",
+    "requirement_id": "ID-001",
+    "universe_ids": [
+      "UNIV-AUTH"
+    ],
+    "domain": "authentication",
+    "risk_level": "CRITICAL",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Test authentication/session security baseline via institutional auth pytest suite.",
+    "population_denominator": 1,
+    "method": [
+      "TEST"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "Auth-related pytest exits 0 on current SHA.",
+    "failure_criteria": "Auth pytest failures or inability to execute.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-005"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-005",
+    "requirement_id": "BILL-001",
+    "universe_ids": [
+      "UNIV-BILLING"
+    ],
+    "domain": "billing",
+    "risk_level": "CRITICAL",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Test billing/subscription engine baseline.",
+    "population_denominator": 1,
+    "method": [
+      "TEST"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "Billing subscription pytest exits 0.",
+    "failure_criteria": "Billing test failures.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-006"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-006",
+    "requirement_id": "SEC-003",
+    "universe_ids": [
+      "UNIV-SECRETS"
+    ],
+    "domain": "security",
+    "risk_level": "HIGH",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Scan repository for hardcoded secret patterns in application code.",
+    "population_denominator": 1,
+    "method": [
+      "EXAMINE",
+      "TEST"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "Secret pattern scan artifact produced with documented hits.",
+    "failure_criteria": "Unable to execute scan.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-007"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-007",
+    "requirement_id": "CAP-RECON",
+    "universe_ids": [
+      "UNIV-CAPABILITIES-826"
+    ],
+    "domain": "capabilities",
+    "risk_level": "HIGH",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Verify capability master register populated with status for all 826 capabilities.",
+    "population_denominator": 826,
+    "method": [
+      "EXAMINE"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "CAPABILITY_MASTER_REGISTER total_capabilities=826 and all have primary_status.",
+    "failure_criteria": "Missing capability status or denominator mismatch.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-008"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-008",
+    "requirement_id": "TZ-001",
+    "universe_ids": [
+      "UNIV-TIME"
+    ],
+    "domain": "timezone",
+    "risk_level": "HIGH",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Verify global timezone module import and basic contract.",
+    "population_denominator": 1,
+    "method": [
+      "TEST"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "Timezone-related tests or import probe succeeds.",
+    "failure_criteria": "Module missing or import error.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-009"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-009",
+    "requirement_id": "DTS-001",
+    "universe_ids": [
+      "UNIV-DECISION-TRUTH"
+    ],
+    "domain": "decision_truth",
+    "risk_level": "CRITICAL",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Verify decision truth admission path exists in codebase.",
+    "population_denominator": 1,
+    "method": [
+      "EXAMINE"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "decision_truth package/modules located with test references.",
+    "failure_criteria": "No decision truth implementation path found.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-010"
+    ]
+  },
+  {
+    "procedure_id": "PROC-B01-010",
+    "requirement_id": "FDS-001",
+    "universe_ids": [
+      "UNIV-FINANCIAL-DATA-SECURITY"
+    ],
+    "domain": "financial_data_security",
+    "risk_level": "CRITICAL",
+    "applicability_status": "DIRECTLY_APPLICABLE",
+    "execution_class": "LOCAL_EXECUTABLE",
+    "objective": "Verify financial data security controls module presence.",
+    "population_denominator": 1,
+    "method": [
+      "EXAMINE"
+    ],
+    "minimum_evidence_class": "PRIMARY",
+    "acceptance_criteria": "FDS implementation artifacts located.",
+    "failure_criteria": "No FDS module path.",
+    "status": "PASS",
+    "evidence_ids": [
+      "EVID-B01-011"
+    ]
+  }
+]

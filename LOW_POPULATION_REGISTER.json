@@ -1,0 +1,9 @@
+{
+  "freeze_id": "",
+  "classification_frozen_at_utc": "",
+  "low_population_denominator": 0,
+  "low_population_ids": [],
+  "residual_low_ids": [],
+  "residual_low_percent": 0.0,
+  "status": "NOT_READY"
+}

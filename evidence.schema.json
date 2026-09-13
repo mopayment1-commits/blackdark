@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BLACKDARK Evidence Record",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "procedure_id",
+    "requirement_id",
+    "canonical_sha",
+    "branch_or_worktree",
+    "access_level",
+    "method_or_command",
+    "artifact_path",
+    "artifact_sha256",
+    "timestamp_utc",
+    "evidence_class",
+    "source_reliability",
+    "conclusion",
+    "observed_repo_sha_at_execution"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EVID-[A-Z0-9_-]+$"
+    },
+    "procedure_id": {
+      "type": "string"
+    },
+    "requirement_id": {
+      "type": "string"
+    },
+    "canonical_sha": {
+      "type": "string",
+      "minLength": 7
+    },
+    "branch_or_worktree": {
+      "type": "string",
+      "minLength": 1
+    },
+    "access_level": {
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    "method_or_command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_sha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "numerator": {
+      "type": [
+        "integer",
+        "number",
+        "null"
+      ]
+    },
+    "denominator": {
+      "type": [
+        "integer",
+        "number",
+        "string",
+        "null"
+      ]
+    },
+    "evidence_class": {
+      "enum": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5"
+      ]
+    },
+    "source_reliability": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNKNOWN"
+      ]
+    },
+    "conclusion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observed_repo_sha_at_execution": {
+      "type": "string",
+      "minLength": 7
+    }
+  }
+}
