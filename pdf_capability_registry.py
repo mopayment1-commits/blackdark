@@ -418,7 +418,36 @@ async def execute_binding(module_path: str, func_name: str, *, capability_id: in
         }
 
 
+@lru_cache(maxsize=1)
+def _split_brain_delegate_ids() -> frozenset[int]:
+    """IDs where audit/pdf path must delegate to cap646 production spine."""
+    manifest = ROOT / "docs" / "SPLIT_BRAIN_BCD_RECLASSIFICATION_MANIFEST.json"
+    if not manifest.is_file():
+        return frozenset()
+    import json
+
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    ids: set[int] = set()
+    for cat in data.get("by_category", {}).values():
+        ids.update(int(i) for i in cat.get("ids", []))
+    return frozenset(ids)
+
+
 async def execute_capability(capability_id: int) -> dict[str, Any]:
+    if capability_id in _split_brain_delegate_ids():
+        from cap646.runtime import execute_capability as cap646_execute
+
+        result = await cap646_execute(
+            capability_id,
+            params={"symbol": "BTC"},
+            skip_entitlement=True,
+        )
+        if isinstance(result, dict):
+            result.setdefault("ok", result.get("success", True) is not False)
+            result["audit_path"] = "cap646.runtime.execute_capability"
+            result["split_brain_unified"] = True
+        return result
+
     bindings = discover_bindings()
     if capability_id in bindings:
         mod_path, func_name = bindings[capability_id]

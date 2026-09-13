@@ -1,0 +1,363 @@
+{
+  "count": 10,
+  "records": [
+    {
+      "original_finding_id": "bigquery_export.py|365|B608",
+      "original_context_recovery": {
+        "original_context": "\"rows_sent\": len(export_rows),",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 365",
+      "current_binding": {
+        "line": 365,
+        "context": "\"rows_sent\": len(export_rows),"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 135,
+          "text": "query = f\"SELECT export_id, COUNT(1) AS rows_verified, MAX(exported_at) AS exported_at FROM `{table_ref}` GROUP BY expor"
+        },
+        {
+          "line": 317,
+          "text": "query = f\"SELECT COUNT(1) AS row_count FROM `{table_ref}` WHERE export_id = @export_id\"  # nosec B608"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "blackdark/data/repository.py|654|B608",
+      "original_context_recovery": {
+        "original_context": "\"detected_by\": row.get(\"detected_by\", \"api\"),",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 654",
+      "current_binding": {
+        "line": 654,
+        "context": "\"detected_by\": row.get(\"detected_by\", \"api\"),"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 393,
+          "text": "ohlcv_sql = f\"SELECT o.open_time, o.open_price AS open, o.high_price AS high, o.low_price AS low, o.close_price AS close"
+        },
+        {
+          "line": 429,
+          "text": "funding_sql = f\"SELECT f.funding_time, f.funding_rate, f.mark_price, f.index_price, ds.slug AS source, p.id AS provenanc"
+        },
+        {
+          "line": 464,
+          "text": "oi_sql = f\"SELECT oi.oi_time, oi.open_interest, oi.open_interest_value, ds.slug AS source, p.id AS provenance_id FROM op"
+        },
+        {
+          "line": 506,
+          "text": "events_sql = f\"SELECT id, event_type, severity, symbol, start_time, end_time, description, price_change_pct, volume_spik"
+        },
+        {
+          "line": 587,
+          "text": "runs_sql = f\"SELECT ir.id, ds.slug AS source, ir.run_type, ir.status, ir.records_fetched, ir.records_inserted, ir.record"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "blackdark/data/repository.py|934|B608",
+      "original_context_recovery": {
+        "original_context": "{\"eid\": evidence_id},",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 934",
+      "current_binding": {
+        "line": 934,
+        "context": "{\"eid\": evidence_id},"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 393,
+          "text": "ohlcv_sql = f\"SELECT o.open_time, o.open_price AS open, o.high_price AS high, o.low_price AS low, o.close_price AS close"
+        },
+        {
+          "line": 429,
+          "text": "funding_sql = f\"SELECT f.funding_time, f.funding_rate, f.mark_price, f.index_price, ds.slug AS source, p.id AS provenanc"
+        },
+        {
+          "line": 464,
+          "text": "oi_sql = f\"SELECT oi.oi_time, oi.open_interest, oi.open_interest_value, ds.slug AS source, p.id AS provenance_id FROM op"
+        },
+        {
+          "line": 506,
+          "text": "events_sql = f\"SELECT id, event_type, severity, symbol, start_time, end_time, description, price_change_pct, volume_spik"
+        },
+        {
+          "line": 587,
+          "text": "runs_sql = f\"SELECT ir.id, ds.slug AS source, ir.run_type, ir.status, ir.records_fetched, ir.records_inserted, ir.record"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "blackdark/data/repository.py|1114|B608",
+      "original_context_recovery": {
+        "original_context": "",
+        "original_context_provenance": "UNRESOLVED_LINE_OUT_OF_RANGE",
+        "original_context_note": "Corpus line 1114 exceeds current file length 996"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 1114",
+      "current_binding": {
+        "line": 1114,
+        "context": ""
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 393,
+          "text": "ohlcv_sql = f\"SELECT o.open_time, o.open_price AS open, o.high_price AS high, o.low_price AS low, o.close_price AS close"
+        },
+        {
+          "line": 429,
+          "text": "funding_sql = f\"SELECT f.funding_time, f.funding_rate, f.mark_price, f.index_price, ds.slug AS source, p.id AS provenanc"
+        },
+        {
+          "line": 464,
+          "text": "oi_sql = f\"SELECT oi.oi_time, oi.open_interest, oi.open_interest_value, ds.slug AS source, p.id AS provenance_id FROM op"
+        },
+        {
+          "line": 506,
+          "text": "events_sql = f\"SELECT id, event_type, severity, symbol, start_time, end_time, description, price_change_pct, volume_spik"
+        },
+        {
+          "line": 587,
+          "text": "runs_sql = f\"SELECT ir.id, ds.slug AS source, ir.run_type, ir.status, ir.records_fetched, ir.records_inserted, ir.record"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "database.py|2476|B608",
+      "original_context_recovery": {
+        "original_context": ").fetchone()",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 2476",
+      "current_binding": {
+        "line": 2476,
+        "context": ").fetchone()"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 1362,
+          "text": "archive_sql = f\"SELECT * FROM {table} WHERE timestamp < ? ORDER BY timestamp ASC, id ASC LIMIT ?\"  # nosec B608"
+        },
+        {
+          "line": 1383,
+          "text": "f\"DELETE FROM {table} WHERE id IN ({placeholders})\",  # nosec B608"
+        },
+        {
+          "line": 1564,
+          "text": "query = f\"SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type FROM order_books o INNER JOIN ( SELECT"
+        },
+        {
+          "line": 1687,
+          "text": "row = await (await db.execute(f\"SELECT COUNT(*) FROM {table_name}\")).fetchone()  # nosec B608"
+        },
+        {
+          "line": 1868,
+          "text": "flows_sql = f\"SELECT * FROM institutional_flows WHERE flow_type IN ({placeholders}) ORDER BY timestamp DESC, id DESC LIM"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "database.py|2642|B608",
+      "original_context_recovery": {
+        "original_context": "async with get_connection() as db:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 2642",
+      "current_binding": {
+        "line": 2642,
+        "context": "async with get_connection() as db:"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 1362,
+          "text": "archive_sql = f\"SELECT * FROM {table} WHERE timestamp < ? ORDER BY timestamp ASC, id ASC LIMIT ?\"  # nosec B608"
+        },
+        {
+          "line": 1383,
+          "text": "f\"DELETE FROM {table} WHERE id IN ({placeholders})\",  # nosec B608"
+        },
+        {
+          "line": 1564,
+          "text": "query = f\"SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type FROM order_books o INNER JOIN ( SELECT"
+        },
+        {
+          "line": 1687,
+          "text": "row = await (await db.execute(f\"SELECT COUNT(*) FROM {table_name}\")).fetchone()  # nosec B608"
+        },
+        {
+          "line": 1868,
+          "text": "flows_sql = f\"SELECT * FROM institutional_flows WHERE flow_type IN ({placeholders}) ORDER BY timestamp DESC, id DESC LIM"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "database.py|3081|B608",
+      "original_context_recovery": {
+        "original_context": "\"unique_anonymous_sessions\": 0,",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 3081",
+      "current_binding": {
+        "line": 3081,
+        "context": "\"unique_anonymous_sessions\": 0,"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 1362,
+          "text": "archive_sql = f\"SELECT * FROM {table} WHERE timestamp < ? ORDER BY timestamp ASC, id ASC LIMIT ?\"  # nosec B608"
+        },
+        {
+          "line": 1383,
+          "text": "f\"DELETE FROM {table} WHERE id IN ({placeholders})\",  # nosec B608"
+        },
+        {
+          "line": 1564,
+          "text": "query = f\"SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type FROM order_books o INNER JOIN ( SELECT"
+        },
+        {
+          "line": 1687,
+          "text": "row = await (await db.execute(f\"SELECT COUNT(*) FROM {table_name}\")).fetchone()  # nosec B608"
+        },
+        {
+          "line": 1868,
+          "text": "flows_sql = f\"SELECT * FROM institutional_flows WHERE flow_type IN ({placeholders}) ORDER BY timestamp DESC, id DESC LIM"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "database.py|3345|B608",
+      "original_context_recovery": {
+        "original_context": "INSERT INTO institutional_inquiries",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 3345",
+      "current_binding": {
+        "line": 3345,
+        "context": "INSERT INTO institutional_inquiries"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 1362,
+          "text": "archive_sql = f\"SELECT * FROM {table} WHERE timestamp < ? ORDER BY timestamp ASC, id ASC LIMIT ?\"  # nosec B608"
+        },
+        {
+          "line": 1383,
+          "text": "f\"DELETE FROM {table} WHERE id IN ({placeholders})\",  # nosec B608"
+        },
+        {
+          "line": 1564,
+          "text": "query = f\"SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type FROM order_books o INNER JOIN ( SELECT"
+        },
+        {
+          "line": 1687,
+          "text": "row = await (await db.execute(f\"SELECT COUNT(*) FROM {table_name}\")).fetchone()  # nosec B608"
+        },
+        {
+          "line": 1868,
+          "text": "flows_sql = f\"SELECT * FROM institutional_flows WHERE flow_type IN ({placeholders}) ORDER BY timestamp DESC, id DESC LIM"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "database.py|3817|B608",
+      "original_context_recovery": {
+        "original_context": "result = await rows.fetchone()",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 3817",
+      "current_binding": {
+        "line": 3817,
+        "context": "result = await rows.fetchone()"
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 1362,
+          "text": "archive_sql = f\"SELECT * FROM {table} WHERE timestamp < ? ORDER BY timestamp ASC, id ASC LIMIT ?\"  # nosec B608"
+        },
+        {
+          "line": 1383,
+          "text": "f\"DELETE FROM {table} WHERE id IN ({placeholders})\",  # nosec B608"
+        },
+        {
+          "line": 1564,
+          "text": "query = f\"SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type FROM order_books o INNER JOIN ( SELECT"
+        },
+        {
+          "line": 1687,
+          "text": "row = await (await db.execute(f\"SELECT COUNT(*) FROM {table_name}\")).fetchone()  # nosec B608"
+        },
+        {
+          "line": 1868,
+          "text": "flows_sql = f\"SELECT * FROM institutional_flows WHERE flow_type IN ({placeholders}) ORDER BY timestamp DESC, id DESC LIM"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    },
+    {
+      "original_finding_id": "database.py|4171|B608",
+      "original_context_recovery": {
+        "original_context": "Compatibility hook for graceful shutdown.",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "old_semantic_operation": "Dynamic SQL f-string flagged by B608 at corpus line 4171",
+      "current_binding": {
+        "line": 4171,
+        "context": "Compatibility hook for graceful shutdown."
+      },
+      "f_string_sql_sites_remaining_in_file": [
+        {
+          "line": 1362,
+          "text": "archive_sql = f\"SELECT * FROM {table} WHERE timestamp < ? ORDER BY timestamp ASC, id ASC LIMIT ?\"  # nosec B608"
+        },
+        {
+          "line": 1383,
+          "text": "f\"DELETE FROM {table} WHERE id IN ({placeholders})\",  # nosec B608"
+        },
+        {
+          "line": 1564,
+          "text": "query = f\"SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type FROM order_books o INNER JOIN ( SELECT"
+        },
+        {
+          "line": 1687,
+          "text": "row = await (await db.execute(f\"SELECT COUNT(*) FROM {table_name}\")).fetchone()  # nosec B608"
+        },
+        {
+          "line": 1868,
+          "text": "flows_sql = f\"SELECT * FROM institutional_flows WHERE flow_type IN ({placeholders}) ORDER BY timestamp DESC, id DESC LIM"
+        }
+      ],
+      "not_line_drift_proof": "Current line bound via nosec/proximity has no SQL f-string at original semantic site; remaining f-strings in file use sql_safety allowlists or static clause templates",
+      "not_merged_proof": "No nosec B608 at same file:line as original; nearest SQL uses cataloged sql_safety.* helpers"
+    }
+  ]
+}

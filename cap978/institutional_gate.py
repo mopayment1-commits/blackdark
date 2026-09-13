@@ -25,23 +25,23 @@ CLOSURE_BASELINE = {
     "verdict": INSTITUTIONAL_GATE_PASS,
     "total": 978,
     "cap978_counts": {
-        "VERIFIED_COMPLETE": 938,
+        "VERIFIED_COMPLETE": 940,
         "CANONICALLY_COVERED": 37,
-        "EXTERNAL_BLOCKED": 2,
+        "EXTERNAL_BLOCKED": 0,
         "EXTERNAL_EVIDENCE_REQUIRED": 1,
     },
     "extension_counts": {
-        "VERIFIED_COMPLETE": 329,
+        "VERIFIED_COMPLETE": 331,
         "CANONICALLY_COVERED": 1,
-        "EXTERNAL_BLOCKED": 2,
+        "EXTERNAL_BLOCKED": 0,
     },
     "governing_controls": {
         "VERIFIED_COMPLETE": 38,
         "EXTERNAL_BLOCKED": 4,
     },
     "external_registry": {
-        "total": 33,
-        "capability_ids_blocked": 31,
+        "total": 31,
+        "capability_ids_blocked": 29,
         "controls_blocked": 2,
     },
     "internal_incomplete": {
@@ -204,7 +204,7 @@ def validate_committed_artifacts(*, snapshot_path: Path | None = None, registry_
             ("extension_counts", CLOSURE_BASELINE["extension_counts"]),
         ):
             actual = committed.get(section) or {}
-            drift = {k: actual.get(k) for k in baseline if actual.get(k) != baseline[k]}
+            drift = {k: actual.get(k, 0) for k in baseline if actual.get(k, 0) != baseline[k]}
             if drift:
                 _fail(checks, f"snapshot_{section}", str(drift))
             else:

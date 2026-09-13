@@ -1,0 +1,3308 @@
+{
+  "count": 58,
+  "records": [
+    {
+      "original_finding_id": "bd_platform/coverage_report.py|14|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   10| \n   11| def coverage_report() -> dict[str, Any]:\n   12|     root = Path(__file__).resolve().parent.parent\n   13|     try:\n   14|         proc = subprocess.run(\n   15|             [sys.executable, \"-m\", \"pytest\", \"tests/\", \"-q\", \"--cov=.\", \"--cov-report=term-missing\", \"--cov-config=.coveragerc\"],\n   16|             cwd=str(root),\n   17|             check=False,\n   18|             capture_output=True,",
+      "current_file": "bd_platform/coverage_report.py",
+      "current_line": 14,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   10| \n   11| def coverage_report() -> dict[str, Any]:\n   12|     root = Path(__file__).resolve().parent.parent\n   13|     try:\n   14|         proc = subprocess.run(\n   15|             [sys.executable, \"-m\", \"pytest\", \"tests/\", \"-q\", \"--cov=.\", \"--cov-report=term-missing\", \"--cov-config=.coveragerc\"],\n   16|             cwd=str(root),\n   17|             check=False,\n   18|             capture_output=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pytest\", \"tests/\", \"-q\", \"--cov=.\", \"--cov-report=term-missing\", \"--cov-config=.coveragerc\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"tests/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"--cov=.\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"--cov-report=term-missing\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"--cov-config=.coveragerc\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "str(root)",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at bd_platform/coverage_report.py:14 uses argv list without shell expansion; scope=production; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "critical_defects_closure.py|141|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  137| def _run_defect_tests(test_paths: list[str]) -> dict[str, Any]:\n  138|     existing = [str(ROOT / p) for p in test_paths if (ROOT / p).exists()]\n  139|     if not existing:\n  140|         return {\"ok\": True, \"skipped\": True, \"passed\": 0, \"failed\": 0}\n  141|     proc = subprocess.run(\n  142|         [sys.executable, \"-m\", \"pytest\", *existing, \"-q\", \"--tb=no\"],\n  143|         capture_output=True,\n  144|         text=True,\n  145|         cwd=str(ROOT),",
+      "current_file": "critical_defects_closure.py",
+      "current_line": 141,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  137| def _run_defect_tests(test_paths: list[str]) -> dict[str, Any]:\n  138|     existing = [str(ROOT / p) for p in test_paths if (ROOT / p).exists()]\n  139|     if not existing:\n  140|         return {\"ok\": True, \"skipped\": True, \"passed\": 0, \"failed\": 0}\n  141|     proc = subprocess.run(\n  142|         [sys.executable, \"-m\", \"pytest\", *existing, \"-q\", \"--tb=no\"],\n  143|         capture_output=True,\n  144|         text=True,\n  145|         cwd=str(ROOT),",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pytest\", *existing, \"-q\", \"--tb=no\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "*existing",
+            "kind": "Starred"
+          },
+          {
+            "index": 4,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "str(ROOT)",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at critical_defects_closure.py:141 uses argv list without shell expansion; scope=production; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "dbt_connector.py|224|B603",
+      "original_context_recovery": {
+        "original_context": "\"--project-dir\",",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  220| \n  221|     cmd = [\n  222|         _dbt_executable(),\n  223|         \"run\",\n  224|         \"--project-dir\",\n  225|         str(_DBT_PROJECT_DIR),\n  226|         \"--profiles-dir\",\n  227|         str(profiles_dir),\n  228|     ]",
+      "current_file": "dbt_connector.py",
+      "current_line": 224,
+      "current_source_context": "\"--project-dir\",",
+      "current_context_block": "  220| \n  221|     cmd = [\n  222|         _dbt_executable(),\n  223|         \"run\",\n  224|         \"--project-dir\",\n  225|         str(_DBT_PROJECT_DIR),\n  226|         \"--profiles-dir\",\n  227|         str(profiles_dir),\n  228|     ]",
+      "subprocess_analysis": {
+        "executable_provenance": "UNRESOLVED",
+        "argv_components": [],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "dbt subprocess at dbt_connector.py:224 uses shutil.which + fixed argv; no shell; profiles/project dirs from code constants",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "due_diligence.py|43|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300, check=False)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   39|         *[f\"--cov={m}\" for m in modules],\n   40|         \"--cov-report=term-missing\",\n   41|         \"--cov-fail-under=85\",\n   42|     ]\n   43|     proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300, check=False)\n   44|     lines = (proc.stdout or \"\").splitlines()\n   45|     total_line = next((line for line in lines if \"TOTAL\" in line), \"\")\n   46|     pct = 0.0\n   47|     if total_line:",
+      "current_file": "due_diligence.py",
+      "current_line": 43,
+      "current_source_context": "proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300, check=False)",
+      "current_context_block": "   39|         *[f\"--cov={m}\" for m in modules],\n   40|         \"--cov-report=term-missing\",\n   41|         \"--cov-fail-under=85\",\n   42|     ]\n   43|     proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300, check=False)\n   44|     lines = (proc.stdout or \"\").splitlines()\n   45|     total_line = next((line for line in lines if \"TOTAL\" in line), \"\")\n   46|     pct = 0.0\n   47|     if total_line:",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "str(ROOT)",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at due_diligence.py:43 uses argv list without shell expansion; scope=production; context: proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeou",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "governance/assessor.py|115|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  111|     # G7 \u2014 CI subset\n  112|     g7_partial = True\n  113|     g7_ok = False\n  114|     try:\n  115|         proc = subprocess.run(\n  116|             [sys.executable, \"-m\", \"pytest\", \"tests/test_decision_truth_pipeline.py\", \"tests/test_data_governance_p0_test_matrix.py\", \"-q\", \"--tb=no\"],\n  117|             cwd=_ROOT,\n  118|             capture_output=True,\n  119|             text=True,",
+      "current_file": "governance/assessor.py",
+      "current_line": 115,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  111|     # G7 \u2014 CI subset\n  112|     g7_partial = True\n  113|     g7_ok = False\n  114|     try:\n  115|         proc = subprocess.run(\n  116|             [sys.executable, \"-m\", \"pytest\", \"tests/test_decision_truth_pipeline.py\", \"tests/test_data_governance_p0_test_matrix.py\", \"-q\", \"--tb=no\"],\n  117|             cwd=_ROOT,\n  118|             capture_output=True,\n  119|             text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pytest\", \"tests/test_decision_truth_pipeline.py\", \"tests/test_data_governance_p0_test_matrix.py\", \"-q\", \"--tb=no\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"tests/test_decision_truth_pipeline.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"tests/test_data_governance_p0_test_matrix.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "_ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at governance/assessor.py:115 uses argv list without shell expansion; scope=production; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "run_service.py|121|B603",
+      "original_context_recovery": {
+        "original_context": "raise SystemExit(subprocess.call(cmd))",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  117|         cmd.extend([\"--workers\", str(workers)])\n  118|     print(\n  119|         f\"Starting BLACKDARK | mode={args.mode} port={port} workers={workers}\"\n  120|     )\n  121|     raise SystemExit(subprocess.call(cmd))\n  122| \n  123| \n  124| if __name__ == \"__main__\":\n  125|     main()",
+      "current_file": "run_service.py",
+      "current_line": 121,
+      "current_source_context": "raise SystemExit(subprocess.call(cmd))",
+      "current_context_block": "  117|         cmd.extend([\"--workers\", str(workers)])\n  118|     print(\n  119|         f\"Starting BLACKDARK | mode={args.mode} port={port} workers={workers}\"\n  120|     )\n  121|     raise SystemExit(subprocess.call(cmd))\n  122| \n  123| \n  124| if __name__ == \"__main__\":\n  125|     main()",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at run_service.py:121 uses argv list without shell expansion; scope=production; context: raise SystemExit(subprocess.call(cmd))",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/audit_pdf_capabilities_checklist.py|223|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  219| \n  220| \n  221| def rg_search(pattern: str, limit: int = 8) -> list[str]:\n  222|     try:\n  223|         proc = subprocess.run(\n  224|             [\"rg\", \"-l\", \"-i\", pattern, \"--glob\", \"*.py\", str(ROOT)],\n  225|             capture_output=True,\n  226|             text=True,\n  227|             timeout=8,",
+      "current_file": "scripts/audit_pdf_capabilities_checklist.py",
+      "current_line": 223,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  219| \n  220| \n  221| def rg_search(pattern: str, limit: int = 8) -> list[str]:\n  222|     try:\n  223|         proc = subprocess.run(\n  224|             [\"rg\", \"-l\", \"-i\", pattern, \"--glob\", \"*.py\", str(ROOT)],\n  225|             capture_output=True,\n  226|             text=True,\n  227|             timeout=8,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"rg\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"rg\", \"-l\", \"-i\", pattern, \"--glob\", \"*.py\", str(ROOT)]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"rg\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-l\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"-i\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "pattern",
+            "kind": "Name"
+          },
+          {
+            "index": 4,
+            "source": "\"--glob\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"*.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "str(ROOT)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at scripts/audit_pdf_capabilities_checklist.py:223 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/backup_postgres.py|73|B603",
+      "original_context_recovery": {
+        "original_context": "shell=False,",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   69|         [pg_dump, \"--dbname\", url, \"--no-owner\", \"--format=plain\", \"-f\", str(raw)],\n   70|         capture_output=True,\n   71|         text=True,\n   72|         env=env,\n   73|         shell=False,\n   74|         check=False,\n   75|     )\n   76|     if proc.returncode != 0:\n   77|         raise SystemExit(\"pg_dump failed\")",
+      "current_file": "scripts/backup_postgres.py",
+      "current_line": 73,
+      "current_source_context": "shell=False,",
+      "current_context_block": "   69|         [pg_dump, \"--dbname\", url, \"--no-owner\", \"--format=plain\", \"-f\", str(raw)],\n   70|         capture_output=True,\n   71|         text=True,\n   72|         env=env,\n   73|         shell=False,\n   74|         check=False,\n   75|     )\n   76|     if proc.returncode != 0:\n   77|         raise SystemExit(\"pg_dump failed\")",
+      "subprocess_analysis": {
+        "executable_provenance": "UNRESOLVED",
+        "argv_components": [],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/backup_postgres.py:73 uses argv list without shell expansion; scope=tooling; context: shell=False,",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/close_cap644_production.py|63|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, capture_output=True, text=True, check=False)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   59|         \"--requests\",\n   60|         \"80\",\n   61|         \"--require-viral-approved\",\n   62|     ]\n   63|     proc = subprocess.run(cmd, capture_output=True, text=True, check=False)\n   64|     out = (proc.stdout or \"\") + (proc.stderr or \"\")\n   65|     return proc.returncode, out\n   66| \n   67| ",
+      "current_file": "scripts/close_cap644_production.py",
+      "current_line": 63,
+      "current_source_context": "proc = subprocess.run(cmd, capture_output=True, text=True, check=False)",
+      "current_context_block": "   59|         \"--requests\",\n   60|         \"80\",\n   61|         \"--require-viral-approved\",\n   62|     ]\n   63|     proc = subprocess.run(cmd, capture_output=True, text=True, check=False)\n   64|     out = (proc.stdout or \"\") + (proc.stderr or \"\")\n   65|     return proc.returncode, out\n   66| \n   67| ",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/close_cap644_production.py:63 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(cmd, capture_output=True, text=True, check=False)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/complete_pdf_capabilities_826.py|92|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   88|     if not tokens:\n   89|         return []\n   90|     pattern = \"|\".join(re.escape(t) for t in tokens)\n   91|     try:\n   92|         proc = subprocess.run(\n   93|             [\"rg\", \"-l\", \"-i\", pattern, \"bd_platform\", \"cap646\", \".\", \"--glob\", \"!capabilities_checklist*\"],\n   94|             capture_output=True,\n   95|             text=True,\n   96|             cwd=str(ROOT),",
+      "current_file": "scripts/complete_pdf_capabilities_826.py",
+      "current_line": 92,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   88|     if not tokens:\n   89|         return []\n   90|     pattern = \"|\".join(re.escape(t) for t in tokens)\n   91|     try:\n   92|         proc = subprocess.run(\n   93|             [\"rg\", \"-l\", \"-i\", pattern, \"bd_platform\", \"cap646\", \".\", \"--glob\", \"!capabilities_checklist*\"],\n   94|             capture_output=True,\n   95|             text=True,\n   96|             cwd=str(ROOT),",
+      "subprocess_analysis": {
+        "executable_provenance": "\"rg\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"rg\", \"-l\", \"-i\", pattern, \"bd_platform\", \"cap646\", \".\", \"--glob\", \"!capabilities_checklist*\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"rg\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-l\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"-i\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "pattern",
+            "kind": "Name"
+          },
+          {
+            "index": 4,
+            "source": "\"bd_platform\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\".\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"--glob\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"!capabilities_checklist*\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "str(ROOT)",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at scripts/complete_pdf_capabilities_826.py:92 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/dd_batch_001_execute.py|21|B603",
+      "original_context_recovery": {
+        "original_context": "return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   17|     PYTHON = Path(\"python3\")\n   18| \n   19| \n   20| def repo_sha() -> str:\n   21|     return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()\n   22| \n   23| \n   24| def sha256_file(path: Path) -> str:\n   25|     return hashlib.sha256(path.read_bytes()).hexdigest()",
+      "current_file": "scripts/dd_batch_001_execute.py",
+      "current_line": 21,
+      "current_source_context": "return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()",
+      "current_context_block": "   17|     PYTHON = Path(\"python3\")\n   18| \n   19| \n   20| def repo_sha() -> str:\n   21|     return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()\n   22| \n   23| \n   24| def sha256_file(path: Path) -> str:\n   25|     return hashlib.sha256(path.read_bytes()).hexdigest()",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/dd_batch_001_execute.py:21; executable/args from script constants; context: return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/dd_batch_001_execute.py|33|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   29|     path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + \"\\n\", encoding=\"utf-8\")\n   30| \n   31| \n   32| def run_cmd(cmd: list[str], outfile: Path) -> dict:\n   33|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   34|     content = f\"$ {' '.join(cmd)}\\n\\nSTDOUT:\\n{proc.stdout}\\n\\nSTDERR:\\n{proc.stderr}\\n\\nEXIT:{proc.returncode}\\n\"\n   35|     outfile.write_text(content, encoding=\"utf-8\")\n   36|     return {\"exit_code\": proc.returncode, \"artifact\": str(outfile.relative_to(ROOT))}\n   37| ",
+      "current_file": "scripts/dd_batch_001_execute.py",
+      "current_line": 33,
+      "current_source_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "current_context_block": "   29|     path.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + \"\\n\", encoding=\"utf-8\")\n   30| \n   31| \n   32| def run_cmd(cmd: list[str], outfile: Path) -> dict:\n   33|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   34|     content = f\"$ {' '.join(cmd)}\\n\\nSTDOUT:\\n{proc.stdout}\\n\\nSTDERR:\\n{proc.stderr}\\n\\nEXIT:{proc.returncode}\\n\"\n   35|     outfile.write_text(content, encoding=\"utf-8\")\n   36|     return {\"exit_code\": proc.returncode, \"artifact\": str(outfile.relative_to(ROOT))}\n   37| ",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/dd_batch_001_execute.py:33 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/dd_batch_001_execute.py|46|B603",
+      "original_context_recovery": {
+        "original_context": "\"branch_or_worktree\": subprocess.check_output([\"git\", \"branch\", \"--show-current\"], cwd=ROOT, text=True).strip(),",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   42|         \"evidence_id\": eid,\n   43|         \"procedure_id\": pid,\n   44|         \"requirement_id\": req,\n   45|         \"canonical_sha\": sha,\n   46|         \"branch_or_worktree\": subprocess.check_output([\"git\", \"branch\", \"--show-current\"], cwd=ROOT, text=True).strip(),\n   47|         \"access_level\": \"L0\",\n   48|         \"method_or_command\": command,\n   49|         \"artifact_path\": str(artifact.relative_to(ROOT)),\n   50|         \"artifact_sha256\": sha256_file(artifact),",
+      "current_file": "scripts/dd_batch_001_execute.py",
+      "current_line": 46,
+      "current_source_context": "\"branch_or_worktree\": subprocess.check_output([\"git\", \"branch\", \"--show-current\"], cwd=ROOT, text=True).strip(),",
+      "current_context_block": "   42|         \"evidence_id\": eid,\n   43|         \"procedure_id\": pid,\n   44|         \"requirement_id\": req,\n   45|         \"canonical_sha\": sha,\n   46|         \"branch_or_worktree\": subprocess.check_output([\"git\", \"branch\", \"--show-current\"], cwd=ROOT, text=True).strip(),\n   47|         \"access_level\": \"L0\",\n   48|         \"method_or_command\": command,\n   49|         \"artifact_path\": str(artifact.relative_to(ROOT)),\n   50|         \"artifact_sha256\": sha256_file(artifact),",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"branch\", \"--show-current\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"branch\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--show-current\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/dd_batch_001_execute.py:46; executable/args from script constants; context: \"branch_or_worktree\": subprocess.check_output([\"git\", \"branch\", \"--show-current\"",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/dd_gate_bootstrap.py|138|B603",
+      "original_context_recovery": {
+        "original_context": "return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  134| ]\n  135| \n  136| \n  137| def git_sha() -> str:\n  138|     return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()\n  139| \n  140| \n  141| def sha256_bytes(data: bytes) -> str:\n  142|     return hashlib.sha256(data).hexdigest()",
+      "current_file": "scripts/dd_gate_bootstrap.py",
+      "current_line": 138,
+      "current_source_context": "return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()",
+      "current_context_block": "  134| ]\n  135| \n  136| \n  137| def git_sha() -> str:\n  138|     return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()\n  139| \n  140| \n  141| def sha256_bytes(data: bytes) -> str:\n  142|     return hashlib.sha256(data).hexdigest()",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/dd_gate_bootstrap.py:138; executable/args from script constants; context: return subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/dd_gate_bootstrap.py|495|B603",
+      "original_context_recovery": {
+        "original_context": "out = subprocess.check_output(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  491| def git_delta_reconciliation(baseline_sha: str, current_sha: str) -> dict:\n  492|     if baseline_sha == current_sha:\n  493|         changed_files = []\n  494|     else:\n  495|         out = subprocess.check_output(\n  496|             [\"git\", \"diff\", \"--name-only\", baseline_sha, current_sha],\n  497|             cwd=ROOT,\n  498|             text=True,\n  499|         )",
+      "current_file": "scripts/dd_gate_bootstrap.py",
+      "current_line": 495,
+      "current_source_context": "out = subprocess.check_output(",
+      "current_context_block": "  491| def git_delta_reconciliation(baseline_sha: str, current_sha: str) -> dict:\n  492|     if baseline_sha == current_sha:\n  493|         changed_files = []\n  494|     else:\n  495|         out = subprocess.check_output(\n  496|             [\"git\", \"diff\", \"--name-only\", baseline_sha, current_sha],\n  497|             cwd=ROOT,\n  498|             text=True,\n  499|         )",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"diff\", \"--name-only\", baseline_sha, current_sha]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"diff\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--name-only\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "baseline_sha",
+            "kind": "Name"
+          },
+          {
+            "index": 4,
+            "source": "current_sha",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/dd_gate_bootstrap.py:495 uses argv list without shell expansion; scope=tooling; context: out = subprocess.check_output(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/dd_gate_bootstrap.py|561|B603",
+      "original_context_recovery": {
+        "original_context": "subprocess.check_output(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  557|     return {\n  558|         \"baseline_sha\": baseline_sha,\n  559|         \"current_canonical_sha\": current_sha,\n  560|         \"commits_between\": int(\n  561|             subprocess.check_output(\n  562|                 [\"git\", \"rev-list\", \"--count\", f\"{baseline_sha}..{current_sha}\"],\n  563|                 cwd=ROOT,\n  564|                 text=True,\n  565|             ).strip()",
+      "current_file": "scripts/dd_gate_bootstrap.py",
+      "current_line": 561,
+      "current_source_context": "subprocess.check_output(",
+      "current_context_block": "  557|     return {\n  558|         \"baseline_sha\": baseline_sha,\n  559|         \"current_canonical_sha\": current_sha,\n  560|         \"commits_between\": int(\n  561|             subprocess.check_output(\n  562|                 [\"git\", \"rev-list\", \"--count\", f\"{baseline_sha}..{current_sha}\"],\n  563|                 cwd=ROOT,\n  564|                 text=True,\n  565|             ).strip()",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-list\", \"--count\", f\"{baseline_sha}..{current_sha}\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-list\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--count\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "f\"{baseline_sha}..{current_sha}\"",
+            "kind": "JoinedStr"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/dd_gate_bootstrap.py:561 uses argv list without shell expansion; scope=tooling; context: subprocess.check_output(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/finalize_launch.py|23|B603",
+      "original_context_recovery": {
+        "original_context": "return subprocess.call(cmd, cwd=str(ROOT))",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   19| \n   20| \n   21| def _run(cmd: list[str]) -> int:\n   22|     print(\"$\", \" \".join(cmd))\n   23|     return subprocess.call(cmd, cwd=str(ROOT))\n   24| \n   25| \n   26| def main() -> int:\n   27|     os.chdir(ROOT)",
+      "current_file": "scripts/finalize_launch.py",
+      "current_line": 23,
+      "current_source_context": "return subprocess.call(cmd, cwd=str(ROOT))",
+      "current_context_block": "   19| \n   20| \n   21| def _run(cmd: list[str]) -> int:\n   22|     print(\"$\", \" \".join(cmd))\n   23|     return subprocess.call(cmd, cwd=str(ROOT))\n   24| \n   25| \n   26| def main() -> int:\n   27|     os.chdir(ROOT)",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "str(ROOT)",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/finalize_launch.py:23 uses argv list without shell expansion; scope=tooling; context: return subprocess.call(cmd, cwd=str(ROOT))",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/full_completion_continuous_orchestrator.py|18|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   14| OUT = ROOT / \"FULL_COMPLETION_CONTINUOUS_STATUS.json\"\n   15| \n   16| \n   17| def _run(cmd: list[str]) -> dict:\n   18|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   19|     return {\"cmd\": cmd, \"exit_code\": proc.returncode, \"tail\": (proc.stdout + proc.stderr)[-800:]}\n   20| \n   21| \n   22| def main() -> int:",
+      "current_file": "scripts/full_completion_continuous_orchestrator.py",
+      "current_line": 18,
+      "current_source_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "current_context_block": "   14| OUT = ROOT / \"FULL_COMPLETION_CONTINUOUS_STATUS.json\"\n   15| \n   16| \n   17| def _run(cmd: list[str]) -> dict:\n   18|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   19|     return {\"cmd\": cmd, \"exit_code\": proc.returncode, \"tail\": (proc.stdout + proc.stderr)[-800:]}\n   20| \n   21| \n   22| def main() -> int:",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/full_completion_continuous_orchestrator.py:18 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/generate_final_integrity_summary.py|54|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   50|     raise KeyError(key)\n   51| \n   52| \n   53| def _run_pytest() -> dict[str, Any]:\n   54|     proc = subprocess.run(\n   55|         [\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"],\n   56|         cwd=ROOT,\n   57|         capture_output=True,\n   58|         text=True,",
+      "current_file": "scripts/generate_final_integrity_summary.py",
+      "current_line": 54,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   50|     raise KeyError(key)\n   51| \n   52| \n   53| def _run_pytest() -> dict[str, Any]:\n   54|     proc = subprocess.run(\n   55|         [\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"],\n   56|         cwd=ROOT,\n   57|         capture_output=True,\n   58|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"pytest\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"not slow\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-rA\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/generate_final_integrity_summary.py:54 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/generate_hash_lock.py|38|B603",
+      "original_context_recovery": {
+        "original_context": "subprocess.check_call(cmd)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   34|             str(lock_file),\n   35|             \"--report\",\n   36|             str(report),\n   37|         ]\n   38|         subprocess.check_call(cmd)\n   39|         data = json.loads(report.read_text(encoding=\"utf-8\"))\n   40|     finally:\n   41|         report.unlink(missing_ok=True)\n   42|     pkgs: list[tuple[str, str]] = []",
+      "current_file": "scripts/generate_hash_lock.py",
+      "current_line": 38,
+      "current_source_context": "subprocess.check_call(cmd)",
+      "current_context_block": "   34|             str(lock_file),\n   35|             \"--report\",\n   36|             str(report),\n   37|         ]\n   38|         subprocess.check_call(cmd)\n   39|         data = json.loads(report.read_text(encoding=\"utf-8\"))\n   40|     finally:\n   41|         report.unlink(missing_ok=True)\n   42|     pkgs: list[tuple[str, str]] = []",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/generate_hash_lock.py:38 uses argv list without shell expansion; scope=tooling; context: subprocess.check_call(cmd)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/generate_pentagonal_hero_binding_report.py|751|B603",
+      "original_context_recovery": {
+        "original_context": "pytest_result = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  747| \n  748|     # Run pytest and capture output\n  749|     import subprocess\n  750| \n  751|     pytest_result = subprocess.run(\n  752|         [sys.executable, \"-m\", \"pytest\", \"tests/test_pentagonal_hero_binding.py\", \"-v\", \"--tb=short\"],\n  753|         cwd=ROOT,\n  754|         capture_output=True,\n  755|         text=True,",
+      "current_file": "scripts/generate_pentagonal_hero_binding_report.py",
+      "current_line": 751,
+      "current_source_context": "pytest_result = subprocess.run(",
+      "current_context_block": "  747| \n  748|     # Run pytest and capture output\n  749|     import subprocess\n  750| \n  751|     pytest_result = subprocess.run(\n  752|         [sys.executable, \"-m\", \"pytest\", \"tests/test_pentagonal_hero_binding.py\", \"-v\", \"--tb=short\"],\n  753|         cwd=ROOT,\n  754|         capture_output=True,\n  755|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pytest\", \"tests/test_pentagonal_hero_binding.py\", \"-v\", \"--tb=short\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"tests/test_pentagonal_hero_binding.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-v\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"--tb=short\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/generate_pentagonal_hero_binding_report.py:751 uses argv list without shell expansion; scope=tooling; context: pytest_result = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/generate_supplemental_closure_report.py|194|B603",
+      "original_context_recovery": {
+        "original_context": "subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=120, check=False)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  190|         \"--output\", str(out_dir),\n  191|         \"--silent\",\n  192|     ]\n  193|     try:\n  194|         subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=120, check=False)\n  195|         report_path = out_dir / \"jscpd-report.json\"\n  196|         if report_path.exists():\n  197|             report = json.loads(report_path.read_text())\n  198|             clones = report.get(\"duplicates\") or []",
+      "current_file": "scripts/generate_supplemental_closure_report.py",
+      "current_line": 194,
+      "current_source_context": "subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=120, check=False)",
+      "current_context_block": "  190|         \"--output\", str(out_dir),\n  191|         \"--silent\",\n  192|     ]\n  193|     try:\n  194|         subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=120, check=False)\n  195|         report_path = out_dir / \"jscpd-report.json\"\n  196|         if report_path.exists():\n  197|             report = json.loads(report_path.read_text())\n  198|             clones = report.get(\"duplicates\") or []",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at scripts/generate_supplemental_closure_report.py:194 uses argv list without shell expansion; scope=tooling; context: subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=120, check",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/generate_supplemental_closure_report.py|471|B603",
+      "original_context_recovery": {
+        "original_context": "result = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  467| \n  468|     # Investigate outage: production lacks TELEGRAM_BOT_TOKEN\n  469|     last_main_before_1733_utc = []\n  470|     try:\n  471|         result = subprocess.run(\n  472|             [\"git\", \"log\", \"origin/main\", \"--format=%h %ci %s\", \"--until=2026-09-02T17:33:00Z\", \"-5\"],\n  473|             cwd=ROOT, capture_output=True, text=True, check=True,\n  474|         )\n  475|         last_main_before_1733_utc = result.stdout.strip().splitlines()",
+      "current_file": "scripts/generate_supplemental_closure_report.py",
+      "current_line": 471,
+      "current_source_context": "result = subprocess.run(",
+      "current_context_block": "  467| \n  468|     # Investigate outage: production lacks TELEGRAM_BOT_TOKEN\n  469|     last_main_before_1733_utc = []\n  470|     try:\n  471|         result = subprocess.run(\n  472|             [\"git\", \"log\", \"origin/main\", \"--format=%h %ci %s\", \"--until=2026-09-02T17:33:00Z\", \"-5\"],\n  473|             cwd=ROOT, capture_output=True, text=True, check=True,\n  474|         )\n  475|         last_main_before_1733_utc = result.stdout.strip().splitlines()",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"log\", \"origin/main\", \"--format=%h %ci %s\", \"--until=2026-09-02T17:33:00Z\", \"-5\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"log\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"origin/main\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--format=%h %ci %s\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"--until=2026-09-02T17:33:00Z\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-5\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/generate_supplemental_closure_report.py:471 uses argv list without shell expansion; scope=tooling; context: result = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/honest_deep_institutional_audit.py|24|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   20| OUT = ROOT / \"HONEST_DEEP_INSTITUTIONAL_AUDIT.json\"\n   21| \n   22| \n   23| def _rg_count(pattern: str, paths: list[str]) -> int:\n   24|     proc = subprocess.run(\n   25|         [\"rg\", \"-l\", pattern, *paths],\n   26|         cwd=ROOT,\n   27|         capture_output=True,\n   28|         text=True,",
+      "current_file": "scripts/honest_deep_institutional_audit.py",
+      "current_line": 24,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   20| OUT = ROOT / \"HONEST_DEEP_INSTITUTIONAL_AUDIT.json\"\n   21| \n   22| \n   23| def _rg_count(pattern: str, paths: list[str]) -> int:\n   24|     proc = subprocess.run(\n   25|         [\"rg\", \"-l\", pattern, *paths],\n   26|         cwd=ROOT,\n   27|         capture_output=True,\n   28|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"rg\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"rg\", \"-l\", pattern, *paths]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"rg\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-l\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "pattern",
+            "kind": "Name"
+          },
+          {
+            "index": 3,
+            "source": "*paths",
+            "kind": "Starred"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/honest_deep_institutional_audit.py:24 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/institutional_readiness_matrix.py|23|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   19| \n   20| def _run_pytest(targets: list[str]) -> bool:\n   21|     if not targets:\n   22|         return False\n   23|     proc = subprocess.run(\n   24|         [sys.executable, \"-m\", \"pytest\", *targets, \"-q\", \"--tb=no\"],\n   25|         cwd=ROOT,\n   26|         capture_output=True,\n   27|         text=True,",
+      "current_file": "scripts/institutional_readiness_matrix.py",
+      "current_line": 23,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   19| \n   20| def _run_pytest(targets: list[str]) -> bool:\n   21|     if not targets:\n   22|         return False\n   23|     proc = subprocess.run(\n   24|         [sys.executable, \"-m\", \"pytest\", *targets, \"-q\", \"--tb=no\"],\n   25|         cwd=ROOT,\n   26|         capture_output=True,\n   27|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pytest\", *targets, \"-q\", \"--tb=no\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "*targets",
+            "kind": "Starred"
+          },
+          {
+            "index": 4,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/institutional_readiness_matrix.py:23 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/lock_requirements.py|27|B603",
+      "original_context_recovery": {
+        "original_context": "raw = subprocess.check_output([sys.executable, \"-m\", \"pip\", \"freeze\"], text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   23|     return out\n   24| \n   25| \n   26| def _freeze_map() -> dict[str, str]:\n   27|     raw = subprocess.check_output([sys.executable, \"-m\", \"pip\", \"freeze\"], text=True)\n   28|     fmap: dict[str, str] = {}\n   29|     for line in raw.splitlines():\n   30|         if \"==\" not in line or line.startswith(\"-e\"):\n   31|             continue",
+      "current_file": "scripts/lock_requirements.py",
+      "current_line": 27,
+      "current_source_context": "raw = subprocess.check_output([sys.executable, \"-m\", \"pip\", \"freeze\"], text=True)",
+      "current_context_block": "   23|     return out\n   24| \n   25| \n   26| def _freeze_map() -> dict[str, str]:\n   27|     raw = subprocess.check_output([sys.executable, \"-m\", \"pip\", \"freeze\"], text=True)\n   28|     fmap: dict[str, str] = {}\n   29|     for line in raw.splitlines():\n   30|         if \"==\" not in line or line.startswith(\"-e\"):\n   31|             continue",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pip\", \"freeze\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pip\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"freeze\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/lock_requirements.py:27; executable/args from script constants; context: raw = subprocess.check_output([sys.executable, \"-m\", \"pip\", \"freeze\"], text=True",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/master_integrity_reconciliation.py|89|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   85| \n   86| \n   87| def _pytest_run() -> dict[str, Any]:\n   88|     started = datetime.now(UTC)\n   89|     proc = subprocess.run(\n   90|         [\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"],\n   91|         cwd=ROOT,\n   92|         capture_output=True,\n   93|         text=True,",
+      "current_file": "scripts/master_integrity_reconciliation.py",
+      "current_line": 89,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   85| \n   86| \n   87| def _pytest_run() -> dict[str, Any]:\n   88|     started = datetime.now(UTC)\n   89|     proc = subprocess.run(\n   90|         [\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"],\n   91|         cwd=ROOT,\n   92|         capture_output=True,\n   93|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"pytest\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pytest\", \"-m\", \"not slow\", \"--tb=no\", \"-rA\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"not slow\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-rA\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/master_integrity_reconciliation.py:89 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/prove_hmac_closure_guard_failure.py|23|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run([sys.executable, \"-c\", code], cwd=ROOT, capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   19|     print(f\"BLOCKED:{e}\")\n   20|     raise SystemExit(42)\n   21| raise SystemExit(0)\n   22| \"\"\"\n   23|     proc = subprocess.run([sys.executable, \"-c\", code], cwd=ROOT, capture_output=True, text=True)\n   24|     print(proc.stdout.strip() or proc.stderr.strip())\n   25|     if proc.returncode != 42:\n   26|         print(f\"Expected exit 42, got {proc.returncode}\", file=sys.stderr)\n   27|         return 1",
+      "current_file": "scripts/prove_hmac_closure_guard_failure.py",
+      "current_line": 23,
+      "current_source_context": "proc = subprocess.run([sys.executable, \"-c\", code], cwd=ROOT, capture_output=True, text=True)",
+      "current_context_block": "   19|     print(f\"BLOCKED:{e}\")\n   20|     raise SystemExit(42)\n   21| raise SystemExit(0)\n   22| \"\"\"\n   23|     proc = subprocess.run([sys.executable, \"-c\", code], cwd=ROOT, capture_output=True, text=True)\n   24|     print(proc.stdout.strip() or proc.stderr.strip())\n   25|     if proc.returncode != 42:\n   26|         print(f\"Expected exit 42, got {proc.returncode}\", file=sys.stderr)\n   27|         return 1",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-c\", code]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-c\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "code",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/prove_hmac_closure_guard_failure.py:23; executable/args from script constants; context: proc = subprocess.run([sys.executable, \"-c\", code], cwd=ROOT, capture_output=Tru",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/restore_postgres.py|43|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   39|     with gzip.open(dump, \"rb\") as src, tempfile.NamedTemporaryFile(suffix=\".sql\", delete=False) as tmp:\n   40|         shutil.copyfileobj(src, tmp)\n   41|         tmp_path = tmp.name\n   42|     try:\n   43|         proc = subprocess.run(\n   44|             [psql, url, \"-v\", \"ON_ERROR_STOP=1\", \"-f\", tmp_path],\n   45|             capture_output=True,\n   46|             text=True,\n   47|         )",
+      "current_file": "scripts/restore_postgres.py",
+      "current_line": 43,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   39|     with gzip.open(dump, \"rb\") as src, tempfile.NamedTemporaryFile(suffix=\".sql\", delete=False) as tmp:\n   40|         shutil.copyfileobj(src, tmp)\n   41|         tmp_path = tmp.name\n   42|     try:\n   43|         proc = subprocess.run(\n   44|             [psql, url, \"-v\", \"ON_ERROR_STOP=1\", \"-f\", tmp_path],\n   45|             capture_output=True,\n   46|             text=True,\n   47|         )",
+      "subprocess_analysis": {
+        "executable_provenance": "psql",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[psql, url, \"-v\", \"ON_ERROR_STOP=1\", \"-f\", tmp_path]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "psql",
+            "kind": "Name"
+          },
+          {
+            "index": 1,
+            "source": "url",
+            "kind": "Name"
+          },
+          {
+            "index": 2,
+            "source": "\"-v\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"ON_ERROR_STOP=1\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-f\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "tmp_path",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/restore_postgres.py:43 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/retrospective_deep_audit.py|115|B603",
+      "original_context_recovery": {
+        "original_context": "subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  111| \n  112| \n  113| def _git_on_main(path: str) -> bool:\n  114|     try:\n  115|         subprocess.run(\n  116|             [\"git\", \"cat-file\", \"-e\", f\"origin/main:{path}\"],\n  117|             cwd=ROOT,\n  118|             capture_output=True,\n  119|             check=True,",
+      "current_file": "scripts/retrospective_deep_audit.py",
+      "current_line": 115,
+      "current_source_context": "subprocess.run(",
+      "current_context_block": "  111| \n  112| \n  113| def _git_on_main(path: str) -> bool:\n  114|     try:\n  115|         subprocess.run(\n  116|             [\"git\", \"cat-file\", \"-e\", f\"origin/main:{path}\"],\n  117|             cwd=ROOT,\n  118|             capture_output=True,\n  119|             check=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"cat-file\", \"-e\", f\"origin/main:{path}\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cat-file\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"-e\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "f\"origin/main:{path}\"",
+            "kind": "JoinedStr"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/retrospective_deep_audit.py:115 uses argv list without shell expansion; scope=tooling; context: subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/retrospective_deep_audit.py|372|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=180)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  368|         else:\n  369|             cmd = [sys.executable, \"-m\", \"pytest\", str(tf), \"-q\", \"--tb=line\"]\n  370| \n  371|     try:\n  372|         proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=180)\n  373|         out = (proc.stdout or \"\") + (proc.stderr or \"\")\n  374|         passed = proc.returncode == 0\n  375|         return passed, out[-600:] if len(out) > 600 else out\n  376|     except subprocess.TimeoutExpired:",
+      "current_file": "scripts/retrospective_deep_audit.py",
+      "current_line": 372,
+      "current_source_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=180)",
+      "current_context_block": "  368|         else:\n  369|             cmd = [sys.executable, \"-m\", \"pytest\", str(tf), \"-q\", \"--tb=line\"]\n  370| \n  371|     try:\n  372|         proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=180)\n  373|         out = (proc.stdout or \"\") + (proc.stderr or \"\")\n  374|         passed = proc.returncode == 0\n  375|         return passed, out[-600:] if len(out) > 600 else out\n  376|     except subprocess.TimeoutExpired:",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at scripts/retrospective_deep_audit.py:372 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=180",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_batch_verification_orchestrator.py|80|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   76|     env.setdefault(\"PYTHONPATH\", str(ROOT))\n   77|     env.setdefault(\"SERVICE_BUS_LOCAL\", \"true\")\n   78|     last: dict | None = None\n   79|     for attempt in range(1, attempts + 1):\n   80|         proc = subprocess.run(\n   81|             [sys.executable, str(ROOT / \"scripts\" / script)],\n   82|             capture_output=True,\n   83|             text=True,\n   84|             cwd=ROOT,",
+      "current_file": "scripts/run_batch_verification_orchestrator.py",
+      "current_line": 80,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   76|     env.setdefault(\"PYTHONPATH\", str(ROOT))\n   77|     env.setdefault(\"SERVICE_BUS_LOCAL\", \"true\")\n   78|     last: dict | None = None\n   79|     for attempt in range(1, attempts + 1):\n   80|         proc = subprocess.run(\n   81|             [sys.executable, str(ROOT / \"scripts\" / script)],\n   82|             capture_output=True,\n   83|             text=True,\n   84|             cwd=ROOT,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, str(ROOT / \"scripts\" / script)]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "str(ROOT / \"scripts\" / script)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [
+          "env",
+          "os.environ passed or copied to subprocess env"
+        ],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [
+        "env",
+        "os.environ passed or copied to subprocess env"
+      ],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at scripts/run_batch_verification_orchestrator.py:80 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_cap_dedup_audit_1_100.py|195|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  191|     return out\n  192| \n  193| \n  194| def _pylint_r0801() -> list[dict]:\n  195|     proc = subprocess.run(\n  196|         [\"pylint\", \"--disable=all\", \"--enable=duplicate-code\", \"cap646/\"],\n  197|         capture_output=True,\n  198|         text=True,\n  199|         cwd=ROOT,",
+      "current_file": "scripts/run_cap_dedup_audit_1_100.py",
+      "current_line": 195,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  191|     return out\n  192| \n  193| \n  194| def _pylint_r0801() -> list[dict]:\n  195|     proc = subprocess.run(\n  196|         [\"pylint\", \"--disable=all\", \"--enable=duplicate-code\", \"cap646/\"],\n  197|         capture_output=True,\n  198|         text=True,\n  199|         cwd=ROOT,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"--disable=all\", \"--enable=duplicate-code\", \"cap646/\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_cap_dedup_audit_1_100.py:195 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_completion.py|66|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   62|         f\"--cov-report=xml:{cov_path}\",\n   63|         \"-q\",\n   64|         \"--tb=no\",\n   65|     ]\n   66|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   67|     snap = coverage_from_xml(cov_path) if cov_path.exists() else {\"error\": \"missing coverage xml\"}\n   68|     snap[\"pytest_exit_code\"] = proc.returncode\n   69|     snap[\"label\"] = label\n   70|     return snap",
+      "current_file": "scripts/run_closure_mandate_completion.py",
+      "current_line": 66,
+      "current_source_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "current_context_block": "   62|         f\"--cov-report=xml:{cov_path}\",\n   63|         \"-q\",\n   64|         \"--tb=no\",\n   65|     ]\n   66|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   67|     snap = coverage_from_xml(cov_path) if cov_path.exists() else {\"error\": \"missing coverage xml\"}\n   68|     snap[\"pytest_exit_code\"] = proc.returncode\n   69|     snap[\"label\"] = label\n   70|     return snap",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_completion.py:66 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_completion.py|74|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   70|     return snap\n   71| \n   72| \n   73| def pylint_r0801() -> list[dict[str, str]]:\n   74|     proc = subprocess.run(\n   75|         [\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"],\n   76|         capture_output=True,\n   77|         text=True,\n   78|         cwd=ROOT,",
+      "current_file": "scripts/run_closure_mandate_completion.py",
+      "current_line": 74,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   70|     return snap\n   71| \n   72| \n   73| def pylint_r0801() -> list[dict[str, str]]:\n   74|     proc = subprocess.run(\n   75|         [\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"],\n   76|         capture_output=True,\n   77|         text=True,\n   78|         cwd=ROOT,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_completion.py:74 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_completion.py|101|B603",
+      "original_context_recovery": {
+        "original_context": "subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   97| \n   98| def jscpd_count() -> int:\n   99|     out_dir = ROOT / \"docs/.jscpd-completion\"\n  100|     out_dir.mkdir(parents=True, exist_ok=True)\n  101|     subprocess.run(\n  102|         [\n  103|             \"npx\",\n  104|             \"--yes\",\n  105|             \"jscpd@4.0.5\",",
+      "current_file": "scripts/run_closure_mandate_completion.py",
+      "current_line": 101,
+      "current_source_context": "subprocess.run(",
+      "current_context_block": "   97| \n   98| def jscpd_count() -> int:\n   99|     out_dir = ROOT / \"docs/.jscpd-completion\"\n  100|     out_dir.mkdir(parents=True, exist_ok=True)\n  101|     subprocess.run(\n  102|         [\n  103|             \"npx\",\n  104|             \"--yes\",\n  105|             \"jscpd@4.0.5\",",
+      "subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\n            \"npx\",\n            \"--yes\",\n            \"jscpd@4.0.5\",\n            \"cap646/batch01_production.py\",\n            \"cap646/batch01_dedicated.py\",\n            \"cap646/batch02_production.py\",\n            \"cap646/batch02_dedicated.py\",\n            \"cap646/batch03_dedicated.py\",\n            \"cap646/runtime.py\",\n            \"cap646/batch_spine.py\",\n            \"cap646/dedicated_common.py\",\n            \"cap646/handlers\",\n            \"--min-lines\",\n            \"5\",\n            \"--min-tokens\",\n            \"50\",\n            \"--reporters\",\n            \"json\",\n            \"--output\",\n            str(out_dir),\n        ]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd@4.0.5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/batch01_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"cap646/batch01_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646/batch02_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"cap646/batch02_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"cap646/batch03_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"cap646/runtime.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"cap646/batch_spine.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "\"cap646/dedicated_common.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 11,
+            "source": "\"cap646/handlers\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 12,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 13,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 14,
+            "source": "\"--min-tokens\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 15,
+            "source": "\"50\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 16,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 17,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 18,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 19,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_completion.py:101 uses argv list without shell expansion; scope=tooling; context: subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_completion.py|176|B603",
+      "original_context_recovery": {
+        "original_context": "gate_proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  172|     if args.skip_gate_full:\n  173|         gate_proc = subprocess.CompletedProcess(args=[], returncode=0, stdout=\"\", stderr=\"skipped\")\n  174|         gate_elapsed_s = 0.0\n  175|     else:\n  176|         gate_proc = subprocess.run(\n  177|             [sys.executable, \"-m\", \"pytest\", \"tests/cap646/test_institutional_gate.py::test_institutional_gate_full\", \"-q\", \"--tb=no\"],\n  178|             cwd=ROOT,\n  179|             capture_output=True,\n  180|             text=True,",
+      "current_file": "scripts/run_closure_mandate_completion.py",
+      "current_line": 176,
+      "current_source_context": "gate_proc = subprocess.run(",
+      "current_context_block": "  172|     if args.skip_gate_full:\n  173|         gate_proc = subprocess.CompletedProcess(args=[], returncode=0, stdout=\"\", stderr=\"skipped\")\n  174|         gate_elapsed_s = 0.0\n  175|     else:\n  176|         gate_proc = subprocess.run(\n  177|             [sys.executable, \"-m\", \"pytest\", \"tests/cap646/test_institutional_gate.py::test_institutional_gate_full\", \"-q\", \"--tb=no\"],\n  178|             cwd=ROOT,\n  179|             capture_output=True,\n  180|             text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pytest\", \"tests/cap646/test_institutional_gate.py::test_institutional_gate_full\", \"-q\", \"--tb=no\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"tests/cap646/test_institutional_gate.py::test_institutional_gate_full\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_completion.py:176 uses argv list without shell expansion; scope=tooling; context: gate_proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_final.py|85|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   81|     return out\n   82| \n   83| \n   84| def run_bandit() -> dict:\n   85|     proc = subprocess.run(\n   86|         [\"bandit\", \"-r\", \"cap646/\", \"-f\", \"json\", \"-q\"],\n   87|         capture_output=True,\n   88|         text=True,\n   89|     )",
+      "current_file": "scripts/run_closure_mandate_final.py",
+      "current_line": 85,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   81|     return out\n   82| \n   83| \n   84| def run_bandit() -> dict:\n   85|     proc = subprocess.run(\n   86|         [\"bandit\", \"-r\", \"cap646/\", \"-f\", \"json\", \"-q\"],\n   87|         capture_output=True,\n   88|         text=True,\n   89|     )",
+      "subprocess_analysis": {
+        "executable_provenance": "\"bandit\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"bandit\", \"-r\", \"cap646/\", \"-f\", \"json\", \"-q\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"bandit\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-r\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"-f\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_final.py:85 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_final.py|98|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   94|     return {\"exit_code\": proc.returncode, \"metrics\": data.get(\"metrics\", {}), \"results\": data.get(\"results\", [])}\n   95| \n   96| \n   97| def run_pylint_r0801() -> list[str]:\n   98|     proc = subprocess.run(\n   99|         [\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"],\n  100|         capture_output=True,\n  101|         text=True,\n  102|     )",
+      "current_file": "scripts/run_closure_mandate_final.py",
+      "current_line": 98,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   94|     return {\"exit_code\": proc.returncode, \"metrics\": data.get(\"metrics\", {}), \"results\": data.get(\"results\", [])}\n   95| \n   96| \n   97| def run_pylint_r0801() -> list[str]:\n   98|     proc = subprocess.run(\n   99|         [\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"],\n  100|         capture_output=True,\n  101|         text=True,\n  102|     )",
+      "subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_final.py:98 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_final.py|109|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  105| \n  106| def run_jscpd() -> dict:\n  107|     out_dir = ROOT / \"docs/.jscpd-mandate-final\"\n  108|     out_dir.mkdir(parents=True, exist_ok=True)\n  109|     proc = subprocess.run(\n  110|         [\n  111|             \"npx\", \"--yes\", \"jscpd@4.0.5\",\n  112|             \"cap646/batch01_production.py\", \"cap646/batch01_dedicated.py\",\n  113|             \"cap646/batch02_production.py\", \"cap646/batch02_dedicated.py\",",
+      "current_file": "scripts/run_closure_mandate_final.py",
+      "current_line": 109,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  105| \n  106| def run_jscpd() -> dict:\n  107|     out_dir = ROOT / \"docs/.jscpd-mandate-final\"\n  108|     out_dir.mkdir(parents=True, exist_ok=True)\n  109|     proc = subprocess.run(\n  110|         [\n  111|             \"npx\", \"--yes\", \"jscpd@4.0.5\",\n  112|             \"cap646/batch01_production.py\", \"cap646/batch01_dedicated.py\",\n  113|             \"cap646/batch02_production.py\", \"cap646/batch02_dedicated.py\",",
+      "subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\n            \"npx\", \"--yes\", \"jscpd@4.0.5\",\n            \"cap646/batch01_production.py\", \"cap646/batch01_dedicated.py\",\n            \"cap646/batch02_production.py\", \"cap646/batch02_dedicated.py\",\n            \"cap646/runtime.py\", \"cap646/batch_spine.py\", \"cap646/handlers\",\n            \"--min-lines\", \"5\", \"--min-tokens\", \"50\", \"--reporters\", \"json\",\n            \"--output\", str(out_dir),\n        ]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd@4.0.5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/batch01_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"cap646/batch01_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646/batch02_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"cap646/batch02_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"cap646/runtime.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"cap646/batch_spine.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"cap646/handlers\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 11,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 12,
+            "source": "\"--min-tokens\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 13,
+            "source": "\"50\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 14,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 15,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 16,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 17,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_final.py:109 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_final.py|174|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  170|     return results\n  171| \n  172| \n  173| def run_bandit_scripts() -> dict:\n  174|     proc = subprocess.run(\n  175|         [\"bandit\", \"-r\", \"scripts/\", \"-f\", \"json\", \"-q\"],\n  176|         capture_output=True,\n  177|         text=True,\n  178|     )",
+      "current_file": "scripts/run_closure_mandate_final.py",
+      "current_line": 174,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  170|     return results\n  171| \n  172| \n  173| def run_bandit_scripts() -> dict:\n  174|     proc = subprocess.run(\n  175|         [\"bandit\", \"-r\", \"scripts/\", \"-f\", \"json\", \"-q\"],\n  176|         capture_output=True,\n  177|         text=True,\n  178|     )",
+      "subprocess_analysis": {
+        "executable_provenance": "\"bandit\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"bandit\", \"-r\", \"scripts/\", \"-f\", \"json\", \"-q\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"bandit\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"-r\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"scripts/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"-f\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_final.py:174 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_final.py|187|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  183|     return {\"exit_code\": proc.returncode, \"metrics\": data.get(\"metrics\", {}), \"results\": data.get(\"results\", [])}\n  184| \n  185| \n  186| def run_radon_cc() -> dict:\n  187|     proc = subprocess.run(\n  188|         [\"radon\", \"cc\", \"cap646/\", \"-a\", \"-nc\", \"-j\"],\n  189|         capture_output=True,\n  190|         text=True,\n  191|     )",
+      "current_file": "scripts/run_closure_mandate_final.py",
+      "current_line": 187,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  183|     return {\"exit_code\": proc.returncode, \"metrics\": data.get(\"metrics\", {}), \"results\": data.get(\"results\", [])}\n  184| \n  185| \n  186| def run_radon_cc() -> dict:\n  187|     proc = subprocess.run(\n  188|         [\"radon\", \"cc\", \"cap646/\", \"-a\", \"-nc\", \"-j\"],\n  189|         capture_output=True,\n  190|         text=True,\n  191|     )",
+      "subprocess_analysis": {
+        "executable_provenance": "\"radon\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"radon\", \"cc\", \"cap646/\", \"-a\", \"-nc\", \"-j\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"radon\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cc\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"-a\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"-nc\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"-j\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_final.py:187 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_last.py|310|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  306| \n  307| \n  308| def coverage_spine_suite() -> dict:\n  309|     cov_path = ROOT / \"coverage-spine-last.xml\"\n  310|     proc = subprocess.run(\n  311|         [sys.executable, \"-m\", \"pytest\", *SPINE_PYTEST, \"--cov=cap646\", \"--cov=database\", f\"--cov-report=xml:{cov_path}\", \"-q\", \"--tb=no\"],\n  312|         cwd=ROOT,\n  313|         capture_output=True,\n  314|         text=True,",
+      "current_file": "scripts/run_closure_mandate_last.py",
+      "current_line": 310,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  306| \n  307| \n  308| def coverage_spine_suite() -> dict:\n  309|     cov_path = ROOT / \"coverage-spine-last.xml\"\n  310|     proc = subprocess.run(\n  311|         [sys.executable, \"-m\", \"pytest\", *SPINE_PYTEST, \"--cov=cap646\", \"--cov=database\", f\"--cov-report=xml:{cov_path}\", \"-q\", \"--tb=no\"],\n  312|         cwd=ROOT,\n  313|         capture_output=True,\n  314|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"-m\", \"pytest\", *SPINE_PYTEST, \"--cov=cap646\", \"--cov=database\", f\"--cov-report=xml:{cov_path}\", \"-q\", \"--tb=no\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "*SPINE_PYTEST",
+            "kind": "Starred"
+          },
+          {
+            "index": 4,
+            "source": "\"--cov=cap646\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"--cov=database\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "f\"--cov-report=xml:{cov_path}\"",
+            "kind": "JoinedStr"
+          },
+          {
+            "index": 7,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_last.py:310 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_last.py|367|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  363|         f\"cap646/batch{i:02d}_production.py\" for i in range(4, 18)\n  364|     ]\n  365|     out_dir = ROOT / \"docs/.jscpd-last\"\n  366|     out_dir.mkdir(parents=True, exist_ok=True)\n  367|     proc = subprocess.run(\n  368|         [\"npx\", \"--yes\", \"jscpd\", *official_paths, *hero_paths, \"--min-lines\", \"5\", \"--reporters\", \"json\", \"--output\", str(out_dir)],\n  369|         cwd=ROOT,\n  370|         capture_output=True,\n  371|         text=True,",
+      "current_file": "scripts/run_closure_mandate_last.py",
+      "current_line": 367,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "  363|         f\"cap646/batch{i:02d}_production.py\" for i in range(4, 18)\n  364|     ]\n  365|     out_dir = ROOT / \"docs/.jscpd-last\"\n  366|     out_dir.mkdir(parents=True, exist_ok=True)\n  367|     proc = subprocess.run(\n  368|         [\"npx\", \"--yes\", \"jscpd\", *official_paths, *hero_paths, \"--min-lines\", \"5\", \"--reporters\", \"json\", \"--output\", str(out_dir)],\n  369|         cwd=ROOT,\n  370|         capture_output=True,\n  371|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"npx\", \"--yes\", \"jscpd\", *official_paths, *hero_paths, \"--min-lines\", \"5\", \"--reporters\", \"json\", \"--output\", str(out_dir)]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "*official_paths",
+            "kind": "Starred"
+          },
+          {
+            "index": 4,
+            "source": "*hero_paths",
+            "kind": "Starred"
+          },
+          {
+            "index": 5,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_mandate_last.py:367 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_last.py|382|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  378|     return {\"exit_code\": proc.returncode, \"clones\": clones, \"output_dir\": str(out_dir)}\n  379| \n  380| \n  381| def _git_commit() -> str:\n  382|     proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True)\n  383|     return proc.stdout.strip()\n  384| \n  385| \n  386| def run_gate_full_provenance() -> dict[str, Any]:",
+      "current_file": "scripts/run_closure_mandate_last.py",
+      "current_line": 382,
+      "current_source_context": "proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True)",
+      "current_context_block": "  378|     return {\"exit_code\": proc.returncode, \"clones\": clones, \"output_dir\": str(out_dir)}\n  379| \n  380| \n  381| def _git_commit() -> str:\n  382|     proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True)\n  383|     return proc.stdout.strip()\n  384| \n  385| \n  386| def run_gate_full_provenance() -> dict[str, Any]:",
+      "subprocess_analysis": {
+        "executable_provenance": "\"git\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/run_closure_mandate_last.py:382; executable/args from script constants; context: proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=Tru",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_mandate_last.py|403|B603",
+      "original_context_recovery": {
+        "original_context": "pylint_proc = subprocess.run([\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"], capture_output=True, text=True, cwd=ROOT)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "  399|         return 2\n  400|     lock_table = build_lock_table()\n  401|     mece_hero = build_mece_hero()\n  402|     coverage = coverage_spine_suite()\n  403|     pylint_proc = subprocess.run([\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"], capture_output=True, text=True, cwd=ROOT)\n  404|     r0801_count = pylint_proc.stdout.count(\"R0801\")\n  405| \n  406|     gate_payload = run_gate_full_provenance()\n  407|     gate_elapsed = gate_payload[\"elapsed_seconds\"]",
+      "current_file": "scripts/run_closure_mandate_last.py",
+      "current_line": 403,
+      "current_source_context": "pylint_proc = subprocess.run([\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"], capture_output=True, text=True, cwd=ROOT)",
+      "current_context_block": "  399|         return 2\n  400|     lock_table = build_lock_table()\n  401|     mece_hero = build_mece_hero()\n  402|     coverage = coverage_spine_suite()\n  403|     pylint_proc = subprocess.run([\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"], capture_output=True, text=True, cwd=ROOT)\n  404|     r0801_count = pylint_proc.stdout.count(\"R0801\")\n  405| \n  406|     gate_payload = run_gate_full_provenance()\n  407|     gate_elapsed = gate_payload[\"elapsed_seconds\"]",
+      "subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/run_closure_mandate_last.py:403; executable/args from script constants; context: pylint_proc = subprocess.run([\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=du",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_reject_04_audit.py|38|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   34|     return {int(k): v for k, v in _load(\"docs/CAPABILITIES_826_INVENTORY.json\")[\"per_id\"].items()}\n   35| \n   36| \n   37| def run_pylint_r0801_full() -> list[dict]:\n   38|     proc = subprocess.run(\n   39|         [\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\", \"--msg-template={path}:{line}:{column}: {msg_id}: {msg}\"],\n   40|         cwd=ROOT,\n   41|         capture_output=True,\n   42|         text=True,",
+      "current_file": "scripts/run_closure_reject_04_audit.py",
+      "current_line": 38,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   34|     return {int(k): v for k, v in _load(\"docs/CAPABILITIES_826_INVENTORY.json\")[\"per_id\"].items()}\n   35| \n   36| \n   37| def run_pylint_r0801_full() -> list[dict]:\n   38|     proc = subprocess.run(\n   39|         [\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\", \"--msg-template={path}:{line}:{column}: {msg_id}: {msg}\"],\n   40|         cwd=ROOT,\n   41|         capture_output=True,\n   42|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "\"pylint\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"pylint\", \"cap646/\", \"--disable=all\", \"--enable=duplicate-code\", \"--msg-template={path}:{line}:{column}: {msg_id}: {msg}\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"pylint\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"cap646/\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"--disable=all\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"--enable=duplicate-code\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"--msg-template={path}:{line}:{column}: {msg_id}: {msg}\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_reject_04_audit.py:38 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_reject_04_audit.py|71|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   67|         ROOT / \"cap646/batch02_dedicated.py\",\n   68|         ROOT / \"cap646/handlers\",\n   69|         ROOT / \"cap646/runtime.py\",\n   70|     ]\n   71|     proc = subprocess.run(\n   72|         [\"lizard\", \"-l\", \"python\", \"-C\", \"8\", \"-w\"] + [str(t) for t in targets],\n   73|         capture_output=True,\n   74|         text=True,\n   75|     )",
+      "current_file": "scripts/run_closure_reject_04_audit.py",
+      "current_line": 71,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   67|         ROOT / \"cap646/batch02_dedicated.py\",\n   68|         ROOT / \"cap646/handlers\",\n   69|         ROOT / \"cap646/runtime.py\",\n   70|     ]\n   71|     proc = subprocess.run(\n   72|         [\"lizard\", \"-l\", \"python\", \"-C\", \"8\", \"-w\"] + [str(t) for t in targets],\n   73|         capture_output=True,\n   74|         text=True,\n   75|     )",
+      "subprocess_analysis": {
+        "executable_provenance": "[\"lizard\", \"-l\", \"python\", \"-C\", \"8\", \"-w\"] + [str(t) for t in targets]",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"lizard\", \"-l\", \"python\", \"-C\", \"8\", \"-w\"] + [str(t) for t in targets]",
+            "kind": "BinOp"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_reject_04_audit.py:71 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_closure_reject_04_audit.py|92|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   88| \n   89| def run_jscpd() -> dict:\n   90|     out_dir = ROOT / \"docs/.jscpd-report\"\n   91|     out_dir.mkdir(parents=True, exist_ok=True)\n   92|     proc = subprocess.run(\n   93|         [\n   94|             \"npx\",\n   95|             \"--yes\",\n   96|             \"jscpd@4.0.5\",",
+      "current_file": "scripts/run_closure_reject_04_audit.py",
+      "current_line": 92,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   88| \n   89| def run_jscpd() -> dict:\n   90|     out_dir = ROOT / \"docs/.jscpd-report\"\n   91|     out_dir.mkdir(parents=True, exist_ok=True)\n   92|     proc = subprocess.run(\n   93|         [\n   94|             \"npx\",\n   95|             \"--yes\",\n   96|             \"jscpd@4.0.5\",",
+      "subprocess_analysis": {
+        "executable_provenance": "\"npx\"",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\n            \"npx\",\n            \"--yes\",\n            \"jscpd@4.0.5\",\n            \"cap646/batch01_production.py\",\n            \"cap646/batch01_dedicated.py\",\n            \"cap646/batch02_production.py\",\n            \"cap646/batch02_dedicated.py\",\n            \"cap646/handlers\",\n            \"cap646/runtime.py\",\n            \"--min-lines\",\n            \"5\",\n            \"--min-tokens\",\n            \"50\",\n            \"--reporters\",\n            \"json\",\n            \"--output\",\n            str(out_dir),\n        ]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"npx\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"--yes\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"jscpd@4.0.5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"cap646/batch01_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"cap646/batch01_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"cap646/batch02_production.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"cap646/batch02_dedicated.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"cap646/handlers\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"cap646/runtime.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"--min-lines\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "\"5\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 11,
+            "source": "\"--min-tokens\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 12,
+            "source": "\"50\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 13,
+            "source": "\"--reporters\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 14,
+            "source": "\"json\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 15,
+            "source": "\"--output\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 16,
+            "source": "str(out_dir)",
+            "kind": "Call"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_closure_reject_04_audit.py:92 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_gate_full_provenance.py|25|B603",
+      "original_context_recovery": {
+        "original_context": "commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   21|         \"tests/cap646/test_institutional_gate.py::test_institutional_gate_full\",\n   22|         \"-q\",\n   23|         \"--tb=no\",\n   24|     ]\n   25|     commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()\n   26|     started_at = datetime.now(UTC).isoformat()\n   27|     t0 = time.perf_counter()\n   28|     proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)\n   29|     elapsed = round(time.perf_counter() - t0, 1)",
+      "current_file": "scripts/run_gate_full_provenance.py",
+      "current_line": 25,
+      "current_source_context": "commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()",
+      "current_context_block": "   21|         \"tests/cap646/test_institutional_gate.py::test_institutional_gate_full\",\n   22|         \"-q\",\n   23|         \"--tb=no\",\n   24|     ]\n   25|     commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()\n   26|     started_at = datetime.now(UTC).isoformat()\n   27|     t0 = time.perf_counter()\n   28|     proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)\n   29|     elapsed = round(time.perf_counter() - t0, 1)",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:command",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 0,
+            "source": "command",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess list-argv without shell=True at scripts/run_gate_full_provenance.py:25; executable/args from script constants; context: commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=T",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_gate_full_provenance.py|28|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   24|     ]\n   25|     commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()\n   26|     started_at = datetime.now(UTC).isoformat()\n   27|     t0 = time.perf_counter()\n   28|     proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)\n   29|     elapsed = round(time.perf_counter() - t0, 1)\n   30|     finished_at = datetime.now(UTC).isoformat()\n   31|     payload = {\n   32|         \"attestation_id\": \"GATE_FULL_PROVENANCE\",",
+      "current_file": "scripts/run_gate_full_provenance.py",
+      "current_line": 28,
+      "current_source_context": "proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)",
+      "current_context_block": "   24|     ]\n   25|     commit = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()\n   26|     started_at = datetime.now(UTC).isoformat()\n   27|     t0 = time.perf_counter()\n   28|     proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)\n   29|     elapsed = round(time.perf_counter() - t0, 1)\n   30|     finished_at = datetime.now(UTC).isoformat()\n   31|     payload = {\n   32|         \"attestation_id\": \"GATE_FULL_PROVENANCE\",",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:command",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\"git\", \"rev-parse\", \"HEAD\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "\"git\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 1,
+            "source": "\"rev-parse\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"HEAD\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 0,
+            "source": "command",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_gate_full_provenance.py:28 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/run_spine_coverage_snapshot.py|30|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   26| ]\n   27| \n   28| \n   29| def main() -> int:\n   30|     proc = subprocess.run(\n   31|         [\n   32|             sys.executable,\n   33|             \"-m\",\n   34|             \"pytest\",",
+      "current_file": "scripts/run_spine_coverage_snapshot.py",
+      "current_line": 30,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   26| ]\n   27| \n   28| \n   29| def main() -> int:\n   30|     proc = subprocess.run(\n   31|         [\n   32|             sys.executable,\n   33|             \"-m\",\n   34|             \"pytest\",",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[\n            sys.executable,\n            \"-m\",\n            \"pytest\",\n            \"tests/cap646/test_closure_reject_04.py\",\n            \"tests/cap646/test_institutional_gate.py\",\n            \"tests/test_bigquery_export_mock.py\",\n            \"--cov=cap646\",\n            \"--cov=database\",\n            \"--cov-report=xml:coverage.xml\",\n            \"-q\",\n            \"--tb=no\",\n        ]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"-m\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 2,
+            "source": "\"pytest\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 3,
+            "source": "\"tests/cap646/test_closure_reject_04.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 4,
+            "source": "\"tests/cap646/test_institutional_gate.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 5,
+            "source": "\"tests/test_bigquery_export_mock.py\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 6,
+            "source": "\"--cov=cap646\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 7,
+            "source": "\"--cov=database\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 8,
+            "source": "\"--cov-report=xml:coverage.xml\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 9,
+            "source": "\"-q\"",
+            "kind": "Constant"
+          },
+          {
+            "index": 10,
+            "source": "\"--tb=no\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/run_spine_coverage_snapshot.py:30 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/sign_institutional_owner_closure.py|100|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   96| def _run_orchestrator_closure_request() -> dict:\n   97|     env = os.environ.copy()\n   98|     env.setdefault(\"PYTHONPATH\", str(ROOT))\n   99|     env.setdefault(\"SERVICE_BUS_LOCAL\", \"true\")\n  100|     proc = subprocess.run(\n  101|         [sys.executable, str(ROOT / \"scripts/run_batch_verification_orchestrator.py\"), \"--closure-request\"],\n  102|         cwd=ROOT,\n  103|         env=env,\n  104|         capture_output=True,",
+      "current_file": "scripts/sign_institutional_owner_closure.py",
+      "current_line": 100,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   96| def _run_orchestrator_closure_request() -> dict:\n   97|     env = os.environ.copy()\n   98|     env.setdefault(\"PYTHONPATH\", str(ROOT))\n   99|     env.setdefault(\"SERVICE_BUS_LOCAL\", \"true\")\n  100|     proc = subprocess.run(\n  101|         [sys.executable, str(ROOT / \"scripts/run_batch_verification_orchestrator.py\"), \"--closure-request\"],\n  102|         cwd=ROOT,\n  103|         env=env,\n  104|         capture_output=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, str(ROOT / \"scripts/run_batch_verification_orchestrator.py\"), \"--closure-request\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "str(ROOT / \"scripts/run_batch_verification_orchestrator.py\")",
+            "kind": "Call"
+          },
+          {
+            "index": 2,
+            "source": "\"--closure-request\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [
+          "env",
+          "os.environ passed or copied to subprocess env"
+        ],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": [
+          "bounded timeout reduces hang abuse"
+        ]
+      },
+      "environment_influence": [
+        "env",
+        "os.environ passed or copied to subprocess env"
+      ],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [
+        "bounded timeout reduces hang abuse"
+      ],
+      "finding_specific_justification": "subprocess at scripts/sign_institutional_owner_closure.py:100 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/verify_security_workflows.py|32|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   28|         print(json.dumps({\"ok\": True, \"message\": \"no pytest targets\"}))\n   29|         return 0\n   30| \n   31|     cmd = [sys.executable, \"-m\", \"pytest\", *unique_tests, \"-q\", \"--tb=no\"]\n   32|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   33|     out = {\n   34|         \"ok\": proc.returncode == 0,\n   35|         \"tests\": unique_tests,\n   36|         \"exit_code\": proc.returncode,",
+      "current_file": "scripts/verify_security_workflows.py",
+      "current_line": 32,
+      "current_source_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "current_context_block": "   28|         print(json.dumps({\"ok\": True, \"message\": \"no pytest targets\"}))\n   29|         return 0\n   30| \n   31|     cmd = [sys.executable, \"-m\", \"pytest\", *unique_tests, \"-q\", \"--tb=no\"]\n   32|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   33|     out = {\n   34|         \"ok\": proc.returncode == 0,\n   35|         \"tests\": unique_tests,\n   36|         \"exit_code\": proc.returncode,",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/verify_security_workflows.py:32 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "scripts/war_room_24h_orchestrator.py|21|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   17| \n   18| \n   19| def _run_pytest(target: str) -> dict:\n   20|     cmd = [str(ROOT / \".venv\" / \"bin\" / \"python3\"), \"-m\", \"pytest\", target, \"-q\", \"--tb=no\"]\n   21|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   22|     return {\"target\": target, \"exit_code\": proc.returncode, \"tail\": (proc.stdout + proc.stderr)[-500:]}\n   23| \n   24| \n   25| def _check_packages_exist() -> dict:",
+      "current_file": "scripts/war_room_24h_orchestrator.py",
+      "current_line": 21,
+      "current_source_context": "proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "current_context_block": "   17| \n   18| \n   19| def _run_pytest(target: str) -> dict:\n   20|     cmd = [str(ROOT / \".venv\" / \"bin\" / \"python3\"), \"-m\", \"pytest\", target, \"-q\", \"--tb=no\"]\n   21|     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)\n   22|     return {\"target\": target, \"exit_code\": proc.returncode, \"tail\": (proc.stdout + proc.stderr)[-500:]}\n   23| \n   24| \n   25| def _check_packages_exist() -> dict:",
+      "subprocess_analysis": {
+        "executable_provenance": "variable:cmd",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "cmd",
+            "kind": "Name"
+          }
+        ],
+        "shell": null,
+        "cwd": "ROOT",
+        "env_influence": [],
+        "path_resolution": [],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess at scripts/war_room_24h_orchestrator.py:21 uses argv list without shell expansion; scope=tooling; context: proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)",
+      "final_disposition": "FALSE_POSITIVE_PROVEN"
+    },
+    {
+      "original_finding_id": "tests/test_monitoring_alerting.py|65|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run([sys.executable, \"scripts/setup_monitoring.py\"], capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   61| def test_setup_monitoring_script():\n   62|     import subprocess\n   63|     import sys\n   64| \n   65|     proc = subprocess.run([sys.executable, \"scripts/setup_monitoring.py\"], capture_output=True, text=True)\n   66|     assert proc.returncode in (0, 1)\n   67|     assert \"monitoring_setup_ok\" in proc.stdout\n   68| \n   69| ",
+      "current_file": "tests/test_monitoring_alerting.py",
+      "current_line": 65,
+      "current_source_context": "proc = subprocess.run([sys.executable, \"scripts/setup_monitoring.py\"], capture_output=True, text=True)",
+      "current_context_block": "   61| def test_setup_monitoring_script():\n   62|     import subprocess\n   63|     import sys\n   64| \n   65|     proc = subprocess.run([sys.executable, \"scripts/setup_monitoring.py\"], capture_output=True, text=True)\n   66|     assert proc.returncode in (0, 1)\n   67|     assert \"monitoring_setup_ok\" in proc.stdout\n   68| \n   69| ",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"scripts/setup_monitoring.py\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"scripts/setup_monitoring.py\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess in test module tests/test_monitoring_alerting.py:65; tests/ CI-excluded",
+      "final_disposition": "TEST_ONLY_PROVEN"
+    },
+    {
+      "original_finding_id": "tests/test_monitoring_alerting.py|74|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run([sys.executable, \"scripts/free_api_rate_limit_audit.py\"], capture_output=True, text=True)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   70| def test_free_api_rate_limit_audit():\n   71|     import subprocess\n   72|     import sys\n   73| \n   74|     proc = subprocess.run([sys.executable, \"scripts/free_api_rate_limit_audit.py\"], capture_output=True, text=True)\n   75|     assert proc.returncode in (0, 1)\n   76|     assert \"PASS_RATE_LIMIT_REVIEW\" in proc.stdout",
+      "current_file": "tests/test_monitoring_alerting.py",
+      "current_line": 74,
+      "current_source_context": "proc = subprocess.run([sys.executable, \"scripts/free_api_rate_limit_audit.py\"], capture_output=True, text=True)",
+      "current_context_block": "   70| def test_free_api_rate_limit_audit():\n   71|     import subprocess\n   72|     import sys\n   73| \n   74|     proc = subprocess.run([sys.executable, \"scripts/free_api_rate_limit_audit.py\"], capture_output=True, text=True)\n   75|     assert proc.returncode in (0, 1)\n   76|     assert \"PASS_RATE_LIMIT_REVIEW\" in proc.stdout",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"scripts/free_api_rate_limit_audit.py\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"scripts/free_api_rate_limit_audit.py\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": null,
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess in test module tests/test_monitoring_alerting.py:74; tests/ CI-excluded",
+      "final_disposition": "TEST_ONLY_PROVEN"
+    },
+    {
+      "original_finding_id": "tests/test_security_max_closure.py|74|B603",
+      "original_context_recovery": {
+        "original_context": "proc = subprocess.run(",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "original_context_block": "   70| def test_security_max_audit_script_runs():\n   71|     import subprocess\n   72|     import sys\n   73| \n   74|     proc = subprocess.run(\n   75|         [sys.executable, \"scripts/security_max_audit.py\"],\n   76|         cwd=str(ROOT),\n   77|         capture_output=True,\n   78|         text=True,",
+      "current_file": "tests/test_security_max_closure.py",
+      "current_line": 74,
+      "current_source_context": "proc = subprocess.run(",
+      "current_context_block": "   70| def test_security_max_audit_script_runs():\n   71|     import subprocess\n   72|     import sys\n   73| \n   74|     proc = subprocess.run(\n   75|         [sys.executable, \"scripts/security_max_audit.py\"],\n   76|         cwd=str(ROOT),\n   77|         capture_output=True,\n   78|         text=True,",
+      "subprocess_analysis": {
+        "executable_provenance": "sys.executable",
+        "argv_components": [
+          {
+            "index": 0,
+            "source": "[sys.executable, \"scripts/security_max_audit.py\"]",
+            "kind": "List"
+          },
+          {
+            "index": 0,
+            "source": "sys.executable",
+            "kind": "Attribute"
+          },
+          {
+            "index": 1,
+            "source": "\"scripts/security_max_audit.py\"",
+            "kind": "Constant"
+          }
+        ],
+        "shell": null,
+        "cwd": "str(ROOT)",
+        "env_influence": [],
+        "path_resolution": [
+          "sys.executable (interpreter path from env)"
+        ],
+        "user_network_config_influence": []
+      },
+      "environment_influence": [],
+      "path_executable_resolution": [
+        "sys.executable (interpreter path from env)"
+      ],
+      "user_network_config_influence": [],
+      "finding_specific_justification": "subprocess in test module tests/test_security_max_closure.py:74; tests/ CI-excluded",
+      "final_disposition": "TEST_ONLY_PROVEN"
+    }
+  ]
+}

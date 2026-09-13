@@ -1,0 +1,1415 @@
+{
+  "specification": "governing-sources-population/BLACKDARK_INSTITUTIONAL_DATA_INTELLIGENCE_GOVERNANCE_SPEC_2026_FINAL_v2_RESTORED.md",
+  "primary_requirements": [
+    {
+      "requirement_id": "DATA-001",
+      "title": "Source registry",
+      "parent_type": "DATA",
+      "normative_clause_count": 23,
+      "normative_clauses": [
+        "source_id",
+        "provider",
+        "source_type",
+        "domain",
+        "official/public/derived",
+        "primary/secondary/fallback/discovery role",
+        "auth type",
+        "credential owner",
+        "endpoint/feed",
+        "asset/chain/venue coverage",
+        "update mechanism",
+        "expected cadence",
+        "provider SLA if contractual",
+        "internal SLO",
+        "rate limits / quotas",
+        "historical depth",
+        "L1/L2/L3 capability",
+        "redistribution/licensing status",
+        "data classification",
+        "cost/tier",
+        "health status",
+        "methodology/reference URL/version",
+        "last review date"
+      ]
+    },
+    {
+      "requirement_id": "DATA-002",
+      "title": "No undocumented source",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-003",
+      "title": "Critical source independence",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "Critical decision paths must not rely on a single fragile free source when a second independent route is technically available."
+      ]
+    },
+    {
+      "requirement_id": "DATA-004",
+      "title": "Source role classification",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "Every source must be explicitly classified:",
+        "PRIMARY",
+        "SECONDARY",
+        "FALLBACK",
+        "DISCOVERY_ONLY",
+        "VALIDATION_ONLY",
+        "DERIVED_INTERNAL"
+      ]
+    },
+    {
+      "requirement_id": "DATA-005",
+      "title": "Source admission",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-006",
+      "title": "CEX market data",
+      "parent_type": "DATA",
+      "normative_clause_count": 15,
+      "normative_clauses": [
+        "ticker",
+        "best bid/ask",
+        "trades",
+        "OHLCV",
+        "order-book snapshots",
+        "incremental depth updates",
+        "funding",
+        "open interest",
+        "mark/index price",
+        "liquidations",
+        "instrument metadata",
+        "trading status",
+        "deposit/withdrawal status where available",
+        "fees",
+        "maintenance/status signals"
+      ]
+    },
+    {
+      "requirement_id": "DATA-007",
+      "title": "DEX / on-chain market data",
+      "parent_type": "DATA",
+      "normative_clause_count": 11,
+      "normative_clauses": [
+        "pools",
+        "swaps/trades",
+        "reserves/liquidity",
+        "OHLCV",
+        "TVL",
+        "fees/revenue",
+        "price impact",
+        "routing state",
+        "gas/network fees",
+        "bridge state",
+        "token/pool metadata"
+      ]
+    },
+    {
+      "requirement_id": "DATA-008",
+      "title": "Blockchain / network data",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "blocks",
+        "transactions",
+        "fees",
+        "mempool/network congestion where defensible",
+        "validator/network status where relevant",
+        "chain finality indicators",
+        "addresses/entities required for product scope"
+      ]
+    },
+    {
+      "requirement_id": "DATA-009",
+      "title": "Derivatives data",
+      "parent_type": "DATA",
+      "normative_clause_count": 8,
+      "normative_clauses": [
+        "funding",
+        "basis",
+        "open interest",
+        "liquidation",
+        "mark/index",
+        "term structure where available",
+        "perp positioning inputs",
+        "options IV/skew/term structure where supported"
+      ]
+    },
+    {
+      "requirement_id": "DATA-010",
+      "title": "Portfolio / account context",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "balances",
+        "positions",
+        "cost basis where available",
+        "realized/unrealized PnL inputs",
+        "exposure",
+        "account/venue status",
+        "Public market data must remain logically separated from private user/account data."
+      ]
+    },
+    {
+      "requirement_id": "DATA-011",
+      "title": "Smart-money / entity intelligence",
+      "parent_type": "DATA",
+      "normative_clause_count": 8,
+      "normative_clauses": [
+        "wallet activity",
+        "entity labels",
+        "clusters",
+        "holdings",
+        "flows",
+        "historical holdings",
+        "related-wallet evidence",
+        "label confidence/source"
+      ]
+    },
+    {
+      "requirement_id": "DATA-012",
+      "title": "DeFi intelligence",
+      "parent_type": "DATA",
+      "normative_clause_count": 8,
+      "normative_clauses": [
+        "TVL",
+        "yields",
+        "fees/revenue",
+        "stablecoin supply/distribution",
+        "bridge flows",
+        "protocol security/hack history where applicable",
+        "token unlock/emission data",
+        "treasury/fundraising/RWA/ETF context where product-relevant"
+      ]
+    },
+    {
+      "requirement_id": "DATA-013",
+      "title": "Macro / reference data",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "FX",
+        "rates",
+        "benchmark/reference prices",
+        "calendar/event data",
+        "ETF flows",
+        "macro indicators"
+      ]
+    },
+    {
+      "requirement_id": "DATA-014",
+      "title": "News/event/context data",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-015",
+      "title": "Internal outcome data",
+      "parent_type": "DATA",
+      "normative_clause_count": 8,
+      "normative_clauses": [
+        "decision ledger",
+        "prediction ledger",
+        "outcome ledger",
+        "calibration",
+        "rejection statistics",
+        "source reliability",
+        "incident/failure evidence",
+        "methodology versions"
+      ]
+    },
+    {
+      "requirement_id": "DATA-016",
+      "title": "Public feeds first where sufficient",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "Use official unauthenticated/public market streams when they provide required data and terms permit the use."
+      ]
+    },
+    {
+      "requirement_id": "DATA-017",
+      "title": "Authenticated feeds only when required",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "provider APIs that require keys",
+        "account/user streams",
+        "private portfolio/account data",
+        "paid/entitled endpoints",
+        "higher-rate institutional feeds"
+      ]
+    },
+    {
+      "requirement_id": "DATA-018",
+      "title": "Secrets management",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "server-side only",
+        "environment/secret manager",
+        "never hard-coded",
+        "never exposed to browser",
+        "least privilege",
+        "rotatable",
+        "auditable"
+      ]
+    },
+    {
+      "requirement_id": "DATA-019",
+      "title": "Separate environments",
+      "parent_type": "DATA",
+      "normative_clause_count": 4,
+      "normative_clauses": [
+        "test/sandbox keys",
+        "production/live keys",
+        "user-specific credentials",
+        "provider service credentials"
+      ]
+    },
+    {
+      "requirement_id": "DATA-020",
+      "title": "Credential health",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "expiration",
+        "revocation",
+        "permission errors",
+        "quota",
+        "rate-limit state",
+        "authentication failures"
+      ]
+    },
+    {
+      "requirement_id": "DATA-021",
+      "title": "Event-driven real-time",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-022",
+      "title": "REST role",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "bootstrap snapshots",
+        "metadata/reference",
+        "historical/backfill",
+        "reconciliation",
+        "periodic low-frequency data",
+        "recovery after stream gaps"
+      ]
+    },
+    {
+      "requirement_id": "DATA-023",
+      "title": "Snapshot + delta",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "Order-book consumers must implement correct:",
+        "initial snapshot",
+        "ordered deltas",
+        "sequence tracking",
+        "gap detection",
+        "resnapshot/recovery",
+        "checksum verification where provider exposes one"
+      ]
+    },
+    {
+      "requirement_id": "DATA-024",
+      "title": "Reconnect resilience",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "heartbeat/ping handling",
+        "bounded reconnect",
+        "exponential backoff + jitter",
+        "subscription replay",
+        "stale state during outage",
+        "no silent continuation after sequence gap"
+      ]
+    },
+    {
+      "requirement_id": "DATA-025",
+      "title": "Cadence by data class",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "T0 ultra-fast: trades/order-book/market microstructure \u2014 event-driven/sub-second to seconds according to source",
+        "T1 fast: prices/funding/liquidations/venue health \u2014 seconds",
+        "T2 near-real-time: on-chain pools/flows/network \u2014 seconds to minutes",
+        "T3 analytical: TVL/yields/smart-money aggregates \u2014 minutes to hours according to source methodology",
+        "T4 reference: metadata/methodology/vendor/legal \u2014 hours/daily/on-change",
+        "T5 daily research: briefs/calibration/history \u2014 scheduled plus event-triggered invalidation",
+        "Actual SLO must be defined per dataset, not copied blindly from these ranges."
+      ]
+    },
+    {
+      "requirement_id": "DATA-026",
+      "title": "Freshness state",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "LIVE",
+        "NEAR_LIVE",
+        "DELAYED",
+        "STALE",
+        "CACHED",
+        "PARTIAL",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "requirement_id": "DATA-027",
+      "title": "Freshness metadata",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "source_timestamp",
+        "observed_at",
+        "ingested_at",
+        "processed_at",
+        "last_successful_update",
+        "age_seconds",
+        "freshness_state"
+      ]
+    },
+    {
+      "requirement_id": "DATA-028",
+      "title": "Canonical identity",
+      "parent_type": "DATA",
+      "normative_clause_count": 8,
+      "normative_clauses": [
+        "asset",
+        "chain",
+        "contract",
+        "venue",
+        "instrument",
+        "market",
+        "pool",
+        "wallet/entity"
+      ]
+    },
+    {
+      "requirement_id": "DATA-029",
+      "title": "Symbol ambiguity protection",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-030",
+      "title": "Canonical units",
+      "parent_type": "DATA",
+      "normative_clause_count": 10,
+      "normative_clauses": [
+        "currency",
+        "quote/base",
+        "quantity",
+        "notional",
+        "percentage",
+        "APR/APY",
+        "timestamps",
+        "decimals/precision",
+        "chain units",
+        "fee units"
+      ]
+    },
+    {
+      "requirement_id": "DATA-031",
+      "title": "Decimal integrity",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-032",
+      "title": "Schema contracts",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "required fields",
+        "nullable fields",
+        "types",
+        "units",
+        "constraints",
+        "semantics",
+        "compatibility rules"
+      ]
+    },
+    {
+      "requirement_id": "DATA-033",
+      "title": "Normalization trace",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-034",
+      "title": "Immutable raw landing",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-035",
+      "title": "Canonical store",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-036",
+      "title": "Derived metric store",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "Derived outputs must never overwrite raw/canonical source evidence."
+      ]
+    },
+    {
+      "requirement_id": "DATA-037",
+      "title": "Time-series/history store",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "point-in-time replay",
+        "backtests",
+        "incident reconstruction",
+        "methodology comparison",
+        "outcome calibration"
+      ]
+    },
+    {
+      "requirement_id": "DATA-038",
+      "title": "Bitemporal/knowledge-time semantics where material",
+      "parent_type": "DATA",
+      "normative_clause_count": 2,
+      "normative_clauses": [
+        "event/source time",
+        "ingestion/knowledge time"
+      ]
+    },
+    {
+      "requirement_id": "DATA-039",
+      "title": "Dataset-specific historical depth",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "earliest_available_source_time",
+        "earliest_locally_stored_time",
+        "gaps",
+        "resolution",
+        "schema/methodology changes",
+        "backfill status"
+      ]
+    },
+    {
+      "requirement_id": "DATA-040",
+      "title": "Grade sufficiency",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-041",
+      "title": "Look-ahead protection",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "Backtests/replay must use only information available as-of the historical decision time."
+      ]
+    },
+    {
+      "requirement_id": "DATA-042",
+      "title": "Survivorship/change protection",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "delisted instruments",
+        "renamed assets",
+        "contract migrations",
+        "provider methodology changes",
+        "venue shutdowns"
+      ]
+    },
+    {
+      "requirement_id": "DATA-043",
+      "title": "L1",
+      "parent_type": "DATA",
+      "normative_clause_count": 3,
+      "normative_clauses": [
+        "broad discovery",
+        "simple monitoring",
+        "non-execution-sensitive views"
+      ]
+    },
+    {
+      "requirement_id": "DATA-044",
+      "title": "L2",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "slippage",
+        "market depth",
+        "capacity",
+        "fill feasibility approximation",
+        "microstructure-aware Net-Edge"
+      ]
+    },
+    {
+      "requirement_id": "DATA-045",
+      "title": "L3",
+      "parent_type": "DATA",
+      "normative_clause_count": 3,
+      "normative_clauses": [
+        "a specific methodology depends on individual order identity/queue dynamics",
+        "source legally/technically provides it",
+        "incremental decision value justifies cost/storage/complexity"
+      ]
+    },
+    {
+      "requirement_id": "DATA-046",
+      "title": "Order-book historical depth",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "If historical L2/L3 is required for simulation, it must be captured locally from live feeds or obtained from a source that explicitly provides historical depth. Current book snapshots alone are not historical depth."
+      ]
+    },
+    {
+      "requirement_id": "DATA-047",
+      "title": "Required dimensions",
+      "parent_type": "DATA",
+      "normative_clause_count": 9,
+      "normative_clauses": [
+        "completeness",
+        "timeliness",
+        "accuracy/validation",
+        "consistency",
+        "integrity",
+        "provenance",
+        "historical sufficiency",
+        "availability",
+        "reconciliation status"
+      ]
+    },
+    {
+      "requirement_id": "DATA-048",
+      "title": "Quality state",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "COMPLETE",
+        "PARTIAL",
+        "CONFLICTING",
+        "INSUFFICIENT",
+        "SUSPECT",
+        "UNVERIFIED"
+      ]
+    },
+    {
+      "requirement_id": "DATA-049",
+      "title": "Quality rules",
+      "parent_type": "DATA",
+      "normative_clause_count": 9,
+      "normative_clauses": [
+        "range checks",
+        "null checks",
+        "monotonicity/sequence checks",
+        "cross-source variance",
+        "stale thresholds",
+        "schema drift",
+        "duplicate detection",
+        "outlier logic",
+        "reconciliation rules"
+      ]
+    },
+    {
+      "requirement_id": "DATA-050",
+      "title": "Decision admission effect",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "Material quality failure must propagate into Decision Truth admission:",
+        "DEGRADE",
+        "ABSTAIN",
+        "REJECT",
+        "UNAVAILABLE"
+      ]
+    },
+    {
+      "requirement_id": "DATA-051",
+      "title": "Independent corroboration",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-052",
+      "title": "Conflict state",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "conflicting_sources",
+        "variance",
+        "selected_source",
+        "selection_method",
+        "reason",
+        "confidence impact"
+      ]
+    },
+    {
+      "requirement_id": "DATA-053",
+      "title": "Source priority",
+      "parent_type": "DATA",
+      "normative_clause_count": 8,
+      "normative_clauses": [
+        "directness/originality",
+        "freshness",
+        "completeness",
+        "historical reliability",
+        "methodology",
+        "venue relevance",
+        "SLA/SLO",
+        "licensing"
+      ]
+    },
+    {
+      "requirement_id": "DATA-054",
+      "title": "Provider SLA vs internal SLO",
+      "parent_type": "DATA",
+      "normative_clause_count": 4,
+      "normative_clauses": [
+        "contractual provider SLA",
+        "provider documented limits",
+        "BLACKDARK internal SLO",
+        "measured actual reliability"
+      ]
+    },
+    {
+      "requirement_id": "DATA-055",
+      "title": "Internal SLO per critical dataset",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "availability target",
+        "freshness target",
+        "completeness target",
+        "max tolerated gap",
+        "recovery target",
+        "error budget",
+        "alert threshold"
+      ]
+    },
+    {
+      "requirement_id": "DATA-056",
+      "title": "No invented SLA",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-057",
+      "title": "Source health score",
+      "parent_type": "DATA",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "success rate",
+        "latency",
+        "staleness",
+        "schema errors",
+        "gap rate",
+        "reconciliation disagreement",
+        "incident count"
+      ]
+    },
+    {
+      "requirement_id": "DATA-058",
+      "title": "Automatic source downgrade",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-059",
+      "title": "Provenance",
+      "parent_type": "DATA",
+      "normative_clause_count": 9,
+      "normative_clauses": [
+        "Every critical output must be traceable to source evidence.",
+        "source_id",
+        "provider",
+        "endpoint/feed",
+        "source_timestamp",
+        "observed_at",
+        "ingestion event",
+        "raw evidence/hash",
+        "schema version"
+      ]
+    },
+    {
+      "requirement_id": "DATA-060",
+      "title": "End-to-end lineage",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-061",
+      "title": "W3C-style provenance semantics",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-062",
+      "title": "User-facing provenance",
+      "parent_type": "DATA",
+      "normative_clause_count": 4,
+      "normative_clauses": [
+        "source/evidence class",
+        "freshness",
+        "methodology/version",
+        "limitations"
+      ]
+    },
+    {
+      "requirement_id": "DATA-063",
+      "title": "Methodology card",
+      "parent_type": "DATA",
+      "normative_clause_count": 11,
+      "normative_clauses": [
+        "definition",
+        "equation/logic",
+        "required inputs",
+        "exclusions",
+        "assumptions",
+        "thresholds",
+        "limitations",
+        "validation",
+        "version",
+        "effective date",
+        "owner"
+      ]
+    },
+    {
+      "requirement_id": "DATA-064",
+      "title": "Methodology change control",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "new version",
+        "effective timestamp",
+        "migration/comparability note",
+        "regression validation",
+        "audit event"
+      ]
+    },
+    {
+      "requirement_id": "DATA-065",
+      "title": "Provider methodology dependency",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-066",
+      "title": "Immutable material audit trail",
+      "parent_type": "DATA",
+      "normative_clause_count": 9,
+      "normative_clauses": [
+        "source onboarding/removal",
+        "key/config changes",
+        "schema changes",
+        "normalization changes",
+        "methodology changes",
+        "quality rule changes",
+        "manual overrides",
+        "fallback activation",
+        "decision-data corrections"
+      ]
+    },
+    {
+      "requirement_id": "DATA-067",
+      "title": "Replay",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "A material historical decision must be reconstructable from retained evidence to the extent permitted by source licensing/privacy."
+      ]
+    },
+    {
+      "requirement_id": "DATA-068",
+      "title": "Manual intervention",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "actor",
+        "time",
+        "reason",
+        "before/after",
+        "approval where appropriate"
+      ]
+    },
+    {
+      "requirement_id": "DATA-069",
+      "title": "No platform-wide failure from one source",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "One source outage must not silently kill unrelated capabilities."
+      ]
+    },
+    {
+      "requirement_id": "DATA-070",
+      "title": "Fallback matrix",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-071",
+      "title": "No stale masquerading as live",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-072",
+      "title": "Insufficient input abstention",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "If required inputs for Net-Edge/Risk/Grade/Decision Truth are insufficient, the system must abstain/reject rather than fill unknowns with deceptive zeros."
+      ]
+    },
+    {
+      "requirement_id": "DATA-073",
+      "title": "Circuit breakers",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "Unhealthy upstream providers must be isolated with bounded retry/circuit behavior."
+      ]
+    },
+    {
+      "requirement_id": "DATA-074",
+      "title": "Free-first, not free-only",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "direct official exchange public WebSockets",
+        "public blockchain/RPC data where sufficient",
+        "open/public APIs",
+        "self-derived metrics",
+        "internally accumulated history",
+        "But it must not architect critical truth around free-tier promises that have no SLA or adequate quota/history."
+      ]
+    },
+    {
+      "requirement_id": "DATA-075",
+      "title": "Paid source trigger",
+      "parent_type": "DATA",
+      "normative_clause_count": 9,
+      "normative_clauses": [
+        "latency",
+        "coverage",
+        "historical depth",
+        "redistribution rights",
+        "labelled/entity intelligence",
+        "API quota",
+        "reliability/SLA",
+        "support",
+        "data quality"
+      ]
+    },
+    {
+      "requirement_id": "DATA-076",
+      "title": "No-money mode",
+      "parent_type": "DATA",
+      "normative_clause_count": 5,
+      "normative_clauses": [
+        "degrade the affected capability",
+        "use alternative independent source where lawful/valid",
+        "mark lower evidence class",
+        "restrict or abstain",
+        "never fabricate equivalent coverage"
+      ]
+    },
+    {
+      "requirement_id": "DATA-077",
+      "title": "Licensing and redistribution",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "API terms",
+        "caching rights",
+        "historical storage rights",
+        "redistribution/display rights",
+        "derived-data rights",
+        "attribution obligations"
+      ]
+    },
+    {
+      "requirement_id": "DATA-078",
+      "title": "Third-party risk",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "security",
+        "availability",
+        "business continuity",
+        "incident communication",
+        "concentration risk",
+        "portability/exit"
+      ]
+    },
+    {
+      "requirement_id": "DATA-079",
+      "title": "GLBA applicability decision",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "If applicable, implement required safeguards and service-provider oversight."
+      ]
+    },
+    {
+      "requirement_id": "DATA-080",
+      "title": "GDPR/privacy separation",
+      "parent_type": "DATA",
+      "normative_clause_count": 6,
+      "normative_clauses": [
+        "purpose",
+        "minimization",
+        "access",
+        "retention",
+        "deletion/export rights as applicable",
+        "security controls"
+      ]
+    },
+    {
+      "requirement_id": "DATA-081",
+      "title": "AI governance",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-082",
+      "title": "EU AI Act conditionality",
+      "parent_type": "DATA",
+      "normative_clause_count": 54,
+      "normative_clauses": [
+        "official exchange WebSocket market feeds",
+        "official REST snapshot/reference endpoints",
+        "official venue status/metadata APIs",
+        "Binance",
+        "Coinbase",
+        "Kraken",
+        "OKX",
+        "Bybit",
+        "Bitstamp",
+        "Gemini",
+        "Gate.io",
+        "KuCoin",
+        "Crypto.com",
+        "Bitfinex",
+        "other supported venues",
+        "Each connector must be individually validated; do not infer identical semantics.",
+        "CoinGecko",
+        "CoinMarketCap",
+        "equivalent validated aggregators",
+        "direct protocol/on-chain reads where feasible",
+        "DefiLlama for broad protocol/TVL/yields/fees/context",
+        "DEX-specific APIs/indexers",
+        "blockchain nodes/indexers",
+        "self-derived chain data",
+        "validated indexers",
+        "Nansen or equivalent when paid labelled intelligence is justified",
+        "internal wallet/entity models with confidence/provenance",
+        "self-derived metrics where feasible",
+        "Glassnode or comparable source when methodology/history/coverage creates sufficient value",
+        "Every critical output must expose provenance and source lineage.",
+        "All data entering canonical decision paths must be normalized by versioned contracts.",
+        "Tracked per dataset; required for Grade/backtest/calibration claims.",
+        "L2 required where depth/slippage/capacity matters. L3 only where methodology truly requires it and source provides it.",
+        "portfolio risk / exposure if connected",
+        "risk budget status",
+        "maximum three material changes",
+        "each with evidence/freshness",
+        "not largest raw spread",
+        "highest admitted opportunity after cost, execution, capacity, risk and evidence",
+        "visible count / top rejected apparent opportunity",
+        "Why NOT",
+        "venue/stablecoin/liquidity/portfolio threat before material impact",
+        "LIVE / DEGRADED / PARTIAL / CONFLICTING / ABSTAINING",
+        "what materially changed since the user last looked",
+        "sources, timestamps, freshness, methodology, limitations",
+        "\u201cThe raw opportunity looked +4.7%; BLACKDARK rejected it after cost and execution reality.\u201d",
+        "\u201cThis looks profitable alone, but breaches your portfolio risk envelope.\u201d",
+        "\u201cNO DECISION \u2014 the sources materially conflict.\u201d",
+        "\u201cDecision changed since your last visit, and here is exactly why.\u201d",
+        "\u201cHere is the complete evidence and data lineage behind this result.\u201d",
+        "The following must be removed or corrected:",
+        "1. \u201cPrimary paid/reliable is required for every critical path\u201d \u2014 too absolute. Direct official public exchange feeds can be primary if measured quality and rights are sufficient.",
+        "5. \u201cGLBA must apply\u201d \u2014 must be legally determined, not assumed.",
+        "6. \u201cSLA required from every provider\u201d \u2014 impossible for many public/free sources; internal SLO is mandatory, provider SLA only when contractual."
+      ]
+    },
+    {
+      "requirement_id": "DATA-083",
+      "title": "Schema drift detection",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-084",
+      "title": "Contract tests per provider",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-085",
+      "title": "Quota governance",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-086",
+      "title": "Cost budget",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-087",
+      "title": "Source concentration risk",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-088",
+      "title": "Provider exit plan",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "Critical third-party source must have replacement/degradation plan."
+      ]
+    },
+    {
+      "requirement_id": "DATA-089",
+      "title": "Correction propagation",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-090",
+      "title": "Data incident ledger",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-091",
+      "title": "Data retention matrix",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-092",
+      "title": "Access-control matrix",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-093",
+      "title": "Encryption/security",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-094",
+      "title": "Backup/restore",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-095",
+      "title": "Clock discipline",
+      "parent_type": "DATA",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "All canonical event/ingestion/audit timestamps must use existing global UTC-aware time authority."
+      ]
+    },
+    {
+      "requirement_id": "DATA-096",
+      "title": "Data contract ownership",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-097",
+      "title": "Data-quality SLO",
+      "parent_type": "DATA",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "DATA-098",
+      "title": "Observability",
+      "parent_type": "DATA",
+      "normative_clause_count": 10,
+      "normative_clauses": [
+        "ingest_success",
+        "ingest_latency",
+        "source_age",
+        "schema_error",
+        "sequence_gap",
+        "reconciliation_conflict",
+        "stale_duration",
+        "fallback_activation",
+        "decision_abstention_due_to_data",
+        "quota_remaining"
+      ]
+    },
+    {
+      "requirement_id": "DATA-099",
+      "title": "Synthetic/fault testing",
+      "parent_type": "DATA",
+      "normative_clause_count": 12,
+      "normative_clauses": [
+        "source timeout",
+        "malformed payload",
+        "schema change",
+        "duplicate",
+        "out-of-order",
+        "missed sequence",
+        "stale source",
+        "conflicting source",
+        "quota exhaustion",
+        "auth revocation",
+        "clock skew",
+        "corrupt backfill"
+      ]
+    },
+    {
+      "requirement_id": "DATA-100",
+      "title": "Full local closure",
+      "parent_type": "DATA",
+      "normative_clause_count": 21,
+      "normative_clauses": [
+        "Required before local engineering closure:",
+        "independent direct source acquisition",
+        "accumulated historical evidence",
+        "normalization",
+        "source reliability history",
+        "point-in-time replay",
+        "methodology",
+        "Decision Truth integration",
+        "rejection/abstention",
+        "outcome calibration",
+        "auditable provenance",
+        "BCBS 239 / Basel risk-data principles (accuracy/integrity, completeness, timeliness, adaptability, governance, reconciliation, validation, service-level standards)",
+        "January 2026 Basel Committee implementation observations emphasizing governance, lineage and timely/accurate/complete risk data",
+        "W3C PROV provenance model concepts",
+        "NIST AI Risk Management Framework trustworthiness characteristics",
+        "ISO/IEC 42001:2023 AI management-system governance",
+        "GDPR/privacy obligations where applicable",
+        "FTC GLBA Safeguards Rule only if legal applicability is determined",
+        "EU AI Act data-governance requirements only where the specific AI system/use is legally in scope",
+        "official provider documentation and contractual terms for each data source",
+        "**Status:** Mandatory. This addendum restores decisions that were present in the prior canonical discussion but were not stated explicitly enough in Final v1. It is part of the SSOT and MUST be implemented together with DATA-001\u2192DATA-100. If wording conflicts, the stricter evidence-backed requirement applies."
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-001",
+      "title": "Do not integrate 100 sources at once",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "BLACKDARK MUST NOT attempt to onboard/integrate the full ~100-source universe in one implementation wave. Doing so increases integration failure surface, operational complexity, maintenance burden and cost without proportional decision value. Source expansion MUST be staged and evidence-driven."
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-002",
+      "title": "Three-stage source execution strategy",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 21,
+      "normative_clauses": [
+        "major CEX direct official feeds",
+        "major DEX / perp-DEX routes",
+        "direct chain/RPC/indexer paths",
+        "CoinGecko / CoinMarketCap or equivalent primarily as fallback/discovery/reference/cross-check, not automatically execution-grade",
+        "FRED / Federal Reserve / ECB or equivalent official macro sources",
+        "SEC / CFTC or equivalent official regulatory sources",
+        "licensed news/reference source or lawful validated alternative where required",
+        "institutional on-chain feeds where justified",
+        "options / volatility intelligence",
+        "DeFi fundamentals",
+        "broader global macro",
+        "energy / commodities context where decision-relevant",
+        "sanctions / geopolitical / event intelligence where lawful and methodologically defensible",
+        "proprietary derived indicators/datasets",
+        "historical data lake / evidence lake",
+        "entity graph",
+        "event graph",
+        "source reliability history",
+        "cross-venue liquidity map",
+        "internally accumulated point-in-time datasets",
+        "proprietary normalized/derived data products"
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-003",
+      "title": "Data Trust Engine observation contract",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 25,
+      "normative_clauses": [
+        "Every material observation entering critical decision paths MUST carry, directly or through canonical equivalent fields:",
+        "source",
+        "source_class / source_role",
+        "instrument / asset identity",
+        "venue / chain where applicable",
+        "event_time",
+        "received_time / observed_at",
+        "ingestion_time where distinct",
+        "latency_ms where meaningful",
+        "data_type",
+        "raw_value or raw evidence reference",
+        "normalized_value where applicable",
+        "freshness state / age",
+        "quality_score or equivalent quality evidence",
+        "schema/version identity",
+        "provenance/evidence reference",
+        "Source reliability/quality scoring must consider, as applicable:",
+        "freshness",
+        "directness",
+        "historical accuracy",
+        "cross-source agreement",
+        "completeness",
+        "latency",
+        "anomaly/error rate",
+        "No source is \u201calways trusted.\u201d Reliability must be measured and allowed to change over time."
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-004",
+      "title": "Explicit source-conflict decision rules",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "At minimum, critical source handling MUST implement equivalent behavior to:",
+        "`Source A fails \u2192 use validated B/fallback when eligible`",
+        "`A and B materially disagree \u2192 CONFLICT/QUARANTINE; do not silently average into certainty`",
+        "`stale beyond dataset threshold \u2192 REJECT/DEGRADE/ABSTAIN according to decision need`",
+        "`material outlier/anomaly \u2192 quarantine/investigate; do not silently promote to canonical truth`",
+        "`single-source-only critical evidence \u2192 explicit concentration/confidence penalty or abstention according to policy`",
+        "These rules must be represented in code/policy, tested, observable and traceable."
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-005",
+      "title": "Canonical reconciliation layer",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "The intended data path MUST contain a real reconciliation/consensus function between quality-gated normalized inputs and canonical decision state. Conceptually:"
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-006",
+      "title": "Economic revision/vintage truth",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "For economic, regulatory, macro or any revisable dataset, retain **revision/vintage / as-known-at** information where available and material. Historical replay/backtesting must use what was knowable at the decision timestamp, not silently substitute later revised values."
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-007",
+      "title": "Free-first operating rule",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 7,
+      "normative_clauses": [
+        "single-source dependency",
+        "absent contractual SLA where one is needed",
+        "inadequate quota",
+        "inadequate historical depth",
+        "unclear licensing/redistribution/storage rights",
+        "unmeasured reliability",
+        "insufficient decision-grade depth/latency/quality"
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-008",
+      "title": "Source-role discipline",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 0,
+      "normative_clauses": []
+    },
+    {
+      "requirement_id": "RESTORE-009",
+      "title": "User-facing strategic target",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 1,
+      "normative_clauses": [
+        "The end-state is not another crypto price site. The data architecture must serve retail, professional, B2B, funds and acquisition-grade diligence by producing auditable evidence-backed intelligence, including Live Decision Pulse / Decision Truth surfaces, rather than maximizing connector count."
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-010",
+      "title": "Mandatory execution sequencing gate",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 11,
+      "normative_clauses": [
+        "Cursor MUST implement the system in ordered atomic units. It MUST NOT start Phase II merely because adapters exist. Phase I must first prove:",
+        "canonical ownership",
+        "source admission",
+        "normalization",
+        "quality/freshness gates",
+        "reconciliation/conflict behavior",
+        "provenance/lineage",
+        "historical/replay controls",
+        "observability",
+        "fallback/degrade/abstain",
+        "tests and evidence"
+      ]
+    },
+    {
+      "requirement_id": "RESTORE-011",
+      "title": "Closure reconciliation",
+      "parent_type": "RESTORE",
+      "normative_clause_count": 2,
+      "normative_clauses": [
+        "Before `PASS_ENGINEERING_DATA=true`, Cursor MUST explicitly reconcile **RESTORE-001\u2192RESTORE-010** in addition to DATA-001\u2192DATA-100 and report:",
+        "If any of these cannot be proven locally, `PASS_ENGINEERING_DATA=true` MUST remain false."
+      ]
+    }
+  ],
+  "DATA_PARENT_COUNT": 100,
+  "RESTORE_PARENT_COUNT": 11,
+  "PRIMARY_TOTAL": 111
+}
