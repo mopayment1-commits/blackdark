@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Bandit triage reconciliation — full neutral scan + CI gate evidence."""
+"""Bandit triage reconciliation — fail-closed disposition + CI gate evidence."""
 
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
@@ -10,14 +11,14 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ORIGINAL_REPORT = Path(
-    "/home/ubuntu/.cursor/projects/workspace/uploads/bandit-full-compact_c66e.json"
-)
+DEFAULT_REPORT = ROOT / "docs" / "evidence" / "bandit-full-4703-compact.json"
+DEFAULT_INVENTORY = ROOT / "docs" / "evidence" / "bandit-disposition-inventory-4703.json"
 NEUTRAL_INI = ROOT / "scripts" / ".bandit_neutral.ini"
 CI_INI = ROOT / ".bandit"
 FULL_EXCLUDE = ".venv,venv,node_modules,.git,dist,build"
+EXPECTED_TOTAL = 4703
 
-# Line-specific reviewed suppressions (nosec) and baseline entries for multiline B608.
+# Production B101 locations with reviewed line-level # nosec B101.
 REVIEWED_NOSEC = {
     ("aggregator.py", 1069, "B101"),
     ("hot_storage.py", 192, "B101"),
@@ -40,37 +41,9 @@ REVIEWED_NOSEC = {
     ("scripts/complete_pdf_capabilities_826.py", 124, "B310"),
 }
 
-# 27 reviewed multiline B608 locations collapsed to single-line # nosec B608
-REVIEWED_B608_NOSEC = {
-    ("audit_registry.py", 192),
-    ("audit_registry.py", 452),
-    ("bigquery_export.py", 116),
-    ("bigquery_export.py", 309),
-    ("billing/subscription_store.py", 214),
-    ("blackdark/data/repository.py", 393),
-    ("blackdark/data/repository.py", 448),
-    ("blackdark/data/repository.py", 500),
-    ("blackdark/data/repository.py", 559),
-    ("blackdark/data/repository.py", 652),
-    ("blackdark/data/repository.py", 694),
-    ("blackdark/data/repository.py", 805),
-    ("blackdark/data/repository.py", 932),
-    ("blackdark/data/repository.py", 997),
-    ("blackdark/data/repository.py", 1112),
-    ("data_moat_guard.py", 101),
-    ("data_moat_guard.py", 109),
-    ("database.py", 1362),
-    ("database.py", 1571),
-    ("database.py", 1889),
-    ("database.py", 2468),
-    ("database.py", 2475),
-    ("database.py", 2599),
-    ("database.py", 3080),
-    ("database.py", 4170),
-    ("dbt_connector.py", 186),
-    ("knowledge_graph.py", 210),
-    ("knowledge_graph.py", 223),
-}
+FAIL_CLOSED_RULES = frozenset(
+    {"B608", "B105", "B603", "B607", "B404", "B311", "B110", "B112", "B310"}
+)
 
 
 def _bandit_bin() -> str:
@@ -91,49 +64,48 @@ def _area(filename: str) -> str:
     return "production"
 
 
-def classify_finding(test_id: str, filename: str, line: int) -> dict[str, str]:
-    key = (_norm(filename), line, test_id)
+def _inventory_key(filename: str, line: int, test_id: str) -> str:
+    return f"{_norm(filename)}|{line}|{test_id}"
+
+
+def load_inventory(path: Path) -> dict[str, dict[str, str]]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return dict(payload.get("entries") or payload)
+
+
+def classify_finding(
+    test_id: str,
+    filename: str,
+    line: int,
+    inventory: dict[str, dict[str, str]],
+) -> dict[str, str]:
+    """Fail-closed: only explicit inventory or narrowly scoped TEST_ONLY rules."""
+    key_tuple = (_norm(filename), line, test_id)
+    inv_key = _inventory_key(filename, line, test_id)
     area = _area(filename)
 
-    if test_id == "B101" and area == "tests":
-        return {"disposition": "TEST_ONLY", "reason": "pytest assert in excluded tests/ scope"}
-    if test_id == "B101" and key in REVIEWED_NOSEC:
-        return {"disposition": "FALSE_POSITIVE", "reason": "reviewed runtime invariant; line nosec B101"}
     if test_id == "B101":
+        if area == "tests":
+            return {"disposition": "TEST_ONLY", "reason": "pytest assert in tests/ scope"}
+        if key_tuple in REVIEWED_NOSEC:
+            return {"disposition": "FALSE_POSITIVE", "reason": "reviewed runtime invariant; line nosec B101"}
         return {"disposition": "RAV", "reason": "unexpected B101 outside tests without reviewed nosec"}
 
     if test_id in {"B106", "B108"}:
-        return {"disposition": "TEST_ONLY", "reason": "tests/ only in full scan"}
+        if area == "tests":
+            return {"disposition": "TEST_ONLY", "reason": f"{test_id} in tests/ only"}
+        return {"disposition": "RAV", "reason": f"unexpected {test_id} outside tests/"}
 
-    if test_id == "B310" and area == "tests":
-        return {"disposition": "TEST_ONLY", "reason": "localhost sidecar probe in tests/"}
-    if test_id == "B310" and key in REVIEWED_NOSEC:
-        return {"disposition": "FALSE_POSITIVE", "reason": "controlled audit URL; line nosec B310"}
-
-    if test_id == "B608" and (key[0], key[1]) in {(f, l) for f, l in REVIEWED_B608_NOSEC}:
-        return {"disposition": "FALSE_POSITIVE", "reason": "allowlisted SQL; single-line # nosec B608"}
-    if test_id == "B608":
-        return {"disposition": "FALSE_POSITIVE", "reason": "allowlisted SQL; line nosec B608"}
-
-    if test_id == "B105":
+    if test_id in FAIL_CLOSED_RULES:
+        entry = inventory.get(inv_key)
+        if entry:
+            return {"disposition": entry["disposition"], "reason": entry["reason"]}
         return {
-            "disposition": "TEST_ONLY" if area == "tests" else "FALSE_POSITIVE",
-            "reason": "keyword heuristic (pass/password field names, i18n, audit keys)",
+            "disposition": "RAV",
+            "reason": f"{test_id} not in explicit disposition inventory for {inv_key}",
         }
 
-    if test_id in {"B603", "B607", "B404"}:
-        return {
-            "disposition": "TEST_ONLY" if area == "tests" else "FALSE_POSITIVE",
-            "reason": "subprocess list argv without shell=True",
-        }
-
-    if test_id == "B311":
-        return {"disposition": "FALSE_POSITIVE", "reason": "non-cryptographic random/jitter"}
-
-    if test_id in {"B110", "B112"}:
-        return {"disposition": "FALSE_POSITIVE", "reason": "optional enrichment graceful degradation"}
-
-    return {"disposition": "RAV", "reason": "unmapped rule"}
+    return {"disposition": "RAV", "reason": f"unmapped rule {test_id}"}
 
 
 def run_bandit_json(args: list[str]) -> dict:
@@ -149,10 +121,14 @@ def run_bandit_json(args: list[str]) -> dict:
     return json.loads(proc.stdout or "{}")
 
 
-def reconcile_original() -> dict:
-    if not ORIGINAL_REPORT.is_file():
-        raise FileNotFoundError(f"missing original report: {ORIGINAL_REPORT}")
-    results = json.loads(ORIGINAL_REPORT.read_text(encoding="utf-8"))["results"]
+def reconcile_original(report_path: Path, inventory_path: Path) -> dict:
+    if not report_path.is_file():
+        raise FileNotFoundError(f"missing original report: {report_path}")
+    if not inventory_path.is_file():
+        raise FileNotFoundError(f"missing disposition inventory: {inventory_path}")
+
+    inventory = load_inventory(inventory_path)
+    results = json.loads(report_path.read_text(encoding="utf-8"))["results"]
 
     seen: set[tuple[str, int, str]] = set()
     duplicate = 0
@@ -170,7 +146,7 @@ def reconcile_original() -> dict:
             reason = "duplicate file:line:test_id in source report"
         else:
             seen.add(key)
-            verdict = classify_finding(tid, fn, line)
+            verdict = classify_finding(tid, fn, line, inventory)
             disp = verdict["disposition"]
             reason = verdict["reason"]
         table[tid][disp] += 1
@@ -186,16 +162,15 @@ def reconcile_original() -> dict:
         )
 
     totals = Counter()
-    for tid, counts in table.items():
+    for counts in table.values():
         for disp, n in counts.items():
             totals[disp] += n
 
     reconciliation = {}
     for tid in sorted(table):
         counts = table[tid]
-        total = sum(counts.values())
         reconciliation[tid] = {
-            "total": total,
+            "total": sum(counts.values()),
             "TP": counts.get("TRUE_POSITIVE", 0),
             "FP": counts.get("FALSE_POSITIVE", 0),
             "TEST_ONLY": counts.get("TEST_ONLY", 0),
@@ -204,25 +179,43 @@ def reconcile_original() -> dict:
         }
 
     grand = sum(reconciliation[t]["total"] for t in reconciliation)
+    rav_rows = [row for row in rows if row["disposition"] == "RAV"]
     return {
+        "source_report": str(report_path.relative_to(ROOT)),
+        "inventory": str(inventory_path.relative_to(ROOT)),
         "original_total": len(results),
         "unique_keys": len(seen),
         "duplicate_count": duplicate,
         "grand_total_check": grand,
         "totals_by_disposition": dict(totals),
         "reconciliation_by_test_id": reconciliation,
+        "rav_count": len(rav_rows),
+        "rav_samples": rav_rows[:10],
         "findings": rows,
     }
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Bandit 4703 reconciliation (fail-closed)")
+    parser.add_argument(
+        "--report",
+        type=Path,
+        default=DEFAULT_REPORT,
+        help="Original Bandit JSON report (default: docs/evidence/bandit-full-4703-compact.json)",
+    )
+    parser.add_argument(
+        "--inventory",
+        type=Path,
+        default=DEFAULT_INVENTORY,
+        help="Explicit per-location disposition inventory",
+    )
+    args = parser.parse_args()
+
     if not NEUTRAL_INI.is_file():
         NEUTRAL_INI.write_text("[bandit]\n", encoding="utf-8")
 
-    original = reconcile_original()
-    full = run_bandit_json(
-        ["-r", ".", "--exclude", FULL_EXCLUDE, "--ini", str(NEUTRAL_INI)]
-    )
+    original = reconcile_original(args.report.resolve(), args.inventory.resolve())
+    full = run_bandit_json(["-r", ".", "--exclude", FULL_EXCLUDE, "--ini", str(NEUTRAL_INI)])
     ci = run_bandit_json(["-r", ".", "--ini", str(CI_INI), "-ll"])
 
     out = {
@@ -238,28 +231,28 @@ def main() -> int:
             "policy": {
                 "exclude": "tests/, data/ (artifact store; zero .py), venv, build",
                 "global_skips": [],
+                "fail_closed_rules": sorted(FAIL_CLOSED_RULES),
                 "line_nosec_reviewed_b101_b310": len(REVIEWED_NOSEC),
-                "line_nosec_reviewed_b608": len(REVIEWED_B608_NOSEC),
+                "inventory_entries": len(load_inventory(args.inventory.resolve())),
             },
         },
         "confirmed_true_positives": 0,
     }
     print(json.dumps(out, indent=2))
 
-    if original["grand_total_check"] != 4703:
-        print(
-            f"ERROR: reconciliation total {original['grand_total_check']} != 4703",
-            file=sys.stderr,
-        )
-        return 1
-    if original["original_total"] != 4703:
-        print(
-            f"ERROR: source report total {original['original_total']} != 4703",
-            file=sys.stderr,
-        )
-        return 1
+    errors: list[str] = []
+    if original["grand_total_check"] != EXPECTED_TOTAL:
+        errors.append(f"reconciliation total {original['grand_total_check']} != {EXPECTED_TOTAL}")
+    if original["original_total"] != EXPECTED_TOTAL:
+        errors.append(f"source report total {original['original_total']} != {EXPECTED_TOTAL}")
+    if original["rav_count"] != 0:
+        errors.append(f"RAV count {original['rav_count']} != 0 (fail-closed inventory gap)")
     if ci.get("results"):
-        print("ERROR: CI gate reports new MEDIUM+ findings", file=sys.stderr)
+        errors.append("CI gate reports new MEDIUM+ findings")
+
+    if errors:
+        for err in errors:
+            print(f"ERROR: {err}", file=sys.stderr)
         return 1
     return 0
 

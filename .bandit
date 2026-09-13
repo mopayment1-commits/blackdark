@@ -2,4 +2,4 @@
 # ./data is runtime artifact storage (JSON/JSONL/joblib); verified zero .py under data/.
 # B608 false positives: single-line SQL vars with line-level # nosec B608 (Bandit baseline ignores line numbers; see PyCQA/bandit#1467).
 [bandit]
-exclude = ./.venv,./venv,./tests,./data,./node_modules,./.git,./dist,./build
+exclude = ./.venv,./venv,./tests,./data,./node_modules,./.git,./dist,./build,./.codeql,./.codeql-db
