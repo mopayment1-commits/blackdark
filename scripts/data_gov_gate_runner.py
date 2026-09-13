@@ -20,7 +20,7 @@ def _run(script: str) -> bool:
 
 def _pytest_ok() -> bool:
     proc = subprocess.run(
-        [sys.executable, "-m", "pytest", "tests/test_data_governance_p0_test_matrix.py", "tests/test_data_gov_closure.py", "tests/test_data_gov_fault_injection.py", "tests/test_phase_i_external_gate_readiness.py", "-q", "--tb=no"],
+        [sys.executable, "-m", "pytest", "tests/test_data_governance_p0_test_matrix.py", "tests/test_data_gov_closure.py", "tests/test_data_gov_fault_injection.py", "tests/test_phase_i_external_gate_readiness.py", "tests/test_phase_i_external_route_activation.py", "-q", "--tb=no"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -35,6 +35,7 @@ def main() -> int:
         "build_data_governance_implementation_index.py",
         "phase_i_runtime_reconciliation.py",
         "phase_i_external_gate_readiness.py",
+        "phase_i_external_route_activation.py",
         "data_gov_independent_audit.py",
         "data_gov_rtm_builder.py",
         "data_gov_security_matrix.py",
@@ -47,6 +48,7 @@ def main() -> int:
             return 1
 
     from data_governance.phase_i import write_phase_i_scope, verify_phase_i_gate
+    from data_governance.phase_i_external_clients import verify_external_route_activation_gate
     from data_governance.phase_i_runtime import write_phase_i_runtime_reconciliation, verify_phase_i_runtime_gate
     from data_governance.restore import verify_all_restore
     from data_governance.pipeline import evaluate_data_governance
@@ -55,6 +57,7 @@ def main() -> int:
     phase_i = write_phase_i_scope()
     phase_i_runtime = write_phase_i_runtime_reconciliation()
     phase_i_runtime_gate = verify_phase_i_runtime_gate()
+    activation_gate = verify_external_route_activation_gate()
     restore = verify_all_restore()
     pytest_ok = _pytest_ok()
     wiring = audit_runtime_wiring()
@@ -89,6 +92,16 @@ def main() -> int:
         "EXTERNAL_GATED_ROUTES_AUDITED": phase_i_runtime.get("EXTERNAL_GATED_ROUTES_AUDITED", 0),
         "EXTERNAL_GATED_ROUTES_WITH_LOCAL_ENGINEERING_REMAINING": phase_i_runtime.get("EXTERNAL_GATED_ROUTES_WITH_LOCAL_ENGINEERING_REMAINING", 1),
         "EXTERNAL_GATED_ROUTES_WITHOUT_ACTIVATION_READINESS": phase_i_runtime.get("EXTERNAL_GATED_ROUTES_WITHOUT_ACTIVATION_READINESS", 1),
+        "EXTERNAL_ROUTES_AUDITED": activation_gate.get("EXTERNAL_ROUTES_AUDITED", 0),
+        "EXTERNAL_ROUTES_WITHOUT_PRODUCTION_CLIENT": activation_gate.get("EXTERNAL_ROUTES_WITHOUT_PRODUCTION_CLIENT", 1),
+        "EXTERNAL_ROUTES_WITHOUT_NETWORK_ACQUISITION_PATH": activation_gate.get("EXTERNAL_ROUTES_WITHOUT_NETWORK_ACQUISITION_PATH", 1),
+        "EXTERNAL_ROUTES_WITHOUT_FAILURE_HANDLING": activation_gate.get("EXTERNAL_ROUTES_WITHOUT_FAILURE_HANDLING", 1),
+        "EXTERNAL_ROUTES_WITHOUT_LOCAL_TRANSPORT_TEST": activation_gate.get("EXTERNAL_ROUTES_WITHOUT_LOCAL_TRANSPORT_TEST", 1),
+        "EXTERNAL_ROUTES_REQUIRING_FUTURE_CODE_CHANGE": activation_gate.get("EXTERNAL_ROUTES_REQUIRING_FUTURE_CODE_CHANGE", 1),
+        "FALSE_EXTERNAL_DEPENDENCY_CLASSIFICATIONS": activation_gate.get("FALSE_EXTERNAL_DEPENDENCY_CLASSIFICATIONS", 1),
+        "LOCAL_GAPS_DISCOVERED_IN_EXTERNAL_GATE_AUDIT": activation_gate.get("LOCAL_GAPS_DISCOVERED_IN_EXTERNAL_GATE_AUDIT", 0),
+        "LOCAL_GAPS_REMEDIATED": activation_gate.get("LOCAL_GAPS_REMEDIATED", 0),
+        "LOCAL_GAPS_REMAINING": activation_gate.get("LOCAL_GAPS_REMAINING", 1),
         "SOURCE_REQUIREMENTS_ACCOUNTED_FOR": "100%",
         "ATOMIC_REQUIREMENTS_UNMAPPED": atomic.get("UNMAPPED_ATOMIC_REQUIREMENTS", 1),
         "LOCAL_BUILDABLE_DATA_REQUIREMENTS_REMAINING": atomic.get("UNMAPPED_ATOMIC_REQUIREMENTS", 1),
@@ -104,7 +117,7 @@ def main() -> int:
         "LOCAL_RESILIENCE_FINDINGS": 0,
         "AFFECTED_MODULES_WITHOUT_REGRESSION_COVERAGE": 0,
         "LOCALLY_REMEDIABLE_REMAINING": phase_i_runtime.get("LOCALLY_REMEDIABLE_REMAINING", 1),
-        "EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING": True,
+        "EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING": activation_gate.get("EXTERNAL_GATES_CONTAIN_NO_LOCAL_ENGINEERING", False),
         "PASS_ENGINEERING_DATA": False,
         "READY_FOR_INTENDED_LOCAL_USE": False,
         "PASS_LIVE_NOT_CLAIMED": True,
@@ -121,8 +134,11 @@ def main() -> int:
         and restore.get("ok", 0) >= 10
         and phase_i.get("within_bounds")
         and phase_i_runtime_gate.get("ok")
+        and activation_gate.get("ok")
         and assertions.get("DISPOSITION_COUNT_MISMATCH", 1) == 0
         and assertions.get("EXTERNAL_GATED_ROUTES_WITH_LOCAL_ENGINEERING_REMAINING", 1) == 0
+        and assertions.get("EXTERNAL_ROUTES_REQUIRING_FUTURE_CODE_CHANGE", 1) == 0
+        and assertions.get("LOCAL_GAPS_REMAINING", 1) == 0
         and pipeline_demo.get("data_governance_state") in {"ADMITTED", "DEGRADED", "ABSTAINED", "REJECTED"}
     )
     assertions["PASS_ENGINEERING_DATA"] = core_pass

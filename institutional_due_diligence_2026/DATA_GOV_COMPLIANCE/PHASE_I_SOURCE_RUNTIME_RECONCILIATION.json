@@ -33,11 +33,11 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
-      "EXTERNAL_DEPENDENCY": "The Graph hosted indexer availability for production query quota",
+      "EXTERNAL_DEPENDENCY": "The Graph Subgraph Studio API key and subgraph deployment ID",
       "LOCAL_ENGINEERING_COMPLETE": true,
       "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
       "NO_LOCAL_ENGINEERING_REMAINS": true,
-      "notes": "Resolves via catalog alias aave_subgraph"
+      "notes": "The Graph Network API key and subgraph deployment ID"
     },
     {
       "source_route": "binance_funding",
@@ -214,11 +214,11 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
-      "EXTERNAL_DEPENDENCY": "Chainlink feed RPC/node subscription or Data Streams API credential",
+      "EXTERNAL_DEPENDENCY": "Ethereum JSON-RPC endpoint URL and Chainlink ETH/USD proxy feed contract address",
       "LOCAL_ENGINEERING_COMPLETE": true,
       "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
       "NO_LOCAL_ENGINEERING_REMAINS": true,
-      "notes": "On-chain oracle feed requires dedicated node/RPC subscription"
+      "notes": "Ethereum JSON-RPC URL and Chainlink feed contract address"
     },
     {
       "source_route": "coinbase_spot",
@@ -370,11 +370,11 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
-      "EXTERNAL_DEPENDENCY": "DUNE_API_KEY and approved query execution quota",
+      "EXTERNAL_DEPENDENCY": "DUNE_API_KEY and configured query ID with Analyst plan access",
       "LOCAL_ENGINEERING_COMPLETE": true,
       "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
       "NO_LOCAL_ENGINEERING_REMAINS": true,
-      "notes": "Dune API key and query quota required"
+      "notes": "DUNE_API_KEY and configured query ID"
     },
     {
       "source_route": "dydx",
@@ -388,11 +388,11 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
-      "EXTERNAL_DEPENDENCY": "dYdX indexer endpoint access and production rate-limit headroom",
+      "EXTERNAL_DEPENDENCY": "Production indexer availability and documented per-IP rate limits",
       "LOCAL_ENGINEERING_COMPLETE": true,
       "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
       "NO_LOCAL_ENGINEERING_REMAINS": true,
-      "notes": "Perp-DEX v4 API integration not admitted to catalog"
+      "notes": "Public indexer availability (no auth); live network validation gated"
     },
     {
       "source_route": "ethereum_rpc",
@@ -468,11 +468,11 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
-      "EXTERNAL_DEPENDENCY": "Hyperliquid API endpoint access and production rate-limit headroom",
+      "EXTERNAL_DEPENDENCY": "Production Hyperliquid info endpoint availability and rate-limit headroom",
       "LOCAL_ENGINEERING_COMPLETE": true,
       "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
       "NO_LOCAL_ENGINEERING_REMAINS": true,
-      "notes": "Hyperliquid API integration not admitted to catalog"
+      "notes": "Public /info endpoint (no auth); live network validation gated"
     },
     {
       "source_route": "kraken_spot",
@@ -583,11 +583,11 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
-      "EXTERNAL_DEPENDENCY": "Pyth Hermes/API or on-chain price service subscription",
+      "EXTERNAL_DEPENDENCY": "Pyth API key from Pyth Terminal (Hermes authentication required)",
       "LOCAL_ENGINEERING_COMPLETE": true,
       "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
       "NO_LOCAL_ENGINEERING_REMAINS": true,
-      "notes": "Pyth price service requires dedicated websocket/RPC integration"
+      "notes": "PYTH_API_KEY for Hermes REST authentication"
     },
     {
       "source_route": "sec_edgar",
@@ -624,11 +624,11 @@
       "provenance_bound": true,
       "decision_path_bound": true,
       "final_disposition": "LOCAL_GAP_REMEDIATED_THEN_EXTERNAL_GATED",
-      "EXTERNAL_DEPENDENCY": "The Graph hosted indexer availability for production query quota",
+      "EXTERNAL_DEPENDENCY": "The Graph Subgraph Studio API key and subgraph deployment ID",
       "LOCAL_ENGINEERING_COMPLETE": true,
       "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": true,
       "NO_LOCAL_ENGINEERING_REMAINS": true,
-      "notes": "Resolves via catalog alias uniswap_subgraph"
+      "notes": "The Graph Network API key and subgraph deployment ID"
     }
   ]
 }

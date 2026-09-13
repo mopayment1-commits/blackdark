@@ -29,8 +29,8 @@ PHASE_I_EXTERNAL_ROUTE_SPECS: dict[str, PhaseIExternalRouteSpec] = {
         provider="Aave V3 (The Graph subgraph)",
         catalog_alias="aave_subgraph",
         runtime_owner="data_governance.phase_i_external_adapters.parse_subgraph_defi",
-        external_dependency="The Graph hosted indexer availability for production query quota",
-        env_key=None,
+        external_dependency="The Graph Subgraph Studio API key and subgraph deployment ID",
+        env_key="GRAPH_API_KEY",
         required_fields=("protocol", "tvl_usd", "timestamp"),
         rights_state="public_subgraph_terms",
     ),
@@ -39,8 +39,8 @@ PHASE_I_EXTERNAL_ROUTE_SPECS: dict[str, PhaseIExternalRouteSpec] = {
         provider="Uniswap V3 (The Graph subgraph)",
         catalog_alias="uniswap_subgraph",
         runtime_owner="data_governance.phase_i_external_adapters.parse_subgraph_defi",
-        external_dependency="The Graph hosted indexer availability for production query quota",
-        env_key=None,
+        external_dependency="The Graph Subgraph Studio API key and subgraph deployment ID",
+        env_key="GRAPH_API_KEY",
         required_fields=("pool_id", "token0", "token1", "liquidity_usd", "timestamp"),
         rights_state="public_subgraph_terms",
     ),
@@ -49,8 +49,8 @@ PHASE_I_EXTERNAL_ROUTE_SPECS: dict[str, PhaseIExternalRouteSpec] = {
         provider="Chainlink Data Feeds",
         catalog_alias=None,
         runtime_owner="data_governance.phase_i_external_adapters.parse_oracle_price",
-        external_dependency="Chainlink feed RPC/node subscription or Data Streams API credential",
-        env_key="CHAINLINK_FEED_API_KEY",
+        external_dependency="Ethereum JSON-RPC endpoint URL and Chainlink ETH/USD proxy feed contract address",
+        env_key=None,
         required_fields=("feed_id", "price", "decimals", "updated_at"),
         rights_state="provider_terms_required",
     ),
@@ -59,7 +59,7 @@ PHASE_I_EXTERNAL_ROUTE_SPECS: dict[str, PhaseIExternalRouteSpec] = {
         provider="Dune Analytics",
         catalog_alias=None,
         runtime_owner="data_governance.phase_i_external_adapters.parse_dune_query_result",
-        external_dependency="DUNE_API_KEY and approved query execution quota",
+        external_dependency="DUNE_API_KEY and configured query ID with Analyst plan access",
         env_key="DUNE_API_KEY",
         required_fields=("query_id", "rows", "executed_at"),
         rights_state="dune_api_terms",
@@ -69,7 +69,7 @@ PHASE_I_EXTERNAL_ROUTE_SPECS: dict[str, PhaseIExternalRouteSpec] = {
         provider="dYdX v4 Indexer",
         catalog_alias=None,
         runtime_owner="data_governance.phase_i_external_adapters.parse_perp_dex_market",
-        external_dependency="dYdX indexer endpoint access and production rate-limit headroom",
+        external_dependency="Production indexer availability and documented per-IP rate limits",
         env_key=None,
         required_fields=("market", "oracle_price", "funding_rate", "timestamp"),
         rights_state="public_api_terms",
@@ -79,7 +79,7 @@ PHASE_I_EXTERNAL_ROUTE_SPECS: dict[str, PhaseIExternalRouteSpec] = {
         provider="Hyperliquid",
         catalog_alias=None,
         runtime_owner="data_governance.phase_i_external_adapters.parse_perp_dex_market",
-        external_dependency="Hyperliquid API endpoint access and production rate-limit headroom",
+        external_dependency="Production Hyperliquid info endpoint availability and rate-limit headroom",
         env_key=None,
         required_fields=("market", "oracle_price", "funding_rate", "timestamp"),
         rights_state="public_api_terms",
@@ -89,7 +89,7 @@ PHASE_I_EXTERNAL_ROUTE_SPECS: dict[str, PhaseIExternalRouteSpec] = {
         provider="Pyth Network",
         catalog_alias=None,
         runtime_owner="data_governance.phase_i_external_adapters.parse_oracle_price",
-        external_dependency="Pyth Hermes/API or on-chain price service subscription",
+        external_dependency="Pyth API key from Pyth Terminal (Hermes authentication required)",
         env_key="PYTH_API_KEY",
         required_fields=("feed_id", "price", "decimals", "updated_at"),
         rights_state="pyth_terms",
@@ -208,7 +208,11 @@ def run_phase_i_external_path(source_id: str, payload: dict[str, Any] | None = N
 
 
 def external_route_readiness(source_id: str) -> dict[str, Any]:
+    from data_governance.phase_i_external_clients import build_external_route_activation_readiness
+
     spec = PHASE_I_EXTERNAL_ROUTE_SPECS[source_id]
+    activation_rows = {r["source_id"]: r for r in build_external_route_activation_readiness()["rows"]}
+    activation = activation_rows.get(source_id, {})
     try:
         result = run_phase_i_external_path(source_id)
         ok = bool(result.get("data_governance")) and bool(result.get("todays_decision_surface"))
@@ -223,23 +227,35 @@ def external_route_readiness(source_id: str) -> dict[str, Any]:
             "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": False,
             "LOCAL_ENGINEERING_COMPLETE": False,
             "EXTERNAL_DEPENDENCY": spec.external_dependency,
+            "external_gate_class": activation.get("external_gate_class"),
             "error": str(exc),
         }
+    no_local = bool(activation.get("NO_LOCAL_ENGINEERING_REMAINS"))
     return {
         "source_id": source_id,
         "provider": spec.provider,
         "runtime_owner": spec.runtime_owner,
+        "network_client_owner": activation.get("network_client_owner"),
         "catalog_alias": spec.catalog_alias,
         "rights_state": spec.rights_state,
         "LOCAL_IMPLEMENTATION_COMPLETE": True,
         "LOCAL_RUNTIME_PATH_COMPLETE": True,
         "LOCAL_TEST_EVIDENCE_COMPLETE": True,
+        "PRODUCTION_CLIENT_IMPLEMENTED": activation.get("PRODUCTION_CLIENT_IMPLEMENTED", False),
+        "NETWORK_ACQUISITION_PATH_IMPLEMENTED": activation.get("NETWORK_ACQUISITION_PATH_IMPLEMENTED", False),
+        "FAILURE_HANDLING_IMPLEMENTED": activation.get("FAILURE_HANDLING_IMPLEMENTED", False),
+        "LOCAL_TRANSPORT_TEST_COMPLETE": activation.get("LOCAL_TRANSPORT_TEST_COMPLETE", False),
         "EXTERNAL_DEPENDENCY_ONLY": True,
-        "NO_LOCAL_ENGINEERING_REMAINS": True,
-        "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": True,
-        "LOCAL_ENGINEERING_COMPLETE": True,
+        "NO_LOCAL_ENGINEERING_REMAINS": no_local,
+        "READY_TO_ACTIVATE_WITH_EXTERNAL_DEPENDENCY_ONLY": no_local and ok,
+        "LOCAL_ENGINEERING_COMPLETE": no_local,
         "EXTERNAL_DEPENDENCY": spec.external_dependency,
+        "external_gate_class": activation.get("external_gate_class"),
+        "documentation_ref": activation.get("documentation_ref"),
         "env_key": spec.env_key,
+        "code_change_required_after_external_dependency_available": activation.get(
+            "code_change_required_after_external_dependency_available", True
+        ),
         "data_governance_state": result.get("data_governance_state"),
         "has_provenance": bool((result.get("data_governance") or {}).get("provenance")),
         "has_decision_surface": bool(result.get("todays_decision_surface")),

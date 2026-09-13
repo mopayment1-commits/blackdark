@@ -91,11 +91,13 @@ SHARED_CONNECTOR_ROUTES: dict[str, list[str]] = {
 
 # Vendor/paid/indexer routes scoped for Phase I but not locally provisioned.
 EXTERNAL_GATED_ROUTES: dict[str, str] = {
-    "chainlink_oracle": "On-chain oracle feed requires dedicated node/RPC subscription",
-    "dune_analytics": "Dune API key and query quota required",
-    "dydx": "Perp-DEX v4 API integration not admitted to catalog",
-    "hyperliquid": "Hyperliquid API integration not admitted to catalog",
-    "pyth_network": "Pyth price service requires dedicated websocket/RPC integration",
+    "aave_v3": "The Graph Network API key and subgraph deployment ID",
+    "uniswap_v3": "The Graph Network API key and subgraph deployment ID",
+    "chainlink_oracle": "Ethereum JSON-RPC URL and Chainlink feed contract address",
+    "dune_analytics": "DUNE_API_KEY and configured query ID",
+    "dydx": "Public indexer availability (no auth); live network validation gated",
+    "hyperliquid": "Public /info endpoint (no auth); live network validation gated",
+    "pyth_network": "PYTH_API_KEY for Hermes REST authentication",
 }
 
 HANDLER_SOURCES = frozenset({
