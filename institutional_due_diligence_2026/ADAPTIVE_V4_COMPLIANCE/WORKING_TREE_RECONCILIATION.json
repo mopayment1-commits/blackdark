@@ -2,11 +2,11 @@
   "reconciliation_version": "adaptive-v4-gate-8",
   "items": [
     {
-      "path": "FREE_API_RATE_LIMIT_AUDIT.json",
+      "path": "bd_platform/adaptive_intelligence/security_controls.py",
       "status": "M",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
     },
     {
       "path": "data/ml_experience_log.jsonl",
@@ -65,70 +65,63 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "docs/CODEQL_911_RECONCILIATION.md",
-      "status": "M",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "docs/CODEQL_BASELINE.json",
-      "status": "M",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"
     },
     {
-      "path": ".codeql-db/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
     },
     {
-      "path": ".codeql/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_gate_runner.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_regression_impact.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_security_matrix.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "tests/test_adaptive_v4_security.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
     },
     {
       "path": ".venv-a11y/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "BATCH04_17_FAILURE_SCAN.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "EXECUTE_826_VERIFY_SUMMARY.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "blackdark/data/timezone_preference_audit.jsonl",
       "status": "??",
       "related_to_adaptive": false,
       "safe_to_exclude": true,
@@ -142,84 +135,7 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "data/address_balance_snapshots.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/alert_passport.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/aml_screening_audit.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/anti_hype_mode.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/contradiction_replays.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/corporate/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
       "path": "data/decision_ledger.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/enterprise_sso.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/failure_corpus.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/gdpr_consent_log.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/gdpr_deletion_audit.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/glass_box_announce_schedule.json",
       "status": "??",
       "related_to_adaptive": false,
       "safe_to_exclude": true,
@@ -233,49 +149,7 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "data/in_app_alerts.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/industry_silence_events.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/institutional/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
       "path": "data/institutional_assurance/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/institutional_commerce/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/institutional_rbac_audit.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/intelligence_flywheel_feedback.jsonl",
       "status": "??",
       "related_to_adaptive": false,
       "safe_to_exclude": true,
@@ -289,27 +163,6 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "data/launch_checklist.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/locked_predictions.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/market_event_library.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
       "path": "data/mirror_ledger.jsonl",
       "status": "??",
       "related_to_adaptive": false,
@@ -317,7 +170,7 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "data/models/oracle_direction_ens20260913_0532.joblib",
+      "path": "data/models/oracle_direction_ens20260913_1005.joblib",
       "status": "??",
       "related_to_adaptive": false,
       "safe_to_exclude": true,
@@ -345,69 +198,6 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "data/proof_arena.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/sealed_desk_duels.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/security_events.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/signal_registry.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/since_you_left.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/sovereign_signal_definitions.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/streaming_event_queue.jsonl",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/transparency/",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "data/trust_debt.json",
-      "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
-    },
-    {
       "path": "data/uptime_probes.jsonl",
       "status": "??",
       "related_to_adaptive": false,
@@ -415,39 +205,137 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "data/usage_analytics_events.jsonl",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_MATRIX.json",
       "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "data/user_exposure_log.jsonl",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/PRIMARY_TO_ATOMIC_REQUIREMENT_MAPPING.json",
       "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "scripts/execute_826_verify.py",
+      "path": "scripts/adaptive_v4_accessibility_matrix.py",
       "status": "??",
-      "related_to_adaptive": false,
-      "safe_to_exclude": true,
-      "reason": "pre_existing_unrelated_artifact"
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_atomicity_mapping.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_performance_evidence.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
     }
   ],
-  "UNEXPLAINED_WORKING_TREE_CHANGES": 0,
+  "UNEXPLAINED_WORKING_TREE_CHANGES": 14,
   "adaptive_uncommitted": [
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/FINAL_GATE_ASSERTIONS.json",
+      "path": "bd_platform/adaptive_intelligence/security_controls.py",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/WORKING_TREE_RECONCILIATION.json",
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
       "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_gate_runner.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_regression_impact.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_security_matrix.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "tests/test_adaptive_v4_security.py",
+      "status": "M",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_MATRIX.json",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/PRIMARY_TO_ATOMIC_REQUIREMENT_MAPPING.json",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_accessibility_matrix.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_atomicity_mapping.py",
+      "status": "??",
+      "related_to_adaptive": true,
+      "safe_to_exclude": false,
+      "reason": "adaptive_work_in_progress"
+    },
+    {
+      "path": "scripts/adaptive_v4_performance_evidence.py",
+      "status": "??",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"

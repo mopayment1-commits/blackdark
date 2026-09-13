@@ -22,7 +22,9 @@ def validate_adaptive_input(body: dict[str, Any]) -> dict[str, Any]:
             errors.append(f"{key}_must_be_string")
         if isinstance(val, str) and len(val) > 2000:
             errors.append(f"{key}_too_long")
-        if isinstance(val, str) and re.search(r"[<>\"']", val):
+        if isinstance(val, str) and (
+            re.search(r"[<>\"']", val) or re.search(r"[\u0000-\u001f\u007f-\u009f\u200b-\u200f\ufeff]", val)
+        ):
             errors.append(f"{key}_invalid_chars")
     user_id = body.get("user_id")
     if user_id is not None:
