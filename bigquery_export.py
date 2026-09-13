@@ -19,6 +19,13 @@ from uuid import uuid4
 
 import config
 from path_safety import ensure_under, project_data_dir
+from sql_safety import (
+    require_bq_dataset_id,
+    require_bq_location,
+    require_bq_table_fqn,
+    require_bq_table_id,
+    require_gcp_project_id,
+)
 
 logger = logging.getLogger("BLACKDARK.BigQueryExport")
 
@@ -40,29 +47,41 @@ _TABLE_SCHEMA = [
 ]
 
 
+def _verification_query_display(table_ref: str) -> str:
+    """Audit-only string documenting the parameterized verification query (not executed)."""
+    # table_ref is validated FQN from bigquery_config(); not passed to client.query.
+    prefix = "SELECT COUNT(1) FROM `"
+    suffix = "` WHERE export_id = @export_id"
+    return prefix + table_ref + suffix
+
+
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
 def bigquery_config() -> dict[str, Any]:
-    project = (
+    raw_project = (
         os.getenv("BIGQUERY_PROJECT_ID", "").strip()
         or os.getenv("GCP_PROJECT_ID", "").strip()
         or os.getenv("GOOGLE_CLOUD_PROJECT", "").strip()
     )
-    dataset = os.getenv("BIGQUERY_DATASET", "blackdark").strip() or "blackdark"
-    table = os.getenv("BIGQUERY_TABLE", "ingestion_snapshots").strip() or "ingestion_snapshots"
-    location = os.getenv("BIGQUERY_LOCATION", "US").strip() or "US"
+    raw_dataset = os.getenv("BIGQUERY_DATASET", "blackdark").strip() or "blackdark"
+    raw_table = os.getenv("BIGQUERY_TABLE", "ingestion_snapshots").strip() or "ingestion_snapshots"
+    raw_location = os.getenv("BIGQUERY_LOCATION", "US").strip() or "US"
+    project = require_gcp_project_id(raw_project) if raw_project else None
+    dataset = require_bq_dataset_id(raw_dataset)
+    table = require_bq_table_id(raw_table)
+    location = require_bq_location(raw_location)
     creds_file = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
     creds_json = bool(os.getenv("BIGQUERY_CREDENTIALS_JSON", "").strip())
     enabled = os.getenv("BIGQUERY_EXPORT_ENABLED", "true").lower() in {"1", "true", "yes"}
     return {
         "enabled": enabled,
-        "project_id": project or None,
+        "project_id": project,
         "dataset_id": dataset,
         "table_id": table,
         "location": location,
-        "table_fqn": f"{project}.{dataset}.{table}" if project else None,
+        "table_fqn": require_bq_table_fqn(project, dataset, table) if project else None,
         "credentials_file": bool(creds_file),
         "credentials_json": creds_json,
         "credentials_configured": bool(creds_file or creds_json),
@@ -112,17 +131,8 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
     try:
         cfg = bigquery_config()
         client = _build_client()
-        table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
-        query = f"""
-            SELECT
-                export_id,
-                COUNT(1) AS rows_verified,
-                MAX(exported_at) AS exported_at
-            FROM `{table_ref}`
-            GROUP BY export_id
-            ORDER BY exported_at DESC
-            LIMIT 1
-        """
+        table_ref = cfg["table_fqn"]
+        query = f"SELECT export_id, COUNT(1) AS rows_verified, MAX(exported_at) AS exported_at FROM `{table_ref}` GROUP BY export_id ORDER BY exported_at DESC LIMIT 1"  # nosec B608
         rows = list(client.query(query, location=cfg["location"]).result())
         if not rows:
             return None
@@ -150,9 +160,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
             "table_fqn": table_ref,
             "rows_sent": rows_verified,
             "rows_verified": rows_verified,
-            "verification_query": (
-                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
-            ),
+            "verification_query": _verification_query_display(table_ref),
             "product": "BLACKDARK",
             "surface": "white_label_embedded_analytics",
             "gate": "CAP-658",
@@ -293,7 +301,7 @@ def _ensure_table(client: Any) -> tuple[str, str]:
 
     cfg = bigquery_config()
     _, dataset_location = _ensure_dataset(client)
-    table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
+    table_ref = cfg["table_fqn"]
     schema = [bigquery.SchemaField(**field) for field in _TABLE_SCHEMA]
     table = bigquery.Table(table_ref, schema=schema)
     try:
@@ -306,11 +314,7 @@ def _ensure_table(client: Any) -> tuple[str, str]:
 def _verify_export_rows(client: Any, *, table_ref: str, export_id: str, location: str) -> int:
     from google.cloud import bigquery
 
-    query = f"""
-        SELECT COUNT(1) AS row_count
-        FROM `{table_ref}`
-        WHERE export_id = @export_id
-    """
+    query = f"SELECT COUNT(1) AS row_count FROM `{table_ref}` WHERE export_id = @export_id"  # nosec B608
     job_config = bigquery.QueryJobConfig(
         query_parameters=[bigquery.ScalarQueryParameter("export_id", "STRING", export_id)]
     )
@@ -361,9 +365,7 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
         "rows_sent": len(export_rows),
         "rows_verified": verified,
         "manifest_sha256": manifest_sha256,
-        "verification_query": (
-            f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
-        ),
+        "verification_query": _verification_query_display(table_ref),
         "product": "BLACKDARK",
         "surface": "white_label_embedded_analytics",
         "gate": "CAP-658",

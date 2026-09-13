@@ -1,0 +1,2144 @@
+{
+  "count": 97,
+  "records": [
+    {
+      "original_finding_id": "acquirer_evidence_pack.py|171|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  166|             \"linked_prediction_ids\": d8.get(\"linked_prediction_ids\"),\n  167|             \"total_in_memory\": d8.get(\"total_in_memory\"),\n  168|             \"by_label\": d8.get(\"by_label\"),\n  169|             \"by_type_performance\": d8.get(\"by_type_performance\"),\n  170|         }\n  171|     except Exception:\n  172|         pass\n  173| \n  174| \n  175| async def build_acquirer_evidence_pack() -> dict[str, Any]:\n  176|     pack: dict[str, Any] = {",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at acquirer_evidence_pack.py:171 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "ai_oracle.py|436|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  431|         from ml.drift_monitor import calibrate_confidence\n  432| \n  433|         calibration = calibrate_confidence(confidence)\n  434|         if calibration.get(\"calibrated\"):\n  435|             confidence = float(calibration[\"calibrated_hit_rate_percent\"])\n  436|     except Exception:\n  437|         pass\n  438|     return confidence\n  439| \n  440| \n  441| def explain_opportunity(",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at ai_oracle.py:436 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "ai_oracle.py|813|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  808| \n  809|         payload[\"compliance_footer\"] = compliance_footer_block(\n  810|             surface=\"ai_oracle_evaluate\",\n  811|             trust_basis=\"public_accuracy_ledger + net_edge_truth + veto\",\n  812|         )\n  813|     except Exception:\n  814|         pass\n  815| \n  816| \n  817| async def evaluate_opportunity(\n  818|     opportunity: Any,",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at ai_oracle.py:813 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "api/deps.py|88|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   83|     )\n   84|     try:\n   85|         from observability import increment_metric\n   86| \n   87|         increment_metric(\"behavior_events_total\")\n   88|     except Exception:\n   89|         pass",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at api/deps.py:88 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "api/routers/arbitrage.py|116|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  111|     )\n  112|     try:\n  113|         from observability import increment_metric\n  114| \n  115|         increment_metric(\"arbitrage_scans_total\")\n  116|     except Exception:\n  117|         pass\n  118|     return result\n  119| \n  120| \n  121| @router.get(\"/compare/{symbol}\")",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at api/routers/arbitrage.py:116 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "api/routers/auth.py|247|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  242|     user = await fetch_user_by_email(email)\n  243|     debug: dict[str, Any] = {}\n  244|     if user and int(user.get(\"password_is_set\") if user.get(\"password_is_set\") is not None else 1):\n  245|         try:\n  246|             debug = await send_password_reset_email(int(user[\"id\"]), email)\n  247|         except Exception:\n  248|             pass\n  249|     payload = {\n  250|         \"ok\": True,\n  251|         \"message\": \"If an account exists for that email, a reset link was sent.\",\n  252|     }",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "anti_enumeration_generic_response_preserved",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at api/routers/auth.py:247 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "api/routers/auth.py|514|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  509|             retention_hint = {\n  510|                 \"bear_market_mode\": True,\n  511|                 \"dashboard_mode\": market.get(\"primary_value_pivot\"),\n  512|                 \"headline_en\": market.get(\"headline_en\"),\n  513|             }\n  514|     except Exception:\n  515|         pass\n  516|     mfa = await mfa_status_for_user(int(user[\"id\"]))\n  517|     profile_out = dict(profile)\n  518|     profile_out[\"initials\"] = avatar_initials(\n  519|         str(profile.get(\"name\") or \"\"), str(profile.get(\"email\") or user[\"email\"])",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at api/routers/auth.py:514 optional enrichment failure; primary auth path already validated; failure does not issue session or elevate privilege"
+    },
+    {
+      "original_finding_id": "api/routers/billing.py|224|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  219|                 \"company\": data.get(\"company\"),\n  220|                 \"message\": data.get(\"message\"),\n  221|                 \"budget_usd\": data.get(\"budget_usd\") or data.get(\"budget\"),\n  222|             },\n  223|         )\n  224|     except Exception:\n  225|         pass\n  226|     return {\n  227|         \"ok\": True,\n  228|         \"inquiry_id\": inquiry_id,\n  229|         \"currency\": \"USD\",",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at api/routers/billing.py:224 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "api/routers/heroes.py|281|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  276|                 accuracy_pct = None\n  277|             try:\n  278|                 total = int(total) if total is not None else None\n  279|             except (TypeError, ValueError):\n  280|                 total = None\n  281|     except Exception:\n  282|         pass\n  283|     return build_ledger_share_kit(accuracy_pct=accuracy_pct, total_predictions=total)\n  284| \n  285| \n  286| @router.get(\"/api/heroes/quality\")",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at api/routers/heroes.py:281 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "auth_service.py|336|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  331|             \"login_failure\",\n  332|             severity=\"warning\",\n  333|             actor=email,\n  334|             detail={\"reason\": \"invalid_credentials\"},\n  335|         )\n  336|     except Exception:\n  337|         pass\n  338| \n  339| \n  340| async def _login_org_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code: str | None) -> dict[str, Any]:\n  341|     try:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at auth_service.py:336 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "auth_service.py|468|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  463| \n  464|     # New login regenerates session and revokes prior tokens (fixation / theft radius).\n  465|     if revoke_others:\n  466|         try:\n  467|             await delete_user_sessions_for_user(int(user_id))\n  468|         except Exception:\n  469|             pass\n  470|     token = secrets.token_urlsafe(48)\n  471|     token_hash = hash_session_token(token)\n  472|     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()\n  473|     await insert_user_session(user_id, token_hash, expires_at)",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "optional_enrichment_failure_no_session_issued",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at auth_service.py:468 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "b2b_websocket_hub.py|78|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   73|             clients = list(self._clients)\n   74|             self._clients.clear()\n   75|         for client in clients:\n   76|             try:\n   77|                 await client.websocket.close()\n   78|             except Exception:\n   79|                 pass\n   80|         logger.info(\"B2B WebSocket hub stopped\")\n   81| \n   82|     async def register(self, websocket: Any, api_key: str, *, is_demo: bool) -> B2BClient:\n   83|         max_conn = int(getattr(config, \"B2B_WS_MAX_CONNECTIONS\", 50))",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at b2b_websocket_hub.py:78 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "bd_platform/sse_stream.py|39|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   34| \n   35|     try:\n   36|         from bd_platform.drawdown_guard import drawdown_status\n   37| \n   38|         payload[\"drawdown\"] = drawdown_status()\n   39|     except Exception:\n   40|         pass\n   41| \n   42|     payload[\"type\"] = \"snapshot\"\n   43|     return payload\n   44| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at bd_platform/sse_stream.py:39 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/backend_registry.py|585|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  580|                 ext.entrypoint,\n  581|                 ext.surface,\n  582|                 ext.param_style,\n  583|                 ext.source or \"cap978_extension_registry\",\n  584|             )\n  585|         except Exception:\n  586|             pass\n  587| \n  588|     if explicit is not None:\n  589|         return explicit\n  590| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at cap646/backend_registry.py:585 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/batch_spine.py|23|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   18| \n   19|             prov = compute_data_provenance_score(symbol=symbol)\n   20|             result[\"data_provenance\"] = prov\n   21|             if isinstance(result.get(\"holder_metrics\"), dict):\n   22|                 result[\"holder_metrics\"].setdefault(\"provenance\", prov)\n   23|         except Exception:\n   24|             pass\n   25|     return result\n   26| \n   27| \n   28| async def execute_and_enrich_batch(",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at cap646/batch_spine.py:23 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/entitlements.py|74|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   69|                     return {\n   70|                         \"allowed\": False,\n   71|                         \"reason\": \"external_blocked\",\n   72|                         \"capability_id\": capability_id,\n   73|                     }\n   74|             except Exception:\n   75|                 pass\n   76| \n   77|         row = catalog646_by_id().get(capability_id) or {}\n   78|         if capability_id >= 647 and not row:\n   79|             try:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at cap646/entitlements.py:74 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/entitlements.py|129|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  124|                         \"allowed\": False,\n  125|                         \"reason\": \"missing_org_permission\",\n  126|                         \"permission\": perm,\n  127|                         \"capability_id\": capability_id,\n  128|                     }\n  129|             except Exception:\n  130|                 pass\n  131| \n  132|         try:\n  133|             from auth_service import feature_allowed\n  134| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "optional_enrichment_failure_no_session_issued",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at cap646/entitlements.py:129 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/entitlements.py|143|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  138|                     \"allowed\": False,\n  139|                     \"reason\": \"feature_disabled\",\n  140|                     \"feature\": feature_key,\n  141|                     \"capability_id\": capability_id,\n  142|                 }\n  143|         except Exception:\n  144|             pass\n  145| \n  146|         if user and user.get(\"id\"):\n  147|             from billing.usage_meter import check_and_increment\n  148| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "non_authoritative_side_effect_failure",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at cap646/entitlements.py:143 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/institutional_official_production.py|93|B112",
+      "test_id": "B112",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   88|         try:\n   89|             mod = importlib.import_module(mod_name)\n   90|             surfaces = getattr(mod, \"EXPECTED_SURFACE\", None)\n   91|             if isinstance(surfaces, dict):\n   92|                 merged.update(surfaces)\n   93|         except Exception:\n   94|             continue\n   95|     return merged\n   96| \n   97| \n   98| def _resolve_production_spine(capability_id: int, handler_module: str) -> str:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B112 at cap646/institutional_official_production.py:93 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/v6_true_institutional_dod.py|109|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  104| \n  105|     try:\n  106|         from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS\n  107| \n  108|         ids.update(FREE_TIER_BASE_IDS)\n  109|     except Exception:\n  110|         pass\n  111|     try:\n  112|         from cap646.batch01_production import LEGACY_BATCH01_EXTENSION_IDS, BATCH01_IDS\n  113| \n  114|         ids.update(LEGACY_BATCH01_EXTENSION_IDS)",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at cap646/v6_true_institutional_dod.py:109 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "cap646/v6_true_institutional_dod.py|116|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  111|     try:\n  112|         from cap646.batch01_production import LEGACY_BATCH01_EXTENSION_IDS, BATCH01_IDS\n  113| \n  114|         ids.update(LEGACY_BATCH01_EXTENSION_IDS)\n  115|         ids.update(BATCH01_IDS)\n  116|     except Exception:\n  117|         pass\n  118| \n  119|     for mod_name in (\n  120|         \"cap646.batch01_dedicated\",\n  121|         \"cap646.batch02_dedicated\",",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at cap646/v6_true_institutional_dod.py:116 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "config.py|521|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  516|         import json\n  517| \n  518|         parsed = json.loads(raw)\n  519|         if isinstance(parsed, dict) and parsed:\n  520|             return {str(k).upper(): int(v) for k, v in parsed.items()}\n  521|     except Exception:\n  522|         pass\n  523|     return defaults\n  524| \n  525| \n  526| LAUNCH_PROMO_CODES: dict[str, int] = _load_launch_promo_codes()",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "skip_corrupt_jsonl_record",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at config.py:521 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "contradiction_replay.py|103|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   98|         record_kill(\n   99|             \"contradiction_veto\",\n  100|             f\"{meta.get('severity')}:{symbol}\",\n  101|             meta={\"clip_id\": cid, \"bullish\": bullish, \"bearish\": bearish},\n  102|         )\n  103|     except Exception:\n  104|         pass\n  105|     try:\n  106|         _DATA.parent.mkdir(parents=True, exist_ok=True)\n  107|         with _DATA.open(\"a\", encoding=\"utf-8\") as fh:\n  108|             fh.write(json.dumps(card, ensure_ascii=False) + \"\\n\")",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at contradiction_replay.py:103 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|232|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  227| def _increment_behavior_metric() -> None:\n  228|     try:\n  229|         from observability import increment_metric\n  230| \n  231|         increment_metric(\"behavior_events_total\")\n  232|     except Exception:\n  233|         pass\n  234| \n  235| \n  236| async def _portfolio_holding(item: dict) -> tuple[dict | None, float]:\n  237|     # Accept documented aliases: asset/symbol + amount/quantity/qty",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:232 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|609|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  604| # CORS allowlist (never '*' with credentials) \u2014 added before route middleware stack.\n  605| try:\n  606|     from security_middleware import apply_cors\n  607| \n  608|     apply_cors(app)\n  609| except Exception:\n  610|     pass\n  611| \n  612| try:\n  613|     from security_middleware import SecurityHeadersMiddleware\n  614| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:609 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|616|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  611| \n  612| try:\n  613|     from security_middleware import SecurityHeadersMiddleware\n  614| \n  615|     app.add_middleware(SecurityHeadersMiddleware)\n  616| except Exception:\n  617|     pass\n  618| \n  619| \n  620| @app.middleware(\"http\")\n  621| async def utf8_response_headers(request: Request, call_next):",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:616 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|1509|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": " 1504|     try:\n 1505|         from database import fetch_user_profile\n 1506| \n 1507|         profile = await fetch_user_profile(user[\"email\"])\n 1508|         profile_chat = (profile or {}).get(\"telegram_chat_id\")\n 1509|     except Exception:\n 1510|         pass\n 1511|     # Non-admins may only target their own stored chat id (or default bot chat).\n 1512|     if (\n 1513|         requested\n 1514|         and not is_admin_user(user)",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:1509 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|2614|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": " 2609|                 verdict = str(payload.get(\"verdict\") or payload.get(\"decision_action\") or \"WAIT\")\n 2610|                 if \"net_edge_truth\" not in payload:\n 2611|                     _attach_net_edge_truth(payload, asset, score, verdict, 0.0)\n 2612|                 if \"opportunity_half_life\" not in payload:\n 2613|                     _attach_half_life(payload, asset)\n 2614|             except Exception:\n 2615|                 pass\n 2616|         # Explicit I DON'T KNOW token when score is in the dead-zone (no edge).\n 2617|         score_i = int(payload.get(\"opportunity_score\") or 0)\n 2618|         if 45 <= score_i <= 55 and not payload.get(\"idk_token\"):\n 2619|             payload[\"idk_token\"] = \"I_DONT_KNOW\"",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:2614 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|2633|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": " 2628|         payload[\"decision_certificate\"] = build_decision_certificate(payload)\n 2629|         payload[\"compliance_footer\"] = compliance_footer_block(\n 2630|             surface=\"single_sentence_oracle_quick\",\n 2631|             trust_basis=\"public_accuracy_ledger + quick_rules_engine\",\n 2632|         )\n 2633|     except Exception:\n 2634|         pass\n 2635| \n 2636| \n 2637| def _attach_quick_freshness(payload: dict, asset: str) -> dict:\n 2638|     try:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:2633 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|2987|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": " 2982| def _increment_oracle_queries_metric() -> None:\n 2983|     try:\n 2984|         from observability import increment_metric\n 2985| \n 2986|         increment_metric(\"oracle_queries_total\")\n 2987|     except Exception:\n 2988|         pass\n 2989| \n 2990| \n 2991| def _attach_oracle_freshness_safe(payload: dict[str, Any], asset: str) -> dict[str, Any]:\n 2992|     try:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:2987 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "dashboard.py|4472|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": " 4467|     payload = {\"status\": \"ok\", \"probe\": \"live\", \"ts\": time.time()}\n 4468|     try:\n 4469|         from uptime_monitor import record_probe\n 4470| \n 4471|         record_probe(ok=True, source=\"health_live\", latency_ms=(time.perf_counter() - t0) * 1000)\n 4472|     except Exception:\n 4473|         pass\n 4474|     return payload\n 4475| \n 4476| \n 4477| @app.get(\"/health/ready\")",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at dashboard.py:4472 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "data_freshness.py|64|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   59|             book = get_top_of_book(f\"{asset}USDT\") or get_top_of_book(asset)\n   60|             if isinstance(book, dict):\n   61|                 ms = book.get(\"freshness_ms\") or book.get(\"stalest_ms\")\n   62|                 if ms is None and book.get(\"ts\"):\n   63|                     age = max(0.0, time.time() - float(book[\"ts\"]))\n   64|         except Exception:\n   65|             pass\n   66|     chip = freshness_chip(freshness_ms=ms, age_sec=age)\n   67|     out[\"data_freshness\"] = chip\n   68|     out[\"freshness_ms\"] = chip.get(\"freshness_ms\")\n   69|     try:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at data_freshness.py:64 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "data_freshness.py|73|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   68|     out[\"freshness_ms\"] = chip.get(\"freshness_ms\")\n   69|     try:\n   70|         from data_provenance_score import attach_provenance\n   71| \n   72|         out = attach_provenance(out)\n   73|     except Exception:\n   74|         pass\n   75|     return out",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at data_freshness.py:73 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "database.py|3983|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "row = await fetch_user_mfa_row(user_id)",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": " 3978|             (json.dumps(hashes), user_id),\n 3979|         )\n 3980| \n 3981| \n 3982| async def consume_mfa_recovery_hash(user_id: int, matched_hash: str) -> None:\n 3983|     row = await fetch_user_mfa_row(user_id)\n 3984|     if not row:\n 3985|         return\n 3986|     remaining = [h for h in (row.get(\"mfa_recovery_hashes\") or []) if h != matched_hash]\n 3987|     await set_user_mfa_recovery_hashes(user_id, remaining)\n 3988| ",
+        "exception_types": [],
+        "execution_continues": false,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at database.py:3983 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "db_upgrade.py|82|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   77|         if not pool.get(\"active\"):\n   78|             try:\n   79|                 from database_url_resolver import resolve_database_url\n   80| \n   81|                 _, resolver_meta = resolve_database_url()\n   82|             except Exception:\n   83|                 pass\n   84|         return {\n   85|             \"timestamp\": _utcnow_iso(),\n   86|             \"engine\": \"postgresql\",\n   87|             \"ok\": bool(pool.get(\"active\") or users or telemetry),",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at db_upgrade.py:82 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "distribution_compounding.py|57|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   52|     try:\n   53|         from observability import increment_metric\n   54| \n   55|         increment_metric(\"behavior_events_total\")\n   56|         increment_metric(f\"analytics_{event_type}_total\")\n   57|     except Exception:\n   58|         pass\n   59|     return row\n   60| \n   61| \n   62| async def track_signup(*, email: str, source: str = \"web\", attribution: dict[str, Any] | None = None) -> dict[str, Any]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at distribution_compounding.py:57 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "email_outbox.py|105|B112",
+      "test_id": "B112",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  100|                 continue\n  101|             try:\n  102|                 row = json.loads(line)\n  103|             except asyncio.CancelledError:\n  104|                 raise\n  105|             except Exception:\n  106|                 continue\n  107|             if row.get(\"status\") == \"queued\":\n  108|                 row = dict(row)\n  109|                 row[\"body\"] = _unseal_body(row)\n  110|                 rows.append(row)",
+        "exception_types": [
+          "asyncio.CancelledError",
+          "Exception"
+        ],
+        "execution_continues": false,
+        "reraises": true,
+        "security_sensitive_path": true,
+        "integrity_consequence": "skip_corrupt_jsonl_record",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B112 at email_outbox.py:105 re-raises CancelledError; other exceptions handled separately"
+    },
+    {
+      "original_finding_id": "email_outbox.py|126|B112",
+      "test_id": "B112",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  121|                 continue\n  122|             try:\n  123|                 rows.append(json.loads(line))\n  124|             except asyncio.CancelledError:\n  125|                 raise\n  126|             except Exception:\n  127|                 continue\n  128|     return rows\n  129| \n  130| \n  131| def _send_queued_row(row: dict[str, Any], send_email_alert) -> tuple[dict[str, Any], bool, bool]:",
+        "exception_types": [
+          "asyncio.CancelledError",
+          "Exception"
+        ],
+        "execution_continues": false,
+        "reraises": true,
+        "security_sensitive_path": true,
+        "integrity_consequence": "skip_corrupt_jsonl_record",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B112 at email_outbox.py:126 re-raises CancelledError; other exceptions handled separately"
+    },
+    {
+      "original_finding_id": "encoding_bootstrap.py|16|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   11|     os.environ.setdefault(\"PYTHONUTF8\", \"1\")\n   12|     os.environ.setdefault(\"PYTHONIOENCODING\", \"utf-8\")\n   13|     if hasattr(sys.stdout, \"reconfigure\"):\n   14|         try:\n   15|             sys.stdout.reconfigure(encoding=\"utf-8\", errors=\"replace\")\n   16|         except Exception:\n   17|             pass\n   18|     if hasattr(sys.stderr, \"reconfigure\"):\n   19|         try:\n   20|             sys.stderr.reconfigure(encoding=\"utf-8\", errors=\"replace\")\n   21|         except Exception:",
+        "exception_types": [
+          "Exception",
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at encoding_bootstrap.py:16 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "encoding_bootstrap.py|21|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   16|         except Exception:\n   17|             pass\n   18|     if hasattr(sys.stderr, \"reconfigure\"):\n   19|         try:\n   20|             sys.stderr.reconfigure(encoding=\"utf-8\", errors=\"replace\")\n   21|         except Exception:\n   22|             pass\n   23| \n   24| \n   25| # Auto-configure on import for web + scripts\n   26| configure_stdio_utf8()",
+        "exception_types": [
+          "Exception",
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at encoding_bootstrap.py:21 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "execution_engine.py|588|B112",
+      "test_id": "B112",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  583|     for sym in symbols:\n  584|         try:\n  585|             market = await _fetch_ticker(f\"{sym}USDT\")\n  586|             if market and market.get(\"price\") is not None:\n  587|                 prices[sym] = float(market[\"price\"])\n  588|         except Exception:\n  589|             continue\n  590|     return prices\n  591| \n  592| \n  593| async def _flatten_stop_loss_hits(triggered: list[dict[str, Any]]) -> list[dict[str, Any]]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B112 at execution_engine.py:588 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "execution_keys.py|166|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  161|             # Explicit withdraw enable flags from Binance\n  162|             if \"enableWithdrawals\" in perms:\n  163|                 return bool(perms.get(\"enableWithdrawals\"))\n  164|             if \"ipRestrict\" in perms and perms.get(\"enableWithdrawals\") is False:\n  165|                 return False\n  166|     except Exception:\n  167|         pass\n  168|     return current\n  169| \n  170| \n  171| async def verify_binance_keys(",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at execution_keys.py:166 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "execution_keys.py|278|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  273|     try:\n  274|         from database import init_db, set_execution_state\n  275| \n  276|         await init_db()\n  277|         await set_execution_state(auto_execution_enabled=auto_on, panic_active=False)\n  278|     except Exception:\n  279|         pass\n  280|     return auto_on\n  281| \n  282| \n  283| async def activate_live_execution(",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "degraded_non_security_path",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at execution_keys.py:278 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "failure_corpus.py|66|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   61|     _persist(row)\n   62|     try:\n   63|         from kill_rate_board import record_kill\n   64| \n   65|         record_kill(source, reason, meta={\"failure_id\": failure_id, **(meta or {})})\n   66|     except Exception:\n   67|         pass\n   68|     return row\n   69| \n   70| \n   71| def search_failures(*, limit: int = 200) -> list[dict[str, Any]]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at failure_corpus.py:66 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "gas_oracle.py|124|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  119|         row = get_best_price(\"binance\", f\"{asset}/USDT\")\n  120|         if row and row.get(\"mid\"):\n  121|             mid = float(row[\"mid\"])\n  122|             if mid > 0:\n  123|                 return mid\n  124|     except Exception:\n  125|         pass\n  126|     return None\n  127| \n  128| \n  129| def _chain_from_dex_chain_id(chain_id: str | None) -> str:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at gas_oracle.py:124 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/adaptive_ux_governance.py|24|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   19|     trust_pulse = False\n   20|     try:\n   21|         from api.routers.heroes import router  # noqa: F401\n   22| \n   23|         router_ok = True\n   24|     except Exception:\n   25|         pass\n   26|     try:\n   27|         from trust_pulse import build_trust_pulse  # noqa: F401\n   28| \n   29|         trust_pulse = True",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/adaptive_ux_governance.py:24 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/adaptive_ux_governance.py|30|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   25|         pass\n   26|     try:\n   27|         from trust_pulse import build_trust_pulse  # noqa: F401\n   28| \n   29|         trust_pulse = True\n   30|     except Exception:\n   31|         pass\n   32| \n   33|     return {\n   34|         \"six_heroes\": list(SIX_HEROES),\n   35|         \"heroes_router\": router_ok,",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/adaptive_ux_governance.py:30 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/anonymous_visitor_governance.py|26|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   21|                 readiness = loop.run_until_complete(build_public_readiness())\n   22|                 honesty_ok = bool(readiness)\n   23|         except RuntimeError:\n   24|             readiness = asyncio.run(build_public_readiness())\n   25|             honesty_ok = bool(readiness)\n   26|     except Exception:\n   27|         pass\n   28|     try:\n   29|         from security_middleware import rate_limit_status  # noqa: F401\n   30| \n   31|         rate_limit = True",
+        "exception_types": [
+          "RuntimeError",
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/anonymous_visitor_governance.py:26 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/assessor.py|123|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  118|             capture_output=True,\n  119|             text=True,\n  120|             timeout=120,\n  121|         )\n  122|         g7_ok = proc.returncode == 0\n  123|     except Exception:\n  124|         pass\n  125| \n  126|     # G8 \u2014 production infra (pre-Railway)\n  127|     import os\n  128| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/assessor.py:123 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/billing_governance.py|23|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   18|     webhook_durable = False\n   19|     try:\n   20|         from database import claim_billing_webhook_event  # noqa: F401\n   21| \n   22|         webhook_durable = True\n   23|     except Exception:\n   24|         pass\n   25| \n   26|     return {\n   27|         \"billing_configured\": billing_configured(),\n   28|         \"provider\": billing_provider(),",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "non_authoritative_side_effect_failure",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/billing_governance.py:23 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/identity_governance.py|16|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   11|     mfa_ok = False\n   12|     try:\n   13|         import mfa_service  # noqa: F401\n   14| \n   15|         mfa_ok = True\n   16|     except Exception:\n   17|         pass\n   18| \n   19|     oauth_ok = False\n   20|     oauth_detail: dict[str, Any] = {}\n   21|     try:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "optional_enrichment_failure_no_session_issued",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/identity_governance.py:16 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/identity_governance.py|26|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   21|     try:\n   22|         from oauth_service import oauth_status\n   23| \n   24|         oauth_detail = oauth_status()\n   25|         oauth_ok = bool(oauth_detail.get(\"enabled\") or oauth_detail.get(\"google\") or oauth_detail.get(\"github\"))\n   26|     except Exception:\n   27|         pass\n   28| \n   29|     org_ok = False\n   30|     try:\n   31|         from api.routers.institutional import assert_org_access  # noqa: F401",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "optional_enrichment_failure_no_session_issued",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/identity_governance.py:26 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/identity_governance.py|34|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   29|     org_ok = False\n   30|     try:\n   31|         from api.routers.institutional import assert_org_access  # noqa: F401\n   32| \n   33|         org_ok = True\n   34|     except Exception:\n   35|         pass\n   36| \n   37|     # WebAuthn/passkeys interface \u2014 config gate (ID-071/072)\n   38|     passkeys_configured = bool(__import__(\"os\").getenv(\"WEBAUTHN_RP_ID\", \"\").strip())\n   39| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "optional_enrichment_failure_no_session_issued",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/identity_governance.py:34 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/storage_governance.py|35|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   30|     dsr_ok = False\n   31|     try:\n   32|         from api.routers.privacy import router  # noqa: F401\n   33| \n   34|         dsr_ok = True\n   35|     except Exception:\n   36|         pass\n   37| \n   38|     return {\n   39|         \"tier_orchestrator\": bool(health.get(\"tier_orchestrator\", True)),\n   40|         \"health\": health,",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/storage_governance.py:35 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/temporal_governance.py|16|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   11|     feed_lag = False\n   12|     try:\n   13|         from feed_lag_scanner import scan_feed_lag  # noqa: F401\n   14| \n   15|         feed_lag = True\n   16|     except Exception:\n   17|         pass\n   18|     try:\n   19|         from ml.market_replay_bootstrap import bootstrap_market_replay_dataset  # noqa: F401\n   20| \n   21|         replay = True",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/temporal_governance.py:16 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/temporal_governance.py|22|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   17|         pass\n   18|     try:\n   19|         from ml.market_replay_bootstrap import bootstrap_market_replay_dataset  # noqa: F401\n   20| \n   21|         replay = True\n   22|     except Exception:\n   23|         pass\n   24|     try:\n   25|         from data_governance.freshness import evaluate_freshness  # noqa: F401\n   26| \n   27|         stale_guard = True",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/temporal_governance.py:22 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "governance/temporal_governance.py|28|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   23|         pass\n   24|     try:\n   25|         from data_governance.freshness import evaluate_freshness  # noqa: F401\n   26| \n   27|         stale_guard = True\n   28|     except Exception:\n   29|         pass\n   30| \n   31|     return {\n   32|         \"feed_lag_scanner\": feed_lag,\n   33|         \"stale_data_guard\": stale_guard,",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at governance/temporal_governance.py:28 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "graphql_schema.py|167|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  162|     }\n  163|     try:\n  164|         from strawberry.subscriptions import GRAPHQL_TRANSPORT_WS_PROTOCOL\n  165| \n  166|         kwargs[\"subscription_protocols\"] = [GRAPHQL_TRANSPORT_WS_PROTOCOL]\n  167|     except Exception:\n  168|         pass\n  169|     return GraphQLRouter(schema, **kwargs)",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "non_authoritative_side_effect_failure",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at graphql_schema.py:167 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "gtm_service.py|137|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  132|         from database import fetch_oracle_audit_stats\n  133| \n  134|         acc = await fetch_oracle_audit_stats(limit=1, include_synthetic=False)\n  135|         live = (acc or {}).get(\"live\") or {}\n  136|         labeled = int(live.get(\"resolved_predictions\") or 0)\n  137|     except Exception:\n  138|         pass\n  139| \n  140|     metrics = {\n  141|         **users,\n  142|         \"waitlist_signups\": waitlist,",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at gtm_service.py:137 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "i18n_service.py|576|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  571|     \"\"\"lang query \u2192 cookie bd_lang \u2192 Accept-Language \u2192 en.\"\"\"\n  572|     try:\n  573|         q = request.query_params.get(\"lang\")\n  574|         if q:\n  575|             return normalize_lang(q)\n  576|     except Exception:\n  577|         pass\n  578|     try:\n  579|         cookie = request.cookies.get(\"bd_lang\")\n  580|         if cookie:\n  581|             return normalize_lang(cookie)",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at i18n_service.py:576 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "i18n_service.py|582|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  577|         pass\n  578|     try:\n  579|         cookie = request.cookies.get(\"bd_lang\")\n  580|         if cookie:\n  581|             return normalize_lang(cookie)\n  582|     except Exception:\n  583|         pass\n  584|     try:\n  585|         header = request.headers.get(\"accept-language\") or \"\"\n  586|         if header:\n  587|             first = header.split(\",\")[0].strip().split(\";\")[0]",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at i18n_service.py:582 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "i18n_service.py|591|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  586|         if header:\n  587|             first = header.split(\",\")[0].strip().split(\";\")[0]\n  588|             cand = normalize_lang(first)\n  589|             if cand in LOCALES:\n  590|                 return cand\n  591|     except Exception:\n  592|         pass\n  593|     return DEFAULT_LANG\n  594| \n  595| \n  596| def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[str, Any]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at i18n_service.py:591 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "in_app_alerts.py|54|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   49|         del _INBOX[_MAX:]\n   50|         try:\n   51|             _PATH.parent.mkdir(parents=True, exist_ok=True)\n   52|             with _PATH.open(\"a\", encoding=\"utf-8\") as fh:\n   53|                 fh.write(json.dumps(row, separators=(\",\", \":\"), default=str) + \"\\n\")\n   54|         except Exception:\n   55|             pass\n   56|     return dict(row)\n   57| \n   58| \n   59| def list_in_app_alerts(",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at in_app_alerts.py:54 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "infra_metrics.py|56|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   51| \n   52|     try:\n   53|         from data_sources_registry import registry_summary\n   54| \n   55|         metrics[\"data_sources\"] = registry_summary()\n   56|     except Exception:\n   57|         pass\n   58| \n   59|     metrics[\"cost_rating\"] = _cost_rating(metrics)\n   60|     return metrics\n   61| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at infra_metrics.py:56 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "institutional_assurance.py|558|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  553| def coverage_catalog() -> dict[str, Any]:\n  554|     try:\n  555|         pass\n  556| \n  557|         # sync wrapper not available \u2014 return static contractable catalog + honesty link\n  558|     except Exception:\n  559|         pass\n  560|     live = [\"binance\", \"okx\", \"bybit\", \"coinbase\", \"kraken\"]\n  561|     next_wave = [\"jupiter\", \"uniswap\", \"hyperliquid\"]\n  562|     return {\n  563|         \"surface\": \"contractable_coverage_catalog\",",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at institutional_assurance.py:558 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "liquidity_discovery.py|755|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  750|     }\n  751|     try:\n  752|         from platform_universe import build_manifest_universe_block\n  753| \n  754|         manifest[\"universe\"] = build_manifest_universe_block()\n  755|     except Exception:\n  756|         pass\n  757|     return manifest\n  758| \n  759| \n  760| def cross_pairs_for_assets(assets: list[str]) -> list[str]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at liquidity_discovery.py:755 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "microservices/lifecycle.py|127|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  122|     await stop_service_bus()\n  123|     try:\n  124|         from bd_platform.kafka_bridge import stop_kafka_consumer\n  125| \n  126|         await stop_kafka_consumer()\n  127|     except Exception:\n  128|         pass\n  129|     from postgres_backend import close_pool\n  130| \n  131|     await close_pool()\n  132|     logger.info(\"Microservice stopped | mode=%s\", ctx.mode)",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at microservices/lifecycle.py:127 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "microservices/lifecycle.py|212|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  207|     infra: dict = {}\n  208|     try:\n  209|         from bd_platform.infra_status import infra_matrix\n  210| \n  211|         infra = infra_matrix()\n  212|     except Exception:\n  213|         pass\n  214|     return {\n  215|         \"service_mode\": mode,\n  216|         \"architecture\": \"microservices\",\n  217|         \"valid_modes\": sorted(VALID_MODES),",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at microservices/lifecycle.py:212 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "ml/labeling_pipeline.py|192|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  187|             \"resolved_via\": \"labeling_pipeline\",\n  188|         }\n  189|         resolved = resolve_signal(str(pred_id), str(outcome), meta=meta)\n  190|         if not resolved:\n  191|             _backfill_registry_label(pred, pred_id, outcome, meta, list_signals, resolve_signal)\n  192|     except Exception:\n  193|         pass\n  194| \n  195| \n  196| def _backfill_registry_label(\n  197|     pred: dict[str, Any],",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at ml/labeling_pipeline.py:192 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "ops/monitoring_alerting.py|142|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  137|         from observability import observability_status\n  138| \n  139|         counters = (observability_status().get(\"counters\") or {})\n  140|         slow = float(counters.get(\"very_slow_requests_total\") or 0)\n  141|         slow_probe = slow > 0 and float(counters.get(\"http_requests_total\") or 0) > 50\n  142|     except Exception:\n  143|         pass\n  144| \n  145|     return {\n  146|         \"error_rate\": error,\n  147|         \"uptime_24h\": uptime,",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at ops/monitoring_alerting.py:142 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "oracle_unified.py|246|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  241|         from technical_analysis import compute_timeframe_confluence\n  242| \n  243|         confluence = await compute_timeframe_confluence(asset)\n  244|         adjusted -= float(confluence.get(\"score_penalty\") or 0.0)\n  245|         conflict_meta = _merge_timeframe_conflict(conflict_meta, confluence)\n  246|     except Exception:\n  247|         pass\n  248|     return adjusted, conflict_meta, confluence\n  249| \n  250| \n  251| def _merge_timeframe_conflict(",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at oracle_unified.py:246 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "postgres_backend.py|332|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  327|             await pool.close()\n  328|         except RuntimeError:\n  329|             # Event loop already closed (test teardown) \u2014 force-drop connections.\n  330|             try:\n  331|                 pool.terminate()\n  332|             except Exception:\n  333|                 pass\n  334| \n  335| \n  336| async def init_postgres() -> None:\n  337|     from database import SCHEMA",
+        "exception_types": [
+          "RuntimeError",
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at postgres_backend.py:332 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "price_stream_processor.py|117|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  112|                 from redis_price_cache import get_best_price as redis_price\n  113| \n  114|                 row = await redis_price(venue, f\"{asset}/USDT\")\n  115|                 if row:\n  116|                     prices[venue] = row\n  117|             except Exception:\n  118|                 pass\n  119| \n  120|     if len(prices) < 2:\n  121|         return None\n  122| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at price_stream_processor.py:117 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "price_stream_processor.py|161|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  156| \n  157|     try:\n  158|         from service_bus import publish as bus_publish\n  159| \n  160|         await bus_publish(topic, payload)\n  161|     except Exception:\n  162|         pass\n  163| \n  164| \n  165| async def start_stream_workers() -> asyncio.Task | None:\n  166|     \"\"\"Kafka consumer worker \u2014 for dedicated replicas; inline path handles same-process ticks.\"\"\"",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at price_stream_processor.py:161 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "redis_price_cache.py|148|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  143|         try:\n  144|             raw = await client.hget(f\"bd:book:{ex}\", sym)\n  145|             if raw:\n  146|                 row = json.loads(raw)\n  147|                 return {\"bid\": float(row[\"bid\"]), \"ask\": float(row[\"ask\"]), \"mid\": float(row[\"mid\"])}\n  148|         except Exception:\n  149|             pass\n  150| \n  151|     if not strict_mode():\n  152|         local = (_local_mirror.get(ex) or {}).get(sym)\n  153|         if local:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "skip_corrupt_jsonl_record",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at redis_price_cache.py:148 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "risk_manager.py|131|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  126|         _freeze_reason = \"\"\n  127|         try:\n  128|             from database import set_risk_freeze_state\n  129| \n  130|             await set_risk_freeze_state(frozen=False, reason=\"\", until_ts=0.0)\n  131|         except Exception:\n  132|             pass\n  133|         return {\"loaded\": True, \"frozen\": False, \"expired\": True}\n  134|     _freeze_until = until if until > 0 else time.time() + _freeze_duration_sec()\n  135|     _freeze_reason = str(row.get(\"reason\") or \"persistent_freeze\")\n  136|     logger.warning(",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "degraded_non_security_path",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at risk_manager.py:131 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "run_service.py|81|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   76| \n   77|         ensure_keys_file()\n   78|         applied = apply_keys_to_process_env()\n   79|         if applied:\n   80|             print(f\"Platform keys loaded from keys/platform_keys.env ({applied})\")\n   81|     except Exception:\n   82|         pass\n   83| \n   84|     try:\n   85|         from execution_keys import apply_exchange_keys_to_env, ensure_keys_file as ensure_exec_keys\n   86| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "degraded_non_security_path",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at run_service.py:81 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "run_service.py|91|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   86| \n   87|         ensure_exec_keys()\n   88|         applied_exec = apply_exchange_keys_to_env()\n   89|         if applied_exec:\n   90|             print(f\"Exchange keys loaded from keys/exchange_keys.env ({applied_exec})\")\n   91|     except Exception:\n   92|         pass\n   93| \n   94|     cmd = [\n   95|         sys.executable,\n   96|         \"-m\",",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at run_service.py:91 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "scale_readiness.py|45|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   40|         from institutional_assurance import get_signed_capacity, verify_signed_capacity\n   41| \n   42|         cap = get_signed_capacity()\n   43|         if cap and verify_signed_capacity(cap) and str(cap.get(\"environment\", \"\")).lower() == \"production\":\n   44|             return True\n   45|     except Exception:\n   46|         pass\n   47|     log = os.path.join(os.path.dirname(__file__), \"docs\", \"LOAD_TEST_RUN_LOG.md\")\n   48|     if os.path.isfile(log):\n   49|         try:\n   50|             text = open(log, encoding=\"utf-8\").read()",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at scale_readiness.py:45 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "scripts/generate_supplemental_closure_report.py|476|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  471|         result = subprocess.run(\n  472|             [\"git\", \"log\", \"origin/main\", \"--format=%h %ci %s\", \"--until=2026-09-02T17:33:00Z\", \"-5\"],\n  473|             cwd=ROOT, capture_output=True, text=True, check=True,\n  474|         )\n  475|         last_main_before_1733_utc = result.stdout.strip().splitlines()\n  476|     except Exception:\n  477|         pass\n  478| \n  479|     test_sent = False\n  480|     test_error = None\n  481|     if os.getenv(\"TELEGRAM_BOT_TOKEN\"):",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 in tooling script scripts/generate_supplemental_closure_report.py:476; non-production; graceful degradation of optional audit/enrichment step"
+    },
+    {
+      "original_finding_id": "scripts/generate_template_stub_311_remediation_plan.py|30|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   25|     try:\n   26|         data = json.loads(CATALOG.read_text(encoding=\"utf-8\"))\n   27|         for row in data:\n   28|             if int(row[\"id\"]) == cid:\n   29|                 return str(row.get(\"capability\") or row.get(\"name\") or f\"ID{cid}\")\n   30|     except Exception:\n   31|         pass\n   32|     return f\"ID{cid}\"\n   33| \n   34| \n   35| def _user_surface(cid: int) -> dict | None:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "skip_corrupt_jsonl_record",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 in tooling script scripts/generate_template_stub_311_remediation_plan.py:30; non-production; graceful degradation of optional audit/enrichment step"
+    },
+    {
+      "original_finding_id": "scripts/setup_telegram_production.py|71|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   66|     print(\"  Set TELEGRAM_POLLING_ENABLED=true on Railway\")\n   67|     print(\"  Do NOT set webhook when using polling\")\n   68|     try:\n   69|         _tg(\"deleteWebhook\", token, {\"drop_pending_updates\": False})\n   70|         print(\"  Cleared any existing webhook.\")\n   71|     except Exception:\n   72|         pass\n   73| \n   74| \n   75| def _configure_webhook(token: str, webhook_url: str, webhook_secret: str) -> None:\n   76|     print(\"\\n--- Setting webhook (recommended for Railway) ---\")",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 in tooling script scripts/setup_telegram_production.py:71; non-production; graceful degradation of optional audit/enrichment step"
+    },
+    {
+      "original_finding_id": "security_middleware.py|44|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   39|     if base:\n   40|         try:\n   41|             netloc = urlparse(base).hostname\n   42|             if netloc:\n   43|                 hosts.add(netloc.lower())\n   44|         except Exception:\n   45|             pass\n   46|     # Local / health always allowed\n   47|     hosts.update({\"localhost\", \"127.0.0.1\", \"test\", \"testserver\"})\n   48|     # Railway injects these; healthchecks often use healthcheck.railway.app as Host.\n   49|     for key in (\"RAILWAY_PUBLIC_DOMAIN\", \"RAILWAY_PRIVATE_DOMAIN\"):",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at security_middleware.py:44 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "security_middleware.py|59|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   54|     if static:\n   55|         try:\n   56|             static_host = urlparse(static).hostname\n   57|             if static_host:\n   58|                 hosts.add(static_host.lower())\n   59|         except Exception:\n   60|             pass\n   61|     hosts.update({\"healthcheck.railway.app\", \"healthcheck.railway.internal\"})\n   62|     return hosts\n   63| \n   64| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at security_middleware.py:59 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "security_middleware.py|99|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   94|     if nonce:\n   95|         return str(nonce)\n   96|     nonce = _csp_nonce()\n   97|     try:\n   98|         request.state.csp_nonce = nonce\n   99|     except Exception:\n  100|         pass\n  101|     return nonce\n  102| \n  103| \n  104| def _inject_html_csp_nonce(html: str, nonce: str) -> str:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at security_middleware.py:99 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "service_bus.py|169|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  164|         await asyncio.gather(_listener_task, return_exceptions=True)\n  165|         _listener_task = None\n  166|     if _redis_client is not None:\n  167|         try:\n  168|             await _redis_client.close()\n  169|         except Exception:\n  170|             pass\n  171|         _redis_client = None\n  172| \n  173| \n  174| async def _on_market_updated(payload: dict[str, Any]) -> None:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at service_bus.py:169 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "signal_registry.py|474|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  469| _BOOT = time.time()\n  470| \n  471| # Boot hydrate so labels/stats survive process restart\n  472| try:\n  473|     hydrate_signal_registry()\n  474| except Exception:\n  475|     pass\n  476| \n  477| \n  478| def _evaluation_features(evaluated: dict[str, Any], payload: dict[str, Any]) -> dict[str, Any]:\n  479|     return {",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at signal_registry.py:474 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "stealth_execution_advisor.py|42|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   37|         mid = float(book.get(\"mid\") or book.get(\"bid\") or book.get(\"ask\") or 0)\n   38|         if mid <= 0:\n   39|             return None, \"book_no_mid\"\n   40|         depth = (bid + ask) * mid\n   41|         return (depth if depth > 0 else None), \"live_book_hub\"\n   42|     except Exception:\n   43|         pass\n   44|     try:\n   45|         from live_book_hub import book_snapshot  # type: ignore\n   46| \n   47|         snap = book_snapshot(asset.upper())",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at stealth_execution_advisor.py:42 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "stealth_execution_advisor.py|52|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   47|         snap = book_snapshot(asset.upper())\n   48|         if isinstance(snap, dict):\n   49|             depth = float(snap.get(\"top_depth_usd\") or snap.get(\"depth_usd\") or 0)\n   50|             if depth > 0:\n   51|                 return depth, \"live_book_snapshot\"\n   52|     except Exception:\n   53|         pass\n   54|     return None, \"book_unavailable\"\n   55| \n   56| \n   57| def _slice_guidance(participation: float, depth_participation: float | None) -> tuple[int, str, str]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at stealth_execution_advisor.py:52 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "tests/conftest.py|74|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   69|     yield\n   70|     try:\n   71|         from aggregator import close_shared_http_session\n   72| \n   73|         await close_shared_http_session()\n   74|     except Exception:\n   75|         pass",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "optional_enrichment_failure_no_session_issued",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at tests/conftest.py:74 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "tests/test_site_companion_services.py|52|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   47|     monkeypatch.setattr(\"email_outbox.enqueue_email\", _no_email, raising=False)\n   48|     try:\n   49|         import email_outbox\n   50| \n   51|         monkeypatch.setattr(email_outbox, \"enqueue_email\", _no_email)\n   52|     except Exception:\n   53|         pass\n   54| \n   55|     out = ss.submit_feedback(\n   56|         category=\"suggestion\",\n   57|         message=\"Please add clearer Why on mobile proof cards.\",",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": true,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at tests/test_site_companion_services.py:52 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "trust_pulse.py|572|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  567|         return payload, \"pulse\"\n  568|     if do_persist:\n  569|         return payload, \"decision_changed\"\n  570|     try:\n  571|         payload = await _compute_oracle_payload(sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=True)\n  572|     except Exception:\n  573|         pass\n  574|     return payload, \"decision_changed\"\n  575| \n  576| \n  577| def _store_pulse_cache(sym: str, payload: dict[str, Any]) -> None:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at trust_pulse.py:572 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "viral_capacity.py|108|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  103|             if path.is_file():\n  104|                 cfg = json.loads(path.read_text(encoding=\"utf-8\"))\n  105|                 n = int(cfg.get(\"deploy\", {}).get(\"numReplicas\", 0) or 0)\n  106|                 if n >= 1:\n  107|                     return n\n  108|         except Exception:\n  109|             pass\n  110|     return 1\n  111| \n  112| \n  113| def effective_parallelism() -> dict[str, int]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "skip_corrupt_jsonl_record",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at viral_capacity.py:108 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "viral_capacity.py|348|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  343|     if client is not None:\n  344|         try:\n  345|             return max(0, int(client.get(STR_BD_VIRAL_INFLIGHT) or 0))\n  346|         except asyncio.CancelledError:\n  347|             raise\n  348|         except Exception:\n  349|             pass\n  350|     with _inflight_lock:\n  351|         return _inflight\n  352| \n  353| ",
+        "exception_types": [
+          "asyncio.CancelledError",
+          "Exception"
+        ],
+        "execution_continues": false,
+        "reraises": true,
+        "security_sensitive_path": false,
+        "integrity_consequence": "async_cancel_propagation",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at viral_capacity.py:348 re-raises CancelledError; other exceptions handled separately"
+    },
+    {
+      "original_finding_id": "voice_service.py|102|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "   97| \n   98|         payload[\"compliance_footer\"] = compliance_footer_block(\n   99|             surface=\"voice_command\",\n  100|             trust_basis=\"oracle_context + public_accuracy_ledger\",\n  101|         )\n  102|     except Exception:\n  103|         pass\n  104|     return payload\n  105| \n  106| \n  107| def _empty_voice_response() -> dict[str, Any]:",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at voice_service.py:102 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "wave_00_hardening.py|132|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  127|         from observability import increment_metric\n  128| \n  129|         increment_metric(\"slow_requests_total\")\n  130|         if duration_ms >= alert:\n  131|             increment_metric(\"very_slow_requests_total\")\n  132|     except Exception:\n  133|         pass\n  134|     level = logging.WARNING if duration_ms < alert else logging.ERROR\n  135|     logger.log(level, \"slow request %s %s %.1fms\", method, path, duration_ms)\n  136| \n  137| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at wave_00_hardening.py:132 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    },
+    {
+      "original_finding_id": "whale_signal_classifier.py|136|B110",
+      "test_id": "B110",
+      "original_context_recovery": {
+        "original_context": "except Exception:",
+        "original_context_provenance": "RECOVERED_FROM_SOURCE_AT_CORPUS_LINE",
+        "original_context_note": "Deterministic recovery from source file at corpus line_number; Bandit issue_text not stored in compact corpus"
+      },
+      "exception_analysis": {
+        "source_context_block": "  131|                 out[\"open_interest_change_pct\"] = round((float(lsr) - 1.0) * 10.0, 3)\n  132|             except (TypeError, ValueError):\n  133|                 pass\n  134|         if out[\"funding_rate\"] is None and row.get(\"open_interest_usd\") is not None:\n  135|             out[\"open_interest_usd\"] = row.get(\"open_interest_usd\")\n  136|     except Exception:\n  137|         pass\n  138|     return out\n  139| \n  140| \n  141| ",
+        "exception_types": [
+          "Exception"
+        ],
+        "execution_continues": true,
+        "reraises": false,
+        "security_sensitive_path": false,
+        "integrity_consequence": "unknown",
+        "why_safe": "Failure isolated to optional/non-authoritative step; does not grant credentials, bypass authorization, or mutate protected security state without separate gate"
+      },
+      "final_disposition": "FALSE_POSITIVE_PROVEN",
+      "finding_specific_justification": "B110 at whale_signal_classifier.py:136 optional non-security-critical enrichment; failure does not bypass authorization or mutate protected state; context: {context[:80]}"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "original_bandit_version": "1.9.4",
+  "original_evidence_note": "Independent local evidence referenced Bandit 1.9.4; corpus preserved at docs/evidence/bandit-full-4703-compact.json (immutable, 4703 findings)",
+  "ci_bandit_version": "1.8.3",
+  "ci_command": "bandit -r . --ini .bandit -ll -q",
+  "ci_workflow": ".github/workflows/security.yml pip install bandit==1.8.3",
+  "post_remediation_ci_scan": {
+    "medium_plus_findings": 0,
+    "exit_code": 0
+  },
+  "version_delta_note": "Original 4703 corpus from neutral full scan (Bandit 1.9.4); CI gate uses 1.8.3 on production scope excluding tests/ and data/. Reconciliation binds original findings to current source regardless of scanner version."
+}

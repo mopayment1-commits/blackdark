@@ -19,6 +19,12 @@ from typing import Any
 from uuid import uuid4
 
 from path_safety import ensure_under, project_data_dir
+from sql_safety import (
+    require_bq_dataset_id,
+    require_bq_location,
+    require_bq_table_fqn,
+    require_gcp_project_id,
+)
 
 logger = logging.getLogger("BLACKDARK.DbtConnector")
 
@@ -42,23 +48,26 @@ def _utcnow() -> str:
 
 
 def dbt_config() -> dict[str, Any]:
-    project = (
+    raw_project = (
         os.getenv("BIGQUERY_PROJECT_ID", "").strip()
         or os.getenv("GCP_PROJECT_ID", "").strip()
         or os.getenv("GOOGLE_CLOUD_PROJECT", "").strip()
     )
-    dataset = os.getenv("DBT_DATASET", "").strip() or os.getenv("BIGQUERY_DATASET", "blackdark_analytics").strip()
-    location = os.getenv("DBT_LOCATION", "").strip() or os.getenv("BIGQUERY_LOCATION", "US").strip()
+    raw_dataset = os.getenv("DBT_DATASET", "").strip() or os.getenv("BIGQUERY_DATASET", "blackdark_analytics").strip()
+    raw_location = os.getenv("DBT_LOCATION", "").strip() or os.getenv("BIGQUERY_LOCATION", "US").strip()
+    project = require_gcp_project_id(raw_project) if raw_project else None
+    dataset = require_bq_dataset_id(raw_dataset)
+    location = require_bq_location(raw_location)
     enabled = os.getenv("DBT_RUN_ENABLED", "true").lower() in {"1", "true", "yes"}
     creds_json = bool(os.getenv("BIGQUERY_CREDENTIALS_JSON", "").strip())
     creds_file = bool(os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "").strip())
     return {
         "enabled": enabled,
-        "project_id": project or None,
+        "project_id": project,
         "dataset_id": dataset,
         "location": location,
-        "mart_table_fqn": f"{project}.{dataset}.{_MART_MODEL}" if project else None,
-        "staging_table_fqn": f"{project}.{dataset}.{_STAGING_MODEL}" if project else None,
+        "mart_table_fqn": require_bq_table_fqn(project, dataset, _MART_MODEL) if project else None,
+        "staging_table_fqn": require_bq_table_fqn(project, dataset, _STAGING_MODEL) if project else None,
         "credentials_json": creds_json,
         "credentials_file": creds_file,
         "credentials_configured": bool(creds_json or creds_file),
@@ -183,11 +192,7 @@ def _verify_models_in_bigquery() -> dict[str, Any]:
     client = _build_client()
     mart_fqn = f"{cfg['project_id']}.{cfg['dataset_id']}.{_MART_MODEL}"
     staging_fqn = f"{cfg['project_id']}.{cfg['dataset_id']}.{_STAGING_MODEL}"
-    query = f"""
-        SELECT
-            (SELECT COUNT(1) FROM `{mart_fqn}`) AS mart_rows,
-            (SELECT COUNT(1) FROM `{staging_fqn}`) AS staging_rows
-    """
+    query = f"SELECT (SELECT COUNT(1) FROM `{mart_fqn}`) AS mart_rows, (SELECT COUNT(1) FROM `{staging_fqn}`) AS staging_rows"  # nosec B608
     rows = list(client.query(query, location=location).result())
     if not rows:
         return {"mart_rows": 0, "staging_rows": 0}
@@ -252,7 +257,7 @@ def _run_dbt_sync(*, run_id: str, operator: str) -> dict[str, Any]:
         "mart_rows_verified": mart_rows,
         "staging_rows_verified": int(verified.get("staging_rows") or 0),
         "invocation_id": parsed.get("invocation_id"),
-        "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",
+        "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",  # nosec B608
         "product": "BLACKDARK",
         "surface": "dbt_connector",
         "gate": "CAP-649",
@@ -280,7 +285,7 @@ def _fetch_live_dbt_evidence_from_bigquery() -> dict[str, Any] | None:
             "mart_table_fqn": cfg["mart_table_fqn"],
             "mart_rows_verified": mart_rows,
             "staging_rows_verified": int(verified.get("staging_rows") or 0),
-            "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",
+            "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",  # nosec B608
             "product": "BLACKDARK",
             "surface": "dbt_connector",
             "gate": "CAP-649",

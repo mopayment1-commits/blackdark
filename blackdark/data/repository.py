@@ -390,27 +390,8 @@ async def query_ohlcv(
         clauses.append("ds.slug = :source_slug")
         params["source_slug"] = source_slug
     where = " AND ".join(clauses)
-    result = await session.execute(
-        text(
-            f"""
-            SELECT
-                o.open_time, o.open_price AS open, o.high_price AS high,
-                o.low_price AS low, o.close_price AS close, o.volume,
-                ds.slug AS source, p.id AS provenance_id
-            FROM ohlcv_data o
-            LEFT JOIN data_sources ds ON ds.id = o.source_id
-            LEFT JOIN LATERAL (
-                SELECT id FROM data_provenance
-                WHERE target_table = 'ohlcv_data' AND target_record_id = o.id
-                ORDER BY parsed_at DESC LIMIT 1
-            ) p ON true
-            WHERE {where}
-            ORDER BY o.open_time DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    ohlcv_sql = f"SELECT o.open_time, o.open_price AS open, o.high_price AS high, o.low_price AS low, o.close_price AS close, o.volume, ds.slug AS source, p.id AS provenance_id FROM ohlcv_data o LEFT JOIN data_sources ds ON ds.id = o.source_id LEFT JOIN LATERAL ( SELECT id FROM data_provenance WHERE target_table = 'ohlcv_data' AND target_record_id = o.id ORDER BY parsed_at DESC LIMIT 1 ) p ON true WHERE {where} ORDER BY o.open_time DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(ohlcv_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -445,25 +426,8 @@ async def query_funding(
         clauses.append("ds.slug = :source_slug")
         params["source_slug"] = source_slug
     where = " AND ".join(clauses)
-    result = await session.execute(
-        text(
-            f"""
-            SELECT f.funding_time, f.funding_rate, f.mark_price, f.index_price,
-                   ds.slug AS source, p.id AS provenance_id
-            FROM de_funding_rates f
-            LEFT JOIN data_sources ds ON ds.id = f.source_id
-            LEFT JOIN LATERAL (
-                SELECT id FROM data_provenance
-                WHERE target_table = 'de_funding_rates' AND target_record_id = f.id
-                ORDER BY parsed_at DESC LIMIT 1
-            ) p ON true
-            WHERE {where}
-            ORDER BY f.funding_time DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    funding_sql = f"SELECT f.funding_time, f.funding_rate, f.mark_price, f.index_price, ds.slug AS source, p.id AS provenance_id FROM de_funding_rates f LEFT JOIN data_sources ds ON ds.id = f.source_id LEFT JOIN LATERAL ( SELECT id FROM data_provenance WHERE target_table = 'de_funding_rates' AND target_record_id = f.id ORDER BY parsed_at DESC LIMIT 1 ) p ON true WHERE {where} ORDER BY f.funding_time DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(funding_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -497,25 +461,8 @@ async def query_open_interest(
         clauses.append("ds.slug = :source_slug")
         params["source_slug"] = source_slug
     where = " AND ".join(clauses)
-    result = await session.execute(
-        text(
-            f"""
-            SELECT oi.oi_time, oi.open_interest, oi.open_interest_value,
-                   ds.slug AS source, p.id AS provenance_id
-            FROM open_interest oi
-            LEFT JOIN data_sources ds ON ds.id = oi.source_id
-            LEFT JOIN LATERAL (
-                SELECT id FROM data_provenance
-                WHERE target_table = 'open_interest' AND target_record_id = oi.id
-                ORDER BY parsed_at DESC LIMIT 1
-            ) p ON true
-            WHERE {where}
-            ORDER BY oi.oi_time DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    oi_sql = f"SELECT oi.oi_time, oi.open_interest, oi.open_interest_value, ds.slug AS source, p.id AS provenance_id FROM open_interest oi LEFT JOIN data_sources ds ON ds.id = oi.source_id LEFT JOIN LATERAL ( SELECT id FROM data_provenance WHERE target_table = 'open_interest' AND target_record_id = oi.id ORDER BY parsed_at DESC LIMIT 1 ) p ON true WHERE {where} ORDER BY oi.oi_time DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(oi_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -556,20 +503,8 @@ async def query_events(
         clauses.append("start_time <= :end_time")
         params["end_time"] = end_time
     where = " AND ".join(clauses)
-    result = await session.execute(
-        text(
-            f"""
-            SELECT id, event_type, severity, symbol, start_time, end_time,
-                   description, price_change_pct, volume_spike_multiplier,
-                   source_links, detected_by, confirmed, created_at
-            FROM market_events
-            WHERE {where}
-            ORDER BY start_time DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    events_sql = f"SELECT id, event_type, severity, symbol, start_time, end_time, description, price_change_pct, volume_spike_multiplier, source_links, detected_by, confirmed, created_at FROM market_events WHERE {where} ORDER BY start_time DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(events_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -649,21 +584,8 @@ async def query_ingestion_runs(
         clauses.append("ds.slug = :source_slug")
         params["source_slug"] = source_slug
     where = " AND ".join(clauses)
-    result = await session.execute(
-        text(
-            f"""
-            SELECT ir.id, ds.slug AS source, ir.run_type, ir.status,
-                   ir.records_fetched, ir.records_inserted, ir.records_deduped,
-                   ir.errors_count, ir.triggered_by, ir.started_at, ir.completed_at
-            FROM ingestion_runs ir
-            JOIN data_sources ds ON ds.id = ir.source_id
-            WHERE {where}
-            ORDER BY ir.started_at DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    runs_sql = f"SELECT ir.id, ds.slug AS source, ir.run_type, ir.status, ir.records_fetched, ir.records_inserted, ir.records_deduped, ir.errors_count, ir.triggered_by, ir.started_at, ir.completed_at FROM ingestion_runs ir JOIN data_sources ds ON ds.id = ir.source_id WHERE {where} ORDER BY ir.started_at DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(runs_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -691,21 +613,8 @@ async def query_ingestion_errors(
         clauses.append("ie.resolved = :resolved")
         params["resolved"] = resolved
     where = " AND ".join(clauses)
-    result = await session.execute(
-        text(
-            f"""
-            SELECT ie.id, ds.slug AS source, ie.error_type, ie.error_message,
-                   ie.endpoint, ie.retry_count, ie.resolved, ie.created_at,
-                   ie.ingestion_run_id
-            FROM ingestion_errors ie
-            LEFT JOIN data_sources ds ON ds.id = ie.source_id
-            WHERE {where}
-            ORDER BY ie.created_at DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    errors_sql = f"SELECT ie.id, ds.slug AS source, ie.error_type, ie.error_message, ie.endpoint, ie.retry_count, ie.resolved, ie.created_at, ie.ingestion_run_id FROM ingestion_errors ie LEFT JOIN data_sources ds ON ds.id = ie.source_id WHERE {where} ORDER BY ie.created_at DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(errors_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -802,19 +711,8 @@ async def query_signals(
     if symbol:
         clauses.append("symbol = :symbol")
         params["symbol"] = symbol.upper()
-    result = await session.execute(
-        text(
-            f"""
-            SELECT id, signal_id, symbol, signal_type, direction, confidence,
-                   features_hash, model_version, provenance_hash, created_at
-            FROM de_signal_registry
-            WHERE {" AND ".join(clauses)}
-            ORDER BY created_at DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    signals_sql = f"SELECT id, signal_id, symbol, signal_type, direction, confidence, features_hash, model_version, provenance_hash, created_at FROM de_signal_registry WHERE {' AND '.join(clauses)} ORDER BY created_at DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(signals_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -929,19 +827,8 @@ async def query_decisions(
     if prediction_id:
         clauses.append("prediction_id = :prediction_id")
         params["prediction_id"] = prediction_id
-    result = await session.execute(
-        text(
-            f"""
-            SELECT id, decision_id, prediction_id, decision_action, symbol,
-                   rationale, evidence_hash, created_at
-            FROM de_decision_ledger
-            WHERE {" AND ".join(clauses)}
-            ORDER BY created_at DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    decisions_sql = f"SELECT id, decision_id, prediction_id, decision_action, symbol, rationale, evidence_hash, created_at FROM de_decision_ledger WHERE {' AND '.join(clauses)} ORDER BY created_at DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(decisions_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -994,19 +881,8 @@ async def query_outcomes(
     if prediction_id:
         clauses.append("prediction_id = :prediction_id")
         params["prediction_id"] = prediction_id
-    result = await session.execute(
-        text(
-            f"""
-            SELECT id, prediction_id, outcome, evaluated_at, actual_price,
-                   predicted_direction, pnl_pct
-            FROM de_outcome_evaluations
-            WHERE {" AND ".join(clauses)}
-            ORDER BY evaluated_at DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    outcomes_sql = f"SELECT id, prediction_id, outcome, evaluated_at, actual_price, predicted_direction, pnl_pct FROM de_outcome_evaluations WHERE {' AND '.join(clauses)} ORDER BY evaluated_at DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(outcomes_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
@@ -1109,19 +985,8 @@ async def query_failure_misses(
     if failure_type:
         clauses.append("failure_type = :failure_type")
         params["failure_type"] = failure_type
-    result = await session.execute(
-        text(
-            f"""
-            SELECT id, failure_type, prediction_id, signal_id, symbol,
-                   error_message, created_at
-            FROM de_failure_misses
-            WHERE {" AND ".join(clauses)}
-            ORDER BY created_at DESC
-            LIMIT :limit
-            """
-        ),
-        params,
-    )
+    failures_sql = f"SELECT id, failure_type, prediction_id, signal_id, symbol, error_message, created_at FROM de_failure_misses WHERE {' AND '.join(clauses)} ORDER BY created_at DESC LIMIT :limit"  # nosec B608
+    result = await session.execute(text(failures_sql), params)
     rows = []
     for row in result.mappings().fetchall():
         item = dict(row)
