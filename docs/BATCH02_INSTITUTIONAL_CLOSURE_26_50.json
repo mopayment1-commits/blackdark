@@ -1,0 +1,1752 @@
+{
+  "generated_at": "2026-09-12T00:01:43.138673+00:00",
+  "standard": "BLACKDARK_Institutional_Capability_Standard_2026_v6 \u00a72.1",
+  "scope": "Official Batch02 \u2014 IDs 26\u201350 only",
+  "methodology": "strict institutional closure \u2014 batch02_official_production + domain payload + 13 gates",
+  "summary": {
+    "pass_institutional": 25,
+    "not_complete": 0,
+    "pass_pct": 100.0,
+    "committee_ready_batch02": true
+  },
+  "per_id": {
+    "26": {
+      "id": 26,
+      "capability": "Price-Move Explanation",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "price_move_explanation",
+      "domain_payload_keys": [
+        "price_move_explanation"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[26]"
+    },
+    "27": {
+      "id": 27,
+      "capability": "Smart Money Historical Trend Analysis",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "smart_money_historical_trend_analysis",
+      "domain_payload_keys": [
+        "trend",
+        "tracked_entities"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[27]"
+    },
+    "28": {
+      "id": 28,
+      "capability": "Smart Money Conviction Engine",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "smart_money_conviction_engine",
+      "domain_payload_keys": [
+        "conviction_score",
+        "alert"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[28]"
+    },
+    "29": {
+      "id": 29,
+      "capability": "Cross-Market Decision Intelligence Engine",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "cross_market_decision_intelligence_engine",
+      "domain_payload_keys": [
+        "decision_engine"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[29]"
+    },
+    "30": {
+      "id": 30,
+      "capability": "Evidence & Confidence Layer",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "evidence_confidence_layer",
+      "domain_payload_keys": [
+        "provenance_score",
+        "confidence_tier"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[30]"
+    },
+    "31": {
+      "id": 31,
+      "capability": "Cross-Signal Confirmation",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "cross_signal_confirmation",
+      "domain_payload_keys": [
+        "cross_signal_confirmation"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[31]"
+    },
+    "32": {
+      "id": 32,
+      "capability": "Contradiction Detection",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "contradiction_detection",
+      "domain_payload_keys": [
+        "contradiction_detection"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[32]"
+    },
+    "33": {
+      "id": 33,
+      "capability": "Smart Money Actionability Score",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "smart_money_actionability_score",
+      "domain_payload_keys": [
+        "actionability_score",
+        "alerts"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[33]"
+    },
+    "34": {
+      "id": 34,
+      "capability": "Beginner Decision Mode",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "beginner_decision_mode",
+      "domain_payload_keys": [
+        "clear_answer",
+        "beginner_mode"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[34]"
+    },
+    "35": {
+      "id": 35,
+      "capability": "Market Compass / Market Regime Engine",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "market_compass_market_regime_engine",
+      "domain_payload_keys": [
+        "market_compass"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[35]"
+    },
+    "36": {
+      "id": 36,
+      "capability": "On-Chain Metrics Library",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "on_chain_metrics_library",
+      "domain_payload_keys": [
+        "metrics_library"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[36]"
+    },
+    "37": {
+      "id": 37,
+      "capability": "Entity-Adjusted Metrics",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "entity_adjusted_metrics",
+      "domain_payload_keys": [
+        "entity_adjusted_metrics"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[37]"
+    },
+    "38": {
+      "id": 38,
+      "capability": "Cost Basis Distribution",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "cost_basis_distribution",
+      "domain_payload_keys": [
+        "data",
+        "free_tier"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[38]"
+    },
+    "39": {
+      "id": 39,
+      "capability": "Realized Cap & Realized Price Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "realized_cap_realized_price_intelligence",
+      "domain_payload_keys": [
+        "data",
+        "free_tier"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[39]"
+    },
+    "40": {
+      "id": 40,
+      "capability": "MVRV / MVRV Z-Score Suite",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "mvrv_mvrv_z_score_suite",
+      "domain_payload_keys": [
+        "macro"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[40]"
+    },
+    "41": {
+      "id": 41,
+      "capability": "SOPR / Profitability Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "sopr_profitability_intelligence",
+      "domain_payload_keys": [
+        "sopr_profitability"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[41]"
+    },
+    "42": {
+      "id": 42,
+      "capability": "Holder Cohort Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "holder_cohort_intelligence",
+      "domain_payload_keys": [
+        "holder_cohorts"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[42]"
+    },
+    "43": {
+      "id": 43,
+      "capability": "Supply Dynamics Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "supply_dynamics_intelligence",
+      "domain_payload_keys": [
+        "supply_dynamics"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[43]"
+    },
+    "44": {
+      "id": 44,
+      "capability": "Exchange Balance & Netflow Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "exchange_balance_netflow_intelligence",
+      "domain_payload_keys": [
+        "netflow",
+        "netflow_proxy"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[44]"
+    },
+    "45": {
+      "id": 45,
+      "capability": "ETF Flow Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "etf_flow_intelligence",
+      "domain_payload_keys": [
+        "data",
+        "free_tier"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[45]"
+    },
+    "46": {
+      "id": 46,
+      "capability": "Digital Asset Treasury Company Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "digital_asset_treasury_company_intelligence",
+      "domain_payload_keys": [
+        "treasury_company_intelligence"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[46]"
+    },
+    "47": {
+      "id": 47,
+      "capability": "Spot Market Metrics Suite",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "spot_market_metrics_suite",
+      "domain_payload_keys": [
+        "overview",
+        "probe"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[47]"
+    },
+    "48": {
+      "id": 48,
+      "capability": "Futures Intelligence Suite",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "futures_intelligence_suite",
+      "domain_payload_keys": [
+        "overview"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[48]"
+    },
+    "49": {
+      "id": 49,
+      "capability": "Options Intelligence Suite",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "options_intelligence_suite",
+      "domain_payload_keys": [
+        "data"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[49]"
+    },
+    "50": {
+      "id": 50,
+      "capability": "Order Book Intelligence",
+      "official_batch": "batch02",
+      "status": "INSTITUTIONAL_CLOSED",
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "surface": "order_book_intelligence",
+      "domain_payload_keys": [
+        "book",
+        "hub_stats"
+      ],
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "deep_test": "tests.cap646.test_batch02_institutional_deep::test_batch02_domain_payload[50]"
+    }
+  },
+  "capabilities": [
+    {
+      "capability_id": 26,
+      "capability": "Price-Move Explanation",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "price_move_explanation",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 27,
+      "capability": "Smart Money Historical Trend Analysis",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_money_historical_trend_analysis",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 28,
+      "capability": "Smart Money Conviction Engine",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_money_conviction_engine",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 29,
+      "capability": "Cross-Market Decision Intelligence Engine",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "cross_market_decision_intelligence_engine",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 30,
+      "capability": "Evidence & Confidence Layer",
+      "track": "T12",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "evidence_confidence_layer",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 31,
+      "capability": "Cross-Signal Confirmation",
+      "track": "T12",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "cross_signal_confirmation",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 32,
+      "capability": "Contradiction Detection",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "contradiction_detection",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 33,
+      "capability": "Smart Money Actionability Score",
+      "track": "T08",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "smart_money_actionability_score",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 34,
+      "capability": "Beginner Decision Mode",
+      "track": "T01",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "beginner_decision_mode",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 35,
+      "capability": "Market Compass / Market Regime Engine",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "market_compass_market_regime_engine",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 36,
+      "capability": "On-Chain Metrics Library",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "on_chain_metrics_library",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 37,
+      "capability": "Entity-Adjusted Metrics",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "entity_adjusted_metrics",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 38,
+      "capability": "Cost Basis Distribution",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "cost_basis_distribution",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 39,
+      "capability": "Realized Cap & Realized Price Intelligence",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "realized_cap_realized_price_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 40,
+      "capability": "MVRV / MVRV Z-Score Suite",
+      "track": "T10",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "mvrv_mvrv_z_score_suite",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 41,
+      "capability": "SOPR / Profitability Intelligence",
+      "track": "T08",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "sopr_profitability_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 42,
+      "capability": "Holder Cohort Intelligence",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "holder_cohort_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 43,
+      "capability": "Supply Dynamics Intelligence",
+      "track": "T13",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "supply_dynamics_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 44,
+      "capability": "Exchange Balance & Netflow Intelligence",
+      "track": "T09",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "exchange_balance_netflow_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 45,
+      "capability": "ETF Flow Intelligence",
+      "track": "T04",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "etf_flow_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 46,
+      "capability": "Digital Asset Treasury Company Intelligence",
+      "track": "T04",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "digital_asset_treasury_company_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 47,
+      "capability": "Spot Market Metrics Suite",
+      "track": "T04",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "spot_market_metrics_suite",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 48,
+      "capability": "Futures Intelligence Suite",
+      "track": "T05",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "futures_intelligence_suite",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 49,
+      "capability": "Options Intelligence Suite",
+      "track": "T08",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "options_intelligence_suite",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "capability_id": 50,
+      "capability": "Order Book Intelligence",
+      "track": "T04",
+      "official_batch": "batch02",
+      "PASS_INSTITUTIONAL": true,
+      "gates": {
+        "G01_functional_completeness": true,
+        "G02_functional_correctness": true,
+        "G03_functional_appropriateness": true,
+        "G04_requirements_traceability": true,
+        "G05_integration_correctness": true,
+        "G06_regression_safety": true,
+        "G07_security_gate": true,
+        "G08_performance_gate": true,
+        "G09_reliability_gate": true,
+        "G10_observability_gate": true,
+        "G11_data_quality_gate": true,
+        "G12_user_path_gate": true,
+        "G13_evidence_gate": true
+      },
+      "failed_gates": [],
+      "gate_reasons": {
+        "G03": "domain_key_present",
+        "G11": "provenance_scored"
+      },
+      "handler_module": "cap646.batch02_official_production",
+      "production_module": "cap646.batch02_official_production",
+      "thin_generated_handler": false,
+      "deep_test_module": "tests.cap646.test_batch02_institutional_deep",
+      "from_scratch_test": "tests.cap646.test_batch02_from_scratch",
+      "rtm_artifact": "docs/BATCH02_INSTITUTIONAL_CLOSURE_26_50.json",
+      "execute_snapshot": {
+        "success": true,
+        "surface": "order_book_intelligence",
+        "backend_module": "cap646.batch02_official_production",
+        "binding_source": "explicit_option_a",
+        "latency_ms": 0.0
+      }
+    }
+  ]
+}

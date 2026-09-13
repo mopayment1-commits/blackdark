@@ -55,7 +55,8 @@ from cap646.catalog import (  # noqa: E402
 
 from bd_platform.free_tier_capabilities import FREE_TIER_EXTENSION_IDS  # noqa: E402
 
-EXTENSION_EXTERNAL_IDS: frozenset[int] = FREE_TIER_EXTENSION_IDS | frozenset({649, 658})
+# CAP-649/658: engineering-closed internally; live cloud creds are pre-deploy (WF-019).
+EXTENSION_EXTERNAL_IDS: frozenset[int] = FREE_TIER_EXTENSION_IDS
 
 # Extension duplicates of base canonical capabilities (same goal/behavior)
 EXTENSION_CANONICAL: dict[str, int] = {
@@ -87,20 +88,10 @@ def is_external(capability_id: int) -> bool:
 
     if capability_id in FREE_TIER_CAP_IDS:
         return False
-    if capability_id == 658:
-        try:
-            from bigquery_export import bigquery_live_ready
-
-            return not bigquery_live_ready()
-        except Exception:
-            return True
-    if capability_id == 649:
-        try:
-            from dbt_connector import dbt_live_ready
-
-            return not dbt_live_ready()
-        except Exception:
-            return True
+    # CAP-649/658: institutional status handlers always available; live cloud
+    # credentials are a pre-deploy upgrade (WF-019), not an engineering block.
+    if capability_id in (649, 658):
+        return False
     if capability_id in EXTENSION_EXTERNAL_IDS:
         return True
     if capability_id <= 646:

@@ -90,12 +90,12 @@ async def test_verified_capability_paths():
 
 @pytest.mark.asyncio
 async def test_handler_exception_path(monkeypatch):
-    import cap646.runtime as runtime_mod
+    import cap646.handlers.official_batch as official_batch
 
-    async def _boom(*_args, **_kwargs):
-        raise RuntimeError("test handler failure")
+    async def _fail(capability_id: int, *, params: dict):
+        return {"success": False, "error": "test handler failure", "capability_id": capability_id}
 
-    monkeypatch.setattr(runtime_mod, "handle_market_capability", _boom)
+    monkeypatch.setattr(official_batch, "handle_official_batch_capability", _fail)
     result = await execute_capability(200, params={"symbol": "BTC"}, skip_entitlement=True)
     assert result.get("success") is False
     assert "test handler failure" in str(result.get("error", ""))
@@ -132,10 +132,10 @@ async def test_free_tier_non_batch_capabilities():
 
 
 def test_route_handler_option_a_branches():
-    assert _route_handler("T04", "Market", 507).__name__ == "handle_market_capability"
-    assert _route_handler("T04", "Data Platform", 338).__name__ == "handle_data_capability"
-    assert _route_handler("T04", "Data Platform", 500).__name__ == "handle_data_capability"
-    assert _route_handler("T12", "AI Research", 400).__name__ == "handle_ai_capability"
+    assert _route_handler("T04", "Market", 507).__name__ == "handle_batch_range_capability"
+    assert _route_handler("T04", "Data Platform", 338).__name__ == "handle_batch_range_capability"
+    assert _route_handler("T04", "Data Platform", 500).__name__ == "handle_batch_range_capability"
+    assert _route_handler("T12", "AI Research", 400).__name__ == "handle_batch_range_capability"
 
 
 @pytest.mark.asyncio

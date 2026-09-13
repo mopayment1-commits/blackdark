@@ -17,8 +17,14 @@ def evaluate_admission(
     net_edge_reject: bool,
     risk_ok: bool,
     uncertainty_high: bool,
+    data_governance_state: str | None = None,
+    data_governance_failed_gates: list[str] | None = None,
 ) -> tuple[DecisionState, list[str]]:
     why_not: list[str] = []
+    if data_governance_state in {"REJECTED", "ABSTAINED"}:
+        why_not.append(f"data_governance_{data_governance_state.lower()}")
+    if data_governance_failed_gates:
+        why_not.extend([f"data_governance_{g}" for g in data_governance_failed_gates])
     if not freshness_ok:
         why_not.append("freshness_gate_failed")
     if data_quality_score < 40.0:

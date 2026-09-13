@@ -529,6 +529,17 @@ def single_sentence_financial_button_382() -> dict[str, Any]:
     )
 
 
+def alert_constitution_explanation_813(*, symbol: str = "BTC") -> dict[str, Any]:
+    from dimension_conflict_guard import dimension_conflict_status
+
+    status = dimension_conflict_status()
+    return _wrap(
+        813,
+        {"symbol": symbol, "constitution_gates": status, "hero": "alert_constitution_explanation"},
+        module="dimension_conflict_guard.dimension_conflict_status",
+    )
+
+
 def clear_explanation_per_alert_812(*, symbol: str = "BTC") -> dict[str, Any]:
     from heroes_quality import build_oqs_why_block
 

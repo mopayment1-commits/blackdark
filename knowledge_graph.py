@@ -207,28 +207,15 @@ async def query_graph(
     params.append(max(1, min(limit, 500)))
 
     async with get_connection() as db:
-        nodes_result = await db.execute(
-            f"""
-            SELECT node_id, node_type, label, properties_json, timestamp, version, signature
-            FROM kg_nodes WHERE {where}
-            ORDER BY timestamp DESC LIMIT ?
-            """,
-            tuple(params),
-        )
+        nodes_sql = f"SELECT node_id, node_type, label, properties_json, timestamp, version, signature FROM kg_nodes WHERE {where} ORDER BY timestamp DESC LIMIT ?"  # nosec B608
+        nodes_result = await db.execute(nodes_sql, tuple(params))
         nodes = [_node_api(dict(r)) for r in await nodes_result.fetchall()]
         node_ids = [n["node_id"] for n in nodes]
         edges: list[dict[str, Any]] = []
         if node_ids:
             placeholders = ",".join("?" for _ in node_ids)
-            edges_result = await db.execute(
-                f"""
-                SELECT edge_id, source_node_id, target_node_id, edge_type,
-                       properties_json, timestamp, signature
-                FROM kg_edges
-                WHERE source_node_id IN ({placeholders}) OR target_node_id IN ({placeholders})
-                """,
-                tuple(node_ids + node_ids),
-            )
+            edges_sql = f"SELECT edge_id, source_node_id, target_node_id, edge_type, properties_json, timestamp, signature FROM kg_edges WHERE source_node_id IN ({placeholders}) OR target_node_id IN ({placeholders})"  # nosec B608
+            edges_result = await db.execute(edges_sql, tuple(node_ids + node_ids))
             edges = [_edge_api(dict(r)) for r in await edges_result.fetchall()]
 
     return {

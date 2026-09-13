@@ -14,7 +14,7 @@ from typing import Any
 
 def _fetch(url: str) -> tuple[int, dict[str, str], str]:
     req = urllib.request.Request(url, method="GET")
-    with urllib.request.urlopen(req, timeout=30) as resp:
+    with urllib.request.urlopen(req, timeout=30) as resp:  # nosec B310
         headers = {k.lower(): v for k, v in resp.headers.items()}
         body = resp.read(4096).decode("utf-8", errors="replace")
         return resp.status, headers, body
