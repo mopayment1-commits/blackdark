@@ -49,7 +49,7 @@ def main() -> None:
     }
     path = ROOT / "docs/PROGRESS_114_ID_MAPPING.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    assert len(included) == 114, f"expected 114 got {len(included)}"
+    assert len(included) == 114, f"expected 114 got {len(included)}"  # nosec B101
     print(json.dumps({"canonical_progress": out["canonical_progress"], "count": len(included)}, indent=2))
 
 

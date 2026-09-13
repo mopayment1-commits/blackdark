@@ -37,7 +37,7 @@ async def verify_phase(phase: int) -> dict[str, Any]:
         return result
     except Exception as exc:
         logger.exception("phase %s verify failed", phase)
-        return {"phase": phase, "ok": False, "error": type(exc).__name__, "detail": str(exc)}
+        return {"phase": phase, "ok": False, "error": type(exc).__name__}
 
 
 async def phase_verify_all() -> dict[str, Any]:
