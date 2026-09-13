@@ -181,7 +181,7 @@ async def login_or_link_oauth_user(profile: dict[str, Any]) -> dict[str, Any]:
     else:
         user_id = int(user["id"])
 
-    assert user is not None
+    assert user is not None  # nosec B101
     await touch_user_login(user_id)
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)

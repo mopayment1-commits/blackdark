@@ -159,6 +159,8 @@ def register_signal(
 
     lexicon_override may include definition, source, and/or weight.
     """
+    from blackdark.data_governance.runtime import enforce_material_write
+
     lex = {**_lexicon_for(signal_type), **(lexicon_override or {})}
     sid = str(prediction_id) if prediction_id not in (None, "", 0) else f"sig_{uuid4().hex[:16]}"
     record = {
@@ -180,6 +182,7 @@ def register_signal(
         "created_at": _utcnow(),
         "updated_at": _utcnow(),
     }
+    record = enforce_material_write("signal", record)
     with _LOCK:
         _SIGNALS[sid] = record
         while len(_SIGNALS) > _MAX_MEMORY:

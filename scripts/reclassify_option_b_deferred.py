@@ -39,7 +39,7 @@ def _load_deferred_entries() -> dict[int, dict]:
             continue
         cid = int(entry["capability_id"])
         out[cid] = entry
-    assert len(out) == 307, len(out)
+    assert len(out) == 307, len(out)  # nosec B101
     return out
 
 

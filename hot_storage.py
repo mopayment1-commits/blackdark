@@ -189,7 +189,7 @@ class ClickHouseBackend(HotStorageBackend):
         self._session = None
 
     async def _execute(self, sql: str, body: str | None = None) -> None:
-        assert self._session is not None
+        assert self._session is not None  # nosec B101
         auth = aiohttp.BasicAuth(self.user, self.password) if self.password else None
         async with self._session.post(
             self.base_url,

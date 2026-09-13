@@ -85,8 +85,10 @@ async def verify_functional(
         }
 
     if capability_id in SIGNED_INFRA_SLOTS:
+        from scale_readiness import signed_load_evidence_from_capability_result
+
         result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
-        signed = bool((result.get("report") or {}).get("signed_load_evidence", {}).get("present"))
+        signed = signed_load_evidence_from_capability_result(result)
         return {
             "id": capability_id,
             "verdict": "VERIFIED_COMPLETE" if signed else "EXTERNAL_EVIDENCE_REQUIRED",
@@ -99,6 +101,16 @@ async def verify_functional(
         user=user or {"email": "functional-test@blackdark.local", "tier": "whale"},
         params={"symbol": "BTC", "tier": "whale"},
     )
+
+    binding_source = result.get("binding_source") or ""
+    if binding_source in {"batch_range_production_spine", "track_default"} and not binding_source.startswith("semantic_track_"):
+        return {
+            "id": capability_id,
+            "capability": name,
+            "verdict": "FUNCTIONALLY_INCOMPLETE",
+            "checks": {"domain_logic": False},
+            "failure_reason": f"generic_binding:{binding_source}",
+        }
 
     failover_reason = _reject_failover(result)
     domain_reason = _domain_check(capability_id, name, row.get("track", ""), result)
