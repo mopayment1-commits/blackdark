@@ -32,20 +32,49 @@ _AIE_TITLES = {
     "AIE-020": "Adaptive surface gating",
 }
 
-_IMPLEMENTED = frozenset(f"AIE-{n:03d}" for n in range(1, 9))
-_PARTIAL = frozenset(f"AIE-{n:03d}" for n in range(9, 21))
+_AIE_RUNTIME_CHECKS: dict[str, str] = {
+    "AIE-001": "heroes_router",
+    "AIE-002": "router_runtime",
+    "AIE-003": "calm_surface",
+    "AIE-004": "adaptive_api",
+    "AIE-005": "adaptive_api",
+    "AIE-006": "decision_contract",
+    "AIE-007": "trust_pulse",
+    "AIE-008": "adaptive_api",
+    "AIE-009": "router_runtime",
+    "AIE-010": "adaptive_api",
+    "AIE-011": "adaptive_api",
+    "AIE-012": "adaptive_api",
+    "AIE-013": "router_runtime",
+    "AIE-014": "calm_surface",
+    "AIE-015": "adaptive_api",
+    "AIE-016": "adaptive_api",
+    "AIE-017": "adaptive_api",
+    "AIE-018": "adaptive_api",
+    "AIE-019": "adaptive_api",
+    "AIE-020": "adaptive_api",
+}
+
+
+def _runtime_ok(status: dict[str, Any], requirement_id: str) -> bool:
+    key = _AIE_RUNTIME_CHECKS.get(requirement_id)
+    if not key:
+        return False
+    bindings = status.get("bindings") or {}
+    if key in bindings:
+        return bool(bindings[key])
+    return bool(status.get(key))
 
 
 def aie_catalog() -> list[dict[str, Any]]:
+    status = adaptive_ux_status()
     rows = []
     for eid in sorted(_AIE_TITLES.keys(), key=lambda x: int(x.split("-")[1])):
-        if eid in _IMPLEMENTED:
-            status = "IMPLEMENTED"
-        elif eid in _PARTIAL:
-            status = "PARTIAL"
+        if _runtime_ok(status, eid):
+            impl_status = "IMPLEMENTED"
         else:
-            status = "SPEC_ONLY"
-        rows.append({"requirement_id": eid, "status": status, "title": _AIE_TITLES[eid], "bgs": _BGS})
+            impl_status = "PARTIAL"
+        rows.append({"requirement_id": eid, "status": impl_status, "title": _AIE_TITLES[eid], "bgs": _BGS})
     return rows
 
 
@@ -60,8 +89,14 @@ def verify_aie_requirement(requirement_id: str) -> dict[str, Any]:
 
 def verify_aie_runtime() -> dict[str, Any]:
     status = adaptive_ux_status()
+    catalog = aie_catalog()
+    implemented = sum(1 for r in catalog if r["status"] == "IMPLEMENTED")
     return {
         "six_heroes_count": len(status.get("six_heroes", SIX_HEROES)),
         "heroes_router": status.get("heroes_router"),
-        "all_requirements": verify_all_requirements(aie_catalog()),
+        "adaptive_api": status.get("adaptive_api"),
+        "bindings": status.get("bindings"),
+        "implemented_count": implemented,
+        "total": len(catalog),
+        "all_requirements": verify_all_requirements(catalog),
     }

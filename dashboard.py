@@ -848,6 +848,13 @@ except Exception:
     logger.exception("Decision Truth router unavailable")
 
 try:
+    from api.routers.adaptive_intelligence import router as adaptive_intelligence_router
+
+    app.include_router(adaptive_intelligence_router)
+except Exception:
+    logger.exception("Adaptive Intelligence router unavailable")
+
+try:
     from api.routers.data_governance import router as data_governance_router
 
     app.include_router(data_governance_router)
