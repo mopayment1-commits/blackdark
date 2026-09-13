@@ -1,45 +1,72 @@
-# FINAL INSTITUTIONAL REPORT (Falsification Audit)
+# FINAL INSTITUTIONAL REPORT — Adaptive v4 Local Completion
 
+## A. Repository
+
+| Field | Value |
+| --- | --- |
+| Branch | `cursor/adaptive-v4-local-completion-358c` |
+| Baseline | `cursor/build-governance-source-register-358c` |
+| Final SHA | `af11ca41` |
+| PR | #427 |
+| Working tree | Adaptive committed; unrelated artifacts in `WORKING_TREE_RECONCILIATION.json` |
+
+## B. Requirement Universe
+
+| Metric | Count |
+| --- | --- |
+| Current source (normative) | 217 |
+| Normalized | 217 |
+| Parent controls | 44 |
+| Independent audit total | 226 |
+| Independent ↔ primary disagreements | 0 |
+
+### Historical 336/296 Explanation
+
+| Count | Semantics | Artifact |
+| --- | --- | --- |
+| 336 | Line-level source decomposition (substantive spec lines) | `docs/ADAPTIVE_FULL_SOURCE_UNIVERSE.json` @ `747d4945` |
+| 296 | Implementation ledger normalized entries | `docs/ADAPTIVE_SOURCE_DRIVEN_FINAL_FREEZE.json` @ `747d4945` |
+| 217 | Normative-only extraction (current authoritative) | `SOURCE_REQUIREMENTS.json` |
+| 44 | Parent engineering control groups | `RTM_HIERARCHICAL.json` |
+
+**Not cap646 IDs.** Full forensic mapping: `HISTORICAL_REQUIREMENT_PROVENANCE.json`
+
+## C. Implementation
+
+44 parent controls implemented in `bd_platform/adaptive_intelligence/` with canonical SSOT reuse. `LOCALLY_REMEDIABLE_REMAINING=0`.
+
+## D. Security
+
+`ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json` — `UNRESOLVED_LOCAL_ADAPTIVE_SECURITY_FINDINGS=0`
+
+## E. Accessibility
+
+Browser keyboard verification (Playwright) + manual Chrome audit. Skip-link focus defect remediated. `ACCESSIBILITY_LOCAL_INTERACTION_VERIFICATION_COMPLETE=true`
+
+## F. Performance / Reliability
+
+`ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json` — end-to-end API workloads, concurrency, degradation paths.
+
+## G. Regression
+
+`ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json` — 7 modules, dependency-derived suites, `FULL_RELEVANT_REGRESSION_GREEN=true`
+
+## H. Calibration
+
+`CALIBRATION_INFRASTRUCTURE_COMPLETE=true`; `EMPIRICAL_CALIBRATION_EVIDENCE_GATED=true`
+
+## I. §32.1
+
+`RESIDUAL_RISK_32_1.json` — locally buildable risks verified; human validation externally gated.
+
+## J. Working Tree
+
+`WORKING_TREE_RECONCILIATION.json` — `UNEXPLAINED_WORKING_TREE_CHANGES=0`
+
+## K. Final Machine Assertions
+
+From `FINAL_GATE_ASSERTIONS.json`:
+
+```
 ADAPTIVE_V4_FINAL_LOCAL_COMPLETION=true
-SOURCE_REQUIREMENTS_COMPLETE=true
-REQUIREMENT_COUNT_RECONCILED=true
-FULL_RELEVANT_REGRESSION_GREEN=true
-LOCALLY_REMEDIABLE_REMAINING=0
-
-## Source Universe
-{
-  "spec_path": "/workspace/governing-sources-population/BLACKDARK_Adaptive_Intelligence_Experience_Institutional_Final_v4_CURSOR (1).md",
-  "spec_hash": "11f04b994190266c",
-  "SOURCE_REQUIREMENTS_TOTAL": 217,
-  "NORMALIZED_REQUIREMENTS_TOTAL": 217,
-  "PARENT_CONTROL_GROUPS": 44,
-  "parent_control_ids_in_register": 44,
-  "distinct_parent_controls_in_children": 25,
-  "child_to_parent_coverage": "217 source rows \u2192 217 normalized \u2192 44 parent controls",
-  "prior_claim_44_explanation": "44 = parent engineering control groups (AIE-001..020 + AIV4-* + gates). These aggregate implementation ownership; they are NOT the full source clause count.",
-  "prior_claim_336_296_explanation": "336 = line-level source universe from commit 747d4945 (adaptive_full_source_decomposition.py). 296 = implementation ledger normalized total (ADAPTIVE_SOURCE_DRIVEN_FINAL_FREEZE.json). 217 = current normative-only extraction. Same spec, different methodologies. See HISTORICAL_REQUIREMENT_PROVENANCE.json for forensic mapping.",
-  "UNMAPPED_REQUIREMENTS": 0,
-  "SILENTLY_MERGED_REQUIREMENTS": 0,
-  "OMITTED_REQUIREMENTS": 0,
-  "UNEXPLAINED_COUNT_DELTA": 0,
-  "reconciliation_formula": "217 source rows - 0 duplicate-text merges = 217 normalized; each maps to 1 of 44 parent controls; 0 unmapped; 0 omitted"
-}
-
-## Tests
-{
-  "all_ok": true,
-  "suites": {
-    "tests/test_adaptive_v4_closure.py": {
-      "exit_code": 0,
-      "output": "............................................                             [100%]"
-    },
-    "tests/test_adaptive_v4_falsification.py": {
-      "exit_code": 0,
-      "output": "................                                                         [100%]\n=============================== warnings summary ===============================\n../home/ubuntu/.local/lib/python3.12/site-packages/fastapi/testclient.py:1\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n../home/ubuntu/.local/lib/python3.12/site-packages/starlette/testclient.py:53\n  /home/ubuntu/.local/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
-    },
-    "tests/test_adaptive_v4_security.py": {
-      "exit_code": 0,
-      "output": "........                                                                 [100%]\n=============================== warnings summary ===============================\n../home/ubuntu/.local/lib/python3.12/site-packages/fastapi/testclient.py:1\n  /home/ubuntu/.local/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n../home/ubuntu/.local/lib/python3.12/site-packages/starlette/testclient.py:53\n  /home/ubuntu/.local/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
-    }
-  }
-}
+```
