@@ -37,7 +37,7 @@ def main() -> int:
     rows = [{**c, "result": "PASS" if ok else "FAIL", "evidence": TEST} for c in CONTROLS]
     payload = {
         "threat_model_delta": "bd_platform/adaptive_intelligence/security_controls.py",
-        "attack_surfaces": list({r["attack_surface"] for r in rows}),
+        "attack_surfaces": sorted({r["attack_surface"] for r in rows}),
         "controls": rows,
         "UNRESOLVED_LOCAL_ADAPTIVE_SECURITY_FINDINGS": 0 if ok else 1,
         "SECURITY_LOCAL_VERIFICATION_COMPLETE": ok,

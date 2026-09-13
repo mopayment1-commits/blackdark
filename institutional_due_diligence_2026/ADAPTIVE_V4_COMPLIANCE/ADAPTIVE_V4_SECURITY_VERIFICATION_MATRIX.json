@@ -1,14 +1,14 @@
 {
   "threat_model_delta": "bd_platform/adaptive_intelligence/security_controls.py",
   "attack_surfaces": [
-    "decision_contract",
-    "router",
-    "/api/adaptive/*",
-    "threat_model",
-    "/api/adaptive/route",
     "mirror_ledger",
+    "threat_model",
+    "api",
+    "router",
+    "decision_contract",
     "safety_floor",
-    "api"
+    "/api/adaptive/route",
+    "/api/adaptive/*"
   ],
   "controls": [
     {

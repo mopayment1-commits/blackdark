@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-13T05:49:22.054245+00:00",
+  "reconciliation_version": "adaptive-v4-gate-8",
   "items": [
     {
       "path": "FREE_API_RATE_LIMIT_AUDIT.json",
@@ -436,7 +436,7 @@
       "reason": "pre_existing_unrelated_artifact"
     }
   ],
-  "UNEXPLAINED_WORKING_TREE_CHANGES": 5,
+  "UNEXPLAINED_WORKING_TREE_CHANGES": 3,
   "adaptive_uncommitted": [
     {
       "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",

@@ -25,7 +25,6 @@ def main() -> int:
         "adaptive_v4_security_matrix.py",
         "adaptive_v4_regression_impact.py",
         "adaptive_v4_truth_audit.py",
-        "adaptive_v4_working_tree_reconciliation.py",
     ]
     for s in steps:
         if not _run(s):
@@ -83,6 +82,15 @@ def main() -> int:
     )
     assertions["ADAPTIVE_V4_FINAL_LOCAL_COMPLETION"] = all_true
 
+    (OUT_DIR / "FINAL_GATE_ASSERTIONS.json").write_text(json.dumps(assertions, indent=2) + "\n", encoding="utf-8")
+    _run("adaptive_v4_working_tree_reconciliation.py")
+    wt = json.loads((OUT_DIR / "WORKING_TREE_RECONCILIATION.json").read_text())
+    assertions["UNEXPLAINED_WORKING_TREE_CHANGES"] = wt.get("UNEXPLAINED_WORKING_TREE_CHANGES", 1)
+    assertions["LOCALLY_REMEDIABLE_REMAINING"] = wt.get("UNEXPLAINED_WORKING_TREE_CHANGES", 0) + (
+        0 if prov.get("COUNT_PROVENANCE_RECONCILED") else 1
+    )
+    all_true = all_true and assertions["UNEXPLAINED_WORKING_TREE_CHANGES"] == 0 and assertions["LOCALLY_REMEDIABLE_REMAINING"] == 0
+    assertions["ADAPTIVE_V4_FINAL_LOCAL_COMPLETION"] = all_true
     (OUT_DIR / "FINAL_GATE_ASSERTIONS.json").write_text(json.dumps(assertions, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(assertions, indent=2))
     return 0 if all_true else 1
