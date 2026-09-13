@@ -3,7 +3,7 @@
   "source_head": "c7d49d33017c6c653566005376e679d66612e951",
   "examination_complete_sha": "dfe956703eea1203de2d9ea58ca4c1ffb267ce87",
   "new_branch": "cursor/examination-complete-baseline-358c",
-  "new_head": "877fbc58507938efaa9761c4ba2b3999cf381e4d",
+  "new_head": "a8998b72281b71da05f7c70328042997cb411459",
   "base_branch": "main",
   "files_in_scope": [
     "BLACKDARK_ACQUISITION_DECISION_REPORT_AR_2026.md",
@@ -89,5 +89,6 @@
   "working_tree_clean": true,
   "created_at_utc": "2026-09-13T23:00:24.476608+00:00",
   "scope_label": "EXAMINATION_COMPLETE_BASELINE",
-  "freeze_status_note": "DISCOVERY_FREEZE.status=NOT_FROZEN; this is examination-complete baseline, not frozen baseline"
+  "freeze_status_note": "DISCOVERY_FREEZE.status=NOT_FROZEN; this is examination-complete baseline, not frozen baseline",
+  "baseline_content_commit": "691c5b9f67f3a0a667ac80b07cadcfa5a006d780"
 }
