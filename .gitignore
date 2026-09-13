@@ -2,6 +2,12 @@
 .env.local
 .env.launch.local
 .env.*.local
+.env.staging
+.env.production
+.env.production.local
+!.env.example
+!.env.production.example
+!.env.staging.example
 __pycache__/
 *.pyc
 *.pyo

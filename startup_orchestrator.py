@@ -34,6 +34,7 @@ class RuntimeState:
     ml_flywheel_started: bool = False
     billing_sweeper_started: bool = False
     uptime_probe_task: asyncio.Task | None = None
+    monitoring_task: asyncio.Task | None = None
     glass_box_task: asyncio.Task | None = None
     extras: dict[str, Any] = field(default_factory=dict)
 
@@ -450,6 +451,18 @@ async def _start_uptime_probe(state: RuntimeState) -> None:
         logger.exception("Uptime self-probe loop failed to start")
 
 
+async def _start_monitoring_alerting(state: RuntimeState) -> None:
+    await asyncio.sleep(0)
+    try:
+        from ops.monitoring_alerting import start_monitoring_loop
+
+        state.monitoring_task = start_monitoring_loop()
+        if state.monitoring_task:
+            logger.info("Post-deploy monitoring alerting loop started")
+    except Exception:
+        logger.exception("Monitoring alerting loop failed to start")
+
+
 async def run_background_startup(state: RuntimeState) -> None:
     """Start all non-critical services after HTTP is already live."""
     _load_platform_keys()
@@ -472,6 +485,7 @@ async def run_background_startup(state: RuntimeState) -> None:
     _start_db_maintenance(state)
     _start_cloud_sync(state)
     await _start_uptime_probe(state)
+    await _start_monitoring_alerting(state)
     _start_billing_sweeper(state)
     await _start_data_engine(state)
     logger.info("BLACKDARK background startup complete.")

@@ -107,7 +107,10 @@ async def store_signal(
                     edge_type="influenced_by",
                 )
     except Exception:
-        logger.exception("KG signal ingest failed for %s", sid)
+        logger.exception(
+            "KG signal ingest failed for %s",
+            str(sid).replace("\r", " ").replace("\n", " "),
+        )
 
     return _signal_api(row)
 

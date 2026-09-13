@@ -113,16 +113,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
         cfg = bigquery_config()
         client = _build_client()
         table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
-        query = f"""
-            SELECT
-                export_id,
-                COUNT(1) AS rows_verified,
-                MAX(exported_at) AS exported_at
-            FROM `{table_ref}`
-            GROUP BY export_id
-            ORDER BY exported_at DESC
-            LIMIT 1
-        """
+        query = f"SELECT export_id, COUNT(1) AS rows_verified, MAX(exported_at) AS exported_at FROM `{table_ref}` GROUP BY export_id ORDER BY exported_at DESC LIMIT 1"  # nosec B608
         rows = list(client.query(query, location=cfg["location"]).result())
         if not rows:
             return None
@@ -151,7 +142,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
             "rows_sent": rows_verified,
             "rows_verified": rows_verified,
             "verification_query": (
-                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
+                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"  # nosec B608
             ),
             "product": "BLACKDARK",
             "surface": "white_label_embedded_analytics",
@@ -306,11 +297,7 @@ def _ensure_table(client: Any) -> tuple[str, str]:
 def _verify_export_rows(client: Any, *, table_ref: str, export_id: str, location: str) -> int:
     from google.cloud import bigquery
 
-    query = f"""
-        SELECT COUNT(1) AS row_count
-        FROM `{table_ref}`
-        WHERE export_id = @export_id
-    """
+    query = f"SELECT COUNT(1) AS row_count FROM `{table_ref}` WHERE export_id = @export_id"  # nosec B608
     job_config = bigquery.QueryJobConfig(
         query_parameters=[bigquery.ScalarQueryParameter("export_id", "STRING", export_id)]
     )
@@ -362,7 +349,7 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
         "rows_verified": verified,
         "manifest_sha256": manifest_sha256,
         "verification_query": (
-            f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
+            f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"  # nosec B608
         ),
         "product": "BLACKDARK",
         "surface": "white_label_embedded_analytics",

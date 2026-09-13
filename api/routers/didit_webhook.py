@@ -44,7 +44,11 @@ async def didit_webhook(request: Request) -> dict:
     try:
         result = process_webhook_event(body)
     except Exception:
-        logger.exception("didit_webhook_processing_failed event_id=%s", body.get("event_id"))
+        _event_id = body.get("event_id")
+        logger.exception(
+            "didit_webhook_processing_failed event_id=%s",
+            str(_event_id).replace("\r", " ").replace("\n", " "),
+        )
         raise HTTPException(status_code=500, detail="processing_failed") from None
     return result
 

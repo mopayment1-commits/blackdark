@@ -66,11 +66,11 @@ async def record_audit(
         row_id = int(cursor.lastrowid or 0)
     logger.info(
         "billing_audit | action=%s user_id=%s email=%s %s→%s",
-        action,
+        str(action).replace("\r", " ").replace("\n", " "),
         user_id,
-        email,
-        old_plan,
-        new_plan,
+        "[redacted]" if email else "-",
+        str(old_plan).replace("\r", " ").replace("\n", " "),
+        str(new_plan).replace("\r", " ").replace("\n", " "),
     )
     return row_id
 

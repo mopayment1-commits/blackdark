@@ -19,6 +19,16 @@ def test_normalize_postgres_scheme(monkeypatch):
     assert pairs[0][1].startswith("postgresql://")
 
 
+def test_blackdark_test_database_url_candidate(monkeypatch):
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv(
+        "BLACKDARK_TEST_DATABASE_URL",
+        "postgresql://blackdark:blackdark@127.0.0.1:5432/blackdark_clean",
+    )
+    pairs = resolver.candidate_database_urls()
+    assert pairs[0][0] == "BLACKDARK_TEST_DATABASE_URL"
+
+
 def test_resolve_prefers_resolvable_host(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "postgresql://bad-host:5432/db")
     monkeypatch.setenv("DATABASE_PUBLIC_URL", "postgresql://good-host:5432/db")

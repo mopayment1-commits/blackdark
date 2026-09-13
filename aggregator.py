@@ -1066,7 +1066,7 @@ class Aggregator:
         cross_symbols: set[str],
         perp_symbols: list[str],
     ) -> None:
-        assert self._session is not None
+        assert self._session is not None  # nosec B101
 
         while not self._shutdown.is_set():
             cycle_started = time.monotonic()

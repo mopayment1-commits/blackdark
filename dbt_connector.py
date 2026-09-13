@@ -183,11 +183,7 @@ def _verify_models_in_bigquery() -> dict[str, Any]:
     client = _build_client()
     mart_fqn = f"{cfg['project_id']}.{cfg['dataset_id']}.{_MART_MODEL}"
     staging_fqn = f"{cfg['project_id']}.{cfg['dataset_id']}.{_STAGING_MODEL}"
-    query = f"""
-        SELECT
-            (SELECT COUNT(1) FROM `{mart_fqn}`) AS mart_rows,
-            (SELECT COUNT(1) FROM `{staging_fqn}`) AS staging_rows
-    """
+    query = f"SELECT (SELECT COUNT(1) FROM `{mart_fqn}`) AS mart_rows, (SELECT COUNT(1) FROM `{staging_fqn}`) AS staging_rows"  # nosec B608
     rows = list(client.query(query, location=location).result())
     if not rows:
         return {"mart_rows": 0, "staging_rows": 0}
@@ -252,7 +248,7 @@ def _run_dbt_sync(*, run_id: str, operator: str) -> dict[str, Any]:
         "mart_rows_verified": mart_rows,
         "staging_rows_verified": int(verified.get("staging_rows") or 0),
         "invocation_id": parsed.get("invocation_id"),
-        "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",
+        "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",  # nosec B608
         "product": "BLACKDARK",
         "surface": "dbt_connector",
         "gate": "CAP-649",
@@ -280,7 +276,7 @@ def _fetch_live_dbt_evidence_from_bigquery() -> dict[str, Any] | None:
             "mart_table_fqn": cfg["mart_table_fqn"],
             "mart_rows_verified": mart_rows,
             "staging_rows_verified": int(verified.get("staging_rows") or 0),
-            "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",
+            "verification_query": f"SELECT COUNT(1) FROM `{cfg['mart_table_fqn']}`",  # nosec B608
             "product": "BLACKDARK",
             "surface": "dbt_connector",
             "gate": "CAP-649",
