@@ -7,9 +7,12 @@ Reads subscription SSOT (subscription_accounts) — not UI tier alone.
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 from auth_service import TIER_FEATURES, normalize_tier
+
+logger = logging.getLogger(__name__)
 from billing.plan_registry import plan_rank
 from billing.subscription_engine import entitlement_allowed, effective_plan, resolve_entitlements_for_user
 from cap646.catalog import catalog_by_id as catalog646_by_id, is_external as is_external646
@@ -47,6 +50,20 @@ async def _subscription_for_user(user: dict[str, Any] | None) -> dict[str, Any] 
     return await get_by_user_id(int(user["id"]))
 
 
+def _auth_eval_deny(capability_id: int, gate: str) -> dict[str, Any]:
+    """Fail-closed deny when an authorization helper raises during evaluation."""
+    logger.warning(
+        "Entitlement authorization evaluation failed",
+        extra={"gate": gate, "capability_id": capability_id},
+    )
+    return {
+        "allowed": False,
+        "reason": "authorization_evaluation_failed",
+        "gate": gate,
+        "capability_id": capability_id,
+    }
+
+
 class EntitlementEngine:
     async def check(
         self,
@@ -72,7 +89,7 @@ class EntitlementEngine:
                         "capability_id": capability_id,
                     }
             except Exception:
-                pass
+                return _auth_eval_deny(capability_id, "external_catalog_check")
 
         row = catalog646_by_id().get(capability_id) or {}
         if capability_id >= 647 and not row:
@@ -127,7 +144,7 @@ class EntitlementEngine:
                         "capability_id": capability_id,
                     }
             except Exception:
-                pass
+                return _auth_eval_deny(capability_id, "org_rbac_permission")
 
         try:
             from auth_service import feature_allowed
@@ -141,7 +158,7 @@ class EntitlementEngine:
                     "capability_id": capability_id,
                 }
         except Exception:
-            pass
+            return _auth_eval_deny(capability_id, "feature_allowed")
 
         if user and user.get("id"):
             from billing.usage_meter import check_and_increment

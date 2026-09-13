@@ -132,7 +132,7 @@ def _patch_checklist(ids: frozenset[int], rows_by_id: dict[int, dict]) -> int:
 
 def main() -> None:
     bcd_ids, rows_by_id = _load_bcd_ids()
-    assert len(bcd_ids) == 58, len(bcd_ids)
+    assert len(bcd_ids) == 58, len(bcd_ids)  # nosec B101
     ids = frozenset(bcd_ids)
     by_cat = {c: [] for c in CATEGORIES}
     for cid in bcd_ids:

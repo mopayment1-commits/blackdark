@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import json
 import os
-import secrets
 import threading
 from datetime import UTC, datetime
 from pathlib import Path
@@ -29,6 +28,14 @@ _INVOICES = _ROOT / "invoices.jsonl"
 _KYC = _ROOT / "kyc_cases.jsonl"
 _PAID = _ROOT / "paid_ledger.jsonl"
 
+_ENC_VERSION = 1
+_ENC_AAD = b"blackdark-institutional-commerce-v1"
+_LEDGER_SENSITIVE: dict[str, frozenset[str]] = {
+    "invoices": frozenset({"email"}),
+    "paid": frozenset({"email"}),
+    "kyc": frozenset({"email", "legal_name", "session_id", "notes"}),
+}
+
 
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
@@ -42,20 +49,76 @@ def _ensure() -> None:
             safe.write_text("", encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
+def _ledger_kind(path: Path) -> str:
+    if path == _INVOICES:
+        return "invoices"
+    if path == _PAID:
+        return "paid"
+    if path == _KYC:
+        return "kyc"
+    raise ValueError("unknown_ledger")
+
+
+def _seal_row(row: dict[str, Any], kind: str) -> dict[str, Any]:
+    """Encrypt sensitive PII/identifiers before JSONL persistence (AES-256-GCM)."""
+    sensitive = _LEDGER_SENSITIVE[kind]
+    payload = {key: row[key] for key in sensitive if key in row}
+    public = {key: value for key, value in row.items() if key not in sensitive}
+    if not payload:
+        return public
+    from secrets_vault import encrypt_secret_gcm
+
+    public["sensitive_enc"] = encrypt_secret_gcm(
+        json.dumps(payload, ensure_ascii=False, sort_keys=True),
+        aad=_ENC_AAD,
+    )
+    public["enc_v"] = _ENC_VERSION
+    return public
+
+
+def _unseal_row(row: dict[str, Any], kind: str) -> dict[str, Any]:
+    if "sensitive_enc" not in row:
+        from secrets_vault import _is_production
+
+        if _is_production():
+            raise RuntimeError("institutional_commerce plaintext ledger row rejected in production")
+        return dict(row)
+    from secrets_vault import decrypt_secret_gcm
+
+    payload = json.loads(decrypt_secret_gcm(row["sensitive_enc"], aad=_ENC_AAD))
+    out = dict(row)
+    out.pop("sensitive_enc", None)
+    out.pop("enc_v", None)
+    out.update(payload)
+    return out
+
+
 def _append(path: Path, row: dict[str, Any]) -> None:
     _ensure()
+    kind = _ledger_kind(path)
+    sealed = _seal_row(row, kind)
     with ensure_under(path, _DATA_BASE).open("a", encoding="utf-8") as fh:  # NOSONAR pythonsecurity:S2083
-        fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+        fh.write(json.dumps(sealed, ensure_ascii=False) + "\n")
+
+
+def _write_all(path: Path, rows: list[dict[str, Any]]) -> None:
+    _ensure()
+    kind = _ledger_kind(path)
+    payload = "".join(
+        json.dumps(_seal_row(row, kind), ensure_ascii=False) + "\n" for row in rows
+    )
+    ensure_under(path, _DATA_BASE).write_text(payload, encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def _read(path: Path) -> list[dict[str, Any]]:
     _ensure()
+    kind = _ledger_kind(path)
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
         try:
-            rows.append(json.loads(line))
+            rows.append(_unseal_row(json.loads(line), kind))
         except json.JSONDecodeError:
             continue
     return rows
@@ -94,7 +157,6 @@ def create_invoice(
         "method": method,
         "status": "open",
         "created_at": _utcnow(),
-        "payment_url": f"/institutional/pay/{secrets.token_urlsafe(12)}",
     }
     _append(_INVOICES, row)
     return row
@@ -127,11 +189,7 @@ def mark_invoice_paid(
                 break
         if not target:
             raise ValueError("invoice_not_found")
-        # rewrite invoices
-        ensure_under(_INVOICES, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
-            "".join(json.dumps(i, ensure_ascii=False) + "\n" for i in invoices),
-            encoding="utf-8",
-        )
+        _write_all(_INVOICES, invoices)
         paid = {
             "payment_id": f"pay_{uuid4().hex[:12]}",
             "invoice_id": invoice_id,
@@ -209,10 +267,7 @@ def apply_didit_kyc_update(
             break
     if not target:
         return None
-    ensure_under(_KYC, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
-        "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases),
-        encoding="utf-8",
-    )
+    _write_all(_KYC, cases)
     return target
 
 
@@ -238,10 +293,7 @@ def decide_kyc(case_id: str, *, decision: str, notes: str = "") -> dict[str, Any
             break
     if not target:
         raise ValueError("case_not_found")
-    ensure_under(_KYC, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
-        "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases),
-        encoding="utf-8",
-    )
+    _write_all(_KYC, cases)
     return target
 
 

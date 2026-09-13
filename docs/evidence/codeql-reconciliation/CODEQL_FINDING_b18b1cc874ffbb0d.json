@@ -1,0 +1,19 @@
+{
+  "canonical_id": "b18b1cc874ffbb0d",
+  "rule_id": "py/clear-text-storage-sensitive-data",
+  "location": "institutional_commerce.py",
+  "prior_disposition": "FALSE_POSITIVE_PROVEN",
+  "final_disposition": "TRUE_POSITIVE_FIXED",
+  "remediation": {
+    "design": "AES-256-GCM envelope for sensitive ledger fields via secrets_vault.encrypt_secret_gcm",
+    "key_source": "SECRETS_MASTER_KEY or SECRETS_VAULT_KEY through secrets_vault.get_vault_key()",
+    "removed_fields": ["payment_url"],
+    "encrypted_fields": ["email", "legal_name", "session_id", "notes"],
+    "plaintext_fallback_production": false
+  },
+  "verification": {
+    "focused_tests": "tests/test_institutional_commerce_encrypted_storage.py",
+    "codeql_suite": "python-security-and-quality.qls",
+    "post_fix_institutional_commerce_present": false
+  }
+}

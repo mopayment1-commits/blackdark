@@ -1,12 +1,5 @@
-"""BLACKDARK Data Governance package (BGS-010 / DIG requirements)."""
+"""BLACKDARK Data Intelligence & Governance — canonical data truth fabric."""
 
-from data_governance.registry import SourceRecord, list_sources, register_source
-from data_governance.rights import assert_usage_allowed, usage_rights_status
+from data_governance.pipeline import evaluate_data_governance, data_governance_status
 
-__all__ = [
-    "SourceRecord",
-    "assert_usage_allowed",
-    "list_sources",
-    "register_source",
-    "usage_rights_status",
-]
+__all__ = ["evaluate_data_governance", "data_governance_status"]

@@ -1954,3 +1954,53 @@ It must:
 Final allowed engineering statement:
 
 > **All locally-buildable requirements in BLACKDARK Institutional Data Intelligence, Governance & Operations Specification v1 are implemented, integrated into intended runtime paths, regression-verified and reconciled against the governing source. No known local material source-ingestion, normalization, quality, freshness, provenance, methodology, history, reliability, auditability, resilience, Decision Truth integration, or user-facing data-truth gaps remain. Production/live, licensing-contractual and external legal verification remain separately gated and have not been falsely claimed.**
+
+---
+
+# 60. Governing Recovery Addendum — Restored Decisions from Prior Canonical Discussion
+
+**Status:** Mandatory. This addendum restores decisions that were present in the prior canonical discussion but were not stated explicitly enough in Final v1. It is part of the SSOT and MUST be implemented together with DATA-001→DATA-100. If wording conflicts, the stricter evidence-backed requirement applies.
+
+## RESTORE-001 — Do not integrate 100 sources at once
+BLACKDARK MUST NOT attempt to onboard/integrate the full ~100-source universe in one implementation wave. Doing so increases integration failure surface, operational complexity, maintenance burden and cost without proportional decision value. Source expansion MUST be staged and evidence-driven.
+
+## RESTORE-002 — Three-stage source execution strategy
+### Phase I — Institutional Core
+Target approximately **25–35 highest-value sources/routes**, selected by decision criticality and independence.
+
+Phase I is complete only when the selected core sources are normalized, quality-gated, reconciled, freshness-aware, observable, historically governed and actually wired into intended decision paths.
+
+### Phase II — Intelligence Expansion
+Expand only after Phase I engineering closure.
+
+### Phase III — Data Moat
+Build BLACKDARK-owned defensibility through proprietary derived indicators, evidence lake, entity/event graphs, and source reliability history.
+
+The strategic moat is NOT the statement “BLACKDARK has 100 APIs.” The moat is the governed transformation of conflicting multi-source evidence into auditable Financial/Decision Truth.
+
+## RESTORE-003 — Data Trust Engine observation contract
+Every material observation entering critical decision paths MUST carry source, role, identity, timestamps, freshness, quality_score, schema/version, and provenance reference fields (directly or via canonical equivalents).
+
+## RESTORE-004 — Explicit source-conflict decision rules
+Critical source handling MUST implement: fallback on failure, CONFLICT on material disagreement (no silent averaging), REJECT/DEGRADE/ABSTAIN on stale data, quarantine on anomalies, and concentration penalty on single-source-only critical evidence.
+
+## RESTORE-005 — Canonical reconciliation layer
+The data path MUST contain reconciliation/consensus between quality-gated inputs and canonical decision state — not blind last-write-wins.
+
+## RESTORE-006 — Economic revision/vintage truth
+Retain revision/vintage/as-known-at for revisable datasets; replay must use knowable-at-time-T values.
+
+## RESTORE-007 — Free-first operating rule
+Free sources are preferred when they satisfy measured requirements; paid providers only when a measured gap justifies them.
+
+## RESTORE-008 — Source-role discipline
+Direct venue feeds first for venue truth; aggregators for discovery/reference/cross-check unless proven execution-grade.
+
+## RESTORE-009 — User-facing strategic target
+Serve auditable evidence-backed intelligence — not connector count maximization.
+
+## RESTORE-010 — Mandatory execution sequencing gate
+Phase I must prove admission, normalization, quality, reconciliation, provenance, replay, observability, fallback, and tests before Phase II expansion.
+
+## RESTORE-011 — Closure reconciliation
+Before `PASS_ENGINEERING_DATA=true`, reconcile RESTORE-001→RESTORE-010 with DATA-001→DATA-100. If any cannot be proven locally, `PASS_ENGINEERING_DATA=true` MUST remain false.
