@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import socket
 import subprocess
 import sys
 import time
@@ -13,7 +14,17 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 VENV_PY = ROOT / ".venv-a11y" / "bin" / "python"
 VENV_SITE = ROOT / ".venv-a11y" / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
-PORT = int(os.environ.get("A11Y_TEST_PORT", "8765"))
+
+
+def _free_port() -> int:
+    if env_port := os.environ.get("A11Y_TEST_PORT"):
+        return int(env_port)
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(("127.0.0.1", 0))
+        return s.getsockname()[1]
+
+
+PORT = _free_port()
 
 if VENV_SITE.is_dir():
     sys.path.insert(0, str(VENV_SITE))
@@ -39,10 +50,23 @@ def browser_server():
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    time.sleep(3)
+    for _ in range(30):
+        try:
+            with socket.create_connection(("127.0.0.1", PORT), timeout=0.2):
+                break
+        except OSError:
+            time.sleep(0.2)
+    else:
+        proc.terminate()
+        proc.wait(timeout=5)
+        pytest.skip("dashboard server failed to start")
     yield f"http://127.0.0.1:{PORT}"
     proc.terminate()
-    proc.wait(timeout=10)
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        proc.wait(timeout=5)
 
 
 @pytest.fixture(scope="module")

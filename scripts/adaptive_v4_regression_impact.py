@@ -118,17 +118,22 @@ def _run_suite(path: str) -> dict[str, Any]:
     }
 
 
-def _process_modules(modules: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _process_modules(modules: list[dict[str, Any]], cache: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     rows = []
     for m in modules:
-        results = [_run_suite(t) for t in m["tests"]]
+        results = []
+        for t in m["tests"]:
+            if t not in cache:
+                cache[t] = _run_suite(t)
+            results.append(cache[t])
         rows.append({**m, "test_results": results, "all_passed": all(r["passed"] for r in results)})
     return rows
 
 
 def main() -> int:
-    adaptive_rows = _process_modules(ADAPTIVE_CHANGED)
-    canonical_rows = _process_modules(CANONICAL_AFFECTED)
+    cache: dict[str, dict[str, Any]] = {}
+    adaptive_rows = _process_modules(ADAPTIVE_CHANGED, cache)
+    canonical_rows = _process_modules(CANONICAL_AFFECTED, cache)
     all_rows = adaptive_rows + canonical_rows
 
     ui_api = [r for r in adaptive_rows if "api/" in r["module"] or "templates/" in r["module"]]

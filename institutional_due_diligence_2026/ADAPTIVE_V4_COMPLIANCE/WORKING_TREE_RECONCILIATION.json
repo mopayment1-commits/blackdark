@@ -2,13 +2,6 @@
   "reconciliation_version": "adaptive-v4-gate-8",
   "items": [
     {
-      "path": "bd_platform/adaptive_intelligence/security_controls.py",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
       "path": "data/ml_experience_log.jsonl",
       "status": "M",
       "related_to_adaptive": false,
@@ -65,35 +58,7 @@
       "reason": "pre_existing_unrelated_artifact"
     },
     {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
       "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_gate_runner.py",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
@@ -107,14 +72,7 @@
       "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "scripts/adaptive_v4_security_matrix.py",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "tests/test_adaptive_v4_security.py",
+      "path": "tests/test_adaptive_v4_browser_a11y.py",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
@@ -203,82 +161,12 @@
       "related_to_adaptive": false,
       "safe_to_exclude": true,
       "reason": "pre_existing_unrelated_artifact"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_MATRIX.json",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/PRIMARY_TO_ATOMIC_REQUIREMENT_MAPPING.json",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_accessibility_matrix.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_atomicity_mapping.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_performance_evidence.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
     }
   ],
-  "UNEXPLAINED_WORKING_TREE_CHANGES": 14,
+  "UNEXPLAINED_WORKING_TREE_CHANGES": 3,
   "adaptive_uncommitted": [
     {
-      "path": "bd_platform/adaptive_intelligence/security_controls.py",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_REPORT.md",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
       "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_LOCAL_PERFORMANCE_EVIDENCE.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_REGRESSION_IMPACT_MATRIX.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ADAPTIVE_V4_SECURITY_VERIFICATION_MATRIX.json",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_gate_runner.py",
       "status": "M",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
@@ -292,50 +180,8 @@
       "reason": "adaptive_work_in_progress"
     },
     {
-      "path": "scripts/adaptive_v4_security_matrix.py",
+      "path": "tests/test_adaptive_v4_browser_a11y.py",
       "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "tests/test_adaptive_v4_security.py",
-      "status": "M",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/ACCESSIBILITY_LOCAL_VERIFICATION_MATRIX.json",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "institutional_due_diligence_2026/ADAPTIVE_V4_COMPLIANCE/PRIMARY_TO_ATOMIC_REQUIREMENT_MAPPING.json",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_accessibility_matrix.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_atomicity_mapping.py",
-      "status": "??",
-      "related_to_adaptive": true,
-      "safe_to_exclude": false,
-      "reason": "adaptive_work_in_progress"
-    },
-    {
-      "path": "scripts/adaptive_v4_performance_evidence.py",
-      "status": "??",
       "related_to_adaptive": true,
       "safe_to_exclude": false,
       "reason": "adaptive_work_in_progress"
