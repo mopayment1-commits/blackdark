@@ -99,6 +99,10 @@ def test_forward_receipt_created_before_outcome() -> None:
 
 def test_post_outcome_shadow_receipt_rejected() -> None:
     ledger = ForwardShadowLedger()
+    known_outcome = _outcome(
+        outcome_timestamp=T_ISSUED - timedelta(minutes=30),
+        label_status=OutcomeLabelStatus.VERIFIED,
+    )
     with pytest.raises(ValueError, match="post_outcome"):
         ledger.create_pre_outcome_receipt(
             subject_identity="asset-a",
@@ -115,8 +119,7 @@ def test_post_outcome_shadow_receipt_rejected() -> None:
             issued_at=T_ISSUED,
             temporal_context={},
             source_or_dataset_context={},
-            outcome_already_known=True,
-            outcome_known_at=T_OUTCOME,
+            canonical_outcome=known_outcome,
         )
 
 
