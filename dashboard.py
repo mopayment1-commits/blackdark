@@ -610,9 +610,10 @@ except Exception:
     pass
 
 try:
-    from security_middleware import SecurityHeadersMiddleware
+    from security_middleware import SecureTransportMiddleware, SecurityHeadersMiddleware
 
     app.add_middleware(SecurityHeadersMiddleware)
+    app.add_middleware(SecureTransportMiddleware)
 except Exception:
     pass
 
@@ -4759,7 +4760,14 @@ async def checkout_post(tier: str = "pro", user: dict | None = Depends(optional_
 
 @app.post("/webhook", responses=COMMON_ERROR_RESPONSES)
 async def stripe_webhook(request: Request):
-    from billing_service import handle_stripe_webhook_event
+    from billing.webhook_processor import process_stripe_event
+    from transport_webhook_env.transport import enforce_secure_transport
+    from transport_webhook_env.webhook_lifecycle import process_verified_webhook, reject_security_event
+
+    try:
+        enforce_secure_transport(request, sensitive=True)
+    except PermissionError:
+        raise HTTPException(status_code=403, detail="HTTPS required") from None
 
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature", "")
@@ -4768,15 +4776,26 @@ async def stripe_webhook(request: Request):
     if not endpoint_secret:
         raise HTTPException(status_code=503, detail="Webhook secret not configured")
 
+    correlation_id = request.headers.get("X-Correlation-Id") or request.headers.get("X-Request-Id") or ""
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
     except ValueError as exc:
+        reject_security_event(provider="stripe", reason="invalid_payload", correlation_id=correlation_id or "stripe")
         raise HTTPException(status_code=400, detail="Invalid payload") from exc
     except stripe.SignatureVerificationError as exc:
+        reject_security_event(provider="stripe", reason="invalid_signature", correlation_id=correlation_id or "stripe")
         raise HTTPException(status_code=400, detail="Invalid signature") from exc
 
-    result = await handle_stripe_webhook_event(event)
-    return {"received": True, **result}
+    correlation_id = correlation_id or str(event.get("id") or "")
+    result = await process_verified_webhook(
+        provider="stripe",
+        event_id=str(event.get("id") or ""),
+        event_type=str(event.get("type") or ""),
+        event=event,
+        processor=process_stripe_event,
+        correlation_id=correlation_id,
+    )
+    return result
 
 
 @app.post("/webhook/lemon")

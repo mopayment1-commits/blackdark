@@ -19,19 +19,8 @@ logger = logging.getLogger("BLACKDARK.Billing.Webhooks")
 
 
 async def process_stripe_event(event: dict[str, Any]) -> dict[str, Any]:
-    from database import claim_billing_webhook_event
-
     event_id = str(event.get("id") or "").strip()
     event_type = str(event.get("type") or "")
-    if event_id:
-        claimed = await claim_billing_webhook_event(
-            provider="stripe",
-            event_id=event_id,
-            event_type=event_type,
-        )
-        if not claimed:
-            return {"handled": True, "action": "duplicate_ignored", "event_id": event_id}
-
     data_object = (event.get("data") or {}).get("object") or {}
 
     if event_type == "checkout.session.completed":
@@ -144,25 +133,10 @@ async def process_stripe_event(event: dict[str, Any]) -> dict[str, Any]:
 
 
 async def process_lemon_event(event: dict[str, Any]) -> dict[str, Any]:
-    from billing_service import _lemon_event_context, verify_lemon_webhook_signature
-    from database import claim_billing_webhook_event
+    from billing_service import _lemon_event_context
 
     ctx = _lemon_event_context(event)
     dedupe_key = str(ctx["dedupe_key"])
-    if dedupe_key.strip(":"):
-        claimed = await claim_billing_webhook_event(
-            provider="lemon_squeezy",
-            event_id=dedupe_key[:240],
-            event_type=ctx["event_name"] or "unknown",
-        )
-        if not claimed:
-            return {
-                "handled": True,
-                "action": "duplicate_ignored",
-                "provider": "lemon_squeezy",
-                "event_id": dedupe_key[:240],
-            }
-
     event_name = ctx["event_name"]
     tier = normalize_plan(ctx["tier"])
     email = ctx["email"]

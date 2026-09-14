@@ -241,19 +241,39 @@ async def institutional_inquiry(data: dict = Body(default={})):
 @router.post("/webhook/lemon", responses=COMMON_ERROR_RESPONSES)
 async def lemon_webhook(request: Request):
     """Lemon Squeezy entitlement webhook — HMAC-SHA256 via X-Signature."""
-    from billing_service import handle_lemon_webhook_event, verify_lemon_webhook_signature
+    from billing.webhook_processor import process_lemon_event
+    from billing_service import _lemon_event_context, verify_lemon_webhook_signature
+    from transport_webhook_env.transport import enforce_secure_transport
+    from transport_webhook_env.webhook_lifecycle import process_verified_webhook, reject_security_event
+
+    try:
+        enforce_secure_transport(request, sensitive=True)
+    except PermissionError:
+        raise HTTPException(status_code=403, detail="HTTPS required") from None
 
     raw = await request.body()
     sig = request.headers.get("X-Signature") or request.headers.get("x-signature")
+    correlation_id = request.headers.get("X-Correlation-Id") or request.headers.get("X-Request-Id") or ""
     if not verify_lemon_webhook_signature(raw, sig):
+        reject_security_event(provider="lemon_squeezy", reason="invalid_signature", correlation_id=correlation_id or "lemon")
         raise HTTPException(status_code=401, detail="Invalid Lemon Squeezy webhook signature")
     try:
         event = json.loads(raw.decode("utf-8") or "{}")
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        reject_security_event(provider="lemon_squeezy", reason="invalid_json", correlation_id=correlation_id or "lemon")
         raise HTTPException(status_code=400, detail="Invalid JSON payload") from exc
     if not isinstance(event, dict):
         raise HTTPException(status_code=400, detail="Invalid webhook body")
-    result = await handle_lemon_webhook_event(event)
+    ctx = _lemon_event_context(event)
+    event_id = str(ctx["dedupe_key"])[:240]
+    result = await process_verified_webhook(
+        provider="lemon_squeezy",
+        event_id=event_id,
+        event_type=str(ctx["event_name"] or "unknown"),
+        event=event,
+        processor=process_lemon_event,
+        correlation_id=correlation_id or event_id,
+    )
     return {"received": True, "currency": "USD", **result}
 
 
