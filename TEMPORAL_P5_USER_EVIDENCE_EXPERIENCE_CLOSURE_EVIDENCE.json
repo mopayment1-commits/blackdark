@@ -1,0 +1,601 @@
+{
+  "verified_at_utc": "2026-09-14T13:55:36.653211+00:00",
+  "scope": "P5_USER_EVIDENCE_EXPERIENCE",
+  "governing_sources": [
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "TEMPORAL_P0_FOUNDATION_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P1_CANONICAL_EVENT_AND_REPLAY_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P2_OUTCOME_AND_EVIDENCE_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P3_SHADOW_AND_REGIME_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P4_LEARNING_AND_EVALUATION_CLOSURE_EVIDENCE.json"
+  ],
+  "branch": "cursor/temporal-p5-user-evidence-experience-closure-358c",
+  "p0_baseline": {
+    "closed": true,
+    "final_verdict": "P0_CLOSED",
+    "verified": 66
+  },
+  "p1_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 31
+  },
+  "p2_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 103
+  },
+  "p3_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED_WITH_EXTERNAL_RUNTIME_GATE",
+    "verified": 62
+  },
+  "p4_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 111
+  },
+  "p5_atomics_total": 43,
+  "counts": {
+    "VERIFIED": 42,
+    "IMPLEMENTED_NOT_VERIFIED": 0,
+    "NOT_IMPLEMENTED": 0,
+    "EXTERNAL_RUNTIME_PENDING": 1
+  },
+  "defects_remaining": [],
+  "external_runtime_gates": {
+    "TEMP-AR-0261": {
+      "reason": "requires genuine forward evidence that historical output was live-issued",
+      "local_engineering_complete": true,
+      "forward_issuance_verified": false
+    }
+  },
+  "runtime_proofs": {
+    "p5_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p5_market_time_machine.py tests/test_temporal_p5_public_evidence.py tests/test_temporal_p5_user_behavioral_learning.py tests/test_temporal_p5_closure.py tests/test_temporal_p5_closure_runtime_e2e.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "................................................                         [100%]"
+      ]
+    },
+    "p4_regression_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p4_learning_value.py tests/test_temporal_p4_remaining_modules.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "...............................                                          [100%]"
+      ]
+    },
+    "closure_probes": {
+      "closure_assertions": {
+        "P5_MODULE_SURFACES": 0,
+        "INTERNAL_MODE_PURPOSES_COMPLETE": true,
+        "MANDATORY_HISTORICAL_REPLAY_DISCLOSURE": true,
+        "LIVE_ISSUANCE_PROHIBITION_LOCAL": true,
+        "PUBLIC_DISCLOSURE_FIELDS_COMPLETE": true,
+        "PUBLIC_EVIDENCE_CONTROLS": true,
+        "USER_BEHAVIOR_NOT_FINANCIAL_TRUTH": true,
+        "USER_ACTION_NOT_OUTCOME_PROOF": true,
+        "BEHAVIORAL_CONSENT_GOVERNANCE": true,
+        "P5_LOCAL_ENGINEERING_COMPLETE": true,
+        "P5_CLOSED": true
+      },
+      "P5_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 43,
+      "P5_LOCAL_ENGINEERING_COMPLETE_COUNT": 43,
+      "P5_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
+      "P5_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS": [
+        "TEMP-AR-0261"
+      ],
+      "temp_ar_0261": {
+        "atomic_id": "TEMP-AR-0261",
+        "local_engineering_complete": true,
+        "historical_replay_never_implies_live": true,
+        "forward_shadow_requires_forward_evidence": true,
+        "external_evidence_pending": true,
+        "forward_issuance_verified": false
+      },
+      "runtime_probe_paths": {
+        "P5_MODULE_SURFACES": "p5_closure_verification.probe_p5_module_surfaces",
+        "INTERNAL_MODE_PURPOSES_COMPLETE": "p5_closure_verification.probe_internal_mode_purposes_complete",
+        "MANDATORY_HISTORICAL_REPLAY_DISCLOSURE": "p5_closure_verification.probe_mandatory_historical_replay_disclosure",
+        "LIVE_ISSUANCE_PROHIBITION_LOCAL": "p5_closure_verification.probe_live_issuance_prohibition_local",
+        "PUBLIC_DISCLOSURE_FIELDS_COMPLETE": "p5_closure_verification.probe_public_disclosure_fields",
+        "PUBLIC_EVIDENCE_CONTROLS": "p5_closure_verification.probe_public_evidence_controls",
+        "USER_BEHAVIOR_NOT_FINANCIAL_TRUTH": "p5_closure_verification.probe_user_behavior_not_financial_truth",
+        "USER_ACTION_NOT_OUTCOME_PROOF": "p5_closure_verification.probe_user_action_not_outcome_proof",
+        "BEHAVIORAL_CONSENT_GOVERNANCE": "p5_closure_verification.probe_behavioral_consent_governance",
+        "P5_LOCAL_ENGINEERING_COMPLETE": "p5_closure_verification.probe_p5_local_engineering_complete"
+      }
+    },
+    "temp_ar_0261": {
+      "atomic_id": "TEMP-AR-0261",
+      "local_engineering_complete": true,
+      "historical_replay_never_implies_live": true,
+      "forward_shadow_requires_forward_evidence": true,
+      "external_evidence_pending": true,
+      "forward_issuance_verified": false
+    }
+  },
+  "reconciliation": [
+    {
+      "atomic_requirement_id": "TEMP-AR-0251",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Internal Mode (P1) should be used for; QA",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0252",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Internal Mode (P1) should be used for; debugging",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0253",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Internal Mode (P1) should be used for; research",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0254",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Internal Mode (P1) should be used for; model comparison",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0255",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Internal Mode (P1) should be used for; replay",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py::test_temp_ar_0255_replay_internal_mode",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0256",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Internal Mode (P1) should be used for; failure reproduction",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0257",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Internal Mode (P1) should be used for; evidence generation",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0258",
+      "parent_primary_requirement_id": "TEMP-PR-0081",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Internal Mode (P1) should be used for; root-cause analysis.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0259",
+      "parent_primary_requirement_id": "TEMP-PR-0082",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "User-Facing Mode (P2) should allow the user to select a historical timestamp/event and see: What was knowable then \u2192 evidence \u2192 uncertainty \u2192 conflicting sources \u2192 prediction \u2192 confidence \u2192 why \u2192 why-not \u2192 abstention \u2192 what happened next.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_closure_runtime_e2e.py::test_temp_ar_0259_user_facing_experience_runtime_integration",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0260",
+      "parent_primary_requirement_id": "TEMP-PR-0083",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Mandatory disclosure: Historical Replay.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_market_time_machine.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0261",
+      "parent_primary_requirement_id": "TEMP-PR-0084",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "MARKET_TIME_MACHINE",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "It must never imply that the historical output was issued live at that time unless there is genuine forward evidence proving that fact.",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "blackdark/temporal/market_time_machine.py + probe_temp_ar_0261_status (external gate)",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0262",
+      "parent_primary_requirement_id": "TEMP-PR-0085",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "Build backend evidence foundations early, but do not use a public ledger as a marketing claim until evidence is sufficiently mature.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py::test_temp_ar_0262_public_ledger_maturity_required",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0263",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; evidence class",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_closure_runtime_e2e.py::test_temp_ar_0263_public_disclosure_runtime_integration",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0264",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; date range",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0265",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; sample size",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0266",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; effective independent sample count",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0267",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; regime distribution",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py::test_temp_ar_0267_regime_distribution",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0268",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; asset/universe",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0269",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; evaluation horizon",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0270",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; model version",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0271",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; abstentions",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0272",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; methodology",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0273",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; uncertainty",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0274",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; exclusions",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0275",
+      "parent_primary_requirement_id": "TEMP-PR-0086",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Every material public claim should disclose, where applicable; limitations.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0276",
+      "parent_primary_requirement_id": "TEMP-PR-0087",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Controls must address; cherry-picking",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0277",
+      "parent_primary_requirement_id": "TEMP-PR-0087",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Controls must address; survivorship bias",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0278",
+      "parent_primary_requirement_id": "TEMP-PR-0087",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Controls must address; retroactive deletion",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0279",
+      "parent_primary_requirement_id": "TEMP-PR-0087",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Controls must address; selective date-window reporting",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0280",
+      "parent_primary_requirement_id": "TEMP-PR-0087",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "PUBLIC_EVIDENCE",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Controls must address; mixing evidence classes.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_public_evidence.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0352",
+      "parent_primary_requirement_id": "TEMP-PR-0102",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "User behavior is not financial ground truth.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_closure_runtime_e2e.py::test_temp_ar_0352_behavioral_learning_runtime_integration",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0353",
+      "parent_primary_requirement_id": "TEMP-PR-0103",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "If used later, require; explicit purpose",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0354",
+      "parent_primary_requirement_id": "TEMP-PR-0103",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "If used later, require; consent/legal basis where applicable",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0355",
+      "parent_primary_requirement_id": "TEMP-PR-0103",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "If used later, require; minimization",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0356",
+      "parent_primary_requirement_id": "TEMP-PR-0103",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "If used later, require; retention rules",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0357",
+      "parent_primary_requirement_id": "TEMP-PR-0103",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "If used later, require; deletion/rights handling",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py::test_temp_ar_0357_deletion_rights",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0358",
+      "parent_primary_requirement_id": "TEMP-PR-0103",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "If used later, require; separation from objective market outcomes",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0359",
+      "parent_primary_requirement_id": "TEMP-PR-0103",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "If used later, require; anti-manipulation controls.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0360",
+      "parent_primary_requirement_id": "TEMP-PR-0104",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "USER_BEHAVIORAL_LEARNING",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "A user action such as clicking Buy must never be treated automatically as proof that Buy was the correct financial decision.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p5_user_behavioral_learning.py::test_temp_ar_0360_buy_click_not_outcome_proof",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0397",
+      "parent_primary_requirement_id": "TEMP-PR-0124",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P1 \u2014 Build after the P0 spine exists; Internal Market Time Machine",
+      "status": "VERIFIED",
+      "evidence": "blackdark/temporal/p5_closure_verification.py module probes",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0399",
+      "parent_primary_requirement_id": "TEMP-PR-0125",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P2: User-facing Market Time Machine",
+      "status": "VERIFIED",
+      "evidence": "blackdark/temporal/p5_closure_verification.py module probes",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0400",
+      "parent_primary_requirement_id": "TEMP-PR-0125",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P2: Public Accuracy / Evidence Ledger",
+      "status": "VERIFIED",
+      "evidence": "blackdark/temporal/p5_closure_verification.py module probes",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0401",
+      "parent_primary_requirement_id": "TEMP-PR-0125",
+      "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P2: Behavioral personalization where justified",
+      "status": "VERIFIED",
+      "evidence": "blackdark/temporal/p5_closure_verification.py module probes",
+      "evidence_tests": "STATIC_INSPECTION"
+    }
+  ],
+  "final_verdict": "PHASE_CLOSED_WITH_EXTERNAL_RUNTIME_GATE"
+}
