@@ -204,6 +204,7 @@ async def seal_prediction(
         **body.payload,
     }
     sealed_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    temporal_spine_result = None
     async with get_session() as session:
         row_id = await insert_prediction(
             session,
@@ -217,16 +218,41 @@ async def seal_prediction(
             unlock_at=_parse_dt(body.unlock_at) if body.unlock_at else None,
             metadata=payload,
         )
-    return idempotent_response(
-        idempotency_key,
-        201,
-        {
-            "ok": True,
-            "prediction_id": prediction_id,
-            "id": row_id,
-            "sealed_payload_hash": sealed_hash,
-        },
-    )
+        temporal_meta = body.payload.get("temporal")
+        if isinstance(temporal_meta, dict) and temporal_meta.get("observation") and temporal_meta.get("provenance"):
+            from blackdark.temporal.production_spine import ProductionSpineRequest, run_production_temporal_spine
+
+            temporal_spine_result = await run_production_temporal_spine(
+                session,
+                ProductionSpineRequest(
+                    ingestion_payload={
+                        "entity_key": body.symbol.upper(),
+                        "event_type": "prediction_signal",
+                        "payload": payload,
+                        "observation": temporal_meta["observation"],
+                        "provenance": temporal_meta["provenance"],
+                    },
+                    simulated_time=_parse_dt(temporal_meta.get("simulated_time") or datetime.now(UTC).isoformat()),
+                    prediction={"direction": body.direction, "target_price": body.target_price},
+                    confidence=float(temporal_meta.get("confidence", 0.5)),
+                    abstention_state=str(temporal_meta.get("abstention_state", "act")),
+                    subject_identity=body.symbol.upper(),
+                    input_identity=prediction_id,
+                    model_version=body.model_version or "model-v1",
+                    idempotency_key=idempotency_key,
+                    uses_simulated_time=bool(temporal_meta.get("uses_simulated_time", True)),
+                    live_forward_passage_confirmed=bool(temporal_meta.get("live_forward_passage_confirmed", False)),
+                ),
+            )
+    response = {
+        "ok": True,
+        "prediction_id": prediction_id,
+        "id": row_id,
+        "sealed_payload_hash": sealed_hash,
+    }
+    if temporal_spine_result is not None:
+        response["temporal_spine"] = temporal_spine_result.to_metadata()
+    return idempotent_response(idempotency_key, 201, response)
 
 
 @systems_router.get("/api/v1/data/predictions/{prediction_id}")

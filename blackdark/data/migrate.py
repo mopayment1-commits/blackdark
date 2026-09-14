@@ -30,6 +30,14 @@ _REQUIRED_TABLES = (
     "de_outcome_evaluations",
     "de_evidence_store",
     "de_failure_misses",
+    "te_canonical_events",
+    "te_evidence_records",
+    "te_forward_shadow_receipts",
+    "te_forward_shadow_corrections",
+    "te_contamination_registry",
+    "te_walk_forward_runs",
+    "te_reality_anchor_observations",
+    "te_spine_runs",
 )
 
 _migrate_lock = asyncio.Lock()

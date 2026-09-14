@@ -197,6 +197,15 @@ async def ingest_ohlcv(
                                 raw_body=raw,
                                 response_status=status,
                             )
+                            from blackdark.temporal.live_feed_bridge import try_bridge_ohlcv_row
+
+                            await try_bridge_ohlcv_row(
+                                session,
+                                row,
+                                source_slug="binance",
+                                source_record_id=str(record_id),
+                                ingestion_run_id=str(run_id),
+                            )
                         else:
                             deduped += 1
                 except Exception as exc:

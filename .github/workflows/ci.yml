@@ -88,6 +88,17 @@ jobs:
         run: |
           python -m pytest tests/test_postgres_backend.py tests/test_postgres_migration_integrity.py -q --tb=short
 
+      - name: Temporal P0 spine verification
+        run: |
+          python -m pytest tests/test_temporal_p0_pit_contract.py \
+            tests/test_temporal_p0_walk_forward.py \
+            tests/test_temporal_p0_contamination_registry.py \
+            tests/test_temporal_p0_production_e2e.py \
+            tests/test_temporal_p0_1_truth_primitive.py \
+            tests/test_temporal_p0_2_pit_reconstruction.py \
+            tests/test_temporal_p0_3_leakage_firewall.py \
+            -q --tb=short
+
       - name: DD / heroes / ops closure
         run: |
           python -m pytest \
