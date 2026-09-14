@@ -163,7 +163,9 @@ def test_temp_ar_0057_full_decision_path_replay_executes_existing_path() -> None
     assert len(result.steps) >= 1
     for step in result.steps:
         assert tuple(step.stages.keys()) == DECISION_PATH_STAGES
-        assert step.stages["outcome"]["status"] == "deferred_outcome_factory_not_in_p1_3"
+        assert step.stages["outcome"]["status"] == "outcome_factory_evaluated"
+        assert step.stages["outcome"]["evidence_class"] == REPLAY_EVIDENCE_CLASS
+        assert step.stages["outcome"]["predictor_self_validation"] is False
 
 
 def test_future_unavailable_inputs_fail_temporal_admission() -> None:

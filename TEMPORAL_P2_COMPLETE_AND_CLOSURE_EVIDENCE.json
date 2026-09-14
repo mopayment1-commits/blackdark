@@ -1,0 +1,219 @@
+{
+  "batch": "P2",
+  "batch_name": "Outcome and Evidence Complete and Close",
+  "created_at_utc": "2026-09-14T10:45:00Z",
+  "base_branch": "cursor/temporal-p1-3-remaining-replay-coverage-358c",
+  "implementation_branch": "cursor/temporal-p2-complete-and-close-358c",
+  "p0_baseline_disposition": "P0_CLOSED_READY_FOR_P1",
+  "p1_baseline_disposition": "CLOSED",
+  "p2_atomic_requirement_inventory": {
+    "P2_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS": 103,
+    "P2_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS": 103,
+    "P2_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 103,
+    "P2_ATOMIC_REQUIREMENT_IDS": [
+      "TEMP-AR-0096", "TEMP-AR-0097", "TEMP-AR-0098", "TEMP-AR-0099", "TEMP-AR-0100",
+      "TEMP-AR-0101", "TEMP-AR-0102", "TEMP-AR-0103", "TEMP-AR-0104", "TEMP-AR-0105",
+      "TEMP-AR-0106", "TEMP-AR-0107", "TEMP-AR-0108", "TEMP-AR-0109", "TEMP-AR-0110",
+      "TEMP-AR-0111", "TEMP-AR-0112", "TEMP-AR-0113", "TEMP-AR-0114", "TEMP-AR-0115",
+      "TEMP-AR-0116", "TEMP-AR-0117", "TEMP-AR-0118", "TEMP-AR-0119", "TEMP-AR-0120",
+      "TEMP-AR-0121", "TEMP-AR-0122", "TEMP-AR-0123", "TEMP-AR-0138", "TEMP-AR-0139",
+      "TEMP-AR-0140", "TEMP-AR-0141", "TEMP-AR-0142", "TEMP-AR-0143", "TEMP-AR-0144",
+      "TEMP-AR-0145", "TEMP-AR-0146", "TEMP-AR-0147", "TEMP-AR-0148", "TEMP-AR-0149",
+      "TEMP-AR-0150", "TEMP-AR-0151", "TEMP-AR-0152", "TEMP-AR-0153", "TEMP-AR-0191",
+      "TEMP-AR-0192", "TEMP-AR-0193", "TEMP-AR-0194", "TEMP-AR-0195", "TEMP-AR-0196",
+      "TEMP-AR-0197", "TEMP-AR-0198", "TEMP-AR-0199", "TEMP-AR-0200", "TEMP-AR-0201",
+      "TEMP-AR-0202", "TEMP-AR-0281", "TEMP-AR-0282", "TEMP-AR-0283", "TEMP-AR-0284",
+      "TEMP-AR-0285", "TEMP-AR-0286", "TEMP-AR-0287", "TEMP-AR-0288", "TEMP-AR-0289",
+      "TEMP-AR-0290", "TEMP-AR-0291", "TEMP-AR-0292", "TEMP-AR-0293", "TEMP-AR-0294",
+      "TEMP-AR-0295", "TEMP-AR-0296", "TEMP-AR-0297", "TEMP-AR-0298", "TEMP-AR-0299",
+      "TEMP-AR-0300", "TEMP-AR-0301", "TEMP-AR-0302", "TEMP-AR-0303", "TEMP-AR-0304",
+      "TEMP-AR-0305", "TEMP-AR-0324", "TEMP-AR-0325", "TEMP-AR-0326", "TEMP-AR-0327",
+      "TEMP-AR-0328", "TEMP-AR-0329", "TEMP-AR-0330", "TEMP-AR-0331", "TEMP-AR-0332",
+      "TEMP-AR-0333", "TEMP-AR-0334", "TEMP-AR-0335", "TEMP-AR-0336", "TEMP-AR-0337",
+      "TEMP-AR-0374", "TEMP-AR-0378", "TEMP-AR-0379", "TEMP-AR-0382", "TEMP-AR-0383",
+      "TEMP-AR-0387", "TEMP-AR-0388", "TEMP-AR-0437"
+    ],
+    "owner_distribution": {
+      "OUTCOME_FACTORY": 21,
+      "OUTCOME_QUALITY": 8,
+      "EVIDENCE_PROVENANCE": 16,
+      "RETENTION_POLICY": 12,
+      "SOURCE_RIGHTS": 11,
+      "SOURCE_QUALITY": 14,
+      "REPRODUCIBILITY": 14,
+      "CROSS_CUTTING_GOVERNANCE": 7
+    }
+  },
+  "implemented_atomic_ids": [
+    "TEMP-AR-0096", "TEMP-AR-0097", "TEMP-AR-0098", "TEMP-AR-0099", "TEMP-AR-0100",
+    "TEMP-AR-0101", "TEMP-AR-0102", "TEMP-AR-0103", "TEMP-AR-0104", "TEMP-AR-0105",
+    "TEMP-AR-0106", "TEMP-AR-0107", "TEMP-AR-0108", "TEMP-AR-0109", "TEMP-AR-0110",
+    "TEMP-AR-0111", "TEMP-AR-0112", "TEMP-AR-0113", "TEMP-AR-0114", "TEMP-AR-0115",
+    "TEMP-AR-0116", "TEMP-AR-0117", "TEMP-AR-0118", "TEMP-AR-0119", "TEMP-AR-0120",
+    "TEMP-AR-0121", "TEMP-AR-0122", "TEMP-AR-0123", "TEMP-AR-0138", "TEMP-AR-0139",
+    "TEMP-AR-0140", "TEMP-AR-0141", "TEMP-AR-0142", "TEMP-AR-0143", "TEMP-AR-0144",
+    "TEMP-AR-0145", "TEMP-AR-0146", "TEMP-AR-0147", "TEMP-AR-0148", "TEMP-AR-0149",
+    "TEMP-AR-0150", "TEMP-AR-0151", "TEMP-AR-0152", "TEMP-AR-0153", "TEMP-AR-0191",
+    "TEMP-AR-0192", "TEMP-AR-0193", "TEMP-AR-0194", "TEMP-AR-0195", "TEMP-AR-0196",
+    "TEMP-AR-0197", "TEMP-AR-0198", "TEMP-AR-0199", "TEMP-AR-0200", "TEMP-AR-0201",
+    "TEMP-AR-0202", "TEMP-AR-0281", "TEMP-AR-0282", "TEMP-AR-0283", "TEMP-AR-0284",
+    "TEMP-AR-0285", "TEMP-AR-0286", "TEMP-AR-0287", "TEMP-AR-0288", "TEMP-AR-0289",
+    "TEMP-AR-0290", "TEMP-AR-0291", "TEMP-AR-0292", "TEMP-AR-0293", "TEMP-AR-0294",
+    "TEMP-AR-0295", "TEMP-AR-0296", "TEMP-AR-0297", "TEMP-AR-0298", "TEMP-AR-0299",
+    "TEMP-AR-0300", "TEMP-AR-0301", "TEMP-AR-0302", "TEMP-AR-0303", "TEMP-AR-0304",
+    "TEMP-AR-0305", "TEMP-AR-0324", "TEMP-AR-0325", "TEMP-AR-0326", "TEMP-AR-0327",
+    "TEMP-AR-0328", "TEMP-AR-0329", "TEMP-AR-0330", "TEMP-AR-0331", "TEMP-AR-0332",
+    "TEMP-AR-0333", "TEMP-AR-0334", "TEMP-AR-0335", "TEMP-AR-0336", "TEMP-AR-0337",
+    "TEMP-AR-0374", "TEMP-AR-0378", "TEMP-AR-0379", "TEMP-AR-0382", "TEMP-AR-0383",
+    "TEMP-AR-0387", "TEMP-AR-0388", "TEMP-AR-0437"
+  ],
+  "external_or_live_gated_atomic_ids": [],
+  "runtime_files_changed": [
+    "blackdark/temporal/evidence_class.py",
+    "blackdark/temporal/outcome_contract.py",
+    "blackdark/temporal/outcome_factory.py",
+    "blackdark/temporal/outcome_quality.py",
+    "blackdark/temporal/evidence_provenance.py",
+    "blackdark/temporal/source_rights.py",
+    "blackdark/temporal/source_quality.py",
+    "blackdark/temporal/retention_policy.py",
+    "blackdark/temporal/reproducibility_manifest.py",
+    "blackdark/temporal/p2_pipeline.py",
+    "blackdark/temporal/p2_requirement_registry.py",
+    "blackdark/temporal/decision_path.py",
+    "blackdark/temporal/__init__.py",
+    "tests/test_temporal_p2_outcome_and_evidence.py",
+    "tests/test_temporal_p1_3_remaining_replay_coverage.py"
+  ],
+  "storage_or_schema_changes": {
+    "DUPLICATE_SYSTEM_OF_RECORD_CREATED": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "new_persistence_introduced": false,
+    "storage_authority": "in-memory EvidenceProvenanceLedger; reuses P1.1 event store"
+  },
+  "outcome_factory_contract": {
+    "entrypoint": "generate_outcomes_from_decision_step",
+    "evaluator_identity": "independent_outcome_evaluator_v1",
+    "PREDICTOR_SELF_VALIDATION": 0,
+    "UNPROVEN_OUTCOME_FABRICATION": 0,
+    "outcome_contract_type": "OutcomeContract",
+    "required_fields": [
+      "target_definition", "evaluation_horizon", "outcome_timestamp", "realized_result",
+      "benchmark_result", "confidence", "calibration_error", "directional_correctness",
+      "magnitude_error", "regret", "favorable_excursion", "adverse_excursion", "drawdown",
+      "false_positive_cost", "false_negative_cost", "abstention_quality", "market_regime",
+      "evaluator_version"
+    ],
+    "label_statuses": [
+      "verified", "provisional", "incomplete", "conflicted", "unavailable", "unresolved", "low_confidence"
+    ]
+  },
+  "outcome_quality_contract": {
+    "entrypoint": "assess_outcome_quality",
+    "UNKNOWN_OUTCOME_TREATED_AS_FALSE": 0,
+    "LABEL_CONFIDENCE_PRESERVED": true,
+    "mutates_canonical_outcome": false,
+    "quality_tiers": [
+      "direct_observed", "derived", "inferred", "imperfect", "unavailable"
+    ]
+  },
+  "evidence_provenance_contract": {
+    "entrypoint": "EvidenceProvenanceLedger.record_evidence",
+    "EVIDENCE_PROVENANCE_PRESERVED": true,
+    "lineage_chain": "source input → temporal admissibility → replay/decision → outcome/validation → evidence record",
+    "invalidation_supported": true,
+    "append_only": true
+  },
+  "evidence_class_verification": {
+    "EVIDENCE_CLASS_COLLAPSE": 0,
+    "AUTOMATIC_EVIDENCE_PROMOTION": 0,
+    "canonical_classes": [
+      "HISTORICAL_BACKTEST", "HISTORICAL_REPLAY", "SIMULATED",
+      "FORWARD_SHADOW", "VERIFIED_PRODUCTION", "INDEPENDENTLY_VERIFIED"
+    ],
+    "hard_rules": [
+      "Replay ≠ Shadow",
+      "Shadow ≠ Production",
+      "Production ≠ Independent Assurance"
+    ]
+  },
+  "temporal_integrity_verification": {
+    "P2_LOOKAHEAD_LEAKAGE": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "pit_correct_observable_lookup": true,
+    "reuses_p0_firewall": true
+  },
+  "authority_boundary_verification": {
+    "DUPLICATE_TEMPORAL_TRUTH_ENGINE": 0,
+    "DUPLICATE_REPLAY_ENGINE": 0,
+    "DUPLICATE_CANONICAL_EVENT_STORE": 0,
+    "UPSTREAM_PROVENANCE_AUTHORITY_CONFLICTS": 0,
+    "upstream_authority": "DATA_GOVERNANCE"
+  },
+  "determinism_verification": {
+    "P2_REQUIRED_DETERMINISM_PRESERVED": true,
+    "deterministic_outcome_ids": true,
+    "deterministic_evidence_ids": true,
+    "no_wall_clock_in_tests": true
+  },
+  "focused_test_results": {
+    "test_file": "tests/test_temporal_p2_outcome_and_evidence.py",
+    "tests_run": 22,
+    "tests_passed": 22,
+    "tests_failed": 0,
+    "P2_FOCUSED_TEST_FAILURES": 0
+  },
+  "p0_regression_results": {
+    "tests_run": 35,
+    "tests_passed": 35,
+    "tests_failed": 0,
+    "P0_REGRESSION_FAILURES": 0
+  },
+  "p1_regression_results": {
+    "p1_1_tests_run": 12,
+    "p1_2_tests_run": 16,
+    "p1_3_tests_run": 16,
+    "tests_passed": 44,
+    "tests_failed": 0,
+    "P1_REGRESSION_FAILURES": 0
+  },
+  "directly_affected_regression_results": {
+    "test_file": "tests/test_canonical_layer.py",
+    "tests_run": 11,
+    "tests_passed": 11,
+    "tests_failed": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0
+  },
+  "finding_register": [],
+  "unimplemented_atomic_ids": [],
+  "closure_assertions": {
+    "P2_REQUIREMENT_INVENTORY_RECONCILED": true,
+    "P2_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 103,
+    "P2_IMPLEMENTED_ATOMIC_REQUIREMENTS": 103,
+    "P2_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
+    "PREDICTOR_SELF_VALIDATION": 0,
+    "UNPROVEN_OUTCOME_FABRICATION": 0,
+    "UNKNOWN_OUTCOME_TREATED_AS_FALSE": 0,
+    "LABEL_CONFIDENCE_PRESERVED": true,
+    "EVIDENCE_PROVENANCE_PRESERVED": true,
+    "EVIDENCE_CLASS_COLLAPSE": 0,
+    "AUTOMATIC_EVIDENCE_PROMOTION": 0,
+    "P2_LOOKAHEAD_LEAKAGE": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "DUPLICATE_TEMPORAL_TRUTH_ENGINE": 0,
+    "DUPLICATE_REPLAY_ENGINE": 0,
+    "DUPLICATE_CANONICAL_EVENT_STORE": 0,
+    "UPSTREAM_PROVENANCE_AUTHORITY_CONFLICTS": 0,
+    "P2_REQUIRED_DETERMINISM_PRESERVED": true,
+    "DUPLICATE_SYSTEM_OF_RECORD_CREATED": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "P0_REGRESSION_FAILURES": 0,
+    "P1_REGRESSION_FAILURES": 0,
+    "P2_FOCUSED_TEST_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "P2_LOCAL_ENGINEERING_COMPLETE": true,
+    "P2_CLOSED": true
+  },
+  "final_disposition": "P2_CLOSED_READY_FOR_P3"
+}
