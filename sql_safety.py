@@ -225,3 +225,37 @@ def platform_metric_increment_sql(metric: str) -> str:
 
 def require_schema_ident(schema: str) -> str:
     return require_sql_ident(schema)
+
+
+# GCP project IDs: lowercase letters, digits, hyphens; 6-30 chars; no consecutive hyphens.
+_GCP_PROJECT_RE = re.compile(r"^[a-z][a-z0-9-]{4,28}[a-z0-9]$")
+_BQ_LOCATION_RE = re.compile(r"^[A-Z]{2}(-[a-z]+[0-9]+)?[0-9]?$")
+
+
+def require_gcp_project_id(project_id: str) -> str:
+    cleaned = str(project_id).strip()
+    if not cleaned or "--" in cleaned or not _GCP_PROJECT_RE.fullmatch(cleaned):
+        raise ValueError(f"Unsafe GCP project id: {project_id!r}")
+    return cleaned
+
+
+def require_bq_dataset_id(dataset_id: str) -> str:
+    return require_sql_ident(dataset_id)
+
+
+def require_bq_table_id(table_id: str) -> str:
+    return require_sql_ident(table_id)
+
+
+def require_bq_location(location: str) -> str:
+    cleaned = str(location).strip().upper()
+    if not _BQ_LOCATION_RE.fullmatch(cleaned):
+        raise ValueError(f"Unsafe BigQuery location: {location!r}")
+    return cleaned
+
+
+def require_bq_table_fqn(project_id: str, dataset_id: str, table_id: str) -> str:
+    p = require_gcp_project_id(project_id)
+    d = require_bq_dataset_id(dataset_id)
+    t = require_bq_table_id(table_id)
+    return f"{p}.{d}.{t}"

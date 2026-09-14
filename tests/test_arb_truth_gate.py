@@ -13,7 +13,7 @@ def test_scan_source_wires_net_edge_truth():
     gates_src = inspect.getsource(arbitrage_service._apply_constitution_scan_gates)
     assert "_apply_constitution_scan_gates" in scan_src
     assert "_apply_truth_to_row" in gates_src
-    assert "compute_net_edge_truth" in truth_src
+    assert "govern_arbitrage_row" in truth_src
     assert "truth_rejected" in truth_src
     assert "net_edge_truth_reject" in truth_src
 

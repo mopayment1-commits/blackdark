@@ -1,0 +1,61 @@
+"""Failure class, certainty, severity, and user-impact dimensions (ERR-002, ERR-019, ERR-020)."""
+
+from __future__ import annotations
+
+from enum import StrEnum
+
+
+class FailureClass(StrEnum):
+    INTERNAL = "INTERNAL"
+    VALIDATION = "VALIDATION"
+    AUTHENTICATION = "AUTHENTICATION"
+    AUTHORIZATION = "AUTHORIZATION"
+    SECURITY = "SECURITY"
+    RATE_LIMIT = "RATE_LIMIT"
+    NETWORK = "NETWORK"
+    TIMEOUT = "TIMEOUT"
+    UPSTREAM = "UPSTREAM"
+    DATABASE = "DATABASE"
+    CACHE = "CACHE"
+    QUEUE = "QUEUE"
+    PAYMENT_PROVIDER = "PAYMENT_PROVIDER"
+    BILLING = "BILLING"
+    MARKET_DATA = "MARKET_DATA"
+    AI_PRESENTATION = "AI_PRESENTATION"
+    AI_REASONING = "AI_REASONING"
+    AI_EVIDENCE = "AI_EVIDENCE"
+    NOTIFICATION = "NOTIFICATION"
+    EMAIL = "EMAIL"
+    WEBHOOK = "WEBHOOK"
+    RECONCILIATION = "RECONCILIATION"
+    MAINTENANCE = "MAINTENANCE"
+    OFFLINE = "OFFLINE"
+
+
+class CertaintyState(StrEnum):
+    CONFIRMED = "CONFIRMED"
+    LIKELY = "LIKELY"
+    INDETERMINATE = "INDETERMINATE"
+    UNKNOWN = "UNKNOWN"
+
+
+class Severity(StrEnum):
+    INFO = "INFO"
+    WARNING = "WARNING"
+    ERROR = "ERROR"
+    CRITICAL = "CRITICAL"
+
+
+class UserImpact(StrEnum):
+    NONE = "NONE"
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
+class RetryPolicy(StrEnum):
+    SAFE_AUTO_RETRY = "SAFE_AUTO_RETRY"
+    SAFE_USER_RETRY = "SAFE_USER_RETRY"
+    DO_NOT_RETRY = "DO_NOT_RETRY"
+    RECONCILE_FIRST = "RECONCILE_FIRST"

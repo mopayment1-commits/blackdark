@@ -1,0 +1,84 @@
+{
+  "AFFECTED_MODULES_WITHOUT_REGRESSION_COVERAGE": 0,
+  "uncovered": [],
+  "adaptive_v4_baseline_reopen_required": false,
+  "adaptive_v4_baseline_sha": "07bb4049",
+  "adaptive_v4_integrity_note": "Data governance adds admission gate wiring; no canonical Adaptive v4 contract change",
+  "test_results": {
+    "tests/test_data_governance_p0_test_matrix.py": "PASS",
+    "tests/test_data_gov_closure.py": "PASS",
+    "tests/test_data_gov_fault_injection.py": "PASS",
+    "tests/test_data_governance_reconciliation.py": "PASS"
+  },
+  "modules": [
+    {
+      "module": "data_governance/pipeline.py",
+      "direct_dependents": [
+        "decision_enrichment.py",
+        "api/routers/data_governance.py"
+      ],
+      "indirect_dependents": [
+        "decision_truth/admission.py",
+        "dashboard.py"
+      ],
+      "canonical_systems": [
+        "Decision Truth",
+        "Data Truth Fabric"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py",
+        "tests/test_data_gov_closure.py",
+        "tests/test_data_gov_fault_injection.py"
+      ]
+    },
+    {
+      "module": "data_governance/reconciliation.py",
+      "direct_dependents": [
+        "data_governance/pipeline.py"
+      ],
+      "indirect_dependents": [
+        "decision_enrichment.py",
+        "decision_truth/admission.py"
+      ],
+      "canonical_systems": [
+        "Cross-source reconciliation",
+        "Decision Truth"
+      ],
+      "tests": [
+        "tests/test_data_governance_reconciliation.py"
+      ]
+    },
+    {
+      "module": "data_governance/phase_i.py",
+      "direct_dependents": [
+        "data_governance/restore.py",
+        "scripts/data_gov_gate_runner.py"
+      ],
+      "indirect_dependents": [],
+      "canonical_systems": [
+        "Source registry",
+        "Phase gate"
+      ],
+      "tests": [
+        "tests/test_data_gov_closure.py"
+      ]
+    },
+    {
+      "module": "decision_enrichment.py",
+      "direct_dependents": [
+        "dashboard.py"
+      ],
+      "indirect_dependents": [
+        "decision_truth/pipeline.py"
+      ],
+      "canonical_systems": [
+        "Adaptive Intelligence",
+        "Decision Truth"
+      ],
+      "tests": [
+        "tests/test_data_governance_p0_test_matrix.py"
+      ],
+      "adaptive_v4_note": "Wiring extension only; does not reopen Adaptive v4 baseline SHA 07bb4049"
+    }
+  ]
+}

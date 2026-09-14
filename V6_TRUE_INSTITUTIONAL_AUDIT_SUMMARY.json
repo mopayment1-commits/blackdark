@@ -1,0 +1,190 @@
+{
+  "generated_at": "2026-09-11T21:49:04.741114+00:00",
+  "methodology": "v6 governing file §2.1 + §34 + §1170–1171 — rejects keyword/semantic bulk routing",
+  "pass_engineering": 816,
+  "not_complete": 10,
+  "canonically_covered": 36,
+  "external_blocked": 0,
+  "pass_pct": 98.79,
+  "superficial_binding_pass": 0,
+  "committee_ready_full_completion_claim": false,
+  "prior_superficial_audit_retracted": true,
+  "top_failed_gates": [
+    [
+      "G02_functional_correctness",
+      10
+    ]
+  ],
+  "by_batch": {
+    "batch01": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch02": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch03": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch04": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch05": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch06": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch07": {
+      "pass": 24,
+      "total": 25,
+      "pct": 96.0
+    },
+    "batch08": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch09": {
+      "pass": 24,
+      "total": 25,
+      "pct": 96.0
+    },
+    "batch10": {
+      "pass": 24,
+      "total": 25,
+      "pct": 96.0
+    },
+    "batch11": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch12": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch13": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch14": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch15": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch16": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch17": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch18": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch19": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch20": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch21": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch22": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch23": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch24": {
+      "pass": 24,
+      "total": 25,
+      "pct": 96.0
+    },
+    "batch25": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch26": {
+      "pass": 19,
+      "total": 25,
+      "pct": 76.0
+    },
+    "batch27": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch28": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch29": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch30": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch31": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch32": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch33": {
+      "pass": 25,
+      "total": 25,
+      "pct": 100.0
+    },
+    "batch34": {
+      "pass": 1,
+      "total": 1,
+      "pct": 100.0
+    }
+  }
+}

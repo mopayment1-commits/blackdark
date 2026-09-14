@@ -1,0 +1,105 @@
+{
+  "LOCAL_SECURITY_FINDINGS": 0,
+  "SECURITY_TESTS_GREEN": true,
+  "controls_verified": 10,
+  "controls_total": 10,
+  "standards_reference": [
+    "NIST SSDF 1.1",
+    "OWASP ASVS 5.0.0",
+    "OWASP API Security",
+    "ISO/IEC 27001:2022"
+  ],
+  "iso_certification_claimed": false,
+  "rows": [
+    {
+      "control": "authentication",
+      "module": "data_governance/credentials.py",
+      "function": "credential_status",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "authorization",
+      "module": "data_governance/retention.py",
+      "function": "retention_status",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "secrets",
+      "module": "data_governance/credentials.py",
+      "function": "credential_status",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "input_validation",
+      "module": "data_governance/schema_evolution.py",
+      "function": "validate_schema",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "schema_poisoning",
+      "module": "data_governance/schema_evolution.py",
+      "function": "validate_schema",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "provenance_tampering",
+      "module": "data_governance/provenance.py",
+      "function": "build_lineage",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "source_role_escalation",
+      "module": "data_governance/registry.py",
+      "function": "get_registry_entry",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "private_public_separation",
+      "module": "data_governance/retention.py",
+      "function": "retention_status",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "rate_abuse",
+      "module": "data_governance/rate_limit.py",
+      "function": "check_quota",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    },
+    {
+      "control": "fail_open_behavior",
+      "module": "data_governance/fallback.py",
+      "function": "resolve_fallback",
+      "present": true,
+      "tested": true,
+      "status": "VERIFIED",
+      "remediation": null
+    }
+  ]
+}

@@ -256,6 +256,18 @@ async def init_pool() -> None:
     from database_url_resolver import resolve_database_url
 
     url, meta = resolve_database_url()
+    if not url:
+        cfg_url = (getattr(config, "DATABASE_URL", None) or "").strip()
+        if cfg_url.startswith(("postgresql://", "postgres://")):
+            from database_url_resolver import _normalize
+
+            url = _normalize(cfg_url)
+            meta = {
+                **meta,
+                "selected_env": "config.DATABASE_URL",
+                "selected_host": None,
+                "selection": "config_fallback",
+            }
     _LAST_POOL_META = meta
     if not url:
         _LAST_POOL_ERROR = "no_postgres_dsn"
@@ -302,7 +314,7 @@ async def init_pool() -> None:
             )
             if attempt < retries:
                 await asyncio.sleep(delay * attempt)
-    assert last_exc is not None
+    assert last_exc is not None  # nosec B101
     raise last_exc
 
 
@@ -325,7 +337,7 @@ async def init_postgres() -> None:
     from database import SCHEMA
 
     await init_pool()
-    assert _pool is not None
+    assert _pool is not None  # nosec B101
     ddl = _sqlite_schema_to_pg(SCHEMA)
     async with _pool.acquire() as conn:
         for stmt in ddl.split(";"):
@@ -362,7 +374,7 @@ async def init_postgres() -> None:
 async def pg_connection() -> AsyncIterator[PgConnectionAdapter]:
     if _pool is None:
         await init_pool()
-    assert _pool is not None
+    assert _pool is not None  # nosec B101
     async with _pool.acquire() as conn:
         tx = conn.transaction()
         await tx.start()

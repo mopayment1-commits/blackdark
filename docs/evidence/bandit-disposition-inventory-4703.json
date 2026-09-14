@@ -1,0 +1,1450 @@
+{
+  "version": 1,
+  "source_report": "docs/evidence/bandit-full-4703-compact.json",
+  "entries": {
+    "acquirer_evidence_pack.py|171|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "ai_oracle.py|436|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "ai_oracle.py|813|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "api/deps.py|88|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "api/routers/arbitrage.py|116|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "api/routers/auth.py|247|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "api/routers/auth.py|280|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "api/routers/auth.py|331|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "api/routers/auth.py|514|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "api/routers/billing.py|224|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "api/routers/heroes.py|281|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "audit_registry.py|193|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "audit_registry.py|462|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "auth_service.py|336|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "auth_service.py|468|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "b2b_websocket_hub.py|78|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "bd_platform/coverage_report.py|5|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "bd_platform/coverage_report.py|14|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "bd_platform/intelligence_analysis_layer.py|442|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "bd_platform/market_analysis_layer.py|116|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "bd_platform/onchain_defi_sources_layer.py|66|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "bd_platform/sse_stream.py|39|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "bigquery_export.py|116|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "bigquery_export.py|154|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "bigquery_export.py|309|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "bigquery_export.py|365|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "billing/plan_registry.py|25|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "billing/subscription_store.py|214|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|395|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|450|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|502|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|561|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|654|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|696|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|807|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|934|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|999|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "blackdark/data/repository.py|1114|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "cap646/backend_registry.py|585|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/batch_spine.py|23|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/entitlements.py|74|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/entitlements.py|129|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/entitlements.py|143|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/institutional_official_production.py|93|B112": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/v6_from_scratch_dod.py|130|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_from_scratch_dod.py|137|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_from_scratch_dod.py|145|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_from_scratch_dod.py|152|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_strict_closure.py|102|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_strict_dod.py|113|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_strict_dod.py|116|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_strict_dod.py|130|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_true_institutional_dod.py|109|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/v6_true_institutional_dod.py|116|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "cap646/v6_true_institutional_dod.py|275|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap646/v6_true_institutional_dod.py|283|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "cap978/gate_verdict.py|6|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "config.py|521|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "contradiction_replay.py|103|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "critical_defects_closure.py|10|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "critical_defects_closure.py|141|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "dashboard.py|232|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dashboard.py|609|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dashboard.py|616|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dashboard.py|1509|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dashboard.py|2614|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dashboard.py|2619|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "dashboard.py|2633|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dashboard.py|2987|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dashboard.py|4472|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "data_freshness.py|64|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "data_freshness.py|73|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "data_moat_guard.py|97|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "data_moat_guard.py|103|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "data_moat_guard.py|112|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "data_moat_guard.py|119|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|1363|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|1391|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|1572|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|1708|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|1890|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|2467|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|2468|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|2469|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|2476|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|2642|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|3081|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|3345|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|3817|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "database.py|3983|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "database.py|4171|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "db_upgrade.py|82|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "dbt_connector.py|15|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "dbt_connector.py|186|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "dbt_connector.py|224|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "dbt_connector.py|255|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "dbt_connector.py|283|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "decision_enrichment.py|107|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "distribution_compounding.py|57|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "due_diligence.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "due_diligence.py|43|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "email_outbox.py|105|B112": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "email_outbox.py|126|B112": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "encoding_bootstrap.py|16|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "encoding_bootstrap.py|21|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "enterprise_sso.py|147|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "enterprise_sso.py|155|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "enterprise_sso.py|284|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "exchange_ingress_guard.py|143|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "execution_engine.py|588|B112": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "execution_keys.py|166|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "execution_keys.py|278|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "failure_corpus.py|66|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "gas_oracle.py|124|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/adaptive_ux_governance.py|24|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/adaptive_ux_governance.py|30|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/anonymous_visitor_governance.py|26|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/assessor.py|6|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "governance/assessor.py|115|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "governance/assessor.py|123|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/assessor.py|202|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "governance/billing_governance.py|23|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/identity_governance.py|16|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/identity_governance.py|26|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/identity_governance.py|34|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/identity_governance.py|42|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "governance/storage_governance.py|35|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/temporal_governance.py|16|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/temporal_governance.py|22|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "governance/temporal_governance.py|28|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "graphql_schema.py|167|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "gtm_service.py|137|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "i18n_locales.py|70|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "i18n_locales.py|71|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "i18n_locales.py|1531|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "i18n_locales.py|1559|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "i18n_service.py|323|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "i18n_service.py|345|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "i18n_service.py|576|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "i18n_service.py|582|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "i18n_service.py|591|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "identity_service.py|196|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "in_app_alerts.py|54|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "infra_metrics.py|56|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "institutional_assurance.py|558|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "knowledge_graph.py|211|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "knowledge_graph.py|224|B608": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "reviewed allowlisted SQL at original report location; line # nosec B608"
+    },
+    "liquidity_discovery.py|755|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "microservices/lifecycle.py|127|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "microservices/lifecycle.py|212|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "ml/labeling_pipeline.py|192|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "net_edge_truth.py|258|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "net_edge_truth.py|315|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "net_edge_truth.py|405|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "oauth_service.py|54|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "oauth_service.py|63|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "ops/monitoring_alerting.py|142|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "oracle_unified.py|246|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "pdf_capability_registry.py|108|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "platform_api.py|877|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "platform_api.py|878|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "platform_api.py|879|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "platform_api.py|880|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "platform_api.py|882|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "postgres_backend.py|332|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "price_stream_processor.py|117|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "price_stream_processor.py|161|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "product_honesty_api.py|86|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "product_honesty_api.py|128|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "redis_price_cache.py|148|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "risk_manager.py|131|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "run_service.py|17|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "run_service.py|81|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "run_service.py|91|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "run_service.py|121|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scale_readiness.py|45|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "scripts/activate_infra.py|55|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/activate_infra.py|56|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/activate_infra.py|57|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/activate_infra.py|58|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/activate_infra.py|60|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/audit_pdf_capabilities_checklist.py|8|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/audit_pdf_capabilities_checklist.py|223|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/audit_pdf_capabilities_checklist.py|223|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/audit_split_brain_bcd_categories.py|46|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/backup_postgres.py|19|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/backup_postgres.py|73|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/close_cap644_production.py|8|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/close_cap644_production.py|63|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/complete_pdf_capabilities_826.py|22|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/complete_pdf_capabilities_826.py|92|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/complete_pdf_capabilities_826.py|92|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/complete_pdf_capabilities_826.py|124|B310": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "controlled audit URL; line nosec B310"
+    },
+    "scripts/dd_batch_001_execute.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_batch_001_execute.py|21|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_batch_001_execute.py|21|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_batch_001_execute.py|33|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_batch_001_execute.py|46|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_batch_001_execute.py|46|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_gate_bootstrap.py|8|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_gate_bootstrap.py|138|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_gate_bootstrap.py|138|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_gate_bootstrap.py|495|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_gate_bootstrap.py|495|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_gate_bootstrap.py|561|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/dd_gate_bootstrap.py|561|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/engineering_audit_826.py|111|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/engineering_audit_826.py|156|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/finalize_launch.py|13|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/finalize_launch.py|23|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/free_api_rate_limit_audit.py|96|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/full_completion_continuous_orchestrator.py|5|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/full_completion_continuous_orchestrator.py|18|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_final_integrity_summary.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_final_integrity_summary.py|54|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_final_integrity_summary.py|54|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_hash_lock.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_hash_lock.py|38|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_pentagonal_hero_binding_report.py|749|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_pentagonal_hero_binding_report.py|751|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_supplemental_closure_report.py|11|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_supplemental_closure_report.py|194|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_supplemental_closure_report.py|471|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_supplemental_closure_report.py|471|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/generate_supplemental_closure_report.py|476|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "scripts/generate_template_stub_311_remediation_plan.py|30|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "scripts/honest_deep_institutional_audit.py|11|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/honest_deep_institutional_audit.py|24|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/honest_deep_institutional_audit.py|24|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/institutional_readiness_matrix.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/institutional_readiness_matrix.py|23|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/institutional_readiness_matrix.py|113|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/lock_requirements.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/lock_requirements.py|27|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/master_integrity_reconciliation.py|10|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/master_integrity_reconciliation.py|89|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/master_integrity_reconciliation.py|89|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/open_softlaunch_env.py|13|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/prove_hmac_closure_guard_failure.py|6|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/prove_hmac_closure_guard_failure.py|23|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/restore_postgres.py|13|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/restore_postgres.py|43|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/retrospective_deep_audit.py|20|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/retrospective_deep_audit.py|115|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/retrospective_deep_audit.py|115|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/retrospective_deep_audit.py|372|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_batch04_deep_closure.py|145|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/run_batch05_deep_closure.py|121|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/run_batch06_deep_closure.py|137|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/run_batch_verification_orchestrator.py|15|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_batch_verification_orchestrator.py|80|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_cap_dedup_audit_1_100.py|11|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_cap_dedup_audit_1_100.py|195|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_cap_dedup_audit_1_100.py|195|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_completion.py|8|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_completion.py|66|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_completion.py|74|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_completion.py|74|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_completion.py|101|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_completion.py|101|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_completion.py|176|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|8|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|85|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|85|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|98|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|98|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|109|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|109|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|174|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|174|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|187|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_final.py|187|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|8|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|310|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|367|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|367|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|382|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|382|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|403|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_mandate_last.py|403|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_reject_04_audit.py|9|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_reject_04_audit.py|38|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_reject_04_audit.py|38|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_reject_04_audit.py|71|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_reject_04_audit.py|92|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_closure_reject_04_audit.py|92|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_gate_full_provenance.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_gate_full_provenance.py|25|B607": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_gate_full_provenance.py|25|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_gate_full_provenance.py|28|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_hero_batch_closure.py|273|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/run_spine_coverage_snapshot.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/run_spine_coverage_snapshot.py|30|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/setup_telegram_production.py|71|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "scripts/sign_institutional_owner_closure.py|12|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/sign_institutional_owner_closure.py|100|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/train_rl_policy.py|21|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/train_rl_policy.py|22|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/train_rl_policy.py|23|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/train_rl_policy.py|24|B311": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "non-cryptographic random/jitter"
+    },
+    "scripts/v6_strict_capability_audit_826.py|31|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/v6_strict_capability_audit_826.py|112|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/v6_true_institutional_audit_826.py|31|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/v6_true_institutional_audit_826.py|116|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "scripts/verify_security_workflows.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/verify_security_workflows.py|32|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/war_room_24h_orchestrator.py|7|B404": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/war_room_24h_orchestrator.py|21|B603": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "subprocess list argv without shell=True"
+    },
+    "scripts/wave_00_passive_security_scan.py|17|B310": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "controlled audit URL; line nosec B310"
+    },
+    "security_middleware.py|44|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "security_middleware.py|59|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "security_middleware.py|99|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "service_bus.py|169|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "signal_registry.py|474|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "sql_safety.py|179|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "sql_safety.py|180|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "stealth_execution_advisor.py|42|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "stealth_execution_advisor.py|52|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "technical_due_diligence.py|18|B105": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "keyword heuristic (pass/password field names, i18n, audit keys)"
+    },
+    "tests/cap646/test_closure_reject_04.py|139|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/conftest.py|74|B110": {
+      "disposition": "TEST_ONLY",
+      "reason": "B110 in tests/ scope"
+    },
+    "tests/test_auth_identity_profile.py|54|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_bigquery_export.py|21|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_d13_auth_abuse.py|17|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_dbt_connector.py|20|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_didit_kyc.py|21|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_enterprise_sso_auth0.py|84|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_health_sidecar.py|15|B310": {
+      "disposition": "TEST_ONLY",
+      "reason": "B310 in tests/ scope"
+    },
+    "tests/test_health_sidecar.py|17|B310": {
+      "disposition": "TEST_ONLY",
+      "reason": "B310 in tests/ scope"
+    },
+    "tests/test_launch_hardening.py|25|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_monitoring_alerting.py|62|B404": {
+      "disposition": "TEST_ONLY",
+      "reason": "B404 in tests/ scope"
+    },
+    "tests/test_monitoring_alerting.py|65|B603": {
+      "disposition": "TEST_ONLY",
+      "reason": "B603 in tests/ scope"
+    },
+    "tests/test_monitoring_alerting.py|71|B404": {
+      "disposition": "TEST_ONLY",
+      "reason": "B404 in tests/ scope"
+    },
+    "tests/test_monitoring_alerting.py|74|B603": {
+      "disposition": "TEST_ONLY",
+      "reason": "B603 in tests/ scope"
+    },
+    "tests/test_p1_session_hardening.py|112|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_payments_usd_security.py|78|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_production_e2e_hardening.py|59|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_production_e2e_hardening.py|77|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_production_e2e_hardening.py|116|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_production_e2e_hardening.py|209|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_production_e2e_hardening.py|245|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_production_e2e_hardening.py|282|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_production_e2e_hardening.py|313|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_security_max_closure.py|49|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_security_max_closure.py|71|B404": {
+      "disposition": "TEST_ONLY",
+      "reason": "B404 in tests/ scope"
+    },
+    "tests/test_security_max_closure.py|74|B603": {
+      "disposition": "TEST_ONLY",
+      "reason": "B603 in tests/ scope"
+    },
+    "tests/test_site_companion_services.py|52|B110": {
+      "disposition": "TEST_ONLY",
+      "reason": "B110 in tests/ scope"
+    },
+    "tests/test_sonar_pr356_new_code_coverage.py|46|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_sonar_pr356_new_code_coverage.py|241|B105": {
+      "disposition": "TEST_ONLY",
+      "reason": "B105 in tests/ scope"
+    },
+    "tests/test_spine_database.py|170|B106": {
+      "disposition": "TEST_ONLY",
+      "reason": "B106 in tests/ only"
+    },
+    "tests/test_spine_database.py|179|B108": {
+      "disposition": "TEST_ONLY",
+      "reason": "B108 in tests/ only"
+    },
+    "tests/test_spine_database.py|187|B108": {
+      "disposition": "TEST_ONLY",
+      "reason": "B108 in tests/ only"
+    },
+    "tests/test_spine_database.py|274|B108": {
+      "disposition": "TEST_ONLY",
+      "reason": "B108 in tests/ only"
+    },
+    "tests/test_spine_database.py|329|B106": {
+      "disposition": "TEST_ONLY",
+      "reason": "B106 in tests/ only"
+    },
+    "tests/test_spine_database_auth.py|76|B106": {
+      "disposition": "TEST_ONLY",
+      "reason": "B106 in tests/ only"
+    },
+    "trust_pulse.py|572|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "viral_capacity.py|108|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "viral_capacity.py|348|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "voice_service.py|102|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "wave_00_hardening.py|132|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    },
+    "whale_signal_classifier.py|136|B110": {
+      "disposition": "FALSE_POSITIVE",
+      "reason": "optional enrichment graceful degradation"
+    }
+  }
+}

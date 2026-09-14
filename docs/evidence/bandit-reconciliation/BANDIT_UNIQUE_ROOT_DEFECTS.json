@@ -1,0 +1,67 @@
+{
+  "defects": [
+    {
+      "root_id": "bigquery_export.py|135|B608",
+      "test_id": "B608",
+      "file": "bigquery_export.py",
+      "line": 135,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:135 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "root_id": "bigquery_export.py|317|B608",
+      "test_id": "B608",
+      "file": "bigquery_export.py",
+      "line": 317,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at bigquery_export.py:317 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "root_id": "cap646/entitlements.py|74|B110",
+      "test_id": "B110",
+      "file": "cap646/entitlements.py",
+      "line": 74,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "B110 at cap646/entitlements.py:74 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py",
+      "remediation": "cap646/entitlements.py fail-closed authorization_evaluation_failed"
+    },
+    {
+      "root_id": "cap646/entitlements.py|129|B110",
+      "test_id": "B110",
+      "file": "cap646/entitlements.py",
+      "line": 129,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "B110 at cap646/entitlements.py:129 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py",
+      "remediation": "cap646/entitlements.py fail-closed authorization_evaluation_failed"
+    },
+    {
+      "root_id": "cap646/entitlements.py|143|B110",
+      "test_id": "B110",
+      "file": "cap646/entitlements.py",
+      "line": 143,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "B110 at cap646/entitlements.py:143 was RBAC fail-open (except/pass); remediated to fail-closed deny via _auth_eval_deny; regression tests in tests/cap646/test_entitlement_fail_closed_rbac.py",
+      "remediation": "cap646/entitlements.py fail-closed authorization_evaluation_failed"
+    },
+    {
+      "root_id": "dbt_connector.py|195|B608",
+      "test_id": "B608",
+      "file": "dbt_connector.py",
+      "line": 195,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at dbt_connector.py:195 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    },
+    {
+      "root_id": "dbt_connector.py|260|B608",
+      "test_id": "B608",
+      "file": "dbt_connector.py",
+      "line": 260,
+      "disposition": "TRUE_POSITIVE_FIXED",
+      "justification": "Dynamic BQ FQN at dbt_connector.py:260 now validated via sql_safety (require_gcp_project_id/require_bq_dataset_id/require_bq_table_id) at config load",
+      "remediation": "sql_safety.py identifier validation in bigquery_config/dbt_config"
+    }
+  ]
+}
