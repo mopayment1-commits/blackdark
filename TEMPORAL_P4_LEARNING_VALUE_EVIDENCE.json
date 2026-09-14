@@ -1,0 +1,131 @@
+{
+  "batch": "P4",
+  "scope": "LEARNING_VALUE_AND_LEARNING_PRIORITY",
+  "created_at_utc": "2026-09-14T11:05:00Z",
+  "base_branch": "cursor/temporal-p3-closure-358c",
+  "implementation_branch": "cursor/temporal-p4-learning-value-358c",
+  "p3_baseline_disposition": "P3_CLOSED_READY_FOR_P4",
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0184",
+    "TEMP-AR-0185",
+    "TEMP-AR-0186",
+    "TEMP-AR-0187",
+    "TEMP-AR-0188",
+    "TEMP-AR-0189",
+    "TEMP-AR-0190"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/learning_value.py",
+    "blackdark/temporal/p4_learning_value_registry.py",
+    "blackdark/temporal/__init__.py",
+    "tests/test_temporal_p4_learning_value.py"
+  ],
+  "learning_value_contract": {
+    "contract_version": "p4.learning_value.1.0",
+    "entrypoint": "LearningValueEngine",
+    "evaluate_evidence_entrypoint": "evaluate_learning_value_for_evidence",
+    "evaluate_corpus_case_entrypoint": "evaluate_learning_value_for_corpus_case",
+    "prioritize_entrypoint": "LearningValueEngine.prioritize",
+    "required_result_fields": [
+      "subject_or_case_id",
+      "learning_value",
+      "priority",
+      "reason_codes",
+      "evidence_class",
+      "quality_or_confidence",
+      "failure_surprise_abstention_context",
+      "provenance_reference",
+      "eligible_for_learning",
+      "ineligibility_reasons"
+    ],
+    "sampling_streams": [
+      "representative",
+      "high_information"
+    ],
+    "upstream_authorities_reused": [
+      "EvidenceProvenanceLedger",
+      "OutcomeFactory/OutcomeQuality",
+      "FailureSurpriseCorpus",
+      "TemporalEvidenceClass"
+    ],
+    "DUPLICATE_OUTCOME_FACTORY": 0,
+    "DUPLICATE_EVIDENCE_LEDGER": 0,
+    "DUPLICATE_FAILURE_SURPRISE_CORPUS": 0
+  },
+  "retention_vs_priority_result": {
+    "RETENTION_EQUALS_LEARNING_PRIORITY": false,
+    "retention_authority": "RETENTION_POLICY",
+    "learning_priority_authority": "LEARNING_VALUE",
+    "delete_raw_for_low_learning_value": false,
+    "runtime_entrypoint": "LearningValueEngine.retention_vs_priority"
+  },
+  "evidence_class_result": {
+    "EVIDENCE_CLASS_PRESERVED": true,
+    "evidence_classes_supported": [
+      "HISTORICAL_REPLAY",
+      "FORWARD_SHADOW",
+      "SIMULATED",
+      "VERIFIED_PRODUCTION"
+    ],
+    "unknown_quality_ineligible": true,
+    "LEARNING_VALUE_EVIDENCE_PROMOTION": 0
+  },
+  "mutation_safety_result": {
+    "LEARNING_VALUE_AUTO_MODEL_MUTATION": 0,
+    "LEARNING_VALUE_AUTO_MODEL_PROMOTION": 0,
+    "LEARNING_VALUE_EVIDENCE_PROMOTION": 0,
+    "model_mutation_blocked": true,
+    "model_promotion_blocked": true,
+    "evidence_promotion_blocked": true
+  },
+  "determinism_result": {
+    "LEARNING_VALUE_DETERMINISTIC": true,
+    "wall_clock_dependency": false,
+    "runtime_probe": "identical_inputs_identical_learning_value_metadata"
+  },
+  "focused_test_results": {
+    "test_file": "tests/test_temporal_p4_learning_value.py",
+    "tests_run": 13,
+    "tests_passed": 13,
+    "tests_failed": 0,
+    "FOCUSED_LEARNING_VALUE_TEST_FAILURES": 0
+  },
+  "directly_affected_regression_results": {
+    "p2_outcome_and_evidence": {
+      "test_file": "tests/test_temporal_p2_outcome_and_evidence.py",
+      "tests_run": 22,
+      "tests_passed": 22,
+      "tests_failed": 0
+    },
+    "p3_failure_surprise_abstention": {
+      "test_file": "tests/test_temporal_p3_failure_surprise_abstention.py",
+      "tests_run": 26,
+      "tests_passed": 26,
+      "tests_failed": 0
+    },
+    "p3_post_outcome_shadow_guard": {
+      "test_file": "tests/test_temporal_p3_post_outcome_shadow_guard.py",
+      "tests_run": 6,
+      "tests_passed": 6,
+      "tests_failed": 0
+    },
+    "P2_EVIDENCE_LINEAGE_REGRESSION_FAILURES": 0,
+    "P3_CORPUS_REGRESSION_FAILURES": 0
+  },
+  "unimplemented_selected_atomic_ids": [],
+  "acceptance": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "LEARNING_VALUE_RUNTIME_IMPLEMENTED": true,
+    "RETENTION_EQUALS_LEARNING_PRIORITY": false,
+    "LEARNING_VALUE_DETERMINISTIC": true,
+    "LEARNING_VALUE_AUTO_MODEL_MUTATION": 0,
+    "LEARNING_VALUE_AUTO_MODEL_PROMOTION": 0,
+    "LEARNING_VALUE_EVIDENCE_PROMOTION": 0,
+    "EVIDENCE_CLASS_PRESERVED": true,
+    "P2_EVIDENCE_LINEAGE_REGRESSION_FAILURES": 0,
+    "P3_CORPUS_REGRESSION_FAILURES": 0,
+    "FOCUSED_LEARNING_VALUE_TEST_FAILURES": 0,
+    "SELECTED_P4_ATOMIC_REQUIREMENTS_UNIMPLEMENTED": 0
+  },
+  "final_disposition": "P4_LEARNING_VALUE_COMPLETE"
+}
