@@ -1,4 +1,4 @@
-"""BLACKDARK Temporal truth foundation (P0–P1) and Outcome/Evidence foundation (P2)."""
+"""BLACKDARK Temporal truth foundation (P0–P1), Outcome/Evidence (P2), Shadow/Regime (P3)."""
 
 from blackdark.temporal.accessibility import (
     PitAccessibilityDecision,
@@ -53,7 +53,25 @@ from blackdark.temporal.outcome_quality import (
     OutcomeQualityTier,
     assess_outcome_quality,
 )
+from blackdark.temporal.drift_monitoring import DriftMonitorResult, DriftSignal, evaluate_drift
+from blackdark.temporal.failure_surprise_corpus import FailureSurpriseCase, FailureSurpriseCorpus
+from blackdark.temporal.forward_shadow import ForwardShadowLedger, ForwardShadowReceipt
 from blackdark.temporal.p2_pipeline import P2PipelineResult, run_p2_outcome_evidence_pipeline
+from blackdark.temporal.p3_pipeline import P3PipelineResult, run_forward_shadow_pipeline
+from blackdark.temporal.p3_requirement_registry import (
+    P3_ATOMIC_REQUIREMENT_IDS,
+    P3_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P3_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P3_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS,
+)
+from blackdark.temporal.regime_intelligence import (
+    KnownRegimeLabel,
+    RegimeContext,
+    RegimeDecomposedEvaluation,
+    classify_regime,
+    evaluate_by_regime,
+)
+from blackdark.temporal.reality_anchor import RealityAnchorStatus, evaluate_reality_anchor
 from blackdark.temporal.p2_requirement_registry import (
     P2_ATOMIC_REQUIREMENT_IDS,
     P2_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS,
@@ -120,7 +138,19 @@ __all__ = [
     "OutcomeLabelStatus",
     "OutcomeQualityAssessment",
     "OutcomeQualityTier",
+    "DriftMonitorResult",
+    "DriftSignal",
+    "FailureSurpriseCase",
+    "FailureSurpriseCorpus",
+    "ForwardShadowLedger",
+    "ForwardShadowReceipt",
+    "KnownRegimeLabel",
     "P2PipelineResult",
+    "P3PipelineResult",
+    "P3_ATOMIC_REQUIREMENT_IDS",
+    "P3_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P3_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P3_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS",
     "P2_ATOMIC_REQUIREMENT_IDS",
     "P2_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS",
     "P2_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS",
@@ -139,6 +169,9 @@ __all__ = [
     "ReplayScenarioResult",
     "ReplayScenarioSpec",
     "ReplayStepOutput",
+    "RealityAnchorStatus",
+    "RegimeContext",
+    "RegimeDecomposedEvaluation",
     "ReproducibilityManifest",
     "SourceQualityEvidence",
     "SourceRightsMetadata",
@@ -180,5 +213,10 @@ __all__ = [
     "run_deterministic_mass_replay",
     "run_full_decision_path_replay",
     "run_multi_scenario_replay",
+    "classify_regime",
+    "evaluate_by_regime",
+    "evaluate_drift",
+    "evaluate_reality_anchor",
+    "run_forward_shadow_pipeline",
     "run_p2_outcome_evidence_pipeline",
 ]
