@@ -1,0 +1,813 @@
+{
+  "verified_at_utc": "2026-09-14T13:30:22.508125+00:00",
+  "scope": "P3_SHADOW_AND_REGIME",
+  "governing_sources": [
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "TEMPORAL_P0_FOUNDATION_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P1_CANONICAL_EVENT_AND_REPLAY_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P2_OUTCOME_AND_EVIDENCE_CLOSURE_EVIDENCE.json"
+  ],
+  "branch": "cursor/temporal-p3-shadow-regime-closure-358c",
+  "p0_baseline": {
+    "closed": true,
+    "final_verdict": "P0_CLOSED",
+    "verified": 66
+  },
+  "p1_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 31
+  },
+  "p2_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 103
+  },
+  "p3_atomics_total": 63,
+  "counts": {
+    "VERIFIED": 62,
+    "IMPLEMENTED_NOT_VERIFIED": 0,
+    "NOT_IMPLEMENTED": 0,
+    "EXTERNAL_RUNTIME_PENDING": 1
+  },
+  "defects_remaining": [],
+  "external_runtime_gates": {
+    "TEMP-AR-0164": {
+      "reason": "requires real forward time passage between receipt issuance and outcome evaluation",
+      "local_engineering_complete": true,
+      "forward_time_passage_verified": false
+    }
+  },
+  "runtime_proofs": {
+    "p3_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p3_shadow_and_regime.py tests/test_temporal_p3_failure_surprise_abstention.py tests/test_temporal_p3_post_outcome_shadow_guard.py tests/test_temporal_p3_closure.py tests/test_temporal_p3_closure_runtime_e2e.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "................................................................         [100%]"
+      ]
+    },
+    "p2_regression_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p2_outcome_and_evidence.py tests/test_temporal_p2_closure_runtime_e2e.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "......................................                                   [100%]"
+      ]
+    },
+    "closure_probes": {
+      "closure_assertions": {
+        "REGIME_CONTEXT_CONTAMINATION": 0,
+        "CANONICAL_AUTHORITY_CONFLICTS": 0,
+        "P3_HISTORICAL_TRUTH_MUTATION": 0,
+        "P3_PRIOR_EVIDENCE_MUTATION": 0,
+        "P3_DETERMINISTIC_EVALUATION_REQUIREMENTS_PRESERVED": true,
+        "P3_LOCAL_ENGINEERING_COMPLETE": true,
+        "P3_CLOSED": true
+      },
+      "P3_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 63,
+      "P3_LOCAL_ENGINEERING_COMPLETE_COUNT": 63,
+      "P3_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
+      "P3_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS": [
+        "TEMP-AR-0164"
+      ],
+      "temp_ar_0164": {
+        "atomic_id": "TEMP-AR-0164",
+        "local_engineering_complete": true,
+        "external_evidence_pending": true,
+        "forward_time_passage_verified": false,
+        "simulated_time_not_claimed_as_forward": true
+      },
+      "accepted_p3_fixes": [
+        "FAILURE_SURPRISE_ABSTENTION_COMPLETE",
+        "POST_OUTCOME_CANONICAL_TRUTH_ENFORCEMENT_COMPLETE"
+      ],
+      "runtime_probe_paths": {
+        "REGIME_CONTEXT_CONTAMINATION": "p3_closure_verification.probe_regime_context_contamination",
+        "CANONICAL_AUTHORITY_CONFLICTS": "p3_closure_verification.probe_canonical_authority_conflicts",
+        "P3_HISTORICAL_TRUTH_MUTATION": "p3_closure_verification.probe_p3_historical_truth_mutation",
+        "P3_PRIOR_EVIDENCE_MUTATION": "p3_closure_verification.probe_p3_prior_evidence_mutation",
+        "P3_DETERMINISTIC_EVALUATION_REQUIREMENTS_PRESERVED": "p3_closure_verification.probe_p3_deterministic_evaluation",
+        "P3_LOCAL_ENGINEERING_COMPLETE": "p3_closure_verification.probe_p3_local_engineering_complete"
+      }
+    },
+    "temp_ar_0164": {
+      "atomic_id": "TEMP-AR-0164",
+      "local_engineering_complete": true,
+      "external_evidence_pending": true,
+      "forward_time_passage_verified": false,
+      "simulated_time_not_claimed_as_forward": true
+    },
+    "postgres_p3_spine": {
+      "receipt_id": "shadow_04738a1ee33484e3",
+      "p3_metadata_present": true,
+      "evidence_class": "FORWARD_SHADOW",
+      "receipt_status": "pre_outcome",
+      "p3_pipeline_stage_completed": true
+    }
+  },
+  "prior_batch_evidence": [
+    "TEMPORAL_P3_COMPLETE_AND_CLOSURE_EVIDENCE.json"
+  ],
+  "reconciliation": [
+    {
+      "atomic_requirement_id": "TEMP-AR-0124",
+      "parent_primary_requirement_id": "TEMP-PR-0040",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "Before the future outcome is known, every material forward-shadow prediction must receive an immutable pre-outcome receipt.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_closure_runtime_e2e.py::test_temp_ar_0124_pre_outcome_receipt_spine_integration",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0125",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: prediction_id",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0126",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: issued_at",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0127",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: model_version",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0128",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: rule/config_version",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0129",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: dataset_version",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0130",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: code_version",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0131",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: input_snapshot_hash",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0132",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: prediction",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0133",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: confidence",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0134",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: abstention_state",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0135",
+      "parent_primary_requirement_id": "TEMP-PR-0041",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Minimum receipt fields where applicable: evidence_class=FORWARD_SHADOW",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0136",
+      "parent_primary_requirement_id": "TEMP-PR-0042",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "The original receipt must not be overwritten after the outcome becomes known.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0137",
+      "parent_primary_requirement_id": "TEMP-PR-0043",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Corrections must use append-only amendments with provenance.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0154",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Monitor, where applicable; concept drift",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0155",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Monitor, where applicable; data drift",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0156",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Monitor, where applicable; source drift",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0157",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Monitor, where applicable; latency differences",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0158",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Monitor, where applicable; venue behavior changes",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0159",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Monitor, where applicable; market-structure changes",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0160",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Monitor, where applicable; regime changes",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0161",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Monitor, where applicable; calibration changes",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0162",
+      "parent_primary_requirement_id": "TEMP-PR-0053",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Monitor, where applicable; unexpected source conflicts.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0163",
+      "parent_primary_requirement_id": "TEMP-PR-0054",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Forward shadow is not merely a sample-count generator.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py forward shadow tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0164",
+      "parent_primary_requirement_id": "TEMP-PR-0055",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FORWARD_SHADOW",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "Forward shadow is the live reality anchor for all historical evidence.",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "blackdark/temporal/reality_anchor.py + probe_temp_ar_0164_status (external gate)",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0165",
+      "parent_primary_requirement_id": "TEMP-PR-0056",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Evaluation must be decomposable by market regime.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0166",
+      "parent_primary_requirement_id": "TEMP-PR-0057",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "Aggregate metrics must not be allowed to hide material regime-specific failure.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0167",
+      "parent_primary_requirement_id": "TEMP-PR-0058",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "Create a durable corpus of high-learning-value failures and surprises.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_closure_runtime_e2e.py::test_temp_ar_0167_failure_surprise_corpus_integration",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0168",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; high-confidence wrong prediction",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0169",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; failure to abstain",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0170",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; unnecessary abstention",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0171",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; missed major event",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0172",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; model disagreement",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0173",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Include, where applicable; unexpected regime shift",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0174",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; correlation breakdown",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0175",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; stale source",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0176",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; conflicting sources",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0177",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; missing source",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0178",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; tail event",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0179",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Include, where applicable; calibration collapse",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0180",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; prediction instability",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0181",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; source revision",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0182",
+      "parent_primary_requirement_id": "TEMP-PR-0059",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Include, where applicable; model regression.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0183",
+      "parent_primary_requirement_id": "TEMP-PR-0060",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Each material case should be traceable: Case \u2192 Root Cause \u2192 Affected Capability \u2192 Model/Rule Version \u2192 Remediation \u2192 Regression Test \u2192 Post-fix Replay.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py replay evidence separation tests",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0384",
+      "parent_primary_requirement_id": "TEMP-PR-0118",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Immutable Forward-Shadow receipts.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_closure.py closure probe tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0385",
+      "parent_primary_requirement_id": "TEMP-PR-0119",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Failure / Surprise / Abstention Corpus.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_closure.py closure probe tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0386",
+      "parent_primary_requirement_id": "TEMP-PR-0120",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Regime Intelligence Library.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_closure.py closure probe tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0438",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; bull",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0439",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; bear",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0440",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; range-bound",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0441",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; high volatility",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0442",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; low volatility",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0443",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; liquidity stress",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0444",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; liquidation cascade",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0445",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; depeg",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0446",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; market-wide crash",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0447",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; idiosyncratic asset shock",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0448",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; exchange outage",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0449",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; macro shock",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0450",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; news shock",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0451",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; correlation break",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0452",
+      "parent_primary_requirement_id": "TEMP-PR-0148",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "REGIME_INTELLIGENCE",
+      "verification_method": "EMPIRICAL_VALIDATION",
+      "atomic_obligation": "Possible regimes include, where justified; structural break.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_shadow_and_regime.py regime intelligence tests",
+      "evidence_tests": "EMPIRICAL_VALIDATION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0453",
+      "parent_primary_requirement_id": "TEMP-PR-0149",
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "logical_owner": "FAILURE_SURPRISE_ABSTENTION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The failure/surprise/abstention corpus is a strategic proprietary asset.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p3_failure_surprise_abstention.py corpus tests",
+      "evidence_tests": "STATIC_INSPECTION"
+    }
+  ],
+  "final_verdict": "PHASE_CLOSED_WITH_EXTERNAL_RUNTIME_GATE"
+}
