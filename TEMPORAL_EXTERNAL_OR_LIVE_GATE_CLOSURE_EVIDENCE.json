@@ -1,0 +1,539 @@
+{
+  "verified_at_utc": "2026-09-14T14:09:20.920679+00:00",
+  "scope": "EXTERNAL_OR_LIVE_GATE",
+  "governing_sources": [
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "TEMPORAL_P0_FOUNDATION_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P1_CANONICAL_EVENT_AND_REPLAY_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P2_OUTCOME_AND_EVIDENCE_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P3_SHADOW_AND_REGIME_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P4_LEARNING_AND_EVALUATION_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P5_USER_EVIDENCE_EXPERIENCE_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P6_OPERATIONAL_HARDENING_CLOSURE_EVIDENCE.json"
+  ],
+  "branch": "cursor/temporal-external-live-gate-closure-358c",
+  "p0_baseline": {
+    "closed": true,
+    "final_verdict": "P0_CLOSED",
+    "verified": 66
+  },
+  "p1_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 31
+  },
+  "p2_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 103
+  },
+  "p3_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED_WITH_EXTERNAL_RUNTIME_GATE",
+    "verified": 62
+  },
+  "p4_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 111
+  },
+  "p5_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED_WITH_EXTERNAL_RUNTIME_GATE",
+    "verified": 42
+  },
+  "p6_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 28
+  },
+  "external_gate_atomics_total": 10,
+  "document_approval_prohibition_ids": [
+    "TEMP-AR-0431",
+    "TEMP-AR-0460",
+    "TEMP-AR-0461",
+    "TEMP-AR-0462",
+    "TEMP-AR-0463"
+  ],
+  "evidence_requirement_ids": [
+    "TEMP-AR-0432",
+    "TEMP-AR-0433",
+    "TEMP-AR-0434",
+    "TEMP-AR-0435",
+    "TEMP-AR-0436"
+  ],
+  "counts": {
+    "VERIFIED": 0,
+    "IMPLEMENTED_NOT_VERIFIED": 0,
+    "NOT_IMPLEMENTED": 0,
+    "EXTERNAL_RUNTIME_PENDING": 10
+  },
+  "defects_remaining": [],
+  "runtime_proofs": {
+    "external_gate_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_external_gate_assurance.py tests/test_temporal_external_gate_closure.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        ".................                                                        [100%]"
+      ]
+    },
+    "p6_regression_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p6_closure.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "..                                                                       [100%]"
+      ]
+    },
+    "closure_probes": {
+      "closure_assertions": {
+        "EXTERNAL_GATE_MODULE_SURFACES": 0,
+        "DOCUMENT_APPROVAL_PROHIBITIONS": true,
+        "EVIDENCE_GATE_REQUIREMENTS": true,
+        "SIMULATED_TIME_CANNOT_CLOSE_LIVE_GATE": true,
+        "PASS_ENGINEERING_LOCAL_EVIDENCE_ONLY": true,
+        "EXTERNAL_GATE_LOCAL_ENGINEERING_COMPLETE": true,
+        "EXTERNAL_GATE_SCOPE_CLOSED": true
+      },
+      "EXTERNAL_GATE_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 10,
+      "EXTERNAL_GATE_LOCAL_ENGINEERING_COMPLETE_COUNT": 10,
+      "EXTERNAL_GATE_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
+      "EXTERNAL_GATE_EXTERNAL_ASSURANCE_ATOMIC_IDS": [
+        "TEMP-AR-0431",
+        "TEMP-AR-0432",
+        "TEMP-AR-0433",
+        "TEMP-AR-0434",
+        "TEMP-AR-0435",
+        "TEMP-AR-0436",
+        "TEMP-AR-0460",
+        "TEMP-AR-0461",
+        "TEMP-AR-0462",
+        "TEMP-AR-0463"
+      ],
+      "acceptance_boundary_governance": {
+        "contract_version": "external_assurance_gate.1.0",
+        "document_approval_insufficient": true,
+        "document_prohibitions_enforced": true,
+        "evidence_gates_defined": true,
+        "p6_baseline_closed": true,
+        "per_atomic": {
+          "TEMP-AR-0431": {
+            "atomic_id": "TEMP-AR-0431",
+            "assurance_level": "PASS_ENGINEERING",
+            "document_approval_rejected": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0432": {
+            "atomic_id": "TEMP-AR-0432",
+            "assurance_level": "PASS_ENGINEERING",
+            "document_approval_rejected": true,
+            "own_evidence_gate_defined": true,
+            "engineering_evidence_admitted_for_pass_engineering_only": true,
+            "external_evidence_required_for_claim": false,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0433": {
+            "atomic_id": "TEMP-AR-0433",
+            "assurance_level": "PASS_LIVE",
+            "document_approval_rejected": true,
+            "own_evidence_gate_defined": true,
+            "engineering_evidence_admitted_for_pass_engineering_only": false,
+            "external_evidence_required_for_claim": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0434": {
+            "atomic_id": "TEMP-AR-0434",
+            "assurance_level": "ASSURANCE_READY",
+            "document_approval_rejected": true,
+            "own_evidence_gate_defined": true,
+            "engineering_evidence_admitted_for_pass_engineering_only": false,
+            "external_evidence_required_for_claim": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0435": {
+            "atomic_id": "TEMP-AR-0435",
+            "assurance_level": "PRODUCTION_ALIGNED",
+            "document_approval_rejected": true,
+            "own_evidence_gate_defined": true,
+            "engineering_evidence_admitted_for_pass_engineering_only": false,
+            "external_evidence_required_for_claim": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0436": {
+            "atomic_id": "TEMP-AR-0436",
+            "assurance_level": "INDEPENDENT_VERIFICATION",
+            "document_approval_rejected": true,
+            "own_evidence_gate_defined": true,
+            "engineering_evidence_admitted_for_pass_engineering_only": false,
+            "external_evidence_required_for_claim": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0460": {
+            "atomic_id": "TEMP-AR-0460",
+            "assurance_level": "PASS_LIVE",
+            "document_approval_rejected": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0461": {
+            "atomic_id": "TEMP-AR-0461",
+            "assurance_level": "ASSURANCE_READY",
+            "document_approval_rejected": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0462": {
+            "atomic_id": "TEMP-AR-0462",
+            "assurance_level": "PRODUCTION_ALIGNED",
+            "document_approval_rejected": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          },
+          "TEMP-AR-0463": {
+            "atomic_id": "TEMP-AR-0463",
+            "assurance_level": "INDEPENDENT_VERIFICATION",
+            "document_approval_rejected": true,
+            "local_engineering_complete": true,
+            "external_assurance_verified": false,
+            "external_runtime_gate_pending": true
+          }
+        }
+      },
+      "per_atomic_status": {
+        "TEMP-AR-0431": {
+          "atomic_id": "TEMP-AR-0431",
+          "assurance_level": "PASS_ENGINEERING",
+          "document_approval_rejected": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0432": {
+          "atomic_id": "TEMP-AR-0432",
+          "assurance_level": "PASS_ENGINEERING",
+          "document_approval_rejected": true,
+          "own_evidence_gate_defined": true,
+          "engineering_evidence_admitted_for_pass_engineering_only": true,
+          "external_evidence_required_for_claim": false,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0433": {
+          "atomic_id": "TEMP-AR-0433",
+          "assurance_level": "PASS_LIVE",
+          "document_approval_rejected": true,
+          "own_evidence_gate_defined": true,
+          "engineering_evidence_admitted_for_pass_engineering_only": false,
+          "external_evidence_required_for_claim": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0434": {
+          "atomic_id": "TEMP-AR-0434",
+          "assurance_level": "ASSURANCE_READY",
+          "document_approval_rejected": true,
+          "own_evidence_gate_defined": true,
+          "engineering_evidence_admitted_for_pass_engineering_only": false,
+          "external_evidence_required_for_claim": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0435": {
+          "atomic_id": "TEMP-AR-0435",
+          "assurance_level": "PRODUCTION_ALIGNED",
+          "document_approval_rejected": true,
+          "own_evidence_gate_defined": true,
+          "engineering_evidence_admitted_for_pass_engineering_only": false,
+          "external_evidence_required_for_claim": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0436": {
+          "atomic_id": "TEMP-AR-0436",
+          "assurance_level": "INDEPENDENT_VERIFICATION",
+          "document_approval_rejected": true,
+          "own_evidence_gate_defined": true,
+          "engineering_evidence_admitted_for_pass_engineering_only": false,
+          "external_evidence_required_for_claim": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0460": {
+          "atomic_id": "TEMP-AR-0460",
+          "assurance_level": "PASS_LIVE",
+          "document_approval_rejected": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0461": {
+          "atomic_id": "TEMP-AR-0461",
+          "assurance_level": "ASSURANCE_READY",
+          "document_approval_rejected": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0462": {
+          "atomic_id": "TEMP-AR-0462",
+          "assurance_level": "PRODUCTION_ALIGNED",
+          "document_approval_rejected": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        },
+        "TEMP-AR-0463": {
+          "atomic_id": "TEMP-AR-0463",
+          "assurance_level": "INDEPENDENT_VERIFICATION",
+          "document_approval_rejected": true,
+          "local_engineering_complete": true,
+          "external_assurance_verified": false,
+          "external_runtime_gate_pending": true
+        }
+      },
+      "runtime_probe_paths": {
+        "EXTERNAL_GATE_MODULE_SURFACES": "external_gate_closure_verification.probe_external_gate_module_surfaces",
+        "DOCUMENT_APPROVAL_PROHIBITIONS": "external_gate_closure_verification.probe_document_approval_prohibitions",
+        "EVIDENCE_GATE_REQUIREMENTS": "external_gate_closure_verification.probe_evidence_gate_requirements",
+        "SIMULATED_TIME_CANNOT_CLOSE_LIVE_GATE": "external_gate_closure_verification.probe_simulated_time_cannot_close_live_gate",
+        "PASS_ENGINEERING_LOCAL_EVIDENCE_ONLY": "external_gate_closure_verification.probe_pass_engineering_local_evidence_only",
+        "EXTERNAL_GATE_LOCAL_ENGINEERING_COMPLETE": "external_gate_closure_verification.probe_external_gate_local_engineering_complete"
+      }
+    }
+  },
+  "reconciliation": [
+    {
+      "atomic_requirement_id": "TEMP-AR-0431",
+      "parent_primary_requirement_id": "TEMP-PR-0145",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "This document's approval does not by itself mean PASS_ENGINEERING",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0431_document_approval_not_pass_engineering",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0431",
+        "assurance_level": "PASS_ENGINEERING",
+        "document_approval_rejected": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0432",
+      "parent_primary_requirement_id": "TEMP-PR-0146",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "PASS_ENGINEERING requires its own implementation evidence and gates under the governing standards",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0432_pass_engineering_requires_own_evidence",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0432",
+        "assurance_level": "PASS_ENGINEERING",
+        "document_approval_rejected": true,
+        "own_evidence_gate_defined": true,
+        "engineering_evidence_admitted_for_pass_engineering_only": true,
+        "external_evidence_required_for_claim": false,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0433",
+      "parent_primary_requirement_id": "TEMP-PR-0146",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "PASS_LIVE requires its own implementation evidence and gates under the governing standards",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0433_pass_live_requires_external_evidence",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0433",
+        "assurance_level": "PASS_LIVE",
+        "document_approval_rejected": true,
+        "own_evidence_gate_defined": true,
+        "engineering_evidence_admitted_for_pass_engineering_only": false,
+        "external_evidence_required_for_claim": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0434",
+      "parent_primary_requirement_id": "TEMP-PR-0146",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "ASSURANCE_READY requires its own implementation evidence and gates under the governing standards",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0434_assurance_ready_requires_independent_audit",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0434",
+        "assurance_level": "ASSURANCE_READY",
+        "document_approval_rejected": true,
+        "own_evidence_gate_defined": true,
+        "engineering_evidence_admitted_for_pass_engineering_only": false,
+        "external_evidence_required_for_claim": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0435",
+      "parent_primary_requirement_id": "TEMP-PR-0146",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "PRODUCTION_ALIGNED requires its own implementation evidence and gates under the governing standards",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0435_production_aligned_requires_external_evidence",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0435",
+        "assurance_level": "PRODUCTION_ALIGNED",
+        "document_approval_rejected": true,
+        "own_evidence_gate_defined": true,
+        "engineering_evidence_admitted_for_pass_engineering_only": false,
+        "external_evidence_required_for_claim": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0436",
+      "parent_primary_requirement_id": "TEMP-PR-0146",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "independent verification requires its own implementation evidence and gates under the governing standards",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0436_independent_verification_requires_audit",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0436",
+        "assurance_level": "INDEPENDENT_VERIFICATION",
+        "document_approval_rejected": true,
+        "own_evidence_gate_defined": true,
+        "engineering_evidence_admitted_for_pass_engineering_only": false,
+        "external_evidence_required_for_claim": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0460",
+      "parent_primary_requirement_id": "TEMP-PR-0145",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "This document's approval does not by itself mean PASS_LIVE",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0460_document_approval_not_pass_live",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0460",
+        "assurance_level": "PASS_LIVE",
+        "document_approval_rejected": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0461",
+      "parent_primary_requirement_id": "TEMP-PR-0145",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "This document's approval does not by itself mean ASSURANCE_READY",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0461_document_approval_not_assurance_ready",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0461",
+        "assurance_level": "ASSURANCE_READY",
+        "document_approval_rejected": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0462",
+      "parent_primary_requirement_id": "TEMP-PR-0145",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "This document's approval does not by itself mean PRODUCTION_ALIGNED",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0462_document_approval_not_production_aligned",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0462",
+        "assurance_level": "PRODUCTION_ALIGNED",
+        "document_approval_rejected": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0463",
+      "parent_primary_requirement_id": "TEMP-PR-0145",
+      "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "EXTERNAL_ASSURANCE",
+      "atomic_obligation": "This document's approval does not by itself mean independent verification",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "evidence": "tests/test_temporal_external_gate_assurance.py::test_temp_ar_0463_document_approval_not_independent_verification",
+      "evidence_tests": "EXTERNAL_ASSURANCE",
+      "probe": {
+        "atomic_id": "TEMP-AR-0463",
+        "assurance_level": "INDEPENDENT_VERIFICATION",
+        "document_approval_rejected": true,
+        "local_engineering_complete": true,
+        "external_assurance_verified": false,
+        "external_runtime_gate_pending": true
+      }
+    }
+  ],
+  "final_verdict": "EXTERNAL_GATE_SCOPE_CLOSED_WITH_PENDING_EVIDENCE",
+  "verification_command": "python3 scripts/external_or_live_gate_closure_verify.py"
+}

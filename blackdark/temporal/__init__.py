@@ -175,6 +175,23 @@ from blackdark.temporal.operational_hardening import (
     assess_operational_readiness,
     evaluate_fail_closed,
 )
+from blackdark.temporal.external_gate_requirement_registry import (
+    EXTERNAL_GATE_ATOMIC_REQUIREMENT_IDS,
+    EXTERNAL_GATE_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS,
+    EXTERNAL_GATE_DOCUMENT_APPROVAL_PROHIBITION_IDS,
+    EXTERNAL_GATE_EVIDENCE_REQUIREMENT_IDS,
+    EXTERNAL_GATE_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS,
+    EXTERNAL_GATE_EXTERNAL_ASSURANCE_ATOMIC_IDS,
+    EXTERNAL_GATE_REQUIREMENT_OWNERS,
+)
+from blackdark.temporal.external_assurance_gates import (
+    DOCUMENT_APPROVAL_INSUFFICIENT_FOR_ASSURANCE,
+    AssuranceClaimLevel,
+    EvidenceBasis,
+    assess_acceptance_boundary_governance,
+    evaluate_assurance_claim,
+    probe_external_gate_atomic_status,
+)
 from blackdark.temporal.user_behavioral_learning import (
     BehavioralConsentRecord,
     BehavioralLearningPurpose,
@@ -358,6 +375,19 @@ __all__ = [
     "FAIL_CLOSED_ON_UNCERTAINTY",
     "assess_operational_readiness",
     "evaluate_fail_closed",
+    "EXTERNAL_GATE_ATOMIC_REQUIREMENT_IDS",
+    "EXTERNAL_GATE_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "EXTERNAL_GATE_DOCUMENT_APPROVAL_PROHIBITION_IDS",
+    "EXTERNAL_GATE_EVIDENCE_REQUIREMENT_IDS",
+    "EXTERNAL_GATE_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "EXTERNAL_GATE_EXTERNAL_ASSURANCE_ATOMIC_IDS",
+    "EXTERNAL_GATE_REQUIREMENT_OWNERS",
+    "DOCUMENT_APPROVAL_INSUFFICIENT_FOR_ASSURANCE",
+    "AssuranceClaimLevel",
+    "EvidenceBasis",
+    "assess_acceptance_boundary_governance",
+    "evaluate_assurance_claim",
+    "probe_external_gate_atomic_status",
     "UNCONTROLLED_PRODUCTION_SELF_MODIFICATION",
     "UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED",
     "RETENTION_EQUALS_LEARNING_PRIORITY",

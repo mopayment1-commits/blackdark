@@ -1,0 +1,45 @@
+"""EXTERNAL_OR_LIVE_GATE master atomic requirement registry (10 atomics)."""
+
+from __future__ import annotations
+
+EXTERNAL_GATE_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS = 10
+
+EXTERNAL_GATE_ATOMIC_REQUIREMENT_IDS: tuple[str, ...] = (
+    "TEMP-AR-0431",
+    "TEMP-AR-0432",
+    "TEMP-AR-0433",
+    "TEMP-AR-0434",
+    "TEMP-AR-0435",
+    "TEMP-AR-0436",
+    "TEMP-AR-0460",
+    "TEMP-AR-0461",
+    "TEMP-AR-0462",
+    "TEMP-AR-0463",
+)
+
+EXTERNAL_GATE_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS = len(EXTERNAL_GATE_ATOMIC_REQUIREMENT_IDS)
+
+# All 10 atomics require EXTERNAL_ASSURANCE verification per RTM.
+EXTERNAL_GATE_EXTERNAL_ASSURANCE_ATOMIC_IDS: tuple[str, ...] = EXTERNAL_GATE_ATOMIC_REQUIREMENT_IDS
+
+# Document-approval prohibition atomics (TEMP-PR-0145).
+EXTERNAL_GATE_DOCUMENT_APPROVAL_PROHIBITION_IDS: tuple[str, ...] = (
+    "TEMP-AR-0431",
+    "TEMP-AR-0460",
+    "TEMP-AR-0461",
+    "TEMP-AR-0462",
+    "TEMP-AR-0463",
+)
+
+# Evidence-and-gates requirement atomics (TEMP-PR-0146).
+EXTERNAL_GATE_EVIDENCE_REQUIREMENT_IDS: tuple[str, ...] = (
+    "TEMP-AR-0432",
+    "TEMP-AR-0433",
+    "TEMP-AR-0434",
+    "TEMP-AR-0435",
+    "TEMP-AR-0436",
+)
+
+EXTERNAL_GATE_REQUIREMENT_OWNERS: dict[str, str] = {
+    aid: "CROSS_CUTTING_GOVERNANCE" for aid in EXTERNAL_GATE_ATOMIC_REQUIREMENT_IDS
+}
