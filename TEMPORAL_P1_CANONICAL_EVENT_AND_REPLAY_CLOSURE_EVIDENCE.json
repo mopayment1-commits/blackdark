@@ -1,0 +1,375 @@
+{
+  "verified_at_utc": "2026-09-14T13:07:01.080922+00:00",
+  "scope": "P1_CANONICAL_EVENT_AND_REPLAY",
+  "governing_sources": [
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "TEMPORAL_P0_FOUNDATION_CLOSURE_EVIDENCE.json"
+  ],
+  "branch": "cursor/temporal-p1-canonical-event-replay-closure-358c",
+  "p0_baseline": {
+    "closed": true,
+    "final_verdict": "P0_CLOSED",
+    "verified": 66
+  },
+  "p1_atomics_total": 31,
+  "counts": {
+    "VERIFIED": 31,
+    "IMPLEMENTED_NOT_VERIFIED": 0,
+    "NOT_IMPLEMENTED": 0,
+    "EXTERNAL_RUNTIME_PENDING": 0
+  },
+  "defects_remaining": [],
+  "external_runtime_gates": {},
+  "runtime_proofs": {
+    "p1_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p1_1_canonical_event_store.py tests/test_temporal_p1_2_deterministic_mass_replay.py tests/test_temporal_p1_3_remaining_replay_coverage.py tests/test_temporal_p1_closure_runtime_e2e.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "....................................................                     [100%]"
+      ]
+    },
+    "p0_regression_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p0_1_truth_primitive.py tests/test_temporal_p0_2_pit_reconstruction.py tests/test_temporal_p0_3_leakage_firewall.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "...................................                                      [100%]"
+      ]
+    },
+    "postgres_replay_round_trip": {
+      "event_id": "evt_117ea90c43ff4ad4",
+      "idempotency_key": "p1-closure-0430305e",
+      "postgres_row_present": true,
+      "hydrated_event_count": 2,
+      "replay_id": "replay_fcf8882fa3ddf81d",
+      "determinism_fingerprint": "fcf8882fa3ddf81da56730cec38fb407ce69091fe254baf0938522d1301243df",
+      "evidence_class": "HISTORICAL_REPLAY",
+      "replay_manifest_complete": true,
+      "spine_replay_stage_completed": true
+    }
+  },
+  "prior_batch_evidence": [
+    "TEMPORAL_P1_1_CANONICAL_EVENT_STORE_EVIDENCE.json",
+    "TEMPORAL_P1_2_DETERMINISTIC_MASS_REPLAY_EVIDENCE.json",
+    "TEMPORAL_P1_3_REMAINING_REPLAY_COVERAGE_EVIDENCE.json"
+  ],
+  "reconciliation": [
+    {
+      "atomic_requirement_id": "TEMP-AR-0044",
+      "parent_primary_requirement_id": "TEMP-PR-0018",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "Historical and live information must not become an unstructured file archive.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_closure_runtime_e2e.py::test_temp_ar_0044_canonical_store_is_not_unstructured_file_archive",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0045",
+      "parent_primary_requirement_id": "TEMP-PR-0019",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "BLACKDARK should preserve a canonical path: Raw \u2192 Normalized \u2192 Entity/Event \u2192 Feature \u2192 Signal.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_closure_runtime_e2e.py::test_temp_ar_0045_canonical_ingestion_path_modules_present + normalization.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0046",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Required controls include; immutable raw-source lineage",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py lineage + revision preservation",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0047",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Required controls include; source identity",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py provenance/source identity",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0048",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Required controls include; schema/version history",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py source_version/dataset_version metadata",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0049",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Required controls include; deduplication",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_closure_runtime_e2e.py dedup tests + production_spine idempotency",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0050",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Required controls include; corrections and amendments",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py revision/amendment lineage",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0051",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Required controls include; source-conflict representation",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py conflict preservation",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0052",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Required controls include; deterministic reconstruction",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py deterministic retrieval + P0 reconstruction",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0053",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Required controls include; data rights metadata",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py rights/provenance metadata",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0054",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Required controls include; retention policy",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_closure_runtime_e2e.py::test_temp_ar_0054_retention_policy_reference_and_descriptor",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0055",
+      "parent_primary_requirement_id": "TEMP-PR-0020",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Required controls include; reproducible transformation lineage.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_1_canonical_event_store.py + replay manifest lineage fields",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0056",
+      "parent_primary_requirement_id": "TEMP-PR-0021",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "Raw evidence must not be discarded solely because its current learning priority is low.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_closure_runtime_e2e.py::test_temp_ar_0056_raw_not_discarded_for_low_learning_priority",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0057",
+      "parent_primary_requirement_id": "TEMP-PR-0022",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay must reproduce the intended decision path: Observation \u2192 Feature State \u2192 Signal \u2192 Prediction \u2192 Decision \u2192 Confidence \u2192 Abstain / Act \u2192 Outcome.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py full decision path stages",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0058",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; multiple assets",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario assets dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0059",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; multiple venues where applicable",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario venues dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0060",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; multiple time horizons",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario time_horizons dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0061",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; multiple historical periods",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario historical_periods dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0062",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; multiple market regimes",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario regimes dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0063",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; multiple model/rule/config versions",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario model_versions dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0064",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; alternative thresholds",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario thresholds dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0065",
+      "parent_primary_requirement_id": "TEMP-PR-0023",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay should support; alternative source availability scenarios.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py multi_scenario source_availability dimension",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0066",
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay must be reproducible",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_2_deterministic_mass_replay.py reproducibility fingerprint",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0067",
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay must be point-in-time correct",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_2_deterministic_mass_replay.py PIT correctness + lookahead rejection",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0068",
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay must be provenance-bound",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_2_deterministic_mass_replay.py provenance-bound manifest",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0069",
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay must be version-bound",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_2_deterministic_mass_replay.py version-bound dataset context",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0070",
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay must be deterministic where feasible",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_2_deterministic_mass_replay.py deterministic ordering + fingerprint stability",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0071",
+      "parent_primary_requirement_id": "TEMP-PR-0024",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Replay must be comparable across model versions",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_3_remaining_replay_coverage.py compare_replay_runs across model versions",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0072",
+      "parent_primary_requirement_id": "TEMP-PR-0025",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "Replay results are evidence of historical evaluation, not proof of live forward performance.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p1_closure_runtime_e2e.py::test_temp_ar_0072_replay_evidence_class_not_live_forward_proof",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0377",
+      "parent_primary_requirement_id": "TEMP-PR-0111",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Canonical Historical Event Store.",
+      "status": "VERIFIED",
+      "evidence": "blackdark/temporal/event_store.py + PostgresEventStore in persistence/postgres.py established",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0380",
+      "parent_primary_requirement_id": "TEMP-PR-0114",
+      "phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Deterministic Replay.",
+      "status": "VERIFIED",
+      "evidence": "blackdark/temporal/replay.py run_deterministic_mass_replay + spine replay stage wiring",
+      "evidence_tests": "STATIC_INSPECTION"
+    }
+  ],
+  "final_verdict": "PHASE_CLOSED"
+}
