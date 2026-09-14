@@ -1,0 +1,84 @@
+{
+  "phase": "P1_DECISION_TRUTH_SPINE_AND_ANTI_BYPASS",
+  "verified_at_utc": "2026-09-14T21:17:00Z",
+  "governing_spec": "BLACKDARK_DECISION_TRUTH_SYSTEM_INSTITUTIONAL_FINAL_v1.md",
+  "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
+  "base_sha": "e15b0823ff2cdf6cf3c60c880f97d2e681ddbe1c",
+  "implementation_sha": "e15b0823ff2cdf6cf3c60c880f97d2e681ddbe1c",
+  "dts_ids_covered": [
+    "DTS-001",
+    "DTS-002",
+    "DTS-003",
+    "DTS-004",
+    "DTS-005",
+    "DTS-008",
+    "DTS-017",
+    "DTS-018",
+    "DTS-024",
+    "DTS-049",
+    "DTS-052",
+    "DTS-053"
+  ],
+  "canonical_owners": {
+    "governance_entry": "decision_truth/govern.py",
+    "admission": "decision_truth/admission.py",
+    "safety_floor": "decision_truth/safety_floor.py",
+    "contract": "decision_truth/contract.py",
+    "inputs": "decision_truth/inputs.py",
+    "compliance": "decision_truth/compliance.py",
+    "data_governance": "data_governance/pipeline.py",
+    "failure_states": "failure/states.py"
+  },
+  "discovered_decision_capable_paths": [
+    "decision_enrichment.enrich_oracle_decision",
+    "decision_truth.govern.govern_decision_payload",
+    "decision_truth.pipeline.evaluate_opportunity",
+    "decision_truth.pipeline.evaluate_decision_truth",
+    "api/routers/decision_truth.py",
+    "arbitrage_service._apply_truth_to_row",
+    "cap646/backend_executor.py opportunity path",
+    "trust_pulse.py enrich_oracle_decision",
+    "voice_service.py enrich_oracle_decision"
+  ],
+  "governed_decision_capable_paths": [
+    "decision_enrichment.enrich_oracle_decision",
+    "decision_truth.govern.govern_decision_payload",
+    "decision_truth.pipeline.evaluate_opportunity",
+    "decision_truth.pipeline.evaluate_decision_truth",
+    "api/routers/decision_truth.py",
+    "arbitrage_service._apply_truth_to_row",
+    "cap646/backend_executor.py opportunity path",
+    "trust_pulse.py enrich_oracle_decision",
+    "voice_service.py enrich_oracle_decision"
+  ],
+  "remaining_bypass_paths": {
+    "SIGNAL_ADMISSION_BYPASS_PATHS": [],
+    "DECISION_CONTRACT_BYPASS_PATHS": [],
+    "SAFETY_FLOOR_BYPASS_PATHS": [],
+    "ABSTENTION_BYPASS_PATHS": [],
+    "SILENT_FALLBACK_PATHS": [],
+    "FAILURE_PROPAGATION_GAPS": []
+  },
+  "summary": {
+    "DTS_REQUIREMENTS_IN_PHASE": 12,
+    "FULLY_IMPLEMENTED_VERIFIED": 12,
+    "PARTIAL": 0,
+    "NOT_IMPLEMENTED": 0,
+    "LOCALLY_BUILDABLE_REMAINING": 0,
+    "SIGNAL_ADMISSION_BYPASS_PATHS": 0,
+    "DECISION_CONTRACT_BYPASS_PATHS": 0,
+    "SAFETY_FLOOR_BYPASS_PATHS": 0,
+    "ABSTENTION_BYPASS_PATHS": 0,
+    "SILENT_FALLBACK_PATHS": 0,
+    "FAILURE_PROPAGATION_GAPS": 0,
+    "REGRESSION_FAILURES": 0
+  },
+  "verdict": "P1_DECISION_TRUTH_SPINE_CLOSED",
+  "test_commands": [
+    "python3 -m pytest tests/test_decision_truth_p1_anti_bypass.py tests/test_decision_truth_pipeline.py tests/test_data_governance_p0_test_matrix.py tests/test_arb_truth_gate.py -q",
+    "python3 scripts/p1_decision_truth_spine_closure_verify.py"
+  ],
+  "test_output_tail": "................................................                         [100%]\n",
+  "defects_remaining": [],
+  "locally_buildable_gaps_remaining": []
+}

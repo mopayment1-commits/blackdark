@@ -1,22 +1,21 @@
-"""Decision Truth Pipeline — single orchestrated path (BGS-009 §2)."""
+"""Decision Truth Pipeline — delegates to canonical govern spine (P1)."""
 
 from __future__ import annotations
 
-import time
 from typing import Any
 
-from decision_truth.admission import evaluate_admission
 from decision_truth.contract import DecisionContract, DecisionState
-from decision_truth.ledger import record_outcome
+from decision_truth.govern import govern_decision_payload, govern_stats
 
-_PIPELINE_STATS = {"evaluated": 0, "admitted": 0, "rejected": 0, "abstained": 0, "degraded": 0}
+_PIPELINE_STATS = govern_stats()
 
 
 def pipeline_status() -> dict[str, Any]:
     return {
         "package": "decision_truth",
-        "methodology_version": "dts-mvp-1.0",
+        "methodology_version": "dts-p1-spine-1.0",
         "stats": dict(_PIPELINE_STATS),
+        "canonical_owner": "decision_truth/govern.py",
         "stages": [
             "source_ingestion",
             "data_integrity",
@@ -26,27 +25,13 @@ def pipeline_status() -> dict[str, Any]:
             "economic_reality",
             "execution_feasibility",
             "signal_admission_gate",
+            "safety_floor",
             "decision_contract",
-            "outcome_ledger",
+            "failure_integration",
+            "user_agency",
+            "compliance_guards",
         ],
     }
-
-
-def _freshness_gate(opportunity: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
-    age_ms = float(opportunity.get("quote_age_ms") or opportunity.get("age_ms") or 0)
-    max_age = float(opportunity.get("max_quote_age_ms") or 2500.0)
-    ok = age_ms <= max_age if age_ms > 0 else True
-    return ok, {"quote_age_ms": age_ms, "max_quote_age_ms": max_age, "ok": ok}
-
-
-def _economic_reality(opportunity: dict[str, Any]) -> dict[str, Any]:
-    try:
-        from net_edge_truth import compute_net_edge_truth
-
-        truth = compute_net_edge_truth(opportunity)
-        return truth
-    except Exception as exc:  # noqa: BLE001 — pipeline must degrade, not crash
-        return {"reject": True, "truth_score": 0.0, "error": str(exc), "reason": "net_edge_unavailable"}
 
 
 def evaluate_opportunity(
@@ -54,72 +39,37 @@ def evaluate_opportunity(
     *,
     symbol: str | None = None,
     record: bool = True,
+    context: str = "api",
 ) -> DecisionContract:
-    """Run full Decision Truth pipeline for one opportunity."""
-    _PIPELINE_STATS["evaluated"] += 1
-    sym = str(symbol or opportunity.get("symbol") or opportunity.get("asset") or "BTC")
-    freshness_ok, freshness = _freshness_gate(opportunity)
-    net_edge = _economic_reality(opportunity)
-    net_edge_reject = bool(net_edge.get("reject"))
-
-    dq = float(opportunity.get("data_quality_score") or opportunity.get("provenance_score") or 70.0)
-    evidence_class = str(opportunity.get("evidence_class") or "VERIFIED_LOCAL")
-    execution_score = float(opportunity.get("execution_feasibility_score") or 60.0)
-    liquidity_ok = bool(opportunity.get("liquidity_ok", True))
-    risk_ok = bool(opportunity.get("risk_ok", True))
-    uncertainty_high = bool(opportunity.get("uncertainty_high", False))
-
-    admission_state, why_not = evaluate_admission(
-        freshness_ok=freshness_ok,
-        data_quality_score=dq,
-        evidence_class=evidence_class,
-        liquidity_ok=liquidity_ok,
-        execution_score=execution_score,
-        net_edge_reject=net_edge_reject,
-        risk_ok=risk_ok,
-        uncertainty_high=uncertainty_high,
-        data_governance_state=opportunity.get("data_governance_state"),
-        data_governance_failed_gates=opportunity.get("data_governance_failed_gates"),
+    """Run governed Decision Truth pipeline for one opportunity."""
+    payload = dict(opportunity)
+    if symbol:
+        payload["symbol"] = symbol
+    governed = govern_decision_payload(payload, context=context, record=record, run_data_governance=True)
+    contract_dict = (governed.get("decision_truth") or {}).get("contract") or {}
+    return DecisionContract(
+        decision_state=DecisionState(contract_dict.get("decision_state", DecisionState.UNAVAILABLE.value)),
+        symbol=str(contract_dict.get("symbol") or payload.get("symbol") or "BTC"),
+        time_horizon=str(contract_dict.get("time_horizon") or "intraday"),
+        net_edge=dict(contract_dict.get("net_edge") or {}),
+        execution_feasibility=dict(contract_dict.get("execution_feasibility") or {}),
+        risk=dict(contract_dict.get("risk") or {}),
+        grade=str(contract_dict.get("grade") or "UNAVAILABLE"),
+        evidence_class=str(contract_dict.get("evidence_class") or "UNAVAILABLE"),
+        freshness=dict(contract_dict.get("freshness") or {}),
+        uncertainty=dict(contract_dict.get("uncertainty") or {}),
+        capacity=dict(contract_dict.get("capacity") or {}),
+        why=list(contract_dict.get("why") or []),
+        why_not=list(contract_dict.get("why_not") or []),
+        invalidation_condition=str(contract_dict.get("invalidation_condition") or ""),
+        methodology_version=str(contract_dict.get("methodology_version") or "dts-p1-spine-1.0"),
+        assumptions=dict(contract_dict.get("assumptions") or {}),
+        safety_floor=dict(contract_dict.get("safety_floor") or {}),
+        provenance_context=dict(contract_dict.get("provenance_context") or {}),
+        field_availability=dict(contract_dict.get("field_availability") or {}),
+        user_agency=dict(governed.get("user_agency") or {}),
+        failure_integration=dict(contract_dict.get("failure_integration") or {}),
     )
-
-    if admission_state == DecisionState.ADMITTED:
-        final_state = DecisionState.AVAILABLE
-        _PIPELINE_STATS["admitted"] += 1
-        why: list[str] = ["all_mandatory_gates_passed"]
-    elif admission_state == DecisionState.REJECTED:
-        final_state = DecisionState.REJECTED
-        _PIPELINE_STATS["rejected"] += 1
-        why = []
-    elif admission_state == DecisionState.ABSTAINED:
-        final_state = DecisionState.ABSTAINED
-        _PIPELINE_STATS["abstained"] += 1
-        why = []
-    else:
-        final_state = DecisionState.DEGRADED
-        _PIPELINE_STATS["degraded"] += 1
-        why = ["partial_gate_failure"]
-
-    contract = DecisionContract(
-        decision_state=final_state,
-        symbol=sym,
-        time_horizon=str(opportunity.get("time_horizon") or "intraday"),
-        net_edge=net_edge,
-        execution_feasibility={"score": execution_score, "liquidity_ok": liquidity_ok},
-        risk={"ok": risk_ok},
-        grade=str(opportunity.get("grade") or "B"),
-        evidence_class=evidence_class,
-        freshness=freshness,
-        uncertainty={"high": uncertainty_high},
-        capacity={"usd": opportunity.get("capacity_usd")},
-        why=why,
-        why_not=why_not,
-        invalidation_condition=str(opportunity.get("invalidation") or "net_edge_or_freshness_breach"),
-        assumptions={"source": opportunity.get("source"), "timestamp": time.time()},
-    )
-
-    if record:
-        record_outcome(contract)
-    return contract
 
 
 def evaluate_decision_truth(
@@ -128,29 +78,14 @@ def evaluate_decision_truth(
     lang: str = "en",
     previous_decision_state: str | None = None,
     record: bool = False,
+    context: str = "oracle",
 ) -> dict[str, Any]:
-    """Attach Decision Truth evaluation to an enriched oracle/decision payload."""
-    out = dict(payload)
-    contract = evaluate_opportunity(out, record=record)
-    admission_state = contract.decision_state.value if hasattr(contract.decision_state, "value") else str(contract.decision_state)
-    gates = {"freshness": {"pass": contract.freshness.get("ok", True)}, "data_governance": out.get("data_governance", {}).get("gates")}
-    out["decision_truth"] = {
-        "contract": contract.to_dict() if hasattr(contract, "to_dict") else {
-            "decision_state": admission_state,
-            "symbol": contract.symbol,
-            "freshness_state": (contract.freshness or {}).get("ok"),
-            "data_quality_state": out.get("data_quality_state"),
-            "detected_at": (out.get("timestamps") or {}).get("observed_at"),
-            "methodology_versions": {"net_edge": "net_edge_truth_v1"},
-        },
-        "admission": {
-            "admission_state": admission_state,
-            "failed_gates": out.get("data_governance_failed_gates") or [],
-            "gates": gates,
-        },
-        "why_not": {"human_explanation": contract.why_not},
-        "risk": contract.risk,
-        "lang": lang,
-        "previous_decision_state": previous_decision_state,
-    }
-    return out
+    """Attach governed Decision Truth evaluation — no silent fallback."""
+    return govern_decision_payload(
+        payload,
+        context=context,
+        lang=lang,
+        record=record,
+        run_data_governance=not bool(payload.get("data_governance")),
+        previous_decision_state=previous_decision_state,
+    )

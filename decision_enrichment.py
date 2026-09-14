@@ -338,9 +338,11 @@ def enrich_oracle_decision(
         from data_governance.pipeline import evaluate_data_governance
 
         out = evaluate_data_governance(out, symbol=asset, source_id="oracle", slo_class="T0", lang=lang)
-    except Exception:
-        logger.debug("data governance pipeline failed", exc_info=True)
-        out["data_governance"] = {"error": "unavailable"}
+    except Exception as exc:
+        logger.warning("data governance pipeline failed", exc_info=True)
+        out["data_governance"] = {"error": "unavailable", "state": "UNAVAILABLE"}
+        out["data_governance_state"] = "UNAVAILABLE"
+        out.setdefault("fallback_notes", []).append(f"data_governance_error:{exc}")
 
     try:
         from constitution_gates import apply_constitution_gates_to_scan
@@ -349,24 +351,17 @@ def enrich_oracle_decision(
     except Exception:
         logger.debug("constitution gates on oracle failed", exc_info=True)
 
-    try:
-        from decision_truth.pipeline import evaluate_decision_truth
+    from decision_truth.govern import govern_decision_payload
 
-        prev_state = out.get("decision_truth_state")
-        out = evaluate_decision_truth(out, lang=lang, previous_decision_state=prev_state)
-        dt = out.get("decision_truth") or {}
-        contract = (dt.get("contract") or {})
-        admission = (dt.get("admission") or {})
-        out["decision_truth_state"] = contract.get("decision_state")
-        out["admission_state"] = admission.get("admission_state")
-        if contract.get("decision_state") in {"REJECTED", "ABSTAINED"}:
-            from regulatory_compliance_guard import to_public_verdict
-
-            out["verdict"] = to_public_verdict("Do Not Touch")
-            out["decision_action"] = "NO_DECISION"
-    except Exception:
-        logger.debug("decision truth pipeline failed", exc_info=True)
-        out["decision_truth"] = {"error": "unavailable"}
+    prev_state = out.get("decision_truth_state")
+    out = govern_decision_payload(
+        out,
+        context="oracle",
+        lang=lang,
+        record=False,
+        run_data_governance=not bool(out.get("data_governance")),
+        previous_decision_state=prev_state,
+    )
 
     out = _apply_ux_mode(out, ux_mode, lang)
     out["constitution"] = _constitution_block()

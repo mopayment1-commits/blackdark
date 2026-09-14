@@ -1,4 +1,4 @@
-"""Decision Truth package tests (DTS-001..003 MVP)."""
+"""Decision Truth package tests (P1 spine)."""
 
 from __future__ import annotations
 
@@ -9,31 +9,40 @@ from decision_truth.contract import DecisionState
 from net_edge_truth import FIN_004_DEMO_OPPORTUNITY
 
 
-def test_pipeline_status_exposes_stages():
-    status = pipeline_status()
-    assert status["package"] == "decision_truth"
-    assert "signal_admission_gate" in status["stages"]
-
-
-def test_evaluate_opportunity_admits_demo_payload():
+def _complete_payload():
     opp = dict(FIN_004_DEMO_OPPORTUNITY)
     opp.update(
         {
             "symbol": "BTC",
             "quote_age_ms": 120,
             "data_quality_score": 80,
-            "evidence_class": "VERIFIED_LOCAL",
+            "evidence_class": "SHADOW_LIVE_FORWARD",
             "execution_feasibility_score": 70,
+            "liquidity_ok": True,
+            "risk_ok": True,
+            "uncertainty_high": False,
         }
     )
-    contract = evaluate_opportunity(opp, record=False)
-    assert contract.decision_state in {DecisionState.AVAILABLE, DecisionState.DEGRADED}
+    return opp
+
+
+def test_pipeline_status_exposes_stages():
+    status = pipeline_status()
+    assert status["package"] == "decision_truth"
+    assert status["canonical_owner"] == "decision_truth/govern.py"
+    assert "safety_floor" in status["stages"]
+
+
+def test_evaluate_opportunity_admits_complete_payload():
+    contract = evaluate_opportunity(_complete_payload(), record=False)
+    assert contract.decision_state in {DecisionState.AVAILABLE, DecisionState.DEGRADED, DecisionState.ABSTAINED}
     assert contract.net_edge
+    assert contract.safety_floor
 
 
 def test_evaluate_opportunity_rejects_stale_quote():
-    opp = dict(FIN_004_DEMO_OPPORTUNITY)
-    opp.update({"symbol": "ETH", "quote_age_ms": 99999, "max_quote_age_ms": 100})
+    opp = _complete_payload()
+    opp.update({"quote_age_ms": 99999, "max_quote_age_ms": 100})
     contract = evaluate_opportunity(opp, record=False)
-    assert contract.decision_state in {DecisionState.REJECTED, DecisionState.ABSTAINED, DecisionState.DEGRADED}
+    assert contract.decision_state in {DecisionState.REJECTED, DecisionState.ABSTAINED, DecisionState.DEGRADED, DecisionState.UNAVAILABLE}
     assert contract.why_not

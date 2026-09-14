@@ -146,10 +146,14 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         kind = str(params.get("opportunity_kind") or "spot_futures")
         evaluated = await evaluate_opportunity(opp, kind=kind)
         if hasattr(evaluated, "model_dump"):
-            return evaluated.model_dump()
-        if isinstance(evaluated, dict):
-            return evaluated
-        return {"evaluated": evaluated, "success": True}
+            payload = evaluated.model_dump()
+        elif isinstance(evaluated, dict):
+            payload = dict(evaluated)
+        else:
+            payload = {"evaluated": evaluated, "success": True}
+        from decision_truth.govern import govern_decision_payload
+
+        return govern_decision_payload(payload, context="cap646_opportunity", run_data_governance=True, record=False)
 
     return fn(symbol) if not inspect.iscoroutinefunction(fn) else await fn(symbol)
 

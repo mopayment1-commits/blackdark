@@ -6,6 +6,8 @@ from dataclasses import asdict, dataclass, field
 from enum import Enum
 from typing import Any
 
+from decision_truth.field_state import field_value
+
 
 class DecisionState(str, Enum):
     AVAILABLE = "AVAILABLE"
@@ -34,10 +36,26 @@ class DecisionContract:
     why: list[str] = field(default_factory=list)
     why_not: list[str] = field(default_factory=list)
     invalidation_condition: str = ""
-    methodology_version: str = "dts-mvp-1.0"
+    methodology_version: str = "dts-p1-spine-1.0"
     assumptions: dict[str, Any] = field(default_factory=dict)
+    safety_floor: dict[str, Any] = field(default_factory=dict)
+    provenance_context: dict[str, Any] = field(default_factory=dict)
+    field_availability: dict[str, Any] = field(default_factory=dict)
+    user_agency: dict[str, Any] = field(default_factory=dict)
+    failure_integration: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         payload = asdict(self)
         payload["decision_state"] = self.decision_state.value
         return payload
+
+
+def build_field_availability(inputs_missing: tuple[str, ...], *, grade_present: bool) -> dict[str, Any]:
+    return {
+        "grade": field_value(None, available=grade_present, not_applicable=not grade_present, reason="p2_not_implemented"),
+        "capacity": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
+        "simulation": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
+        "calibration": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
+        "portfolio_impact": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
+        "missing_critical_inputs": list(inputs_missing),
+    }
