@@ -1,0 +1,184 @@
+{
+  "batch": "P1.2",
+  "batch_name": "Deterministic Mass Replay Engine",
+  "created_at_utc": "2026-09-14T10:00:00Z",
+  "base_branch": "cursor/temporal-p1-1-canonical-event-store-358c",
+  "implementation_branch": "cursor/temporal-p1-2-deterministic-mass-replay-358c",
+  "p0_baseline_disposition": "P0_CLOSED_READY_FOR_P1",
+  "p1_1_baseline_disposition": "P1_1_COMPLETE",
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0052",
+    "TEMP-AR-0055",
+    "TEMP-AR-0066",
+    "TEMP-AR-0067",
+    "TEMP-AR-0068",
+    "TEMP-AR-0069",
+    "TEMP-AR-0070",
+    "TEMP-AR-0072",
+    "TEMP-AR-0380"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/replay.py",
+    "blackdark/temporal/__init__.py"
+  ],
+  "replay_contract": {
+    "entrypoint": "run_deterministic_mass_replay",
+    "request_type": "ReplayRequest",
+    "result_type": "ReplayResult",
+    "required_request_fields": [
+      "event_source",
+      "start_time",
+      "end_time",
+      "replay_clock_or_schedule",
+      "strict_mode",
+      "replay_parameters",
+      "dataset_or_source_version_context"
+    ],
+    "required_result_fields": [
+      "replay_id",
+      "start_time",
+      "end_time",
+      "processed_event_count",
+      "admitted_event_count",
+      "rejected_event_count",
+      "simulated_time_sequence",
+      "replay_outputs",
+      "rejections",
+      "replay_manifest",
+      "evidence_class",
+      "determinism_fingerprint"
+    ],
+    "engine_contract_version": "p1.2.0"
+  },
+  "event_ordering_rule": {
+    "authority": "deterministic_event_sort_key temporal semantics",
+    "unproven_order_key": "available_at, event_time, source, event_type, entity_key, record_version (excluding event_id tie-breaker)",
+    "UNPROVEN_REPLAY_ORDER_FAILS_CLOSED": true,
+    "forbidden_ordering": [
+      "database insertion order",
+      "python container order",
+      "wall-clock execution time",
+      "incidental file order"
+    ]
+  },
+  "temporal_admission_path": {
+    "P0_TEMPORAL_ADMISSION_REUSED": true,
+    "DUPLICATE_REPLAY_TEMPORAL_GUARD": 0,
+    "mechanism": "evaluate_temporal_leakage_firewall per simulated_time step",
+    "lookahead_detection": "explicit rejection when event_time <= simulated_time and available_at > simulated_time"
+  },
+  "pit_reconstruction_path": {
+    "mechanism": "reconstruct_point_in_time via firewall.reconstruction",
+    "REPLAY_LOOKAHEAD_LEAKAGE": 0,
+    "REPLAY_FUTURE_REVISION_CONTAMINATION": 0
+  },
+  "replay_manifest_contract": {
+    "REPLAY_MANIFEST_COMPLETE": true,
+    "fields": [
+      "replay_id",
+      "input_event_identity_set",
+      "input_event_versions",
+      "source_versions",
+      "dataset_versions",
+      "start_time",
+      "end_time",
+      "simulated_time_sequence",
+      "replay_parameters",
+      "strict_mode",
+      "engine_version_or_contract_version",
+      "determinism_fingerprint"
+    ],
+    "unknown_versions_not_fabricated": true
+  },
+  "determinism_result": {
+    "REPLAY_DETERMINISTIC": true,
+    "REPLAY_WALL_CLOCK_DEPENDENCY": 0,
+    "REPLAY_ACCELERATION_SEMANTIC_DIVERGENCE": 0,
+    "fingerprint_function": "compute_determinism_fingerprint"
+  },
+  "evidence_class_result": {
+    "REPLAY_EVIDENCE_CLASS": "HISTORICAL_REPLAY",
+    "REPLAY_EVIDENCE_CLASS_COLLAPSE": 0,
+    "REPLAY_AUTOMATIC_EVIDENCE_PROMOTION": 0
+  },
+  "mutation_isolation_result": {
+    "REPLAY_MUTATES_CANONICAL_HISTORY": false,
+    "REPLAY_MUTATES_PRODUCTION_STATE": false
+  },
+  "schema_or_migration_changes": {
+    "migration_added": false,
+    "destructive_schema_changes": false,
+    "notes": "Uses P1.1 TemporalCanonicalEventStore contract only"
+  },
+  "focused_test_results": {
+    "command": "python3 -m pytest tests/test_temporal_p1_2_deterministic_mass_replay.py -v",
+    "exit_code": 0,
+    "passed": 16,
+    "failed": 0
+  },
+  "p1_1_regression_results": {
+    "command": "python3 -m pytest tests/test_temporal_p1_1_canonical_event_store.py -v",
+    "exit_code": 0,
+    "passed": 12,
+    "failed": 0
+  },
+  "p0_regression_results": {
+    "P0.1": {"passed": 11, "failed": 0},
+    "P0.2": {"passed": 9, "failed": 0},
+    "P0.3": {"passed": 15, "failed": 0},
+    "P0_REGRESSION_FAILURES": 0
+  },
+  "directly_affected_regression_results": {
+    "command": "python3 -m pytest tests/test_canonical_layer.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0
+  },
+  "deferred_items": [
+    "TEMP-AR-0057 full decision-path replay (Outcome Factory adjacent)",
+    "TEMP-AR-0058 through TEMP-AR-0065 multi-dimensional replay scenarios",
+    "TEMP-AR-0071 cross-model comparability engine",
+    "Outcome Factory",
+    "Evidence Provenance Ledger",
+    "Forward Shadow",
+    "Learning",
+    "Champion/Challenger",
+    "UI/Market Time Machine",
+    "P1 Final Gate",
+    "P2 phases",
+    "persistent replay result storage"
+  ],
+  "finding_register": [],
+  "acceptance_assertions": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "DETERMINISTIC_MASS_REPLAY_IMPLEMENTED": true,
+    "P0_TEMPORAL_ADMISSION_REUSED": true,
+    "DUPLICATE_REPLAY_TEMPORAL_GUARD": 0,
+    "REPLAY_WALL_CLOCK_DEPENDENCY": 0,
+    "UNPROVEN_REPLAY_ORDER_FAILS_CLOSED": true,
+    "REPLAY_LOOKAHEAD_LEAKAGE": 0,
+    "REPLAY_FUTURE_REVISION_CONTAMINATION": 0,
+    "REPLAY_DETERMINISTIC": true,
+    "REPLAY_MUTATES_CANONICAL_HISTORY": false,
+    "REPLAY_MUTATES_PRODUCTION_STATE": false,
+    "REPLAY_MANIFEST_COMPLETE": true,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "REPLAY_EVIDENCE_CLASS": "HISTORICAL_REPLAY",
+    "REPLAY_EVIDENCE_CLASS_COLLAPSE": 0,
+    "REPLAY_AUTOMATIC_EVIDENCE_PROMOTION": 0,
+    "REPLAY_ACCELERATION_SEMANTIC_DIVERGENCE": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "FOCUSED_P1_2_TEST_FAILURES": 0,
+    "P1_1_REGRESSION_FAILURES": 0,
+    "P0_REGRESSION_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "P1_2_DETERMINISTIC_MASS_REPLAY_COMPLETE": true
+  },
+  "blocker_classification": {
+    "material_blockers": 0,
+    "material_non_blockers": 0,
+    "minor_or_documentation": 0
+  },
+  "final_disposition": "P1_2_COMPLETE"
+}
