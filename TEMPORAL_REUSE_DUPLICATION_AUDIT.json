@@ -1,6 +1,6 @@
 {
   "audit_name": "TEAS Reuse / Duplication / Canonical Ownership Check",
-  "audited_at_utc": "2026-09-14T20:41:15Z",
+  "audited_at_utc": "2026-09-14T20:48:23Z",
   "repository_roots": {
     "teas_worktree": "/tmp/temporal-worktrees/phase-0-clean-reanchor",
     "main_workspace": "/workspace",
@@ -23,14 +23,14 @@
   },
   "summary": {
     "TEAS_PREEXISTING_REUSE_FOUND": 6,
-    "SEMANTIC_DUPLICATES_FOUND": 1,
-    "PARALLEL_OWNERS_FOUND": 2,
-    "MERGE_REQUIRED": 1,
+    "SEMANTIC_DUPLICATES_FOUND": 0,
+    "PARALLEL_OWNERS_FOUND": 0,
+    "MERGE_REQUIRED": 0,
     "SAFE_REUSE_CONFIRMED": 18,
     "DEAD_DUPLICATE_PATHS": 0,
     "REGRESSION_FAILURES": 0
   },
-  "verdict": "DUPLICATION_RECONCILIATION_REQUIRED",
+  "verdict": "DUPLICATION_RECONCILED",
   "capabilities": [
     {
       "capability": "auth / entitlements",
@@ -58,11 +58,11 @@
     },
     {
       "capability": "provenance / evidence taxonomy",
-      "existing_owner": "cap646/evidence_class.py (4-class platform taxonomy)",
-      "teas_owner": "blackdark/temporal/evidence_class.py (6-class TemporalEvidenceClass)",
-      "overlap": "Both classify evidence tier and enforce promotion rules; zero cross-import bridge",
-      "canonical_decision": "Merge (adapter bridge required)",
-      "evidence": "CAND-100 SHARED_INFRASTRUCTURE; cap646 used by legacy surfaces; temporal used by P2\u2013P6; no mapping module"
+      "existing_owner": "cap646/evidence_class.py (CAP646 product facade)",
+      "teas_owner": "blackdark/temporal/evidence_class.py (TEAS temporal facade)",
+      "overlap": "Unified under blackdark/evidence_taxonomy.py with deterministic bidirectional adapter",
+      "canonical_decision": "Reconciled",
+      "evidence": "blackdark/evidence_taxonomy.py EVIDENCE_TAXONOMY_VERSION=1.0.0; tests/test_evidence_taxonomy_reconciliation.py"
     },
     {
       "capability": "provenance / evidence ledger",
@@ -185,17 +185,13 @@
       "evidence": "REGIME_LOOKAHEAD_LEAKAGE=0; no import from ml.regime_router in temporal package"
     }
   ],
-  "material_findings": [
-    {
-      "finding_id": "FIND-001",
-      "existing_component": "cap646/evidence_class.py",
-      "teas_component": "blackdark/temporal/evidence_class.py",
-      "semantic_overlap": "Evidence tier taxonomy and promotion enforcement",
-      "canonical_owner": "Dual-owner until bridge: cap646 for platform surfaces; temporal for TEAS spine P2\u2013P6",
-      "action": "Merge",
-      "migration_risk": "Medium \u2014 requires bidirectional mapping adapter; must not auto-promote across taxonomies"
-    }
-  ],
+  "material_findings": [],
+  "reconciliation": {
+    "canonical_owner": "blackdark/evidence_taxonomy.py",
+    "cap646_facade": "cap646/evidence_class.py",
+    "temporal_facade": "blackdark/temporal/evidence_class.py",
+    "taxonomy_reconciled": true
+  },
   "no_duplicate_evidence": [
     "P3 DUPLICATE_OUTCOME_FACTORY=0 and DUPLICATE_EVIDENCE_LEDGER=0",
     "P4 DUPLICATE_* counters all zero in controlled_learning/champion_challenger/learning_value",

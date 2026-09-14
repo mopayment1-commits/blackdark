@@ -39,11 +39,11 @@ CAPABILITIES: list[dict[str, str]] = [
     },
     {
         "capability": "provenance / evidence taxonomy",
-        "existing_owner": "cap646/evidence_class.py (4-class platform taxonomy)",
-        "teas_owner": "blackdark/temporal/evidence_class.py (6-class TemporalEvidenceClass)",
-        "overlap": "Both classify evidence tier and enforce promotion rules; zero cross-import bridge",
-        "canonical_decision": "Merge (adapter bridge required)",
-        "evidence": "CAND-100 SHARED_INFRASTRUCTURE; cap646 used by legacy surfaces; temporal used by P2–P6; no mapping module",
+        "existing_owner": "cap646/evidence_class.py (CAP646 product facade)",
+        "teas_owner": "blackdark/temporal/evidence_class.py (TEAS temporal facade)",
+        "overlap": "Unified under blackdark/evidence_taxonomy.py with deterministic bidirectional adapter",
+        "canonical_decision": "Reconciled",
+        "evidence": "blackdark/evidence_taxonomy.py EVIDENCE_TAXONOMY_VERSION=1.0.0; tests/test_evidence_taxonomy_reconciliation.py",
     },
     {
         "capability": "provenance / evidence ledger",
@@ -168,13 +168,23 @@ CAPABILITIES: list[dict[str, str]] = [
 ]
 
 
+def _taxonomy_reconciled() -> bool:
+    taxonomy = ROOT / "blackdark" / "evidence_taxonomy.py"
+    if not taxonomy.is_file():
+        return False
+    text = taxonomy.read_text(encoding="utf-8")
+    return "EVIDENCE_TAXONOMY_VERSION" in text and "map_cap646_to_temporal" in text
+
+
 def _run_regression_probe() -> int:
     cmd = [
         sys.executable,
         "-m",
         "pytest",
+        "tests/test_evidence_taxonomy_reconciliation.py",
         "tests/test_temporal_p3_failure_surprise_abstention.py::test_p2_evidence_ledger_reuse_without_duplicate_authority",
         "tests/test_temporal_p2_outcome_and_evidence.py",
+        "tests/cap646/test_cap646_closure.py",
         "-q",
         "--tb=no",
     ]
@@ -187,8 +197,11 @@ def main() -> int:
     parallel_owners = sum(
         1
         for c in CAPABILITIES
-        if "no import bridge" in c["overlap"].lower()
-        or "zero cross-import" in c["overlap"].lower()
+        if c["canonical_decision"].startswith("Merge")
+        or (
+            "parallel owner" in c["overlap"].lower()
+            and not c["canonical_decision"].startswith("Reconciled")
+        )
     )
     merge_required = semantic_duplicates
     safe_reuse = sum(
@@ -201,12 +214,15 @@ def main() -> int:
     dead_duplicate_paths = 0
     regression_failures = _run_regression_probe()
 
-    if semantic_duplicates == 0:
+    reconciled = _taxonomy_reconciled() and semantic_duplicates == 0 and merge_required == 0
+    if reconciled and regression_failures == 0:
+        verdict = "DUPLICATION_RECONCILED"
+    elif semantic_duplicates == 0:
         verdict = "NO_MATERIAL_DUPLICATION_FOUND"
     elif merge_required > 0 and regression_failures == 0:
         verdict = "DUPLICATION_RECONCILIATION_REQUIRED"
     else:
-        verdict = "DUPLICATION_RECONCILED"
+        verdict = "DUPLICATION_RECONCILIATION_FAILED"
 
     payload = {
         "audit_name": "TEAS Reuse / Duplication / Canonical Ownership Check",
@@ -235,17 +251,27 @@ def main() -> int:
         },
         "verdict": verdict,
         "capabilities": CAPABILITIES,
-        "material_findings": [
-            {
-                "finding_id": "FIND-001",
-                "existing_component": "cap646/evidence_class.py",
-                "teas_component": "blackdark/temporal/evidence_class.py",
-                "semantic_overlap": "Evidence tier taxonomy and promotion enforcement",
-                "canonical_owner": "Dual-owner until bridge: cap646 for platform surfaces; temporal for TEAS spine P2–P6",
-                "action": "Merge",
-                "migration_risk": "Medium — requires bidirectional mapping adapter; must not auto-promote across taxonomies",
-            }
-        ],
+        "material_findings": (
+            []
+            if reconciled
+            else [
+                {
+                    "finding_id": "FIND-001",
+                    "existing_component": "cap646/evidence_class.py",
+                    "teas_component": "blackdark/temporal/evidence_class.py",
+                    "semantic_overlap": "Evidence tier taxonomy and promotion enforcement",
+                    "canonical_owner": "blackdark/evidence_taxonomy.py",
+                    "action": "Merge",
+                    "migration_risk": "Medium — requires bidirectional mapping adapter; must not auto-promote across taxonomies",
+                }
+            ]
+        ),
+        "reconciliation": {
+            "canonical_owner": "blackdark/evidence_taxonomy.py",
+            "cap646_facade": "cap646/evidence_class.py",
+            "temporal_facade": "blackdark/temporal/evidence_class.py",
+            "taxonomy_reconciled": reconciled,
+        },
         "no_duplicate_evidence": [
             "P3 DUPLICATE_OUTCOME_FACTORY=0 and DUPLICATE_EVIDENCE_LEDGER=0",
             "P4 DUPLICATE_* counters all zero in controlled_learning/champion_challenger/learning_value",
