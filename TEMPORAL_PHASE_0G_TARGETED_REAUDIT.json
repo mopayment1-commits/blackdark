@@ -1,0 +1,308 @@
+{
+  "phase": "0G_TARGETED_REAUDIT",
+  "phase_name": "Independent Re-Audit of Phase 0G Targeted Correction",
+  "reaudited_at_utc": "2026-09-14T07:45:50Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "inputs": {
+    "discovery_artifact": "TEMPORAL_PROJECT_INTEGRATION_DISCOVERY.json",
+    "reconciliation_artifact": "TEMPORAL_PHASE_0G_RECONCILIATION.json",
+    "correction_artifact": "TEMPORAL_PHASE_0G_CORRECTION.json",
+    "prior_audit_artifact": "TEMPORAL_PHASE_0G_INDEPENDENT_AUDIT.json"
+  },
+  "precondition_result": {
+    "implementation_relevant_candidates": true,
+    "documentation_reference_only": true,
+    "canonical_owner_count": true,
+    "phase_0g_targeted_correction_complete": true,
+    "preconditions_pass": true
+  },
+  "symbol_verification": {
+    "corrections_audited": 32,
+    "corrected_symbols_invalid": 0,
+    "candidate_symbols_not_found": 0,
+    "candidate_paths_changed": 0,
+    "invalid_details": [],
+    "not_found_details": [],
+    "path_change_details": [],
+    "verification_results": [
+      {
+        "candidate_id": "CAND-001",
+        "symbol": "evaluate_production_guard",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-002",
+        "symbol": "apply_zero_tolerance",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-004",
+        "symbol": "run_background_startup",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-013",
+        "symbol": "PLAN_DEFINITIONS",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-034",
+        "symbol": "compact_historical_data",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-035",
+        "symbol": "run_coingecko_primary_ingest",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-040",
+        "symbol": "fetch_recent_closes",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-053",
+        "symbol": "scoped_key",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-071",
+        "symbol": "ml_bootstrap_replay",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-080",
+        "symbol": "evaluate_outcome",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-084",
+        "symbol": "on_prediction_created",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-090",
+        "symbol": "build_public_accuracy_payload",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-091",
+        "symbol": "compute_net_edge_truth",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-103",
+        "symbol": "create_locked",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-131",
+        "symbol": "predict_direction_regime_aware",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-133",
+        "symbol": "build_d5_honesty_board",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-141",
+        "symbol": "erase_user_data",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-160",
+        "symbol": "train_oracle_direction_model",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-171",
+        "symbol": "trust_os_enhanced",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-200",
+        "symbol": "test_is_synthetic_prediction",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-211",
+        "symbol": "test_enforce_drift_freezes_on_high_severity",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-230",
+        "symbol": "create_duel",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-250",
+        "symbol": "get_ohlcv",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-261",
+        "symbol": "lenses_manifest",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-281",
+        "symbol": "invoke_inventory_backend",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-282",
+        "symbol": "get_live_books_if_fresh",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-290",
+        "symbol": "verify_functional",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-291",
+        "symbol": "triple_institutional_closure",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-303",
+        "symbol": "tier_features",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-304",
+        "symbol": "observability_status",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-305",
+        "symbol": "evaluate_opportunity",
+        "valid": true,
+        "reason": "exact"
+      },
+      {
+        "candidate_id": "CAND-306",
+        "symbol": "test_systems_index_structure",
+        "valid": true,
+        "reason": "exact"
+      }
+    ]
+  },
+  "runtime_reachability_reaudit": {
+    "claimed_runtime_reachable_count": 82,
+    "recomputed_runtime_reachable_count": 82,
+    "false_runtime_reachable_claims": 0,
+    "false_runtime_details": [],
+    "missed_runtime_reachable_candidates": 0,
+    "missed_runtime_details": [],
+    "cand_281_reachable": false,
+    "required_true_reachable": {
+      "CAND-031": true,
+      "CAND-081": true,
+      "CAND-102": true,
+      "CAND-110": true,
+      "CAND-283": true
+    }
+  },
+  "integration_edge_reaudit": {
+    "claimed_integration_edge_count": 14,
+    "recomputed_integration_edge_count": 14,
+    "removed_unsupported_edges_still_present": 0,
+    "unsupported_discovery_edges": 0,
+    "invalid_edge_endpoints": 0,
+    "edge_type_misclassifications": 0,
+    "removed_still_present_details": [],
+    "unsupported_edge_details": []
+  },
+  "unaffected_content_regression": {
+    "unaffected_candidate_records_changed": 0,
+    "owner_mapping_changes_outside_defect_set": 0,
+    "named_system_mapping_regressions": 0,
+    "owner_coverage_regressions": 0,
+    "unaffected_change_details": [],
+    "named_regression_details": [],
+    "owner_regression_details": []
+  },
+  "discovery_integrity": {
+    "canonical_owners_discovery_accounted_for": 30,
+    "name_only_mappings": 0,
+    "unsupported_owner_mappings": 0,
+    "duplicate_candidate_records": 0,
+    "documentation_counted_as_implementation": 0,
+    "documentation_used_as_runtime_evidence": 0,
+    "discovery_overrides_canonical_ownership": 0,
+    "canonical_authority_inferred_from_existing_code": 0,
+    "implementation_status_leakage": 0
+  },
+  "scope_integrity": {
+    "correction_commit_files": [
+      "TEMPORAL_PHASE_0G_CORRECTION.json",
+      "TEMPORAL_PHASE_0G_RECONCILIATION.json",
+      "TEMPORAL_PROJECT_INTEGRATION_DISCOVERY.json"
+    ],
+    "runtime_source_files_changed": 0,
+    "unrelated_files_changed": 0
+  },
+  "acceptance_assertions": {
+    "CORRECTED_SYMBOLS_INVALID": 0,
+    "CANDIDATE_SYMBOLS_NOT_FOUND": 0,
+    "CANDIDATE_PATHS_CHANGED": 0,
+    "RECOMPUTED_RUNTIME_REACHABLE_COUNT": 82,
+    "FALSE_RUNTIME_REACHABLE_CLAIMS": 0,
+    "MISSED_RUNTIME_REACHABLE_CANDIDATES": 0,
+    "REMOVED_UNSUPPORTED_EDGES_STILL_PRESENT": 0,
+    "UNSUPPORTED_DISCOVERY_EDGES": 0,
+    "INVALID_EDGE_ENDPOINTS": 0,
+    "EDGE_TYPE_MISCLASSIFICATIONS": 0,
+    "RECOMPUTED_INTEGRATION_EDGE_COUNT": 14,
+    "UNAFFECTED_CANDIDATE_RECORDS_CHANGED": 0,
+    "OWNER_MAPPING_CHANGES_OUTSIDE_DEFECT_SET": 0,
+    "NAMED_SYSTEM_MAPPING_REGRESSIONS": 0,
+    "OWNER_COVERAGE_REGRESSIONS": 0,
+    "CANONICAL_OWNERS_DISCOVERY_ACCOUNTED_FOR": 30,
+    "NAME_ONLY_MAPPINGS": 0,
+    "UNSUPPORTED_OWNER_MAPPINGS": 0,
+    "DUPLICATE_CANDIDATE_RECORDS": 0,
+    "DOCUMENTATION_COUNTED_AS_IMPLEMENTATION": 0,
+    "DOCUMENTATION_USED_AS_RUNTIME_EVIDENCE": 0,
+    "DISCOVERY_OVERRIDES_CANONICAL_OWNERSHIP": 0,
+    "CANONICAL_AUTHORITY_INFERRED_FROM_EXISTING_CODE": 0,
+    "IMPLEMENTATION_STATUS_LEAKAGE": 0,
+    "RUNTIME_SOURCE_FILES_CHANGED": 0,
+    "UNRELATED_FILES_CHANGED": 0,
+    "UNEXPECTED_CHANGED_FILES": 0,
+    "PHASE_0G_TARGETED_REAUDIT_COMPLETE": true
+  },
+  "final_disposition": "PASS"
+}
