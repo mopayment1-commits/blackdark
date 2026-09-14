@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
-from governance.timezone_governance import to_user_local, validate_iana_timezone, utc_now_iso
+from governance.timezone_governance import resolve_user_timezone, to_user_local, utc_now_iso
 
 
 DEFAULT_DELIVERY_HOUR = 8  # user-local, not UTC-global mandate
@@ -19,9 +19,8 @@ def resolve_user_local_delivery(
 ) -> dict[str, Any]:
     """Resolve delivery schedule using canonical timezone governance."""
     prefs = preferences or payload.get("delivery_preferences") or {}
-    tz = user_timezone or prefs.get("timezone") or payload.get("user_timezone") or "UTC"
-    if not validate_iana_timezone(tz):
-        tz = "UTC"
+    tz_resolved = resolve_user_timezone(user_timezone or prefs.get("timezone") or payload.get("user_timezone"))
+    tz = tz_resolved["timezone"]
 
     hour = int(prefs.get("delivery_hour_local") or prefs.get("hour") or DEFAULT_DELIVERY_HOUR)
     opt_in = bool(prefs.get("opt_in", prefs.get("enabled", False)))
