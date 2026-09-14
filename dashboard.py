@@ -454,6 +454,12 @@ async def _start_web_microservice(app: FastAPI) -> None:
         app.state.uptime_probe_task = start_uptime_probe_loop()
     except Exception:
         logger.exception("Uptime self-probe failed in web mode")
+    try:
+        from ops.monitoring_alerting import start_monitoring_loop
+
+        app.state.monitoring_task = start_monitoring_loop()
+    except Exception:
+        logger.exception("Monitoring alerting loop failed to start")
 
 
 async def _start_background_runtime(app: FastAPI) -> None:
@@ -609,6 +615,17 @@ try:
     app.add_middleware(SecurityHeadersMiddleware)
 except Exception:
     pass
+
+
+@app.middleware("http")
+async def anonymous_route_enforcement_middleware(request: Request, call_next):
+    """P0 — PRIVATE_BY_DEFAULT server-side boundary for cookie-less requests."""
+    from anonymous_route_foundation import enforce_anonymous_route_boundary
+
+    denial = enforce_anonymous_route_boundary(request)
+    if denial is not None:
+        return denial
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -847,6 +864,13 @@ try:
     app.include_router(data_governance_router)
 except Exception:
     logger.exception("Data Governance router unavailable")
+
+try:
+    from api.routers.monitoring import router as monitoring_router
+
+    app.include_router(monitoring_router)
+except Exception:
+    logger.exception("Monitoring router unavailable")
 
 try:
     from api.routers.compounding import router as compounding_router

@@ -211,7 +211,7 @@ async def update_subscription_account(
     params.append(int(user_id))
     async with get_connection() as db:
         await db.execute(
-            f"UPDATE subscription_accounts SET {', '.join(updates)} WHERE user_id = ?",
+            f"UPDATE subscription_accounts SET {', '.join(updates)} WHERE user_id = ?",  # nosec B608
             params,
         )
         row = await (

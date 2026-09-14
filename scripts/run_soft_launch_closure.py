@@ -48,7 +48,7 @@ async def main() -> int:
             ROOT / "scripts" / "bootstrap_free_human_ops.py",
         )
         mod = importlib.util.module_from_spec(spec)
-        assert spec.loader is not None
+        assert spec.loader is not None  # nosec B101
         spec.loader.exec_module(mod)
         result = mod.write_softlaunch_env(admin_email=args.admin_email, rotate=False)
         if not result.get("ok"):

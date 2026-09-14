@@ -1,0 +1,2381 @@
+{
+  "generated": {
+    "151": {
+      "capability_id": 151,
+      "capability": "Quarterly Protocol Performance Reports",
+      "track": "T17",
+      "module": "due_diligence_bundle",
+      "entrypoint": "build_full_due_diligence_bundle",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "152": {
+      "capability_id": 152,
+      "capability": "Governance & Proposal Intelligence",
+      "track": "T17",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "153": {
+      "capability_id": 153,
+      "capability": "Project Monitoring Coverage Registry",
+      "track": "T17",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "154": {
+      "capability_id": 154,
+      "capability": "AI Crypto Copilot",
+      "track": "T10",
+      "module": "ai_oracle",
+      "entrypoint": "evaluate_opportunity",
+      "param_style": "opportunity",
+      "source": "capability_keyword"
+    },
+    "155": {
+      "capability_id": 155,
+      "capability": "AI Deep Research",
+      "track": "T10",
+      "module": "ai_oracle",
+      "entrypoint": "evaluate_opportunity",
+      "param_style": "opportunity",
+      "source": "capability_keyword"
+    },
+    "156": {
+      "capability_id": 156,
+      "capability": "Crypto Knowledge Graph",
+      "track": "T17",
+      "module": "due_diligence_bundle",
+      "entrypoint": "build_full_due_diligence_bundle",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "157": {
+      "capability_id": 157,
+      "capability": "Research Library",
+      "track": "T17",
+      "module": "due_diligence_bundle",
+      "entrypoint": "build_full_due_diligence_bundle",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "160": {
+      "capability_id": 160,
+      "capability": "Pay-Per-Request Data Access",
+      "track": "T02",
+      "module": "billing_service",
+      "entrypoint": "billing_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "161": {
+      "capability_id": 161,
+      "capability": "Institutional Data Delivery & Entitlements",
+      "track": "T16",
+      "module": "billing_service",
+      "entrypoint": "billing_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "165": {
+      "capability_id": 165,
+      "capability": "Fundraising Momentum Score",
+      "track": "T10",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "capability_keyword"
+    },
+    "166": {
+      "capability_id": 166,
+      "capability": "Research Confidence Score",
+      "track": "T05",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "capability_keyword"
+    },
+    "170": {
+      "capability_id": 170,
+      "capability": "Trending Words",
+      "track": "T02",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "171": {
+      "capability_id": 171,
+      "capability": "Trending Coins",
+      "track": "T11",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "172": {
+      "capability_id": 172,
+      "capability": "Historical Crypto Trends",
+      "track": "T04",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "179": {
+      "capability_id": 179,
+      "capability": "Development Activity Intelligence",
+      "track": "T04",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "180": {
+      "capability_id": 180,
+      "capability": "Development Activity Contributors",
+      "track": "T17",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "181": {
+      "capability_id": 181,
+      "capability": "Ecosystem Development Dashboard",
+      "track": "T15",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "182": {
+      "capability_id": 182,
+      "capability": "Developer Activity Change Detection",
+      "track": "T17",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "185": {
+      "capability_id": 185,
+      "capability": "Top Holders Intelligence",
+      "track": "T09",
+      "module": "whale_tracker",
+      "entrypoint": "get_latest_whale_alerts",
+      "param_style": "limit",
+      "source": "capability_keyword"
+    },
+    "187": {
+      "capability_id": 187,
+      "capability": "Exchange Inflow Intelligence",
+      "track": "T09",
+      "module": "bd_platform.heroes_capability_layer",
+      "entrypoint": "exchange_netflow_intelligence_48",
+      "param_style": "exchange_asset",
+      "source": "capability_keyword"
+    },
+    "188": {
+      "capability_id": 188,
+      "capability": "Exchange Outflow Intelligence",
+      "track": "T09",
+      "module": "bd_platform.heroes_capability_layer",
+      "entrypoint": "exchange_netflow_intelligence_48",
+      "param_style": "exchange_asset",
+      "source": "capability_keyword"
+    },
+    "189": {
+      "capability_id": 189,
+      "capability": "Exchange Netflow Intelligence",
+      "track": "T04",
+      "module": "bd_platform.heroes_capability_layer",
+      "entrypoint": "exchange_netflow_intelligence_48",
+      "param_style": "exchange_asset",
+      "source": "capability_keyword"
+    },
+    "191": {
+      "capability_id": 191,
+      "capability": "Exchange User Activity",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "192": {
+      "capability_id": 192,
+      "capability": "Network Activity Intelligence",
+      "track": "T14",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "193": {
+      "capability_id": 193,
+      "capability": "Transaction Volume Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "194": {
+      "capability_id": 194,
+      "capability": "NVT Intelligence",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "196": {
+      "capability_id": 196,
+      "capability": "Realized Cap / Realized Value Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "197": {
+      "capability_id": 197,
+      "capability": "Daily Active Addresses",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "198": {
+      "capability_id": 198,
+      "capability": "Age Consumed / Dormancy Intelligence",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "199": {
+      "capability_id": 199,
+      "capability": "Mean Dollar Invested Age",
+      "track": "T08",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T08"
+    },
+    "200": {
+      "capability_id": 200,
+      "capability": "Token Circulation Intelligence",
+      "track": "T11",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_market"
+    },
+    "201": {
+      "capability_id": 201,
+      "capability": "Network Growth Intelligence",
+      "track": "T11",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_market"
+    },
+    "202": {
+      "capability_id": 202,
+      "capability": "Supply Distribution Intelligence",
+      "track": "T01",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_ai"
+    },
+    "207": {
+      "capability_id": 207,
+      "capability": "Price / Volume / Market Metrics",
+      "track": "T05",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "208": {
+      "capability_id": 208,
+      "capability": "Metric Correlation Workbench",
+      "track": "T09",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "210": {
+      "capability_id": 210,
+      "capability": "Custom Dashboards / Layouts",
+      "track": "T14",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "211": {
+      "capability_id": 211,
+      "capability": "Screener",
+      "track": "T16",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "215": {
+      "capability_id": 215,
+      "capability": "Community Explorer",
+      "track": "T16",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "semantic_track_T16"
+    },
+    "216": {
+      "capability_id": 216,
+      "capability": "Research & Market Insights",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "217": {
+      "capability_id": 217,
+      "capability": "SanAPI-Style Data Access",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "218": {
+      "capability_id": 218,
+      "capability": "Google Sheets Integration",
+      "track": "T02",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "219": {
+      "capability_id": 219,
+      "capability": "Metric Availability Registry",
+      "track": "T02",
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "220": {
+      "capability_id": 220,
+      "capability": "Data Stabilization & Mutability Metadata",
+      "track": "T03",
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "225": {
+      "capability_id": 225,
+      "capability": "Development-to-Market Divergence Detector",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "227": {
+      "capability_id": 227,
+      "capability": "Unified Trading Intelligence Workspace",
+      "track": "T09",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "234": {
+      "capability_id": 234,
+      "capability": "CVD Intelligence",
+      "track": "T05",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_ai"
+    },
+    "238": {
+      "capability_id": 238,
+      "capability": "Pump & Dump Detection",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "240": {
+      "capability_id": 240,
+      "capability": "Sector Rotation Intelligence",
+      "track": "T17",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "243": {
+      "capability_id": 243,
+      "capability": "Correlation Matrix",
+      "track": "T05",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "244": {
+      "capability_id": 244,
+      "capability": "New Listings Intelligence",
+      "track": "T11",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_market"
+    },
+    "246": {
+      "capability_id": 246,
+      "capability": "Coverage Metadata Registry",
+      "track": "T15",
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "247": {
+      "capability_id": 247,
+      "capability": "Public REST API",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "249": {
+      "capability_id": 249,
+      "capability": "CLI Access",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "250": {
+      "capability_id": 250,
+      "capability": "OpenAPI / SDK Generation",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "258": {
+      "capability_id": 258,
+      "capability": "Top Trader Positioning",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "265": {
+      "capability_id": 265,
+      "capability": "Max Pain / Gamma Context",
+      "track": "T08",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T08"
+    },
+    "266": {
+      "capability_id": 266,
+      "capability": "Spot Market Intelligence",
+      "track": "T11",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_market"
+    },
+    "268": {
+      "capability_id": 268,
+      "capability": "Historical Derivatives Data",
+      "track": "T04",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "269": {
+      "capability_id": 269,
+      "capability": "Exchange Comparison",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "271": {
+      "capability_id": 271,
+      "capability": "Leverage Pressure Score",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "276": {
+      "capability_id": 276,
+      "capability": "Entity Resolution Engine",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "277": {
+      "capability_id": 277,
+      "capability": "Address Labeling System",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "278": {
+      "capability_id": 278,
+      "capability": "Entity Profiles",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "282": {
+      "capability_id": 282,
+      "capability": "Entity PnL",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "283": {
+      "capability_id": 283,
+      "capability": "Exchange Usage Intelligence",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "284": {
+      "capability_id": 284,
+      "capability": "Top Counterparties",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "285": {
+      "capability_id": 285,
+      "capability": "Visualizer / Network Graph",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "286": {
+      "capability_id": 286,
+      "capability": "Automated Trace / Path Finding",
+      "track": "T14",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T14"
+    },
+    "287": {
+      "capability_id": 287,
+      "capability": "Cross-Chain Trace",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "288": {
+      "capability_id": 288,
+      "capability": "Token Top Holders",
+      "track": "T17",
+      "module": "whale_tracker",
+      "entrypoint": "get_latest_whale_alerts",
+      "param_style": "limit",
+      "source": "capability_keyword"
+    },
+    "289": {
+      "capability_id": 289,
+      "capability": "Token Exchange Flows",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "290": {
+      "capability_id": 290,
+      "capability": "Token Transaction Explorer",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "291": {
+      "capability_id": 291,
+      "capability": "Custom Dashboards",
+      "track": "T09",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "293": {
+      "capability_id": 293,
+      "capability": "Private Labels",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "295": {
+      "capability_id": 295,
+      "capability": "AI Market Insights",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "297": {
+      "capability_id": 297,
+      "capability": "Fraud / Suspicious Activity Intelligence",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "298": {
+      "capability_id": 298,
+      "capability": "API On-Chain Intelligence",
+      "track": "T17",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_ai"
+    },
+    "302": {
+      "capability_id": 302,
+      "capability": "Technical Indicator Library",
+      "track": "T01",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "303": {
+      "capability_id": 303,
+      "capability": "Custom Indicator Scripting",
+      "track": "T11",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "305": {
+      "capability_id": 305,
+      "capability": "Market Screener",
+      "track": "T17",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "306": {
+      "capability_id": 306,
+      "capability": "Pine-Style Screener",
+      "track": "T11",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "309": {
+      "capability_id": 309,
+      "capability": "Economic Calendar",
+      "track": "T16",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "semantic_track_T16"
+    },
+    "310": {
+      "capability_id": 310,
+      "capability": "Crypto Calendar / Events",
+      "track": "T03",
+      "module": "data_provenance_score",
+      "entrypoint": "compute_data_provenance_score",
+      "param_style": "symbol",
+      "source": "semantic_track_T03"
+    },
+    "312": {
+      "capability_id": 312,
+      "capability": "Heatmaps",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "313": {
+      "capability_id": 313,
+      "capability": "Technical Ratings",
+      "track": "T14",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T14"
+    },
+    "314": {
+      "capability_id": 314,
+      "capability": "Drawing Tools",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "317": {
+      "capability_id": 317,
+      "capability": "Community Scripts",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "318": {
+      "capability_id": 318,
+      "capability": "Broker Comparison",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "319": {
+      "capability_id": 319,
+      "capability": "Paper Trading / Simulation",
+      "track": "T03",
+      "module": "data_provenance_score",
+      "entrypoint": "compute_data_provenance_score",
+      "param_style": "symbol",
+      "source": "semantic_track_T03"
+    },
+    "320": {
+      "capability_id": 320,
+      "capability": "Cross-Market Workspace",
+      "track": "T06",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "321": {
+      "capability_id": 321,
+      "capability": "Custom Intelligence Screener",
+      "track": "T18",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "323": {
+      "capability_id": 323,
+      "capability": "Institutional L1/L2 Market Data",
+      "track": "T08",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "325": {
+      "capability_id": 325,
+      "capability": "Spot & Derivatives Coverage",
+      "track": "T05",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "327": {
+      "capability_id": 327,
+      "capability": "Market Depth & Liquidity Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "328": {
+      "capability_id": 328,
+      "capability": "Fair Market Value Pricing",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "331": {
+      "capability_id": 331,
+      "capability": "ETF Reference Rates / iNAV",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "332": {
+      "capability_id": 332,
+      "capability": "Commodity / TradFi Reference Rates",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "333": {
+      "capability_id": 333,
+      "capability": "Indices",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "335": {
+      "capability_id": 335,
+      "capability": "Derivatives Listing Analytics",
+      "track": "T08",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "336": {
+      "capability_id": 336,
+      "capability": "Market Surveillance",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "337": {
+      "capability_id": 337,
+      "capability": "AML/CFT On-Chain Monitoring",
+      "track": "T11",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "340": {
+      "capability_id": 340,
+      "capability": "Real-Time REST/gRPC Streaming",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "341": {
+      "capability_id": 341,
+      "capability": "Historical Data Archive",
+      "track": "T15",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "344": {
+      "capability_id": 344,
+      "capability": "Institutional SLA Monitoring",
+      "track": "T17",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "346": {
+      "capability_id": 346,
+      "capability": "Standardized Financial Metrics",
+      "track": "T15",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "348": {
+      "capability_id": 348,
+      "capability": "Revenue Intelligence",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "349": {
+      "capability_id": 349,
+      "capability": "Token Incentives",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "350": {
+      "capability_id": 350,
+      "capability": "Earnings / Economic Profit Proxy",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "351": {
+      "capability_id": 351,
+      "capability": "Active Users",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "352": {
+      "capability_id": 352,
+      "capability": "Core Developers",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "353": {
+      "capability_id": 353,
+      "capability": "Code Commits",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "355": {
+      "capability_id": 355,
+      "capability": "Borrowed / Loans Outstanding",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "358": {
+      "capability_id": 358,
+      "capability": "Valuation Multiples",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "359": {
+      "capability_id": 359,
+      "capability": "Growth Metrics",
+      "track": "T01",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "360": {
+      "capability_id": 360,
+      "capability": "Margins / Take Rate",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "361": {
+      "capability_id": 361,
+      "capability": "Project Comparables",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "362": {
+      "capability_id": 362,
+      "capability": "Sector Comparables",
+      "track": "T17",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "363": {
+      "capability_id": 363,
+      "capability": "Tokenized Asset Coverage",
+      "track": "T17",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "364": {
+      "capability_id": 364,
+      "capability": "Fundamental Screener",
+      "track": "T10",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "365": {
+      "capability_id": 365,
+      "capability": "Financial Statement View",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "366": {
+      "capability_id": 366,
+      "capability": "Data Methodology Registry",
+      "track": "T10",
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "368": {
+      "capability_id": 368,
+      "capability": "API / Data Export",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "370": {
+      "capability_id": 370,
+      "capability": "SQL On-Chain Query Workspace",
+      "track": "T09",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "371": {
+      "capability_id": 371,
+      "capability": "Curated Data Models",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "372": {
+      "capability_id": 372,
+      "capability": "Decoded Smart Contract Tables",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "373": {
+      "capability_id": 373,
+      "capability": "Cross-Chain Data Warehouse",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "374": {
+      "capability_id": 374,
+      "capability": "Visualization Builder",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "375": {
+      "capability_id": 375,
+      "capability": "Dashboard Builder",
+      "track": "T14",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "376": {
+      "capability_id": 376,
+      "capability": "Public Dashboard Sharing",
+      "track": "T11",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "377": {
+      "capability_id": 377,
+      "capability": "Community Discovery",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "378": {
+      "capability_id": 378,
+      "capability": "Query Forking",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "379": {
+      "capability_id": 379,
+      "capability": "Data API",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "381": {
+      "capability_id": 381,
+      "capability": "Datashare",
+      "track": "T03",
+      "module": "data_provenance_score",
+      "entrypoint": "compute_data_provenance_score",
+      "param_style": "symbol",
+      "source": "semantic_track_T03"
+    },
+    "382": {
+      "capability_id": 382,
+      "capability": "dbt Connector",
+      "track": "T11",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "383": {
+      "capability_id": 383,
+      "capability": "BI Connectors",
+      "track": "T03",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "386": {
+      "capability_id": 386,
+      "capability": "Dashboard-from-Prompt",
+      "track": "T06",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "387": {
+      "capability_id": 387,
+      "capability": "Scheduled Queries",
+      "track": "T14",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T14"
+    },
+    "390": {
+      "capability_id": 390,
+      "capability": "Query Performance Governance",
+      "track": "T11",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "391": {
+      "capability_id": 391,
+      "capability": "White-Label Embedded Analytics",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "395": {
+      "capability_id": 395,
+      "capability": "Protocol Directory",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "401": {
+      "capability_id": 401,
+      "capability": "Bridges Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "404": {
+      "capability_id": 404,
+      "capability": "Borrowing Rates",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "405": {
+      "capability_id": 405,
+      "capability": "Liquid Staking Intelligence",
+      "track": "T01",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_ai"
+    },
+    "406": {
+      "capability_id": 406,
+      "capability": "RWA Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "408": {
+      "capability_id": 408,
+      "capability": "Investor Profiles",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "410": {
+      "capability_id": 410,
+      "capability": "Treasury Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "411": {
+      "capability_id": 411,
+      "capability": "Airdrop / Incentive Intelligence",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "412": {
+      "capability_id": 412,
+      "capability": "Capital Formation Radar",
+      "track": "T03",
+      "module": "data_provenance_score",
+      "entrypoint": "compute_data_provenance_score",
+      "param_style": "symbol",
+      "source": "semantic_track_T03"
+    },
+    "415": {
+      "capability_id": 415,
+      "capability": "API Aggregation Layer",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "417": {
+      "capability_id": 417,
+      "capability": "Cross-Chain Fundamentals",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "418": {
+      "capability_id": 418,
+      "capability": "Protocol Fundamentals",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "421": {
+      "capability_id": 421,
+      "capability": "Developer Activity",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "422": {
+      "capability_id": 422,
+      "capability": "Sector/Ecosystem Comparables",
+      "track": "T15",
+      "module": "bd_platform.market_rankings",
+      "entrypoint": "market_rankings",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "423": {
+      "capability_id": 423,
+      "capability": "Equities + Crypto Research",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "424": {
+      "capability_id": 424,
+      "capability": "Consensus Estimates",
+      "track": "T14",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T14"
+    },
+    "425": {
+      "capability_id": 425,
+      "capability": "AI Analyst",
+      "track": "T03",
+      "module": "data_provenance_score",
+      "entrypoint": "compute_data_provenance_score",
+      "param_style": "symbol",
+      "source": "semantic_track_T03"
+    },
+    "426": {
+      "capability_id": 426,
+      "capability": "Thesis Research Workspace",
+      "track": "T17",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "427": {
+      "capability_id": 427,
+      "capability": "Comparable Company / Protocol Analysis",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "428": {
+      "capability_id": 428,
+      "capability": "Excel / Sheets Integration",
+      "track": "T17",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "430": {
+      "capability_id": 430,
+      "capability": "Research Templates",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "431": {
+      "capability_id": 431,
+      "capability": "Dashboards",
+      "track": "T10",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "433": {
+      "capability_id": 433,
+      "capability": "On-Chain Usage Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "435": {
+      "capability_id": 435,
+      "capability": "Cross-Market Research Copilot",
+      "track": "T10",
+      "module": "ai_oracle",
+      "entrypoint": "evaluate_opportunity",
+      "param_style": "opportunity",
+      "source": "capability_keyword"
+    },
+    "436": {
+      "capability_id": 436,
+      "capability": "Investment Thesis Scoring",
+      "track": "T12",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_T12"
+    },
+    "443": {
+      "capability_id": 443,
+      "capability": "Protocol Exploit Intelligence",
+      "track": "T10",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_onchain"
+    },
+    "449": {
+      "capability_id": 449,
+      "capability": "Curated On-Chain Dashboards",
+      "track": "T15",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "451": {
+      "capability_id": 451,
+      "capability": "Protocol Dominance",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "452": {
+      "capability_id": 452,
+      "capability": "Aave Multi-Chain Analytics",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "454": {
+      "capability_id": 454,
+      "capability": "Capital Protection Controls",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "456": {
+      "capability_id": 456,
+      "capability": "Cross-Protocol Contagion",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "459": {
+      "capability_id": 459,
+      "capability": "Network Data Pro Metrics",
+      "track": "T10",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "460": {
+      "capability_id": 460,
+      "capability": "Atlas Blockchain Search",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "463": {
+      "capability_id": 463,
+      "capability": "Block Search",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "467": {
+      "capability_id": 467,
+      "capability": "Market Data Pro",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "470": {
+      "capability_id": 470,
+      "capability": "Realized Metrics",
+      "track": "T17",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "lookintobitcoin_macro",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "471": {
+      "capability_id": 471,
+      "capability": "Supply Metrics",
+      "track": "T05",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "lookintobitcoin_macro",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "472": {
+      "capability_id": 472,
+      "capability": "Mining/Validator Metrics",
+      "track": "T14",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "474": {
+      "capability_id": 474,
+      "capability": "Activity Metrics",
+      "track": "T14",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "475": {
+      "capability_id": 475,
+      "capability": "Custom Metric Workbench",
+      "track": "T14",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T14"
+    },
+    "477": {
+      "capability_id": 477,
+      "capability": "Market + Network Join",
+      "track": "T03",
+      "module": "data_provenance_score",
+      "entrypoint": "compute_data_provenance_score",
+      "param_style": "symbol",
+      "source": "semantic_track_T03"
+    },
+    "479": {
+      "capability_id": 479,
+      "capability": "Historical Research Dataset",
+      "track": "T17",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "480": {
+      "capability_id": 480,
+      "capability": "Institutional APIs",
+      "track": "T17",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "482": {
+      "capability_id": 482,
+      "capability": "Institutional Trade Data",
+      "track": "T05",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "484": {
+      "capability_id": 484,
+      "capability": "OHLCV Data",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "485": {
+      "capability_id": 485,
+      "capability": "Derivatives Data",
+      "track": "T03",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "489": {
+      "capability_id": 489,
+      "capability": "Reference Pricing",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "490": {
+      "capability_id": 490,
+      "capability": "Exchange Metadata",
+      "track": "T17",
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "492": {
+      "capability_id": 492,
+      "capability": "Historical Market Archive",
+      "track": "T01",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "493": {
+      "capability_id": 493,
+      "capability": "Real-Time Streams",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "494": {
+      "capability_id": 494,
+      "capability": "Market Aggregates",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "495": {
+      "capability_id": 495,
+      "capability": "Liquidity Analytics",
+      "track": "T04",
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "param_style": "books",
+      "source": "capability_keyword"
+    },
+    "496": {
+      "capability_id": 496,
+      "capability": "Volatility Analytics",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "497": {
+      "capability_id": 497,
+      "capability": "Market Cap / Supply",
+      "track": "T08",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "lookintobitcoin_macro",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "498": {
+      "capability_id": 498,
+      "capability": "ETF / ETP Data",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "499": {
+      "capability_id": 499,
+      "capability": "API Coverage Registry",
+      "track": "T03",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "501": {
+      "capability_id": 501,
+      "capability": "Institutional Delivery",
+      "track": "T17",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "502": {
+      "capability_id": 502,
+      "capability": "Benchmark Administration Metadata",
+      "track": "T15",
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "503": {
+      "capability_id": 503,
+      "capability": "Cross-Market Data Intelligence",
+      "track": "T17",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_ai"
+    },
+    "504": {
+      "capability_id": 504,
+      "capability": "Unified Exchange Connector Layer",
+      "track": "T05",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "505": {
+      "capability_id": 505,
+      "capability": "Tick Trade Data",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "506": {
+      "capability_id": 506,
+      "capability": "Quote Data",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "513": {
+      "capability_id": 513,
+      "capability": "Asset & Symbol Metadata",
+      "track": "T05",
+      "module": "blackdark.canonical.resolver",
+      "entrypoint": "resolve_asset",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "514": {
+      "capability_id": 514,
+      "capability": "Historical Flat Files",
+      "track": "T11",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "515": {
+      "capability_id": 515,
+      "capability": "REST API",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "516": {
+      "capability_id": 516,
+      "capability": "WebSocket Streaming",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "517": {
+      "capability_id": 517,
+      "capability": "FIX Connectivity",
+      "track": "T03",
+      "module": "data_provenance_score",
+      "entrypoint": "compute_data_provenance_score",
+      "param_style": "symbol",
+      "source": "semantic_track_T03"
+    },
+    "518": {
+      "capability_id": 518,
+      "capability": "MCP for AI",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "519": {
+      "capability_id": 519,
+      "capability": "Exchange Rates / VWAP",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "522": {
+      "capability_id": 522,
+      "capability": "EMS Integration Boundary",
+      "track": "T08",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "523": {
+      "capability_id": 523,
+      "capability": "Data Health / SLA Monitoring",
+      "track": "T06",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "524": {
+      "capability_id": 524,
+      "capability": "Symbol Mapping Engine",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "526": {
+      "capability_id": 526,
+      "capability": "AI Market Data Grounding Layer",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "539": {
+      "capability_id": 539,
+      "capability": "Liquidity Zones",
+      "track": "T04",
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "param_style": "books",
+      "source": "capability_keyword"
+    },
+    "540": {
+      "capability_id": 540,
+      "capability": "Bot Activity Detection",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "541": {
+      "capability_id": 541,
+      "capability": "Market Positioning",
+      "track": "T11",
+      "module": "blackdark.canonical.layer",
+      "entrypoint": "get_canonical_layer",
+      "param_style": "none",
+      "source": "semantic_track_T11"
+    },
+    "543": {
+      "capability_id": 543,
+      "capability": "Orderflow Anomaly Detection",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "544": {
+      "capability_id": 544,
+      "capability": "API Indicator Platform",
+      "track": "T04",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "545": {
+      "capability_id": 545,
+      "capability": "Trader Cohort Intelligence",
+      "track": "T03",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_ai"
+    },
+    "548": {
+      "capability_id": 548,
+      "capability": "Derivatives Dashboard",
+      "track": "T01",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "553": {
+      "capability_id": 553,
+      "capability": "Basis Intelligence",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_market"
+    },
+    "554": {
+      "capability_id": 554,
+      "capability": "Spot Market Data",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "559": {
+      "capability_id": 559,
+      "capability": "TradFi Context",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "560": {
+      "capability_id": 560,
+      "capability": "Multi-Indicator Workspace",
+      "track": "T18",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "561": {
+      "capability_id": 561,
+      "capability": "Real-Time Prices",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "562": {
+      "capability_id": 562,
+      "capability": "Historical Data",
+      "track": "T04",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "563": {
+      "capability_id": 563,
+      "capability": "API Data Access",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "565": {
+      "capability_id": 565,
+      "capability": "Cross-Asset Correlation",
+      "track": "T03",
+      "module": "bd_platform.alpha_engine",
+      "entrypoint": "compute_alpha_signal",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "566": {
+      "capability_id": 566,
+      "capability": "Derivatives Regime Engine",
+      "track": "T01",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "570": {
+      "capability_id": 570,
+      "capability": "High_Availability_Architecture",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "571": {
+      "capability_id": 571,
+      "capability": "Infrastructure_Uptime_Shield",
+      "track": "T01",
+      "module": "scale_readiness",
+      "entrypoint": "scale_readiness_report",
+      "param_style": "none",
+      "source": "semantic_track_T01"
+    },
+    "572": {
+      "capability_id": 572,
+      "capability": "Institutional_Data_Architecture",
+      "track": "T15",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "573": {
+      "capability_id": 573,
+      "capability": "Flexible_Connector_Microservice",
+      "track": "T15",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "574": {
+      "capability_id": 574,
+      "capability": "Institutional_API_Gateway",
+      "track": "T02",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "575": {
+      "capability_id": 575,
+      "capability": "API_Data_Pipe",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "576": {
+      "capability_id": 576,
+      "capability": "Developer_SDK",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "577": {
+      "capability_id": 577,
+      "capability": "Pro_Developer_Sandbox",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "579": {
+      "capability_id": 579,
+      "capability": "Global_Asset_Tracker",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "580": {
+      "capability_id": 580,
+      "capability": "Multi_Account_Sync",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "582": {
+      "capability_id": 582,
+      "capability": "Profitability_Analyzer",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "585": {
+      "capability_id": 585,
+      "capability": "Volatility_Scoring_System",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "586": {
+      "capability_id": 586,
+      "capability": "Volatility_Surface_Analyzer",
+      "track": "T08",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T08"
+    },
+    "587": {
+      "capability_id": 587,
+      "capability": "Delta_Neutral_Calculator",
+      "track": "T06",
+      "module": "arbitrage_service",
+      "entrypoint": "scan_arbitrage_opportunities",
+      "param_style": "quote",
+      "source": "semantic_track_T06"
+    },
+    "589": {
+      "capability_id": 589,
+      "capability": "Strategy_Vetting_Algorithm",
+      "track": "T05",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T05"
+    },
+    "590": {
+      "capability_id": 590,
+      "capability": "AI_Quant_Rating_Engine",
+      "track": "T08",
+      "module": "bd_platform.derivatives_hub",
+      "entrypoint": "derivatives_overview",
+      "param_style": "symbol",
+      "source": "semantic_track_T08"
+    },
+    "595": {
+      "capability_id": 595,
+      "capability": "AI_Digest_Generator",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "597": {
+      "capability_id": 597,
+      "capability": "Natural_Language_Interpreter",
+      "track": "T12",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_T12"
+    },
+    "599": {
+      "capability_id": 599,
+      "capability": "Entity_Tagging_System",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "601": {
+      "capability_id": 601,
+      "capability": "Visual_Transaction_Graph",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "603": {
+      "capability_id": 603,
+      "capability": "Miner_Flow_Monitor",
+      "track": "T15",
+      "module": "product_honesty_api",
+      "entrypoint": "build_public_readiness",
+      "param_style": "none",
+      "source": "semantic_track_T15"
+    },
+    "606": {
+      "capability_id": 606,
+      "capability": "Dev_Health_Score",
+      "track": "T17",
+      "module": "oracle_track_record",
+      "entrypoint": "public_track_record",
+      "param_style": "none",
+      "source": "semantic_track_T17"
+    },
+    "607": {
+      "capability_id": 607,
+      "capability": "Financial_Health_Scoring",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "608": {
+      "capability_id": 608,
+      "capability": "Custom_Ratio_Engine",
+      "track": "T10",
+      "module": "bd_platform.onchain_hub",
+      "entrypoint": "defillama_raises",
+      "param_style": "none",
+      "source": "semantic_track_T10"
+    },
+    "619": {
+      "capability_id": 619,
+      "capability": "Trend_Metric_Collector",
+      "track": "T02",
+      "module": "cap646.fallbacks",
+      "entrypoint": "resolve_ohlcv_closes",
+      "param_style": "symbol",
+      "source": "capability_keyword"
+    },
+    "620": {
+      "capability_id": 620,
+      "capability": "MTF_Core_Logic",
+      "track": "T04",
+      "module": "market_context",
+      "entrypoint": "probe_price_sources",
+      "param_style": "symbol",
+      "source": "semantic_track_T04"
+    },
+    "621": {
+      "capability_id": 621,
+      "capability": "Pattern_Recognition_Engine",
+      "track": "T12",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_T12"
+    },
+    "623": {
+      "capability_id": 623,
+      "capability": "Execution_Latency_Monitor",
+      "track": "T09",
+      "module": "onchain_tracker",
+      "entrypoint": "build_onchain_context_safe",
+      "param_style": "none",
+      "source": "semantic_track_T09"
+    },
+    "624": {
+      "capability_id": 624,
+      "capability": "Low_Latency_Execution_Node",
+      "track": "T06",
+      "module": "arbitrage_service",
+      "entrypoint": "scan_arbitrage_opportunities",
+      "param_style": "quote",
+      "source": "semantic_track_T06"
+    },
+    "625": {
+      "capability_id": 625,
+      "capability": "Rust_Execution_Module",
+      "track": "T02",
+      "module": "security_posture",
+      "entrypoint": "security_posture_report",
+      "param_style": "none",
+      "source": "semantic_track_T02"
+    },
+    "626": {
+      "capability_id": 626,
+      "capability": "Institutional_Dashboard",
+      "track": "T06",
+      "module": "bd_platform.infra_status",
+      "entrypoint": "infra_matrix",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "627": {
+      "capability_id": 627,
+      "capability": "Custom_Institutional_Data_Terminal",
+      "track": "T15",
+      "module": "org_tenant",
+      "entrypoint": "org_isolation_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    },
+    "628": {
+      "capability_id": 628,
+      "capability": "Viral_Intelligence_Distribution_Loop",
+      "track": "T15",
+      "module": "trust_pulse",
+      "entrypoint": "build_trust_pulse",
+      "param_style": "symbol_tier",
+      "source": "semantic_track_ai"
+    },
+    "633": {
+      "capability_id": 633,
+      "capability": "Cross-Chain Liquidity Flow",
+      "track": "T09",
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "param_style": "books",
+      "source": "capability_keyword"
+    },
+    "634": {
+      "capability_id": 634,
+      "capability": "Liquidity/Full-Fill Feasibility",
+      "track": "T06",
+      "module": "live_book_hub",
+      "entrypoint": "hub_stats",
+      "param_style": "books",
+      "source": "capability_keyword"
+    },
+    "636": {
+      "capability_id": 636,
+      "capability": "Market/Data Drift Monitoring",
+      "track": "T03",
+      "module": "ops.monitoring_alerting",
+      "entrypoint": "monitoring_status",
+      "param_style": "none",
+      "source": "capability_keyword"
+    }
+  },
+  "count": 264
+}

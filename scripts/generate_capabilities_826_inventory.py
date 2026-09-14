@@ -26,7 +26,9 @@ BATCH03_PREP_IDS = frozenset(range(101, 151))
 
 
 def official_batch(capability_id: int) -> str:
-    return f"batch{(capability_id - 1) // 50 + 1:02d}"
+    from cap646.batch_constants import official_batch_name
+
+    return official_batch_name(capability_id)
 
 
 def _load_evidence() -> dict[int, dict[str, Any]]:
@@ -233,10 +235,14 @@ def main() -> None:
         "generated_at": datetime.now(UTC).isoformat(),
         "scope": f"IDs 1-{PROJECT_SCOPE_TOTAL} institutional RTM",
         "scope_baseline": {
-            "batch01": "IDs 1–50",
-            "batch02": "IDs 51–100",
-            "batch03": "IDs 101–150",
-            "formula": "official_batch = batch((id-1)//50 + 1)",
+            "capabilities_per_batch": 25,
+            "total_batches": 34,
+            "batch01": "IDs 1–25",
+            "batch02": "IDs 26–50",
+            "batch06": "IDs 126–150",
+            "batch07": "IDs 151–175",
+            "batch34": "ID 826",
+            "formula": "official_batch = batch((id-1)//25 + 1)",
         },
         "classification_taxonomy": classification_taxonomy,
         "summary": {
