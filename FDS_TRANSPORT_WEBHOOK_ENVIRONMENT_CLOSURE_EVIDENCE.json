@@ -1,0 +1,166 @@
+{
+  "verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+  "generated_at": "2026-09-14T23:35:52.674175+00:00",
+  "governing_spec": {
+    "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
+    "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
+  },
+  "git": {
+    "base_sha": "b28cb328f9da9ffd6f1286396a80ce4c063f3d6e",
+    "implementation_sha": "b28cb328f9da9ffd6f1286396a80ce4c063f3d6e"
+  },
+  "scope": {
+    "fds_controls": [
+      "FDS-09",
+      "FDS-14",
+      "FDS-19"
+    ],
+    "sdg_controls": [
+      "SDG-11",
+      "SDG-13"
+    ]
+  },
+  "canonical_owners": {
+    "transport": "transport_webhook_env/transport.py",
+    "environment": "transport_webhook_env/environment.py",
+    "webhook_lifecycle": "transport_webhook_env/webhook_lifecycle.py",
+    "access_audit": "transport_webhook_env/access_audit.py",
+    "security_middleware": "security_middleware.py",
+    "billing_webhooks": "api/routers/billing.py",
+    "stripe_webhook": "dashboard.py",
+    "production_guard": "production_guard.py"
+  },
+  "tests": {
+    "command": "python -m pytest tests/test_fds_transport_webhook_environment.py -q",
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": "...........................                                              [100%]\n",
+    "stderr_tail": ""
+  },
+  "previous_phase_regressions": {
+    "fds_secrets_crypto_audit_identity_closure_verify.py": {
+      "command": "python fds_secrets_crypto_audit_identity_closure_verify.py",
+      "exit_code": 0,
+      "passed": true
+    },
+    "fds_privileged_identity_authorization_closure_verify.py": {
+      "command": "python fds_privileged_identity_authorization_closure_verify.py",
+      "exit_code": 0,
+      "passed": true
+    },
+    "fds_security_governance_data_boundary_closure_verify.py": {
+      "command": "python fds_security_governance_data_boundary_closure_verify.py",
+      "exit_code": 0,
+      "passed": true
+    }
+  },
+  "evaluation": {
+    "scope_verified": true,
+    "controls": {
+      "FDS-09": {
+        "verified": true,
+        "evidence": "transport_webhook_env.transport + security_middleware"
+      },
+      "FDS-14": {
+        "verified": true,
+        "evidence": "transport_webhook_env.environment"
+      },
+      "FDS-19": {
+        "verified": true,
+        "evidence": "transport_webhook_env.webhook_lifecycle + billing routers"
+      }
+    },
+    "sdg": {
+      "SDG-11": {
+        "verified": true,
+        "evidence": "transport_webhook_env.webhook_lifecycle"
+      },
+      "SDG-13": {
+        "verified": true,
+        "evidence": "transport_webhook_env.access_audit"
+      }
+    },
+    "gaps": {
+      "INSECURE_HTTP_PRODUCTION_PATHS": 0,
+      "TLS_MINIMUM_POLICY_GAPS": 0,
+      "TLS_DOWNGRADE_PATHS": 0,
+      "UNTRUSTED_PROXY_HEADER_PATHS": 0,
+      "INSECURE_COOKIE_PATHS": 0,
+      "HSTS_PRODUCTION_GAPS": 0,
+      "WEBHOOK_SIGNATURE_BYPASS_PATHS": 0,
+      "WEBHOOK_REPLAY_PROTECTION_GAPS": 0,
+      "WEBHOOK_IDEMPOTENCY_GAPS": 0,
+      "WEBHOOK_DUPLICATE_RACE_GAPS": 0,
+      "WEBHOOK_UNSANITIZED_ERROR_PATHS": 0,
+      "WEBHOOK_UNBOUNDED_RETRY_PATHS": 0,
+      "WEBHOOK_DLQ_GAPS": 0,
+      "ENVIRONMENT_SECRET_CROSSOVER_PATHS": 0,
+      "ENVIRONMENT_DATABASE_CROSSOVER_PATHS": 0,
+      "PRODUCTION_TEST_CREDENTIAL_PATHS": 0,
+      "PRODUCTION_DATA_NONPROD_EXPOSURE_PATHS": 0,
+      "PRODUCTION_ACCESS_AUDIT_GAPS": 0
+    },
+    "transport": {
+      "tls_minimum_version": "1.2",
+      "tls_preferred_version": "1.3",
+      "hsts_max_age": 31536000,
+      "production": false,
+      "trusted_proxy_configured": false,
+      "secure_cookie_required_in_production": false,
+      "downgrade_allowed": true,
+      "ingress_contract": "https_only_in_production"
+    },
+    "environment": {
+      "identity": "development",
+      "secret_namespace": "development",
+      "database_fingerprint": "sqlite-local",
+      "crossovers": []
+    },
+    "security_reject_sample": {
+      "state": "REJECTED_SECURITY",
+      "provider": "stripe",
+      "reason": "invalid_signature",
+      "correlation_id": "verify",
+      "ts": 1789428952.6737418
+    },
+    "production_validation_pending": [
+      "public_endpoint_tls_cipher_attestation",
+      "cdn_load_balancer_live_configuration",
+      "cloud_network_project_boundary_proof"
+    ]
+  },
+  "local_gaps": [],
+  "production_validation_pending": [
+    "public_endpoint_tls_cipher_attestation",
+    "cdn_load_balancer_live_configuration",
+    "cloud_network_project_boundary_proof"
+  ],
+  "summary": {
+    "fds_controls_in_scope": 3,
+    "fully_implemented_verified_local": 3,
+    "partial_local": 0,
+    "not_implemented_local": 0,
+    "locally_buildable_remaining": 0,
+    "production_validation_pending": 3,
+    "previous_fds_phase_regression_failures": 0,
+    "regression_failures": 0,
+    "INSECURE_HTTP_PRODUCTION_PATHS": 0,
+    "TLS_MINIMUM_POLICY_GAPS": 0,
+    "TLS_DOWNGRADE_PATHS": 0,
+    "UNTRUSTED_PROXY_HEADER_PATHS": 0,
+    "INSECURE_COOKIE_PATHS": 0,
+    "HSTS_PRODUCTION_GAPS": 0,
+    "WEBHOOK_SIGNATURE_BYPASS_PATHS": 0,
+    "WEBHOOK_REPLAY_PROTECTION_GAPS": 0,
+    "WEBHOOK_IDEMPOTENCY_GAPS": 0,
+    "WEBHOOK_DUPLICATE_RACE_GAPS": 0,
+    "WEBHOOK_UNSANITIZED_ERROR_PATHS": 0,
+    "WEBHOOK_UNBOUNDED_RETRY_PATHS": 0,
+    "WEBHOOK_DLQ_GAPS": 0,
+    "ENVIRONMENT_SECRET_CROSSOVER_PATHS": 0,
+    "ENVIRONMENT_DATABASE_CROSSOVER_PATHS": 0,
+    "PRODUCTION_TEST_CREDENTIAL_PATHS": 0,
+    "PRODUCTION_DATA_NONPROD_EXPOSURE_PATHS": 0,
+    "PRODUCTION_ACCESS_AUDIT_GAPS": 0
+  }
+}

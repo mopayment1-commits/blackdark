@@ -132,6 +132,19 @@ async def authorize_financial_operation(
 
     if spec.resource_owner_required and not _resource_owner_ok(ctx):
         detect_repeated_denied_financial_access(actor=ctx.subject_email, operation=spec.operation.value)
+        try:
+            from transport_webhook_env.access_audit import record_production_access_event
+
+            record_production_access_event(
+                actor=ctx.subject_email,
+                action=f"privileged:{spec.operation.value}",
+                target=spec.resource_class,
+                outcome="denied",
+                correlation_id=correlation_id,
+                authorization_result="resource_owner_mismatch",
+            )
+        except Exception:
+            pass
         raise AuthorizationDenied("resource_owner_mismatch", status_code=403)
 
     if spec.org_permission and not _tenant_permission_ok(ctx, spec.org_permission):
@@ -161,6 +174,21 @@ async def authorize_financial_operation(
             correlation_id=correlation_id,
         )
 
+    try:
+        from transport_webhook_env.access_audit import record_production_access_event
+
+        record_production_access_event(
+            actor=ctx.subject_email,
+            action=f"privileged:{spec.operation.value}",
+            target=spec.resource_class,
+            outcome="allowed",
+            correlation_id=correlation_id,
+            auth_strength="mfa+step_up" if spec.step_up_required else "mfa",
+            authorization_result="allowed",
+            detail={"org_id": ctx.org_id, "tenant_id": ctx.tenant_id},
+        )
+    except Exception:
+        pass
     record_security_event(
         "privileged_financial_access",
         severity="info",
