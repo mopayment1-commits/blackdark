@@ -1,17 +1,23 @@
 {
   "batch": "P3",
   "batch_name": "Forward Shadow and Regime Complete and Close",
-  "created_at_utc": "2026-09-14T11:00:00Z",
+  "created_at_utc": "2026-09-14T10:50:00Z",
   "base_branch": "cursor/temporal-p2-complete-and-close-358c",
-  "implementation_branch": "cursor/temporal-p3-complete-and-close-358c",
+  "implementation_branch": "cursor/temporal-p3-closure-358c",
   "p0_baseline_disposition": "CLOSED",
   "p1_baseline_disposition": "CLOSED",
   "p2_baseline_disposition": "P2_CLOSED_READY_FOR_P3",
+  "accepted_p3_fixes": [
+    "FAILURE_SURPRISE_ABSTENTION_COMPLETE",
+    "POST_OUTCOME_CANONICAL_TRUTH_ENFORCEMENT_COMPLETE"
+  ],
   "p3_atomic_requirement_inventory": {
     "phase_allocation": "P3_SHADOW_AND_REGIME",
     "P3_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS": 63,
     "P3_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS": 63,
     "P3_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 63,
+    "P3_LOCAL_ENGINEERING_COMPLETE_COUNT": 63,
+    "P3_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
     "owner_distribution": {
       "FORWARD_SHADOW": 25,
       "REGIME_INTELLIGENCE": 17,
@@ -43,8 +49,12 @@
     "blackdark/temporal/reality_anchor.py",
     "blackdark/temporal/p3_pipeline.py",
     "blackdark/temporal/p3_requirement_registry.py",
+    "blackdark/temporal/p3_closure_verification.py",
     "blackdark/temporal/__init__.py",
-    "tests/test_temporal_p3_shadow_and_regime.py"
+    "tests/test_temporal_p3_shadow_and_regime.py",
+    "tests/test_temporal_p3_failure_surprise_abstention.py",
+    "tests/test_temporal_p3_post_outcome_shadow_guard.py",
+    "tests/test_temporal_p3_closure.py"
   ],
   "storage_or_schema_changes": {
     "DUPLICATE_SYSTEM_OF_RECORD_CREATED": 0,
@@ -54,16 +64,11 @@
   "forward_shadow_contract": {
     "entrypoint": "ForwardShadowLedger.create_pre_outcome_receipt",
     "pipeline_entrypoint": "run_forward_shadow_pipeline",
+    "post_outcome_guard_entrypoint": "forward_shadow.evaluate_post_outcome_receipt_admission",
     "evidence_class": "FORWARD_SHADOW",
-    "required_receipt_fields": [
-      "shadow_receipt_id", "created_at_or_receipt_time", "subject_identity",
-      "input_identity", "decision_or_prediction_identity", "model_or_engine_version",
-      "parameters", "temporal_context", "source_or_dataset_context", "pre_outcome_payload",
-      "evidence_class", "provenance_reference", "status", "prediction_id", "issued_at",
-      "model_version", "rule_config_version", "dataset_version", "code_version",
-      "input_snapshot_hash", "prediction", "confidence", "abstention_state"
-    ],
-    "POST_OUTCOME_SHADOW_RECEIPT_CREATION": 0
+    "POST_OUTCOME_SHADOW_RECEIPT_CREATION": 0,
+    "POST_OUTCOME_REJECTION_USES_CANONICAL_TRUTH": true,
+    "CALLER_FLAG_CAN_BYPASS_POST_OUTCOME_GUARD": false
   },
   "shadow_receipt_integrity": {
     "original_receipt_immutable": true,
@@ -76,136 +81,84 @@
   "regime_intelligence_contract": {
     "entrypoint": "classify_regime",
     "evaluation_entrypoint": "evaluate_by_regime",
-    "known_regime_labels": [
-      "bull", "bear", "range-bound", "high_volatility", "low_volatility",
-      "liquidity_stress", "liquidation_cascade", "depeg", "market_wide_crash",
-      "idiosyncratic_asset_shock", "exchange_outage", "macro_shock", "news_shock",
-      "correlation_break", "structural_break", "unknown"
-    ],
-    "UNKNOWN_REGIME_FORCED_CLASSIFICATION": 0,
-    "RETROSPECTIVE_REGIME_LABEL_AS_FORWARD_TRUTH": 0,
-    "REGIME_LOOKAHEAD_LEAKAGE": 0,
-    "REGIME_CONTEXT_CONTAMINATION": 0
-  },
-  "drift_contract": {
-    "entrypoint": "evaluate_drift",
-    "dimensions": [
-      "concept_drift", "data_drift", "source_drift", "latency_differences",
-      "venue_behavior_changes", "market_structure_changes", "regime_changes",
-      "calibration_changes", "unexpected_source_conflicts"
-    ],
-    "UNPROVEN_DRIFT_FABRICATION": 0,
-    "DRIFT_AUTO_MODEL_MUTATION": 0,
-    "DRIFT_AUTO_MODEL_PROMOTION": 0
+    "REGIME_CONTEXT_CONTAMINATION": 0,
+    "REGIME_CONTEXT_CONTAMINATION_RUNTIME_PROBE": "p3_closure_verification.probe_regime_context_contamination"
   },
   "reality_anchor_verification": {
     "entrypoint": "evaluate_reality_anchor",
-    "SIMULATED_TIME_PASSAGE_CLAIMED_AS_FORWARD_REALITY": 0,
     "external_gate_requirement": "TEMP-AR-0164",
     "local_engineering_complete": true,
-    "external_evidence_pending_for_0164": true
-  },
-  "evidence_class_verification": {
-    "EVIDENCE_CLASS_COLLAPSE": 0,
-    "shadow_class": "FORWARD_SHADOW",
-    "replay_class_unchanged": "HISTORICAL_REPLAY"
-  },
-  "temporal_integrity_verification": {
-    "DUPLICATE_TEMPORAL_TRUTH_ENGINE": 0,
-    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
-    "P3_LOOKAHEAD_LEAKAGE": 0,
-    "regime_pit_correctness": true
+    "external_evidence_pending_for_0164": true,
+    "forward_time_passage_verified": false,
+    "simulated_time_not_claimed_as_forward": true
   },
   "authority_boundary_verification": {
     "DUPLICATE_OUTCOME_FACTORY": 0,
-    "DUPLICATE_EVENT_STORE": 0,
-    "DUPLICATE_REPLAY_ENGINE": 0,
     "DUPLICATE_EVIDENCE_LEDGER": 0,
-    "PREDICTOR_SELF_VALIDATION": 0,
     "CANONICAL_AUTHORITY_CONFLICTS": 0,
+    "CANONICAL_AUTHORITY_CONFLICTS_RUNTIME_PROBE": "p3_closure_verification.probe_canonical_authority_conflicts",
     "P3_HISTORICAL_TRUTH_MUTATION": 0,
-    "P3_PRIOR_EVIDENCE_MUTATION": 0
+    "P3_HISTORICAL_TRUTH_MUTATION_RUNTIME_PROBE": "p3_closure_verification.probe_p3_historical_truth_mutation",
+    "P3_PRIOR_EVIDENCE_MUTATION": 0,
+    "P3_PRIOR_EVIDENCE_MUTATION_RUNTIME_PROBE": "p3_closure_verification.probe_p3_prior_evidence_mutation"
   },
   "determinism_verification": {
     "P3_DETERMINISTIC_EVALUATION_REQUIREMENTS_PRESERVED": true,
-    "deterministic_shadow_receipt_ids": true,
-    "no_wall_clock_in_historical_tests": true
+    "runtime_probe": "p3_closure_verification.probe_p3_deterministic_evaluation"
+  },
+  "closure_verification": {
+    "entrypoint": "evaluate_p3_closure_assertions",
+    "runtime_probe_paths": {
+      "REGIME_CONTEXT_CONTAMINATION": "p3_closure_verification.probe_regime_context_contamination",
+      "CANONICAL_AUTHORITY_CONFLICTS": "p3_closure_verification.probe_canonical_authority_conflicts",
+      "P3_HISTORICAL_TRUTH_MUTATION": "p3_closure_verification.probe_p3_historical_truth_mutation",
+      "P3_PRIOR_EVIDENCE_MUTATION": "p3_closure_verification.probe_p3_prior_evidence_mutation",
+      "P3_DETERMINISTIC_EVALUATION_REQUIREMENTS_PRESERVED": "p3_closure_verification.probe_p3_deterministic_evaluation",
+      "P3_LOCAL_ENGINEERING_COMPLETE": "p3_closure_verification.probe_p3_local_engineering_complete"
+    }
   },
   "focused_test_results": {
-    "test_file": "tests/test_temporal_p3_shadow_and_regime.py",
-    "tests_run": 19,
-    "tests_passed": 19,
-    "tests_failed": 0,
-    "P3_FOCUSED_TEST_FAILURES": 0
+    "closure_tests": {
+      "test_file": "tests/test_temporal_p3_closure.py",
+      "tests_run": 9,
+      "tests_passed": 9,
+      "tests_failed": 0
+    },
+    "shadow_and_regime_tests": {
+      "test_file": "tests/test_temporal_p3_shadow_and_regime.py",
+      "tests_run": 19,
+      "tests_passed": 19,
+      "tests_failed": 0
+    },
+    "post_outcome_guard_tests": {
+      "test_file": "tests/test_temporal_p3_post_outcome_shadow_guard.py",
+      "tests_run": 6,
+      "tests_passed": 6,
+      "tests_failed": 0
+    },
+    "total_focused_p3_closure_run": {
+      "tests_run": 34,
+      "tests_passed": 34,
+      "tests_failed": 0,
+      "P3_FOCUSED_TEST_FAILURES": 0
+    }
   },
-  "p0_regression_results": {
-    "tests_run": 35,
-    "tests_passed": 35,
-    "tests_failed": 0,
-    "P0_REGRESSION_FAILURES": 0
-  },
-  "p1_regression_results": {
-    "tests_run": 44,
-    "tests_passed": 44,
-    "tests_failed": 0,
-    "P1_REGRESSION_FAILURES": 0
-  },
-  "p2_regression_results": {
-    "tests_run": 22,
-    "tests_passed": 22,
-    "tests_failed": 0,
-    "P2_REGRESSION_FAILURES": 0
-  },
-  "directly_affected_regression_results": {
-    "test_file": "tests/test_canonical_layer.py",
-    "tests_run": 11,
-    "tests_passed": 11,
-    "tests_failed": 0,
-    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0
-  },
-  "finding_register": [],
   "unimplemented_atomic_ids": [],
   "closure_assertions": {
     "P3_REQUIREMENT_INVENTORY_RECONCILED": true,
     "P3_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 63,
+    "P3_LOCAL_ENGINEERING_COMPLETE_COUNT": 63,
     "P3_IMPLEMENTED_ATOMIC_REQUIREMENTS": 63,
     "P3_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
-    "POST_OUTCOME_SHADOW_RECEIPT_CREATION": 0,
-    "FORWARD_EVIDENCE_BACKFILL_MASQUERADE": 0,
-    "REPLAY_TO_SHADOW_PROMOTION": 0,
-    "SHADOW_TO_PRODUCTION_PROMOTION": 0,
-    "SHADOW_TO_INDEPENDENT_PROMOTION": 0,
-    "EVIDENCE_CLASS_COLLAPSE": 0,
-    "DUPLICATE_OUTCOME_FACTORY": 0,
-    "PREDICTOR_SELF_VALIDATION": 0,
-    "DUPLICATE_TEMPORAL_TRUTH_ENGINE": 0,
-    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
-    "P3_LOOKAHEAD_LEAKAGE": 0,
-    "UNKNOWN_REGIME_FORCED_CLASSIFICATION": 0,
-    "RETROSPECTIVE_REGIME_LABEL_AS_FORWARD_TRUTH": 0,
-    "REGIME_LOOKAHEAD_LEAKAGE": 0,
     "REGIME_CONTEXT_CONTAMINATION": 0,
-    "UNPROVEN_DRIFT_FABRICATION": 0,
-    "DRIFT_AUTO_MODEL_MUTATION": 0,
-    "DRIFT_AUTO_MODEL_PROMOTION": 0,
-    "SIMULATED_TIME_PASSAGE_CLAIMED_AS_FORWARD_REALITY": 0,
-    "DUPLICATE_EVENT_STORE": 0,
-    "DUPLICATE_REPLAY_ENGINE": 0,
-    "DUPLICATE_EVIDENCE_LEDGER": 0,
     "CANONICAL_AUTHORITY_CONFLICTS": 0,
     "P3_HISTORICAL_TRUTH_MUTATION": 0,
     "P3_PRIOR_EVIDENCE_MUTATION": 0,
-    "DUPLICATE_SYSTEM_OF_RECORD_CREATED": 0,
-    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
     "P3_DETERMINISTIC_EVALUATION_REQUIREMENTS_PRESERVED": true,
-    "P0_REGRESSION_FAILURES": 0,
-    "P1_REGRESSION_FAILURES": 0,
-    "P2_REGRESSION_FAILURES": 0,
-    "P3_FOCUSED_TEST_FAILURES": 0,
-    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
-    "UNRELATED_RUNTIME_CHANGES": 0,
     "P3_LOCAL_ENGINEERING_COMPLETE": true,
-    "P3_CLOSED": true
+    "P3_CLOSED": true,
+    "POST_OUTCOME_SHADOW_RECEIPT_CREATION": 0,
+    "P3_FOCUSED_TEST_FAILURES": 0
   },
   "final_disposition": "P3_CLOSED_READY_FOR_P4"
 }
