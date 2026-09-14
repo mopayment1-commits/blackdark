@@ -8,6 +8,8 @@ import stripe
 from fastapi import APIRouter, Body, Depends, HTTPException, Request
 
 from api.deps import optional_user
+from privileged_access.deps import financial_privilege_dep
+from privileged_access.operations import ProtectedOperation
 
 
 def _is_valid_email(email: str) -> bool:
@@ -156,7 +158,7 @@ async def billing_checkout(
 
 
 @router.post("/portal", responses=COMMON_ERROR_RESPONSES)
-async def billing_portal(user: dict | None = Depends(optional_user)):
+async def billing_portal(user: dict = Depends(financial_privilege_dep(ProtectedOperation.BILLING_PORTAL))):
     from billing_service import (
         create_billing_portal_session,
         lemon_squeezy_portal_url,
@@ -265,7 +267,7 @@ async def billing_subscription(user: dict | None = Depends(optional_user)):
 
 
 @router.post("/cancel")
-async def billing_cancel_auto_renew(user: dict | None = Depends(optional_user)):
+async def billing_cancel_auto_renew(user: dict = Depends(financial_privilege_dep(ProtectedOperation.BILLING_CANCEL))):
     from billing.subscription_engine import schedule_cancel_at_period_end
 
     if not user:
@@ -280,7 +282,7 @@ async def billing_cancel_auto_renew(user: dict | None = Depends(optional_user)):
 @router.post("/downgrade")
 async def billing_schedule_downgrade(
     data: dict = Body(default={}),
-    user: dict | None = Depends(optional_user),
+    user: dict = Depends(financial_privilege_dep(ProtectedOperation.BILLING_DOWNGRADE)),
 ):
     from billing.subscription_engine import schedule_downgrade
     from billing.plan_registry import normalize_plan

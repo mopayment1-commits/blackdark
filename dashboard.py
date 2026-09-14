@@ -794,6 +794,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.privileged_access import router as privileged_access_router
+
+    app.include_router(privileged_access_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.gtm import router as gtm_router
 
     app.include_router(gtm_router)
