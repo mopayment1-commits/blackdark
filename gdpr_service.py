@@ -29,7 +29,10 @@ async def export_user_data(email: str) -> dict[str, Any]:
     if user:
         journal = await fetch_journal_entries(user["email"])
 
-    return {
+    from financial_data.boundary import gate_support_export
+    from financial_data.dlp import sanitize_financial_payload
+
+    export_payload = {
         "exported_at": datetime.now(UTC).isoformat(),
         "subject_email": normalized,
         "found": user is not None,
@@ -47,6 +50,8 @@ async def export_user_data(email: str) -> dict[str, Any]:
         "retention_policy_days": 365,
         "contact": "support@blackdark.io",
     }
+    gate_support_export(export_payload)
+    return sanitize_financial_payload(export_payload)
 
 
 async def erase_user_data(email: str, *, confirmed: bool = False) -> dict[str, Any]:

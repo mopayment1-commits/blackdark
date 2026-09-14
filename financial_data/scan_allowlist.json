@@ -1,0 +1,46 @@
+{
+  "policy_version": "fds-scan-allowlist-v1",
+  "description": "Narrow allowlist for verified false-positive or synthetic test PAN hits. Never use broad globs.",
+  "entries": [
+    {
+      "path": "tests/fixtures/fds_synthetic_pan.txt",
+      "kind": "*",
+      "reason": "Dedicated synthetic PAN fixture for scanner regression tests only"
+    },
+    {
+      "path": "tests/test_fds_security_governance_data_boundary.py",
+      "kind": "*",
+      "reason": "Inline Stripe synthetic test PAN constants used only in unit tests"
+    },
+    {
+      "path": "financial_data/test_data_policy.py",
+      "kind": "*",
+      "reason": "SDG-12 canonical allowlist of Stripe documentation synthetic PAN constants"
+    },
+    {
+      "path": "governance/fds_data_boundary.py",
+      "kind": "*",
+      "reason": "Runtime verifier uses synthetic PAN literals only inside negative boundary self-tests"
+    },
+    {
+      "path": "data/in_app_alerts.jsonl",
+      "kind": "luhn_pan",
+      "reason": "Verified false-positive: numeric alert identifiers, not payment PAN"
+    },
+    {
+      "path": "data/models/feature_envelope.json",
+      "kind": "luhn_pan",
+      "reason": "Verified false-positive: ML feature envelope numeric hashes, not card data"
+    },
+    {
+      "path": "data/signal_registry.jsonl",
+      "kind": "luhn_pan",
+      "reason": "Verified false-positive: signal registry numeric identifiers, not PAN"
+    },
+    {
+      "path": "docs/HERO_BATCH_01_SAMPLE_DOSSIER.json",
+      "kind": "luhn_pan",
+      "reason": "Verified false-positive: sample dossier numeric demo fields, not cardholder data"
+    }
+  ]
+}
