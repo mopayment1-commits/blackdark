@@ -1,0 +1,404 @@
+{
+  "phase": "0D_TARGETED_REAUDIT",
+  "phase_name": "Targeted Re-Audit After Phase 0C Correction",
+  "reaudited_at_utc": "2026-09-14T00:39:45Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "head": "43fac7d87a0c9c6522c886b347715cad27f7e157",
+  "inputs": {
+    "governing_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "primary_artifact": "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "atomic_artifact": "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "reconciliation_artifact": "TEMPORAL_PHASE_0C_RECONCILIATION.json",
+    "correction_artifact": "TEMPORAL_PHASE_0C_CORRECTION.json",
+    "original_audit_artifact": "TEMPORAL_PHASE_0D_INDEPENDENT_AUDIT.json",
+    "pre_correction_atomic_source": "git:da316dad:TEMPORAL_ATOMIC_REQUIREMENTS.json"
+  },
+  "preconditions": {
+    "governing_spec_sha256": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+    "governing_spec_sha256_expected": "e02418fca90e15ddf464875249a5284e1332762f74f28485e7ecc2f002963868",
+    "governing_spec_sha256_match": true,
+    "primary_requirements_sha256": "4f8eed0a171cce41e3bf596ee3dae70eec9158b318389389820d1e56904cad9c",
+    "primary_requirements_sha256_expected": "4f8eed0a171cce41e3bf596ee3dae70eec9158b318389389820d1e56904cad9c",
+    "primary_requirements_sha256_match": true,
+    "primary_requirements_total": 152,
+    "primary_requirements_total_expected": 152,
+    "primary_requirements_total_match": true,
+    "precondition_head": "43fac7d87a0c9c6522c886b347715cad27f7e157"
+  },
+  "atomic_count_reconciliation": {
+    "before": 456,
+    "new_ids": 7,
+    "superseded": 8,
+    "expected_after": 455,
+    "recomputed": 455
+  },
+  "recomputed_atomic_requirements_total": 455,
+  "semantic_addition_reaudit": {
+    "atomic_requirement_id": "TEMP-AR-0239",
+    "normative_text": "none become production without the required promotion gate",
+    "parent_text": "Learning may generate candidate weights, candidate models, candidate rules, candidate calibration changes, and candidate thresholds, but none become production without the required promotion gate.",
+    "spec_clause": "But none become production without the required promotion gate.",
+    "added_tokens": [],
+    "TEMP_AR_0239_ADDITION_REMAINS": 0,
+    "pass": true
+  },
+  "non_atomic_reaudit": {
+    "results": [
+      {
+        "atomic_requirement_id": "TEMP-AR-0085",
+        "parent_primary_requirement_id": "TEMP-PR-0029",
+        "normative_text": "The system may report millions of evaluation instances",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0213",
+        "parent_primary_requirement_id": "TEMP-PR-0069",
+        "normative_text": "A composite score may be derived for convenience",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0229",
+        "parent_primary_requirement_id": "TEMP-PR-0072",
+        "normative_text": "An optional composite Experience Coverage Index may summarize the vector",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0431",
+        "parent_primary_requirement_id": "TEMP-PR-0145",
+        "normative_text": "This document's approval does not by itself mean PASS_ENGINEERING",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0457",
+        "parent_primary_requirement_id": "TEMP-PR-0029",
+        "normative_text": "must distinguish this from an effective independent sample count",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0458",
+        "parent_primary_requirement_id": "TEMP-PR-0069",
+        "normative_text": "material dimensions must remain visible",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0459",
+        "parent_primary_requirement_id": "TEMP-PR-0072",
+        "normative_text": "must not hide weak material dimensions",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0460",
+        "parent_primary_requirement_id": "TEMP-PR-0145",
+        "normative_text": "This document's approval does not by itself mean PASS_LIVE",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0461",
+        "parent_primary_requirement_id": "TEMP-PR-0145",
+        "normative_text": "This document's approval does not by itself mean ASSURANCE_READY",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0462",
+        "parent_primary_requirement_id": "TEMP-PR-0145",
+        "normative_text": "This document's approval does not by itself mean PRODUCTION_ALIGNED",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0463",
+        "parent_primary_requirement_id": "TEMP-PR-0145",
+        "normative_text": "This document's approval does not by itself mean independent verification",
+        "non_atomic_reasons": [],
+        "added_tokens": [],
+        "has_valid_source": true,
+        "single_obligation": true
+      }
+    ],
+    "CORRECTED_NON_ATOMIC_DEFECTS_REMAINING": 0,
+    "NEW_NON_ATOMIC_DEFECTS_INTRODUCED": 0
+  },
+  "over_split_reaudit": {
+    "results": [
+      {
+        "id": "TEMP-AR-0066",
+        "text": "Replay must be reproducible",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0067",
+        "text": "Replay must be point-in-time correct",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0068",
+        "text": "Replay must be provenance-bound",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0069",
+        "text": "Replay must be version-bound",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0070",
+        "text": "Replay must be deterministic where feasible",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0071",
+        "text": "Replay must be comparable across model versions",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0151",
+        "text": "Replay \u2260 Shadow",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0152",
+        "text": "Shadow \u2260 Production",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0153",
+        "text": "Production \u2260 Independent Assurance",
+        "issues": [],
+        "status": "PRESERVED_CORRECTED"
+      },
+      {
+        "id": "TEMP-AR-0410",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0411",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0412",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0413",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0414",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0415",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0416",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0417",
+        "status": "SUPERSEDED",
+        "replacement_ids": [
+          "TEMP-AR-0409"
+        ],
+        "in_provenance": true
+      },
+      {
+        "id": "TEMP-AR-0409",
+        "text": "while accelerating experimental exposure, failure discovery, outcome generation, calibration, model comparison, regime coverage, evidence accumulation, data-moat formation, and decision-quality improvement",
+        "issues": [],
+        "lost_acceleration_targets": [],
+        "status": "PRESERVED_CONSOLIDATED"
+      }
+    ],
+    "CORRECTED_OVER_SPLIT_DEFECTS_REMAINING": 0,
+    "OBLIGATIONS_LOST_DURING_CONSOLIDATION": 0
+  },
+  "id_provenance_verification": {
+    "DEFECT_IDS_EXPECTED": 23,
+    "DEFECT_IDS_ACCOUNTED_FOR": 23,
+    "DUPLICATE_ID_CHANGE_MAP_ENTRIES": 0,
+    "SILENT_ID_DELETIONS": 0,
+    "INVALID_REPLACEMENT_IDS": 0,
+    "GLOBAL_RENUMBERING": false,
+    "invalid_replacement_details": [],
+    "superseded_resolution": {
+      "TEMP-AR-0410": [
+        "TEMP-AR-0409"
+      ],
+      "TEMP-AR-0411": [
+        "TEMP-AR-0409"
+      ],
+      "TEMP-AR-0412": [
+        "TEMP-AR-0409"
+      ],
+      "TEMP-AR-0413": [
+        "TEMP-AR-0409"
+      ],
+      "TEMP-AR-0414": [
+        "TEMP-AR-0409"
+      ],
+      "TEMP-AR-0415": [
+        "TEMP-AR-0409"
+      ],
+      "TEMP-AR-0416": [
+        "TEMP-AR-0409"
+      ],
+      "TEMP-AR-0417": [
+        "TEMP-AR-0409"
+      ]
+    }
+  },
+  "unaffected_content_verification": {
+    "UNAFFECTED_ATOMICS_CHANGED": 0,
+    "changed_ids": []
+  },
+  "temporal_invariant_regression": {
+    "TEMP_AR_0026_REGRESSION": 0,
+    "TEMP-AR-0026_text": "Hard rule: available_at > simulated_time => inaccessible."
+  },
+  "evidence_class_regression": {
+    "EVIDENCE_CLASS_REGRESSIONS": 0,
+    "classes_verified": [
+      "HISTORICAL_BACKTEST",
+      "HISTORICAL_REPLAY",
+      "SIMULATED",
+      "FORWARD_SHADOW",
+      "VERIFIED_PRODUCTION",
+      "INDEPENDENTLY_VERIFIED"
+    ]
+  },
+  "conditionality_ambiguity_regression": {
+    "CONDITIONALITY_REGRESSIONS": 0,
+    "AMBIGUITY_REGRESSIONS": 0
+  },
+  "coverage_and_semantic_preservation": {
+    "PRIMARY_REQUIREMENTS_UNMAPPED": 0,
+    "unmapped_primary_ids": [],
+    "ATOMIC_REQUIREMENTS_WITH_INVALID_PARENT": 0,
+    "ATOMIC_REQUIREMENTS_WITHOUT_SOURCE": 0,
+    "SEMANTIC_OMISSIONS_AFTER_CORRECTION": 0,
+    "semantic_omission_details": [],
+    "SEMANTIC_ADDITIONS_AFTER_CORRECTION": 0,
+    "SEMANTIC_WEAKENINGS_AFTER_CORRECTION": 0,
+    "SEMANTIC_STRENGTHENINGS_AFTER_CORRECTION": 0
+  },
+  "audit_metrics": {
+    "TEMP_AR_0239_ADDITION_REMAINS": 0,
+    "CORRECTED_NON_ATOMIC_DEFECTS_REMAINING": 0,
+    "NEW_NON_ATOMIC_DEFECTS_INTRODUCED": 0,
+    "CORRECTED_OVER_SPLIT_DEFECTS_REMAINING": 0,
+    "OBLIGATIONS_LOST_DURING_CONSOLIDATION": 0,
+    "DEFECT_IDS_ACCOUNTED_FOR": 23,
+    "DUPLICATE_ID_CHANGE_MAP_ENTRIES": 0,
+    "SILENT_ID_DELETIONS": 0,
+    "INVALID_REPLACEMENT_IDS": 0,
+    "GLOBAL_RENUMBERING": false,
+    "RECOMPUTED_ATOMIC_REQUIREMENTS_TOTAL": 455,
+    "UNAFFECTED_ATOMICS_CHANGED": 0,
+    "TEMP_AR_0026_REGRESSION": 0,
+    "EVIDENCE_CLASS_REGRESSIONS": 0,
+    "CONDITIONALITY_REGRESSIONS": 0,
+    "AMBIGUITY_REGRESSIONS": 0,
+    "PRIMARY_REQUIREMENTS_UNMAPPED": 0,
+    "ATOMIC_REQUIREMENTS_WITH_INVALID_PARENT": 0,
+    "ATOMIC_REQUIREMENTS_WITHOUT_SOURCE": 0,
+    "SEMANTIC_OMISSIONS_AFTER_CORRECTION": 0,
+    "SEMANTIC_ADDITIONS_AFTER_CORRECTION": 0,
+    "SEMANTIC_WEAKENINGS_AFTER_CORRECTION": 0,
+    "SEMANTIC_STRENGTHENINGS_AFTER_CORRECTION": 0
+  },
+  "acceptance_assertions": {
+    "TEMP_AR_0239_ADDITION_REMAINS": 0,
+    "CORRECTED_NON_ATOMIC_DEFECTS_REMAINING": 0,
+    "NEW_NON_ATOMIC_DEFECTS_INTRODUCED": 0,
+    "CORRECTED_OVER_SPLIT_DEFECTS_REMAINING": 0,
+    "OBLIGATIONS_LOST_DURING_CONSOLIDATION": 0,
+    "DEFECT_IDS_ACCOUNTED_FOR": 23,
+    "DUPLICATE_ID_CHANGE_MAP_ENTRIES": 0,
+    "SILENT_ID_DELETIONS": 0,
+    "INVALID_REPLACEMENT_IDS": 0,
+    "GLOBAL_RENUMBERING": false,
+    "RECOMPUTED_ATOMIC_REQUIREMENTS_TOTAL": 455,
+    "UNAFFECTED_ATOMICS_CHANGED": 0,
+    "TEMP_AR_0026_REGRESSION": 0,
+    "EVIDENCE_CLASS_REGRESSIONS": 0,
+    "CONDITIONALITY_REGRESSIONS": 0,
+    "AMBIGUITY_REGRESSIONS": 0,
+    "PRIMARY_REQUIREMENTS_UNMAPPED": 0,
+    "ATOMIC_REQUIREMENTS_WITH_INVALID_PARENT": 0,
+    "ATOMIC_REQUIREMENTS_WITHOUT_SOURCE": 0,
+    "SEMANTIC_OMISSIONS_AFTER_CORRECTION": 0,
+    "SEMANTIC_ADDITIONS_AFTER_CORRECTION": 0,
+    "SEMANTIC_WEAKENINGS_AFTER_CORRECTION": 0,
+    "SEMANTIC_STRENGTHENINGS_AFTER_CORRECTION": 0,
+    "UNEXPECTED_CHANGED_FILES": 0,
+    "PHASE_0D_TARGETED_REAUDIT_COMPLETE": true
+  },
+  "final_disposition": "PASS",
+  "PHASE_0D_TARGETED_REAUDIT_COMPLETE": true
+}
