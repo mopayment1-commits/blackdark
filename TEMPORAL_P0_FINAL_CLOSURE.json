@@ -1,0 +1,292 @@
+{
+  "gate": "P0_TEMPORAL_TRUTH_FOUNDATION_FINAL_CLOSURE",
+  "created_at_utc": "2026-09-14T09:45:00Z",
+  "verification_branch": "cursor/temporal-p0-3-leakage-firewall-358c",
+  "batch_dispositions": {
+    "P0.1": "P0_1_COMPLETE",
+    "P0.2": "P0_2_COMPLETE",
+    "P0.3": "P0_3_COMPLETE"
+  },
+  "evidence_artifacts_reconciled": [
+    "TEMPORAL_P0_1_TRUTH_PRIMITIVE_EVIDENCE.json",
+    "TEMPORAL_P0_2_PIT_RECONSTRUCTION_EVIDENCE.json",
+    "TEMPORAL_P0_3_LEAKAGE_FIREWALL_EVIDENCE.json"
+  ],
+  "implemented_atomic_ids": [
+    "TEMP-AR-0009",
+    "TEMP-AR-0015",
+    "TEMP-AR-0016",
+    "TEMP-AR-0017",
+    "TEMP-AR-0018",
+    "TEMP-AR-0019",
+    "TEMP-AR-0020",
+    "TEMP-AR-0021",
+    "TEMP-AR-0026",
+    "TEMP-AR-0027",
+    "TEMP-AR-0028",
+    "TEMP-AR-0029",
+    "TEMP-AR-0030",
+    "TEMP-AR-0031",
+    "TEMP-AR-0032",
+    "TEMP-AR-0033",
+    "TEMP-AR-0034",
+    "TEMP-AR-0035",
+    "TEMP-AR-0036",
+    "TEMP-AR-0037",
+    "TEMP-AR-0038",
+    "TEMP-AR-0039",
+    "TEMP-AR-0040",
+    "TEMP-AR-0041",
+    "TEMP-AR-0042",
+    "TEMP-AR-0043",
+    "TEMP-AR-0406",
+    "TEMP-AR-0420"
+  ],
+  "requirement_reconciliation": {
+    "P0_IMPLEMENTED_ATOMIC_IDS": [
+      "TEMP-AR-0009",
+      "TEMP-AR-0015",
+      "TEMP-AR-0016",
+      "TEMP-AR-0017",
+      "TEMP-AR-0018",
+      "TEMP-AR-0019",
+      "TEMP-AR-0020",
+      "TEMP-AR-0021",
+      "TEMP-AR-0026",
+      "TEMP-AR-0027",
+      "TEMP-AR-0028",
+      "TEMP-AR-0029",
+      "TEMP-AR-0030",
+      "TEMP-AR-0031",
+      "TEMP-AR-0032",
+      "TEMP-AR-0033",
+      "TEMP-AR-0034",
+      "TEMP-AR-0035",
+      "TEMP-AR-0036",
+      "TEMP-AR-0037",
+      "TEMP-AR-0038",
+      "TEMP-AR-0039",
+      "TEMP-AR-0040",
+      "TEMP-AR-0041",
+      "TEMP-AR-0042",
+      "TEMP-AR-0043",
+      "TEMP-AR-0406",
+      "TEMP-AR-0420"
+    ],
+    "P0_DUPLICATE_ATOMIC_CLAIMS": 0,
+    "P0_UNTRACEABLE_IMPLEMENTATION_CLAIMS": 0,
+    "reconciliation_notes": "Cross-batch overlaps (11 atomics) reconciled to a single deduplicated implemented set. Overlaps are complementary batch coverage, not conflicting duplicate implementations.",
+    "batch_claim_union_raw_count": 39,
+    "batch_claim_deduplicated_count": 28,
+    "traceability_by_batch": {
+      "P0.1": {
+        "claimed": 19,
+        "runtime_evidence": [
+          "blackdark/temporal/truth.py",
+          "blackdark/temporal/accessibility.py",
+          "temporal_leakage_firewall.py",
+          "tests/test_temporal_p0_1_truth_primitive.py"
+        ]
+      },
+      "P0.2": {
+        "claimed": 9,
+        "runtime_evidence": [
+          "blackdark/temporal/reconstruction.py",
+          "tests/test_temporal_p0_2_pit_reconstruction.py"
+        ]
+      },
+      "P0.3": {
+        "claimed": 11,
+        "runtime_evidence": [
+          "blackdark/temporal/firewall.py",
+          "temporal_leakage_firewall.py",
+          "tests/test_temporal_p0_3_leakage_firewall.py"
+        ]
+      }
+    }
+  },
+  "truth_semantics_verification": {
+    "fields_verified": [
+      "event_time",
+      "observed_time",
+      "available_at",
+      "ingested_at",
+      "effective_at",
+      "revised_at"
+    ],
+    "TEMPORAL_TIMESTAMP_SEMANTIC_COLLAPSE": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "DIRECT_DERIVED_UNKNOWN_PROVENANCE_PRESERVED": true,
+    "verification_basis": [
+      "TemporalObservation enforces non-interchangeable field binding",
+      "P0.1 tests: direct/derived/unknown provenance retained",
+      "P0.2 tests: distinct field metadata preserved in reconstruction",
+      "No substitution paths from event_time/freshness/SLA to available_at"
+    ]
+  },
+  "pit_safety_verification": {
+    "AVAILABLE_AT_RULE_PRESERVED": true,
+    "UNKNOWN_AVAILABLE_AT_FAILS_CLOSED": true,
+    "EVENT_TIME_AVAILABLE_AT_SUBSTITUTION": 0,
+    "FRESHNESS_AVAILABLE_AT_SUBSTITUTION": 0,
+    "verification_basis": [
+      "P0.1 evaluate_pit_accessibility hard rule tests",
+      "P0.1/P0.3 extract_available_at_from_row and filter_point_in_time no-fallback tests",
+      "P0.2/P0.3 reconstruction and firewall rejection paths"
+    ]
+  },
+  "reconstruction_verification": {
+    "PIT_RECONSTRUCTION_DETERMINISTIC": true,
+    "LATE_REVISION_HISTORY_CONTAMINATION": 0,
+    "UNPROVEN_REVISION_ORDER_FAILS_CLOSED": true,
+    "FUTURE_EFFECTIVITY_EXCLUDED": true,
+    "TEMPORAL_PROVENANCE_PRESERVED": true,
+    "verification_basis": [
+      "reconstruct_point_in_time deterministic revision selection",
+      "P0.2 tests: future available_at, future revision, unproven revision order",
+      "P0.2 tests: later valid revision supersedes earlier without leakage",
+      "P0.3 tests: future effectivity rejected"
+    ]
+  },
+  "firewall_verification": {
+    "TEMPORAL_LEAKAGE_CLASSES_ENFORCED": 7,
+    "leakage_classes": [
+      "FUTURE_AVAILABILITY",
+      "UNKNOWN_AVAILABILITY",
+      "FUTURE_REVISION",
+      "UNPROVEN_REVISION_ORDER",
+      "FUTURE_EFFECTIVITY",
+      "TEMPORAL_PROVENANCE_UNPROVEN",
+      "CROSS_TIME_STATE_CONTAMINATION"
+    ],
+    "STRICT_TEMPORAL_UNKNOWN_FAILS_CLOSED": true,
+    "FIREWALL_EVALUATION_DETERMINISTIC": true,
+    "verification_basis": [
+      "evaluate_temporal_leakage_firewall delegates to reconstruct_point_in_time",
+      "P0.3 focused tests cover all seven leakage classes",
+      "Repeated identical evaluation produces identical decision metadata"
+    ]
+  },
+  "authority_verification": {
+    "CANONICAL_AUTHORITY_CONFLICTS": 0,
+    "UPSTREAM_PROVENANCE_MUTATIONS": 0,
+    "data_governance_authority": "original acquisition/provenance metadata",
+    "temporal_authority": [
+      "PIT admissibility (evaluate_pit_accessibility)",
+      "reconstruction (reconstruct_point_in_time)",
+      "leakage rejection (evaluate_temporal_leakage_firewall)"
+    ],
+    "verification_basis": [
+      "Firewall provenance metadata records upstream_provenance_mutated=false",
+      "Temporal modules do not mutate upstream DG metadata structures"
+    ]
+  },
+  "cross_batch_consistency": {
+    "DUPLICATE_ACCESSIBILITY_ENGINES": 0,
+    "P0_1_SEMANTICS_DIVERGENCE": 0,
+    "P0_2_P0_3_RECONSTRUCTION_DIVERGENCE": 0,
+    "verification_basis": [
+      "Single evaluate_pit_accessibility implementation in accessibility.py",
+      "reconstruction.py imports and calls evaluate_pit_accessibility directly",
+      "firewall.py calls reconstruct_point_in_time without independent PIT recalculation",
+      "P0.3 registry entrypoint wraps canonical firewall decision"
+    ]
+  },
+  "test_results": {
+    "P0.1": {
+      "command": "python3 -m pytest tests/test_temporal_p0_1_truth_primitive.py -v",
+      "exit_code": 0,
+      "passed": 11,
+      "failed": 0
+    },
+    "P0.2": {
+      "command": "python3 -m pytest tests/test_temporal_p0_2_pit_reconstruction.py -v",
+      "exit_code": 0,
+      "passed": 9,
+      "failed": 0
+    },
+    "P0.3": {
+      "command": "python3 -m pytest tests/test_temporal_p0_3_leakage_firewall.py -v",
+      "exit_code": 0,
+      "passed": 15,
+      "failed": 0
+    },
+    "directly_affected_regression": {
+      "command": "python3 -m pytest tests/test_canonical_layer.py -v",
+      "exit_code": 0,
+      "passed": 11,
+      "failed": 0
+    },
+    "P0_FOCUSED_TEST_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "combined_p0_focused_total": 35
+  },
+  "side_effect_verification": {
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "TEMPORAL_TRUTH_NETWORK_DEPENDENCIES": 0,
+    "TEMPORAL_TRUTH_WALL_CLOCK_DEPENDENCIES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "p0_runtime_files": [
+      "blackdark/temporal/truth.py",
+      "blackdark/temporal/accessibility.py",
+      "blackdark/temporal/reconstruction.py",
+      "blackdark/temporal/firewall.py",
+      "blackdark/temporal/__init__.py",
+      "temporal_leakage_firewall.py"
+    ],
+    "verification_basis": [
+      "No network or wall-clock calls in blackdark/temporal modules",
+      "No migrations introduced across P0.1-P0.3 commits",
+      "Git diff b436e76f..HEAD limited to temporal package, registry entrypoint, tests, and evidence artifacts"
+    ]
+  },
+  "deferred_scope": {
+    "LATER_PHASE_SCOPE_LEAKAGE": 0,
+    "confirmed_outside_p0": [
+      "deterministic mass replay",
+      "evidence provenance ledger",
+      "outcome factory",
+      "forward shadow",
+      "learning",
+      "champion/challenger",
+      "UI/Market Time Machine",
+      "external/live evidence",
+      "persistent Temporal store"
+    ],
+    "p0_not_required_for_closure": true
+  },
+  "finding_register": [],
+  "acceptance_assertions": {
+    "P0_DUPLICATE_ATOMIC_CLAIMS": 0,
+    "P0_UNTRACEABLE_IMPLEMENTATION_CLAIMS": 0,
+    "TEMPORAL_TIMESTAMP_SEMANTIC_COLLAPSE": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "DIRECT_DERIVED_UNKNOWN_PROVENANCE_PRESERVED": true,
+    "AVAILABLE_AT_RULE_PRESERVED": true,
+    "UNKNOWN_AVAILABLE_AT_FAILS_CLOSED": true,
+    "EVENT_TIME_AVAILABLE_AT_SUBSTITUTION": 0,
+    "FRESHNESS_AVAILABLE_AT_SUBSTITUTION": 0,
+    "PIT_RECONSTRUCTION_DETERMINISTIC": true,
+    "LATE_REVISION_HISTORY_CONTAMINATION": 0,
+    "UNPROVEN_REVISION_ORDER_FAILS_CLOSED": true,
+    "FUTURE_EFFECTIVITY_EXCLUDED": true,
+    "TEMPORAL_PROVENANCE_PRESERVED": true,
+    "TEMPORAL_LEAKAGE_CLASSES_ENFORCED": 7,
+    "STRICT_TEMPORAL_UNKNOWN_FAILS_CLOSED": true,
+    "FIREWALL_EVALUATION_DETERMINISTIC": true,
+    "CANONICAL_AUTHORITY_CONFLICTS": 0,
+    "UPSTREAM_PROVENANCE_MUTATIONS": 0,
+    "DUPLICATE_ACCESSIBILITY_ENGINES": 0,
+    "P0_1_SEMANTICS_DIVERGENCE": 0,
+    "P0_2_P0_3_RECONSTRUCTION_DIVERGENCE": 0,
+    "P0_FOCUSED_TEST_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "TEMPORAL_TRUTH_NETWORK_DEPENDENCIES": 0,
+    "TEMPORAL_TRUTH_WALL_CLOCK_DEPENDENCIES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "LATER_PHASE_SCOPE_LEAKAGE": 0,
+    "P0_FINAL_CLOSURE_COMPLETE": true
+  },
+  "final_disposition": "P0_CLOSED_READY_FOR_P1"
+}
