@@ -93,12 +93,11 @@
       "symbol_or_component": "query_ohlcv",
       "direction": "DATA_GOVERNANCE_TO_TEMPORAL",
       "relationship_type": "CANONICAL_DATA_PROVIDER",
-      "information_transferred": "ohlcv candle rows with open_time, source slug, fetched_at, provenance_hash",
+      "information_transferred": "ohlcv candle rows with open_time, OHLCV price/volume fields, source slug, provenance_id",
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "HISTORICAL_EVENT_STORE",
       "required_metadata": [
         "event_time",
-        "ingested_at",
         "source"
       ],
       "runtime_reachable": true,
@@ -139,8 +138,7 @@
       "consumer_authority": "POINT_IN_TIME_RECONSTRUCTION",
       "required_metadata": [
         "event_time",
-        "source",
-        "ingested_at"
+        "source"
       ],
       "runtime_reachable": true,
       "evidence_basis": "query_ohlcv applies open_time >= start_time and open_time <= end_time clauses",
@@ -158,9 +156,7 @@
       "information_transferred": "recent price closes from TimescaleDB hot_pricing or NDJSON spool",
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "POINT_IN_TIME_RECONSTRUCTION",
-      "required_metadata": [
-        "event_time"
-      ],
+      "required_metadata": [],
       "runtime_reachable": true,
       "evidence_basis": "hot_tier_reader reads ORDER BY timestamp DESC from hot storage paths",
       "verification_surface": "hot_tier_reader.py; ml/market_replay_bootstrap.py point-in-time feature commentary",
@@ -177,9 +173,7 @@
       "information_transferred": "quote freshness verdict (fresh/stale), age_ms, rejection reason",
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "TEMPORAL_LEAKAGE_FIREWALL",
-      "required_metadata": [
-        "observed_time"
-      ],
+      "required_metadata": [],
       "runtime_reachable": true,
       "evidence_basis": "cap646/data_spine.py imports stale_price_guard; rejects stale quotes before success",
       "verification_surface": "cap646/data_spine.py freshness_assurance_report; stale_price_guard.py",
@@ -216,8 +210,7 @@
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "SOURCE_RIGHTS",
       "required_metadata": [
-        "source",
-        "rights_or_provenance"
+        "source"
       ],
       "runtime_reachable": true,
       "evidence_basis": "DATA_SOURCES tuple defines 100+ external endpoints; imported by ingestion_scheduler, cap646/data_spine",
@@ -239,10 +232,11 @@
         "source",
         "revised_at"
       ],
-      "runtime_reachable": false,
+      "runtime_reachable": true,
       "evidence_basis": "DataSource ORM model and repository seed_data_sources persist source identity in Postgres",
       "verification_surface": "blackdark/data/models.py; blackdark/data/repository.py seed_data_sources",
-      "notes": "Runtime reachable when DATABASE_URL configured and data engine initialized"
+      "notes": "Environment-gated via DATABASE_URL and data engine initialization; concrete runtime wiring present",
+      "runtime_reachability": "RUNTIME_REACHABLE_ENVIRONMENT_GATED"
     },
     {
       "contract_id": "DG-TMP-SQ-001",
@@ -255,9 +249,7 @@
       "information_transferred": "venue quote age_ms and fresh/stale classification",
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "SOURCE_QUALITY",
-      "required_metadata": [
-        "observed_time"
-      ],
+      "required_metadata": [],
       "runtime_reachable": true,
       "evidence_basis": "stale_price_guard enforces EXECUTION_MAX_QUOTE_AGE_MS threshold",
       "verification_surface": "stale_price_guard.py; cap646/data_spine.py",
@@ -275,8 +267,7 @@
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "SOURCE_QUALITY",
       "required_metadata": [
-        "source",
-        "observed_time"
+        "source"
       ],
       "runtime_reachable": true,
       "evidence_basis": "compute_data_provenance_score used by cap646/data_spine and cap646/handlers/data.py",
@@ -295,13 +286,12 @@
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "SOURCE_QUALITY",
       "required_metadata": [
-        "ingested_at",
-        "available_at"
+        "ingested_at"
       ],
       "runtime_reachable": true,
       "evidence_basis": "resolve_data_state used by blackdark/data/api.py dataset_response on OHLCV/funding queries",
       "verification_surface": "blackdark/data/response_metadata.py; blackdark/data/api.py",
-      "notes": "available_at not a named field; SLA comparison uses latest_record_at timestamp"
+      "notes": "resolve_data_state uses latest_record_at for SLA comparison; available_at not proven on this surface"
     },
     {
       "contract_id": "DG-TMP-SQ-004",
@@ -334,7 +324,6 @@
       "canonical_authority_owner": "DATA_GOVERNANCE",
       "consumer_authority": "SOURCE_QUALITY",
       "required_metadata": [
-        "observed_time",
         "source"
       ],
       "runtime_reachable": true,
@@ -374,7 +363,6 @@
       "consumer_authority": "EVIDENCE_PROVENANCE",
       "required_metadata": [
         "source",
-        "source_version",
         "ingested_at",
         "rights_or_provenance"
       ],
@@ -415,7 +403,6 @@
       "consumer_authority": "REPRODUCIBILITY",
       "required_metadata": [
         "source",
-        "source_version",
         "ingested_at",
         "rights_or_provenance"
       ],
@@ -526,117 +513,63 @@
   "metadata_contract_matrix": [
     {
       "field": "event_time",
-      "classifications": {
-        "blackdark/data/repository.py (ohlcv/market_events)": "DIRECTLY_AVAILABLE",
-        "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "stale_price_guard.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
-        "data_moat_guard.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "open_time/start_time on ohlcv_data and market_events; quote age derived from live_book_hub timestamps"
+      "classification": "DIRECTLY_AVAILABLE",
+      "repository_evidence": "ohlcv_data.open_time and market_events.start_time/end_time represent when the underlying market interval or event occurred.",
+      "semantic_limitations": "hot_tier_reader.fetch_recent_closes returns price floats without timestamps; quote-age metrics are not event_time."
     },
     {
       "field": "observed_time",
-      "classifications": {
-        "blackdark/data/repository.py (ohlcv/market_events)": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "cap646/data_spine.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
-        "stale_price_guard.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
-        "data_provenance_score.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
-        "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "quote_age_ms and book freshness_ms imply observation latency; no explicit observed_time column"
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "stale_price_guard.validate_venue_quote and data_provenance_score expose quote_age_ms/freshness_ms (relative latency), not an absolute observation timestamp on contract surfaces.",
+      "semantic_limitations": "Relative quote_age_ms/freshness_ms does not prove an absolute observation timestamp."
     },
     {
       "field": "available_at",
-      "classifications": {
-        "blackdark/data/repository.py (ohlcv/market_events)": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "blackdark/data/response_metadata.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "stale_price_guard.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "resolve_data_state compares latest_record_at to SLA; no available_at field name in schema"
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "blackdark/data/response_metadata.resolve_data_state compares latest_record_at to SLA freshness thresholds; no available_at field exists in schemas or APIs.",
+      "semantic_limitations": "latest_record_at plus SLA/freshness does not prove earliest availability to the Temporal PIT process."
     },
     {
       "field": "ingested_at",
-      "classifications": {
-        "blackdark/data/repository.py (ohlcv)": "DIRECTLY_AVAILABLE",
-        "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
-        "blackdark/data/migrations/002_ingestion_runs.sql": "DIRECTLY_AVAILABLE",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "storage_tier_manager.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "fetched_at on ohlcv_data; parsed_at aliased fetched_at in get_provenance_by_record; ingestion_runs.started_at"
+      "classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "repository_evidence": "ohlcv_data.fetched_at column exists; data_provenance.parsed_at aliased fetched_at in get_provenance_by_record; ingestion_runs.started_at records run start.",
+      "semantic_limitations": "fetched_at, parsed_at, and ingestion-run start may support derivation but do not automatically prove per-record ingestion timestamp."
     },
     {
       "field": "effective_at",
-      "classifications": {
-        "blackdark/data/repository.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "signal_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "No effective_at column or field found in inspected DG components"
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "No effective_at column or equivalent domain-effectiveness timestamp located in inspected DG schemas or services.",
+      "semantic_limitations": null
     },
     {
       "field": "revised_at",
-      "classifications": {
-        "blackdark/data/models.py DataSource": "DIRECTLY_AVAILABLE",
-        "blackdark/data/repository.py market_events": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "data_sources.updated_at on source registry records only; no event revision timestamp chain proven"
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "data_sources.updated_at exists on registry rows (blackdark/data/models.py DataSource) only.",
+      "semantic_limitations": "data_sources.updated_at is registry metadata update time, not event/datum revision time."
     },
     {
       "field": "source",
-      "classifications": {
-        "data_sources_registry.py": "DIRECTLY_AVAILABLE",
-        "blackdark/data/models.py DataSource": "DIRECTLY_AVAILABLE",
-        "blackdark/data/repository.py": "DIRECTLY_AVAILABLE",
-        "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
-        "cap646/data_spine.py": "DIRECTLY_AVAILABLE"
-      },
-      "evidence_notes": "source_id/slug across registry, data_sources table, provenance joins"
+      "classification": "DIRECTLY_AVAILABLE",
+      "repository_evidence": "data_sources_registry.DataSourceSpec.source_id; Postgres data_sources.slug; provenance joins expose ds.slug AS source.",
+      "semantic_limitations": "market_events carries source_links JSONB rather than normalized source slug."
     },
     {
       "field": "source_version",
-      "classifications": {
-        "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "blackdark/data/repository.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "blackdark/data/models.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "parser_version in data_provenance and PARSER_VERSION constant; external source release version not stored"
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "data_provenance.parser_version and PARSER_VERSION constant record parser implementation version only.",
+      "semantic_limitations": "parser_version is not equivalent to upstream source/data version."
     },
     {
       "field": "dataset_version",
-      "classifications": {
-        "blackdark/data/repository.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "blackdark/data/provenance.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "data_sources_registry.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "cap646/data_spine.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
-        "parquet_compactor.py": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
-      },
-      "evidence_notes": "No dataset_version field or table found in inspected DG paths"
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "No dataset_version field, snapshot id, or version table found in inspected DG paths.",
+      "semantic_limitations": "No qualifying dataset-version evidence was proven."
     },
     {
       "field": "rights_or_provenance",
-      "classifications": {
-        "data_sources_registry.py": "DERIVABLE_WITH_EXISTING_EVIDENCE",
-        "blackdark/data/provenance.py": "DIRECTLY_AVAILABLE",
-        "blackdark/data/repository.py market_events": "DIRECTLY_AVAILABLE",
-        "blackdark/data/models.py DataSource": "DERIVABLE_WITH_EXISTING_EVIDENCE",
-        "cap646/data_spine.py": "DERIVABLE_WITH_EXISTING_EVIDENCE"
-      },
-      "evidence_notes": "env_key/notes imply licensing; raw_response_hash/source_endpoint/source_links JSONB provide provenance lineage"
+      "classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "repository_evidence": "Provenance lineage: raw_response_hash, source_endpoint, source_links JSONB, ingestion_run_id. Rights: DataSourceSpec.env_key indicates credential requirement only.",
+      "semantic_limitations": "Hashes/endpoints/source links may establish provenance lineage; env_key does not prove licensing or data-use entitlement."
     }
   ],
   "phase_0g_data_governance_mapping_validation": [
@@ -700,14 +633,36 @@
   },
   "runtime_reachability_summary": {
     "contracts_total": 23,
-    "runtime_reachable_contracts": 22,
+    "runtime_reachable_unconditional_contracts": 12,
+    "runtime_reachable_environment_gated_contracts": 11,
+    "not_runtime_reachable_contracts": 0,
+    "runtime_reachable_contracts": 23,
     "false_runtime_reachability_claims": 0,
-    "non_runtime_reachable": [
-      {
-        "contract_id": "DG-TMP-SR-002",
-        "reason": "Postgres DataSource ORM path requires DATABASE_URL and data engine initialization"
-      }
-    ]
+    "runtime_reachability_by_contract": {
+      "DG-TMP-HE-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-HE-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-HE-003": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-PIT-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-PIT-002": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-TLF-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-TLF-002": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SR-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SR-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-SQ-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SQ-002": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SQ-003": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-SQ-004": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-SQ-005": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-RP-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-EP-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-EP-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-REP-001": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-REP-002": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+      "DG-TMP-CR-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-CCG-001": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-SR-003": "RUNTIME_REACHABLE_UNCONDITIONAL",
+      "DG-TMP-HE-004": "RUNTIME_REACHABLE_UNCONDITIONAL"
+    }
   },
   "discovery_integrity": {
     "unsupported_metadata_availability_claims": 0,
@@ -715,5 +670,12 @@
     "canonical_ownership_mutations": 0,
     "runtime_source_files_changed": 0
   },
-  "PHASE_0H1_DATA_GOVERNANCE_DISCOVERY_COMPLETE": true
+  "PHASE_0H1_DATA_GOVERNANCE_DISCOVERY_COMPLETE": true,
+  "data_governance_component_count": 14,
+  "point_in_time_available_at_enforcement": {
+    "CURRENT_DG_EVIDENCE_SUFFICIENT_FOR_AVAILABLE_AT_ENFORCEMENT": false,
+    "reason": "No proven available_at field or unambiguous earliest-availability timestamp currently exists in the discovered Data Governance surfaces."
+  },
+  "corrected_at_utc": "2026-09-14T08:09:26Z",
+  "correction_source": "TEMPORAL_PHASE_0H1_INDEPENDENT_AUDIT.json"
 }
