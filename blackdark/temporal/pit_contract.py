@@ -1,4 +1,4 @@
-"""PIT mandatory metadata contract enforcement (TEAS-REQ-010 / P0-3)."""
+"""PIT mandatory metadata contract enforcement (TEMP-PR-0010 / TEMP-AR-0016..0025)."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Evaluation contamination registry (TEAS-REQ-096..097 / TEMP-AR-0315..0323)."""
+"""Evaluation contamination registry (TEMP-PR-0096..0097 / TEMP-AR-0315..0323)."""
 
 from __future__ import annotations
 

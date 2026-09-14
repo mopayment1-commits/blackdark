@@ -1,4 +1,4 @@
-"""Walk-forward evaluation engine (TEAS-REQ-030..033 / TEMP-AR-0086..0095)."""
+"""Walk-forward evaluation engine (TEMP-PR-0030..0033 / TEMP-AR-0086..0095)."""
 
 from __future__ import annotations
 

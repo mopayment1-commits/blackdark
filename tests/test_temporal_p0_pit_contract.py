@@ -1,4 +1,4 @@
-"""TEAS-REQ-010 PIT mandatory metadata contract tests."""
+"""TEMP-PR-0010 PIT mandatory metadata contract tests."""
 
 from __future__ import annotations
 

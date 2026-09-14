@@ -1,4 +1,4 @@
-"""Production reality anchor service (TEAS-REQ-054/055 / TEMP-AR-0164)."""
+"""Production reality anchor service (TEMP-PR-0054..0055; external gate TEMP-AR-0164)."""
 
 from __future__ import annotations
 

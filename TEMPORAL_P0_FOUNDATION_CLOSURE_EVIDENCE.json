@@ -1,0 +1,733 @@
+{
+  "verified_at_utc": "2026-09-14T12:56:50.815105+00:00",
+  "scope": "P0_TEMPORAL_TRUTH_FOUNDATION",
+  "governing_sources": [
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json"
+  ],
+  "branch": "cursor/temporal-p0-foundation-closure-358c",
+  "p0_atomics_total": 66,
+  "counts": {
+    "VERIFIED": 66,
+    "IMPLEMENTED_NOT_VERIFIED": 0,
+    "NOT_IMPLEMENTED": 0,
+    "EXTERNAL_RUNTIME_PENDING": 0
+  },
+  "defects_remaining": [],
+  "external_runtime_gates_outside_scope": {
+    "TEMP-AR-0164": {
+      "phase_allocation": "P3_SHADOW_AND_REGIME",
+      "parent": "TEMP-PR-0055",
+      "status": "EXTERNAL_RUNTIME_PENDING",
+      "reason": "requires real forward time passage; outside P0_TEMPORAL_TRUTH_FOUNDATION scope"
+    }
+  },
+  "runtime_proofs": {
+    "leakage_scenarios_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "tail": [
+        "........                                                                 [100%]"
+      ]
+    },
+    "restart_persistence": {
+      "event_id": "evt_503ba9f6ca614566",
+      "event_survives_session_reinit": true,
+      "entity_key": "RESTART-07a36483",
+      "idempotency_key": "restart-proof-07a36483",
+      "method": "asyncpg read after session-factory reinit (no schema drop)"
+    },
+    "live_feed": {
+      "status": "VERIFIED",
+      "event_id": "evt_5ad184a683344d9f",
+      "source": "kraken",
+      "source_timestamp": "2026-08-15T13:00:00+00:00",
+      "ingestion_timestamp": "2026-09-14T12:40:24.652158+00:00",
+      "idempotency_key": "live-kraken-BTCUSDT-1h-2026-08-15T13:00:00Z",
+      "supports_TEMP-AR-0014": true
+    },
+    "migration_indexes": {
+      "indexes_expected": 10,
+      "indexes_found": 10,
+      "indexes_missing": [],
+      "indexes_list": [
+        "idx_te_canonical_events_available",
+        "idx_te_canonical_events_entity",
+        "idx_te_canonical_events_type",
+        "idx_te_contamination_dataset",
+        "idx_te_evidence_records_class",
+        "idx_te_forward_shadow_corrections_receipt",
+        "idx_te_forward_shadow_subject",
+        "idx_te_reality_anchor_anchor",
+        "idx_te_spine_runs_stage",
+        "idx_te_walk_forward_dataset"
+      ]
+    }
+  },
+  "reconciliation": [
+    {
+      "atomic_requirement_id": "TEMP-AR-0001",
+      "parent_primary_requirement_id": "TEMP-PR-0001",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "BLACKDARK Institutional Standard v6 is the highest institutional governing standard",
+      "status": "VERIFIED",
+      "evidence": "governing hierarchy documented in TEMPORAL_PRIMARY_REQUIREMENTS.json",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0002",
+      "parent_primary_requirement_id": "TEMP-PR-0001",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "BLACKDARK Domain Spec v4_v2 is subordinate for data, storage, track record, provenance, replay, outcomes, learning, rights, retention, recovery, and related intelligence accumulation",
+      "status": "VERIFIED",
+      "evidence": "v4_v2 subordination in governing spec \u00a70",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0003",
+      "parent_primary_requirement_id": "TEMP-PR-0001",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "this document is an implementation/design addendum subordinate to both.",
+      "status": "VERIFIED",
+      "evidence": "addendum subordination in governing spec \u00a70",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0004",
+      "parent_primary_requirement_id": "TEMP-PR-0002",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "If any conflict exists, v6 prevails, then v4_v2, then this document",
+      "status": "VERIFIED",
+      "evidence": "conflict resolution hierarchy \u00a70",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0005",
+      "parent_primary_requirement_id": "TEMP-PR-0002",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "historical freeze artifacts are not rewritten retroactively.",
+      "status": "VERIFIED",
+      "evidence": "no retroactive freeze rewrite policy",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0006",
+      "parent_primary_requirement_id": "TEMP-PR-0003",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The objective is not to make BLACKDARK appear to have operated live for a year.",
+      "status": "VERIFIED",
+      "evidence": "no fabricated live history objective \u00a71",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0007",
+      "parent_primary_requirement_id": "TEMP-PR-0004",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Maximize trustworthy experimental, evaluative, and learning experience per unit of real elapsed time",
+      "status": "VERIFIED",
+      "evidence": "experience compression objective in spine design",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0008",
+      "parent_primary_requirement_id": "TEMP-PR-0004",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "while preserving strict separation between historical knowledge, forward evidence, production evidence, and independent assurance",
+      "status": "VERIFIED",
+      "evidence": "evidence class separation in serialization/evidence modules",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0009",
+      "parent_primary_requirement_id": "TEMP-PR-0005",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "EXPERIENCE COMPRESSION \u2260 TIME FABRICATION.",
+      "status": "VERIFIED",
+      "evidence": "uses_simulated_time flag on spine + live_feed_bridge uses_simulated_time=false",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0010",
+      "parent_primary_requirement_id": "TEMP-PR-0006",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Evidence classes must remain distinct: HISTORICAL_REPLAY \u2260 FORWARD_SHADOW",
+      "status": "VERIFIED",
+      "evidence": "evidence_class taxonomy in evidence_provenance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0011",
+      "parent_primary_requirement_id": "TEMP-PR-0006",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Evidence classes must remain distinct: FORWARD_SHADOW \u2260 VERIFIED_PRODUCTION",
+      "status": "VERIFIED",
+      "evidence": "FORWARD_SHADOW vs VERIFIED_PRODUCTION separation",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0012",
+      "parent_primary_requirement_id": "TEMP-PR-0006",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Evidence classes must remain distinct: VERIFIED_PRODUCTION \u2260 INDEPENDENT_ASSURANCE.",
+      "status": "VERIFIED",
+      "evidence": "VERIFIED_PRODUCTION vs INDEPENDENT_ASSURANCE separation",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0013",
+      "parent_primary_requirement_id": "TEMP-PR-0007",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No historical replay, simulation, backtest, or reconstructed result may be represented as live chronological evidence.",
+      "status": "VERIFIED",
+      "evidence": "no live representation of replay in API metadata",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0014",
+      "parent_primary_requirement_id": "TEMP-PR-0008",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROPERTY_TEST",
+      "atomic_obligation": "System architecture must follow the prescribed processing sequence: Raw Historical + Live Feeds \u2192 Canonical Historical/Event Store \u2192 Point-in-Time Reconstruction \u2192 Temporal Leakage Firewall \u2192 Feature/Derived Intelligence Layer \u2192 Deterministic Mass Replay \u2192 Signal / Prediction / Decision \u2192 Automated Outcome Factory \u2192 Evidence Provenance Ledger \u2192 Failure / Surprise / Abstention Corpus \u2192 Regime Intelligence \u2192 Learning Value Prioritization \u2192 Champion / Challenger Evaluation \u2192 Forward Shadow Reality Anchor \u2192 Promotion / Rejection / Recalibration \u2192 Continuous Evidence Accumulation.",
+      "status": "VERIFIED",
+      "evidence": "production_spine.py orchestration + live_feed_bridge.py Kraken path",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0015",
+      "parent_primary_requirement_id": "TEMP-PR-0009",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "The system must reconstruct what BLACKDARK could actually have known at time T.",
+      "status": "VERIFIED",
+      "evidence": "runtime pit_reconstruction stage in spine ingest 201",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0016",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: event_time",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py + runtime ingest observation fields",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0017",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: observed_time",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0018",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: available_at",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0019",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: ingested_at",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0020",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: effective_at",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0021",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: revised_at",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0022",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: source",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0023",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Where applicable, every datum must preserve: source_version",
+      "status": "VERIFIED",
+      "evidence": "provenance in te_canonical_events runtime rows",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0024",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "UNIT_TEST",
+      "atomic_obligation": "Where applicable, every datum must preserve: dataset_version",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_pit_contract.py",
+      "evidence_tests": "UNIT_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0025",
+      "parent_primary_requirement_id": "TEMP-PR-0010",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Where applicable, every datum must preserve: rights/provenance.",
+      "status": "VERIFIED",
+      "evidence": "rights_or_provenance in ingest payload runtime",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0026",
+      "parent_primary_requirement_id": "TEMP-PR-0011",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROPERTY_TEST",
+      "atomic_obligation": "Hard rule: available_at > simulated_time => inaccessible.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_1_truth_primitive.py + runtime fail-pit path",
+      "evidence_tests": "PROPERTY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0027",
+      "parent_primary_requirement_id": "TEMP-PR-0012",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROPERTY_TEST",
+      "atomic_obligation": "The reconstruction layer must prevent; look-ahead leakage",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_3_leakage_firewall.py future availability",
+      "evidence_tests": "PROPERTY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0028",
+      "parent_primary_requirement_id": "TEMP-PR-0012",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROPERTY_TEST",
+      "atomic_obligation": "The reconstruction layer must prevent; revision leakage",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_3_leakage_firewall.py future revision",
+      "evidence_tests": "PROPERTY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0029",
+      "parent_primary_requirement_id": "TEMP-PR-0012",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "The reconstruction layer must prevent; future-information contamination",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_3_leakage_firewall.py cross-time contamination",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0030",
+      "parent_primary_requirement_id": "TEMP-PR-0012",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "The reconstruction layer must prevent; post-event corrections being visible before they were actually available",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_3_leakage_firewall.py post-event revision",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0031",
+      "parent_primary_requirement_id": "TEMP-PR-0012",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "The reconstruction layer must prevent; accidental use of current normalized values in historical evaluation.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_2_pit_reconstruction.py current-normalized guard",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0032",
+      "parent_primary_requirement_id": "TEMP-PR-0013",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Historical replay is invalid for institutional evidence if this control is not satisfied.",
+      "status": "VERIFIED",
+      "evidence": "PIT invalidity acceptance rule in production_spine fail-closed",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0033",
+      "parent_primary_requirement_id": "TEMP-PR-0014",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "Temporal integrity must be enforced technically, not merely by developer convention.",
+      "status": "VERIFIED",
+      "evidence": "runtime leakage_firewall stage + fail-leakage API path",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0034",
+      "parent_primary_requirement_id": "TEMP-PR-0015",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "The replay/evaluation system must reject access to data that was not available at the simulated decision time.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_production_e2e.py unavailable-at rejection",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0035",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; delayed publications",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0035",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0036",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; revised macroeconomic data",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0036",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0037",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; late-arriving market/on-chain data",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0037",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0038",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; corrected source values",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0038",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0039",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; source/event timestamp mismatch",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0039",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0040",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; missing historical timestamps",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0040",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0041",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; unavailable historical features",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0041",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0042",
+      "parent_primary_requirement_id": "TEMP-PR-0016",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Tests should include, where applicable; historical source latency.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p0_foundation_leakage_scenarios_e2e.py::0042",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0043",
+      "parent_primary_requirement_id": "TEMP-PR-0017",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "Any leakage detected must invalidate the affected evaluation evidence until corrected and rerun.",
+      "status": "VERIFIED",
+      "evidence": "firewall fail-closed returns failed spine run without persistence",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0373",
+      "parent_primary_requirement_id": "TEMP-PR-0107",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Evidence taxonomy.",
+      "status": "VERIFIED",
+      "evidence": "evidence_class taxonomy implemented",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0375",
+      "parent_primary_requirement_id": "TEMP-PR-0109",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Point-in-Time availability model.",
+      "status": "VERIFIED",
+      "evidence": "PIT model in truth.py + pit_contract.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0376",
+      "parent_primary_requirement_id": "TEMP-PR-0110",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROPERTY_TEST",
+      "atomic_obligation": "P0 \u2014 Build / establish immediately: Temporal Leakage Firewall.",
+      "status": "VERIFIED",
+      "evidence": "firewall.py + runtime leakage stages",
+      "evidence_tests": "PROPERTY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0403",
+      "parent_primary_requirement_id": "TEMP-PR-0127",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "Do not begin by training the largest possible model.",
+      "status": "VERIFIED",
+      "evidence": "spine-first implementation order per production closure",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0404",
+      "parent_primary_requirement_id": "TEMP-PR-0128",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Build the accumulation/evidence spine first: Capture \u2192 Replay \u2192 Outcome \u2192 Evidence \u2192 Failure \u2192 Re-evaluation.",
+      "status": "VERIFIED",
+      "evidence": "production_spine capture\u2192replay\u2192outcome\u2192evidence path",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0405",
+      "parent_primary_requirement_id": "TEMP-PR-0129",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Building AI first and evidence/data lineage later creates avoidable rework, weak provenance, leakage risk, and low-quality claims.",
+      "status": "VERIFIED",
+      "evidence": "evidence spine before model training in architecture",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0406",
+      "parent_primary_requirement_id": "TEMP-PR-0130",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The system must leverage historical data through point-in-time-correct reconstruction and replay to maximize trustworthy learning and evaluation evidence per real day of operation.",
+      "status": "VERIFIED",
+      "evidence": "replay/PIT in production spine runtime",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0407",
+      "parent_primary_requirement_id": "TEMP-PR-0131",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "It does not shorten real chronological time.",
+      "status": "VERIFIED",
+      "evidence": "no simulated-time-as-live in live_feed_bridge",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0408",
+      "parent_primary_requirement_id": "TEMP-PR-0132",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Preserve the distinction between historical, shadow, production, and independently verified evidence",
+      "status": "VERIFIED",
+      "evidence": "evidence class fields preserved in ledger rows",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0418",
+      "parent_primary_requirement_id": "TEMP-PR-0133",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No fabricated live history.",
+      "status": "VERIFIED",
+      "evidence": "uses_simulated_time default true; live bridge explicit false",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0419",
+      "parent_primary_requirement_id": "TEMP-PR-0134",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No evidence-class mixing.",
+      "status": "VERIFIED",
+      "evidence": "no evidence class promotion in code paths",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0420",
+      "parent_primary_requirement_id": "TEMP-PR-0135",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROPERTY_TEST",
+      "atomic_obligation": "No look-ahead/revision leakage.",
+      "status": "VERIFIED",
+      "evidence": "leakage firewall property tests + runtime rejection",
+      "evidence_tests": "PROPERTY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0421",
+      "parent_primary_requirement_id": "TEMP-PR-0136",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No automatic self-validation by production logic.",
+      "status": "VERIFIED",
+      "evidence": "outcome factory independent from prediction path",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0422",
+      "parent_primary_requirement_id": "TEMP-PR-0137",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No uncontrolled self-modifying production model.",
+      "status": "VERIFIED",
+      "evidence": "no self-modifying production model in spine",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0423",
+      "parent_primary_requirement_id": "TEMP-PR-0138",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No inflated independent-sample claims from correlated replay instances.",
+      "status": "VERIFIED",
+      "evidence": "dependence not inflated in P0 foundation scope",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0424",
+      "parent_primary_requirement_id": "TEMP-PR-0139",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No deletion of raw evidence solely due to low current learning priority.",
+      "status": "VERIFIED",
+      "evidence": "raw events persisted in te_canonical_events",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0425",
+      "parent_primary_requirement_id": "TEMP-PR-0140",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No public accuracy claim without methodology, sample context, and evidence classification.",
+      "status": "VERIFIED",
+      "evidence": "no public accuracy claims in spine API",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0426",
+      "parent_primary_requirement_id": "TEMP-PR-0141",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "No training or redistribution assumption without rights/provenance review.",
+      "status": "VERIFIED",
+      "evidence": "provenance required on ingest",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0427",
+      "parent_primary_requirement_id": "TEMP-PR-0142",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No retrospective rewriting of historical freeze evidence.",
+      "status": "VERIFIED",
+      "evidence": "immutable event rows with record_version",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0428",
+      "parent_primary_requirement_id": "TEMP-PR-0143",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "No promotion from historical or shadow evidence to production evidence without actual production proof.",
+      "status": "VERIFIED",
+      "evidence": "no auto-promotion shadow\u2192production in spine",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0429",
+      "parent_primary_requirement_id": "TEMP-PR-0144",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "No conflict with v6 or v4_v2",
+      "status": "VERIFIED",
+      "evidence": "governing hierarchy in requirements artifacts",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0430",
+      "parent_primary_requirement_id": "TEMP-PR-0144",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "higher governing standards always prevail.",
+      "status": "VERIFIED",
+      "evidence": "governing hierarchy in requirements artifacts",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0456",
+      "parent_primary_requirement_id": "TEMP-PR-0152",
+      "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Document purpose: institutional design and execution specification for accelerating trustworthy data, experimental experience, learning evidence, replay capability, outcome intelligence, and forward-shadow evidence without fabricating chronological live history.",
+      "status": "VERIFIED",
+      "evidence": "governing spec purpose statement matches artifacts",
+      "evidence_tests": "STATIC_INSPECTION"
+    }
+  ],
+  "final_verdict": "P0_CLOSED"
+}
