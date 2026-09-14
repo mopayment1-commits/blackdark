@@ -6,6 +6,13 @@ from blackdark.temporal.accessibility import (
     extract_available_at_from_row,
     filter_point_in_time,
 )
+from blackdark.temporal.firewall import (
+    LeakageClass,
+    TemporalLeakageFirewallDecision,
+    TemporalLeakageRejection,
+    TemporalProcessingContext,
+    evaluate_temporal_leakage_firewall,
+)
 from blackdark.temporal.reconstruction import (
     PitReconstructionExclusion,
     PitReconstructionResult,
@@ -23,15 +30,20 @@ from blackdark.temporal.truth import (
 
 __all__ = [
     "AVAILABLE_AT_FIELD_ALIASES",
+    "LeakageClass",
     "PitAccessibilityDecision",
     "PitReconstructionExclusion",
     "PitReconstructionResult",
+    "TemporalLeakageFirewallDecision",
+    "TemporalLeakageRejection",
     "TemporalObservation",
+    "TemporalProcessingContext",
     "TemporalRecord",
     "TemporalSemanticField",
     "TemporalTimestamp",
     "TimestampProvenanceKind",
     "evaluate_pit_accessibility",
+    "evaluate_temporal_leakage_firewall",
     "extract_available_at_from_row",
     "filter_point_in_time",
     "parse_temporal_instant",

@@ -132,6 +132,15 @@ def test_temporal_provenance_preserved_in_reconstruction_result() -> None:
     assert included_meta["field"] == "available_at"
 
 
+def test_unproven_revision_order_fails_closed_for_entity() -> None:
+    same_revision = T_MID
+    v1 = _record("r-v1", "entity-a", available_at=T_EARLY, revised_at=same_revision, version="1", value="v1")
+    v2 = _record("r-v2", "entity-a", available_at=T_EARLY, revised_at=same_revision, version="2", value="v2")
+    result = reconstruct_point_in_time([v1, v2], T0, strict=True)
+    assert "entity-a" not in result.state_by_entity
+    assert all(item.reason == "unproven_revision_order_fail_closed" for item in result.excluded)
+
+
 def test_reconstruction_uses_p0_1_accessibility_without_duplication() -> None:
     accessible = reconstruct_point_in_time(
         [_record("r1", "entity-a", available_at=T_EARLY, revised_at=T_EARLY, version="1", value="alpha")],
