@@ -30,6 +30,12 @@ class AdmissionInputs:
     net_edge_available: bool
     capacity_available: bool
     half_life_available: bool
+    portfolio_context_available: bool
+    pre_impact_breach: bool
+    portfolio_risk_impact: str | None
+    venue_health_impact: str | None
+    depeg_impact: str | None
+    depeg_material: bool
     data_governance_state: str | None
     data_governance_failed_gates: list[str]
     failure_state: str | None
@@ -167,7 +173,12 @@ def _failure_state(payload: dict[str, Any]) -> str | None:
     return None
 
 
-def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any]) -> AdmissionInputs:
+def extract_admission_inputs(
+    payload: dict[str, Any],
+    *,
+    net_edge: dict[str, Any],
+    portfolio_risk: dict[str, Any] | None = None,
+) -> AdmissionInputs:
     freshness_ok, freshness_meta = _freshness_inputs(payload)
     dq_score, dq_state = _quality_inputs(payload)
     evidence_class, evidence_available = _evidence_class(payload)
@@ -180,8 +191,21 @@ def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any
 
     execution_score, execution_available = _execution_score(payload, net_edge)
 
+    pr = portfolio_risk or payload.get("portfolio_risk") or {}
+    portfolio_context = pr.get("portfolio_context") or {}
+    portfolio_context_available = portfolio_context.get("state") == "AVAILABLE"
+    pre_impact = pr.get("pre_impact") or {}
+    pre_impact_breach = bool(pre_impact.get("material_breach"))
+    portfolio_risk_impact = pr.get("decision_impact")
+    venue_health_impact = (pr.get("venue_health") or {}).get("decision_impact")
+    depeg_pack = pr.get("depeg") or {}
+    depeg_impact = depeg_pack.get("decision_impact")
+    depeg_material = depeg_pack.get("aggregate_risk_band") in {"material", "critical"}
+
     risk_ok: bool | None
-    if "risk_ok" in payload:
+    if pr.get("state") == "AVAILABLE":
+        risk_ok = bool(pr.get("risk_ok"))
+    elif "risk_ok" in payload:
         risk_ok = bool(payload.get("risk_ok"))
     elif payload.get("risk_factors"):
         risk_ok = len(payload.get("risk_factors") or []) == 0
@@ -213,6 +237,7 @@ def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any
             "execution_feasibility": str((net_edge.get("execution_feasibility") or {}).get("methodology_version") or "dts-p2-execution-feasibility-1.0"),
             "capacity": str(capacity_pack.get("methodology_version") or "dts-p2-capacity-1.0"),
             "half_life": str(half_life_pack.get("methodology_version") or "dts-p2-half-life-1.0"),
+            "portfolio_risk": str(pr.get("methodology_version") or "dts-p3-portfolio-risk-1.0"),
         },
         "assumptions": {"surface": payload.get("surface"), "timestamp": payload.get("timestamp")},
         "applicability": payload.get("applicability") or "decision_capable_path",
@@ -256,6 +281,12 @@ def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any
         net_edge_available=net_edge_available,
         capacity_available=capacity_available,
         half_life_available=half_life_available,
+        portfolio_context_available=portfolio_context_available,
+        pre_impact_breach=pre_impact_breach,
+        portfolio_risk_impact=portfolio_risk_impact,
+        venue_health_impact=venue_health_impact,
+        depeg_impact=depeg_impact,
+        depeg_material=depeg_material,
         data_governance_state=payload.get("data_governance_state"),
         data_governance_failed_gates=list(payload.get("data_governance_failed_gates") or []),
         failure_state=_failure_state(payload),

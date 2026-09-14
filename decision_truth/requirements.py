@@ -36,7 +36,19 @@ _P2_IMPLEMENTED = frozenset(
     }
 )
 
-_IMPLEMENTED = _P1_IMPLEMENTED | _P2_IMPLEMENTED
+_P3_IMPLEMENTED = frozenset(
+    {
+        "DTS-016",
+        "DTS-027",
+        "DTS-028",
+        "DTS-029",
+        "DTS-030",
+        "DTS-045",
+        "DTS-057",
+    }
+)
+
+_IMPLEMENTED = _P1_IMPLEMENTED | _P2_IMPLEMENTED | _P3_IMPLEMENTED
 _PARTIAL = frozenset(f"DTS-{n:03d}" for n in range(1, 61) if f"DTS-{n:03d}" not in _IMPLEMENTED)
 
 
@@ -76,9 +88,10 @@ def dts_summary() -> dict[str, Any]:
         "counts": counts,
         "p1_implemented": sorted(_P1_IMPLEMENTED),
         "p2_implemented": sorted(_P2_IMPLEMENTED),
+        "p3_implemented": sorted(_P3_IMPLEMENTED),
         "PASS_ENGINEERING_DTS": counts["SPEC_ONLY"] == 0 and counts["IMPLEMENTED"] + counts["PARTIAL"] == total and total >= 60,
         "PASS_ENGINEERING_DTS_honest": counts["IMPLEMENTED"] >= len(_IMPLEMENTED),
-        "methodology_version": "dts-p2-economic-execution-1.0",
+        "methodology_version": "dts-p3-portfolio-preimpact-1.0",
         "requirements": rows,
     }
 

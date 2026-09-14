@@ -57,6 +57,15 @@ def evaluate_safety_floor(inputs: AdmissionInputs, contract_context: dict[str, A
         failures.append("capacity_evidence_unavailable")
     if contract_context.get("half_life_material") and not inputs.half_life_available:
         failures.append("half_life_unavailable")
+    portfolio_risk = contract_context.get("portfolio_risk") or {}
+    if inputs.pre_impact_breach:
+        failures.append("pre_impact_material_breach")
+    if inputs.venue_health_impact in {"reject", "abstain"}:
+        failures.append(f"venue_health_{inputs.venue_health_impact}")
+    if inputs.depeg_material:
+        failures.append("depeg_risk_material")
+    if portfolio_risk.get("decision_impact") == "reject":
+        failures.append("portfolio_risk_reject")
     if not contract_context.get("invalidation_condition"):
         failures.append("invalidation_context_missing")
 

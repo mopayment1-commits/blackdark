@@ -1,0 +1,78 @@
+{
+  "phase": "P3_PORTFOLIO_PREIMPACT_RISK",
+  "verified_at_utc": "2026-09-14T21:30:39Z",
+  "governing_spec": "BLACKDARK_DECISION_TRUTH_SYSTEM_INSTITUTIONAL_FINAL_v1.md",
+  "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
+  "base_sha": "ca1c0cee211471cd99a6867bb0148d8e5a476c87",
+  "implementation_sha": "ca1c0cee211471cd99a6867bb0148d8e5a476c87",
+  "dts_ids_covered": [
+    "DTS-016",
+    "DTS-027",
+    "DTS-028",
+    "DTS-029",
+    "DTS-030",
+    "DTS-045",
+    "DTS-057"
+  ],
+  "canonical_owners": {
+    "portfolio_risk_orchestrator": "decision_truth/portfolio_risk.py",
+    "portfolio_context": "decision_truth/portfolio_context.py",
+    "risk_envelope": "decision_truth/risk_envelope.py",
+    "pre_impact": "decision_truth/pre_impact.py",
+    "reverse_stress": "decision_truth/reverse_stress.py",
+    "venue_health": "decision_truth/venue_health.py",
+    "depeg": "decision_truth/depeg.py",
+    "governance_entry": "decision_truth/govern.py",
+    "venue_health_adapter": "bd_platform/whales_institutional_layer.py",
+    "user_risk_settings": "database.fetch_user_risk_settings"
+  },
+  "risk_dimensions_supported": [
+    "max_tolerated_loss",
+    "drawdown",
+    "concentration",
+    "leverage",
+    "liquidity",
+    "venue_exposure",
+    "stablecoin_exposure",
+    "counterparty_exposure"
+  ],
+  "portfolio_data_authority": "decision_truth/portfolio_context.py",
+  "reverse_stress_methodology": "dts-p3-reverse-stress-1.0",
+  "depeg_methodology_version": "dts-p3-depeg-1.0",
+  "remaining_bypass_paths": {
+    "RISK_ENVELOPE_BYPASS_PATHS": [],
+    "PRE_IMPACT_BYPASS_PATHS": [],
+    "REVERSE_STRESS_BYPASS_PATHS": [],
+    "VENUE_HEALTH_DECISION_GAPS": [],
+    "DEPEG_DECISION_GAPS": [],
+    "FALSE_PORTFOLIO_PERSONALIZATION_PATHS": [],
+    "FABRICATED_RISK_VALUES": []
+  },
+  "live_validation_gates": [
+    "venue_health_live_effectiveness",
+    "depeg_calibration_live"
+  ],
+  "summary": {
+    "DTS_REQUIREMENTS_IN_SCOPE": 7,
+    "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 7,
+    "PARTIAL_LOCAL": 0,
+    "NOT_IMPLEMENTED_LOCAL": 0,
+    "LOCALLY_BUILDABLE_REMAINING": 0,
+    "RISK_ENVELOPE_BYPASS_PATHS": 0,
+    "PRE_IMPACT_BYPASS_PATHS": 0,
+    "REVERSE_STRESS_BYPASS_PATHS": 0,
+    "VENUE_HEALTH_DECISION_GAPS": 0,
+    "DEPEG_DECISION_GAPS": 0,
+    "FALSE_PORTFOLIO_PERSONALIZATION_PATHS": 0,
+    "FABRICATED_RISK_VALUES": 0,
+    "LIVE_VALIDATION_PENDING": 2,
+    "REGRESSION_FAILURES": 0
+  },
+  "verdict": "PORTFOLIO_PREIMPACT_ENGINEERING_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+  "test_commands": [
+    "python3 -m pytest tests/test_decision_truth_p3_portfolio_preimpact.py tests/test_decision_truth_p2_economic_execution.py tests/test_decision_truth_p1_anti_bypass.py tests/test_decision_truth_pipeline.py tests/test_data_governance_p0_test_matrix.py tests/test_arb_truth_gate.py -q",
+    "python3 scripts/p3_portfolio_preimpact_closure_verify.py"
+  ],
+  "test_output_tail": "........................................................................ [ 84%]\n.............                                                            [100%]\n",
+  "local_gaps_remaining": []
+}
