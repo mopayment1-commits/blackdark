@@ -13,7 +13,7 @@ _PIPELINE_STATS = govern_stats()
 def pipeline_status() -> dict[str, Any]:
     return {
         "package": "decision_truth",
-        "methodology_version": "dts-p1-spine-1.0",
+        "methodology_version": "dts-p2-economic-execution-1.0",
         "stats": dict(_PIPELINE_STATS),
         "canonical_owner": "decision_truth/govern.py",
         "stages": [

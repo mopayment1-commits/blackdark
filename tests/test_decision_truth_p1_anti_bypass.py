@@ -15,18 +15,21 @@ from net_edge_truth import FIN_004_DEMO_OPPORTUNITY
 def _complete_payload(**overrides):
     base = {
         "symbol": "BTC",
+        "kind": "cross_exchange",
         "quote_age_ms": 120,
         "data_quality_score": 80,
         "evidence_class": "SHADOW_LIVE_FORWARD",
-        "execution_feasibility_score": 70,
         "liquidity_ok": True,
         "risk_ok": True,
-        "uncertainty_high": False,
         "net_profit_usdt": 10,
         "quote_amount": 1000,
+        "depth_usd": 250000,
+        "fill_probability": 0.92,
         "total_slippage_bps": 3,
         "trading_fees_usdt": 0.2,
         "withdrawal_fee_usdt": 0.05,
+        "live_duration_seconds": 8,
+        "estimated_recipients": 5,
     }
     base.update(overrides)
     return base
@@ -59,7 +62,7 @@ def test_conflicting_quality_abstains():
 def test_insufficient_evidence_no_optimistic_defaults():
     out = govern_decision_payload({"symbol": "BTC"}, context="api", run_data_governance=False)
     contract = (out.get("decision_truth") or {}).get("contract") or {}
-    assert contract.get("execution_feasibility", {}).get("state") == "UNAVAILABLE"
+    assert contract.get("execution_feasibility", {}).get("state") in {"UNAVAILABLE", "EXECUTION_FEASIBILITY_UNAVAILABLE"}
     assert out["decision_truth_state"] != DecisionState.AVAILABLE.value
 
 

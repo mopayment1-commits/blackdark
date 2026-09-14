@@ -48,6 +48,10 @@ def evaluate_admission(inputs: AdmissionInputs) -> tuple[DecisionState, list[str
         why_not.append("net_edge_truth_reject")
     elif not inputs.net_edge_available:
         why_not.append("net_edge_unavailable")
+    if inputs.net_edge_available and not inputs.capacity_available:
+        why_not.append("capacity_unavailable")
+    if inputs.net_edge_available and not inputs.half_life_available:
+        why_not.append("half_life_unavailable")
 
     if inputs.risk_ok is False:
         why_not.append("risk_gate_failed")

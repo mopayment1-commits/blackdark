@@ -36,7 +36,7 @@ class DecisionContract:
     why: list[str] = field(default_factory=list)
     why_not: list[str] = field(default_factory=list)
     invalidation_condition: str = ""
-    methodology_version: str = "dts-p1-spine-1.0"
+    methodology_version: str = "dts-p2-economic-execution-1.0"
     assumptions: dict[str, Any] = field(default_factory=dict)
     safety_floor: dict[str, Any] = field(default_factory=dict)
     provenance_context: dict[str, Any] = field(default_factory=dict)
@@ -50,12 +50,23 @@ class DecisionContract:
         return payload
 
 
-def build_field_availability(inputs_missing: tuple[str, ...], *, grade_present: bool) -> dict[str, Any]:
+def build_field_availability(
+    inputs_missing: tuple[str, ...],
+    *,
+    grade_present: bool,
+    capacity_available: bool = False,
+    capacity_not_applicable: bool = False,
+) -> dict[str, Any]:
     return {
-        "grade": field_value(None, available=grade_present, not_applicable=not grade_present, reason="p2_not_implemented"),
-        "capacity": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
-        "simulation": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
-        "calibration": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
-        "portfolio_impact": field_value(None, available=False, not_applicable=True, reason="p2_not_implemented"),
+        "grade": field_value(None, available=grade_present, not_applicable=not grade_present, reason="p3_not_implemented"),
+        "capacity": field_value(
+            None,
+            available=capacity_available,
+            not_applicable=capacity_not_applicable,
+            reason=None if capacity_available or capacity_not_applicable else "capacity_unavailable",
+        ),
+        "simulation": field_value(None, available=False, not_applicable=True, reason="p3_not_implemented"),
+        "calibration": field_value(None, available=False, not_applicable=True, reason="p3_not_implemented"),
+        "portfolio_impact": field_value(None, available=False, not_applicable=True, reason="p3_not_implemented"),
         "missing_critical_inputs": list(inputs_missing),
     }
