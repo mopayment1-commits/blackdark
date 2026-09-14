@@ -337,8 +337,10 @@ def is_anonymous_route_allowed(method: str, path: str) -> bool:
 
 
 def path_is_public(path: str) -> bool:
-    """Compatibility shim for public_api_docs — same as anonymous allowlist."""
-    return is_anonymous_route_allowed("GET", path)
+    """Public visitor/docs surface — excludes internal server callbacks."""
+    if is_internal_unauthenticated_route(path):
+        return False
+    return _path_matches(path, ANONYMOUS_ROUTE_ALLOWLIST_EXACT, ANONYMOUS_ROUTE_ALLOWLIST_PREFIXES)
 
 
 def classify_route(path: str) -> RouteAccessClass:
