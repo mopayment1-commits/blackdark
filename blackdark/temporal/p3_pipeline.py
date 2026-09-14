@@ -96,7 +96,7 @@ def run_forward_shadow_pipeline(
         issued_at=issued_at,
         temporal_context=temporal_context,
         source_or_dataset_context=source_context,
-        outcome_already_known=outcome_known_at is not None and outcome_known_at <= issued_at,
+        canonical_outcome=outcome,
     )
 
     regime = classify_regime(

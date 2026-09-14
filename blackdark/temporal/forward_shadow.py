@@ -13,6 +13,7 @@ from blackdark.temporal.evidence_class import (
     assert_no_automatic_promotion,
     validate_evidence_class_assignment,
 )
+from blackdark.temporal.outcome_contract import OutcomeContract, OutcomeLabelStatus
 
 FORWARD_SHADOW_CONTRACT_VERSION = "p3.0.0"
 POST_OUTCOME_SHADOW_RECEIPT_CREATION = 0
@@ -20,6 +21,117 @@ FORWARD_EVIDENCE_BACKFILL_MASQUERADE = 0
 REPLAY_TO_SHADOW_PROMOTION = 0
 SHADOW_TO_PRODUCTION_PROMOTION = 0
 SHADOW_TO_INDEPENDENT_PROMOTION = 0
+
+POST_OUTCOME_REJECTION_USES_CANONICAL_TRUTH = True
+CALLER_FLAG_CAN_BYPASS_POST_OUTCOME_GUARD = False
+DUPLICATE_OUTCOME_AUTHORITY = 0
+TEMPORAL_TIMESTAMP_FABRICATION = 0
+SHADOW_EVIDENCE_CLASS_PRESERVED = True
+POST_OUTCOME_REJECTION_AUTHORITY = "p2_outcome_contract+p0_pit_outcome_timestamp"
+POST_OUTCOME_REJECTION_RUNTIME_PATH = (
+    "forward_shadow.evaluate_post_outcome_receipt_admission"
+)
+
+_UNRESOLVED_OUTCOME_STATUSES = frozenset(
+    {
+        OutcomeLabelStatus.UNRESOLVED,
+        OutcomeLabelStatus.UNAVAILABLE,
+    }
+)
+
+
+@dataclass(frozen=True, slots=True)
+class PostOutcomeReceiptAdmissionDecision:
+    """Admission decision for pre-outcome shadow receipt creation."""
+
+    admitted: bool
+    rejection_reason: str | None
+    authority: str
+    runtime_path: str
+    canonical_outcome_known_at_receipt_time: bool
+    outcome_timestamp: datetime | None
+    label_status: str | None
+
+    def to_metadata(self) -> dict[str, Any]:
+        return {
+            "admitted": self.admitted,
+            "rejection_reason": self.rejection_reason,
+            "authority": self.authority,
+            "runtime_path": self.runtime_path,
+            "canonical_outcome_known_at_receipt_time": self.canonical_outcome_known_at_receipt_time,
+            "outcome_timestamp": (
+                self.outcome_timestamp.isoformat() if self.outcome_timestamp else None
+            ),
+            "label_status": self.label_status,
+        }
+
+
+def evaluate_post_outcome_receipt_admission(
+    *,
+    issued_at: datetime,
+    subject_identity: str,
+    canonical_outcome: OutcomeContract | None,
+) -> PostOutcomeReceiptAdmissionDecision:
+    """
+    Reject pre-outcome receipt when P2 canonical outcome is already observable
+    at issued_at per P0 PIT semantics (outcome_timestamp <= issued_at).
+
+    Caller-supplied flags and metadata are intentionally ignored.
+    """
+    if canonical_outcome is None:
+        return PostOutcomeReceiptAdmissionDecision(
+            admitted=True,
+            rejection_reason=None,
+            authority=POST_OUTCOME_REJECTION_AUTHORITY,
+            runtime_path=POST_OUTCOME_REJECTION_RUNTIME_PATH,
+            canonical_outcome_known_at_receipt_time=False,
+            outcome_timestamp=None,
+            label_status=None,
+        )
+
+    if canonical_outcome.subject_identity != subject_identity:
+        return PostOutcomeReceiptAdmissionDecision(
+            admitted=True,
+            rejection_reason=None,
+            authority=POST_OUTCOME_REJECTION_AUTHORITY,
+            runtime_path=POST_OUTCOME_REJECTION_RUNTIME_PATH,
+            canonical_outcome_known_at_receipt_time=False,
+            outcome_timestamp=canonical_outcome.outcome_timestamp,
+            label_status=canonical_outcome.label_status.value,
+        )
+
+    if canonical_outcome.label_status in _UNRESOLVED_OUTCOME_STATUSES:
+        return PostOutcomeReceiptAdmissionDecision(
+            admitted=True,
+            rejection_reason=None,
+            authority=POST_OUTCOME_REJECTION_AUTHORITY,
+            runtime_path=POST_OUTCOME_REJECTION_RUNTIME_PATH,
+            canonical_outcome_known_at_receipt_time=False,
+            outcome_timestamp=canonical_outcome.outcome_timestamp,
+            label_status=canonical_outcome.label_status.value,
+        )
+
+    outcome_ts = canonical_outcome.outcome_timestamp
+    if outcome_ts is None or outcome_ts > issued_at:
+        return PostOutcomeReceiptAdmissionDecision(
+            admitted=True,
+            rejection_reason=None,
+            authority=POST_OUTCOME_REJECTION_AUTHORITY,
+            runtime_path=POST_OUTCOME_REJECTION_RUNTIME_PATH,
+            canonical_outcome_known_at_receipt_time=False,
+            outcome_timestamp=outcome_ts,
+            label_status=canonical_outcome.label_status.value,
+        )
+
+    return PostOutcomeReceiptAdmissionDecision(
+        admitted=False,
+        rejection_reason="post_outcome_shadow_receipt_creation_forbidden",
+        authority=POST_OUTCOME_REJECTION_AUTHORITY,
+        runtime_path=POST_OUTCOME_REJECTION_RUNTIME_PATH,
+        canonical_outcome_known_at_receipt_time=True,
+        outcome_timestamp=outcome_ts,
+        label_status=canonical_outcome.label_status.value,
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -142,12 +254,16 @@ class ForwardShadowLedger:
         temporal_context: Mapping[str, Any],
         source_or_dataset_context: Mapping[str, Any],
         parameters: Mapping[str, Any] | None = None,
-        outcome_already_known: bool = False,
-        outcome_known_at: datetime | None = None,
+        canonical_outcome: OutcomeContract | None = None,
     ) -> ForwardShadowReceipt:
-        """TEMP-AR-0124: receipt must exist before outcome is known."""
-        if outcome_already_known:
-            raise ValueError("post_outcome_shadow_receipt_creation_forbidden")
+        """TEMP-AR-0124: receipt must exist before outcome is canonically known."""
+        admission = evaluate_post_outcome_receipt_admission(
+            issued_at=issued_at,
+            subject_identity=subject_identity,
+            canonical_outcome=canonical_outcome,
+        )
+        if not admission.admitted:
+            raise ValueError(admission.rejection_reason)
 
         evidence_class = TemporalEvidenceClass.FORWARD_SHADOW.value
         validate_evidence_class_assignment(evidence_class)
