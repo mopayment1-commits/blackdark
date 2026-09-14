@@ -1,0 +1,295 @@
+{
+  "phase": "0E_INDEPENDENT_AUDIT",
+  "phase_name": "Independent Audit of Temporal Requirements Traceability Matrix",
+  "audited_at_utc": "2026-09-14T01:05:24Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "inputs": {
+    "governing_spec": "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "primary_artifact": "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "atomic_artifact": "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "rtm_artifact": "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "phase_0e_reconciliation": "TEMPORAL_PHASE_0E_RECONCILIATION.json",
+    "phase_0d_targeted_reaudit": "TEMPORAL_PHASE_0D_TARGETED_REAUDIT.json"
+  },
+  "preconditions": {
+    "primary_requirements_total": 152,
+    "atomic_requirements_total": 455,
+    "rtm_total_rows": 455,
+    "phase_0d_final_disposition": "PASS",
+    "preconditions_pass": true
+  },
+  "recomputed_counts": {
+    "primary_requirements_total": 152,
+    "atomic_requirements_total": 455,
+    "rtm_rows_total": 455
+  },
+  "bidirectional_coverage": {
+    "active_atomics_missing_from_rtm": 0,
+    "duplicate_active_atomic_rows": 0,
+    "rtm_rows_with_invalid_atomic_id": 0,
+    "superseded_ids_in_active_rtm": 0,
+    "missing_ids": [],
+    "duplicate_ids": [],
+    "invalid_ids": [],
+    "superseded_ids": []
+  },
+  "parent_source_audit": {
+    "invalid_parent_links": 0,
+    "invalid_source_links": 0,
+    "source_location_drift": 0,
+    "invalid_parent_ids": [],
+    "invalid_source_details": [],
+    "source_location_drift_ids": []
+  },
+  "owner_audit": {
+    "wrong_primary_owner": 0,
+    "missing_secondary_owner": 0,
+    "unjustified_secondary_owner": 0,
+    "recomputed_owner_distribution": {
+      "CHAMPION_CHALLENGER": 3,
+      "COMPUTATIONAL_ACCELERATION": 14,
+      "CONTAMINATION_REGISTRY": 9,
+      "CONTROLLED_LEARNING": 8,
+      "COUNTERFACTUAL_LAB": 10,
+      "CROSS_CUTTING_GOVERNANCE": 75,
+      "DEPENDENCE_AWARE_SAMPLING": 14,
+      "DETERMINISTIC_REPLAY": 16,
+      "DRIFT": 9,
+      "EVIDENCE_PROVENANCE": 16,
+      "EXPERIENCE_COVERAGE": 17,
+      "FAILURE_SURPRISE_ABSTENTION": 18,
+      "FORWARD_SHADOW": 25,
+      "HISTORICAL_EVENT_STORE": 13,
+      "LEARNING_VALUE": 7,
+      "MARKET_TIME_MACHINE": 11,
+      "OUTCOME_FACTORY": 21,
+      "OUTCOME_QUALITY": 8,
+      "POINT_IN_TIME_RECONSTRUCTION": 18,
+      "PUBLIC_EVIDENCE": 19,
+      "QUALITY_GOVERNANCE": 13,
+      "REGIME_INTELLIGENCE": 17,
+      "REPLAY_FIDELITY": 13,
+      "REPRODUCIBILITY": 14,
+      "RETENTION_POLICY": 12,
+      "SOURCE_QUALITY": 14,
+      "SOURCE_RIGHTS": 11,
+      "TEMPORAL_LEAKAGE_FIREWALL": 11,
+      "USER_BEHAVIORAL_LEARNING": 9,
+      "WALK_FORWARD_VALIDATION": 10
+    },
+    "owner_distribution_total": 455,
+    "defects": {
+      "wrong_primary": [],
+      "missing_secondary": [],
+      "unjustified_secondary": []
+    }
+  },
+  "phase_audit": {
+    "invalid_phase_assignments": 0,
+    "phase_order_violations": 0,
+    "multiple_primary_phase_assignments": 0,
+    "recomputed_phase_distribution": {
+      "EXTERNAL_OR_LIVE_GATE": 10,
+      "P0_TEMPORAL_TRUTH_FOUNDATION": 66,
+      "P1_CANONICAL_EVENT_AND_REPLAY": 31,
+      "P2_OUTCOME_AND_EVIDENCE": 103,
+      "P3_SHADOW_AND_REGIME": 63,
+      "P4_LEARNING_AND_EVALUATION": 111,
+      "P5_USER_EVIDENCE_EXPERIENCE": 43,
+      "P6_OPERATIONAL_HARDENING": 28
+    },
+    "phase_distribution_total": 455,
+    "invalid_phase_details": [],
+    "phase_order_violation_ids": []
+  },
+  "dependency_audit": {
+    "invalid_dependency_ids": 0,
+    "self_dependencies": 0,
+    "dependency_cycles": 0,
+    "unjustified_dependencies": 0,
+    "missing_critical_dependencies": 0,
+    "cycle_samples": [],
+    "unjustified_samples": [],
+    "missing_critical_samples": []
+  },
+  "verification_method_audit": {
+    "invalid_verification_method_assignments": 0,
+    "recomputed_verification_method_distribution": {
+      "EMPIRICAL_VALIDATION": 41,
+      "EXTERNAL_ASSURANCE": 10,
+      "INTEGRATION_TEST": 45,
+      "PERFORMANCE_TEST": 9,
+      "PROPERTY_TEST": 6,
+      "PROVENANCE_CHECK": 25,
+      "REPLAY_TEST": 30,
+      "SECURITY_TEST": 30,
+      "STATIC_INSPECTION": 135,
+      "UNIT_TEST": 124
+    },
+    "verification_method_distribution_total": 455,
+    "defect_samples": []
+  },
+  "evidence_class_audit": {
+    "invalid_evidence_class_assignments": 0,
+    "evidence_class_collapse": 0,
+    "evidence_class_promotion_distortion": 0,
+    "recomputed_evidence_class_distribution": {
+      "FORWARD_SHADOW": 3,
+      "HISTORICAL_BACKTEST": 1,
+      "HISTORICAL_REPLAY": 2,
+      "INDEPENDENTLY_VERIFIED": 1,
+      "NOT_EVIDENCE_CLASS_SPECIFIC": 443,
+      "SIMULATED": 3,
+      "VERIFIED_PRODUCTION": 2
+    },
+    "evidence_class_distribution_total": 455,
+    "collapse_samples": [],
+    "promotion_samples": []
+  },
+  "external_gate_audit": {
+    "external_gate_candidates_total": 13,
+    "external_phase_rows_total": 10,
+    "external_candidates_outside_external_phase": [
+      {
+        "atomic_requirement_id": "TEMP-AR-0164",
+        "phase_allocation": "P3_SHADOW_AND_REGIME",
+        "classification": "LIVE_TIME_PASSAGE_REQUIRED",
+        "explanation": "Primary implementation phase remains local because the obligation defines engineering constraints or subsystem behavior; external gate applies only when live/production/independent empirical evidence must be observed."
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0261",
+        "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+        "classification": "EXTERNAL_EMPIRICAL_EVIDENCE_REQUIRED",
+        "explanation": "Primary implementation phase remains local because the obligation defines engineering constraints or subsystem behavior; external gate applies only when live/production/independent empirical evidence must be observed."
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0428",
+        "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+        "classification": "PRODUCTION_OPERATION_REQUIRED",
+        "explanation": "Primary implementation phase remains local because the obligation defines engineering constraints or subsystem behavior; external gate applies only when live/production/independent empirical evidence must be observed."
+      }
+    ],
+    "external_candidates_outside_external_phase_count": 3,
+    "phase_vs_candidate_difference_explained": "EXTERNAL_OR_LIVE_GATE phase rows (10) are acceptance-boundary obligations whose primary allocation is external by definition. external_gate_candidate (13) additionally marks 3 rows in local phases (TEMP-AR-0164, TEMP-AR-0261, TEMP-AR-0428) where completion still requires live-time passage, production operation, or independent empirical observation even though engineering foundations are built in earlier phases.",
+    "false_external_gate_candidates": 0,
+    "candidate_classifications": [
+      {
+        "atomic_requirement_id": "TEMP-AR-0164",
+        "phase_allocation": "P3_SHADOW_AND_REGIME",
+        "classification": "LIVE_TIME_PASSAGE_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0261",
+        "phase_allocation": "P5_USER_EVIDENCE_EXPERIENCE",
+        "classification": "EXTERNAL_EMPIRICAL_EVIDENCE_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0428",
+        "phase_allocation": "P0_TEMPORAL_TRUTH_FOUNDATION",
+        "classification": "PRODUCTION_OPERATION_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0431",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "PRODUCTION_OPERATION_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0432",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "PRODUCTION_OPERATION_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0433",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "LIVE_TIME_PASSAGE_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0434",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "PRODUCTION_OPERATION_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0435",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "PRODUCTION_OPERATION_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0436",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "INDEPENDENT_THIRD_PARTY_ASSURANCE_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0460",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "LIVE_TIME_PASSAGE_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0461",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "PRODUCTION_OPERATION_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0462",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "PRODUCTION_OPERATION_REQUIRED"
+      },
+      {
+        "atomic_requirement_id": "TEMP-AR-0463",
+        "phase_allocation": "EXTERNAL_OR_LIVE_GATE",
+        "classification": "INDEPENDENT_THIRD_PARTY_ASSURANCE_REQUIRED"
+      }
+    ],
+    "false_external_details": [],
+    "unexplained_external_phase_count_difference": 0
+  },
+  "ambiguity_audit": {
+    "ambiguity_flag_mismatches": 0,
+    "mismatch_ids": []
+  },
+  "distribution_arithmetic": {
+    "totals": {
+      "owner_distribution_total": 455,
+      "phase_distribution_total": 455,
+      "verification_method_distribution_total": 455,
+      "evidence_class_distribution_total": 455
+    },
+    "distribution_count_mismatches": 0,
+    "mismatch_details": []
+  },
+  "implementation_status_leakage_audit": {
+    "implementation_status_leakage": 0,
+    "leakage_samples": []
+  },
+  "acceptance_assertions": {
+    "ACTIVE_ATOMICS_MISSING_FROM_RTM": 0,
+    "DUPLICATE_ACTIVE_ATOMIC_ROWS": 0,
+    "RTM_ROWS_WITH_INVALID_ATOMIC_ID": 0,
+    "SUPERSEDED_IDS_IN_ACTIVE_RTM": 0,
+    "INVALID_PARENT_LINKS": 0,
+    "INVALID_SOURCE_LINKS": 0,
+    "SOURCE_LOCATION_DRIFT": 0,
+    "WRONG_PRIMARY_OWNER": 0,
+    "MISSING_SECONDARY_OWNER": 0,
+    "UNJUSTIFIED_SECONDARY_OWNER": 0,
+    "INVALID_PHASE_ASSIGNMENTS": 0,
+    "PHASE_ORDER_VIOLATIONS": 0,
+    "MULTIPLE_PRIMARY_PHASE_ASSIGNMENTS": 0,
+    "INVALID_DEPENDENCY_IDS": 0,
+    "SELF_DEPENDENCIES": 0,
+    "DEPENDENCY_CYCLES": 0,
+    "UNJUSTIFIED_DEPENDENCIES": 0,
+    "MISSING_CRITICAL_DEPENDENCIES": 0,
+    "INVALID_VERIFICATION_METHOD_ASSIGNMENTS": 0,
+    "INVALID_EVIDENCE_CLASS_ASSIGNMENTS": 0,
+    "EVIDENCE_CLASS_COLLAPSE": 0,
+    "EVIDENCE_CLASS_PROMOTION_DISTORTION": 0,
+    "FALSE_EXTERNAL_GATE_CANDIDATES": 0,
+    "UNEXPLAINED_EXTERNAL_PHASE_COUNT_DIFFERENCE": 0,
+    "AMBIGUITY_FLAG_MISMATCHES": 0,
+    "DISTRIBUTION_COUNT_MISMATCHES": 0,
+    "IMPLEMENTATION_STATUS_LEAKAGE": 0,
+    "UNEXPECTED_CHANGED_FILES": 0
+  },
+  "final_disposition": "PASS",
+  "PHASE_0E_INDEPENDENT_AUDIT_COMPLETE": true
+}
