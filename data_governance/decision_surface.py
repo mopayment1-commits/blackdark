@@ -16,17 +16,36 @@ def build_decision_surface(payload: dict[str, Any], *, lang: str = "en") -> dict
     quality = dg.get("quality") or {}
     prov = dg.get("provenance") or {}
 
-    admitted = admission.get("admission_state") == "ADMITTED"
+    state = str(
+        payload.get("decision_truth_state")
+        or admission.get("admission_state")
+        or contract.get("decision_state")
+        or ""
+    )
+    admitted = state in {"AVAILABLE", "ADMITTED"}
+    why_text = why_not.get("human_explanation")
+    if isinstance(why_text, dict):
+        why_text = why_text.get("human_explanation") or str(why_text)
     return {
         "A_state": {
             "portfolio": payload.get("portfolio_summary") or {"status": "not_connected"},
-            "risk_budget": (dt.get("risk") or {}).get("risk_budget"),
+            "risk_budget": (contract.get("risk") or dt.get("risk") or {}).get("risk_budget"),
+            "decision_state": state,
         },
         "B_material_changes": payload.get("material_changes") or [],
         "C_admitted_opportunities": [payload] if admitted else [],
-        "D_rejected": [] if admitted else [{"reason": why_not.get("human_explanation"), "failed_gates": admission.get("failed_gates")}],
-        "E_pre_impact_warnings": (dt.get("risk") or {}).get("pre_impact"),
-        "F_unknowns": _unknowns(payload, admission, fresh, quality),
+        "D_rejected": []
+        if admitted
+        else [
+            {
+                "reason": why_text,
+                "failed_gates": admission.get("failed_gates") or contract.get("why_not"),
+                "decision_state": state,
+            }
+        ],
+        "E_pre_impact_warnings": (contract.get("risk") or dt.get("risk") or {}).get("pre_impact")
+        or (contract.get("risk") or {}).get("portfolio_pre_impact"),
+        "F_unknowns": _unknowns(payload, admission, fresh, quality, state),
         "G_evidence_strip": {
             "source_class": prov.get("lineage", {}).get("nodes", [{}])[0] if prov else "oracle",
             "as_of": fresh.get("as_of") or contract.get("detected_at"),
@@ -39,10 +58,16 @@ def build_decision_surface(payload: dict[str, Any], *, lang: str = "en") -> dict
     }
 
 
-def _unknowns(payload: dict[str, Any], admission: dict[str, Any], fresh: dict[str, Any], quality: dict[str, Any]) -> list[str]:
+def _unknowns(
+    payload: dict[str, Any],
+    admission: dict[str, Any],
+    fresh: dict[str, Any],
+    quality: dict[str, Any],
+    state: str = "",
+) -> list[str]:
     unknowns: list[str] = []
-    state = admission.get("admission_state")
-    if state == "ABSTAINED":
+    state = state or str(admission.get("admission_state") or "")
+    if state in {"ABSTAINED", "REJECTED", "DEGRADED", "UNAVAILABLE"}:
         unknowns.append("NO DECISION — insufficient evidence")
     if fresh.get("freshness_state") in {"STALE", "UNKNOWN"}:
         unknowns.append("STALE INPUT")

@@ -35,8 +35,18 @@ def apply_dts_compliance_guards(payload: dict[str, Any]) -> dict[str, Any]:
         out["narrative"] = _sanitize_text(narrative)
 
     dt["contract"] = contract
-    dt["compliance"] = {"marketing_claims_blocked": True, "excluded_defects_enforced": True}
+    dt["compliance"] = {
+        "marketing_claims_blocked": True,
+        "excluded_defects_enforced": True,
+        "unsupported_causality_blocked": True,
+    }
     out["decision_truth"] = dt
+    from decision_truth.product.causality import contains_unsupported_causality, sanitize_causal_language
+
+    out = sanitize_causal_language(out)
+    narrative = str(out.get("narrative") or out.get("analysis") or "")
+    if narrative and contains_unsupported_causality(narrative):
+        out["causality_violation"] = "unsupported_causal_claim"
     return out
 
 
