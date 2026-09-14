@@ -1,0 +1,146 @@
+{
+  "batch": "P0.1",
+  "batch_name": "Temporal Truth Primitive",
+  "created_at_utc": "2026-09-14T09:30:00Z",
+  "base_branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "implementation_branch": "cursor/temporal-p0-1-truth-primitive-358c",
+  "governing_artifacts": [
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json",
+    "TEMPORAL_PHASE_0_FINAL_CLOSURE.json",
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md"
+  ],
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0009",
+    "TEMP-AR-0015",
+    "TEMP-AR-0016",
+    "TEMP-AR-0017",
+    "TEMP-AR-0018",
+    "TEMP-AR-0019",
+    "TEMP-AR-0020",
+    "TEMP-AR-0021",
+    "TEMP-AR-0026",
+    "TEMP-AR-0027",
+    "TEMP-AR-0028",
+    "TEMP-AR-0029",
+    "TEMP-AR-0030",
+    "TEMP-AR-0031",
+    "TEMP-AR-0032",
+    "TEMP-AR-0033",
+    "TEMP-AR-0034",
+    "TEMP-AR-0040",
+    "TEMP-AR-0043"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/__init__.py",
+    "blackdark/temporal/truth.py",
+    "blackdark/temporal/accessibility.py",
+    "temporal_leakage_firewall.py"
+  ],
+  "tests_added_or_modified": [
+    "tests/test_temporal_p0_1_truth_primitive.py"
+  ],
+  "timestamp_semantics": {
+    "fields": {
+      "event_time": "when the underlying event occurred",
+      "observed_time": "when BLACKDARK observed the datum/event",
+      "available_at": "earliest proven time the datum became available for use by the Temporal process",
+      "ingested_at": "time the datum entered BLACKDARK ingestion/storage",
+      "effective_at": "time information became effective in its domain meaning",
+      "revised_at": "time the relevant datum/version was revised"
+    },
+    "non_interchangeable": true,
+    "provenance_kinds": [
+      "DIRECT",
+      "DERIVED",
+      "UNKNOWN"
+    ],
+    "derived_requires_derivation_basis": true,
+    "derived_never_promoted_to_direct": true,
+    "fabrication_policy": "TEMPORAL_TIMESTAMP_FABRICATION=0"
+  },
+  "accessibility_rule": {
+    "primitive": "evaluate_pit_accessibility",
+    "semantics": "If trustworthy available_at exists: available_at <= simulated_time => accessible; available_at > simulated_time => inaccessible",
+    "canonical_owners": [
+      "POINT_IN_TIME_RECONSTRUCTION",
+      "TEMPORAL_LEAKAGE_FIREWALL"
+    ],
+    "hard_rule": "available_at > simulated_time => inaccessible"
+  },
+  "unknown_available_at_behavior": {
+    "strict_pit_mode": "inaccessible_fail_closed",
+    "UNKNOWN_AVAILABLE_AT_FAILS_CLOSED": true,
+    "silent_accessible_on_unknown": false
+  },
+  "provenance_behavior": {
+    "TEMPORAL_TIMESTAMP_PROVENANCE_PRESERVED": true,
+    "direct_metadata_exposed": true,
+    "derived_metadata_includes_derivation_basis": true,
+    "unknown_has_no_value": true
+  },
+  "database_changes": {
+    "migration_added": false,
+    "destructive_schema_changes": false,
+    "notes": "P0.1 primitive is in-memory/contract-only; no persistence migration introduced"
+  },
+  "focused_test_results": {
+    "command": "python3 -m pytest tests/test_temporal_p0_1_truth_primitive.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0,
+    "scenarios_covered": [
+      "known_available_at_before_simulated_time_accessible",
+      "known_available_at_equal_simulated_time_accessible",
+      "known_available_at_after_simulated_time_inaccessible",
+      "unknown_available_at_strict_fail_closed",
+      "no_fallback_from_freshness_sla_ingested_at",
+      "direct_derived_unknown_provenance_retained",
+      "event_time_not_substituted_for_available_at",
+      "registry_entrypoint_matches_canonical_filter"
+    ]
+  },
+  "directly_affected_regression_results": {
+    "command": "python3 -m pytest tests/test_canonical_layer.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0
+  },
+  "known_deferred_requirements": [
+    "TEMP-AR-0035",
+    "TEMP-AR-0036",
+    "TEMP-AR-0037",
+    "TEMP-AR-0038",
+    "TEMP-AR-0041",
+    "TEMP-AR-0042",
+    "TEMP-AR-0022",
+    "TEMP-AR-0023",
+    "TEMP-AR-0024",
+    "TEMP-AR-0025",
+    "DG available_at acquisition wiring",
+    "replay engine integration",
+    "persistent Temporal timestamp storage"
+  ],
+  "acceptance_assertions": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "AVAILABLE_AT_RULE_IMPLEMENTED": true,
+    "UNKNOWN_AVAILABLE_AT_FAILS_CLOSED": true,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "TEMPORAL_TIMESTAMP_PROVENANCE_PRESERVED": true,
+    "EVENT_TIME_AVAILABLE_AT_SUBSTITUTION": 0,
+    "FRESHNESS_AVAILABLE_AT_SUBSTITUTION": 0,
+    "CANONICAL_AUTHORITY_CONFLICTS": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "FOCUSED_TEMPORAL_TEST_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "P0_1_TEMPORAL_TRUTH_PRIMITIVE_COMPLETE": true
+  },
+  "blocker_classification": {
+    "material_blockers": 0,
+    "material_non_blockers": 0,
+    "minor_or_documentation": 0
+  },
+  "final_disposition": "P0_1_COMPLETE"
+}
