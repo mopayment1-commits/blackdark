@@ -1,4 +1,4 @@
-"""BLACKDARK Temporal truth foundation (P0–P1), Outcome/Evidence (P2), Shadow/Regime (P3)."""
+"""BLACKDARK Temporal truth foundation (P0–P4), User Evidence Experience (P5)."""
 
 from blackdark.temporal.accessibility import (
     PitAccessibilityDecision,
@@ -127,6 +127,42 @@ from blackdark.temporal.p4_drift import (
     P4DriftResult,
     P4DriftSignal,
     evaluate_p4_drift,
+)
+from blackdark.temporal.p5_requirement_registry import (
+    P5_ATOMIC_REQUIREMENT_IDS,
+    P5_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P5_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P5_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS,
+    P5_REQUIREMENT_OWNERS,
+)
+from blackdark.temporal.market_time_machine import (
+    IMPLIED_LIVE_ISSUANCE_PROHIBITED,
+    MANDATORY_HISTORICAL_REPLAY_DISCLOSURE,
+    InternalModePurpose,
+    MarketTimeMachineExperience,
+    MarketTimeMachineMode,
+    build_internal_experience,
+    build_user_facing_experience,
+    evaluate_live_issuance_claim,
+    run_market_time_machine_replay,
+)
+from blackdark.temporal.public_evidence import (
+    PUBLIC_LEDGER_MATURITY_REQUIRED,
+    PublicEvidenceControls,
+    PublicEvidenceDisclosure,
+    build_public_disclosure_from_ledger,
+    validate_public_evidence_controls,
+)
+from blackdark.temporal.user_behavioral_learning import (
+    BehavioralConsentRecord,
+    BehavioralLearningPurpose,
+    BehavioralSignal,
+    USER_BEHAVIOR_NOT_FINANCIAL_TRUTH,
+    USER_ACTION_NOT_OUTCOME_PROOF,
+    UserBehavioralLearningState,
+    build_behavioral_learning_state,
+    evaluate_user_action_as_outcome_proof,
+    record_behavioral_signal,
 )
 from blackdark.temporal.p3_requirement_registry import (
     P3_ATOMIC_REQUIREMENT_IDS,
@@ -258,6 +294,34 @@ __all__ = [
     "P4DriftResult",
     "P4DriftSignal",
     "evaluate_p4_drift",
+    "P5_ATOMIC_REQUIREMENT_IDS",
+    "P5_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P5_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P5_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS",
+    "P5_REQUIREMENT_OWNERS",
+    "IMPLIED_LIVE_ISSUANCE_PROHIBITED",
+    "MANDATORY_HISTORICAL_REPLAY_DISCLOSURE",
+    "InternalModePurpose",
+    "MarketTimeMachineExperience",
+    "MarketTimeMachineMode",
+    "build_internal_experience",
+    "build_user_facing_experience",
+    "evaluate_live_issuance_claim",
+    "run_market_time_machine_replay",
+    "PUBLIC_LEDGER_MATURITY_REQUIRED",
+    "PublicEvidenceControls",
+    "PublicEvidenceDisclosure",
+    "build_public_disclosure_from_ledger",
+    "validate_public_evidence_controls",
+    "BehavioralConsentRecord",
+    "BehavioralLearningPurpose",
+    "BehavioralSignal",
+    "USER_BEHAVIOR_NOT_FINANCIAL_TRUTH",
+    "USER_ACTION_NOT_OUTCOME_PROOF",
+    "UserBehavioralLearningState",
+    "build_behavioral_learning_state",
+    "evaluate_user_action_as_outcome_proof",
+    "record_behavioral_signal",
     "UNCONTROLLED_PRODUCTION_SELF_MODIFICATION",
     "UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED",
     "RETENTION_EQUALS_LEARNING_PRIORITY",
