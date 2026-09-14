@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import copy
 from datetime import UTC, datetime
 
 import pytest
