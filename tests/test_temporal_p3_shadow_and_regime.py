@@ -317,10 +317,11 @@ def test_failure_corpus_records_high_confidence_wrong() -> None:
         evidence_class=TemporalEvidenceClass.FORWARD_SHADOW.value,
         recorded_at=T_OUTCOME,
         model_version="model-v1",
+        outcome=_outcome(directional_correctness=False),
     )
     assert case is not None
     assert case.case_type == FailureCaseType.HIGH_CONFIDENCE_WRONG
-    assert case.traceability.get("root_cause")
+    assert case.traceability.root_cause
 
 
 def test_replay_remains_historical_not_shadow() -> None:
