@@ -1,13 +1,13 @@
 {
   "verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
-  "generated_at": "2026-09-14T22:39:48.589048+00:00",
+  "generated_at": "2026-09-14T22:42:21.044465+00:00",
   "governing_spec": {
     "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
     "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
   },
   "git": {
-    "base_sha": "6fbfddc69780994c5d5f92b6577dd0337d5f8ccd",
-    "implementation_sha": "6fbfddc69780994c5d5f92b6577dd0337d5f8ccd"
+    "base_sha": "0558d05b0bd514cec679bff530558ae79481704e",
+    "implementation_sha": "0558d05b0bd514cec679bff530558ae79481704e"
   },
   "scope": {
     "fds_controls": [
@@ -44,7 +44,7 @@
     "command": "python -m pytest tests/test_fds_security_governance_data_boundary.py -q",
     "exit_code": 0,
     "passed": true,
-    "stdout_tail": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_fds_security_governance_data_boundary.py:213\n  /workspace/tests/test_fds_security_governance_data_boundary.py:213: PytestUnknownMarkWarning: Unknown pytest.mark.closure - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html\n    @pytest.mark.closure\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+    "stdout_tail": ".....................                                                    [100%]\n",
     "stderr_tail": ""
   },
   "scanner": {

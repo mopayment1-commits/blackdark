@@ -126,7 +126,7 @@ def test_logger_sanitizes_restricted_classes():
     from financial_data.dlp import sanitize_financial_log_value
 
     assert "[financial_redacted]" in sanitize_financial_log_value(SYNTHETIC_PAN, field_name="pan")
-    assert "[financial_redacted]" in sanitize_financial_log_value("sk_live_" + "y" * 24, field_name="api_key")
+    assert "[financial_redacted]" in sanitize_financial_log_value("whsec_" + "b" * 24, field_name="webhook_secret")
     assert "[financial_redacted]" in sanitize_financial_log_value("123", field_name="cvv")
 
 
