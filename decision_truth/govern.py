@@ -48,14 +48,34 @@ def govern_decision_payload(
     if fp and fp.get("used_fallback"):
         fallback_notes.append(f"fallback_source:{fp.get('source')}")
 
-    net_edge = economic_reality(out)
+    economics = economic_reality(out)
+    net_edge = economics
     out["net_edge_truth"] = net_edge
+    out["economic_reality"] = economics
+    exec_pack = economics.get("execution_feasibility") or {}
+    if exec_pack.get("score") is not None:
+        out["execution_feasibility_score"] = exec_pack["score"]
+    out["execution_feasibility_detail"] = exec_pack
+    cap_pack = economics.get("capacity") or {}
+    if cap_pack.get("capacity_usd") is not None:
+        out["capacity_usd"] = cap_pack["capacity_usd"]
+    out["opportunity_capacity"] = cap_pack
+    if economics.get("opportunity_half_life"):
+        out["opportunity_half_life"] = economics["opportunity_half_life"]
     inputs = extract_admission_inputs(out, net_edge=net_edge)
     admission_state, why_not = evaluate_admission(inputs)
 
     sym = str(out.get("symbol") or out.get("asset") or "BTC")
     invalidation = str(out.get("invalidation") or out.get("invalidation_condition") or "net_edge_or_freshness_breach")
-    safety = evaluate_safety_floor(inputs, {"invalidation_condition": invalidation, "limitations": out.get("limitations") or []})
+    safety = evaluate_safety_floor(
+        inputs,
+        {
+            "invalidation_condition": invalidation,
+            "limitations": out.get("limitations") or [],
+            "economics_required": not out.get("truth_indicative_only"),
+            "half_life_material": bool(out.get("live_duration_seconds") or out.get("quote_age_ms")),
+        },
+    )
 
     final_state = _combine_states(admission_state, safety)
     _update_stats(final_state)
@@ -65,12 +85,15 @@ def govern_decision_payload(
         decision_state=final_state,
         symbol=sym,
         time_horizon=str(out.get("time_horizon") or "intraday"),
-        net_edge=net_edge if inputs.net_edge_available else {"state": "UNAVAILABLE", "reason": "economics_not_evaluated"},
+        net_edge=net_edge,
         execution_feasibility={
             "score": inputs.execution_score,
             "available": inputs.execution_available,
             "liquidity_ok": inputs.liquidity_ok,
-            "state": "AVAILABLE" if inputs.execution_available else "UNAVAILABLE",
+            "state": exec_pack.get("state") or ("AVAILABLE" if inputs.execution_available else "UNAVAILABLE"),
+            "reason_codes": list(exec_pack.get("reason_codes") or []),
+            "components": dict(exec_pack.get("components") or {}),
+            "methodology_version": exec_pack.get("methodology_version"),
         },
         risk={"ok": inputs.risk_ok, "state": "AVAILABLE" if inputs.risk_ok is not None else "UNAVAILABLE"},
         grade=str(out.get("grade") or "UNAVAILABLE"),
@@ -78,16 +101,23 @@ def govern_decision_payload(
         freshness=inputs.freshness_meta,
         uncertainty={
             "high": inputs.uncertainty_high,
-            "state": "AVAILABLE" if inputs.uncertainty_available else "UNAVAILABLE",
+            "state": inputs.uncertainty_state,
+            "interval": inputs.uncertainty_interval,
+            "reason": inputs.uncertainty_reason,
         },
-        capacity={"state": "NOT_APPLICABLE", "reason": "p2_not_implemented"},
+        capacity=cap_pack if cap_pack else {"state": "UNAVAILABLE", "reason": "capacity_not_evaluated"},
         why=["all_mandatory_gates_passed"] if final_state == DecisionState.AVAILABLE else [],
         why_not=list(why_not) + list(safety.failures),
         invalidation_condition=invalidation,
         assumptions=inputs.provenance_context.get("assumptions") or {},
         safety_floor=safety.to_dict(),
         provenance_context=inputs.provenance_context,
-        field_availability=build_field_availability(inputs.missing_critical, grade_present=grade_present),
+        field_availability=build_field_availability(
+            inputs.missing_critical,
+            grade_present=grade_present,
+            capacity_available=str(cap_pack.get("state")) == "AVAILABLE",
+            capacity_not_applicable=str(cap_pack.get("state")) == "NOT_APPLICABLE",
+        ),
         failure_integration={
             "failure_state": inputs.failure_state,
             "data_governance_state": inputs.data_governance_state,

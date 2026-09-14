@@ -23,8 +23,13 @@ class AdmissionInputs:
     risk_ok: bool | None
     uncertainty_high: bool | None
     uncertainty_available: bool
+    uncertainty_state: str
+    uncertainty_interval: dict[str, Any] | None
+    uncertainty_reason: str | None
     net_edge_reject: bool
     net_edge_available: bool
+    capacity_available: bool
+    half_life_available: bool
     data_governance_state: str | None
     data_governance_failed_gates: list[str]
     failure_state: str | None
@@ -99,7 +104,16 @@ def _evidence_class(payload: dict[str, Any]) -> tuple[str | None, bool]:
         return None, False
 
 
-def _execution_score(payload: dict[str, Any]) -> tuple[float | None, bool]:
+def _execution_score(payload: dict[str, Any], net_edge: dict[str, Any]) -> tuple[float | None, bool]:
+    exec_pack = net_edge.get("execution_feasibility") or payload.get("execution_feasibility_detail") or {}
+    state = str(exec_pack.get("state") or "")
+    if state == "EXECUTION_FEASIBILITY_UNAVAILABLE":
+        return None, False
+    if exec_pack.get("score") is not None:
+        try:
+            return float(exec_pack["score"]), True
+        except (TypeError, ValueError):
+            return None, False
     if "execution_feasibility_score" in payload:
         try:
             return float(payload["execution_feasibility_score"]), True
@@ -112,6 +126,34 @@ def _execution_score(payload: dict[str, Any]) -> tuple[float | None, bool]:
     if label in mapping:
         return mapping[label], True
     return None, False
+
+
+def _uncertainty_inputs(net_edge: dict[str, Any], payload: dict[str, Any]) -> tuple[bool | None, bool, str, dict[str, Any] | None, str | None]:
+    unc = net_edge.get("uncertainty") or {}
+    state = str(unc.get("state") or "UNAVAILABLE")
+    if state == "UNCERTAINTY_UNAVAILABLE":
+        return None, False, state, None, str(unc.get("reason") or "uncertainty_unavailable")
+    if state == "AVAILABLE":
+        low = unc.get("low_usd")
+        high = unc.get("high_usd")
+        expected = unc.get("expected_usd")
+        interval = {"low_usd": low, "high_usd": high, "expected_usd": expected, "method": unc.get("method")}
+        spread = 0.0
+        if low is not None and high is not None and expected is not None:
+            try:
+                spread = float(high) - float(low)
+                rel = spread / max(abs(float(expected)), 1e-9)
+                high_flag = rel > 0.5
+            except (TypeError, ValueError):
+                high_flag = True
+        else:
+            high_flag = True
+        return high_flag, True, state, interval, None
+    if "uncertainty_high" in payload:
+        return bool(payload.get("uncertainty_high")), True, "AVAILABLE", None, None
+    if (payload.get("uncertainty") or {}).get("high") is not None:
+        return bool((payload.get("uncertainty") or {}).get("high")), True, "AVAILABLE", None, None
+    return None, False, "UNAVAILABLE", None, "uncertainty_unavailable"
 
 
 def _failure_state(payload: dict[str, Any]) -> str | None:
@@ -136,7 +178,7 @@ def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any
     else:
         liquidity_ok = None
 
-    execution_score, execution_available = _execution_score(payload)
+    execution_score, execution_available = _execution_score(payload, net_edge)
 
     risk_ok: bool | None
     if "risk_ok" in payload:
@@ -146,25 +188,32 @@ def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any
     else:
         risk_ok = None
 
-    uncertainty_high: bool | None = None
-    uncertainty_available = False
-    if "uncertainty_high" in payload:
-        uncertainty_high = bool(payload.get("uncertainty_high"))
-        uncertainty_available = True
-    elif (payload.get("uncertainty") or {}).get("high") is not None:
-        uncertainty_high = bool((payload.get("uncertainty") or {}).get("high"))
-        uncertainty_available = True
+    uncertainty_high, uncertainty_available, uncertainty_state, uncertainty_interval, uncertainty_reason = _uncertainty_inputs(net_edge, payload)
 
-    net_edge_available = bool(net_edge.get("enabled", True)) and net_edge.get("reason") != "net_edge_unavailable"
+    net_edge_available = bool(net_edge.get("enabled", True)) and net_edge.get("reason") not in {"net_edge_unavailable", "missing_gross_edge", "incomplete_cost_evidence"}
     if net_edge.get("label") == "ADVISORY_NOT_EXECUTABLE":
         net_edge_available = False
+    if net_edge.get("state") == "UNAVAILABLE":
+        net_edge_available = False
+
+    capacity_pack = net_edge.get("capacity") or payload.get("opportunity_capacity") or {}
+    capacity_available = str(capacity_pack.get("state")) == "AVAILABLE"
+
+    half_life_pack = net_edge.get("opportunity_half_life") or payload.get("opportunity_half_life") or {}
+    half_life_available = str(half_life_pack.get("state")) == "AVAILABLE"
 
     dg = _dg(payload)
     prov = dg.get("provenance") or {}
     provenance_context = {
         "source": payload.get("source") or prov.get("source"),
         "freshness": freshness_meta,
-        "methodology_versions": {"decision_truth": "dts-p1-spine-1.0", "net_edge": "net_edge_truth_v1"},
+        "methodology_versions": {
+            "decision_truth": "dts-p2-economic-execution-1.0",
+            "net_edge": str(net_edge.get("methodology_version") or "dts-p2-net-edge-1.0"),
+            "execution_feasibility": str((net_edge.get("execution_feasibility") or {}).get("methodology_version") or "dts-p2-execution-feasibility-1.0"),
+            "capacity": str(capacity_pack.get("methodology_version") or "dts-p2-capacity-1.0"),
+            "half_life": str(half_life_pack.get("methodology_version") or "dts-p2-half-life-1.0"),
+        },
         "assumptions": {"surface": payload.get("surface"), "timestamp": payload.get("timestamp")},
         "applicability": payload.get("applicability") or "decision_capable_path",
     }
@@ -184,6 +233,8 @@ def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any
         missing.append("risk_context")
     if liquidity_ok is None:
         missing.append("liquidity")
+    if not net_edge_available:
+        missing.append("net_edge")
 
     return AdmissionInputs(
         freshness_ok=freshness_ok,
@@ -198,8 +249,13 @@ def extract_admission_inputs(payload: dict[str, Any], *, net_edge: dict[str, Any
         risk_ok=risk_ok,
         uncertainty_high=uncertainty_high,
         uncertainty_available=uncertainty_available,
+        uncertainty_state=uncertainty_state,
+        uncertainty_interval=uncertainty_interval,
+        uncertainty_reason=uncertainty_reason,
         net_edge_reject=bool(net_edge.get("reject")),
         net_edge_available=net_edge_available,
+        capacity_available=capacity_available,
+        half_life_available=half_life_available,
         data_governance_state=payload.get("data_governance_state"),
         data_governance_failed_gates=list(payload.get("data_governance_failed_gates") or []),
         failure_state=_failure_state(payload),

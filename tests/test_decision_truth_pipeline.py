@@ -14,13 +14,16 @@ def _complete_payload():
     opp.update(
         {
             "symbol": "BTC",
+            "kind": "cross_exchange",
             "quote_age_ms": 120,
             "data_quality_score": 80,
             "evidence_class": "SHADOW_LIVE_FORWARD",
-            "execution_feasibility_score": 70,
             "liquidity_ok": True,
             "risk_ok": True,
-            "uncertainty_high": False,
+            "depth_usd": 250000,
+            "fill_probability": 0.92,
+            "live_duration_seconds": 8,
+            "estimated_recipients": 5,
         }
     )
     return opp

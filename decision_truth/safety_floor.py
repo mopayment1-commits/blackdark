@@ -40,10 +40,23 @@ def evaluate_safety_floor(inputs: AdmissionInputs, contract_context: dict[str, A
         failures.append("evidence_context_unavailable")
     if inputs.evidence_class in {"UNVERIFIED", "MOCK", "STUB", "UNAVAILABLE"}:
         failures.append("evidence_class_insufficient")
+    economics_required = bool(contract_context.get("economics_required", True))
+    if economics_required and not inputs.net_edge_available:
+        failures.append("net_edge_economics_unavailable")
+    if economics_required and inputs.net_edge_reject:
+        failures.append("net_edge_below_floor")
     if not inputs.execution_available:
         failures.append("execution_feasibility_unavailable")
+    elif inputs.execution_score is not None and inputs.execution_score < 35.0:
+        failures.append("execution_feasibility_below_floor")
     if not inputs.uncertainty_available:
         failures.append("uncertainty_context_unavailable")
+    elif inputs.uncertainty_state == "UNCERTAINTY_UNAVAILABLE":
+        failures.append("net_edge_uncertainty_unavailable")
+    if economics_required and not inputs.capacity_available:
+        failures.append("capacity_evidence_unavailable")
+    if contract_context.get("half_life_material") and not inputs.half_life_available:
+        failures.append("half_life_unavailable")
     if not contract_context.get("invalidation_condition"):
         failures.append("invalidation_context_missing")
 

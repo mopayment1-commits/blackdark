@@ -23,7 +23,21 @@ _P1_IMPLEMENTED = frozenset(
     }
 )
 
-_PARTIAL = frozenset(f"DTS-{n:03d}" for n in range(1, 61) if f"DTS-{n:03d}" not in _P1_IMPLEMENTED)
+_P2_IMPLEMENTED = frozenset(
+    {
+        "DTS-006",
+        "DTS-009",
+        "DTS-010",
+        "DTS-011",
+        "DTS-012",
+        "DTS-013",
+        "DTS-014",
+        "DTS-015",
+    }
+)
+
+_IMPLEMENTED = _P1_IMPLEMENTED | _P2_IMPLEMENTED
+_PARTIAL = frozenset(f"DTS-{n:03d}" for n in range(1, 61) if f"DTS-{n:03d}" not in _IMPLEMENTED)
 
 
 def dts_catalog() -> list[dict[str, Any]]:
@@ -32,7 +46,7 @@ def dts_catalog() -> list[dict[str, Any]]:
     rows = []
     for eid in ids:
         claim = claims.get(eid, {})
-        if eid in _P1_IMPLEMENTED:
+        if eid in _IMPLEMENTED:
             status = "IMPLEMENTED"
         elif eid in _PARTIAL:
             status = "PARTIAL"
@@ -61,9 +75,10 @@ def dts_summary() -> dict[str, Any]:
         "total": total,
         "counts": counts,
         "p1_implemented": sorted(_P1_IMPLEMENTED),
+        "p2_implemented": sorted(_P2_IMPLEMENTED),
         "PASS_ENGINEERING_DTS": counts["SPEC_ONLY"] == 0 and counts["IMPLEMENTED"] + counts["PARTIAL"] == total and total >= 60,
-        "PASS_ENGINEERING_DTS_honest": counts["IMPLEMENTED"] >= len(_P1_IMPLEMENTED),
-        "methodology_version": "dts-p1-spine-1.0",
+        "PASS_ENGINEERING_DTS_honest": counts["IMPLEMENTED"] >= len(_IMPLEMENTED),
+        "methodology_version": "dts-p2-economic-execution-1.0",
         "requirements": rows,
     }
 
