@@ -1,0 +1,174 @@
+{
+  "batch": "P1.1",
+  "batch_name": "Canonical Temporal Historical/Event Store",
+  "created_at_utc": "2026-09-14T09:55:00Z",
+  "base_branch": "cursor/temporal-p0-final-closure-358c",
+  "implementation_branch": "cursor/temporal-p1-1-canonical-event-store-358c",
+  "p0_baseline_disposition": "P0_CLOSED_READY_FOR_P1",
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0044",
+    "TEMP-AR-0045",
+    "TEMP-AR-0046",
+    "TEMP-AR-0047",
+    "TEMP-AR-0048",
+    "TEMP-AR-0049",
+    "TEMP-AR-0050",
+    "TEMP-AR-0051",
+    "TEMP-AR-0052",
+    "TEMP-AR-0053",
+    "TEMP-AR-0054",
+    "TEMP-AR-0055",
+    "TEMP-AR-0056",
+    "TEMP-AR-0377"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/event_contract.py",
+    "blackdark/temporal/event_store.py",
+    "blackdark/temporal/__init__.py"
+  ],
+  "storage_components_reused": [
+    "blackdark/temporal/truth.py (P0 TemporalObservation semantics)",
+    "blackdark/temporal/reconstruction.py (TemporalRecord conversion)",
+    "blackdark/data/provenance.py (upstream DG provenance authority reference pattern)",
+    "blackdark/data/migrations/007_data_provenance.sql (existing DG provenance persistence, not duplicated)"
+  ],
+  "schema_or_migration_changes": {
+    "migration_added": false,
+    "destructive_schema_changes": false,
+    "duplicate_system_of_record_created": false,
+    "notes": "Append-only in-memory canonical event store boundary; no competing Postgres SoR introduced"
+  },
+  "canonical_event_contract": {
+    "type": "CanonicalTemporalEvent",
+    "fields": [
+      "event_id",
+      "entity_key",
+      "event_type",
+      "payload",
+      "event_time",
+      "observed_time",
+      "available_at",
+      "ingested_at",
+      "effective_at",
+      "revised_at",
+      "source",
+      "source_version",
+      "dataset_version",
+      "rights_or_provenance",
+      "provenance_reference",
+      "correction_or_revision_reference",
+      "conflict_metadata",
+      "record_version"
+    ],
+    "temporal_fields_via": "TemporalObservation (P0 semantics unchanged)",
+    "provenance_fields_via": "ProvenanceMetadata (upstream DG copy/reference only)",
+    "unknown_value_policy": "explicit UNKNOWN TemporalTimestamp or absent provenance metadata"
+  },
+  "historical_immutability_result": {
+    "HISTORICAL_VERSION_OVERWRITE": 0,
+    "append_only": true,
+    "destructive_update_operations": false,
+    "prior_versions_preserved_on_revision": true
+  },
+  "lineage_result": {
+    "HISTORICAL_LINEAGE_PRESERVED": true,
+    "correction_or_revision_reference": "links revision to prior event_id",
+    "retrieve_lineage": "returns ordered chain from root to requested event"
+  },
+  "conflict_preservation_result": {
+    "SOURCE_CONFLICTS_SILENTLY_COLLAPSED": 0,
+    "append_conflicting_event_requires_conflict_metadata": true,
+    "conflicting_records_retrieved_separately": true
+  },
+  "deterministic_retrieval_result": {
+    "CANONICAL_EVENT_RETRIEVAL_DETERMINISTIC": true,
+    "query_dimensions": [
+      "entity_key",
+      "event_type",
+      "source",
+      "record_version",
+      "correction_or_revision_reference",
+      "available_at_upper",
+      "event_time_upper"
+    ],
+    "ordering": "deterministic_event_sort_key (no wall-clock ordering)"
+  },
+  "p0_integration_result": {
+    "P0_TEMPORAL_SEMANTICS_DIVERGENCE": 0,
+    "STORAGE_IMPLIES_TEMPORAL_ADMISSIBILITY": false,
+    "to_temporal_record_conversion": true,
+    "reconstruct_point_in_time_compatible": true,
+    "evaluate_temporal_leakage_firewall_compatible": true,
+    "future_available_stored_records_rejected_by_firewall": true
+  },
+  "focused_test_results": {
+    "command": "python3 -m pytest tests/test_temporal_p1_1_canonical_event_store.py -v",
+    "exit_code": 0,
+    "passed": 12,
+    "failed": 0
+  },
+  "p0_regression_results": {
+    "P0.1": {
+      "command": "python3 -m pytest tests/test_temporal_p0_1_truth_primitive.py -v",
+      "exit_code": 0,
+      "passed": 11,
+      "failed": 0
+    },
+    "P0.2": {
+      "command": "python3 -m pytest tests/test_temporal_p0_2_pit_reconstruction.py -v",
+      "exit_code": 0,
+      "passed": 9,
+      "failed": 0
+    },
+    "P0.3": {
+      "command": "python3 -m pytest tests/test_temporal_p0_3_leakage_firewall.py -v",
+      "exit_code": 0,
+      "passed": 15,
+      "failed": 0
+    },
+    "P0_REGRESSION_FAILURES": 0
+  },
+  "directly_affected_regression_results": {
+    "command": "python3 -m pytest tests/test_canonical_layer.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0
+  },
+  "deferred_items": [
+    "P1.2 deterministic mass replay engine",
+    "persistent Postgres-backed canonical event store migration",
+    "automated deduplication engine",
+    "retention policy enforcement engine",
+    "outcome factory",
+    "evidence provenance ledger",
+    "forward shadow",
+    "learning",
+    "UI/Market Time Machine"
+  ],
+  "finding_register": [],
+  "acceptance_assertions": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "CANONICAL_EVENT_STORE_IMPLEMENTED": true,
+    "P0_TEMPORAL_SEMANTICS_DIVERGENCE": 0,
+    "HISTORICAL_VERSION_OVERWRITE": 0,
+    "HISTORICAL_LINEAGE_PRESERVED": true,
+    "SOURCE_CONFLICTS_SILENTLY_COLLAPSED": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "UPSTREAM_PROVENANCE_AUTHORITY_CONFLICTS": 0,
+    "CANONICAL_EVENT_RETRIEVAL_DETERMINISTIC": true,
+    "DUPLICATE_SYSTEM_OF_RECORD_CREATED": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "STORAGE_IMPLIES_TEMPORAL_ADMISSIBILITY": false,
+    "P0_REGRESSION_FAILURES": 0,
+    "FOCUSED_P1_1_TEST_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "P1_1_CANONICAL_EVENT_STORE_COMPLETE": true
+  },
+  "blocker_classification": {
+    "material_blockers": 0,
+    "material_non_blockers": 0,
+    "minor_or_documentation": 0
+  },
+  "final_disposition": "P1_1_COMPLETE"
+}

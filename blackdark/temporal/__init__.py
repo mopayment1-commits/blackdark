@@ -1,4 +1,4 @@
-"""BLACKDARK Temporal truth foundation (P0.1) and PIT reconstruction boundary (P0.2)."""
+"""BLACKDARK Temporal truth foundation (P0.1), PIT reconstruction (P0.2), firewall (P0.3), event store (P1.1)."""
 
 from blackdark.temporal.accessibility import (
     PitAccessibilityDecision,
@@ -13,6 +13,13 @@ from blackdark.temporal.firewall import (
     TemporalProcessingContext,
     evaluate_temporal_leakage_firewall,
 )
+from blackdark.temporal.event_contract import (
+    CanonicalTemporalEvent,
+    ProvenanceMetadata,
+    TemporalEventQuery,
+    deterministic_event_sort_key,
+)
+from blackdark.temporal.event_store import TemporalCanonicalEventStore, TemporalEventStoreError, new_event_id
 from blackdark.temporal.reconstruction import (
     PitReconstructionExclusion,
     PitReconstructionResult,
@@ -30,10 +37,15 @@ from blackdark.temporal.truth import (
 
 __all__ = [
     "AVAILABLE_AT_FIELD_ALIASES",
+    "CanonicalTemporalEvent",
     "LeakageClass",
     "PitAccessibilityDecision",
     "PitReconstructionExclusion",
     "PitReconstructionResult",
+    "ProvenanceMetadata",
+    "TemporalCanonicalEventStore",
+    "TemporalEventQuery",
+    "TemporalEventStoreError",
     "TemporalLeakageFirewallDecision",
     "TemporalLeakageRejection",
     "TemporalObservation",
@@ -42,10 +54,12 @@ __all__ = [
     "TemporalSemanticField",
     "TemporalTimestamp",
     "TimestampProvenanceKind",
+    "deterministic_event_sort_key",
     "evaluate_pit_accessibility",
     "evaluate_temporal_leakage_firewall",
     "extract_available_at_from_row",
     "filter_point_in_time",
+    "new_event_id",
     "parse_temporal_instant",
     "reconstruct_point_in_time",
 ]
