@@ -1,0 +1,237 @@
+{
+  "verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+  "generated_at": "2026-09-14T22:39:48.589048+00:00",
+  "governing_spec": {
+    "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md",
+    "sha256": "c2871b3e39d44dbdd995df6577ca38c195ab343f34ece64f26e0de74af374efb"
+  },
+  "git": {
+    "base_sha": "6fbfddc69780994c5d5f92b6577dd0337d5f8ccd",
+    "implementation_sha": "6fbfddc69780994c5d5f92b6577dd0337d5f8ccd"
+  },
+  "scope": {
+    "fds_controls": [
+      "FDS-05",
+      "FDS-15",
+      "FDS-18",
+      "FDS-24",
+      "FDS-25"
+    ],
+    "sdg_controls": [
+      "SDG-01",
+      "SDG-08",
+      "SDG-10",
+      "SDG-12"
+    ]
+  },
+  "canonical_owners": {
+    "classification": "financial_data/classification.py",
+    "sink_policy": "financial_data/sink_policy.py",
+    "dlp": "financial_data/dlp.py",
+    "boundary": "financial_data/boundary.py",
+    "scanner": "financial_data/scanner.py",
+    "test_data_policy": "financial_data/test_data_policy.py",
+    "log_safety": "log_safety.py",
+    "secrets_scan": "scripts/secrets_hygiene_scan.py",
+    "financial_scan": "scripts/financial_data_security_scan.py",
+    "llm_wiring": "oracle_data_hub.py",
+    "ai_oracle_wiring": "ai_oracle.py",
+    "support_export": "gdpr_service.py",
+    "analytics_export": "bigquery_export.py",
+    "fds_catalog": "governance/fds_requirements.py"
+  },
+  "tests": {
+    "command": "python -m pytest tests/test_fds_security_governance_data_boundary.py -q",
+    "exit_code": 0,
+    "passed": true,
+    "stdout_tail": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_fds_security_governance_data_boundary.py:213\n  /workspace/tests/test_fds_security_governance_data_boundary.py:213: PytestUnknownMarkWarning: Unknown pytest.mark.closure - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html\n    @pytest.mark.closure\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n",
+    "stderr_tail": ""
+  },
+  "scanner": {
+    "command": "python scripts/financial_data_security_scan.py",
+    "exit_code": 0,
+    "passed": true,
+    "report": {
+      "clean": true,
+      "files_scanned": 1874,
+      "pan_finding_count": 0,
+      "secret_finding_count": 0
+    }
+  },
+  "payment_regression": {
+    "command": "python -m pytest tests/test_payments_usd_security.py -q",
+    "exit_code": 0,
+    "passed": true
+  },
+  "evaluation": {
+    "controls": {
+      "FDS-05": {
+        "verified": true,
+        "evidence": "financial_data.scanner.scan_repository"
+      },
+      "FDS-15": {
+        "verified": true,
+        "evidence": "financial_data.dlp + log_safety"
+      },
+      "FDS-18": {
+        "verified": true,
+        "evidence": "scripts/financial_data_security_scan.py"
+      },
+      "FDS-24": {
+        "verified": true,
+        "evidence": "financial_data.boundary"
+      },
+      "FDS-25": {
+        "verified": true,
+        "evidence": "closure verifier artifact"
+      },
+      "SDG-01": {
+        "verified": true,
+        "evidence": "financial_data.classification"
+      },
+      "SDG-08": {
+        "verified": true,
+        "evidence": "financial_data.boundary"
+      },
+      "SDG-10": {
+        "verified": true,
+        "evidence": "financial_data.dlp"
+      },
+      "SDG-12": {
+        "verified": true,
+        "evidence": "financial_data.test_data_policy"
+      }
+    },
+    "all_scope_verified": true,
+    "classification_model_version": "fds-c-v1.0.0",
+    "sink_policy_matrix": {
+      "FDS-C1": {
+        "prohibited_sinks": [
+          "ai_llm",
+          "analytics",
+          "backups",
+          "cache",
+          "logs",
+          "storage",
+          "support_export"
+        ],
+        "logging_policy": "deny",
+        "analytics_policy": "deny",
+        "ai_llm_policy": "deny",
+        "storage_policy": "never_store",
+        "masking_required": true,
+        "policy_version": "CVV/CVC/PIN/track/SAD must never persist or leave PSP boundary"
+      },
+      "FDS-C2": {
+        "prohibited_sinks": [
+          "ai_llm",
+          "analytics",
+          "backups",
+          "logs",
+          "storage",
+          "support_export"
+        ],
+        "logging_policy": "deny",
+        "analytics_policy": "deny",
+        "ai_llm_policy": "deny",
+        "storage_policy": "never_store",
+        "masking_required": true,
+        "policy_version": "Full PAN must not enter BLACKDARK backend where hosted collection exists"
+      },
+      "FDS-C3": {
+        "prohibited_sinks": [
+          "ai_llm",
+          "analytics",
+          "logs",
+          "support_export"
+        ],
+        "logging_policy": "mask",
+        "analytics_policy": "deny",
+        "ai_llm_policy": "deny",
+        "storage_policy": "tokenized_only",
+        "masking_required": true,
+        "policy_version": "Bank account/routing credentials require provider tokenization"
+      },
+      "FDS-C4": {
+        "prohibited_sinks": [
+          "ai_llm",
+          "analytics",
+          "client",
+          "logs",
+          "source_code",
+          "support_export"
+        ],
+        "logging_policy": "deny",
+        "analytics_policy": "deny",
+        "ai_llm_policy": "deny",
+        "storage_policy": "encrypted_secret_manager",
+        "masking_required": true,
+        "policy_version": "Financial/API secrets must never appear in logs, code, or browser"
+      },
+      "FDS-C5": {
+        "prohibited_sinks": [
+          "ai_llm",
+          "public_export"
+        ],
+        "logging_policy": "mask",
+        "analytics_policy": "minimize",
+        "ai_llm_policy": "deny",
+        "storage_policy": "encrypted_at_rest",
+        "masking_required": true,
+        "policy_version": "Balances/transactions/metadata need need-to-know access"
+      },
+      "FDS-C6": {
+        "prohibited_sinks": [
+          "ai_llm",
+          "public_export"
+        ],
+        "logging_policy": "mask",
+        "analytics_policy": "aggregate_only",
+        "ai_llm_policy": "deny",
+        "storage_policy": "allowed_encrypted",
+        "masking_required": true,
+        "policy_version": "Provider IDs allowed when operationally necessary"
+      }
+    },
+    "class_definitions": {
+      "FDS-C1": "CVV/CVC/PIN/track/SAD must never persist or leave PSP boundary",
+      "FDS-C2": "Full PAN must not enter BLACKDARK backend where hosted collection exists",
+      "FDS-C3": "Bank account/routing credentials require provider tokenization",
+      "FDS-C4": "Financial/API secrets must never appear in logs, code, or browser",
+      "FDS-C5": "Balances/transactions/metadata need need-to-know access",
+      "FDS-C6": "Provider IDs allowed when operationally necessary"
+    },
+    "test_data_policy": {
+      "policy": "SDG-12",
+      "allowed_synthetic_pans_count": 4,
+      "enforcement": "tests_only_luhn_pan_allowlist"
+    },
+    "gaps": {
+      "FDS_CLASSIFICATION_RUNTIME_GAPS": 0,
+      "PAN_CVV_CONTROLLED_PATH_GAPS": 0,
+      "FINANCIAL_DLP_GAPS": 0,
+      "PAN_SECRET_SCANNER_GAPS": 0,
+      "CI_SCANNER_ENFORCEMENT_GAPS": 0,
+      "AI_LLM_RESTRICTED_DATA_BYPASS_PATHS": 0,
+      "ANALYTICS_SUPPORT_RESTRICTED_DATA_BYPASS_PATHS": 0,
+      "UNCLASSIFIED_FINANCIAL_DATA_FAIL_OPEN_PATHS": 0,
+      "FALSE_CLOSURE_ASSERTION_PATHS": 0,
+      "MACHINE_EVIDENCE_GAPS": 0
+    }
+  },
+  "summary": {
+    "fds_controls_in_scope": 5,
+    "fully_implemented_verified_local": 5,
+    "regression_failures": 0,
+    "FDS_CLASSIFICATION_RUNTIME_GAPS": 0,
+    "PAN_CVV_CONTROLLED_PATH_GAPS": 0,
+    "FINANCIAL_DLP_GAPS": 0,
+    "PAN_SECRET_SCANNER_GAPS": 0,
+    "CI_SCANNER_ENFORCEMENT_GAPS": 0,
+    "AI_LLM_RESTRICTED_DATA_BYPASS_PATHS": 0,
+    "ANALYTICS_SUPPORT_RESTRICTED_DATA_BYPASS_PATHS": 0,
+    "UNCLASSIFIED_FINANCIAL_DATA_FAIL_OPEN_PATHS": 0,
+    "FALSE_CLOSURE_ASSERTION_PATHS": 0,
+    "MACHINE_EVIDENCE_GAPS": 0
+  }
+}
