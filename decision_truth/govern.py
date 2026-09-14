@@ -227,6 +227,18 @@ def govern_decision_payload(
     out = _apply_state_to_verdict(out, final_state)
     out = apply_user_agency(out)
     out = apply_dts_compliance_guards(out)
+    from decision_truth.product import project_decision_product
+
+    delivery_prefs = out.get("delivery_preferences") or (out.get("user_preferences") or {}).get("delivery")
+    user_tz = out.get("user_timezone") or (out.get("user_preferences") or {}).get("timezone")
+    command_view = bool((out.get("user_preferences") or {}).get("command_view_enabled"))
+    out = project_decision_product(
+        out,
+        lang=lang,
+        user_timezone=user_tz,
+        delivery_preferences=delivery_prefs,
+        command_view_enabled=command_view,
+    )
     return out
 
 
