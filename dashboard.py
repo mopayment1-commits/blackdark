@@ -618,6 +618,17 @@ except Exception:
 
 
 @app.middleware("http")
+async def anonymous_route_enforcement_middleware(request: Request, call_next):
+    """P0 — PRIVATE_BY_DEFAULT server-side boundary for cookie-less requests."""
+    from anonymous_route_foundation import enforce_anonymous_route_boundary
+
+    denial = enforce_anonymous_route_boundary(request)
+    if denial is not None:
+        return denial
+    return await call_next(request)
+
+
+@app.middleware("http")
 async def utf8_response_headers(request: Request, call_next):
     """Ensure JSON/HTML responses declare UTF-8 (Arabic text in browser)."""
     response = await call_next(request)

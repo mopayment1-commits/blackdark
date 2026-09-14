@@ -4,6 +4,15 @@ from __future__ import annotations
 
 from typing import Any
 
+from anonymous_route_foundation import (
+    CONTRACT_VERSION,
+    PRIVATE_BY_DEFAULT,
+    ProductAuthState,
+    build_route_inventory,
+    resolve_product_auth_state,
+    summarize_inventory,
+)
+
 
 def anonymous_visitor_status() -> dict[str, Any]:
     honesty_ok = False
@@ -30,12 +39,30 @@ def anonymous_visitor_status() -> dict[str, Any]:
 
         rate_limit = True
     except Exception:
-        rate_limit = True  # security_middleware always present
+        rate_limit = True
+
+    inventory_summary: dict[str, Any] = {}
+    try:
+        from dashboard import app
+
+        inventory = build_route_inventory(app)
+        inventory_summary = summarize_inventory(inventory)
+    except Exception:
+        inventory_summary = {}
 
     return {
+        "contract_version": CONTRACT_VERSION,
+        "product_auth_state_model": [s.value for s in ProductAuthState],
+        "anonymous_state": ProductAuthState.ANONYMOUS.value,
+        "private_by_default": PRIVATE_BY_DEFAULT,
         "public_readiness": honesty_ok,
         "rate_limits": rate_limit,
         "licensing_honesty": honesty_ok,
         "no_pii_leak": True,
         "visitor_tier_gating": True,
+        "route_inventory": inventory_summary,
     }
+
+
+def resolve_visitor_auth_state(user: dict | None) -> str:
+    return resolve_product_auth_state(user).value
