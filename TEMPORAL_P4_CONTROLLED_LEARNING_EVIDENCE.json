@@ -1,0 +1,144 @@
+{
+  "batch": "P4",
+  "scope": "CONTROLLED_LEARNING",
+  "created_at_utc": "2026-09-14T11:40:00Z",
+  "base_branch": "cursor/temporal-p4-champion-challenger-358c",
+  "implementation_branch": "cursor/temporal-p4-controlled-learning-358c",
+  "p4_champion_challenger_baseline_disposition": "P4_CHAMPION_CHALLENGER_COMPLETE",
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0233",
+    "TEMP-AR-0234",
+    "TEMP-AR-0235",
+    "TEMP-AR-0236",
+    "TEMP-AR-0237",
+    "TEMP-AR-0238",
+    "TEMP-AR-0239",
+    "TEMP-AR-0240"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/controlled_learning.py",
+    "blackdark/temporal/p4_controlled_learning_registry.py",
+    "blackdark/temporal/__init__.py",
+    "tests/test_temporal_p4_controlled_learning.py"
+  ],
+  "controlled_learning_contract": {
+    "contract_version": "p4.controlled_learning.1.0",
+    "entrypoint": "ControlledLearningEngine",
+    "create_request_entrypoint": "ControlledLearningEngine.create_request",
+    "evaluate_request_entrypoint": "ControlledLearningEngine.evaluate_request",
+    "request_type": "ControlledLearningRequest",
+    "evaluation_result_type": "ControlledLearningEvaluationResult",
+    "candidate_artifact_types": [
+      "candidate_weights",
+      "candidate_model",
+      "candidate_rules",
+      "candidate_calibration_changes",
+      "candidate_thresholds"
+    ],
+    "required_request_fields": [
+      "learning_request_id",
+      "source_case_or_evidence_ids",
+      "learning_value_context",
+      "evidence_classes",
+      "outcome_quality",
+      "current_model_identity",
+      "candidate_identity",
+      "proposed_change",
+      "approval_state",
+      "validation_state",
+      "reason_codes",
+      "provenance",
+      "version"
+    ],
+    "upstream_authorities_reused": [
+      "EvidenceProvenanceLedger",
+      "assess_outcome_quality",
+      "FailureSurpriseCorpus",
+      "LearningValueEngine",
+      "ChampionChallengerEvaluator"
+    ],
+    "ADAPTIVE_ONLINE_PRODUCTION_LEARNING_ENABLED": false
+  },
+  "eligibility_behavior": {
+    "eligible_evidence_creates_request": true,
+    "unproven_evidence_marked_ineligible": true,
+    "outcome_unresolved_rejected": true,
+    "missing_quality_state_rejected": true,
+    "no_proven_inputs_rejected": true
+  },
+  "authority_separation": {
+    "UNCONTROLLED_PRODUCTION_SELF_MODIFICATION": 0,
+    "LEARNING_RECOMMENDATION_IMPLIES_PROMOTION": false,
+    "EVALUATION_IMPLIES_DEPLOYMENT": false,
+    "promotion_gate_required": true,
+    "recommendation_routes_to_champion_challenger_review": true
+  },
+  "mutation_safety": {
+    "AUTONOMOUS_MODEL_PROMOTION": 0,
+    "AUTONOMOUS_PRODUCTION_MODEL_REPLACEMENT": 0,
+    "CONTROLLED_LEARNING_PRODUCTION_MUTATION": 0,
+    "CONTROLLED_LEARNING_HISTORY_MUTATION": 0,
+    "CONTROLLED_LEARNING_EVIDENCE_PROMOTION": 0,
+    "production_model_identity_unchanged_after_evaluation": true,
+    "evidence_ledger_immutable": true,
+    "fsa_corpus_case_immutable": true,
+    "champion_challenger_state_unchanged": true
+  },
+  "determinism_result": {
+    "CONTROLLED_LEARNING_EVALUATION_DETERMINISTIC": true,
+    "wall_clock_dependency": false,
+    "deterministic_request_and_evaluation_ids": true
+  },
+  "focused_test_results": {
+    "test_file": "tests/test_temporal_p4_controlled_learning.py",
+    "tests_run": 12,
+    "tests_passed": 12,
+    "tests_failed": 0,
+    "FOCUSED_CONTROLLED_LEARNING_TEST_FAILURES": 0
+  },
+  "directly_affected_regression_results": {
+    "p4_learning_value": {
+      "test_file": "tests/test_temporal_p4_learning_value.py",
+      "tests_run": 13,
+      "tests_passed": 13,
+      "tests_failed": 0
+    },
+    "p4_champion_challenger": {
+      "test_file": "tests/test_temporal_p4_champion_challenger.py",
+      "tests_run": 12,
+      "tests_passed": 12,
+      "tests_failed": 0
+    },
+    "p3_failure_surprise_abstention": {
+      "test_file": "tests/test_temporal_p3_failure_surprise_abstention.py",
+      "tests_run": 26,
+      "tests_passed": 26,
+      "tests_failed": 0
+    },
+    "p2_outcome_and_evidence": {
+      "test_file": "tests/test_temporal_p2_outcome_and_evidence.py",
+      "tests_run": 22,
+      "tests_passed": 22,
+      "tests_failed": 0
+    },
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0
+  },
+  "unimplemented_selected_atomic_ids": [],
+  "acceptance": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "CONTROLLED_LEARNING_RUNTIME_IMPLEMENTED": true,
+    "UNCONTROLLED_PRODUCTION_SELF_MODIFICATION": 0,
+    "AUTONOMOUS_MODEL_PROMOTION": 0,
+    "AUTONOMOUS_PRODUCTION_MODEL_REPLACEMENT": 0,
+    "LEARNING_RECOMMENDATION_IMPLIES_PROMOTION": false,
+    "EVALUATION_IMPLIES_DEPLOYMENT": false,
+    "CONTROLLED_LEARNING_PRODUCTION_MUTATION": 0,
+    "CONTROLLED_LEARNING_HISTORY_MUTATION": 0,
+    "CONTROLLED_LEARNING_EVIDENCE_PROMOTION": 0,
+    "CONTROLLED_LEARNING_EVALUATION_DETERMINISTIC": true,
+    "FOCUSED_CONTROLLED_LEARNING_TEST_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "SELECTED_P4_ATOMIC_REQUIREMENTS_UNIMPLEMENTED": 0
+  },
+  "final_disposition": "P4_CONTROLLED_LEARNING_COMPLETE"
+}
