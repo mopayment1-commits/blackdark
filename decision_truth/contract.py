@@ -36,7 +36,7 @@ class DecisionContract:
     why: list[str] = field(default_factory=list)
     why_not: list[str] = field(default_factory=list)
     invalidation_condition: str = ""
-    methodology_version: str = "dts-p2-economic-execution-1.0"
+    methodology_version: str = "dts-p3-portfolio-preimpact-1.0"
     assumptions: dict[str, Any] = field(default_factory=dict)
     safety_floor: dict[str, Any] = field(default_factory=dict)
     provenance_context: dict[str, Any] = field(default_factory=dict)
@@ -56,6 +56,8 @@ def build_field_availability(
     grade_present: bool,
     capacity_available: bool = False,
     capacity_not_applicable: bool = False,
+    portfolio_impact_available: bool = False,
+    portfolio_impact_not_applicable: bool = False,
 ) -> dict[str, Any]:
     return {
         "grade": field_value(None, available=grade_present, not_applicable=not grade_present, reason="p3_not_implemented"),
@@ -67,6 +69,11 @@ def build_field_availability(
         ),
         "simulation": field_value(None, available=False, not_applicable=True, reason="p3_not_implemented"),
         "calibration": field_value(None, available=False, not_applicable=True, reason="p3_not_implemented"),
-        "portfolio_impact": field_value(None, available=False, not_applicable=True, reason="p3_not_implemented"),
+        "portfolio_impact": field_value(
+            None,
+            available=portfolio_impact_available,
+            not_applicable=portfolio_impact_not_applicable,
+            reason=None if portfolio_impact_available or portfolio_impact_not_applicable else "portfolio_pre_impact_unavailable",
+        ),
         "missing_critical_inputs": list(inputs_missing),
     }

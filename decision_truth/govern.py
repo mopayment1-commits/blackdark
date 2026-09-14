@@ -11,6 +11,7 @@ from decision_truth.compliance import apply_dts_compliance_guards, apply_user_ag
 from decision_truth.contract import DecisionContract, DecisionState, build_field_availability
 from decision_truth.inputs import extract_admission_inputs
 from decision_truth.economics import economic_reality
+from decision_truth.portfolio_risk import evaluate_portfolio_risk
 from decision_truth.safety_floor import evaluate_safety_floor
 
 logger = logging.getLogger("BLACKDARK.DecisionTruth.Govern")
@@ -62,7 +63,11 @@ def govern_decision_payload(
     out["opportunity_capacity"] = cap_pack
     if economics.get("opportunity_half_life"):
         out["opportunity_half_life"] = economics["opportunity_half_life"]
-    inputs = extract_admission_inputs(out, net_edge=net_edge)
+    portfolio_risk = evaluate_portfolio_risk(out, economics=economics)
+    out["portfolio_risk"] = portfolio_risk
+    if portfolio_risk.get("portfolio_pre_impact"):
+        out["portfolio_pre_impact"] = portfolio_risk["portfolio_pre_impact"]
+    inputs = extract_admission_inputs(out, net_edge=net_edge, portfolio_risk=portfolio_risk)
     admission_state, why_not = evaluate_admission(inputs)
 
     sym = str(out.get("symbol") or out.get("asset") or "BTC")
@@ -74,6 +79,7 @@ def govern_decision_payload(
             "limitations": out.get("limitations") or [],
             "economics_required": not out.get("truth_indicative_only"),
             "half_life_material": bool(out.get("live_duration_seconds") or out.get("quote_age_ms")),
+            "portfolio_risk": portfolio_risk,
         },
     )
 
@@ -95,7 +101,18 @@ def govern_decision_payload(
             "components": dict(exec_pack.get("components") or {}),
             "methodology_version": exec_pack.get("methodology_version"),
         },
-        risk={"ok": inputs.risk_ok, "state": "AVAILABLE" if inputs.risk_ok is not None else "UNAVAILABLE"},
+        risk={
+            "ok": inputs.risk_ok,
+            "state": "AVAILABLE" if inputs.risk_ok is not None else "UNAVAILABLE",
+            "risk_envelope": portfolio_risk.get("risk_envelope"),
+            "pre_impact": portfolio_risk.get("pre_impact"),
+            "portfolio_pre_impact": portfolio_risk.get("portfolio_pre_impact"),
+            "reverse_stress": portfolio_risk.get("reverse_stress"),
+            "venue_health": portfolio_risk.get("venue_health"),
+            "depeg": portfolio_risk.get("depeg"),
+            "portfolio_context": portfolio_risk.get("portfolio_context"),
+            "decision_impact": portfolio_risk.get("decision_impact"),
+        },
         grade=str(out.get("grade") or "UNAVAILABLE"),
         evidence_class=str(inputs.evidence_class or "UNAVAILABLE"),
         freshness=inputs.freshness_meta,
@@ -117,6 +134,8 @@ def govern_decision_payload(
             grade_present=grade_present,
             capacity_available=str(cap_pack.get("state")) == "AVAILABLE",
             capacity_not_applicable=str(cap_pack.get("state")) == "NOT_APPLICABLE",
+            portfolio_impact_available=str((portfolio_risk.get("pre_impact") or {}).get("state")) == "AVAILABLE",
+            portfolio_impact_not_applicable=portfolio_risk.get("state") == "NOT_APPLICABLE",
         ),
         failure_integration={
             "failure_state": inputs.failure_state,

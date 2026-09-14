@@ -53,6 +53,21 @@ def evaluate_admission(inputs: AdmissionInputs) -> tuple[DecisionState, list[str
     if inputs.net_edge_available and not inputs.half_life_available:
         why_not.append("half_life_unavailable")
 
+    if inputs.pre_impact_breach:
+        why_not.append("pre_impact_material_breach")
+    if inputs.portfolio_risk_impact == "reject":
+        why_not.append("portfolio_risk_reject")
+    elif inputs.portfolio_risk_impact == "abstain":
+        why_not.append("portfolio_risk_abstain")
+    if inputs.venue_health_impact == "reject":
+        why_not.append("venue_health_critical")
+    elif inputs.venue_health_impact == "abstain":
+        why_not.append("venue_health_abstain")
+    if inputs.depeg_material and inputs.depeg_impact == "reject":
+        why_not.append("depeg_risk_critical")
+    elif inputs.depeg_impact in {"abstain", "reject"} and inputs.depeg_impact:
+        why_not.append("depeg_risk_material")
+
     if inputs.risk_ok is False:
         why_not.append("risk_gate_failed")
     elif inputs.risk_ok is None:
@@ -72,6 +87,10 @@ def evaluate_admission(inputs: AdmissionInputs) -> tuple[DecisionState, list[str
         "data_governance_rejected",
         "failure_state_unavailable",
         "failure_state_indeterminate",
+        "portfolio_risk_reject",
+        "venue_health_critical",
+        "depeg_risk_critical",
+        "pre_impact_material_breach",
     }
     if any(r in why_not for r in hard_reject) or "net_edge_truth_reject" in why_not:
         return DecisionState.REJECTED, why_not
