@@ -1,0 +1,101 @@
+{
+  "phase": "0H-1",
+  "reconciled_at_utc": "2026-09-14T07:51:03Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "temporal_owners_evaluated": [
+    "HISTORICAL_EVENT_STORE",
+    "POINT_IN_TIME_RECONSTRUCTION",
+    "TEMPORAL_LEAKAGE_FIREWALL",
+    "SOURCE_RIGHTS",
+    "SOURCE_QUALITY",
+    "RETENTION_POLICY",
+    "EVIDENCE_PROVENANCE",
+    "REPRODUCIBILITY",
+    "CONTAMINATION_REGISTRY",
+    "CROSS_CUTTING_GOVERNANCE"
+  ],
+  "supported_integration_contracts": 23,
+  "runtime_reachable_contracts": 22,
+  "phase_0g_data_governance_mappings_checked": 4,
+  "unsupported_phase_0g_data_governance_mappings": 0,
+  "phase_0g_mapping_results": [
+    {
+      "candidate_id": "CAND-010",
+      "repository_path": "data_sources_registry.py",
+      "symbol_or_component": "DataSourceSpec",
+      "claimed_temporal_owners": [
+        "SOURCE_RIGHTS"
+      ],
+      "classification": "SUPPORTED_DIRECT",
+      "evidence_basis": "DataSourceSpec defines source_id, category, fetch_kind, url, env_key for 100+ external sources; consumed by cap646/data_spine and ingestion_scheduler",
+      "unsupported_assumptions": []
+    },
+    {
+      "candidate_id": "CAND-030",
+      "repository_path": "blackdark/data/repository.py",
+      "symbol_or_component": "insert_market_event",
+      "claimed_temporal_owners": [
+        "EVIDENCE_PROVENANCE",
+        "HISTORICAL_EVENT_STORE",
+        "OUTCOME_FACTORY"
+      ],
+      "classification": "SUPPORTED_DIRECT",
+      "evidence_basis": "repository provides CRUD for market_events, ohlcv_data, signals, outcomes, evidence; query_ohlcv and insert_market_event verified in source",
+      "unsupported_assumptions": [],
+      "notes": "OUTCOME_FACTORY edge is outside 0H-1 scope; mapping to HISTORICAL_EVENT_STORE and EVIDENCE_PROVENANCE supported"
+    },
+    {
+      "candidate_id": "CAND-032",
+      "repository_path": "blackdark/data/provenance.py",
+      "symbol_or_component": "record_provenance",
+      "claimed_temporal_owners": [
+        "EVIDENCE_PROVENANCE",
+        "HISTORICAL_EVENT_STORE",
+        "REPRODUCIBILITY"
+      ],
+      "classification": "SUPPORTED_DIRECT",
+      "evidence_basis": "record_provenance persists data_provenance rows; ingestors call it; get_provenance_by_record enables lineage retrieval",
+      "unsupported_assumptions": []
+    },
+    {
+      "candidate_id": "CAND-300",
+      "repository_path": "cap646/data_spine.py",
+      "symbol_or_component": "data_spine",
+      "claimed_temporal_owners": [
+        "HISTORICAL_EVENT_STORE",
+        "SOURCE_QUALITY",
+        "SOURCE_RIGHTS"
+      ],
+      "classification": "SUPPORTED_SHARED_INFRASTRUCTURE",
+      "evidence_basis": "data_spine composes DG modules (data_sources_registry, stale_price_guard, data_provenance_score, data_lake) into capability reports; imports verified",
+      "unsupported_assumptions": []
+    }
+  ],
+  "canonical_authority_collisions": 0,
+  "upstream_provenance_authority_lost": 0,
+  "temporal_derived_state_assigned_to_data_governance": 0,
+  "unsupported_metadata_availability_claims": 0,
+  "false_runtime_reachability_claims": 0,
+  "implementation_status_leakage": 0,
+  "canonical_ownership_mutations": 0,
+  "runtime_source_files_changed": 0,
+  "expected_changed_files": 2,
+  "unexpected_changed_files": 0,
+  "changed_files": [
+    "TEMPORAL_PHASE_0H1_DATA_GOVERNANCE_INTEGRATION_DISCOVERY.json",
+    "TEMPORAL_PHASE_0H1_RECONCILIATION.json"
+  ],
+  "acceptance_assertions": {
+    "UNSUPPORTED_PHASE_0G_DATA_GOVERNANCE_MAPPINGS": 0,
+    "CANONICAL_AUTHORITY_COLLISIONS": 0,
+    "UPSTREAM_PROVENANCE_AUTHORITY_LOST": 0,
+    "TEMPORAL_DERIVED_STATE_ASSIGNED_TO_DATA_GOVERNANCE": 0,
+    "UNSUPPORTED_METADATA_AVAILABILITY_CLAIMS": 0,
+    "FALSE_RUNTIME_REACHABILITY_CLAIMS": 0,
+    "IMPLEMENTATION_STATUS_LEAKAGE": 0,
+    "CANONICAL_OWNERSHIP_MUTATIONS": 0,
+    "RUNTIME_SOURCE_FILES_CHANGED": 0,
+    "UNEXPECTED_CHANGED_FILES": 0,
+    "PHASE_0H1_DATA_GOVERNANCE_DISCOVERY_COMPLETE": true
+  }
+}
