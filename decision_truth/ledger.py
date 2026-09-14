@@ -1,4 +1,4 @@
-"""Append-only decision outcome ledger (DTS-022 MVP)."""
+"""Append-only decision outcome ledger — facade over contract recording (DTS-022)."""
 
 from __future__ import annotations
 

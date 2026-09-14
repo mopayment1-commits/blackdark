@@ -48,7 +48,27 @@ _P3_IMPLEMENTED = frozenset(
     }
 )
 
-_IMPLEMENTED = _P1_IMPLEMENTED | _P2_IMPLEMENTED | _P3_IMPLEMENTED
+_P4_IMPLEMENTED = frozenset(
+    {
+        "DTS-021",
+        "DTS-022",
+        "DTS-023",
+        "DTS-037",
+        "DTS-038",
+        "DTS-039",
+        "DTS-040",
+        "DTS-041",
+        "DTS-042",
+        "DTS-043",
+        "DTS-050",
+        "DTS-051",
+        "DTS-058",
+        "DTS-059",
+        "DTS-060",
+    }
+)
+
+_IMPLEMENTED = _P1_IMPLEMENTED | _P2_IMPLEMENTED | _P3_IMPLEMENTED | _P4_IMPLEMENTED
 _PARTIAL = frozenset(f"DTS-{n:03d}" for n in range(1, 61) if f"DTS-{n:03d}" not in _IMPLEMENTED)
 
 
@@ -89,9 +109,10 @@ def dts_summary() -> dict[str, Any]:
         "p1_implemented": sorted(_P1_IMPLEMENTED),
         "p2_implemented": sorted(_P2_IMPLEMENTED),
         "p3_implemented": sorted(_P3_IMPLEMENTED),
+        "p4_implemented": sorted(_P4_IMPLEMENTED),
         "PASS_ENGINEERING_DTS": counts["SPEC_ONLY"] == 0 and counts["IMPLEMENTED"] + counts["PARTIAL"] == total and total >= 60,
         "PASS_ENGINEERING_DTS_honest": counts["IMPLEMENTED"] >= len(_IMPLEMENTED),
-        "methodology_version": "dts-p3-portfolio-preimpact-1.0",
+        "methodology_version": "dts-p4-evidence-lifecycle-1.0",
         "requirements": rows,
     }
 

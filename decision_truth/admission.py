@@ -73,6 +73,11 @@ def evaluate_admission(inputs: AdmissionInputs) -> tuple[DecisionState, list[str
     elif inputs.risk_ok is None:
         why_not.append("risk_context_unverified")
 
+    if inputs.calibration_weak:
+        why_not.append("calibration_weak")
+    if not inputs.cherry_picking_allowed:
+        why_not.append("cherry_picking_violation")
+
     if inputs.uncertainty_high:
         why_not.append("uncertainty_too_high")
     elif not inputs.uncertainty_available:

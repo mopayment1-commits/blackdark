@@ -36,6 +36,9 @@ class AdmissionInputs:
     venue_health_impact: str | None
     depeg_impact: str | None
     depeg_material: bool
+    calibration_state: str | None
+    calibration_weak: bool
+    cherry_picking_allowed: bool
     data_governance_state: str | None
     data_governance_failed_gates: list[str]
     failure_state: str | None
@@ -178,6 +181,7 @@ def extract_admission_inputs(
     *,
     net_edge: dict[str, Any],
     portfolio_risk: dict[str, Any] | None = None,
+    lifecycle: dict[str, Any] | None = None,
 ) -> AdmissionInputs:
     freshness_ok, freshness_meta = _freshness_inputs(payload)
     dq_score, dq_state = _quality_inputs(payload)
@@ -192,6 +196,15 @@ def extract_admission_inputs(
     execution_score, execution_available = _execution_score(payload, net_edge)
 
     pr = portfolio_risk or payload.get("portfolio_risk") or {}
+    lc = lifecycle or payload.get("evidence_lifecycle") or {}
+    cal = lc.get("calibration") or payload.get("calibration_context") or {}
+    calibration_state = cal.get("state")
+    confidence_claimed = "confidence_percent" in payload and payload.get("confidence_percent") is not None
+    calibration_weak = calibration_state == "CALIBRATION_WEAK" or (
+        calibration_state == "CALIBRATION_INSUFFICIENT_DATA" and confidence_claimed
+    )
+    cherry = lc.get("anti_cherry_picking") or {}
+    cherry_picking_allowed = bool(cherry.get("allowed", True))
     portfolio_context = pr.get("portfolio_context") or {}
     portfolio_context_available = portfolio_context.get("state") == "AVAILABLE"
     pre_impact = pr.get("pre_impact") or {}
@@ -238,6 +251,7 @@ def extract_admission_inputs(
             "capacity": str(capacity_pack.get("methodology_version") or "dts-p2-capacity-1.0"),
             "half_life": str(half_life_pack.get("methodology_version") or "dts-p2-half-life-1.0"),
             "portfolio_risk": str(pr.get("methodology_version") or "dts-p3-portfolio-risk-1.0"),
+            "evidence_lifecycle": str(lc.get("methodology_version") or "dts-p4-evidence-lifecycle-1.0"),
         },
         "assumptions": {"surface": payload.get("surface"), "timestamp": payload.get("timestamp")},
         "applicability": payload.get("applicability") or "decision_capable_path",
@@ -287,6 +301,9 @@ def extract_admission_inputs(
         venue_health_impact=venue_health_impact,
         depeg_impact=depeg_impact,
         depeg_material=depeg_material,
+        calibration_state=calibration_state,
+        calibration_weak=calibration_weak,
+        cherry_picking_allowed=cherry_picking_allowed,
         data_governance_state=payload.get("data_governance_state"),
         data_governance_failed_gates=list(payload.get("data_governance_failed_gates") or []),
         failure_state=_failure_state(payload),
