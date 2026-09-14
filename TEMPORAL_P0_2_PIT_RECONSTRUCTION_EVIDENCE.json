@@ -1,0 +1,131 @@
+{
+  "batch": "P0.2",
+  "batch_name": "Point-in-Time Reconstruction Boundary",
+  "created_at_utc": "2026-09-14T09:35:00Z",
+  "base_branch": "cursor/temporal-p0-1-truth-primitive-358c",
+  "implementation_branch": "cursor/temporal-p0-2-pit-reconstruction-358c",
+  "p0_1_baseline_disposition": "P0_1_COMPLETE",
+  "governing_artifacts": [
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json",
+    "TEMPORAL_PHASE_0_FINAL_CLOSURE.json",
+    "TEMPORAL_P0_1_TRUTH_PRIMITIVE_EVIDENCE.json",
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md"
+  ],
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0015",
+    "TEMP-AR-0027",
+    "TEMP-AR-0028",
+    "TEMP-AR-0029",
+    "TEMP-AR-0030",
+    "TEMP-AR-0031",
+    "TEMP-AR-0032",
+    "TEMP-AR-0406",
+    "TEMP-AR-0420"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/reconstruction.py",
+    "blackdark/temporal/__init__.py"
+  ],
+  "tests_added_or_modified": [
+    "tests/test_temporal_p0_2_pit_reconstruction.py"
+  ],
+  "p0_1_primitives_reused": [
+    "TemporalTimestamp",
+    "TemporalObservation",
+    "evaluate_pit_accessibility"
+  ],
+  "p0_1_primitives_not_modified": true,
+  "reconstruction_boundary": {
+    "entrypoint": "reconstruct_point_in_time",
+    "input": "TemporalRecord sequence with TemporalObservation",
+    "output": "PitReconstructionResult with included, excluded, and state_by_entity",
+    "canonical_owner": "POINT_IN_TIME_RECONSTRUCTION",
+    "availability_gate": "evaluate_pit_accessibility (P0.1)",
+    "revision_selection": "deterministic max revised_at among accessible temporally-valid records per entity_key",
+    "leakage_controls": [
+      "future available_at excluded via P0.1",
+      "revision_not_yet_occurred when revised_at > simulated_time",
+      "effective_at_after_simulated_time when effective_at > simulated_time",
+      "superseded_by_historically_valid_revision for losing versions"
+    ]
+  },
+  "explicit_exclusion_reasons": [
+    "unknown_available_at_fail_closed",
+    "available_at_after_simulated_time",
+    "unknown_effective_at_fail_closed",
+    "unknown_revised_at_fail_closed",
+    "effective_at_after_simulated_time",
+    "revision_not_yet_occurred",
+    "superseded_by_historically_valid_revision"
+  ],
+  "provenance_behavior": {
+    "TEMPORAL_TIMESTAMP_PROVENANCE_PRESERVED": true,
+    "observation_metadata_exposed_in_result": true
+  },
+  "database_changes": {
+    "migration_added": false,
+    "destructive_schema_changes": false
+  },
+  "focused_test_results": {
+    "command": "python3 -m pytest tests/test_temporal_p0_2_pit_reconstruction.py -v",
+    "exit_code": 0,
+    "passed": 8,
+    "failed": 0
+  },
+  "p0_1_regression_results": {
+    "command": "python3 -m pytest tests/test_temporal_p0_1_truth_primitive.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0
+  },
+  "directly_affected_regression_results": {
+    "command": "python3 -m pytest tests/test_canonical_layer.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0
+  },
+  "known_deferred_requirements": [
+    "TEMP-AR-0022",
+    "TEMP-AR-0023",
+    "TEMP-AR-0024",
+    "TEMP-AR-0025",
+    "TEMP-AR-0033",
+    "TEMP-AR-0034",
+    "TEMP-AR-0035",
+    "TEMP-AR-0036",
+    "TEMP-AR-0037",
+    "TEMP-AR-0038",
+    "TEMP-AR-0039",
+    "TEMP-AR-0040",
+    "TEMP-AR-0041",
+    "TEMP-AR-0042",
+    "TEMP-AR-0043",
+    "P0.3 Temporal Leakage Firewall expansion",
+    "deterministic mass replay engine",
+    "persistent reconstruction store"
+  ],
+  "acceptance_assertions": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "P0_1_SEMANTICS_UNCHANGED": true,
+    "PIT_RECONSTRUCTION_BOUNDARY_IMPLEMENTED": true,
+    "P0_1_ACCESSIBILITY_PRIMITIVE_REUSED": true,
+    "TEMPORAL_TIMESTAMP_PROVENANCE_PRESERVED": true,
+    "REVISION_LEAKAGE_PREVENTED": true,
+    "EXPLICIT_INCLUDED_EXCLUDED_REASONING": true,
+    "CANONICAL_AUTHORITY_CONFLICTS": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "FOCUSED_PIT_RECONSTRUCTION_TEST_FAILURES": 0,
+    "P0_1_REGRESSION_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "P0_2_PIT_RECONSTRUCTION_BOUNDARY_COMPLETE": true
+  },
+  "blocker_classification": {
+    "material_blockers": 0,
+    "material_non_blockers": 0,
+    "minor_or_documentation": 0
+  },
+  "final_disposition": "P0_2_COMPLETE"
+}
