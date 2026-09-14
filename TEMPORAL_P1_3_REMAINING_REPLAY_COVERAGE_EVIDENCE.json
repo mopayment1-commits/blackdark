@@ -1,0 +1,269 @@
+{
+  "batch": "P1.3",
+  "batch_name": "Remaining Replay Coverage",
+  "created_at_utc": "2026-09-14T10:30:00Z",
+  "base_branch": "cursor/temporal-p1-2-deterministic-mass-replay-358c",
+  "implementation_branch": "cursor/temporal-p1-3-remaining-replay-coverage-358c",
+  "p0_baseline_disposition": "P0_CLOSED_READY_FOR_P1",
+  "p1_1_baseline_disposition": "P1_1_COMPLETE",
+  "p1_2_baseline_disposition": "P1_2_COMPLETE",
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0057",
+    "TEMP-AR-0058",
+    "TEMP-AR-0059",
+    "TEMP-AR-0060",
+    "TEMP-AR-0061",
+    "TEMP-AR-0062",
+    "TEMP-AR-0063",
+    "TEMP-AR-0064",
+    "TEMP-AR-0065",
+    "TEMP-AR-0071"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/decision_path.py",
+    "blackdark/temporal/replay_coverage.py",
+    "blackdark/temporal/__init__.py",
+    "tests/test_temporal_p1_3_remaining_replay_coverage.py"
+  ],
+  "full_decision_path_replay_result": {
+    "entrypoint": "run_full_decision_path_replay",
+    "decision_path_entrypoint": "execute_historical_decision_path",
+    "FULL_DECISION_PATH_REPLAY_IMPLEMENTED": true,
+    "REPLAY_CREATES_NEW_DECISION_AUTHORITY": false,
+    "decision_path_stages": [
+      "observation",
+      "feature_state",
+      "signal",
+      "prediction",
+      "decision",
+      "confidence",
+      "abstain_act",
+      "outcome"
+    ],
+    "outcome_factory_status": "deferred_outcome_factory_not_in_p1_3",
+    "evidence_class": "HISTORICAL_REPLAY",
+    "reuses_p1_2_mass_replay": true
+  },
+  "multi_scenario_contract": {
+    "entrypoint": "run_multi_scenario_replay",
+    "scenario_spec_type": "ReplayScenarioSpec",
+    "scenario_result_type": "ReplayScenarioResult",
+    "required_scenario_fields": [
+      "scenario_id",
+      "parameters",
+      "time_window",
+      "input_identity_context",
+      "result",
+      "rejections",
+      "determinism_fingerprint"
+    ],
+    "scenario_dimensions": [
+      "assets",
+      "venues",
+      "time_horizons",
+      "historical_periods",
+      "regimes",
+      "model_versions",
+      "thresholds",
+      "source_availability"
+    ],
+    "MULTI_SCENARIO_REPLAY_IMPLEMENTED": true
+  },
+  "scenario_isolation_result": {
+    "CROSS_SCENARIO_STATE_CONTAMINATION": 0,
+    "isolation_mechanism": "per-scenario ReplayRequest and independent run_deterministic_mass_replay execution",
+    "ordering_invariant_proven": true
+  },
+  "scenario_determinism_result": {
+    "MULTI_SCENARIO_REPLAY_DETERMINISTIC": true,
+    "fingerprint_function": "compute_scenario_determinism_fingerprint",
+    "identical_inputs_identical_fingerprint": true,
+    "distinct_parameters_distinct_fingerprint": true
+  },
+  "cross_model_comparability_contract": {
+    "entrypoint": "compare_replay_runs",
+    "result_type": "ReplayComparisonResult",
+    "required_comparison_fields": [
+      "comparable",
+      "reason_codes",
+      "baseline_run_id",
+      "challenger_run_id",
+      "context_differences",
+      "shared_context",
+      "comparison_outputs"
+    ],
+    "preserved_context_keys": [
+      "replay_window",
+      "input_identity_set",
+      "source_dataset_versions",
+      "model_engine_identity",
+      "parameter_set",
+      "evidence_class",
+      "temporal_semantics",
+      "scenario_identity"
+    ],
+    "CROSS_MODEL_COMPARABILITY_IMPLEMENTED": true,
+    "REPLAY_COMPARISON_CAUSES_MODEL_PROMOTION": false
+  },
+  "comparability_fail_closed_result": {
+    "UNPROVEN_COMPARABILITY_FAILS_CLOSED": true,
+    "fail_closed_triggers": [
+      "missing_context",
+      "context_mismatch",
+      "unproven_comparison_context",
+      "non_historical_replay_evidence_class"
+    ],
+    "variable_context_keys_default": [
+      "model_engine_identity"
+    ]
+  },
+  "evidence_class_result": {
+    "P1_3_EVIDENCE_CLASS_COLLAPSE": 0,
+    "P1_3_AUTOMATIC_EVIDENCE_PROMOTION": 0,
+    "evidence_class": "HISTORICAL_REPLAY",
+    "forbidden_evidence_classes_untouched": [
+      "FORWARD_SHADOW",
+      "VERIFIED_PRODUCTION",
+      "INDEPENDENTLY_VERIFIED"
+    ]
+  },
+  "mutation_isolation_result": {
+    "P1_3_CANONICAL_HISTORY_MUTATION": 0,
+    "P1_3_PRODUCTION_STATE_MUTATION": 0,
+    "CROSS_SCENARIO_STATE_CONTAMINATION": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0
+  },
+  "temporal_replay_reuse_result": {
+    "DUPLICATE_REPLAY_ENGINE": 0,
+    "DUPLICATE_TEMPORAL_GUARD": 0,
+    "reused_components": [
+      "run_deterministic_mass_replay",
+      "evaluate_temporal_leakage_firewall",
+      "reconstruct_point_in_time",
+      "TemporalCanonicalEventStore"
+    ]
+  },
+  "schema_or_migration_changes": {
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "new_persistence_introduced": false
+  },
+  "focused_test_results": {
+    "test_file": "tests/test_temporal_p1_3_remaining_replay_coverage.py",
+    "tests_run": 16,
+    "tests_passed": 16,
+    "tests_failed": 0,
+    "FOCUSED_P1_3_TEST_FAILURES": 0
+  },
+  "p1_2_regression_results": {
+    "test_file": "tests/test_temporal_p1_2_deterministic_mass_replay.py",
+    "tests_run": 16,
+    "tests_passed": 16,
+    "tests_failed": 0,
+    "P1_2_REGRESSION_FAILURES": 0
+  },
+  "p1_1_regression_results": {
+    "test_file": "tests/test_temporal_p1_1_canonical_event_store.py",
+    "tests_run": 12,
+    "tests_passed": 12,
+    "tests_failed": 0,
+    "P1_1_REGRESSION_FAILURES": 0
+  },
+  "p0_regression_results": {
+    "test_files": [
+      "tests/test_temporal_p0_1_truth_primitive.py",
+      "tests/test_temporal_p0_2_pit_reconstruction.py",
+      "tests/test_temporal_p0_3_leakage_firewall.py"
+    ],
+    "tests_run": 35,
+    "tests_passed": 35,
+    "tests_failed": 0,
+    "P0_REGRESSION_FAILURES": 0
+  },
+  "directly_affected_regression_results": {
+    "test_file": "tests/test_canonical_layer.py",
+    "tests_run": 11,
+    "tests_passed": 11,
+    "tests_failed": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0
+  },
+  "p1_requirement_inventory": {
+    "P1_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 31,
+    "P1_IMPLEMENTED_ATOMIC_REQUIREMENTS": 31,
+    "P1_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
+    "p1_phase_allocation": "P1_CANONICAL_EVENT_AND_REPLAY",
+    "implemented_by_batch": {
+      "P1.1": [
+        "TEMP-AR-0044",
+        "TEMP-AR-0045",
+        "TEMP-AR-0046",
+        "TEMP-AR-0047",
+        "TEMP-AR-0048",
+        "TEMP-AR-0049",
+        "TEMP-AR-0050",
+        "TEMP-AR-0051",
+        "TEMP-AR-0052",
+        "TEMP-AR-0053",
+        "TEMP-AR-0054",
+        "TEMP-AR-0055",
+        "TEMP-AR-0056",
+        "TEMP-AR-0377"
+      ],
+      "P1.2": [
+        "TEMP-AR-0066",
+        "TEMP-AR-0067",
+        "TEMP-AR-0068",
+        "TEMP-AR-0069",
+        "TEMP-AR-0070",
+        "TEMP-AR-0072",
+        "TEMP-AR-0380"
+      ],
+      "P1.3": [
+        "TEMP-AR-0057",
+        "TEMP-AR-0058",
+        "TEMP-AR-0059",
+        "TEMP-AR-0060",
+        "TEMP-AR-0061",
+        "TEMP-AR-0062",
+        "TEMP-AR-0063",
+        "TEMP-AR-0064",
+        "TEMP-AR-0065",
+        "TEMP-AR-0071"
+      ]
+    }
+  },
+  "acceptance_gate": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "FULL_DECISION_PATH_REPLAY_IMPLEMENTED": true,
+    "MULTI_SCENARIO_REPLAY_IMPLEMENTED": true,
+    "MULTI_SCENARIO_REPLAY_DETERMINISTIC": true,
+    "CROSS_SCENARIO_STATE_CONTAMINATION": 0,
+    "CROSS_MODEL_COMPARABILITY_IMPLEMENTED": true,
+    "UNPROVEN_COMPARABILITY_FAILS_CLOSED": true,
+    "REPLAY_COMPARISON_CAUSES_MODEL_PROMOTION": false,
+    "DUPLICATE_REPLAY_ENGINE": 0,
+    "DUPLICATE_TEMPORAL_GUARD": 0,
+    "P1_3_EVIDENCE_CLASS_COLLAPSE": 0,
+    "P1_3_AUTOMATIC_EVIDENCE_PROMOTION": 0,
+    "P1_3_CANONICAL_HISTORY_MUTATION": 0,
+    "P1_3_PRODUCTION_STATE_MUTATION": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "FOCUSED_P1_3_TEST_FAILURES": 0,
+    "P1_2_REGRESSION_FAILURES": 0,
+    "P1_1_REGRESSION_FAILURES": 0,
+    "P0_REGRESSION_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "P1_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 31,
+    "P1_IMPLEMENTED_ATOMIC_REQUIREMENTS": 31,
+    "P1_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
+    "P1_3_REMAINING_REPLAY_COVERAGE_COMPLETE": true
+  },
+  "deferred_items": [
+    "Outcome Factory (outcome stage deferred, not validated in P1.3)",
+    "P1 Final Gate",
+    "P2 and beyond"
+  ],
+  "finding_register": [],
+  "final_disposition": "P1_3_COMPLETE_READY_FOR_P1_FINAL_GATE"
+}
