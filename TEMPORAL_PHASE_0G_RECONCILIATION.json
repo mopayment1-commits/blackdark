@@ -1,0 +1,31 @@
+{
+  "phase": "0G",
+  "phase_name": "Project Integration Discovery Reconciliation",
+  "reconciled_at_utc": "2026-09-14T01:22:58Z",
+  "canonical_owner_count": 30,
+  "owners_accounted_for": 30,
+  "candidate_count": 88,
+  "runtime_reachable_candidate_count": 78,
+  "documentation_only_candidate_count": 2,
+  "integration_edge_count": 20,
+  "owners_with_zero_candidates": [],
+  "name_only_mappings": 0,
+  "unsupported_discovery_edges": 0,
+  "duplicate_candidate_records": 0,
+  "documentation_counted_as_implementation": 0,
+  "implementation_status_leakage": 0,
+  "discovery_overrides_canonical_ownership": 0,
+  "PHASE_0G_PROJECT_INTEGRATION_DISCOVERY_COMPLETE": true,
+  "acceptance_assertions": {
+    "CANONICAL_OWNER_COUNT": 30,
+    "CANONICAL_OWNERS_DISCOVERY_ACCOUNTED_FOR": 30,
+    "NAME_ONLY_MAPPINGS": 0,
+    "UNSUPPORTED_DISCOVERY_EDGES": 0,
+    "DUPLICATE_CANDIDATE_RECORDS": 0,
+    "DOCUMENTATION_COUNTED_AS_IMPLEMENTATION": 0,
+    "IMPLEMENTATION_STATUS_LEAKAGE": 0,
+    "DISCOVERY_OVERRIDES_CANONICAL_OWNERSHIP": 0,
+    "UNEXPECTED_CHANGED_FILES": 0,
+    "PHASE_0G_PROJECT_INTEGRATION_DISCOVERY_COMPLETE": true
+  }
+}
