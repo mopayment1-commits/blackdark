@@ -1,0 +1,147 @@
+{
+  "batch": "P4",
+  "scope": "CHAMPION_CHALLENGER_EVALUATION",
+  "created_at_utc": "2026-09-14T11:10:00Z",
+  "base_branch": "cursor/temporal-p4-learning-value-358c",
+  "implementation_branch": "cursor/temporal-p4-champion-challenger-358c",
+  "p4_learning_value_baseline_disposition": "P4_LEARNING_VALUE_COMPLETE",
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0230",
+    "TEMP-AR-0231",
+    "TEMP-AR-0232"
+  ],
+  "runtime_files_changed": [
+    "blackdark/temporal/champion_challenger.py",
+    "blackdark/temporal/p4_champion_challenger_registry.py",
+    "blackdark/temporal/__init__.py",
+    "tests/test_temporal_p4_champion_challenger.py"
+  ],
+  "evaluation_contract": {
+    "contract_version": "p4.champion_challenger.1.0",
+    "entrypoint": "ChampionChallengerEvaluator.evaluate",
+    "comparison_context_type": "ChampionChallengerComparisonContext",
+    "result_type": "ChampionChallengerEvaluationResult",
+    "comparison_statuses": ["COMPLETED", "INCONCLUSIVE", "REJECTED"],
+    "promotion_recommendations": ["none", "review_required", "reject_challenger"],
+    "promotion_pipeline_stages": [
+      "outcome",
+      "candidate_learning",
+      "challenger",
+      "historical_evaluation",
+      "walk_forward",
+      "regime_validation",
+      "forward_shadow",
+      "stability_review",
+      "promotion_decision",
+      "champion"
+    ],
+    "required_result_fields": [
+      "champion_identity",
+      "challenger_identity",
+      "model_or_engine_versions",
+      "evaluation_window",
+      "input_identity_context",
+      "dataset_or_source_versions",
+      "parameters",
+      "evidence_class",
+      "champion_evidence_class",
+      "challenger_evidence_class",
+      "outcome_quality",
+      "comparison_metrics",
+      "comparison_status",
+      "reason_codes",
+      "promotion_recommendation",
+      "evidence_lineage"
+    ],
+    "upstream_authorities_reused": [
+      "compare_replay_runs",
+      "EvidenceProvenanceLedger",
+      "assess_outcome_quality",
+      "ForwardShadowReceipt",
+      "LearningValueResult"
+    ],
+    "DUPLICATE_OUTCOME_FACTORY": 0,
+    "DUPLICATE_EVIDENCE_LEDGER": 0,
+    "DUPLICATE_REPLAY_ENGINE": 0
+  },
+  "comparison_eligibility": {
+    "UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED": true,
+    "required_context_keys": [
+      "evaluation_window",
+      "input_identity_context",
+      "dataset_or_source_versions",
+      "parameters"
+    ],
+    "p1_replay_comparability_entrypoint": "compare_replay_runs",
+    "mismatched_context_status": "REJECTED",
+    "insufficient_evidence_status": "INCONCLUSIVE"
+  },
+  "evidence_class_result": {
+    "CHALLENGER_EVIDENCE_CLASS_COLLAPSE": 0,
+    "EVIDENCE_CLASS_PRESERVED": true,
+    "historical_replay_not_production_superiority": true,
+    "supported_classes": [
+      "HISTORICAL_REPLAY",
+      "FORWARD_SHADOW",
+      "VERIFIED_PRODUCTION",
+      "INDEPENDENTLY_VERIFIED"
+    ]
+  },
+  "promotion_boundary_result": {
+    "CHALLENGER_AUTO_PROMOTION": 0,
+    "CHAMPION_AUTO_REPLACEMENT": 0,
+    "PRODUCTION_MODEL_MUTATION": 0,
+    "INSUFFICIENT_EVIDENCE_FORCES_WINNER": false,
+    "promotion_recommendation_reviewable_only": true,
+    "evaluation_does_not_mutate_champion_state": true
+  },
+  "determinism_result": {
+    "CHAMPION_CHALLENGER_EVALUATION_DETERMINISTIC": true,
+    "wall_clock_dependency": false,
+    "deterministic_evaluation_id": true
+  },
+  "focused_test_results": {
+    "test_file": "tests/test_temporal_p4_champion_challenger.py",
+    "tests_run": 12,
+    "tests_passed": 12,
+    "tests_failed": 0,
+    "FOCUSED_CHAMPION_CHALLENGER_TEST_FAILURES": 0
+  },
+  "directly_affected_regression_results": {
+    "p1_3_replay_coverage": {
+      "test_file": "tests/test_temporal_p1_3_remaining_replay_coverage.py",
+      "tests_run": 16,
+      "tests_passed": 16,
+      "tests_failed": 0
+    },
+    "p2_outcome_and_evidence": {
+      "test_file": "tests/test_temporal_p2_outcome_and_evidence.py",
+      "tests_run": 22,
+      "tests_passed": 22,
+      "tests_failed": 0
+    },
+    "p3_post_outcome_shadow_guard": {
+      "test_file": "tests/test_temporal_p3_post_outcome_shadow_guard.py",
+      "tests_run": 6,
+      "tests_passed": 6,
+      "tests_failed": 0
+    },
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0
+  },
+  "unimplemented_selected_atomic_ids": [],
+  "acceptance": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "CHAMPION_CHALLENGER_RUNTIME_IMPLEMENTED": true,
+    "UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED": true,
+    "CHALLENGER_EVIDENCE_CLASS_COLLAPSE": 0,
+    "INSUFFICIENT_EVIDENCE_FORCES_WINNER": false,
+    "CHALLENGER_AUTO_PROMOTION": 0,
+    "CHAMPION_AUTO_REPLACEMENT": 0,
+    "PRODUCTION_MODEL_MUTATION": 0,
+    "CHAMPION_CHALLENGER_EVALUATION_DETERMINISTIC": true,
+    "FOCUSED_CHAMPION_CHALLENGER_TEST_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "SELECTED_P4_ATOMIC_REQUIREMENTS_UNIMPLEMENTED": 0
+  },
+  "final_disposition": "P4_CHAMPION_CHALLENGER_COMPLETE"
+}

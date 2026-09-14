@@ -63,6 +63,13 @@ from blackdark.temporal.failure_surprise_corpus import (
 )
 from blackdark.temporal.forward_shadow import ForwardShadowLedger, ForwardShadowReceipt
 from blackdark.temporal.p2_pipeline import P2PipelineResult, run_p2_outcome_evidence_pipeline
+from blackdark.temporal.champion_challenger import (
+    CHAMPION_CHALLENGER_EVALUATION_DETERMINISTIC,
+    ChampionChallengerComparisonContext,
+    ChampionChallengerEvaluator,
+    ChampionChallengerEvaluationResult,
+    UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED,
+)
 from blackdark.temporal.learning_value import (
     LEARNING_VALUE_DETERMINISTIC,
     RETENTION_EQUALS_LEARNING_PRIORITY,
@@ -71,6 +78,9 @@ from blackdark.temporal.learning_value import (
     LearningValueResult,
 )
 from blackdark.temporal.p3_pipeline import P3PipelineResult, run_forward_shadow_pipeline
+from blackdark.temporal.p4_champion_challenger_registry import (
+    P4_CHAMPION_CHALLENGER_ATOMIC_REQUIREMENT_IDS,
+)
 from blackdark.temporal.p4_learning_value_registry import P4_LEARNING_VALUE_ATOMIC_REQUIREMENT_IDS
 from blackdark.temporal.p3_requirement_registry import (
     P3_ATOMIC_REQUIREMENT_IDS,
@@ -137,6 +147,10 @@ from blackdark.temporal.truth import (
 __all__ = [
     "AVAILABLE_AT_FIELD_ALIASES",
     "CANONICAL_EVIDENCE_CLASSES",
+    "CHAMPION_CHALLENGER_EVALUATION_DETERMINISTIC",
+    "ChampionChallengerComparisonContext",
+    "ChampionChallengerEvaluator",
+    "ChampionChallengerEvaluationResult",
     "CanonicalTemporalEvent",
     "DECISION_PATH_STAGES",
     "DecisionPathReplayResult",
@@ -167,7 +181,9 @@ __all__ = [
     "LearningValueEngine",
     "LearningValueResult",
     "P2PipelineResult",
+    "P4_CHAMPION_CHALLENGER_ATOMIC_REQUIREMENT_IDS",
     "P4_LEARNING_VALUE_ATOMIC_REQUIREMENT_IDS",
+    "UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED",
     "RETENTION_EQUALS_LEARNING_PRIORITY",
     "P3PipelineResult",
     "P3_ATOMIC_REQUIREMENT_IDS",
