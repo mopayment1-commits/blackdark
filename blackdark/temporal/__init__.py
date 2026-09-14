@@ -92,6 +92,42 @@ from blackdark.temporal.p4_controlled_learning_registry import (
     P4_CONTROLLED_LEARNING_ATOMIC_REQUIREMENT_IDS,
 )
 from blackdark.temporal.p4_learning_value_registry import P4_LEARNING_VALUE_ATOMIC_REQUIREMENT_IDS
+from blackdark.temporal.p4_requirement_registry import (
+    P4_ATOMIC_REQUIREMENT_IDS,
+    P4_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P4_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P4_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS,
+    P4_REQUIREMENT_OWNERS,
+)
+from blackdark.temporal.dependence_aware_sampling import (
+    DependenceAwareSampler,
+    DependenceDimension,
+    EVALUATION_INSTANCES_NOT_AUTO_INDEPENDENT,
+    dependence_cluster_key,
+)
+from blackdark.temporal.experience_coverage import (
+    ELAPSED_TIME_ALONE_PROXY_PROHIBITED,
+    ExperienceCoverageVector,
+    assess_experience_coverage,
+)
+from blackdark.temporal.replay_fidelity import (
+    ReplayFidelityDimension,
+    ReplayFidelityProfile,
+    assess_replay_fidelity,
+)
+from blackdark.temporal.counterfactual_lab import (
+    CounterfactualQuestion,
+    CounterfactualSpec,
+    build_counterfactual_suite,
+    run_counterfactual_replay,
+)
+from blackdark.temporal.p4_drift import (
+    HISTORICAL_SCALE_DOES_NOT_OVERRIDE_INVALIDATION,
+    P4DriftDimension,
+    P4DriftResult,
+    P4DriftSignal,
+    evaluate_p4_drift,
+)
 from blackdark.temporal.p3_requirement_registry import (
     P3_ATOMIC_REQUIREMENT_IDS,
     P3_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS,
@@ -198,6 +234,30 @@ __all__ = [
     "P4_CHAMPION_CHALLENGER_ATOMIC_REQUIREMENT_IDS",
     "P4_CONTROLLED_LEARNING_ATOMIC_REQUIREMENT_IDS",
     "P4_LEARNING_VALUE_ATOMIC_REQUIREMENT_IDS",
+    "P4_ATOMIC_REQUIREMENT_IDS",
+    "P4_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P4_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P4_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS",
+    "P4_REQUIREMENT_OWNERS",
+    "DependenceAwareSampler",
+    "DependenceDimension",
+    "EVALUATION_INSTANCES_NOT_AUTO_INDEPENDENT",
+    "dependence_cluster_key",
+    "ELAPSED_TIME_ALONE_PROXY_PROHIBITED",
+    "ExperienceCoverageVector",
+    "assess_experience_coverage",
+    "ReplayFidelityDimension",
+    "ReplayFidelityProfile",
+    "assess_replay_fidelity",
+    "CounterfactualQuestion",
+    "CounterfactualSpec",
+    "build_counterfactual_suite",
+    "run_counterfactual_replay",
+    "HISTORICAL_SCALE_DOES_NOT_OVERRIDE_INVALIDATION",
+    "P4DriftDimension",
+    "P4DriftResult",
+    "P4DriftSignal",
+    "evaluate_p4_drift",
     "UNCONTROLLED_PRODUCTION_SELF_MODIFICATION",
     "UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED",
     "RETENTION_EQUALS_LEARNING_PRIORITY",
