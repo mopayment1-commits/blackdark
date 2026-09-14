@@ -3,12 +3,23 @@ Unified evidence classes — governing reference mandate.
 
 BACKTESTED | SIMULATED | SHADOW_LIVE_FORWARD | PRODUCTION_VERIFIED
 Never promote replay/simulation to production metrics.
+
+CAP646 product facade — taxonomy rules delegated to blackdark.evidence_taxonomy.
 """
 
 from __future__ import annotations
 
 from datetime import UTC, datetime
 from typing import Any, Literal
+
+from blackdark.evidence_taxonomy import (
+    CAP646_EVIDENCE_CLASSES,
+    assert_cap646_promotion_allowed,
+    can_promote_cap646_evidence_class,
+    map_cap646_to_temporal,
+    map_temporal_to_cap646,
+    validate_cap646_evidence_class,
+)
 
 EvidenceClass = Literal[
     "BACKTESTED",
@@ -17,12 +28,7 @@ EvidenceClass = Literal[
     "PRODUCTION_VERIFIED",
 ]
 
-EVIDENCE_CLASSES: tuple[str, ...] = (
-    "BACKTESTED",
-    "SIMULATED",
-    "SHADOW_LIVE_FORWARD",
-    "PRODUCTION_VERIFIED",
-)
+EVIDENCE_CLASSES: tuple[str, ...] = CAP646_EVIDENCE_CLASSES
 
 _SOURCE_HINTS: dict[str, EvidenceClass] = {
     "market_replay_v1": "BACKTESTED",
@@ -37,13 +43,6 @@ _SOURCE_HINTS: dict[str, EvidenceClass] = {
     "arb_unified_v1": "SHADOW_LIVE_FORWARD",
     "production": "PRODUCTION_VERIFIED",
     "live": "SHADOW_LIVE_FORWARD",
-}
-
-_PROMOTION_ALLOWED: dict[EvidenceClass, set[EvidenceClass]] = {
-    "BACKTESTED": {"BACKTESTED"},
-    "SIMULATED": {"SIMULATED"},
-    "SHADOW_LIVE_FORWARD": {"SHADOW_LIVE_FORWARD", "PRODUCTION_VERIFIED"},
-    "PRODUCTION_VERIFIED": {"PRODUCTION_VERIFIED"},
 }
 
 
@@ -71,9 +70,22 @@ def infer_evidence_class(
 
 
 def assert_promotion_allowed(current: EvidenceClass, target: EvidenceClass) -> None:
-    allowed = _PROMOTION_ALLOWED.get(current, set())
-    if target not in allowed:
-        raise ValueError(f"evidence_promotion_denied:{current}->{target}")
+    assert_cap646_promotion_allowed(current, target)
+
+
+def to_temporal_evidence_class(
+    value: EvidenceClass,
+    *,
+    source: str | None = None,
+) -> str:
+    """Cross-domain conversion via canonical adapter (deterministic, fail-closed)."""
+    replay_hint = bool(source and "replay" in source.lower())
+    return map_cap646_to_temporal(value, replay_hint=replay_hint)
+
+
+def from_temporal_evidence_class(value: str) -> EvidenceClass:
+    """Project temporal class to CAP646 surface via canonical adapter."""
+    return map_temporal_to_cap646(value)  # type: ignore[return-value]
 
 
 def attach_evidence_metadata(payload: dict[str, Any], *, source: str | None = None) -> dict[str, Any]:
@@ -83,12 +95,15 @@ def attach_evidence_metadata(payload: dict[str, Any], *, source: str | None = No
     env_prod = os.getenv("BLACKDARK_PRODUCTION", "").lower() in {"1", "true", "yes"}
     explicit = out.get("evidence_class")
     cls = infer_evidence_class(source=source or out.get("source"), env_production=env_prod, explicit=explicit)
+    validate_cap646_evidence_class(cls)
     out["evidence_class"] = cls
     out["evidence_metadata"] = {
         "class": cls,
         "source": source or out.get("source"),
         "attached_at": _utcnow(),
         "promotion_policy": "replay_and_simulation_never_become_production_metrics",
+        "temporal_projection": to_temporal_evidence_class(cls, source=source or out.get("source")),
+        "taxonomy_version": "1.0.0",
     }
     return out
 
@@ -134,3 +149,17 @@ def reject_if_stale(payload: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
             "compliance_footer": ai_compliance_footer(payload).get("compliance_footer"),
         }
     return True, payload
+
+
+__all__ = [
+    "EvidenceClass",
+    "EVIDENCE_CLASSES",
+    "assert_promotion_allowed",
+    "attach_evidence_metadata",
+    "ai_compliance_footer",
+    "can_promote_cap646_evidence_class",
+    "from_temporal_evidence_class",
+    "infer_evidence_class",
+    "reject_if_stale",
+    "to_temporal_evidence_class",
+]
