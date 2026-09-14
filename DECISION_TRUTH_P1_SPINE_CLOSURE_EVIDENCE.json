@@ -1,10 +1,10 @@
 {
   "phase": "P1_DECISION_TRUTH_SPINE_AND_ANTI_BYPASS",
-  "verified_at_utc": "2026-09-14T21:17:00Z",
+  "verified_at_utc": "2026-09-14T21:17:15Z",
   "governing_spec": "BLACKDARK_DECISION_TRUTH_SYSTEM_INSTITUTIONAL_FINAL_v1.md",
   "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
-  "base_sha": "e15b0823ff2cdf6cf3c60c880f97d2e681ddbe1c",
-  "implementation_sha": "e15b0823ff2cdf6cf3c60c880f97d2e681ddbe1c",
+  "base_sha": "583876e36117838916e010dd3a4f51032581a783",
+  "implementation_sha": "583876e36117838916e010dd3a4f51032581a783",
   "dts_ids_covered": [
     "DTS-001",
     "DTS-002",
