@@ -1,0 +1,507 @@
+{
+  "phase": "0_FINAL",
+  "phase_name": "Temporal Phase 0 Final Integration Discovery",
+  "discovered_at_utc": "2026-09-14T09:09:10Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "accepted_baselines": {
+    "PRIMARY_REQUIREMENTS_TOTAL": 152,
+    "ACTIVE_ATOMIC_REQUIREMENTS_TOTAL": 455,
+    "CANONICAL_OWNER_COUNT": 30,
+    "IMPLEMENTATION_RELEVANT_CANDIDATES": 88,
+    "RUNTIME_REACHABLE_CANDIDATES": 82,
+    "VERIFIED_INTEGRATION_EDGES": 14,
+    "DATA_GOVERNANCE_COMPONENT_COUNT": 14,
+    "DATA_GOVERNANCE_INTEGRATION_CONTRACTS": 23,
+    "CURRENT_DG_EVIDENCE_SUFFICIENT_FOR_AVAILABLE_AT_ENFORCEMENT": false,
+    "accepted_stages": [
+      "0A",
+      "0B",
+      "0C",
+      "0D",
+      "0E",
+      "0F",
+      "0G",
+      "0H-1"
+    ]
+  },
+  "data_governance_integration": {
+    "reference_artifact": "TEMPORAL_PHASE_0H1_DATA_GOVERNANCE_INTEGRATION_DISCOVERY.json",
+    "integration_contract_count": 23,
+    "component_count": 14,
+    "accepted_for_phase_0": true
+  },
+  "decision_truth_integration": {
+    "contracts": [
+      {
+        "contract_id": "DT-TMP-SIG-001",
+        "temporal_owner": "EVIDENCE_PROVENANCE",
+        "decision_truth_component": "DT-SIGNAL-REG",
+        "repository_path": "signal_registry.py",
+        "symbol_or_component": "register_signal",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "signal_id, signal_type, asof, features_hash, prediction_id, provenance block",
+        "canonical_authority_owner": "EVIDENCE_PROVENANCE",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "register_signal invoked from ai_oracle.evaluate_opportunity; tests/test_unique_differentiators.py"
+      },
+      {
+        "contract_id": "DT-TMP-SIG-002",
+        "temporal_owner": "OUTCOME_FACTORY",
+        "decision_truth_component": "DT-SYSTEMS-API",
+        "repository_path": "blackdark/data/systems_api.py",
+        "symbol_or_component": "register_signal",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "de_signal_registry rows with features_hash, model_version, provenance_hash",
+        "canonical_authority_owner": "OUTCOME_FACTORY",
+        "runtime_reachability": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+        "evidence_basis": "systems_api register_signal calls insert_signal; tests/test_wave_01_systems.py"
+      },
+      {
+        "contract_id": "DT-TMP-PRED-001",
+        "temporal_owner": "OUTCOME_FACTORY",
+        "decision_truth_component": "DT-AI-ORACLE",
+        "repository_path": "ai_oracle.py",
+        "symbol_or_component": "evaluate_opportunity",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "EvaluatedOpportunity score, breakdown, signal_registry attachment",
+        "canonical_authority_owner": "OUTCOME_FACTORY",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "evaluate_opportunity calls oracle_unified.finalize_unified_score"
+      },
+      {
+        "contract_id": "DT-TMP-DEC-001",
+        "temporal_owner": "OUTCOME_FACTORY",
+        "decision_truth_component": "DT-ORACLE-UNIFIED",
+        "repository_path": "oracle_unified.py",
+        "symbol_or_component": "finalize_unified_score",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "unified decision score, modal breakdown, dimension_conflict metadata",
+        "canonical_authority_owner": "OUTCOME_FACTORY",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "finalize_unified_score in ai_oracle path; tests/test_rc2_oracle_contract.py"
+      },
+      {
+        "contract_id": "DT-TMP-CONF-001",
+        "temporal_owner": "OUTCOME_FACTORY",
+        "decision_truth_component": "DT-ORACLE-UNIFIED",
+        "repository_path": "oracle_unified.py",
+        "symbol_or_component": "_confidence_from_score",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "confidence derivation from unified score and breakdown",
+        "canonical_authority_owner": "OUTCOME_FACTORY",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "_confidence_from_score used within finalize_unified_score"
+      },
+      {
+        "contract_id": "DT-TMP-ABS-001",
+        "temporal_owner": "FAILURE_SURPRISE_ABSTENTION",
+        "decision_truth_component": "DT-DIMENSION-CONFLICT",
+        "repository_path": "dimension_conflict_guard.py",
+        "symbol_or_component": "apply_dimension_conflict_guard",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "veto, abstain, action WAIT on modal dimension conflicts",
+        "canonical_authority_owner": "FAILURE_SURPRISE_ABSTENTION",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "apply_dimension_conflict_guard; signal_registry dimension_conflict lexicon; tests/test_dec_autonomous_closure.py"
+      },
+      {
+        "contract_id": "DT-TMP-ABS-002",
+        "temporal_owner": "FAILURE_SURPRISE_ABSTENTION",
+        "decision_truth_component": "DT-FAILURE-CORPUS",
+        "repository_path": "failure_corpus.py",
+        "symbol_or_component": "record_failure",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "failure registry for vetoes, OOD, provenance downgrades",
+        "canonical_authority_owner": "FAILURE_SURPRISE_ABSTENTION",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "failure_corpus record_failure; CAND-120"
+      },
+      {
+        "contract_id": "DT-TMP-PROV-001",
+        "temporal_owner": "EVIDENCE_PROVENANCE",
+        "decision_truth_component": "DT-AUDIT-REG",
+        "repository_path": "audit_registry.py",
+        "symbol_or_component": "sign_record",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "HMAC-signed audit chain records",
+        "canonical_authority_owner": "EVIDENCE_PROVENANCE",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "audit_registry sign_record; tests/test_phase01_audit_registry.py"
+      },
+      {
+        "contract_id": "DT-TMP-PROV-002",
+        "temporal_owner": "EVIDENCE_PROVENANCE",
+        "decision_truth_component": "DT-SYSTEMS-API",
+        "repository_path": "blackdark/data/systems_api.py",
+        "symbol_or_component": "insert_evidence",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "de_evidence_store rows with payload_hash",
+        "canonical_authority_owner": "EVIDENCE_PROVENANCE",
+        "runtime_reachability": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+        "evidence_basis": "systems_api insert_evidence uses hash_payload"
+      },
+      {
+        "contract_id": "DT-TMP-OUT-001",
+        "temporal_owner": "OUTCOME_FACTORY",
+        "decision_truth_component": "DT-SYSTEMS-API",
+        "repository_path": "blackdark/data/systems_api.py",
+        "symbol_or_component": "evaluate_outcome",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "de_outcome_evaluations linked to signals/predictions",
+        "canonical_authority_owner": "OUTCOME_FACTORY",
+        "runtime_reachability": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+        "evidence_basis": "evaluate_outcome calls insert_outcome_evaluation"
+      },
+      {
+        "contract_id": "DT-TMP-OUT-002",
+        "temporal_owner": "OUTCOME_FACTORY",
+        "decision_truth_component": "DT-ORACLE-TRACK",
+        "repository_path": "oracle_track_record.py",
+        "symbol_or_component": "on_prediction_created",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "prediction-to-outcome linkage for oracle track record",
+        "canonical_authority_owner": "OUTCOME_FACTORY",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "oracle_track_record on_prediction_created"
+      },
+      {
+        "contract_id": "DT-TMP-CONTRA-001",
+        "temporal_owner": "DETERMINISTIC_REPLAY",
+        "decision_truth_component": "DT-CONTRADICTION-REPLAY",
+        "repository_path": "contradiction_replay.py",
+        "symbol_or_component": "build_contradiction_replay",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "contradiction replay cards for conflicting modal signals",
+        "canonical_authority_owner": "DETERMINISTIC_REPLAY",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "contradiction_replay build_contradiction_replay; tests/test_wow_unique_surfaces.py"
+      },
+      {
+        "contract_id": "DT-TMP-CONTRACT-001",
+        "temporal_owner": "CROSS_CUTTING_GOVERNANCE",
+        "decision_truth_component": "DT-ORACLE-UNIFIED",
+        "repository_path": "oracle_unified.py",
+        "symbol_or_component": "compute_unified_oracle",
+        "direction": "DECISION_TRUTH_TO_TEMPORAL",
+        "information_transferred": "documented canonical oracle decision contract surface",
+        "canonical_authority_owner": "CROSS_CUTTING_GOVERNANCE",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "tests/test_rc2_oracle_contract.py canonical oracle contract"
+      },
+      {
+        "contract_id": "DT-TMP-EVID-001",
+        "temporal_owner": "EVIDENCE_PROVENANCE",
+        "decision_truth_component": "DT-AI-ORACLE",
+        "repository_path": "ai_oracle.py",
+        "symbol_or_component": "evaluate_opportunity",
+        "direction": "TEMPORAL_TO_DECISION_TRUTH",
+        "information_transferred": "consumes provenance score inputs for decision-grade evaluation",
+        "canonical_authority_owner": "EVIDENCE_PROVENANCE",
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "evaluate_opportunity attaches provenance via data_provenance_score path"
+      }
+    ],
+    "contract_count": 14,
+    "authority_discipline": {
+      "DECISION_TRUTH_AUTHORITY_COLLISIONS": 0,
+      "SELF_VALIDATION_AUTHORITY_CONFLICTS": 0,
+      "UNSUPPORTED_DECISION_TRUTH_CONTRACTS": 0
+    }
+  },
+  "adaptive_intelligence_integration": {
+    "contracts": [
+      {
+        "contract_id": "AD-TMP-LEARN-001",
+        "temporal_owner": "CONTROLLED_LEARNING",
+        "adaptive_component": "AD-LEARNING-COMPOUND",
+        "repository_path": "learning_compounding.py",
+        "symbol_or_component": "record_outcome",
+        "direction": "ADAPTIVE_INTELLIGENCE_TO_TEMPORAL",
+        "relationship": "CONTROLLED_LEARNING_CONSUMER",
+        "information_transferred": "signed learning_outcomes rows consuming outcome signals",
+        "canonical_authority_owner": "CONTROLLED_LEARNING",
+        "consumer_only": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "learning_compounding record_outcome; CAND-083"
+      },
+      {
+        "contract_id": "AD-TMP-API-001",
+        "temporal_owner": "CONTROLLED_LEARNING",
+        "adaptive_component": "AD-COMPOUNDING-API",
+        "repository_path": "api/routers/compounding.py",
+        "symbol_or_component": "/api/learning/*",
+        "direction": "ADAPTIVE_INTELLIGENCE_TO_TEMPORAL",
+        "relationship": "LEARNING_API_CONSUMER",
+        "information_transferred": "learning API routes delegating to learning_compounding",
+        "canonical_authority_owner": "CONTROLLED_LEARNING",
+        "consumer_only": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "compounding router mounted in dashboard.py; CAND-170"
+      },
+      {
+        "contract_id": "AD-TMP-ROUTE-001",
+        "temporal_owner": "REGIME_INTELLIGENCE",
+        "adaptive_component": "AD-CAP646-RUNTIME",
+        "repository_path": "cap646/runtime.py",
+        "symbol_or_component": "execute_capability",
+        "direction": "ADAPTIVE_INTELLIGENCE_TO_TEMPORAL",
+        "relationship": "INTELLIGENCE_ROUTING",
+        "information_transferred": "capability/playbook routing and handler dispatch",
+        "canonical_authority_owner": "CROSS_CUTTING_GOVERNANCE",
+        "consumer_only": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "cap646 runtime execute_capability routes to handlers"
+      },
+      {
+        "contract_id": "AD-TMP-REGIME-001",
+        "temporal_owner": "REGIME_INTELLIGENCE",
+        "adaptive_component": "AD-REGIME-MODELS",
+        "repository_path": "ml/regime_models.py",
+        "symbol_or_component": "load_regime_predictor",
+        "direction": "ADAPTIVE_INTELLIGENCE_TO_TEMPORAL",
+        "relationship": "REGIME_CONTEXT_PROVIDER",
+        "information_transferred": "per-regime model registry context for routing",
+        "canonical_authority_owner": "REGIME_INTELLIGENCE",
+        "consumer_only": false,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "ml/regime_models load_regime_predictor; CAND-130"
+      },
+      {
+        "contract_id": "AD-TMP-DRIFT-001",
+        "temporal_owner": "DRIFT",
+        "adaptive_component": "AD-DRIFT-MONITOR",
+        "repository_path": "ml/drift_monitor.py",
+        "symbol_or_component": "enforce_drift_actions",
+        "direction": "ADAPTIVE_INTELLIGENCE_TO_TEMPORAL",
+        "relationship": "CONTROLLED_LEARNING_BOUNDARY",
+        "information_transferred": "OOD scoring and fail-closed freeze signals",
+        "canonical_authority_owner": "DRIFT",
+        "consumer_only": false,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "ml/drift_monitor enforce_drift_actions; CAND-210"
+      },
+      {
+        "contract_id": "AD-TMP-TRUST-001",
+        "temporal_owner": "LEARNING_VALUE",
+        "adaptive_component": "AD-TRUST-COMPOUND",
+        "repository_path": "trust_compounding.py",
+        "symbol_or_component": "trust_os_enhanced",
+        "direction": "ADAPTIVE_INTELLIGENCE_TO_TEMPORAL",
+        "relationship": "FEEDBACK_CONSUMER",
+        "information_transferred": "learning registry outcome counts for trust surfaces",
+        "canonical_authority_owner": "LEARNING_VALUE",
+        "consumer_only": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "trust_compounding trust_os_enhanced; CAND-171"
+      },
+      {
+        "contract_id": "AD-TMP-EVID-001",
+        "temporal_owner": "EVIDENCE_PROVENANCE",
+        "adaptive_component": "AD-EVIDENCE-CLASS",
+        "repository_path": "cap646/evidence_class.py",
+        "symbol_or_component": "infer_evidence_class",
+        "direction": "TEMPORAL_TO_ADAPTIVE_INTELLIGENCE",
+        "relationship": "EVIDENCE_CLASS_CONSUMER",
+        "information_transferred": "reads SHADOW/LIVE/FORWARD taxonomy; does not promote evidence class",
+        "canonical_authority_owner": "EVIDENCE_PROVENANCE",
+        "consumer_only": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "cap646/evidence_class infer_evidence_class; assert_promotion_allowed gates; CAND-100"
+      }
+    ],
+    "contract_count": 7,
+    "authority_discipline": {
+      "ADAPTIVE_TEMPORAL_AUTHORITY_COLLISIONS": 0,
+      "UNSUPPORTED_ADAPTIVE_CONTRACTS": 0,
+      "adaptive_does_not_own": [
+        "Temporal evidence truth",
+        "historical replay truth",
+        "outcome truth",
+        "forward-shadow truth",
+        "Temporal evidence-class promotion"
+      ]
+    }
+  },
+  "user_surface_integration": {
+    "mappings": [
+      {
+        "mapping_id": "US-TMP-UC-001",
+        "surface": "Universal Command",
+        "repository_path": "api/routers/cap646.py",
+        "symbol_or_component": "cap646_router",
+        "temporal_relationship": "API_CONSUMER",
+        "temporal_owners_consumed": [
+          "CROSS_CUTTING_GOVERNANCE",
+          "SOURCE_RIGHTS"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "cap646 router mounted in dashboard.py; CAND-301"
+      },
+      {
+        "mapping_id": "US-TMP-SH-001",
+        "surface": "Six Heroes",
+        "repository_path": "api/routers/heroes.py",
+        "symbol_or_component": "create_locked",
+        "temporal_relationship": "UI_CONSUMER",
+        "temporal_owners_consumed": [
+          "FORWARD_SHADOW",
+          "PUBLIC_EVIDENCE"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "heroes router forward-sealed predictions; CAND-103"
+      },
+      {
+        "mapping_id": "US-TMP-SH-002",
+        "surface": "Six Heroes",
+        "repository_path": "trust_os_lenses.py",
+        "symbol_or_component": "lenses_manifest",
+        "temporal_relationship": "UI_CONSUMER",
+        "temporal_owners_consumed": [
+          "PUBLIC_EVIDENCE",
+          "DETERMINISTIC_REPLAY"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "routes /kill-rate, /contradiction-replay, /proof-arena; CAND-261"
+      },
+      {
+        "mapping_id": "US-TMP-SH-003",
+        "surface": "Six Heroes",
+        "repository_path": "templates/contradiction_replay.html",
+        "symbol_or_component": "contradiction_replay_page",
+        "temporal_relationship": "UI_CONSUMER",
+        "temporal_owners_consumed": [
+          "DETERMINISTIC_REPLAY"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "contradiction replay hero template; CAND-073"
+      },
+      {
+        "mapping_id": "US-TMP-CE-001",
+        "surface": "Capability Explorer",
+        "repository_path": "cap646/runtime.py",
+        "symbol_or_component": "execute_capability",
+        "temporal_relationship": "API_CONSUMER",
+        "temporal_owners_consumed": [
+          "CROSS_CUTTING_GOVERNANCE",
+          "SOURCE_QUALITY"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "cap646 execute_capability dispatches capability handlers"
+      },
+      {
+        "mapping_id": "US-TMP-WS-001",
+        "surface": "Workspaces",
+        "repository_path": "cap646/batch02_dedicated.py",
+        "symbol_or_component": "batch02_dedicated",
+        "temporal_relationship": "POTENTIAL_FUTURE_CONSUMER",
+        "temporal_owners_consumed": [
+          "MARKET_TIME_MACHINE"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "cap646/batch02_dedicated workspace capability bindings"
+      },
+      {
+        "mapping_id": "US-TMP-ET-001",
+        "surface": "Evidence / Trust views",
+        "repository_path": "kill_rate_board.py",
+        "symbol_or_component": "build_kill_rate_board",
+        "temporal_relationship": "UI_CONSUMER",
+        "temporal_owners_consumed": [
+          "FAILURE_SURPRISE_ABSTENTION",
+          "PUBLIC_EVIDENCE"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "kill rate board via trust_os_lenses; CAND-121"
+      },
+      {
+        "mapping_id": "US-TMP-ET-002",
+        "surface": "Evidence / Trust views",
+        "repository_path": "public_miss_feed.py",
+        "symbol_or_component": "build_public_miss_feed",
+        "temporal_relationship": "EVIDENCE_CONSUMER",
+        "temporal_owners_consumed": [
+          "FAILURE_SURPRISE_ABSTENTION",
+          "PUBLIC_EVIDENCE"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "public miss feed surface; CAND-122"
+      },
+      {
+        "mapping_id": "US-TMP-MTM-001",
+        "surface": "Market Time Machine",
+        "repository_path": "blackdark/data/api.py",
+        "symbol_or_component": "get_ohlcv",
+        "temporal_relationship": "API_CONSUMER",
+        "temporal_owners_consumed": [
+          "HISTORICAL_EVENT_STORE",
+          "POINT_IN_TIME_RECONSTRUCTION"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+        "evidence_basis": "time-bounded OHLCV queries; CAND-250"
+      },
+      {
+        "mapping_id": "US-TMP-MTM-002",
+        "surface": "Market Time Machine",
+        "repository_path": "hot_tier_reader.py",
+        "symbol_or_component": "fetch_recent_closes",
+        "temporal_relationship": "RUNTIME_CONSUMER",
+        "temporal_owners_consumed": [
+          "POINT_IN_TIME_RECONSTRUCTION"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "hot-tier recent price reads; CAND-040"
+      },
+      {
+        "mapping_id": "US-TMP-B2B-001",
+        "surface": "B2B/Data Room",
+        "repository_path": "api/routers/institutional.py",
+        "symbol_or_component": "institutional_router",
+        "temporal_relationship": "B2B_CONSUMER",
+        "temporal_owners_consumed": [
+          "PUBLIC_EVIDENCE",
+          "SOURCE_RIGHTS"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "institutional data room routes; CAND-302"
+      },
+      {
+        "mapping_id": "US-TMP-B2B-002",
+        "surface": "B2B/Data Room",
+        "repository_path": "cap978/evidence_room.py",
+        "symbol_or_component": "build_evidence_room_snapshot",
+        "temporal_relationship": "EVIDENCE_CONSUMER",
+        "temporal_owners_consumed": [
+          "PUBLIC_EVIDENCE",
+          "REPRODUCIBILITY"
+        ],
+        "canonical_authority_preserved": true,
+        "runtime_reachability": "RUNTIME_REACHABLE_UNCONDITIONAL",
+        "evidence_basis": "SHA256 reproducible DD snapshot; CAND-060"
+      }
+    ],
+    "mapping_count": 12,
+    "authority_discipline": {
+      "USER_SURFACE_AUTHORITY_INVERSIONS": 0,
+      "UNSUPPORTED_USER_SURFACE_MAPPINGS": 0
+    }
+  },
+  "integration_boundary_summary": {
+    "data_governance_contracts": 23,
+    "decision_truth_contracts": 14,
+    "adaptive_intelligence_contracts": 7,
+    "user_surface_mappings": 12,
+    "project_integration_edges": 14
+  },
+  "PHASE_0_FINAL_INTEGRATION_DISCOVERY_COMPLETE": true
+}
