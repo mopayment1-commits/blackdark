@@ -1,9 +1,9 @@
 {
   "phase": "P5_DECISION_PRODUCT_EXPERIENCE",
-  "verified_at_utc": "2026-09-14T21:49:27Z",
+  "verified_at_utc": "2026-09-14T21:49:55Z",
   "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
-  "base_sha": "0831fd7e840467d758842fe796ba90b5f4faafdd",
-  "implementation_sha": "0831fd7e840467d758842fe796ba90b5f4faafdd",
+  "base_sha": "aa81daecd3c3fc245d14bf5b27d5d211eb0fbe43",
+  "implementation_sha": "aa81daecd3c3fc245d14bf5b27d5d211eb0fbe43",
   "dts_ids_covered": [
     "DTS-007",
     "DTS-019",
