@@ -1,0 +1,358 @@
+{
+  "phase": "0H-1_INDEPENDENT_AUDIT",
+  "phase_name": "Independent Audit of Phase 0H-1 Data Governance Integration Discovery",
+  "audited_at_utc": "2026-09-14T08:04:18Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "inputs": {
+    "discovery_artifact": "TEMPORAL_PHASE_0H1_DATA_GOVERNANCE_INTEGRATION_DISCOVERY.json",
+    "reconciliation_artifact": "TEMPORAL_PHASE_0H1_RECONCILIATION.json",
+    "integration_discovery_artifact": "TEMPORAL_PROJECT_INTEGRATION_DISCOVERY.json",
+    "ownership_registry_artifact": "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json"
+  },
+  "precondition_result": {
+    "ACTIVE_ATOMIC_REQUIREMENTS": 455,
+    "ACTIVE_ATOMIC_REQUIREMENTS_MATCH": true,
+    "CANONICAL_OWNER_COUNT": 30,
+    "CANONICAL_OWNER_COUNT_MATCH": true,
+    "SUPPORTED_INTEGRATION_CONTRACTS": 23,
+    "SUPPORTED_INTEGRATION_CONTRACTS_MATCH": true,
+    "PHASE_0H1_DATA_GOVERNANCE_DISCOVERY_COMPLETE": true,
+    "preconditions_pass": true
+  },
+  "component_count_reconciliation": {
+    "reported_summary_component_count": 12,
+    "artifact_listed_component_count": 14,
+    "RECOMPUTED_DG_COMPONENT_COUNT": 14,
+    "recomputed_component_ids": [
+      "DG-CB-023",
+      "DG-FRESH-022",
+      "DG-HOT-040",
+      "DG-MOAT-050",
+      "DG-MODEL-012",
+      "DG-PROV-032",
+      "DG-PROVSCORE-021",
+      "DG-REG-010",
+      "DG-REPO-030",
+      "DG-RET-034",
+      "DG-RUN-002",
+      "DG-SCHEMA-031",
+      "DG-SPINE-300",
+      "DG-STATE-020"
+    ],
+    "DUPLICATE_DG_COMPONENT_IDS": 0,
+    "discrepancy_classification": "REPORT_SUMMARY_COUNT_ERROR",
+    "notes": "Discovery artifact correctly lists 14 unique component IDs; prior narrative summary incorrectly stated 12."
+  },
+  "metadata_semantic_audit": [
+    {
+      "field": "event_time",
+      "classification": "DIRECTLY_AVAILABLE",
+      "repository_evidence": "ohlcv_data.open_time and market_events.start_time/end_time represent when the underlying market interval or event occurred (blackdark/data/migrations/003_ohlcv_data.sql, 006_market_events.sql).",
+      "semantic_limitations": "hot_tier_reader.fetch_recent_closes returns price floats without timestamps; quote-age metrics are not event_time."
+    },
+    {
+      "field": "observed_time",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "stale_price_guard.validate_venue_quote and data_provenance_score expose quote_age_ms/freshness_ms (relative latency), not an absolute observation timestamp on contract surfaces.",
+      "semantic_limitations": "live_book_hub stores ISO timestamp on book updates, but observed_time is not propagated through audited DG\u2192Temporal contract return payloads without ambiguous reconstruction from age alone."
+    },
+    {
+      "field": "available_at",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "blackdark/data/response_metadata.resolve_data_state compares latest_record_at to SLA freshness thresholds; no available_at field exists in schemas or APIs.",
+      "semantic_limitations": "latest_record_at reflects latest stored record event time, not earliest availability to a Temporal point-in-time process."
+    },
+    {
+      "field": "ingested_at",
+      "classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "repository_evidence": "ohlcv_data.fetched_at column exists (003_ohlcv_data.sql); data_provenance.parsed_at aliased fetched_at in get_provenance_by_record; ingestion_runs.started_at records run start.",
+      "semantic_limitations": "parsed_at is parse time, not proven record-level storage time; ingestion_runs.started_at is run-level not per-record; query_ohlcv read path does not return fetched_at."
+    },
+    {
+      "field": "effective_at",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "No effective_at column or equivalent domain-effectiveness timestamp located in inspected DG schemas or services.",
+      "semantic_limitations": null
+    },
+    {
+      "field": "revised_at",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "data_sources.updated_at exists on registry rows (blackdark/data/models.py DataSource) only.",
+      "semantic_limitations": "Registry metadata update time is not event/datum revision time; no revision chain proven for market_events or ohlcv_data."
+    },
+    {
+      "field": "source",
+      "classification": "DIRECTLY_AVAILABLE",
+      "repository_evidence": "data_sources_registry.DataSourceSpec.source_id; Postgres data_sources.slug; provenance joins expose ds.slug AS source.",
+      "semantic_limitations": "market_events carries source_links JSONB rather than normalized source slug."
+    },
+    {
+      "field": "source_version",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "data_provenance.parser_version and PARSER_VERSION constant record parser implementation version only.",
+      "semantic_limitations": "Upstream data-producing source release/version semantics are not stored; parser_version is not equivalent to Temporal source_version."
+    },
+    {
+      "field": "dataset_version",
+      "classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "repository_evidence": "No dataset_version field, snapshot id, or version table found in inspected DG paths.",
+      "semantic_limitations": null
+    },
+    {
+      "field": "rights_or_provenance",
+      "classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "repository_evidence": "Provenance lineage: raw_response_hash, source_endpoint, source_links JSONB, ingestion_run_id (provenance.py, market_events). Rights: DataSourceSpec.env_key indicates credential requirement only.",
+      "semantic_limitations": "env_key/notes do not prove licensing entitlement or usage rights; provenance and rights must not be treated as equivalent."
+    }
+  ],
+  "discovery_metadata_matrix_overclaims": [
+    {
+      "field": "event_time",
+      "discovery_classification": "stale_price_guard.py: DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "quote age is not underlying event occurrence time"
+    },
+    {
+      "field": "observed_time",
+      "discovery_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE on multiple components",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "age/freshness metrics cannot reconstruct unambiguous absolute observation timestamps"
+    },
+    {
+      "field": "available_at",
+      "discovery_classification": "blackdark/data/response_metadata.py: DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "latest_record_at SLA comparison is not available_at semantics"
+    },
+    {
+      "field": "ingested_at",
+      "discovery_classification": "DIRECTLY_AVAILABLE for provenance parsed_at and ingestion_runs.started_at",
+      "independent_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "reason": "parse time and run start are not proven record-level ingestion time"
+    },
+    {
+      "field": "revised_at",
+      "discovery_classification": "blackdark/data/models.py DataSource: DIRECTLY_AVAILABLE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "registry updated_at is not datum/event revision time"
+    },
+    {
+      "field": "source_version",
+      "discovery_classification": "blackdark/data/provenance.py: DIRECTLY_AVAILABLE",
+      "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+      "reason": "parser_version is parser implementation version, not upstream source version"
+    },
+    {
+      "field": "rights_or_provenance",
+      "discovery_classification": "data_sources_registry.py: DERIVABLE_WITH_EXISTING_EVIDENCE via env_key",
+      "independent_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+      "reason": "env_key does not prove rights/licensing entitlement; provenance only partially evidenced"
+    }
+  ],
+  "point_in_time_available_at_enforcement": {
+    "CURRENT_DG_EVIDENCE_SUFFICIENT_FOR_AVAILABLE_AT_ENFORCEMENT": false,
+    "reason": "No available_at field or unambiguous earliest-availability timestamp for Temporal point-in-time enforcement; SLA/freshness and latest_record_at do not establish available_at > simulated_time inaccessibility."
+  },
+  "runtime_reachability_audit": {
+    "contracts_audited": 23,
+    "RUNTIME_REACHABLE_UNCONDITIONAL": [
+      "DG-TMP-TLF-001",
+      "DG-TMP-TLF-002",
+      "DG-TMP-SR-001",
+      "DG-TMP-SQ-001",
+      "DG-TMP-SQ-002",
+      "DG-TMP-SQ-005",
+      "DG-TMP-RP-001",
+      "DG-TMP-CR-001",
+      "DG-TMP-CCG-001",
+      "DG-TMP-SR-003",
+      "DG-TMP-HE-004",
+      "DG-TMP-PIT-002"
+    ],
+    "UNCONDITIONAL_RUNTIME_REACHABLE_CONTRACTS": 12,
+    "RUNTIME_REACHABLE_ENVIRONMENT_GATED": [
+      "DG-TMP-HE-001",
+      "DG-TMP-HE-002",
+      "DG-TMP-HE-003",
+      "DG-TMP-PIT-001",
+      "DG-TMP-SR-002",
+      "DG-TMP-SQ-003",
+      "DG-TMP-SQ-004",
+      "DG-TMP-EP-001",
+      "DG-TMP-EP-002",
+      "DG-TMP-REP-001",
+      "DG-TMP-REP-002"
+    ],
+    "ENVIRONMENT_GATED_RUNTIME_REACHABLE_CONTRACTS": 11,
+    "NOT_RUNTIME_REACHABLE": [],
+    "NOT_RUNTIME_REACHABLE_CONTRACTS": 0,
+    "false_runtime_classification_details": [
+      {
+        "contract_id": "DG-TMP-SR-002",
+        "discovery_claim": "runtime_reachable=false",
+        "independent_classification": "RUNTIME_REACHABLE_ENVIRONMENT_GATED",
+        "evidence": "DataSource model imported by repository; seed_data_sources wired through ensure_data_engine_ready and blackdark/data/api.py admin routes"
+      }
+    ],
+    "FALSE_RUNTIME_REACHABILITY_CLASSIFICATIONS": 1
+  },
+  "contract_integrity_audit": {
+    "contracts_verified": 23,
+    "invalid_components": [],
+    "INVALID_CONTRACT_COMPONENTS": 0,
+    "invalid_symbols": [],
+    "INVALID_CONTRACT_SYMBOLS": 0,
+    "unsupported_relationships": [],
+    "UNSUPPORTED_CONTRACT_RELATIONSHIPS": 0,
+    "unsupported_information_transfer_claims": [
+      {
+        "contract_id": "DG-TMP-HE-002",
+        "claim": "information_transferred includes fetched_at and provenance_hash",
+        "evidence": "query_ohlcv SELECT returns open_time, OHLCV fields, ds.slug AS source, p.id AS provenance_id only"
+      }
+    ],
+    "UNSUPPORTED_INFORMATION_TRANSFER_CLAIMS": 1,
+    "unsupported_required_metadata_claims": [
+      {
+        "contract_id": "DG-TMP-HE-002",
+        "field": "ingested_at",
+        "claimed_classification_implied": "available",
+        "independent_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+        "reason": "query_ohlcv SELECT omits fetched_at on read path"
+      },
+      {
+        "contract_id": "DG-TMP-PIT-001",
+        "field": "ingested_at",
+        "claimed_classification_implied": "available",
+        "independent_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+        "reason": "query_ohlcv SELECT omits fetched_at on read path"
+      },
+      {
+        "contract_id": "DG-TMP-PIT-002",
+        "field": "event_time",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY",
+        "reason": "fetch_recent_closes returns price list without timestamps"
+      },
+      {
+        "contract_id": "DG-TMP-TLF-001",
+        "field": "observed_time",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+      },
+      {
+        "contract_id": "DG-TMP-SR-001",
+        "field": "rights_or_provenance",
+        "claimed_classification_implied": "available",
+        "independent_classification": "DERIVABLE_WITH_EXISTING_EVIDENCE",
+        "reason": "env_key proves credential requirement, not licensing entitlement"
+      },
+      {
+        "contract_id": "DG-TMP-SQ-001",
+        "field": "observed_time",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+      },
+      {
+        "contract_id": "DG-TMP-SQ-002",
+        "field": "observed_time",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+      },
+      {
+        "contract_id": "DG-TMP-SQ-003",
+        "field": "available_at",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+      },
+      {
+        "contract_id": "DG-TMP-SQ-005",
+        "field": "observed_time",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+      },
+      {
+        "contract_id": "DG-TMP-EP-001",
+        "field": "source_version",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+      },
+      {
+        "contract_id": "DG-TMP-REP-001",
+        "field": "source_version",
+        "claimed_classification_implied": "available",
+        "independent_classification": "NOT_PROVEN_IN_CURRENT_DISCOVERY"
+      }
+    ],
+    "canonical_authority_collisions": [],
+    "CANONICAL_AUTHORITY_COLLISIONS": 0,
+    "contract_integrity_pass": false
+  },
+  "phase_0g_mapping_preservation": {
+    "mappings_checked": [
+      "CAND-010",
+      "CAND-030",
+      "CAND-032",
+      "CAND-300"
+    ],
+    "results": [
+      {
+        "candidate_id": "CAND-010",
+        "classification": "SUPPORTED_DIRECT",
+        "independent_verification": "DataSourceSpec and DATA_SOURCES tuple verified in data_sources_registry.py; imports in ingestion_scheduler and cap646/data_spine.py"
+      },
+      {
+        "candidate_id": "CAND-030",
+        "classification": "SUPPORTED_DIRECT",
+        "independent_verification": "insert_market_event and query_ohlcv verified in blackdark/data/repository.py; systems_api wiring confirmed"
+      },
+      {
+        "candidate_id": "CAND-032",
+        "classification": "SUPPORTED_DIRECT",
+        "independent_verification": "record_provenance and get_provenance_by_record verified; ingestor call sites in binance/coingecko/kraken"
+      },
+      {
+        "candidate_id": "CAND-300",
+        "classification": "SUPPORTED_SHARED_INFRASTRUCTURE",
+        "independent_verification": "cap646/data_spine composes DG modules; handlers/data.py routes capabilities 630/631/338/500"
+      }
+    ],
+    "UNSUPPORTED_PHASE_0G_DATA_GOVERNANCE_MAPPINGS": 0
+  },
+  "scope_integrity": {
+    "phase_0h1_commit": "22a480a0",
+    "files_changed_in_phase_0h1_commit": [
+      "TEMPORAL_PHASE_0H1_DATA_GOVERNANCE_INTEGRATION_DISCOVERY.json",
+      "TEMPORAL_PHASE_0H1_RECONCILIATION.json"
+    ],
+    "RUNTIME_SOURCE_FILES_CHANGED": 0,
+    "UNRELATED_FILES_CHANGED": 0,
+    "UNEXPECTED_CHANGED_FILES": 0
+  },
+  "acceptance_assertions": {
+    "DUPLICATE_DG_COMPONENT_IDS": 0,
+    "HYBRID_METADATA_CLASSIFICATIONS": 0,
+    "SEMANTIC_EQUIVALENCE_OVERCLAIMS": 7,
+    "UNSUPPORTED_METADATA_AVAILABILITY_CLAIMS": 11,
+    "FALSE_RUNTIME_REACHABILITY_CLASSIFICATIONS": 1,
+    "INVALID_CONTRACT_COMPONENTS": 0,
+    "INVALID_CONTRACT_SYMBOLS": 0,
+    "UNSUPPORTED_CONTRACT_RELATIONSHIPS": 0,
+    "UNSUPPORTED_INFORMATION_TRANSFER_CLAIMS": 1,
+    "CANONICAL_AUTHORITY_COLLISIONS": 0,
+    "UNSUPPORTED_PHASE_0G_DATA_GOVERNANCE_MAPPINGS": 0,
+    "RUNTIME_SOURCE_FILES_CHANGED": 0,
+    "UNRELATED_FILES_CHANGED": 0,
+    "UNEXPECTED_CHANGED_FILES": 0,
+    "PHASE_0H1_INDEPENDENT_AUDIT_COMPLETE": true
+  },
+  "findings_summary": [
+    "Report summary stated 12 DG component IDs; artifact and recomputed count are 14 (REPORT_SUMMARY_COUNT_ERROR).",
+    "Discovery metadata matrix overclaims observed_time, available_at, source_version, and partially ingested_at/revised_at/rights semantics.",
+    "Eight contract required_metadata claims are not semantically supported on audited surfaces.",
+    "DG-TMP-HE-002 information_transferred overclaims fetched_at and provenance_hash absent from query_ohlcv output.",
+    "DG-TMP-SR-002 incorrectly classified runtime_reachable=false; wiring exists and is environment-gated.",
+    "available_at point-in-time enforcement is not evidenced by current DG fields."
+  ],
+  "final_disposition": "REQUIRES_0H1_CORRECTION"
+}

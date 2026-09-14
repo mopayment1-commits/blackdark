@@ -1,0 +1,780 @@
+{
+  "phase": "0C",
+  "phase_name": "Atomic Decomposition Reconciliation",
+  "primary_requirements_total": 152,
+  "atomic_requirements_total": 455,
+  "parent_to_atomic_mapping": {
+    "TEMP-PR-0001": [
+      "TEMP-AR-0001",
+      "TEMP-AR-0002",
+      "TEMP-AR-0003"
+    ],
+    "TEMP-PR-0002": [
+      "TEMP-AR-0004",
+      "TEMP-AR-0005"
+    ],
+    "TEMP-PR-0003": [
+      "TEMP-AR-0006"
+    ],
+    "TEMP-PR-0004": [
+      "TEMP-AR-0007",
+      "TEMP-AR-0008"
+    ],
+    "TEMP-PR-0005": [
+      "TEMP-AR-0009"
+    ],
+    "TEMP-PR-0006": [
+      "TEMP-AR-0010",
+      "TEMP-AR-0011",
+      "TEMP-AR-0012"
+    ],
+    "TEMP-PR-0007": [
+      "TEMP-AR-0013"
+    ],
+    "TEMP-PR-0008": [
+      "TEMP-AR-0014"
+    ],
+    "TEMP-PR-0009": [
+      "TEMP-AR-0015"
+    ],
+    "TEMP-PR-0010": [
+      "TEMP-AR-0016",
+      "TEMP-AR-0017",
+      "TEMP-AR-0018",
+      "TEMP-AR-0019",
+      "TEMP-AR-0020",
+      "TEMP-AR-0021",
+      "TEMP-AR-0022",
+      "TEMP-AR-0023",
+      "TEMP-AR-0024",
+      "TEMP-AR-0025"
+    ],
+    "TEMP-PR-0011": [
+      "TEMP-AR-0026"
+    ],
+    "TEMP-PR-0012": [
+      "TEMP-AR-0027",
+      "TEMP-AR-0028",
+      "TEMP-AR-0029",
+      "TEMP-AR-0030",
+      "TEMP-AR-0031"
+    ],
+    "TEMP-PR-0013": [
+      "TEMP-AR-0032"
+    ],
+    "TEMP-PR-0014": [
+      "TEMP-AR-0033"
+    ],
+    "TEMP-PR-0015": [
+      "TEMP-AR-0034"
+    ],
+    "TEMP-PR-0016": [
+      "TEMP-AR-0035",
+      "TEMP-AR-0036",
+      "TEMP-AR-0037",
+      "TEMP-AR-0038",
+      "TEMP-AR-0039",
+      "TEMP-AR-0040",
+      "TEMP-AR-0041",
+      "TEMP-AR-0042"
+    ],
+    "TEMP-PR-0017": [
+      "TEMP-AR-0043"
+    ],
+    "TEMP-PR-0018": [
+      "TEMP-AR-0044"
+    ],
+    "TEMP-PR-0019": [
+      "TEMP-AR-0045"
+    ],
+    "TEMP-PR-0020": [
+      "TEMP-AR-0046",
+      "TEMP-AR-0047",
+      "TEMP-AR-0048",
+      "TEMP-AR-0049",
+      "TEMP-AR-0050",
+      "TEMP-AR-0051",
+      "TEMP-AR-0052",
+      "TEMP-AR-0053",
+      "TEMP-AR-0054",
+      "TEMP-AR-0055"
+    ],
+    "TEMP-PR-0021": [
+      "TEMP-AR-0056"
+    ],
+    "TEMP-PR-0022": [
+      "TEMP-AR-0057"
+    ],
+    "TEMP-PR-0023": [
+      "TEMP-AR-0058",
+      "TEMP-AR-0059",
+      "TEMP-AR-0060",
+      "TEMP-AR-0061",
+      "TEMP-AR-0062",
+      "TEMP-AR-0063",
+      "TEMP-AR-0064",
+      "TEMP-AR-0065"
+    ],
+    "TEMP-PR-0024": [
+      "TEMP-AR-0066",
+      "TEMP-AR-0067",
+      "TEMP-AR-0068",
+      "TEMP-AR-0069",
+      "TEMP-AR-0070",
+      "TEMP-AR-0071"
+    ],
+    "TEMP-PR-0025": [
+      "TEMP-AR-0072"
+    ],
+    "TEMP-PR-0026": [
+      "TEMP-AR-0073",
+      "TEMP-AR-0074"
+    ],
+    "TEMP-PR-0027": [
+      "TEMP-AR-0075",
+      "TEMP-AR-0076",
+      "TEMP-AR-0077",
+      "TEMP-AR-0078",
+      "TEMP-AR-0079",
+      "TEMP-AR-0080",
+      "TEMP-AR-0081"
+    ],
+    "TEMP-PR-0028": [
+      "TEMP-AR-0082",
+      "TEMP-AR-0083",
+      "TEMP-AR-0084"
+    ],
+    "TEMP-PR-0029": [
+      "TEMP-AR-0085",
+      "TEMP-AR-0457"
+    ],
+    "TEMP-PR-0030": [
+      "TEMP-AR-0086"
+    ],
+    "TEMP-PR-0031": [
+      "TEMP-AR-0087"
+    ],
+    "TEMP-PR-0032": [
+      "TEMP-AR-0088",
+      "TEMP-AR-0089",
+      "TEMP-AR-0090",
+      "TEMP-AR-0091",
+      "TEMP-AR-0092",
+      "TEMP-AR-0093",
+      "TEMP-AR-0094"
+    ],
+    "TEMP-PR-0033": [
+      "TEMP-AR-0095"
+    ],
+    "TEMP-PR-0034": [
+      "TEMP-AR-0096"
+    ],
+    "TEMP-PR-0035": [
+      "TEMP-AR-0097",
+      "TEMP-AR-0098",
+      "TEMP-AR-0099",
+      "TEMP-AR-0100",
+      "TEMP-AR-0101",
+      "TEMP-AR-0102",
+      "TEMP-AR-0103",
+      "TEMP-AR-0104",
+      "TEMP-AR-0105",
+      "TEMP-AR-0106",
+      "TEMP-AR-0107",
+      "TEMP-AR-0108",
+      "TEMP-AR-0109",
+      "TEMP-AR-0110",
+      "TEMP-AR-0111",
+      "TEMP-AR-0112",
+      "TEMP-AR-0113",
+      "TEMP-AR-0114"
+    ],
+    "TEMP-PR-0036": [
+      "TEMP-AR-0115"
+    ],
+    "TEMP-PR-0037": [
+      "TEMP-AR-0116"
+    ],
+    "TEMP-PR-0038": [
+      "TEMP-AR-0117",
+      "TEMP-AR-0118",
+      "TEMP-AR-0119",
+      "TEMP-AR-0120",
+      "TEMP-AR-0121",
+      "TEMP-AR-0122"
+    ],
+    "TEMP-PR-0039": [
+      "TEMP-AR-0123"
+    ],
+    "TEMP-PR-0040": [
+      "TEMP-AR-0124"
+    ],
+    "TEMP-PR-0041": [
+      "TEMP-AR-0125",
+      "TEMP-AR-0126",
+      "TEMP-AR-0127",
+      "TEMP-AR-0128",
+      "TEMP-AR-0129",
+      "TEMP-AR-0130",
+      "TEMP-AR-0131",
+      "TEMP-AR-0132",
+      "TEMP-AR-0133",
+      "TEMP-AR-0134",
+      "TEMP-AR-0135"
+    ],
+    "TEMP-PR-0042": [
+      "TEMP-AR-0136"
+    ],
+    "TEMP-PR-0043": [
+      "TEMP-AR-0137"
+    ],
+    "TEMP-PR-0044": [
+      "TEMP-AR-0138",
+      "TEMP-AR-0139",
+      "TEMP-AR-0140",
+      "TEMP-AR-0141",
+      "TEMP-AR-0142",
+      "TEMP-AR-0143"
+    ],
+    "TEMP-PR-0045": [
+      "TEMP-AR-0144"
+    ],
+    "TEMP-PR-0046": [
+      "TEMP-AR-0145"
+    ],
+    "TEMP-PR-0047": [
+      "TEMP-AR-0146"
+    ],
+    "TEMP-PR-0048": [
+      "TEMP-AR-0147"
+    ],
+    "TEMP-PR-0049": [
+      "TEMP-AR-0148"
+    ],
+    "TEMP-PR-0050": [
+      "TEMP-AR-0149"
+    ],
+    "TEMP-PR-0051": [
+      "TEMP-AR-0150"
+    ],
+    "TEMP-PR-0052": [
+      "TEMP-AR-0151",
+      "TEMP-AR-0152",
+      "TEMP-AR-0153"
+    ],
+    "TEMP-PR-0053": [
+      "TEMP-AR-0154",
+      "TEMP-AR-0155",
+      "TEMP-AR-0156",
+      "TEMP-AR-0157",
+      "TEMP-AR-0158",
+      "TEMP-AR-0159",
+      "TEMP-AR-0160",
+      "TEMP-AR-0161",
+      "TEMP-AR-0162"
+    ],
+    "TEMP-PR-0054": [
+      "TEMP-AR-0163"
+    ],
+    "TEMP-PR-0055": [
+      "TEMP-AR-0164"
+    ],
+    "TEMP-PR-0056": [
+      "TEMP-AR-0165"
+    ],
+    "TEMP-PR-0057": [
+      "TEMP-AR-0166"
+    ],
+    "TEMP-PR-0058": [
+      "TEMP-AR-0167"
+    ],
+    "TEMP-PR-0059": [
+      "TEMP-AR-0168",
+      "TEMP-AR-0169",
+      "TEMP-AR-0170",
+      "TEMP-AR-0171",
+      "TEMP-AR-0172",
+      "TEMP-AR-0173",
+      "TEMP-AR-0174",
+      "TEMP-AR-0175",
+      "TEMP-AR-0176",
+      "TEMP-AR-0177",
+      "TEMP-AR-0178",
+      "TEMP-AR-0179",
+      "TEMP-AR-0180",
+      "TEMP-AR-0181",
+      "TEMP-AR-0182"
+    ],
+    "TEMP-PR-0060": [
+      "TEMP-AR-0183"
+    ],
+    "TEMP-PR-0061": [
+      "TEMP-AR-0184"
+    ],
+    "TEMP-PR-0062": [
+      "TEMP-AR-0185",
+      "TEMP-AR-0186",
+      "TEMP-AR-0187"
+    ],
+    "TEMP-PR-0063": [
+      "TEMP-AR-0188",
+      "TEMP-AR-0189"
+    ],
+    "TEMP-PR-0064": [
+      "TEMP-AR-0190"
+    ],
+    "TEMP-PR-0065": [
+      "TEMP-AR-0191"
+    ],
+    "TEMP-PR-0066": [
+      "TEMP-AR-0192",
+      "TEMP-AR-0193",
+      "TEMP-AR-0194",
+      "TEMP-AR-0195"
+    ],
+    "TEMP-PR-0067": [
+      "TEMP-AR-0196",
+      "TEMP-AR-0197",
+      "TEMP-AR-0198",
+      "TEMP-AR-0199",
+      "TEMP-AR-0200",
+      "TEMP-AR-0201",
+      "TEMP-AR-0202"
+    ],
+    "TEMP-PR-0068": [
+      "TEMP-AR-0203",
+      "TEMP-AR-0204",
+      "TEMP-AR-0205",
+      "TEMP-AR-0206",
+      "TEMP-AR-0207",
+      "TEMP-AR-0208",
+      "TEMP-AR-0209",
+      "TEMP-AR-0210",
+      "TEMP-AR-0211",
+      "TEMP-AR-0212"
+    ],
+    "TEMP-PR-0069": [
+      "TEMP-AR-0213",
+      "TEMP-AR-0458"
+    ],
+    "TEMP-PR-0070": [
+      "TEMP-AR-0214"
+    ],
+    "TEMP-PR-0071": [
+      "TEMP-AR-0215",
+      "TEMP-AR-0216",
+      "TEMP-AR-0217",
+      "TEMP-AR-0218",
+      "TEMP-AR-0219",
+      "TEMP-AR-0220",
+      "TEMP-AR-0221",
+      "TEMP-AR-0222",
+      "TEMP-AR-0223",
+      "TEMP-AR-0224",
+      "TEMP-AR-0225",
+      "TEMP-AR-0226",
+      "TEMP-AR-0227",
+      "TEMP-AR-0228"
+    ],
+    "TEMP-PR-0072": [
+      "TEMP-AR-0229",
+      "TEMP-AR-0459"
+    ],
+    "TEMP-PR-0073": [
+      "TEMP-AR-0230"
+    ],
+    "TEMP-PR-0074": [
+      "TEMP-AR-0231"
+    ],
+    "TEMP-PR-0075": [
+      "TEMP-AR-0232"
+    ],
+    "TEMP-PR-0076": [
+      "TEMP-AR-0233"
+    ],
+    "TEMP-PR-0077": [
+      "TEMP-AR-0234",
+      "TEMP-AR-0235",
+      "TEMP-AR-0236",
+      "TEMP-AR-0237",
+      "TEMP-AR-0238",
+      "TEMP-AR-0239"
+    ],
+    "TEMP-PR-0078": [
+      "TEMP-AR-0240"
+    ],
+    "TEMP-PR-0079": [
+      "TEMP-AR-0241",
+      "TEMP-AR-0242",
+      "TEMP-AR-0243",
+      "TEMP-AR-0244",
+      "TEMP-AR-0245",
+      "TEMP-AR-0246",
+      "TEMP-AR-0247",
+      "TEMP-AR-0248",
+      "TEMP-AR-0249"
+    ],
+    "TEMP-PR-0080": [
+      "TEMP-AR-0250"
+    ],
+    "TEMP-PR-0081": [
+      "TEMP-AR-0251",
+      "TEMP-AR-0252",
+      "TEMP-AR-0253",
+      "TEMP-AR-0254",
+      "TEMP-AR-0255",
+      "TEMP-AR-0256",
+      "TEMP-AR-0257",
+      "TEMP-AR-0258"
+    ],
+    "TEMP-PR-0082": [
+      "TEMP-AR-0259"
+    ],
+    "TEMP-PR-0083": [
+      "TEMP-AR-0260"
+    ],
+    "TEMP-PR-0084": [
+      "TEMP-AR-0261"
+    ],
+    "TEMP-PR-0085": [
+      "TEMP-AR-0262"
+    ],
+    "TEMP-PR-0086": [
+      "TEMP-AR-0263",
+      "TEMP-AR-0264",
+      "TEMP-AR-0265",
+      "TEMP-AR-0266",
+      "TEMP-AR-0267",
+      "TEMP-AR-0268",
+      "TEMP-AR-0269",
+      "TEMP-AR-0270",
+      "TEMP-AR-0271",
+      "TEMP-AR-0272",
+      "TEMP-AR-0273",
+      "TEMP-AR-0274",
+      "TEMP-AR-0275"
+    ],
+    "TEMP-PR-0087": [
+      "TEMP-AR-0276",
+      "TEMP-AR-0277",
+      "TEMP-AR-0278",
+      "TEMP-AR-0279",
+      "TEMP-AR-0280"
+    ],
+    "TEMP-PR-0088": [
+      "TEMP-AR-0281",
+      "TEMP-AR-0282",
+      "TEMP-AR-0283",
+      "TEMP-AR-0284",
+      "TEMP-AR-0285",
+      "TEMP-AR-0286",
+      "TEMP-AR-0287",
+      "TEMP-AR-0288",
+      "TEMP-AR-0289"
+    ],
+    "TEMP-PR-0089": [
+      "TEMP-AR-0290"
+    ],
+    "TEMP-PR-0090": [
+      "TEMP-AR-0291"
+    ],
+    "TEMP-PR-0091": [
+      "TEMP-AR-0292",
+      "TEMP-AR-0293",
+      "TEMP-AR-0294",
+      "TEMP-AR-0295",
+      "TEMP-AR-0296",
+      "TEMP-AR-0297",
+      "TEMP-AR-0298",
+      "TEMP-AR-0299",
+      "TEMP-AR-0300",
+      "TEMP-AR-0301"
+    ],
+    "TEMP-PR-0092": [
+      "TEMP-AR-0302",
+      "TEMP-AR-0303",
+      "TEMP-AR-0304",
+      "TEMP-AR-0305"
+    ],
+    "TEMP-PR-0093": [
+      "TEMP-AR-0306",
+      "TEMP-AR-0307",
+      "TEMP-AR-0308",
+      "TEMP-AR-0309",
+      "TEMP-AR-0310",
+      "TEMP-AR-0311",
+      "TEMP-AR-0312"
+    ],
+    "TEMP-PR-0094": [
+      "TEMP-AR-0313"
+    ],
+    "TEMP-PR-0095": [
+      "TEMP-AR-0314"
+    ],
+    "TEMP-PR-0096": [
+      "TEMP-AR-0315",
+      "TEMP-AR-0316",
+      "TEMP-AR-0317",
+      "TEMP-AR-0318",
+      "TEMP-AR-0319",
+      "TEMP-AR-0320",
+      "TEMP-AR-0321"
+    ],
+    "TEMP-PR-0097": [
+      "TEMP-AR-0322",
+      "TEMP-AR-0323"
+    ],
+    "TEMP-PR-0098": [
+      "TEMP-AR-0324",
+      "TEMP-AR-0325",
+      "TEMP-AR-0326",
+      "TEMP-AR-0327",
+      "TEMP-AR-0328",
+      "TEMP-AR-0329",
+      "TEMP-AR-0330",
+      "TEMP-AR-0331",
+      "TEMP-AR-0332",
+      "TEMP-AR-0333",
+      "TEMP-AR-0334",
+      "TEMP-AR-0335"
+    ],
+    "TEMP-PR-0099": [
+      "TEMP-AR-0336",
+      "TEMP-AR-0337"
+    ],
+    "TEMP-PR-0100": [
+      "TEMP-AR-0338",
+      "TEMP-AR-0339",
+      "TEMP-AR-0340",
+      "TEMP-AR-0341",
+      "TEMP-AR-0342",
+      "TEMP-AR-0343",
+      "TEMP-AR-0344",
+      "TEMP-AR-0345",
+      "TEMP-AR-0346",
+      "TEMP-AR-0347"
+    ],
+    "TEMP-PR-0101": [
+      "TEMP-AR-0348",
+      "TEMP-AR-0349",
+      "TEMP-AR-0350",
+      "TEMP-AR-0351"
+    ],
+    "TEMP-PR-0102": [
+      "TEMP-AR-0352"
+    ],
+    "TEMP-PR-0103": [
+      "TEMP-AR-0353",
+      "TEMP-AR-0354",
+      "TEMP-AR-0355",
+      "TEMP-AR-0356",
+      "TEMP-AR-0357",
+      "TEMP-AR-0358",
+      "TEMP-AR-0359"
+    ],
+    "TEMP-PR-0104": [
+      "TEMP-AR-0360"
+    ],
+    "TEMP-PR-0105": [
+      "TEMP-AR-0361"
+    ],
+    "TEMP-PR-0106": [
+      "TEMP-AR-0362",
+      "TEMP-AR-0363",
+      "TEMP-AR-0364",
+      "TEMP-AR-0365",
+      "TEMP-AR-0366",
+      "TEMP-AR-0367",
+      "TEMP-AR-0368",
+      "TEMP-AR-0369",
+      "TEMP-AR-0370",
+      "TEMP-AR-0371",
+      "TEMP-AR-0372"
+    ],
+    "TEMP-PR-0107": [
+      "TEMP-AR-0373"
+    ],
+    "TEMP-PR-0108": [
+      "TEMP-AR-0374"
+    ],
+    "TEMP-PR-0109": [
+      "TEMP-AR-0375"
+    ],
+    "TEMP-PR-0110": [
+      "TEMP-AR-0376"
+    ],
+    "TEMP-PR-0111": [
+      "TEMP-AR-0377"
+    ],
+    "TEMP-PR-0112": [
+      "TEMP-AR-0378"
+    ],
+    "TEMP-PR-0113": [
+      "TEMP-AR-0379"
+    ],
+    "TEMP-PR-0114": [
+      "TEMP-AR-0380"
+    ],
+    "TEMP-PR-0115": [
+      "TEMP-AR-0381"
+    ],
+    "TEMP-PR-0116": [
+      "TEMP-AR-0382"
+    ],
+    "TEMP-PR-0117": [
+      "TEMP-AR-0383"
+    ],
+    "TEMP-PR-0118": [
+      "TEMP-AR-0384"
+    ],
+    "TEMP-PR-0119": [
+      "TEMP-AR-0385"
+    ],
+    "TEMP-PR-0120": [
+      "TEMP-AR-0386"
+    ],
+    "TEMP-PR-0121": [
+      "TEMP-AR-0387"
+    ],
+    "TEMP-PR-0122": [
+      "TEMP-AR-0388"
+    ],
+    "TEMP-PR-0123": [
+      "TEMP-AR-0389"
+    ],
+    "TEMP-PR-0124": [
+      "TEMP-AR-0390",
+      "TEMP-AR-0391",
+      "TEMP-AR-0392",
+      "TEMP-AR-0393",
+      "TEMP-AR-0394",
+      "TEMP-AR-0395",
+      "TEMP-AR-0396",
+      "TEMP-AR-0397",
+      "TEMP-AR-0398"
+    ],
+    "TEMP-PR-0125": [
+      "TEMP-AR-0399",
+      "TEMP-AR-0400",
+      "TEMP-AR-0401"
+    ],
+    "TEMP-PR-0126": [
+      "TEMP-AR-0402"
+    ],
+    "TEMP-PR-0127": [
+      "TEMP-AR-0403"
+    ],
+    "TEMP-PR-0128": [
+      "TEMP-AR-0404"
+    ],
+    "TEMP-PR-0129": [
+      "TEMP-AR-0405"
+    ],
+    "TEMP-PR-0130": [
+      "TEMP-AR-0406"
+    ],
+    "TEMP-PR-0131": [
+      "TEMP-AR-0407"
+    ],
+    "TEMP-PR-0132": [
+      "TEMP-AR-0408",
+      "TEMP-AR-0409"
+    ],
+    "TEMP-PR-0133": [
+      "TEMP-AR-0418"
+    ],
+    "TEMP-PR-0134": [
+      "TEMP-AR-0419"
+    ],
+    "TEMP-PR-0135": [
+      "TEMP-AR-0420"
+    ],
+    "TEMP-PR-0136": [
+      "TEMP-AR-0421"
+    ],
+    "TEMP-PR-0137": [
+      "TEMP-AR-0422"
+    ],
+    "TEMP-PR-0138": [
+      "TEMP-AR-0423"
+    ],
+    "TEMP-PR-0139": [
+      "TEMP-AR-0424"
+    ],
+    "TEMP-PR-0140": [
+      "TEMP-AR-0425"
+    ],
+    "TEMP-PR-0141": [
+      "TEMP-AR-0426"
+    ],
+    "TEMP-PR-0142": [
+      "TEMP-AR-0427"
+    ],
+    "TEMP-PR-0143": [
+      "TEMP-AR-0428"
+    ],
+    "TEMP-PR-0144": [
+      "TEMP-AR-0429",
+      "TEMP-AR-0430"
+    ],
+    "TEMP-PR-0145": [
+      "TEMP-AR-0431",
+      "TEMP-AR-0460",
+      "TEMP-AR-0461",
+      "TEMP-AR-0462",
+      "TEMP-AR-0463"
+    ],
+    "TEMP-PR-0146": [
+      "TEMP-AR-0432",
+      "TEMP-AR-0433",
+      "TEMP-AR-0434",
+      "TEMP-AR-0435",
+      "TEMP-AR-0436"
+    ],
+    "TEMP-PR-0147": [
+      "TEMP-AR-0437"
+    ],
+    "TEMP-PR-0148": [
+      "TEMP-AR-0438",
+      "TEMP-AR-0439",
+      "TEMP-AR-0440",
+      "TEMP-AR-0441",
+      "TEMP-AR-0442",
+      "TEMP-AR-0443",
+      "TEMP-AR-0444",
+      "TEMP-AR-0445",
+      "TEMP-AR-0446",
+      "TEMP-AR-0447",
+      "TEMP-AR-0448",
+      "TEMP-AR-0449",
+      "TEMP-AR-0450",
+      "TEMP-AR-0451",
+      "TEMP-AR-0452"
+    ],
+    "TEMP-PR-0149": [
+      "TEMP-AR-0453"
+    ],
+    "TEMP-PR-0150": [
+      "TEMP-AR-0454"
+    ],
+    "TEMP-PR-0151": [
+      "TEMP-AR-0455"
+    ],
+    "TEMP-PR-0152": [
+      "TEMP-AR-0456"
+    ]
+  },
+  "primary_requirements_unmapped": 0,
+  "unmapped_primary_ids": [],
+  "atomic_requirements_invalid_parent": 0,
+  "invalid_parent_atomic_ids": [],
+  "atomic_requirements_without_source": 0,
+  "without_source_atomic_ids": [],
+  "semantic_omissions": 0,
+  "semantic_additions": 0,
+  "semantic_weakenings": 0,
+  "conditionality_distortions": 0,
+  "evidence_class_distortions": 0,
+  "PHASE_0C_ATOMIC_DECOMPOSITION_COMPLETE": true,
+  "PHASE_0C_TARGETED_CORRECTION_APPLIED": true
+}

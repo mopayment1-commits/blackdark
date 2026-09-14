@@ -1,0 +1,542 @@
+{
+  "phase": "0G_INDEPENDENT_AUDIT",
+  "phase_name": "Independent Audit of Phase 0G Project Integration Discovery",
+  "audited_at_utc": "2026-09-14T07:30:24Z",
+  "branch": "cursor/temporal-phase-0-clean-reanchor-358c",
+  "inputs": {
+    "discovery_artifact": "TEMPORAL_PROJECT_INTEGRATION_DISCOVERY.json",
+    "reconciliation_artifact": "TEMPORAL_PHASE_0G_RECONCILIATION.json",
+    "ownership_registry": "TEMPORAL_CANONICAL_OWNERSHIP_REGISTRY.json"
+  },
+  "precondition_reconciliation": {
+    "canonical_owner_count": 30,
+    "implementation_relevant_candidates": 88,
+    "documentation_reference_only": 2,
+    "object_type_distribution_sum": 88,
+    "recomputed_object_type_distribution": {
+      "API_ROUTER": 8,
+      "BACKGROUND_JOB": 2,
+      "CONFIGURATION": 3,
+      "DATA_CONTRACT": 1,
+      "EVIDENCE_ARTIFACT": 3,
+      "PIPELINE": 8,
+      "PYTHON_MODULE": 1,
+      "REPOSITORY_OR_STORAGE": 5,
+      "SCHEMA_OR_MODEL": 6,
+      "SERVICE": 44,
+      "TEST": 4,
+      "UI_SURFACE": 3
+    },
+    "preconditions_pass": true
+  },
+  "candidate_existence_audit": {
+    "candidate_paths_not_found": 0,
+    "missing_paths": [],
+    "candidate_symbols_not_found": 32,
+    "symbol_defects": [
+      {
+        "id": "CAND-001",
+        "symbol": "run_production_guard_checks",
+        "path": "production_guard.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-002",
+        "symbol": "evaluate_surface",
+        "path": "zero_tolerance.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-004",
+        "symbol": "orchestrate_startup",
+        "path": "startup_orchestrator.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-013",
+        "symbol": "plan tiers",
+        "path": "billing/plan_registry.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-034",
+        "symbol": "compact_warm_tier",
+        "path": "parquet_compactor.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-035",
+        "symbol": "CoingeckoConnector",
+        "path": "blackdark/ingestion/coingecko_connector.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-040",
+        "symbol": "read_recent_closes",
+        "path": "hot_tier_reader.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-053",
+        "symbol": "tenant_namespace_key",
+        "path": "org_tenant.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-071",
+        "symbol": "POST /api/ml/bootstrap-replay",
+        "path": "api/routers/oracle.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-080",
+        "symbol": "POST /api/v1/data/outcomes/evaluate",
+        "path": "blackdark/data/systems_api.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-084",
+        "symbol": "persist_track_record",
+        "path": "oracle_track_record.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-090",
+        "symbol": "build_public_accuracy_block",
+        "path": "ml/public_accuracy.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-091",
+        "symbol": "evaluate_net_edge",
+        "path": "net_edge_truth.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-103",
+        "symbol": "POST /api/locked-predictions",
+        "path": "api/routers/heroes.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-131",
+        "symbol": "route_by_regime",
+        "path": "ml/regime_router.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-133",
+        "symbol": "regime_honesty_surface",
+        "path": "d5_regime_honesty.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-141",
+        "symbol": "gdpr_deletion_flow",
+        "path": "gdpr_service.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-160",
+        "symbol": "train_baseline_model",
+        "path": "ml/train_baseline.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-171",
+        "symbol": "learning_outcomes_summary",
+        "path": "trust_compounding.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-200",
+        "symbol": "synthetic_seed_contamination_tests",
+        "path": "tests/test_ml_integrity.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-211",
+        "symbol": "drift_freeze_contract",
+        "path": "tests/test_latency_drift_fix.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-230",
+        "symbol": "challenger_state_machine",
+        "path": "sealed_desk_duel.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-250",
+        "symbol": "OHLCV time-bounded queries",
+        "path": "blackdark/data/api.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-261",
+        "symbol": "trust_evidence_routes",
+        "path": "trust_os_lenses.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-281",
+        "symbol": "parallel_capability_execution",
+        "path": "cap646/parallel_invoke.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-282",
+        "symbol": "in_memory_book_hub",
+        "path": "live_book_hub.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-290",
+        "symbol": "definition_of_done_checks",
+        "path": "cap646/functional_dod.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-291",
+        "symbol": "triple_closure_verification",
+        "path": "cap646/triple_closure.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-303",
+        "symbol": "check_entitlement",
+        "path": "cap646/entitlements.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-304",
+        "symbol": "observability_core",
+        "path": "observability.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-305",
+        "symbol": "oracle_decision_path",
+        "path": "ai_oracle.py",
+        "reason": "symbol_not_found"
+      },
+      {
+        "id": "CAND-306",
+        "symbol": "wave_01_systems_contract",
+        "path": "tests/test_wave_01_systems.py",
+        "reason": "symbol_not_found"
+      }
+    ],
+    "object_type_misclassifications": 0,
+    "object_type_defects": [],
+    "out_of_scope_branch_candidates": 0
+  },
+  "candidate_owner_evidence_audit": {
+    "candidate_owner_mappings_audited": 170,
+    "name_only_mappings": 0,
+    "unsupported_owner_mappings": 0,
+    "unsupported_samples": [],
+    "name_only_samples": []
+  },
+  "runtime_reachability_audit": {
+    "claimed_runtime_reachable_count": 78,
+    "recomputed_runtime_reachable_count": 82,
+    "false_runtime_reachable_claims": 1,
+    "false_runtime_reachable_details": [
+      {
+        "id": "CAND-281",
+        "reason": "test_script_only"
+      }
+    ],
+    "missed_runtime_reachable_candidates": 5,
+    "missed_runtime_reachable_details": [
+      {
+        "id": "CAND-031",
+        "reason": "migration_pipeline"
+      },
+      {
+        "id": "CAND-081",
+        "reason": "migration_pipeline"
+      },
+      {
+        "id": "CAND-102",
+        "reason": "migration_pipeline"
+      },
+      {
+        "id": "CAND-110",
+        "reason": "migration_pipeline"
+      },
+      {
+        "id": "CAND-283",
+        "reason": "entrypoint:run_service.py"
+      }
+    ]
+  },
+  "documentation_and_duplicate_audit": {
+    "documentation_reference_only_count": 2,
+    "documentation_counted_as_implementation": 0,
+    "documentation_used_as_runtime_evidence": 0,
+    "duplicate_candidate_records": 0,
+    "duplicate_details": {}
+  },
+  "owner_coverage_audit": {
+    "owners_accounted_for": 30,
+    "owners_with_only_unsupported_candidates": [],
+    "owners_with_indirect_support_only": [
+      "COMPUTATIONAL_ACCELERATION",
+      "CONTAMINATION_REGISTRY",
+      "QUALITY_GOVERNANCE",
+      "RETENTION_POLICY",
+      "TEMPORAL_LEAKAGE_FIREWALL",
+      "WALK_FORWARD_VALIDATION"
+    ]
+  },
+  "integration_edge_audit": {
+    "claimed_integration_edge_count": 20,
+    "recomputed_integration_edge_count": 14,
+    "invalid_edge_endpoints": 0,
+    "unsupported_discovery_edges": 6,
+    "edge_type_misclassifications": 0,
+    "unsupported_edge_details": [
+      {
+        "source_candidate_id": "CAND-305",
+        "destination_candidate_id": "CAND-111",
+        "edge_type": "CALLS",
+        "evidence": "ai_oracle attaches provenance via data_provenance_score",
+        "reason": "call_not_found"
+      },
+      {
+        "source_candidate_id": "CAND-305",
+        "destination_candidate_id": "CAND-100",
+        "edge_type": "CALLS",
+        "evidence": "ai_oracle uses cap646.evidence_class metadata",
+        "reason": "call_not_found"
+      },
+      {
+        "source_candidate_id": "CAND-032",
+        "destination_candidate_id": "CAND-110",
+        "edge_type": "PRODUCES",
+        "evidence": "provenance chain feeds evidence store inserts",
+        "reason": "write_not_found"
+      },
+      {
+        "source_candidate_id": "CAND-210",
+        "destination_candidate_id": "CAND-120",
+        "edge_type": "PRODUCES",
+        "evidence": "drift_monitor failures recorded in failure_corpus",
+        "reason": "write_not_found"
+      },
+      {
+        "source_candidate_id": "CAND-200",
+        "destination_candidate_id": "CAND-052",
+        "edge_type": "TESTS",
+        "evidence": "test_ml_integrity validates data_moat_guard",
+        "reason": "test_edge_invalid"
+      },
+      {
+        "source_candidate_id": "CAND-001",
+        "destination_candidate_id": "CAND-304",
+        "edge_type": "CONFIGURES",
+        "evidence": "production_guard includes observability checks",
+        "reason": "configure_not_found"
+      }
+    ],
+    "verified_edge_details": [
+      {
+        "source_candidate_id": "CAND-080",
+        "destination_candidate_id": "CAND-030",
+        "edge_type": "CALLS",
+        "evidence": "systems_api imports repository.insert_outcome_evaluation",
+        "verified": true,
+        "reason": "call_symbol"
+      },
+      {
+        "source_candidate_id": "CAND-080",
+        "destination_candidate_id": "CAND-032",
+        "edge_type": "CALLS",
+        "evidence": "systems_api imports hash_payload from provenance",
+        "verified": true,
+        "reason": "call_module"
+      },
+      {
+        "source_candidate_id": "CAND-071",
+        "destination_candidate_id": "CAND-043",
+        "edge_type": "IMPORTS",
+        "evidence": "oracle router imports ml.market_replay_bootstrap",
+        "verified": true,
+        "reason": "dst_imports_src"
+      },
+      {
+        "source_candidate_id": "CAND-050",
+        "destination_candidate_id": "CAND-160",
+        "edge_type": "IMPORTS",
+        "evidence": "train_baseline imports temporal_train_test_split",
+        "verified": true,
+        "reason": "evidence_import"
+      },
+      {
+        "source_candidate_id": "CAND-050",
+        "destination_candidate_id": "CAND-161",
+        "edge_type": "IMPORTS",
+        "evidence": "train_ensemble imports temporal_train_test_split",
+        "verified": true,
+        "reason": "evidence_import"
+      },
+      {
+        "source_candidate_id": "CAND-300",
+        "destination_candidate_id": "CAND-010",
+        "edge_type": "IMPORTS",
+        "evidence": "data_spine imports data_sources_registry",
+        "verified": true,
+        "reason": "evidence_import"
+      },
+      {
+        "source_candidate_id": "CAND-300",
+        "destination_candidate_id": "CAND-022",
+        "edge_type": "IMPORTS",
+        "evidence": "data_spine imports stale_price_guard",
+        "verified": true,
+        "reason": "evidence_import"
+      },
+      {
+        "source_candidate_id": "CAND-083",
+        "destination_candidate_id": "CAND-240",
+        "edge_type": "WRITES",
+        "evidence": "learning_compounding writes counterfactual_log table",
+        "verified": true,
+        "reason": "write_symbol"
+      },
+      {
+        "source_candidate_id": "CAND-170",
+        "destination_candidate_id": "CAND-083",
+        "edge_type": "ROUTES_TO",
+        "evidence": "compounding router delegates to learning_compounding",
+        "verified": true,
+        "reason": "routes_to"
+      },
+      {
+        "source_candidate_id": "CAND-070",
+        "destination_candidate_id": "CAND-305",
+        "edge_type": "CONSUMES",
+        "evidence": "contradiction_replay consumes oracle decision snapshots",
+        "verified": true,
+        "reason": "consumes"
+      },
+      {
+        "source_candidate_id": "CAND-030",
+        "destination_candidate_id": "CAND-110",
+        "edge_type": "WRITES",
+        "evidence": "repository insert_evidence writes de_evidence_store",
+        "verified": true,
+        "reason": "write_symbol"
+      },
+      {
+        "source_candidate_id": "CAND-306",
+        "destination_candidate_id": "CAND-080",
+        "edge_type": "TESTS",
+        "evidence": "test_wave_01_systems exercises systems_api endpoints",
+        "verified": true,
+        "reason": "tests"
+      },
+      {
+        "source_candidate_id": "CAND-180",
+        "destination_candidate_id": "CAND-070",
+        "edge_type": "TESTS",
+        "evidence": "replay fidelity test calls build_contradiction_replay",
+        "verified": true,
+        "reason": "tests"
+      },
+      {
+        "source_candidate_id": "CAND-250",
+        "destination_candidate_id": "CAND-030",
+        "edge_type": "READS",
+        "evidence": "data api reads via repository query paths",
+        "verified": true,
+        "reason": "read"
+      }
+    ]
+  },
+  "named_system_audit": {
+    "systems": {
+      "Data Governance": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Decision Truth": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Adaptive Intelligence": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Capability/Playbook/Explorer": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Universal Command": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Six Heroes": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Evidence/Trust views": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Market Time Machine": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Entitlements/Security": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Observability": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "B2B/Data Room": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ],
+      "Ingestion/Data Sources": [
+        "DIRECT_INTEGRATION_EVIDENCE"
+      ]
+    },
+    "unsupported_named_system_mappings": 0,
+    "unsupported_named_details": []
+  },
+  "canonical_ownership_and_leakage_audit": {
+    "discovery_overrides_canonical_ownership": 0,
+    "canonical_authority_inferred_from_existing_code": 0,
+    "implementation_status_leakage": 0,
+    "leakage_samples": []
+  },
+  "scope_integrity_audit": {
+    "phase_0g_commit_files": [
+      "TEMPORAL_PHASE_0G_RECONCILIATION.json",
+      "TEMPORAL_PROJECT_INTEGRATION_DISCOVERY.json"
+    ],
+    "runtime_source_files_changed_by_0g": 0,
+    "unrelated_files_changed_by_0g": 0
+  },
+  "acceptance_assertions": {
+    "CANDIDATE_PATHS_NOT_FOUND": 0,
+    "CANDIDATE_SYMBOLS_NOT_FOUND": 32,
+    "OBJECT_TYPE_MISCLASSIFICATIONS": 0,
+    "OUT_OF_SCOPE_BRANCH_CANDIDATES": 0,
+    "NAME_ONLY_MAPPINGS": 0,
+    "UNSUPPORTED_OWNER_MAPPINGS": 0,
+    "FALSE_RUNTIME_REACHABLE_CLAIMS": 1,
+    "MISSED_RUNTIME_REACHABLE_CANDIDATES": 5,
+    "DOCUMENTATION_COUNTED_AS_IMPLEMENTATION": 0,
+    "DOCUMENTATION_USED_AS_RUNTIME_EVIDENCE": 0,
+    "DUPLICATE_CANDIDATE_RECORDS": 0,
+    "OWNERS_ACCOUNTED_FOR": 30,
+    "OWNERS_WITH_ONLY_UNSUPPORTED_CANDIDATES": 0,
+    "INVALID_EDGE_ENDPOINTS": 0,
+    "UNSUPPORTED_DISCOVERY_EDGES": 6,
+    "EDGE_TYPE_MISCLASSIFICATIONS": 0,
+    "UNSUPPORTED_NAMED_SYSTEM_MAPPINGS": 0,
+    "DISCOVERY_OVERRIDES_CANONICAL_OWNERSHIP": 0,
+    "CANONICAL_AUTHORITY_INFERRED_FROM_EXISTING_CODE": 0,
+    "IMPLEMENTATION_STATUS_LEAKAGE": 0,
+    "RUNTIME_SOURCE_FILES_CHANGED_BY_0G": 0,
+    "UNRELATED_FILES_CHANGED_BY_0G": 0,
+    "UNEXPECTED_CHANGED_FILES": 0,
+    "PHASE_0G_INDEPENDENT_AUDIT_COMPLETE": true
+  },
+  "final_disposition": "REQUIRES_0G_CORRECTION"
+}
