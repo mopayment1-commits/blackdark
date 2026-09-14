@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Any, Mapping
 
 from blackdark.temporal.event_store import TemporalCanonicalEventStore
+from blackdark.temporal.outcome_factory import generate_outcomes_from_decision_step
 from blackdark.temporal.replay import REPLAY_EVIDENCE_CLASS, ReplayResult, ReplayStepOutput
 
 DECISION_PATH_CONTRACT_VERSION = "p1.3.0"
@@ -119,10 +120,28 @@ def _build_step_stages(
         entity: {"confidence": predictions[entity]["score"]} for entity in predictions
     }
     abstain_act = {entity: {"result": decisions[entity]["action"]} for entity in decisions}
+    stage_snapshot = {
+        "observation": observation,
+        "feature_state": feature_state,
+        "signal": signals,
+        "prediction": predictions,
+        "decision": decisions,
+        "confidence": confidence,
+        "abstain_act": abstain_act,
+    }
+    factory_result = generate_outcomes_from_decision_step(
+        step=step,
+        event_source=event_source,
+        stages=stage_snapshot,
+        parameters=parameters,
+        model_identity=model_identity,
+    )
     outcome = {
-        "status": "deferred_outcome_factory_not_in_p1_3",
+        "status": "outcome_factory_evaluated",
         "evidence_class": REPLAY_EVIDENCE_CLASS,
-        "note": "Outcome Factory is outside P1.3 scope; no production outcome authority created",
+        "evaluator_identity": factory_result.evaluator_identity,
+        "predictor_self_validation": factory_result.predictor_self_validation,
+        "outcomes": [record.to_metadata() for record in factory_result.outcomes],
     }
     return {
         "observation": observation,
@@ -146,7 +165,7 @@ def execute_historical_decision_path(
     """
     Reproduce the canonical decision-path stages from admitted historical replay state.
 
-    Does not create a new decision authority or invoke Outcome Factory.
+    Does not create a new decision authority. Outcome Factory evaluates independently.
     """
     params = dict(parameters or {})
     steps: list[DecisionPathStepResult] = []
