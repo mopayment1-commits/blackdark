@@ -1,0 +1,625 @@
+{
+  "batch": "batch_07_301_350",
+  "deep_audit_at": "2026-09-05T22:45:05.758037+00:00",
+  "total": 50,
+  "classification_counts": {
+    "VERIFIED-DEEP": 49,
+    "REUSED-LINK": 1
+  },
+  "verified_deep_native": 49,
+  "reused_link": 1,
+  "verified_deep_honest": 50,
+  "wrapper_only_unverified": 0,
+  "deferred_delegated": 0,
+  "rows": [
+    {
+      "capability_id": 301,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.multi_chart_layouts_301",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 302,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.technical_indicator_library_302",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 303,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.custom_indicator_scripting_303",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 304,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.strategy_backtesting_304",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 305,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.market_screener_305",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 306,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.pine_style_screener_306",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 307,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.smart_alerts_307",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 308,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.watchlists_308",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 309,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.economic_calendar_309",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 310,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.crypto_calendar_events_310",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 311,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.news_integration_311",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 312,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.heatmaps_312",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 313,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.technical_ratings_313",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 314,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.drawing_tools_314",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 315,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.replay_mode_315",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 316,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.sse_stream.sse_digest_status_316",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 317,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.community_scripts_317",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 318,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.broker_comparison_318",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 319,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.paper_trading_simulation_319",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 320,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.cross_market_workspace_320",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 321,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.custom_intelligence_screener_321",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 322,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.decision_first_mode_322",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 323,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.institutional_l1_l2_market_data_323",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 324,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.reference_data_registry_324",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 325,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.spot_derivatives_coverage_325",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 326,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.defi_market_data_326",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 327,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.market_depth_liquidity_intelligence_327",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 328,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.fair_market_value_pricing_328",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 329,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.best_execution_pricing_329",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 330,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "trade_simulator.simulate_spot_trade",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 331,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.etf_reference_rates_inav_331",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 332,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.commodity_tradfi_reference_rates_332",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 333,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.indices_333",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 334,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.risk_analytics_334",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 335,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.derivatives_listing_analytics_335",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 336,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.market_surveillance_336",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 337,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.aml_cft_on_chain_monitoring_337",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 338,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.data_quality_pipeline_338",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 339,
+      "classification": "REUSED-LINK",
+      "underlying": "bd_platform.pro_trader_layer.apply_opportunity_filter_70",
+      "reuse_link": true,
+      "reuse_meta": {
+        "reuse_reasons": [
+          "exact_fn_reuse",
+          "heroes_delegate"
+        ],
+        "exact_fn_reuse": {
+          "underlying_function": "apply_opportunity_filter_70",
+          "suffix_id": 70,
+          "capability_id": 339
+        },
+        "heroes_delegate": true
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 340,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.real_time_rest_grpc_streaming_340",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 341,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.historical_data_archive_341",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 342,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.venue_quality_ranking_342",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 343,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.execution_quality_analytics_343",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 344,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.institutional_sla_monitoring_344",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 345,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.cross_market_institutional_decision_layer_345",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 346,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.standardized_financial_metrics_346",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 347,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.fees_intelligence_347",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 348,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.revenue_intelligence_348",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 349,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.token_incentives_349",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    },
+    {
+      "capability_id": 350,
+      "classification": "VERIFIED-DEEP",
+      "underlying": "bd_platform.charting_market_intelligence_layer.earnings_economic_profit_proxy_350",
+      "reuse_link": false,
+      "reuse_meta": {
+        "reuse_reasons": []
+      },
+      "independent_test_passed": true,
+      "live_ok": true,
+      "source_branch": "origin/main"
+    }
+  ]
+}

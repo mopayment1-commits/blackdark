@@ -1,0 +1,25 @@
+{
+  "evidence_id": "EVD-045",
+  "cases": [
+    {
+      "case": "anonymous_admin_billing",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "case": "wrong_token_admin",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "case": "analytics_spoof",
+      "status_code": 200,
+      "blocked": false
+    },
+    {
+      "case": "anonymous_protected_settings",
+      "status_code": 404,
+      "blocked": false
+    }
+  ]
+}

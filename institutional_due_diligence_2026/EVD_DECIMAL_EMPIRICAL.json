@@ -1,0 +1,39 @@
+{
+  "procedure_id": "PROC-008",
+  "evidence_id": "EVD-024",
+  "evidence_level": "E1",
+  "vectors": [
+    {
+      "vector": "DEC-001",
+      "independent": "0.3000",
+      "expected": "0.3",
+      "match": false
+    },
+    {
+      "vector": "DEC-002",
+      "independent": "999999.9999",
+      "expected": "999999.9999",
+      "match": true
+    },
+    {
+      "vector": "DEC-003",
+      "independent": "1.00",
+      "expected": "1.00",
+      "match": true
+    },
+    {
+      "vector": "DEC-004",
+      "independent": "1.02",
+      "expected": "1.02",
+      "match": true
+    }
+  ],
+  "sqlite_real_vs_decimal": {
+    "real_stored": 0.30000000000000004,
+    "decimal_text_stored": "0.3",
+    "real_equals_decimal_text": true,
+    "material_drift_observed": false
+  },
+  "status": "VERIFIED FAIL",
+  "wf013_note": "REAL storage shows float representation drift; TEXT/Decimal path exact"
+}

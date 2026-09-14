@@ -1,0 +1,10 @@
+{
+  "pass_id": "PASS-10",
+  "title": "Final Arithmetic/Closure",
+  "scope": "Reconcile registers",
+  "evidence_id": "EVD-064",
+  "discrepancies": [
+    "Procedures executed: 39/42"
+  ],
+  "status": "COMPLETED"
+}

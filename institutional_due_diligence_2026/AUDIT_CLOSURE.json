@@ -1,0 +1,33 @@
+{
+  "audit_id": "IDA-2026-BLACKDARK-001",
+  "generated_at": "2026-09-11T01:02:00Z",
+  "waves_valid_closure": [0, 1],
+  "waves_partial_execution": [3, 4, 5, 7, 8, 9, 11, 12, 13, 16, 17, 19, 21],
+  "waves_open_execution_required": [2, 6, 10, 15, 20, 22],
+  "waves_blocked": [14, 18],
+  "prior_invalid_closure": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+  "final_reconciliation": "OPEN",
+  "interim_report": "BLACKDARK_INSTITUTIONAL_DUE_DILIGENCE_FINAL_2026.md",
+  "interim_report_status": "INTERIM STATIC-ASSESSMENT REPORT",
+  "final_verified_report": null,
+  "final_institutional_verdict": "NOT ISSUED",
+  "full_audit_complete_per_spec_124": false,
+  "execution_runs": [
+    {"run_id": "AUDIT_EXECUTION_RUN_001", "completed_at": "2026-09-11T00:51:30Z", "head_sha": "14bbf492c69b51e2008d6dc9baefe3d578ae0696"},
+    {"run_id": "AUDIT_EXECUTION_RUN_002", "completed_at": "2026-09-11T01:01:00Z", "head_sha": "14bbf492c69b51e2008d6dc9baefe3d578ae0696"}
+  ],
+  "test_execution": {
+    "evidence_id": "EVD-016",
+    "collected": 2977,
+    "passed": 2972,
+    "failed": 3,
+    "skipped": 2,
+    "duration_sec": 1319.35
+  },
+  "findings": {"P0": 0, "P1": 8, "P2": 9, "OBSERVATION": 4},
+  "key_reclassifications": [
+    {"finding": "WF-017", "from": "P0", "to": "P1", "evidence": "EVD-018"},
+    {"finding": "WF-015", "status": "EXECUTION VERIFIED FAIL", "evidence": "EVD-020"}
+  ],
+  "resume_point": "Continue wave procedures: frontend E2E, model validation, remaining API behavioral, Wave 22 reconciliation"
+}

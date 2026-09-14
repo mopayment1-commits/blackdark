@@ -1,0 +1,214 @@
+{
+  "wave2": {
+    "top_import_roots": [
+      [
+        "__future__",
+        793
+      ],
+      [
+        "bd_platform",
+        494
+      ],
+      [
+        "typing",
+        452
+      ],
+      [
+        "pathlib",
+        378
+      ],
+      [
+        "cap646",
+        369
+      ],
+      [
+        "json",
+        334
+      ],
+      [
+        "database",
+        327
+      ],
+      [
+        "datetime",
+        315
+      ],
+      [
+        "logging",
+        200
+      ],
+      [
+        "config",
+        182
+      ],
+      [
+        "asyncio",
+        170
+      ],
+      [
+        "os",
+        156
+      ],
+      [
+        "sys",
+        138
+      ],
+      [
+        "pytest",
+        130
+      ],
+      [
+        "blackdark",
+        122
+      ],
+      [
+        "time",
+        110
+      ],
+      [
+        "ml",
+        104
+      ],
+      [
+        "fastapi",
+        92
+      ],
+      [
+        "cap978",
+        87
+      ],
+      [
+        "dashboard",
+        83
+      ]
+    ],
+    "dashboard_py_bytes": 160400,
+    "todo_fixme_count": 4,
+    "stub_placeholder_hits": 91,
+    "circular_dependency_scan": "NOT VERIFIED",
+    "reachability": "NOT VERIFIED \u2014 requires runtime trace Wave 2"
+  },
+  "wave3": {
+    "model_candidates": 87,
+    "sample": [
+      "ai_oracle.py",
+      "api/routers/arbitrage.py",
+      "api/routers/audit.py",
+      "api/routers/compounding.py",
+      "api/routers/oracle.py",
+      "arbitrage_catalog.py",
+      "arbitrage_engine.py",
+      "arbitrage_service.py",
+      "audit_registry.py",
+      "auth_service.py",
+      "bd_platform/alpha_engine.py",
+      "bd_platform/alpha_factor_ranking.py",
+      "bd_platform/arbitrage_portfolio_ux_layer.py",
+      "bd_platform/cex_dex_arbitrage.py",
+      "bd_platform/finbert_sentiment.py",
+      "bd_platform/market_analysis_layer.py",
+      "bd_platform/onchain_advanced.py",
+      "bd_platform/squeeze_trigger_engine.py",
+      "bd_platform/trulens_eval.py",
+      "billing/usage_meter.py",
+      "blackdark/data/systems_api.py",
+      "cap646/batch01_dedicated.py",
+      "cap646/batch02_dedicated.py",
+      "cap646/evidence_class.py",
+      "cap646/handlers/verified.py",
+      "cap978/soft_launch_closure.py",
+      "chat_service.py",
+      "constitution_gates.py",
+      "d5_regime_honesty.py",
+      "database_ddl.py",
+      "decision_validity_decay.py",
+      "defi_arbitrage_engine.py",
+      "dimension_conflict_guard.py",
+      "exchange_internal_flow_filter.py",
+      "execution_risk_score.py",
+      "gas_oracle.py",
+      "learning_compounding.py",
+      "locked_predictions.py",
+      "mev_sandwich_report.py",
+      "ml/__init__.py"
+    ]
+  },
+  "wave7": {
+    "secret_pattern_hits": 7,
+    "eval_hits": 1,
+    "exec_hits": 1
+  },
+  "wave12": {
+    "test_functions": 1054,
+    "skip_markers": 8,
+    "xfail_markers": 0,
+    "tests_executed": 0
+  },
+  "wave17": {
+    "contradictions": []
+  },
+  "wave20": {
+    "silent_except_pass": 0,
+    "return_zero_lines": 158
+  },
+  "wave4": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave5": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave6": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave8": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave9": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave10": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave11": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave13": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave14": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave15": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave16": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave18": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave19": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave21": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  },
+  "wave22": {
+    "status": "NOT VERIFIED",
+    "note": "Requires dedicated wave execution"
+  }
+}

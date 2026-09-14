@@ -1,0 +1,19 @@
+{
+  "evidence_id": "EVD-030",
+  "head_sha": "944c4f4d5dfb36d5c11d9eb6984232892a7b5234",
+  "branch": "cursor/batch07-301-350-ed16",
+  "status_porcelain_lines": 53,
+  "recent_commits": [
+    "944c4f4d audit: execute institutional verification runs 001-002 (E1/E2 evidence)",
+    "14bbf492 docs(batch07): v5 final local freeze on c6fa559 \u2014 CI PASS, Sonar QG PASSED, perf LOCAL_COMPLETE",
+    "c6fa559b fix(batch07): scope pdf routing to 301-350; refresh full-path perf evidence",
+    "33bb0939 docs(batch07): v5 evidence \u2014 full-path perf LOCAL_COMPLETE, async forensics, regression FULL_PASS",
+    "ef44a98b fix(batch07): tighten v5 freeze gates for perf conflicts and Sonar QG",
+    "4d363dd2 fix(batch07): v5 micro-reconciliation \u2014 pdf routing, perf thresholds, Sonar QG, async forensics",
+    "6e59be44 fix(batch07): refresh Sonar QG evidence on ci-freeze-only",
+    "4499699b docs(batch07): refresh freeze CI evidence on 1d06a5a",
+    "1d06a5a0 docs(batch07): v3 local freeze \u2014 BATCH07_FINAL_LOCAL_FREEZE=true, full-path evidence hardened",
+    "c851d388 feat(batch07): v3 reconciliation \u2014 state vocabulary, 15k duplicate coverage, full-path entitlement/perf, hero matrix"
+  ],
+  "worktrees": "/workspace                                944c4f4d [cursor/batch07-301-350-ed16]\n/home/ubuntu/blackdark-incident-readonly  ce056858 (detached HEAD)"
+}

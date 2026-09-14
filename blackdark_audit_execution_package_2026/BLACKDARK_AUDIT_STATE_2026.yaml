@@ -1,0 +1,23 @@
+audit_id: IDA-2026-BLACKDARK-002
+package: BLACKDARK_INSTITUTIONAL_AUDIT_EXECUTION_PACKAGE_2026
+updated_at: "2026-09-11T07:20:00Z"
+baseline_sha: null
+preflight_gate: FAIL
+audit_completion_gate: FAIL
+resume_procedure_id: null
+procedures_completed: 0
+procedures_total: 354
+blockers:
+  - blocker_id: BLK-PKG-001
+    blocker_reason: "Execution package zip not present in workspace; YAML SSOT and completion_gate.py missing"
+    required_external_evidence: "BLACKDARK_INSTITUTIONAL_AUDIT_EXECUTION_PACKAGE_2026.zip extracted to blackdark_audit_execution_package_2026/"
+    required_access_level: L0
+    affected_procedure_ids: ALL
+    status: OPEN
+structural_errors:
+  - "MISSING: BLACKDARK_AUDIT_REQUIREMENTS_2026.yaml"
+  - "MISSING: BLACKDARK_AUDIT_PROCEDURES_2026.yaml"
+  - "MISSING: blackdark_audit_completion_gate.py"
+notes:
+  - "Prior audit runs (institutional_due_diligence_2026/) are NOT SSOT for this mandate"
+  - "FINAL/VERIFIED report prohibited until AUDIT_COMPLETION_GATE=PASS"

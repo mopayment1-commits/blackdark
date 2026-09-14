@@ -1,0 +1,107 @@
+{
+  "procedure_id": "PROC-011",
+  "generated_at": "2026-09-11T00:29:27Z",
+  "evidence_level": "L0+L1",
+  "evidence_id": "EVD-019",
+  "denominator": 308,
+  "classification_counts": {
+    "NO_DECORATOR": 192,
+    "STRICT_DEPENDS": 69,
+    "OPTIONAL_DEPENDS": 27,
+    "ROUTER_LEVEL": 20
+  },
+  "no_decorator_count": 192,
+  "note": "196 prior count included platform_api and blackdark/data routers; this scan is api/routers only",
+  "sample_no_decorator": [
+    {
+      "file": "api/routers/admin_billing.py",
+      "method": "GET",
+      "path": "/metrics",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/admin_billing.py",
+      "method": "GET",
+      "path": "/anomalies",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/admin_billing.py",
+      "method": "POST",
+      "path": "/sweep",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/arbitrage.py",
+      "method": "GET",
+      "path": "/scanner/status",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/arbitrage.py",
+      "method": "GET",
+      "path": "/saturation-guard",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/audit.py",
+      "method": "POST",
+      "path": "/api/audit/log",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/audit.py",
+      "method": "GET",
+      "path": "/api/audit/export",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/audit.py",
+      "method": "POST",
+      "path": "/api/decisions",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/audit.py",
+      "method": "GET",
+      "path": "/api/decisions/search",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/audit.py",
+      "method": "GET",
+      "path": "/api/decisions/{decision_id}",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/audit.py",
+      "method": "PATCH",
+      "path": "/api/decisions/{decision_id}",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/auth.py",
+      "method": "GET",
+      "path": "/identity",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/auth.py",
+      "method": "POST",
+      "path": "/register",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/auth.py",
+      "method": "POST",
+      "path": "/login",
+      "auth_class": "NO_DECORATOR"
+    },
+    {
+      "file": "api/routers/auth.py",
+      "method": "POST",
+      "path": "/mfa/complete",
+      "auth_class": "NO_DECORATOR"
+    }
+  ]
+}
