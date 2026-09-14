@@ -1,4 +1,4 @@
-"""BLACKDARK Temporal truth foundation (P0–P4), User Evidence Experience (P5)."""
+"""BLACKDARK Temporal truth foundation (P0–P5), Operational Hardening (P6)."""
 
 from blackdark.temporal.accessibility import (
     PitAccessibilityDecision,
@@ -152,6 +152,28 @@ from blackdark.temporal.public_evidence import (
     PublicEvidenceDisclosure,
     build_public_disclosure_from_ledger,
     validate_public_evidence_controls,
+)
+from blackdark.temporal.p6_requirement_registry import (
+    P6_ATOMIC_REQUIREMENT_IDS,
+    P6_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P6_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS,
+    P6_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS,
+    P6_REQUIREMENT_OWNERS,
+)
+from blackdark.temporal.computational_acceleration import (
+    AccelerationCache,
+    AccelerationStrategy,
+    validate_acceleration_guards,
+)
+from blackdark.temporal.quality_governance import (
+    EXTERNAL_STANDARDS_GUIDANCE_ONLY,
+    QualityCharacteristic,
+    assess_quality_governance,
+)
+from blackdark.temporal.operational_hardening import (
+    FAIL_CLOSED_ON_UNCERTAINTY,
+    assess_operational_readiness,
+    evaluate_fail_closed,
 )
 from blackdark.temporal.user_behavioral_learning import (
     BehavioralConsentRecord,
@@ -322,6 +344,20 @@ __all__ = [
     "build_behavioral_learning_state",
     "evaluate_user_action_as_outcome_proof",
     "record_behavioral_signal",
+    "P6_ATOMIC_REQUIREMENT_IDS",
+    "P6_DISCOVERED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P6_EXPECTED_ACTIVE_ATOMIC_REQUIREMENTS",
+    "P6_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS",
+    "P6_REQUIREMENT_OWNERS",
+    "AccelerationCache",
+    "AccelerationStrategy",
+    "validate_acceleration_guards",
+    "EXTERNAL_STANDARDS_GUIDANCE_ONLY",
+    "QualityCharacteristic",
+    "assess_quality_governance",
+    "FAIL_CLOSED_ON_UNCERTAINTY",
+    "assess_operational_readiness",
+    "evaluate_fail_closed",
     "UNCONTROLLED_PRODUCTION_SELF_MODIFICATION",
     "UNPROVEN_CHAMPION_CHALLENGER_COMPARISON_FAILS_CLOSED",
     "RETENTION_EQUALS_LEARNING_PRIORITY",

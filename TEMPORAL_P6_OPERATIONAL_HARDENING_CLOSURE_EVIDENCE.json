@@ -1,0 +1,416 @@
+{
+  "verified_at_utc": "2026-09-14T14:03:29.057870+00:00",
+  "scope": "P6_OPERATIONAL_HARDENING",
+  "governing_sources": [
+    "docs/standards/domain/BLACKDARK Temporal Intelligence & Evidence Acceleration System.md",
+    "TEMPORAL_PRIMARY_REQUIREMENTS.json",
+    "TEMPORAL_ATOMIC_REQUIREMENTS.json",
+    "TEMPORAL_REQUIREMENTS_TRACEABILITY_MATRIX.json",
+    "TEMPORAL_P0_FOUNDATION_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P1_CANONICAL_EVENT_AND_REPLAY_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P2_OUTCOME_AND_EVIDENCE_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P3_SHADOW_AND_REGIME_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P4_LEARNING_AND_EVALUATION_CLOSURE_EVIDENCE.json",
+    "TEMPORAL_P5_USER_EVIDENCE_EXPERIENCE_CLOSURE_EVIDENCE.json"
+  ],
+  "branch": "cursor/temporal-p6-operational-hardening-closure-358c",
+  "p0_baseline": {
+    "closed": true,
+    "final_verdict": "P0_CLOSED",
+    "verified": 66
+  },
+  "p1_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 31
+  },
+  "p2_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 103
+  },
+  "p3_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED_WITH_EXTERNAL_RUNTIME_GATE",
+    "verified": 62
+  },
+  "p4_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED",
+    "verified": 111
+  },
+  "p5_baseline": {
+    "closed": true,
+    "final_verdict": "PHASE_CLOSED_WITH_EXTERNAL_RUNTIME_GATE",
+    "verified": 42
+  },
+  "p6_atomics_total": 28,
+  "counts": {
+    "VERIFIED": 28,
+    "IMPLEMENTED_NOT_VERIFIED": 0,
+    "NOT_IMPLEMENTED": 0,
+    "EXTERNAL_RUNTIME_PENDING": 0
+  },
+  "defects_remaining": [],
+  "external_runtime_gates": {},
+  "runtime_proofs": {
+    "p6_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p6_computational_acceleration.py tests/test_temporal_p6_quality_governance.py tests/test_temporal_p6_operational_hardening.py tests/test_temporal_p6_closure.py tests/test_temporal_p6_closure_runtime_e2e.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "......................................                                   [100%]"
+      ]
+    },
+    "p5_regression_pytest": {
+      "command": "/usr/bin/python3 -m pytest tests/test_temporal_p5_closure.py -q --tb=no",
+      "exit_code": 0,
+      "passed": true,
+      "summary": "",
+      "tail": [
+        "..                                                                       [100%]"
+      ]
+    },
+    "closure_probes": {
+      "closure_assertions": {
+        "P6_MODULE_SURFACES": 0,
+        "ACCELERATION_CACHE_DETERMINISTIC": true,
+        "ACCELERATION_GUARDS": true,
+        "EVENT_REPLAY_ACCELERATION": true,
+        "FAIL_CLOSED_BEHAVIOR": true,
+        "OPERATIONAL_READINESS": true,
+        "QUALITY_GOVERNANCE_COMPLETE": true,
+        "EXTERNAL_ATTRIBUTION_HONEST": true,
+        "P6_LOCAL_ENGINEERING_COMPLETE": true,
+        "P6_CLOSED": true
+      },
+      "P6_TOTAL_ACTIVE_ATOMIC_REQUIREMENTS": 28,
+      "P6_LOCAL_ENGINEERING_COMPLETE_COUNT": 28,
+      "P6_UNIMPLEMENTED_ACTIVE_ATOMIC_REQUIREMENTS": 0,
+      "P6_EXTERNAL_OR_LIVE_GATED_ATOMIC_IDS": [],
+      "runtime_probe_paths": {
+        "P6_MODULE_SURFACES": "p6_closure_verification.probe_p6_module_surfaces",
+        "ACCELERATION_CACHE_DETERMINISTIC": "p6_closure_verification.probe_acceleration_cache_deterministic",
+        "ACCELERATION_GUARDS": "p6_closure_verification.probe_acceleration_guards",
+        "EVENT_REPLAY_ACCELERATION": "p6_closure_verification.probe_event_replay_acceleration",
+        "FAIL_CLOSED_BEHAVIOR": "p6_closure_verification.probe_fail_closed_behavior",
+        "OPERATIONAL_READINESS": "p6_closure_verification.probe_operational_readiness",
+        "QUALITY_GOVERNANCE_COMPLETE": "p6_closure_verification.probe_quality_governance_complete",
+        "EXTERNAL_ATTRIBUTION_HONEST": "p6_closure_verification.probe_external_attribution_honest",
+        "P6_LOCAL_ENGINEERING_COMPLETE": "p6_closure_verification.probe_p6_local_engineering_complete"
+      }
+    }
+  },
+  "reconciliation": [
+    {
+      "atomic_requirement_id": "TEMP-AR-0338",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Use where appropriate; feature caching",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0339",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Use where appropriate; immutable feature snapshots",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0340",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Use where appropriate; incremental recomputation",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0341",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Use where appropriate; columnar storage",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0342",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Use where appropriate; partition pruning",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0343",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "REPLAY_TEST",
+      "atomic_obligation": "Use where appropriate; event-based replay",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py::test_temp_ar_0343_event_based_replay",
+      "evidence_tests": "REPLAY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0344",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "Use where appropriate; parallel execution",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py::test_temp_ar_0344_parallel_execution_performance",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0345",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Use where appropriate; reusable intermediate artifacts",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0346",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Use where appropriate; workload prioritization",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0347",
+      "parent_primary_requirement_id": "TEMP-PR-0100",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "Use where appropriate; deterministic cache keys.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_closure_runtime_e2e.py::test_temp_ar_0347_cache_determinism_runtime",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0348",
+      "parent_primary_requirement_id": "TEMP-PR-0101",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "PROVENANCE_CHECK",
+      "atomic_obligation": "Performance optimization must not weaken provenance",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py::test_temp_ar_0348_provenance_not_weakened",
+      "evidence_tests": "PROVENANCE_CHECK"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0349",
+      "parent_primary_requirement_id": "TEMP-PR-0101",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "Performance optimization must not weaken temporal integrity",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py::test_temp_ar_0349_temporal_integrity_not_weakened",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0350",
+      "parent_primary_requirement_id": "TEMP-PR-0101",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "Performance optimization must not weaken reproducibility",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py::test_temp_ar_0350_reproducibility_not_weakened",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0351",
+      "parent_primary_requirement_id": "TEMP-PR-0101",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "COMPUTATIONAL_ACCELERATION",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "Performance optimization must not weaken evidence classification",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_computational_acceleration.py::test_temp_ar_0351_evidence_classification_not_weakened",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0361",
+      "parent_primary_requirement_id": "TEMP-PR-0105",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "Relevant institutional quality principles should be applied without falsely attributing BLACKDARK-specific architecture to external standards.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0362",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; functional correctness",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0363",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; reliability",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0364",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "SECURITY_TEST",
+      "atomic_obligation": "The design should support; security",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_closure_runtime_e2e.py::test_temp_ar_0364_security_fail_closed_on_invalid_ingest",
+      "evidence_tests": "SECURITY_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0365",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; maintainability",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0366",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "PERFORMANCE_TEST",
+      "atomic_obligation": "The design should support; performance efficiency",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py::test_temp_ar_0366_performance_efficiency",
+      "evidence_tests": "PERFORMANCE_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0367",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; traceability",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0368",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "INTEGRATION_TEST",
+      "atomic_obligation": "The design should support; reproducibility",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_closure_runtime_e2e.py::test_temp_ar_0368_reproducibility_spine_integration",
+      "evidence_tests": "INTEGRATION_TEST"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0369",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; testability",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0370",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; auditability",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0371",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; quality-in-use",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0372",
+      "parent_primary_requirement_id": "TEMP-PR-0106",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "The design should support; risk-based monitoring.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0398",
+      "parent_primary_requirement_id": "TEMP-PR-0124",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "CROSS_CUTTING_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "P1 \u2014 Build after the P0 spine exists; Computational Acceleration Layer.",
+      "status": "VERIFIED",
+      "evidence": "blackdark/temporal/p6_closure_verification.py module probes",
+      "evidence_tests": "STATIC_INSPECTION"
+    },
+    {
+      "atomic_requirement_id": "TEMP-AR-0455",
+      "parent_primary_requirement_id": "TEMP-PR-0151",
+      "phase_allocation": "P6_OPERATIONAL_HARDENING",
+      "logical_owner": "QUALITY_GOVERNANCE",
+      "verification_method": "STATIC_INSPECTION",
+      "atomic_obligation": "External standards/frameworks guide quality and governance principles; they do not prescribe BLACKDARK-specific components such as Market Time Machine, Failure Corpus, or Experience Coverage Vector.",
+      "status": "VERIFIED",
+      "evidence": "tests/test_temporal_p6_quality_governance.py",
+      "evidence_tests": "STATIC_INSPECTION"
+    }
+  ],
+  "final_verdict": "PHASE_CLOSED"
+}

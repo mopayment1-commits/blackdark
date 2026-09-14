@@ -379,3 +379,54 @@ async def behavioral_learning_state(
         consent=None,
     )
     return state.to_metadata()
+
+
+@router.get("/p6/operational-readiness")
+async def p6_operational_readiness(_: None = Depends(_ensure_ready)):
+    from blackdark.temporal.operational_hardening import assess_operational_readiness
+
+    increment_temporal_metric("temporal_api_requests_total")
+    return assess_operational_readiness(api_admin_gated=True).to_metadata()
+
+
+@router.get("/p6/quality-governance")
+async def p6_quality_governance(_: None = Depends(_ensure_ready)):
+    from blackdark.temporal.quality_governance import assess_quality_governance
+
+    increment_temporal_metric("temporal_api_requests_total")
+    return assess_quality_governance(runtime_signals={"api_admin_gated": True, "deterministic_replay": True}).to_metadata()
+
+
+class AccelerationExecuteRequest(BaseModel):
+    strategy: str = "feature_caching"
+    payload: dict[str, Any] = Field(default_factory=dict)
+    provenance: dict[str, Any] = Field(default_factory=dict)
+
+
+@router.post("/p6/acceleration/execute")
+async def p6_acceleration_execute(
+    body: AccelerationExecuteRequest,
+    _: None = Depends(require_admin),
+    __: None = Depends(_ensure_ready),
+):
+    from blackdark.temporal.computational_acceleration import (
+        AccelerationCache,
+        AccelerationStrategy,
+        validate_acceleration_guards,
+    )
+    from blackdark.temporal.evidence_class import TemporalEvidenceClass
+
+    increment_temporal_metric("temporal_api_requests_total")
+    cache = AccelerationCache()
+    strategy = AccelerationStrategy(body.strategy)
+    key = cache.build_key(strategy=strategy, payload=body.payload)
+    provenance = body.provenance or {"source": "temporal_api"}
+    cache.put(key, {"cached": True, "strategy": strategy.value}, provenance_metadata=provenance)
+    guards = validate_acceleration_guards(
+        cache=cache,
+        evidence_class=TemporalEvidenceClass.HISTORICAL_REPLAY.value,
+    )
+    return {
+        "cache_key": key.to_metadata(),
+        "guards": guards.to_metadata(),
+    }
