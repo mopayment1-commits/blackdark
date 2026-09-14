@@ -1,0 +1,160 @@
+{
+  "batch": "P0.3",
+  "batch_name": "Temporal Leakage Firewall",
+  "created_at_utc": "2026-09-14T09:40:00Z",
+  "base_branch": "cursor/temporal-p0-2-pit-reconstruction-358c",
+  "implementation_branch": "cursor/temporal-p0-3-leakage-firewall-358c",
+  "p0_1_baseline_disposition": "P0_1_COMPLETE",
+  "p0_2_baseline_disposition": "P0_2_COMPLETE",
+  "selected_atomic_requirement_ids": [
+    "TEMP-AR-0033",
+    "TEMP-AR-0034",
+    "TEMP-AR-0035",
+    "TEMP-AR-0036",
+    "TEMP-AR-0037",
+    "TEMP-AR-0038",
+    "TEMP-AR-0039",
+    "TEMP-AR-0040",
+    "TEMP-AR-0041",
+    "TEMP-AR-0042",
+    "TEMP-AR-0043"
+  ],
+  "p0_2_dependency_check": {
+    "invariant": "UNPROVEN_REVISION_ORDER_FAILS_CLOSED",
+    "pre_check_status": "NOT_SATISFIED",
+    "action_taken": "minimum_correction_in_p0_2_reconstruction",
+    "correction_file": "blackdark/temporal/reconstruction.py",
+    "correction_summary": "Strict reconstruction now fails closed per entity when multiple accessible revisions share identical revised_at and ordering cannot be proven from Temporal semantics.",
+    "regression_test": "tests/test_temporal_p0_2_pit_reconstruction.py::test_unproven_revision_order_fails_closed_for_entity",
+    "post_check_status": "SATISFIED",
+    "UNPROVEN_REVISION_ORDER_FAILS_CLOSED": true
+  },
+  "runtime_files_changed": [
+    "blackdark/temporal/firewall.py",
+    "blackdark/temporal/reconstruction.py",
+    "blackdark/temporal/__init__.py",
+    "temporal_leakage_firewall.py"
+  ],
+  "firewall_contract": {
+    "entrypoint": "evaluate_temporal_leakage_firewall",
+    "registry_entrypoint": "temporal_leakage_firewall.evaluate_temporal_leakage_firewall",
+    "context_type": "TemporalProcessingContext",
+    "decision_type": "TemporalLeakageFirewallDecision",
+    "required_fields": [
+      "allowed",
+      "reason_codes",
+      "simulated_time",
+      "evaluated_record_count",
+      "rejected_record_count",
+      "provenance",
+      "strict_mode"
+    ],
+    "p0_1_primitive_reused": "evaluate_pit_accessibility via reconstruct_point_in_time",
+    "p0_2_primitive_reused": "reconstruct_point_in_time",
+    "independent_pit_recalculation": false,
+    "canonical_owner": "TEMPORAL_LEAKAGE_FIREWALL"
+  },
+  "leakage_classes": [
+    "FUTURE_AVAILABILITY",
+    "UNKNOWN_AVAILABILITY",
+    "FUTURE_REVISION",
+    "UNPROVEN_REVISION_ORDER",
+    "FUTURE_EFFECTIVITY",
+    "TEMPORAL_PROVENANCE_UNPROVEN",
+    "CROSS_TIME_STATE_CONTAMINATION"
+  ],
+  "fail_closed_behavior": {
+    "STRICT_TEMPORAL_UNKNOWN_FAILS_CLOSED": true,
+    "unknown_available_at": "UNKNOWN_AVAILABILITY",
+    "unknown_effective_at": "TEMPORAL_PROVENANCE_UNPROVEN",
+    "unknown_revised_at": "TEMPORAL_PROVENANCE_UNPROVEN",
+    "unproven_revision_order": "UNPROVEN_REVISION_ORDER",
+    "silent_pass_on_unproven_temporal_truth": false
+  },
+  "determinism_result": {
+    "FIREWALL_EVALUATION_DETERMINISTIC": true,
+    "db_writes": false,
+    "network_calls": false,
+    "wall_clock_dependency": false,
+    "background_jobs": false,
+    "user_facing_mutations": false
+  },
+  "authority_boundary_result": {
+    "CANONICAL_AUTHORITY_CONFLICTS": 0,
+    "data_governance_authority": "original acquisition/provenance metadata",
+    "temporal_authority": "Temporal admissibility decisions",
+    "upstream_provenance_mutated": false
+  },
+  "database_changes": {
+    "migration_added": false,
+    "destructive_schema_changes": false,
+    "notes": "none"
+  },
+  "focused_test_results": {
+    "command": "python3 -m pytest tests/test_temporal_p0_3_leakage_firewall.py -v",
+    "exit_code": 0,
+    "passed": 15,
+    "failed": 0
+  },
+  "p0_1_regression_results": {
+    "command": "python3 -m pytest tests/test_temporal_p0_1_truth_primitive.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0
+  },
+  "p0_2_regression_results": {
+    "command": "python3 -m pytest tests/test_temporal_p0_2_pit_reconstruction.py -v",
+    "exit_code": 0,
+    "passed": 9,
+    "failed": 0
+  },
+  "directly_affected_regression_results": {
+    "command": "python3 -m pytest tests/test_canonical_layer.py -v",
+    "exit_code": 0,
+    "passed": 11,
+    "failed": 0
+  },
+  "deferred_items": [
+    "deterministic mass replay engine",
+    "evidence provenance ledger",
+    "evidence promotion engine",
+    "forward shadow",
+    "learning",
+    "UI surfaces",
+    "P0 Final Gate",
+    "P1 phases"
+  ],
+  "finding_register": [],
+  "acceptance_assertions": {
+    "SELECTED_REQUIREMENTS_TRACEABLE": true,
+    "UNPROVEN_REVISION_ORDER_FAILS_CLOSED": true,
+    "TEMPORAL_LEAKAGE_FIREWALL_IMPLEMENTED": true,
+    "P0_1_ACCESSIBILITY_PRIMITIVE_REUSED": true,
+    "P0_2_RECONSTRUCTION_REUSED": true,
+    "FUTURE_AVAILABILITY_REJECTED": true,
+    "UNKNOWN_AVAILABILITY_REJECTED_IN_STRICT_MODE": true,
+    "FUTURE_REVISION_REJECTED": true,
+    "FUTURE_EFFECTIVITY_REJECTED": true,
+    "CROSS_TIME_STATE_CONTAMINATION_REJECTED": true,
+    "STRICT_TEMPORAL_UNKNOWN_FAILS_CLOSED": true,
+    "EVENT_TIME_AVAILABLE_AT_SUBSTITUTION": 0,
+    "FRESHNESS_AVAILABLE_AT_SUBSTITUTION": 0,
+    "TEMPORAL_TIMESTAMP_FABRICATION": 0,
+    "TEMPORAL_PROVENANCE_PRESERVED": true,
+    "FIREWALL_EVALUATION_DETERMINISTIC": true,
+    "CANONICAL_AUTHORITY_CONFLICTS": 0,
+    "DESTRUCTIVE_SCHEMA_CHANGES": 0,
+    "FOCUSED_TEMPORAL_TEST_FAILURES": 0,
+    "P0_1_REGRESSION_FAILURES": 0,
+    "P0_2_REGRESSION_FAILURES": 0,
+    "DIRECTLY_AFFECTED_REGRESSION_FAILURES": 0,
+    "UNRELATED_RUNTIME_CHANGES": 0,
+    "P0_3_TEMPORAL_LEAKAGE_FIREWALL_COMPLETE": true
+  },
+  "blocker_classification": {
+    "material_blockers": 0,
+    "material_non_blockers": 0,
+    "minor_or_documentation": 0
+  },
+  "final_disposition": "P0_3_COMPLETE"
+}

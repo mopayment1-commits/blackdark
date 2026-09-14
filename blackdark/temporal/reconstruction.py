@@ -76,11 +76,23 @@ class PitReconstructionResult:
 
 def _revision_sort_key(record: TemporalRecord) -> tuple[datetime, str, str]:
     revised = record.observation.revised_at
-    if revised.is_known() and revised.value is not None:
-        revised_at = revised.value
-    else:
-        revised_at = datetime.min.replace(tzinfo=UTC)
-    return (revised_at, str(record.version or ""), record.record_id)
+    assert revised.is_known() and revised.value is not None
+    return (revised.value, str(record.version or ""), record.record_id)
+
+
+def _revision_order_provable(candidates: Sequence[TemporalRecord], *, strict: bool) -> bool:
+    if len(candidates) <= 1:
+        return True
+    revised_ats: list[datetime] = []
+    for candidate in candidates:
+        revised_at = candidate.observation.revised_at
+        if strict and not revised_at.is_known():
+            return False
+        if not revised_at.is_known():
+            return False
+        assert revised_at.value is not None
+        revised_ats.append(revised_at.value)
+    return len(set(revised_ats)) == len(revised_ats)
 
 
 def _is_temporally_valid_at_simulated_time(
@@ -141,6 +153,18 @@ def reconstruct_point_in_time(
 
     state_by_entity: dict[str, TemporalRecord] = {}
     for entity_key, candidates in accessible_by_entity.items():
+        if not _revision_order_provable(candidates, strict=strict):
+            unproven_ids = {candidate.record_id for candidate in candidates}
+            included[:] = [record for record in included if record.record_id not in unproven_ids]
+            for candidate in candidates:
+                excluded.append(
+                    PitReconstructionExclusion(
+                        record=candidate,
+                        reason="unproven_revision_order_fail_closed",
+                    )
+                )
+            continue
+
         winner = max(candidates, key=lambda candidate: _revision_sort_key(candidate))
         state_by_entity[entity_key] = winner
         for candidate in candidates:
