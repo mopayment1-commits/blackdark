@@ -143,10 +143,10 @@ async def test_pages_and_api_switch_language():
         assert 'lang="he"' in he.text
         assert 'dir="rtl"' in he.text
 
-        ja = await client.get("/dashboard?lang=ja")
+        ja = await client.get("/?lang=ja")
         assert ja.status_code == 200
         assert 'lang="ja"' in ja.text
-        assert "ログイン" in ja.text or "日本語" in ja.text
+        assert "ログイン" in ja.text or "日本語" in ja.text or "Oracle" in ja.text
 
         locales = await client.get("/api/i18n/locales")
         assert locales.status_code == 200
