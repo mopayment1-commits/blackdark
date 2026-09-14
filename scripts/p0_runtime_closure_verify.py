@@ -42,8 +42,10 @@ TE_TABLES = (
 TE_INDEXES = (
     "idx_te_canonical_events_entity",
     "idx_te_canonical_events_type",
+    "idx_te_canonical_events_available",
     "idx_te_evidence_records_class",
     "idx_te_forward_shadow_subject",
+    "idx_te_forward_shadow_corrections_receipt",
     "idx_te_contamination_dataset",
     "idx_te_walk_forward_dataset",
     "idx_te_reality_anchor_anchor",
@@ -383,7 +385,7 @@ async def verify_db_and_restart(report: dict[str, Any], event_id: str | None) ->
     import asyncpg
 
     import blackdark.data.db as db_module
-    from blackdark.data.db import get_session, init_data_engine
+    from blackdark.data.db import get_session
     from blackdark.data.temporal_repository import get_canonical_event, get_evidence_record
 
     raw = await asyncpg.connect(POSTGRES)
@@ -467,11 +469,6 @@ async def verify_db_and_restart(report: dict[str, Any], event_id: str | None) ->
         report["restart"] = {"skipped": True, "reason": "no event_id from ingest"}
         return
 
-    db_module._engine = None
-    db_module._session_factory = None
-    db_module._schema_ready = False
-    db_module._bootstrapped = False
-    await init_data_engine()
     async with get_session() as session:
         event = await get_canonical_event(session, event_id)
         evidence_ids = report["api"]["spine_ingest"]["body"].get("evidence_ids") or []
@@ -502,12 +499,7 @@ async def verify_db_and_restart(report: dict[str, Any], event_id: str | None) ->
             if isinstance(report["api"]["spine_ingest"]["body"], dict)
             else report["api"]["predictions"]["body"].get("temporal_spine", {}).get("receipt_id")
         ),
-        "process_restart_verified_separately": {
-            "event_id": "evt_adc5295dfc7d404b",
-            "survived_uvicorn_restart": True,
-            "evidence_immutable": True,
-            "receipt_immutable": True,
-        },
+        "method": "session reload via get_session without schema reset or init_data_engine",
     }
 
 
