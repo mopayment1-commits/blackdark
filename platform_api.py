@@ -595,6 +595,41 @@ async def address_intelligence_overview_route(
     return await address_intelligence_overview(address, chain=chain, history_days=history_days)
 
 
+@router.get("/decision-intelligence/signal")
+async def decision_intelligence_signal(
+    asset: str = Query("BTC"),
+    include_backtest: bool = Query(True),
+):
+    """Decision Intelligence Engine (#48) — actionable signal with reasoning."""
+    from bd_platform.decision_intelligence_engine import generate_decision_signal
+
+    return await generate_decision_signal(asset, include_backtest=include_backtest)
+
+
+@router.get("/decision-intelligence/ranking")
+async def decision_intelligence_ranking_route(limit: int = Query(10, ge=3, le=20)):
+    """Decision Intelligence — ranked universe by confidence."""
+    from bd_platform.decision_intelligence_engine import decision_intelligence_ranking
+
+    return await decision_intelligence_ranking(limit=limit)
+
+
+@router.get("/decision-intelligence/features")
+async def decision_intelligence_features(asset: str = Query("BTC")):
+    """Decision Intelligence — 100+ feature extraction."""
+    from ml.decision_features import extract_decision_features
+
+    return await extract_decision_features(asset)
+
+
+@router.get("/decision-intelligence/backtest")
+async def decision_intelligence_backtest(asset: str = Query("BTC")):
+    """Decision Intelligence — walk-forward backtest + risk metrics."""
+    from ml.walk_forward import run_walk_forward_backtest
+
+    return await run_walk_forward_backtest(asset)
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro
