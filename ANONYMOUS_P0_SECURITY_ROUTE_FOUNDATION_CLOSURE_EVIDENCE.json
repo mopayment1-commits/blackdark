@@ -1,8 +1,8 @@
 {
-  "verified_at_utc": "2026-09-14T20:31:09.949730+00:00",
+  "verified_at_utc": "2026-09-14T20:31:56.312879+00:00",
   "phase": "P0_ANONYMOUS_SECURITY_AND_ROUTE_FOUNDATION",
   "governing_spec": "docs/BLACKDARK_ANONYMOUS_VISITOR_PUBLIC_INTELLIGENCE_EXPERIENCE_2026_FINAL.md",
-  "implementation_sha": "7b948277bfde37d35396340b5ddd6fa37e68b1bc",
+  "implementation_sha": "def8ed83555a55039d2f0470558f65fc3c3de434",
   "branch": "cursor/p0-anonymous-security-route-foundation-358c",
   "canonical_owners": {
     "allowlist": "anonymous_route_foundation.py",
