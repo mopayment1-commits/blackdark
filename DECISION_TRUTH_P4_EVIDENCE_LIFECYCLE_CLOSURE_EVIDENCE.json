@@ -1,0 +1,79 @@
+{
+  "phase": "P4_EVIDENCE_SIMULATION_CALIBRATION_HISTORY",
+  "verified_at_utc": "2026-09-14T21:36:43Z",
+  "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
+  "base_sha": "4116e6c1ac0afe88c412131f16a4997d2ccec002",
+  "implementation_sha": "4116e6c1ac0afe88c412131f16a4997d2ccec002",
+  "dts_ids_covered": [
+    "DTS-021",
+    "DTS-022",
+    "DTS-023",
+    "DTS-037",
+    "DTS-038",
+    "DTS-039",
+    "DTS-040",
+    "DTS-041",
+    "DTS-042",
+    "DTS-043",
+    "DTS-050",
+    "DTS-051",
+    "DTS-058",
+    "DTS-059",
+    "DTS-060"
+  ],
+  "canonical_owners": {
+    "lifecycle_orchestrator": "decision_truth/lifecycle.py",
+    "calibration": "decision_truth/calibration.py",
+    "outcome_ledger": "decision_truth/outcome_ledger.py",
+    "change_detector": "decision_truth/change_detector.py",
+    "simulation": "decision_truth/simulation.py",
+    "evidence_grade": "decision_truth/evidence_grade.py",
+    "evidence_taxonomy": "cap646/evidence_class.py",
+    "methodology_versions": "decision_truth/methodology_versions.py",
+    "provenance": "decision_truth/provenance.py",
+    "anti_cherry_picking": "decision_truth/anti_cherry_picking.py",
+    "history_integrity": "decision_truth/history_integrity.py",
+    "governance_entry": "decision_truth/govern.py"
+  },
+  "remaining_bypass_paths": {
+    "EVIDENCE_GRADE_BYPASS_PATHS": [],
+    "OUTCOME_LEDGER_BYPASS_PATHS": [],
+    "SIMULATION_LINKAGE_GAPS": [],
+    "CALIBRATION_LINKAGE_GAPS": [],
+    "PRE_REGISTRATION_BYPASS_PATHS": [],
+    "DECISION_HISTORY_GAPS": [],
+    "METHODOLOGY_VERSION_GAPS": [],
+    "PROVENANCE_GAPS": [],
+    "CHERRY_PICKING_EXPOSURE_PATHS": [],
+    "EVIDENCE_CLASS_PROMOTION_GAPS": [],
+    "FABRICATED_OR_DEFAULT_GRADES": []
+  },
+  "live_validation_gates": [
+    "forward_calibration_effectiveness"
+  ],
+  "summary": {
+    "DTS_REQUIREMENTS_IN_SCOPE": 15,
+    "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 15,
+    "PARTIAL_LOCAL": 0,
+    "NOT_IMPLEMENTED_LOCAL": 0,
+    "LOCALLY_BUILDABLE_REMAINING": 0,
+    "EVIDENCE_GRADE_BYPASS_PATHS": 0,
+    "OUTCOME_LEDGER_BYPASS_PATHS": 0,
+    "SIMULATION_LINKAGE_GAPS": 0,
+    "CALIBRATION_LINKAGE_GAPS": 0,
+    "PRE_REGISTRATION_BYPASS_PATHS": 0,
+    "DECISION_HISTORY_GAPS": 0,
+    "METHODOLOGY_VERSION_GAPS": 0,
+    "PROVENANCE_GAPS": 0,
+    "CHERRY_PICKING_EXPOSURE_PATHS": 0,
+    "EVIDENCE_CLASS_PROMOTION_GAPS": 0,
+    "FABRICATED_OR_DEFAULT_GRADES": 0,
+    "REGRESSION_FAILURES": 0
+  },
+  "verdict": "EVIDENCE_SIMULATION_CALIBRATION_HISTORY_CLOSED_WITH_LIVE_VALIDATION_PENDING",
+  "test_commands": [
+    "python3 -m pytest tests/test_decision_truth_p4_evidence_lifecycle.py tests/test_decision_truth_p3_portfolio_preimpact.py tests/test_decision_truth_p2_economic_execution.py tests/test_decision_truth_p1_anti_bypass.py tests/test_decision_truth_pipeline.py tests/test_data_governance_p0_test_matrix.py tests/test_arb_truth_gate.py -q",
+    "python3 scripts/p4_evidence_simulation_calibration_closure_verify.py"
+  ],
+  "test_output_tail": "........................................................................ [ 71%]\n.............................                                            [100%]\n"
+}
