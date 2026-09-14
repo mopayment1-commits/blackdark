@@ -849,6 +849,9 @@ try:
     app.include_router(data_engine_router)
     app.include_router(data_engine_admin_router)
     app.include_router(systems_router)
+    from api.routers.temporal import router as temporal_spine_router
+
+    app.include_router(temporal_spine_router)
     from api.routers.critical_defects import router as critical_defects_router
     from api.routers.onchain_flow import router as onchain_flow_router
 
