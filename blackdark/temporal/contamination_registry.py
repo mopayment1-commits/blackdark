@@ -184,7 +184,14 @@ class ContaminationRegistry:
         window_start: datetime | str | None = None,
         window_end: datetime | str | None = None,
         purpose: ContaminationPurpose | None = None,
+        half_open: bool = False,
     ) -> tuple[ContaminationEntry, ...]:
+        """Return exposures overlapping a query window.
+
+        Walk-forward/eval partitions use half-open ``[start, end)`` semantics.
+        When ``half_open`` is true, adjacent windows that only touch at a boundary
+        (``prev.end == next.start``) are not treated as overlapping.
+        """
         ws = parse_temporal_instant(window_start) if window_start else None
         we = parse_temporal_instant(window_end) if window_end else None
         results: list[ContaminationEntry] = []
@@ -193,12 +200,41 @@ class ContaminationRegistry:
                 continue
             if purpose is not None and entry.usage_purpose != purpose:
                 continue
-            if ws and entry.window_end < ws:
-                continue
-            if we and entry.window_start > we:
-                continue
+            if ws:
+                if half_open:
+                    if entry.window_end <= ws:
+                        continue
+                elif entry.window_end < ws:
+                    continue
+            if we:
+                if half_open:
+                    if entry.window_start >= we:
+                        continue
+                elif entry.window_start > we:
+                    continue
             results.append(entry)
         return tuple(results)
+
+    def _exact_evaluation_exposure(
+        self,
+        *,
+        dataset_id: str,
+        window_start: datetime,
+        window_end: datetime,
+        model_version: str | None,
+        config_version: str | None,
+        dataset_version: str | None,
+    ) -> ContaminationEntry | None:
+        key = _entry_key(
+            dataset_id=dataset_id,
+            window_start=window_start,
+            window_end=window_end,
+            purpose=ContaminationPurpose.EVALUATION,
+            model_version=model_version,
+            config_version=config_version,
+            dataset_version=dataset_version,
+        )
+        return self._entries.get(key)
 
     def check_evaluation_admission(
         self,
@@ -211,17 +247,23 @@ class ContaminationRegistry:
         dataset_version: str | None = None,
         fail_closed: bool = True,
     ) -> EvaluationAdmissionDecision:
-        eval_exposures = self.query_exposures(
+        ws = parse_temporal_instant(window_start)
+        we = parse_temporal_instant(window_end)
+        exact_eval = self._exact_evaluation_exposure(
             dataset_id=dataset_id,
-            window_start=window_start,
-            window_end=window_end,
-            purpose=ContaminationPurpose.EVALUATION,
+            window_start=ws,
+            window_end=we,
+            model_version=model_version,
+            config_version=config_version,
+            dataset_version=dataset_version,
         )
+        eval_exposures = (exact_eval,) if exact_eval else ()
         tuning_exposures = self.query_exposures(
             dataset_id=dataset_id,
             window_start=window_start,
             window_end=window_end,
             purpose=ContaminationPurpose.TUNING,
+            half_open=True,
         )
         prior = len(eval_exposures) + len(tuning_exposures)
         if prior == 0:

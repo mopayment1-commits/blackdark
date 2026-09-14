@@ -12,7 +12,8 @@ from pydantic import BaseModel, Field
 from blackdark.data.api import _ensure_ready
 from blackdark.data.db import get_session
 from blackdark.data.response_metadata import dataset_response
-from blackdark.temporal.contamination_registry import ContaminationPurpose
+from blackdark.temporal.contamination_registry import ContaminationPurpose, EvaluationContaminationError
+from blackdark.temporal.metrics import increment_temporal_metric, record_contamination_rejection
 from blackdark.temporal.normalization import build_observation_dict, build_provenance_dict
 from blackdark.temporal.persistence.postgres import PostgresContaminationRegistry
 from blackdark.temporal.production_spine import ProductionSpineRequest, run_production_temporal_spine
@@ -84,6 +85,7 @@ async def ingest_temporal_spine(
     __: None = Depends(_ensure_ready),
     idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
+    increment_temporal_metric("temporal_api_requests_total")
     async with get_session() as session:
         result = await run_production_temporal_spine(
             session,
@@ -112,6 +114,7 @@ async def ingest_temporal_spine(
             ),
         )
     if result.status != "completed":
+        increment_temporal_metric("temporal_api_errors_total")
         raise HTTPException(status_code=422, detail=result.to_metadata())
     return result.to_metadata()
 
@@ -122,6 +125,7 @@ async def evaluate_walk_forward(
     _: None = Depends(require_admin),
     __: None = Depends(_ensure_ready),
 ):
+    increment_temporal_metric("temporal_api_requests_total")
     windows = generate_walk_forward_windows(
         dataset_id=body.dataset_id,
         series_start=body.series_start,
@@ -143,39 +147,59 @@ async def evaluate_walk_forward(
                 "model_version": freeze.model_version,
             }
 
-        result = run_walk_forward_evaluation(
-            dataset_id=body.dataset_id,
-            samples=body.samples,
-            windows=windows,
-            freeze=WalkForwardFreezeContext(
-                model_version=body.model_version,
-                dataset_version=body.dataset_version,
-                config_version=body.config_version,
-                controls=(
-                    WalkForwardControl.PURGE,
-                    WalkForwardControl.EMBARGO,
-                    WalkForwardControl.NO_FUTURE_FEATURE_LEAKAGE,
-                    WalkForwardControl.IMMUTABLE_EVALUATION_WINDOWS,
-                    WalkForwardControl.MODEL_VERSION_FREEZE,
-                    WalkForwardControl.DATASET_VERSION_FREEZE,
-                    WalkForwardControl.CONFIGURATION_FREEZE,
+        try:
+            result = run_walk_forward_evaluation(
+                dataset_id=body.dataset_id,
+                samples=body.samples,
+                windows=windows,
+                freeze=WalkForwardFreezeContext(
+                    model_version=body.model_version,
+                    dataset_version=body.dataset_version,
+                    config_version=body.config_version,
+                    controls=(
+                        WalkForwardControl.PURGE,
+                        WalkForwardControl.EMBARGO,
+                        WalkForwardControl.NO_FUTURE_FEATURE_LEAKAGE,
+                        WalkForwardControl.IMMUTABLE_EVALUATION_WINDOWS,
+                        WalkForwardControl.MODEL_VERSION_FREEZE,
+                        WalkForwardControl.DATASET_VERSION_FREEZE,
+                        WalkForwardControl.CONFIGURATION_FREEZE,
+                    ),
                 ),
-            ),
-            contamination_registry=registry,
-            evaluate_fold=_evaluate,
-        )
+                contamination_registry=registry,
+                evaluate_fold=_evaluate,
+            )
+        except EvaluationContaminationError as exc:
+            record_contamination_rejection()
+            increment_temporal_metric("temporal_api_errors_total")
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "error_code": "EVALUATION_CONTAMINATION_REJECTED",
+                    "message": str(exc),
+                    "rejection_reason": str(exc),
+                },
+            ) from exc
+        except ValueError as exc:
+            increment_temporal_metric("temporal_api_errors_total")
+            raise HTTPException(
+                status_code=400,
+                detail={"error_code": "WALK_FORWARD_INVALID_REQUEST", "message": str(exc)},
+            ) from exc
+
+        persisted: set[str] = set()
         for fold in result.folds:
-            entry = registry.record_exposure(
+            exposures = registry.query_exposures(
                 dataset_id=body.dataset_id,
                 window_start=fold.window.eval_start,
                 window_end=fold.window.eval_end,
                 purpose=ContaminationPurpose.EVALUATION,
-                model_version=body.model_version,
-                config_version=body.config_version,
-                dataset_version=body.dataset_version,
-                metadata=fold.to_metadata(),
             )
-            await registry.persist_entry(entry)
+            for entry in exposures:
+                if entry.entry_id in persisted:
+                    continue
+                await registry.persist_entry(entry)
+                persisted.add(entry.entry_id)
     return result.to_metadata()
 
 
@@ -220,4 +244,18 @@ async def list_contamination(
 
 @router.get("/health")
 async def temporal_health(_: None = Depends(_ensure_ready)):
-    return {"ok": True, "component": "temporal_spine", "timestamp": datetime.now(UTC).isoformat()}
+    from blackdark.temporal.metrics import temporal_metrics_status
+
+    return {
+        "ok": True,
+        "component": "temporal_spine",
+        "timestamp": datetime.now(UTC).isoformat(),
+        "metrics": temporal_metrics_status(),
+    }
+
+
+@router.get("/metrics")
+async def temporal_metrics(_: None = Depends(_ensure_ready)):
+    from blackdark.temporal.metrics import temporal_metrics_status
+
+    return temporal_metrics_status()

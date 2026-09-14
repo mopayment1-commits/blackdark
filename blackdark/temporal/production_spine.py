@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import logging
+import time
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any, Mapping
@@ -11,6 +13,8 @@ from uuid import uuid4
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from blackdark.data import temporal_repository as repo
+
+logger = logging.getLogger("BLACKDARK.Temporal.Spine")
 from blackdark.temporal.firewall import TemporalProcessingContext, evaluate_temporal_leakage_firewall
 from blackdark.temporal.replay_coverage import run_full_decision_path_replay
 from blackdark.temporal.normalization import normalize_ingestion_to_canonical_event
@@ -23,6 +27,7 @@ from blackdark.temporal.persistence.postgres import (
     PostgresEvidenceLedger,
     PostgresForwardShadowLedger,
 )
+from blackdark.temporal.metrics import increment_temporal_metric, record_spine_outcome
 from blackdark.temporal.pit_contract import PitContractViolation
 from blackdark.temporal.reality_anchor_service import observe_reality_anchor
 from blackdark.temporal.decision_path import execute_historical_decision_path
@@ -82,6 +87,7 @@ async def run_production_temporal_spine(
     session: AsyncSession,
     request: ProductionSpineRequest,
 ) -> ProductionSpineResult:
+    started = time.perf_counter()
     run_id = repo.new_spine_run_id()
     obs = SpineObservability()
     event_store = PostgresEventStore(session)
@@ -236,7 +242,7 @@ async def run_production_temporal_spine(
             },
         )
 
-        return ProductionSpineResult(
+        result = ProductionSpineResult(
             run_id=run_id,
             event_id=event.event_id,
             evidence_ids=tuple(evidence_ids),
@@ -247,6 +253,12 @@ async def run_production_temporal_spine(
             p3_metadata=p3.to_metadata(),
             status="completed",
         )
+        record_spine_outcome(
+            status="completed",
+            reality_anchor_pending=anchor_obs.needs_runtime_verification,
+            latency_ms=(time.perf_counter() - started) * 1000,
+        )
+        return result
     except PitContractViolation as exc:
         obs.record("failed", "pit_contract", code=exc.code)
         await repo.insert_spine_run(
@@ -263,7 +275,7 @@ async def run_production_temporal_spine(
                 "observability": json.dumps(obs.to_metadata()),
             },
         )
-        return ProductionSpineResult(
+        failed = ProductionSpineResult(
             run_id=run_id,
             event_id=None,
             evidence_ids=(),
@@ -275,20 +287,30 @@ async def run_production_temporal_spine(
             status="failed",
             error_code=exc.code,
         )
+        record_spine_outcome(
+            status="failed",
+            error_code=exc.code,
+            latency_ms=(time.perf_counter() - started) * 1000,
+        )
+        return failed
     except Exception as exc:
         obs.record("failed", "unexpected", error=str(exc))
-        await repo.insert_spine_run(
-            session,
-            {
-                "run_id": run_id,
-                "pipeline_stage": "production_spine",
-                "status": "failed",
-                "input_idempotency_key": request.idempotency_key,
-                "event_id": None,
-                "evidence_id": None,
-                "receipt_id": None,
-                "error_code": type(exc).__name__,
-                "observability": json.dumps(obs.to_metadata()),
-            },
-        )
+        increment_temporal_metric("temporal_db_failures_total")
+        try:
+            await repo.insert_spine_run(
+                session,
+                {
+                    "run_id": run_id,
+                    "pipeline_stage": "production_spine",
+                    "status": "failed",
+                    "input_idempotency_key": request.idempotency_key,
+                    "event_id": None,
+                    "evidence_id": None,
+                    "receipt_id": None,
+                    "error_code": type(exc).__name__,
+                    "observability": json.dumps(obs.to_metadata()),
+                },
+            )
+        except Exception:
+            logger.exception("Failed to persist spine run after unexpected error; transaction will roll back")
         raise
