@@ -54,7 +54,13 @@ from blackdark.temporal.outcome_quality import (
     assess_outcome_quality,
 )
 from blackdark.temporal.drift_monitoring import DriftMonitorResult, DriftSignal, evaluate_drift
-from blackdark.temporal.failure_surprise_corpus import FailureSurpriseCase, FailureSurpriseCorpus
+from blackdark.temporal.failure_surprise_corpus import (
+    CaptureCategory,
+    FailureSurpriseCase,
+    FailureSurpriseCorpus,
+    FSB_ATOMIC_IDS,
+    FAILURE_SURPRISE_ABSTENTION_TOTAL,
+)
 from blackdark.temporal.forward_shadow import ForwardShadowLedger, ForwardShadowReceipt
 from blackdark.temporal.p2_pipeline import P2PipelineResult, run_p2_outcome_evidence_pipeline
 from blackdark.temporal.p3_pipeline import P3PipelineResult, run_forward_shadow_pipeline
@@ -140,8 +146,11 @@ __all__ = [
     "OutcomeQualityTier",
     "DriftMonitorResult",
     "DriftSignal",
+    "CaptureCategory",
     "FailureSurpriseCase",
     "FailureSurpriseCorpus",
+    "FSB_ATOMIC_IDS",
+    "FAILURE_SURPRISE_ABSTENTION_TOTAL",
     "ForwardShadowLedger",
     "ForwardShadowReceipt",
     "KnownRegimeLabel",

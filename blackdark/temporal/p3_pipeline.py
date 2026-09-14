@@ -140,6 +140,9 @@ def run_forward_shadow_pipeline(
             evidence_class=TemporalEvidenceClass.FORWARD_SHADOW.value,
             recorded_at=outcome_known_at,
             model_version=model_version,
+            outcome=outcome,
+            temporal_context=dict(temporal_context),
+            provenance_reference=receipt.provenance_reference,
         )
         if case is not None:
             failure_cases.append(case)
