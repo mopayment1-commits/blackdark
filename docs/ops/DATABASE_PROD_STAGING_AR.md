@@ -33,9 +33,24 @@ DATABASE_URL=${{Postgres.DATABASE_URL}}   # plugin prod مختلف
 
 ## Schema migration (forward-only)
 
+**Trigger / symptoms:** deploy includes schema change, migration job failure, or `init_db` error in logs.
+
+**Diagnosis:** check `postgres_backend` pool stats, migration version markers, and whether failure is transient lock vs DDL error.
+
+**Actions:**
 - Canonical migration authority: `database.py` (`init_db` inline migrations) and `db_upgrade.py`
 - Apply on deploy before serving traffic; idempotent `CREATE IF NOT EXISTS` / additive columns only
 - Rollback: redeploy previous application image; do not destructive-downgrade schema without restore
+
+**Decision:** if migration partially applied, stop traffic and restore from backup per `BACKUP_RESTORE.md`.
+
+**Verification:** `python -m pytest tests/test_postgres_migration_integrity.py -q`; confirm CRUD on critical tables.
+
+**Recovery:** restore backup to isolated DB, replay forward migrations, then cut over.
+
+**Escalation:** DBA/on-call for production DDL; incident commander for SEV-1.
+
+**Evidence preservation:** migration logs, `pg_stat_activity` snapshot, backup checksum.
 
 ## النسخ الاحتياطي (Backup)
 
