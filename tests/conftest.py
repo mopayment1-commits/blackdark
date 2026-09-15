@@ -31,6 +31,7 @@ def _bootstrap_signed_capacity(_bootstrap_test_secrets):
         verify_signed_capacity,
     )
 
+    os.environ.setdefault("CAPACITY_SIGNING_KEY", "blackdark-capacity-dev-sign")
     root = Path(__file__).resolve().parents[1]
     prod_evidence = root / "docs" / "evidence" / "signed_load_production_cap644.json"
     capacity_path = root / "data" / "institutional_assurance" / "signed_capacity.json"

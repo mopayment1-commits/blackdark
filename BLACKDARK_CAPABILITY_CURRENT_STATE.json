@@ -2,9 +2,9 @@
   "artifact": "BLACKDARK_CAPABILITY_CURRENT_STATE",
   "ssot_role": "authoritative_current_capability_ledger",
   "governing_standard": "BLACKDARK_CAPABILITY_ENGINEERING_ARCHITECTURE_LIVE_GOVERNING_STANDARD_2026_FINAL.md",
-  "generated_at": "2026-09-15T09:48:39.530805+00:00",
+  "generated_at": "2026-09-15T10:02:58.924642+00:00",
   "git": {
-    "current_head_sha": "61be28827962fd66225f767cbe75b2bd3b83903f"
+    "current_head_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24"
   },
   "verdict": "PHASE2_INDEPENDENT_ENGINEERING_CLOSURE_VERIFIED",
   "counts": {
@@ -60473,14 +60473,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "ENGINEERING_AUDIT_826_REPORT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -60508,7 +60508,7 @@
         "prior_artifact_sha": "36df58ed8ad3"
       },
       "status_change": {
-        "previous_status": "PASS_ENGINEERING",
+        "previous_status": "PARTIAL",
         "new_status": "PASS_ENGINEERING",
         "phase": "PHASE_2_REMEDIATION_PROVEN_GAPS_ONLY",
         "evidence": [
@@ -60517,8 +60517,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "CAPACITY_EVIDENCE_VERIFIED",
           "semantic_oracle": "capacity_load_evidence",
@@ -77723,14 +77723,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -77767,8 +77767,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "charting",
@@ -77845,14 +77845,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -77889,8 +77889,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "price",
@@ -77967,14 +77967,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78011,8 +78011,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "ohlcv",
@@ -78089,14 +78089,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78133,8 +78133,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "api_contract",
@@ -78211,14 +78211,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78255,8 +78255,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -78333,14 +78333,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78377,8 +78377,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "macro",
@@ -78455,14 +78455,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78499,8 +78499,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -78577,14 +78577,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78621,8 +78621,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "decision",
@@ -78699,14 +78699,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78743,8 +78743,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "security",
@@ -78821,14 +78821,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78865,8 +78865,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "security",
@@ -78943,14 +78943,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -78987,8 +78987,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "infra",
@@ -79065,14 +79065,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79109,8 +79109,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "security",
@@ -79187,14 +79187,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79231,8 +79231,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional",
@@ -79309,14 +79309,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79353,8 +79353,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "infra",
@@ -79431,14 +79431,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79475,8 +79475,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "api_contract",
@@ -79553,14 +79553,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79597,8 +79597,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "api_contract",
@@ -79675,14 +79675,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79719,8 +79719,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "api_contract",
@@ -79797,14 +79797,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79841,8 +79841,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "api_contract",
@@ -79919,14 +79919,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -79963,8 +79963,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "portfolio",
@@ -80041,14 +80041,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80085,8 +80085,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "portfolio",
@@ -80163,14 +80163,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80207,8 +80207,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "portfolio",
@@ -80285,14 +80285,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80329,8 +80329,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "portfolio",
@@ -80407,14 +80407,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80451,8 +80451,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "portfolio",
@@ -80529,14 +80529,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80573,8 +80573,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -80651,14 +80651,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80695,8 +80695,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "security",
@@ -80773,14 +80773,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80817,8 +80817,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "volatility",
@@ -80895,14 +80895,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -80939,8 +80939,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "volatility",
@@ -81017,14 +81017,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81061,8 +81061,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -81139,14 +81139,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81183,8 +81183,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -81261,14 +81261,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81305,8 +81305,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -81383,14 +81383,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81427,8 +81427,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -81505,14 +81505,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81549,8 +81549,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -81627,14 +81627,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81671,8 +81671,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -81749,14 +81749,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81793,8 +81793,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -81871,14 +81871,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -81915,8 +81915,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -81993,14 +81993,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82037,8 +82037,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -82115,14 +82115,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82159,8 +82159,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -82237,14 +82237,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82281,8 +82281,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -82359,14 +82359,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82403,8 +82403,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -82481,14 +82481,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82525,8 +82525,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -82603,14 +82603,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82647,8 +82647,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -82725,14 +82725,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82769,8 +82769,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -82847,14 +82847,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -82891,8 +82891,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -82969,14 +82969,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83013,8 +83013,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -83091,14 +83091,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83135,8 +83135,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -83213,14 +83213,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83257,8 +83257,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -83335,14 +83335,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83379,8 +83379,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -83457,14 +83457,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83501,8 +83501,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -83579,14 +83579,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83623,8 +83623,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -83701,14 +83701,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83745,8 +83745,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -83823,14 +83823,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83867,8 +83867,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -83945,14 +83945,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -83989,8 +83989,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -84067,14 +84067,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84111,8 +84111,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -84189,14 +84189,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84233,8 +84233,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -84311,14 +84311,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84355,8 +84355,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -84433,14 +84433,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84477,8 +84477,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -84555,14 +84555,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84599,8 +84599,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -84677,14 +84677,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84721,8 +84721,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -84799,14 +84799,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84843,8 +84843,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -84921,14 +84921,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -84965,8 +84965,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -85043,14 +85043,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85087,8 +85087,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -85165,14 +85165,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85209,8 +85209,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -85287,14 +85287,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85331,8 +85331,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -85409,14 +85409,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85453,8 +85453,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -85531,14 +85531,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85575,8 +85575,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -85653,14 +85653,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85697,8 +85697,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -85775,14 +85775,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85819,8 +85819,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -85897,14 +85897,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -85941,8 +85941,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86019,14 +86019,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86063,8 +86063,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86141,14 +86141,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86185,8 +86185,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86263,14 +86263,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86307,8 +86307,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86385,14 +86385,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86429,8 +86429,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86507,14 +86507,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86551,8 +86551,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86629,14 +86629,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86673,8 +86673,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86751,14 +86751,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86795,8 +86795,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86873,14 +86873,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -86917,8 +86917,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -86995,14 +86995,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87039,8 +87039,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87117,14 +87117,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87161,8 +87161,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87239,14 +87239,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87283,8 +87283,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87361,14 +87361,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87405,8 +87405,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87483,14 +87483,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87527,8 +87527,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87605,14 +87605,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87649,8 +87649,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87727,14 +87727,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87771,8 +87771,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87849,14 +87849,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -87893,8 +87893,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -87971,14 +87971,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88015,8 +88015,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -88093,14 +88093,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88137,8 +88137,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -88215,14 +88215,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88259,8 +88259,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional_mirror",
@@ -88337,14 +88337,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88381,8 +88381,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -88459,14 +88459,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88503,8 +88503,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "order_book",
@@ -88581,14 +88581,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88625,8 +88625,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "exchange_health",
@@ -88703,14 +88703,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88747,8 +88747,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "risk",
@@ -88825,14 +88825,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88869,8 +88869,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -88947,14 +88947,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -88991,8 +88991,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -89069,14 +89069,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89113,8 +89113,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "security",
@@ -89191,14 +89191,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89235,8 +89235,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "trust",
@@ -89313,14 +89313,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89357,8 +89357,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional",
@@ -89435,14 +89435,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89479,8 +89479,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "usage_analytics",
@@ -89557,14 +89557,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89601,8 +89601,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "provenance",
@@ -89679,14 +89679,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89723,8 +89723,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "infra",
@@ -89801,14 +89801,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89845,8 +89845,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "provenance",
@@ -89923,14 +89923,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -89967,8 +89967,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "signal_registry",
@@ -90045,14 +90045,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90089,8 +90089,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -90167,14 +90167,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90211,8 +90211,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -90289,14 +90289,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90333,8 +90333,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "market_structure",
@@ -90411,14 +90411,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90455,8 +90455,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -90533,14 +90533,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90577,8 +90577,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -90655,14 +90655,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90699,8 +90699,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -90777,14 +90777,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90821,8 +90821,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -90899,14 +90899,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -90943,8 +90943,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "volatility",
@@ -91021,14 +91021,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91065,8 +91065,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -91143,14 +91143,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91187,8 +91187,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -91265,14 +91265,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91309,8 +91309,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "volatility",
@@ -91387,14 +91387,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91431,8 +91431,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -91509,14 +91509,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91553,8 +91553,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -91631,14 +91631,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91675,8 +91675,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "order_book",
@@ -91753,14 +91753,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91797,8 +91797,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -91875,14 +91875,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -91919,8 +91919,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
@@ -91997,14 +91997,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92041,8 +92041,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "sentiment",
@@ -92119,14 +92119,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92163,8 +92163,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "stablecoin",
@@ -92241,14 +92241,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92285,8 +92285,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -92363,14 +92363,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92407,8 +92407,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "macro",
@@ -92485,14 +92485,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92529,8 +92529,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -92607,14 +92607,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92651,8 +92651,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -92729,14 +92729,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92773,8 +92773,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "order_book",
@@ -92851,14 +92851,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -92895,8 +92895,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -92973,14 +92973,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93017,8 +93017,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "market_structure",
@@ -93095,14 +93095,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93139,8 +93139,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -93217,14 +93217,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93261,8 +93261,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -93339,14 +93339,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93383,8 +93383,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "arbitrage",
@@ -93461,14 +93461,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93505,8 +93505,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "order_book",
@@ -93583,14 +93583,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93627,8 +93627,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -93705,14 +93705,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93749,8 +93749,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "risk",
@@ -93827,14 +93827,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93871,8 +93871,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "risk",
@@ -93949,14 +93949,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -93993,8 +93993,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -94071,14 +94071,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94115,8 +94115,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -94193,14 +94193,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94237,8 +94237,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "portfolio",
@@ -94315,14 +94315,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94359,8 +94359,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional",
@@ -94437,14 +94437,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94481,8 +94481,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "api_contract",
@@ -94559,14 +94559,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94603,8 +94603,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "portfolio",
@@ -94681,14 +94681,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94725,8 +94725,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional",
@@ -94803,14 +94803,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94847,8 +94847,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "infra",
@@ -94925,14 +94925,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -94969,8 +94969,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -95047,14 +95047,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95091,8 +95091,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "charting",
@@ -95169,14 +95169,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95213,8 +95213,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "alpha",
@@ -95291,14 +95291,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95335,8 +95335,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "charting",
@@ -95413,14 +95413,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95457,8 +95457,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -95535,14 +95535,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95579,8 +95579,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "institutional",
@@ -95657,14 +95657,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95701,8 +95701,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "derivatives",
@@ -95779,14 +95779,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95823,8 +95823,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "defi",
@@ -95901,14 +95901,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -95945,8 +95945,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "security",
@@ -96023,14 +96023,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -96067,8 +96067,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "order_book",
@@ -96145,14 +96145,14 @@
       "assurance_status": "ASSURANCE_REVIEW",
       "external_dependency_status": "NONE",
       "duplicate_status": "NONE",
-      "tested_source_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
+      "tested_source_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
       "evidence_references": [
         "docs/cap978/EVIDENCE_ROOM_SNAPSHOT.json"
       ],
       "known_local_gaps": [],
       "live_blockers": [],
       "external_blockers": [],
-      "last_verified_at": "2026-09-15T09:48:39.530805+00:00",
+      "last_verified_at": "2026-09-15T10:02:58.924642+00:00",
       "reopen_reason": null,
       "phantom_flags": [],
       "project_integration_layers": {
@@ -96189,8 +96189,8 @@
           "tests/cap978/test_phase2_semantic_remediation.py",
           "scripts/phase2_independent_verifier.py"
         ],
-        "tested_sha": "61be28827962fd66225f767cbe75b2bd3b83903f",
-        "timestamp": "2026-09-15T09:48:39.530805+00:00",
+        "tested_sha": "723698b781b17ed5a7d78a420abdd91fe37fef24",
+        "timestamp": "2026-09-15T10:02:58.924642+00:00",
         "verification": {
           "verdict": "SEMANTIC_VERIFIED",
           "semantic_oracle": "onchain",
