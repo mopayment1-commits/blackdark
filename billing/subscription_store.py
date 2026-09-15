@@ -148,6 +148,7 @@ async def update_subscription_account(
     grace_period_end: str | None = None,
     trial_ends_at: str | None = None,
     start_date: str | None = None,
+    last_provider_event_created: int | None = None,
     bump_entitlements: bool = False,
 ) -> dict[str, Any]:
     from database import get_connection
@@ -202,6 +203,9 @@ async def update_subscription_account(
     if start_date is not None:
         updates.append("start_date = ?")
         params.append(start_date)
+    if last_provider_event_created is not None:
+        updates.append("last_provider_event_created = ?")
+        params.append(int(last_provider_event_created))
     if bump_entitlements:
         updates.append("entitlements_version = entitlements_version + 1")
     elif entitlements_version is not None:

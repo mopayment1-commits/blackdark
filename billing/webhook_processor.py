@@ -59,6 +59,7 @@ async def process_stripe_event(event: dict[str, Any]) -> dict[str, Any]:
             data_object,
             provider="stripe",
             provider_event_id=event_id,
+            provider_event_created=event.get("created"),
         )
         return {"handled": True, "action": "subscription_updated", **result}
 
@@ -105,6 +106,7 @@ async def process_stripe_event(event: dict[str, Any]) -> dict[str, Any]:
                 {"id": stripe_sub_id, "current_period_start": data_object.get("period_start"), "current_period_end": data_object.get("period_end"), "status": "active"},
                 provider="stripe",
                 provider_event_id=event_id,
+                provider_event_created=event.get("created"),
             )
             return {"handled": True, "action": "invoice_paid_sync", **result}
         return {"handled": False, "reason": "missing_subscription"}
