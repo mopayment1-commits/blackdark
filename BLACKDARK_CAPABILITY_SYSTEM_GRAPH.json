@@ -1,9 +1,9 @@
 {
   "artifact": "BLACKDARK_CAPABILITY_SYSTEM_GRAPH",
-  "generated_at": "2026-09-15T11:25:40.986190+00:00",
+  "generated_at": "2026-09-15T12:01:13.356260+00:00",
   "git": {
-    "current_head_sha": "92ad65cbed16a6a8b13202e87cace6ce8f939c0e",
-    "tested_sha": "92ad65cbed16a6a8b13202e87cace6ce8f939c0e"
+    "current_head_sha": "d3441054a3a60d986ce61079bcc860db371e58fe",
+    "tested_sha": "d3441054a3a60d986ce61079bcc860db371e58fe"
   },
   "nodes": [
     {
@@ -6028,21 +6028,21 @@
     },
     {
       "from": "CAP-0011",
-      "to": "Arbitrage Scanner",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "bd_platform/cex_dex_arbitrage.py"
-      ]
-    },
-    {
-      "from": "CAP-0011",
       "to": "Whale Signal vs Noise",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "whale_signal_classifier.py",
         "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0011",
+      "to": "Arbitrage Scanner",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "bd_platform/cex_dex_arbitrage.py"
       ]
     },
     {
@@ -6494,21 +6494,21 @@
     },
     {
       "from": "CAP-0022",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0022",
       "to": "Public Accuracy Ledger",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "oracle_audit_chain.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0022",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -6957,6 +6957,27 @@
       "role": "DATA_QUALITY_GATE",
       "evidence": [
         "oracle_audit_chain.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0033",
+      "to": "Single-Sentence Oracle",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "ai_oracle.py",
+        "oracle_unified.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0033",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -6967,27 +6988,6 @@
       "role": "PRIMARY_FEED",
       "evidence": [
         "stealth_execution_advisor.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0033",
-      "to": "Single-Sentence Oracle",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "ai_oracle.py",
-        "oracle_unified.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0033",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -7314,6 +7314,16 @@
     },
     {
       "from": "CAP-0040",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0040",
       "to": "Arbitrage Scanner",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
@@ -7328,16 +7338,6 @@
       "role": "SECONDARY_FEED",
       "evidence": [
         "stealth_execution_advisor.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0040",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -7640,15 +7640,6 @@
     },
     {
       "from": "CAP-0047",
-      "to": "Arbitrage Scanner",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "bd_platform/cex_dex_arbitrage.py"
-      ]
-    },
-    {
-      "from": "CAP-0047",
       "to": "Single-Sentence Oracle",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
@@ -7656,6 +7647,15 @@
         "ai_oracle.py",
         "oracle_unified.py",
         "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0047",
+      "to": "Arbitrage Scanner",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "bd_platform/cex_dex_arbitrage.py"
       ]
     },
     {
@@ -7804,6 +7804,25 @@
     },
     {
       "from": "CAP-0050",
+      "to": "B2B Feed",
+      "type": "FEEDS_HERO",
+      "role": "PRIMARY_FEED",
+      "evidence": [
+        "b2b_websocket_hub.py",
+        "cap978/extension_registry.py"
+      ]
+    },
+    {
+      "from": "CAP-0050",
+      "to": "Arbitrage Scanner",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "bd_platform/cex_dex_arbitrage.py"
+      ]
+    },
+    {
+      "from": "CAP-0050",
       "to": "Stealth Advisor",
       "type": "FEEDS_HERO",
       "role": "SECONDARY_FEED",
@@ -7814,25 +7833,6 @@
     },
     {
       "from": "CAP-0050",
-      "to": "B2B Feed",
-      "type": "FEEDS_HERO",
-      "role": "PRIMARY_FEED",
-      "evidence": [
-        "b2b_websocket_hub.py",
-        "cap978/extension_registry.py"
-      ]
-    },
-    {
-      "from": "CAP-0050",
-      "to": "Arbitrage Scanner",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "bd_platform/cex_dex_arbitrage.py"
-      ]
-    },
-    {
-      "from": "CAP-0050",
       "to": "FDS_SECURITY_GOVERNANCE",
       "type": "SECURED_BY"
     },
@@ -7901,15 +7901,6 @@
       "evidence": [
         "oracle_audit_chain.py",
         "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0052",
-      "to": "Arbitrage Scanner",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "bd_platform/cex_dex_arbitrage.py"
       ]
     },
     {
@@ -7921,6 +7912,15 @@
         "ai_oracle.py",
         "oracle_unified.py",
         "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0052",
+      "to": "Arbitrage Scanner",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "bd_platform/cex_dex_arbitrage.py"
       ]
     },
     {
@@ -8425,22 +8425,22 @@
     },
     {
       "from": "CAP-0066",
-      "to": "Stealth Advisor",
-      "type": "FEEDS_HERO",
-      "role": "PRIMARY_FEED",
-      "evidence": [
-        "stealth_execution_advisor.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0066",
       "to": "Single-Sentence Oracle",
       "type": "FEEDS_HERO",
       "role": "SECONDARY_FEED",
       "evidence": [
         "ai_oracle.py",
         "oracle_unified.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0066",
+      "to": "Stealth Advisor",
+      "type": "FEEDS_HERO",
+      "role": "PRIMARY_FEED",
+      "evidence": [
+        "stealth_execution_advisor.py",
         "api/routers/heroes.py"
       ]
     },
@@ -8738,16 +8738,6 @@
     },
     {
       "from": "CAP-0074",
-      "to": "B2B Feed",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "b2b_websocket_hub.py",
-        "cap978/extension_registry.py"
-      ]
-    },
-    {
-      "from": "CAP-0074",
       "to": "Single-Sentence Oracle",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
@@ -8759,6 +8749,16 @@
     },
     {
       "from": "CAP-0074",
+      "to": "B2B Feed",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "b2b_websocket_hub.py",
+        "cap978/extension_registry.py"
+      ]
+    },
+    {
+      "from": "CAP-0074",
       "to": "FDS_SECURITY_GOVERNANCE",
       "type": "SECURED_BY"
     },
@@ -9095,21 +9095,21 @@
     },
     {
       "from": "CAP-0082",
-      "to": "Arbitrage Scanner",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "bd_platform/cex_dex_arbitrage.py"
-      ]
-    },
-    {
-      "from": "CAP-0082",
       "to": "Whale Signal vs Noise",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "whale_signal_classifier.py",
         "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0082",
+      "to": "Arbitrage Scanner",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "bd_platform/cex_dex_arbitrage.py"
       ]
     },
     {
@@ -9317,6 +9317,16 @@
     },
     {
       "from": "CAP-0086",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0086",
       "to": "Arbitrage Scanner",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
@@ -9331,16 +9341,6 @@
       "role": "SECONDARY_FEED",
       "evidence": [
         "stealth_execution_advisor.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0086",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -9427,6 +9427,16 @@
     },
     {
       "from": "CAP-0088",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0088",
       "to": "Arbitrage Scanner",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
@@ -9441,16 +9451,6 @@
       "role": "SECONDARY_FEED",
       "evidence": [
         "stealth_execution_advisor.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0088",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -9590,6 +9590,26 @@
     },
     {
       "from": "CAP-0091",
+      "to": "B2B Feed",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "b2b_websocket_hub.py",
+        "cap978/extension_registry.py"
+      ]
+    },
+    {
+      "from": "CAP-0091",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0091",
       "to": "Arbitrage Scanner",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
@@ -9599,26 +9619,6 @@
     },
     {
       "from": "CAP-0091",
-      "to": "B2B Feed",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "b2b_websocket_hub.py",
-        "cap978/extension_registry.py"
-      ]
-    },
-    {
-      "from": "CAP-0091",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0091",
       "to": "FDS_SECURITY_GOVERNANCE",
       "type": "SECURED_BY"
     },
@@ -9851,6 +9851,26 @@
       "role": "DATA_QUALITY_GATE",
       "evidence": [
         "oracle_audit_chain.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0098",
+      "to": "B2B Feed",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "b2b_websocket_hub.py",
+        "cap978/extension_registry.py"
+      ]
+    },
+    {
+      "from": "CAP-0098",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "PRIMARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -9861,26 +9881,6 @@
       "role": "SECONDARY_FEED",
       "evidence": [
         "stealth_execution_advisor.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0098",
-      "to": "B2B Feed",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "b2b_websocket_hub.py",
-        "cap978/extension_registry.py"
-      ]
-    },
-    {
-      "from": "CAP-0098",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "PRIMARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -16071,21 +16071,21 @@
     },
     {
       "from": "CAP-0278",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0278",
       "to": "Public Accuracy Ledger",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "oracle_audit_chain.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0278",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -16453,21 +16453,21 @@
     },
     {
       "from": "CAP-0288",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0288",
       "to": "Public Accuracy Ledger",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "oracle_audit_chain.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0288",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -25787,21 +25787,21 @@
     },
     {
       "from": "CAP-0536",
-      "to": "Stealth Advisor",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "stealth_execution_advisor.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0536",
       "to": "Whale Signal vs Noise",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "whale_signal_classifier.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0536",
+      "to": "Stealth Advisor",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "stealth_execution_advisor.py",
         "api/routers/heroes.py"
       ]
     },
@@ -28183,21 +28183,21 @@
     },
     {
       "from": "CAP-0600",
-      "to": "Whale Signal vs Noise",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "whale_signal_classifier.py",
-        "api/routers/heroes.py"
-      ]
-    },
-    {
-      "from": "CAP-0600",
       "to": "Public Accuracy Ledger",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "oracle_audit_chain.py",
+        "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0600",
+      "to": "Whale Signal vs Noise",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "whale_signal_classifier.py",
         "api/routers/heroes.py"
       ]
     },
@@ -28874,21 +28874,21 @@
     },
     {
       "from": "CAP-0617",
-      "to": "Arbitrage Scanner",
-      "type": "FEEDS_HERO",
-      "role": "SECONDARY_FEED",
-      "evidence": [
-        "bd_platform/cex_dex_arbitrage.py"
-      ]
-    },
-    {
-      "from": "CAP-0617",
       "to": "Whale Signal vs Noise",
       "type": "FEEDS_HERO",
       "role": "PRIMARY_FEED",
       "evidence": [
         "whale_signal_classifier.py",
         "api/routers/heroes.py"
+      ]
+    },
+    {
+      "from": "CAP-0617",
+      "to": "Arbitrage Scanner",
+      "type": "FEEDS_HERO",
+      "role": "SECONDARY_FEED",
+      "evidence": [
+        "bd_platform/cex_dex_arbitrage.py"
       ]
     },
     {
