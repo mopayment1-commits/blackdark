@@ -1,0 +1,827 @@
+{
+  "schema_version": "production_readiness_traceability_v1",
+  "generated_at": "2026-09-15T16:13:28.426224+00:00",
+  "tested_sha": "8b1a8dd1c77d441e73cd23bd039f1e83e68f2aec",
+  "derived_artifact_only": true,
+  "summary": {
+    "PR_REQUIREMENTS_TOTAL": 50,
+    "PR_REQUIREMENTS_ACCOUNTED": 50,
+    "PR_REQUIREMENTS_GAPS": 0,
+    "PR_REQUIREMENTS_UNVERIFIED": 0,
+    "PR_REQUIREMENTS_EXTERNAL_LIVE_PENDING": 10
+  },
+  "requirements": [
+    {
+      "requirement_id": "PR-004-001",
+      "area": "environment_architecture",
+      "section": 4,
+      "applicability": "required",
+      "canonical_owner": "docs/ops",
+      "runtime_deployment_path": "docs/ENV_CONFIG_MATRIX.md",
+      "test_check": "file+inventory",
+      "evidence": [
+        "environments=8",
+        "docs/ENV_CONFIG_MATRIX.md",
+        "docs/ops/ENV_VAR_REGISTRY.md",
+        "docs/ops/DATABASE_PROD_STAGING_AR.md",
+        "docker-compose.yml",
+        "railway.json",
+        "deploy/k8s/"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-004-002",
+      "area": "environment_architecture",
+      "section": 4,
+      "applicability": "required",
+      "canonical_owner": "production_guard.py",
+      "runtime_deployment_path": "evaluate_production_guard",
+      "test_check": "tests/test_production_guard.py",
+      "evidence": [
+        "production_guard insecure default catalog",
+        "defaults=6"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-004-003",
+      "area": "environment_architecture",
+      "section": 4,
+      "applicability": "required",
+      "canonical_owner": "production_guard.py",
+      "runtime_deployment_path": "evaluate_production_guard",
+      "test_check": "tests/test_critical_ops_closure.py",
+      "evidence": [
+        "/usr/bin/python3 -m pytest tests/test_production_guard.py tests/test_critical_ops_closure.py -q --tb=no",
+        "exit=0"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-005-001",
+      "area": "configuration_governance",
+      "section": 5,
+      "applicability": "required",
+      "canonical_owner": "docs/ops/ENV_VAR_REGISTRY.md",
+      "runtime_deployment_path": "config.py",
+      "test_check": "file",
+      "evidence": [
+        "docs/ops/ENV_VAR_REGISTRY.md"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-005-002",
+      "area": "configuration_governance",
+      "section": 5,
+      "applicability": "required",
+      "canonical_owner": "production_guard.py",
+      "runtime_deployment_path": "/api/production/guard",
+      "test_check": "tests/test_production_guard.py",
+      "evidence": [
+        "/usr/bin/python3 -m pytest tests/test_production_guard.py tests/test_critical_ops_closure.py -q --tb=no",
+        "exit=0"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-006-001",
+      "area": "secrets_credentials",
+      "section": 6,
+      "applicability": "required",
+      "canonical_owner": "secrets_vault.py",
+      "runtime_deployment_path": "scripts/secrets_hygiene_scan.py",
+      "test_check": "tests/test_d02_secrets_vault.py",
+      "evidence": [
+        "secrets_hygiene_scan.py",
+        "secrets_vault.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-006-002",
+      "area": "secrets_credentials",
+      "section": 6,
+      "applicability": "required",
+      "canonical_owner": "log_safety.py",
+      "runtime_deployment_path": "production_guard.py",
+      "test_check": "tests/test_codeql_cleartext_logging_closure.py",
+      "evidence": [
+        "log_safety.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-007-001",
+      "area": "build_reproducibility",
+      "section": 7,
+      "applicability": "required",
+      "canonical_owner": "requirements.hashes.txt",
+      "runtime_deployment_path": "Dockerfile",
+      "test_check": "ci.yml pip install",
+      "evidence": [
+        "requirements.hashes.txt",
+        "requirements-prod.hashes.txt",
+        "Dockerfile",
+        "requirements.lock.txt"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-008-001",
+      "area": "supply_chain",
+      "section": 8,
+      "applicability": "required",
+      "canonical_owner": ".github/workflows/security.yml",
+      "runtime_deployment_path": "docs/data-room/sbom/",
+      "test_check": "pip-audit+bandit",
+      "evidence": [
+        "pip-audit",
+        "bandit",
+        "sbom",
+        "actions_pinned=True"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-009-001",
+      "area": "database_migrations",
+      "section": 9,
+      "applicability": "required",
+      "canonical_owner": "database.py",
+      "runtime_deployment_path": "postgres_backend.py",
+      "test_check": "tests/test_postgres_migration_integrity.py",
+      "evidence": [
+        "database.py",
+        "db_upgrade.py",
+        "postgres_backend.py",
+        "/usr/bin/python3 -m pytest tests/test_postgres_migration_integrity.py tests/test_postgres_backend.py -q --tb=no"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-010-001",
+      "area": "backup_restore",
+      "section": 10,
+      "applicability": "required",
+      "canonical_owner": "scripts/backup_postgres.py",
+      "runtime_deployment_path": "scripts/restore_postgres.py",
+      "test_check": "static review",
+      "evidence": [
+        "scripts/backup_postgres.py",
+        "scripts/restore_postgres.py",
+        "docs/ops/BACKUP_RESTORE.md",
+        "restore stderr redaction test"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-010-002",
+      "area": "backup_restore",
+      "section": 10,
+      "applicability": "required",
+      "canonical_owner": "docs/ops/BACKUP_RESTORE.md",
+      "runtime_deployment_path": "buyer cloud",
+      "test_check": "human drill",
+      "evidence": [
+        "docs/ops/BACKUP_RESTORE.md declares buyer cloud drill EXTERNAL"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "HUMAN_OPERATIONAL_EXERCISE_PENDING"
+    },
+    {
+      "requirement_id": "PR-011-001",
+      "area": "data_durability",
+      "section": 11,
+      "applicability": "required",
+      "canonical_owner": "decision_ledger.py",
+      "runtime_deployment_path": "database.py",
+      "test_check": "tests/test_d01_data_state.py",
+      "evidence": [
+        "decision_ledger.py",
+        "oracle_audit_chain.py",
+        "database.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-012-001",
+      "area": "deployment_readiness",
+      "section": 12,
+      "applicability": "required",
+      "canonical_owner": "Dockerfile",
+      "runtime_deployment_path": "railway.json",
+      "test_check": "health probes",
+      "evidence": [
+        "Dockerfile",
+        "docker-compose.yml",
+        "railway.json",
+        "startup_orchestrator.py",
+        "dashboard.py",
+        "/health/live",
+        "/health/ready"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-012-002",
+      "area": "deployment_readiness",
+      "section": 12,
+      "applicability": "required",
+      "canonical_owner": "startup_orchestrator.py",
+      "runtime_deployment_path": "dashboard.py",
+      "test_check": "lifespan",
+      "evidence": [
+        "lifespan/shutdown hooks present"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-012-003",
+      "area": "deployment_readiness",
+      "section": 12,
+      "applicability": "required",
+      "canonical_owner": "dashboard.py",
+      "runtime_deployment_path": "/health/ready",
+      "test_check": "tests/test_e2e_critical_paths.py",
+      "evidence": [
+        "ready probe gates on init_db"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-013-001",
+      "area": "rollback",
+      "section": 13,
+      "applicability": "required",
+      "canonical_owner": "docs/RUNBOOK.md",
+      "runtime_deployment_path": "deploy",
+      "test_check": "file",
+      "evidence": [
+        "docs/RUNBOOK.md rollback section"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-013-002",
+      "area": "rollback",
+      "section": 13,
+      "applicability": "required",
+      "canonical_owner": "Railway/k8s",
+      "runtime_deployment_path": "previous image",
+      "test_check": "human",
+      "evidence": [
+        "rollback rehearsal requires production/staging deploy target"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "HUMAN_OPERATIONAL_EXERCISE_PENDING"
+    },
+    {
+      "requirement_id": "PR-014-001",
+      "area": "version_compatibility",
+      "section": 14,
+      "applicability": "required",
+      "canonical_owner": "scale_readiness.py",
+      "runtime_deployment_path": "viral_capacity.py",
+      "test_check": "doc",
+      "evidence": [
+        "rolling applicable when Postgres+Redis+workers>=2",
+        "scale_readiness defines HA checks"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-014-002",
+      "area": "version_compatibility",
+      "section": 14,
+      "applicability": "required",
+      "canonical_owner": "postgres_backend.py",
+      "runtime_deployment_path": "migrations",
+      "test_check": "tests/test_postgres_migration_integrity.py",
+      "evidence": [
+        "forward-only migrations with adapter translation"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-015-001",
+      "area": "release_gates",
+      "section": 15,
+      "applicability": "required",
+      "canonical_owner": ".github/workflows/ci.yml",
+      "runtime_deployment_path": "verify_institutional_closure",
+      "test_check": "ci",
+      "evidence": [
+        "release_gates=5"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-016-001",
+      "area": "observability",
+      "section": 16,
+      "applicability": "required",
+      "canonical_owner": "ops/monitoring_alerting.py",
+      "runtime_deployment_path": "/metrics",
+      "test_check": "tests/test_monitoring_alerting.py",
+      "evidence": [
+        "uptime_monitor.py",
+        "ops/monitoring_alerting.py",
+        "dashboard.py",
+        "/metrics"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-017-001",
+      "area": "sli_slo",
+      "section": 17,
+      "applicability": "required",
+      "canonical_owner": "uptime_monitor.py",
+      "runtime_deployment_path": "monitoring_alerting",
+      "test_check": "docs",
+      "evidence": [
+        "SLI: uptime, error_rate, latency, freshness via monitoring_alerting"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-018-001",
+      "area": "alerting",
+      "section": 18,
+      "applicability": "required",
+      "canonical_owner": "ops/monitoring_alerting.py",
+      "runtime_deployment_path": "setup_monitoring.py",
+      "test_check": "tests",
+      "evidence": [
+        "ops/monitoring_alerting.py",
+        "ops/vendor_rate_limit_watchdog.py",
+        "scripts/setup_monitoring.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-018-002",
+      "area": "alerting",
+      "section": 18,
+      "applicability": "required",
+      "canonical_owner": "UptimeRobot/PagerDuty",
+      "runtime_deployment_path": "external",
+      "test_check": "infra",
+      "evidence": [
+        "Pager/on-call delivery requires configured external monitor"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "EXTERNAL_INFRASTRUCTURE_VALIDATION_PENDING"
+    },
+    {
+      "requirement_id": "PR-019-001",
+      "area": "incident_response",
+      "section": 19,
+      "applicability": "required",
+      "canonical_owner": "docs/ops/INCIDENT_RESPONSE.md",
+      "runtime_deployment_path": "OWNER_CONTACT_REGISTRY",
+      "test_check": "file",
+      "evidence": [
+        "docs/ops/INCIDENT_RESPONSE.md",
+        "docs/ops/OWNER_CONTACT_REGISTRY.md",
+        "docs/ops/PAGER_ONCALL.md"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-019-002",
+      "area": "incident_response",
+      "section": 19,
+      "applicability": "optional",
+      "canonical_owner": "docs/ops/HANDOVER_TABLETOP.md",
+      "runtime_deployment_path": "human",
+      "test_check": "exercise",
+      "evidence": [
+        "docs/ops/HANDOVER_TABLETOP.md — human exercise not executed here"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "HUMAN_OPERATIONAL_EXERCISE_PENDING"
+    },
+    {
+      "requirement_id": "PR-020-001",
+      "area": "operational_runbooks",
+      "section": 20,
+      "applicability": "required",
+      "canonical_owner": "docs/RUNBOOK.md",
+      "runtime_deployment_path": "docs/ops/*",
+      "test_check": "keyword scan",
+      "evidence": [
+        "runbooks=15"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-021-001",
+      "area": "performance_capacity",
+      "section": 21,
+      "applicability": "required",
+      "canonical_owner": "scale_readiness.py",
+      "runtime_deployment_path": "viral_capacity.py",
+      "test_check": "tests/test_radical_dd_scale_closure.py",
+      "evidence": [
+        "/usr/bin/python3 -m pytest tests/test_radical_dd_scale_closure.py tests/test_viral_capacity.py tests/test_production_guard.py -q --tb=no"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-021-002",
+      "area": "performance_capacity",
+      "section": 21,
+      "applicability": "required",
+      "canonical_owner": "scale_readiness.py",
+      "runtime_deployment_path": "LOAD_TEST_RUN_LOG.md",
+      "test_check": "external",
+      "evidence": [
+        "scale_readiness.capacity_claim requires signed production load evidence"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "LIVE_ENVIRONMENT_VALIDATION_PENDING"
+    },
+    {
+      "requirement_id": "PR-022-001",
+      "area": "load_concurrency",
+      "section": 22,
+      "applicability": "required",
+      "canonical_owner": "service_bus.py",
+      "runtime_deployment_path": "tests/test_rc2_chaos_resilience.py",
+      "test_check": "pytest",
+      "evidence": [
+        "/usr/bin/python3 -m pytest tests/test_rc2_chaos_resilience.py tests/test_service_bus_distributed.py -q --tb=no"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-023-001",
+      "area": "rate_limit_backpressure",
+      "section": 23,
+      "applicability": "required",
+      "canonical_owner": "security_middleware.py",
+      "runtime_deployment_path": "FREE_API_RATE_LIMIT_AUDIT.json",
+      "test_check": "audit script",
+      "evidence": [
+        "security_middleware.py",
+        "FREE_API_RATE_LIMIT_AUDIT.json"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-024-001",
+      "area": "cache_safety",
+      "section": 24,
+      "applicability": "required",
+      "canonical_owner": "gas_oracle.py",
+      "runtime_deployment_path": "tests/test_rc2_chaos_resilience.py",
+      "test_check": "pytest",
+      "evidence": [
+        "gas oracle fail-closed cache"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-025-001",
+      "area": "queues_workers",
+      "section": 25,
+      "applicability": "required",
+      "canonical_owner": "service_bus.py",
+      "runtime_deployment_path": "startup_orchestrator.py",
+      "test_check": "tests/test_service_bus_distributed.py",
+      "evidence": [
+        "service_bus.py",
+        "startup_orchestrator.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-026-001",
+      "area": "external_dependencies",
+      "section": 26,
+      "applicability": "required",
+      "canonical_owner": "fee_matrix.py",
+      "runtime_deployment_path": "gas_oracle.py",
+      "test_check": "financial tests",
+      "evidence": [
+        "fee_matrix.py",
+        "gas_oracle.py",
+        "slippage_guard.py",
+        "docs/ops/EXTERNAL_VENDOR_MAP.md"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-026-002",
+      "area": "external_dependencies",
+      "section": 26,
+      "applicability": "required",
+      "canonical_owner": "market providers",
+      "runtime_deployment_path": "exchanges",
+      "test_check": "live phase",
+      "evidence": [
+        "live market data / exchange proof is Live Validation phase"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "LIVE_ENVIRONMENT_VALIDATION_PENDING"
+    },
+    {
+      "requirement_id": "PR-027-001",
+      "area": "production_security",
+      "section": 27,
+      "applicability": "required",
+      "canonical_owner": "security_middleware.py",
+      "runtime_deployment_path": "anonymous_route_foundation.py",
+      "test_check": "security tests",
+      "evidence": [
+        "security_middleware.py",
+        "production_guard.py",
+        "anonymous_route_foundation.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-028-001",
+      "area": "privacy_retention",
+      "section": 28,
+      "applicability": "required",
+      "canonical_owner": "docs/ops/PRIVACY_AND_AUDIT_ROADMAP.md",
+      "runtime_deployment_path": "retention modules",
+      "test_check": "file",
+      "evidence": [
+        "docs/ops/PRIVACY_AND_AUDIT_ROADMAP.md",
+        "data_governance/retention.py",
+        "governance/fds_retention_incident_supply_chain.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-029-001",
+      "area": "api_b2b",
+      "section": 29,
+      "applicability": "required",
+      "canonical_owner": "b2b_websocket_hub.py",
+      "runtime_deployment_path": "api/openapi_responses.py",
+      "test_check": "tests/test_d06_institutional_api.py",
+      "evidence": [
+        "b2b_websocket_hub.py",
+        "api/openapi_responses.py"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-030-001",
+      "area": "frontend_delivery",
+      "section": 30,
+      "applicability": "required",
+      "canonical_owner": "dashboard.py",
+      "runtime_deployment_path": "templates/",
+      "test_check": "tests/test_critical_ops_closure.py",
+      "evidence": [
+        "public openapi filter",
+        "docs_url=None=True"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-031-001",
+      "area": "kill_switches",
+      "section": 31,
+      "applicability": "required",
+      "canonical_owner": "production_guard.py",
+      "runtime_deployment_path": "SOFT_LAUNCH/EXPOSE_B2B_DEMO_KEY",
+      "test_check": "guard checks",
+      "evidence": [
+        "soft_launch_no_live_money",
+        "expose_demo_key_off",
+        "b2b_demo_key_disabled",
+        "identity_debug_tokens_off"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-032-001",
+      "area": "financial_execution_safety",
+      "section": 32,
+      "applicability": "required",
+      "canonical_owner": "slippage_guard.py",
+      "runtime_deployment_path": "fee_matrix.py",
+      "test_check": "financial tests",
+      "evidence": [
+        "REAL_MONEY_EXECUTION_PERFORMED=false",
+        "/usr/bin/python3 -m pytest tests/test_p0_financial_executability.py tests/test_rc2_financial_truth.py tests/test_money_decimal.py -q --tb=no"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-033-001",
+      "area": "high_availability",
+      "section": 33,
+      "applicability": "required",
+      "canonical_owner": "scale_readiness.py",
+      "runtime_deployment_path": "production_guard.py",
+      "test_check": "report",
+      "evidence": [
+        "documented_local_spofs=['single_sqlite', 'redis_optional_local']",
+        "HA_LIVE_PROOF_PENDING for multi-AZ"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-033-002",
+      "area": "high_availability",
+      "section": 33,
+      "applicability": "required",
+      "canonical_owner": "cloud infra",
+      "runtime_deployment_path": "multi-AZ",
+      "test_check": "external",
+      "evidence": [
+        "Multi-AZ / live failover not provable in local VM"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "EXTERNAL_INFRASTRUCTURE_VALIDATION_PENDING"
+    },
+    {
+      "requirement_id": "PR-034-001",
+      "area": "disaster_recovery",
+      "section": 34,
+      "applicability": "required",
+      "canonical_owner": "docs/ops/BACKUP_RESTORE.md",
+      "runtime_deployment_path": "INCIDENT_RESPONSE.md",
+      "test_check": "file",
+      "evidence": [
+        "docs/ops/BACKUP_RESTORE.md",
+        "docs/ops/INCIDENT_RESPONSE.md",
+        "docs/RUNBOOK.md"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-034-002",
+      "area": "disaster_recovery",
+      "section": 34,
+      "applicability": "required",
+      "canonical_owner": "staging/prod",
+      "runtime_deployment_path": "human",
+      "test_check": "exercise",
+      "evidence": [
+        "DR live exercise requires production/staging infrastructure"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "HUMAN_OPERATIONAL_EXERCISE_PENDING"
+    },
+    {
+      "requirement_id": "PR-035-001",
+      "area": "deployment_drift",
+      "section": 35,
+      "applicability": "required",
+      "canonical_owner": "ENV_VAR_REGISTRY",
+      "runtime_deployment_path": "railway.json",
+      "test_check": "docker-compose.yml",
+      "evidence": [
+        "docs/ENV_CONFIG_MATRIX.md",
+        "docs/ops/ENV_VAR_REGISTRY.md",
+        "production_guard.py",
+        "railway.json",
+        "docker-compose.yml"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    },
+    {
+      "requirement_id": "PR-EXT-001",
+      "area": "external_attestation",
+      "section": 0,
+      "applicability": "required",
+      "canonical_owner": "pentest_attestation.py",
+      "runtime_deployment_path": "third party",
+      "test_check": "attestation",
+      "evidence": [
+        "pentest_attestation requires third-party attestation"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "THIRD_PARTY_EXTERNAL_ATTESTATION_PENDING"
+    },
+    {
+      "requirement_id": "PR-EXT-002",
+      "area": "external_attestation",
+      "section": 0,
+      "applicability": "required",
+      "canonical_owner": "billing/",
+      "runtime_deployment_path": "Stripe/Lemon live",
+      "test_check": "human",
+      "evidence": [
+        "live PSP merchant keys — human provisioning"
+      ],
+      "local_external_classification": "external",
+      "status": "VERIFIED_ENGINEERING_EXTERNAL_LIVE_PROOF_PENDING",
+      "blocker_class": "LIVE_ENVIRONMENT_VALIDATION_PENDING"
+    },
+    {
+      "requirement_id": "PR-039-001",
+      "area": "regression_protection",
+      "section": 39,
+      "applicability": "required",
+      "canonical_owner": "BLACKDARK_CAPABILITY_CURRENT_STATE.json",
+      "runtime_deployment_path": "SSOT",
+      "test_check": "count=932",
+      "evidence": [
+        "PASS_ENGINEERING=932",
+        "BLACKDARK_CAPABILITY_SYSTEM_COHERENCE_EVIDENCE.json",
+        "DECISION_TRUTH_P6_CROSS_CUTTING_CLOSURE_EVIDENCE.json"
+      ],
+      "local_external_classification": "local",
+      "status": "VERIFIED_LOCAL",
+      "blocker_class": null
+    }
+  ]
+}
