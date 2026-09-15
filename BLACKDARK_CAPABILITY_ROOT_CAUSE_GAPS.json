@@ -1,8 +1,8 @@
 {
   "artifact": "BLACKDARK_CAPABILITY_ROOT_CAUSE_GAPS",
-  "generated_at": "2026-09-15T02:04:19.769225+00:00",
+  "generated_at": "2026-09-15T03:32:17.130676+00:00",
   "git": {
-    "current_head_sha": "36df58ed8ad345193f42a2164fbf8f5beefd42da"
+    "current_head_sha": "fdaa98a04b994b2531cf77a2076026ee6392c14f"
   },
   "non_pass_engineering_capabilities": [
     {
@@ -10,10 +10,10 @@
       "name": "Capacity / Load Evidence",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "CAPACITY_GAP",
-        "EVIDENCE_ONLY_GAP"
+        "CAPACITY_GAP"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -21,9 +21,10 @@
       "name": "Security Verification Evidence",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP"
+        "EXTERNAL_ONLY_GAP"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -31,12 +32,11 @@
       "name": "Multi-Indicator Workspace",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -46,12 +46,11 @@
       "name": "Real-Time Prices",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -61,12 +60,11 @@
       "name": "Historical Data",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -76,12 +74,11 @@
       "name": "API Data Access",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -91,11 +88,10 @@
       "name": "News Context",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -103,11 +99,10 @@
       "name": "Cross-Asset Correlation",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -115,11 +110,10 @@
       "name": "Derivatives Regime Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -127,11 +121,10 @@
       "name": "Cross-Market Decision Intelligence",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -139,11 +132,10 @@
       "name": "Security_First_Architecture",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -151,11 +143,10 @@
       "name": "API_Security_Encryption",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -163,12 +154,11 @@
       "name": "High_Availability_Architecture",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -178,12 +168,11 @@
       "name": "Infrastructure_Uptime_Shield",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -193,11 +182,10 @@
       "name": "Institutional_Data_Architecture",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -205,12 +193,11 @@
       "name": "Flexible_Connector_Microservice",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -220,11 +207,10 @@
       "name": "Institutional_API_Gateway",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -232,12 +218,11 @@
       "name": "API_Data_Pipe",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -247,12 +232,11 @@
       "name": "Developer_SDK",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -262,12 +246,11 @@
       "name": "Pro_Developer_Sandbox",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -277,11 +260,10 @@
       "name": "Unified_Portfolio_Dashboard",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -289,12 +271,11 @@
       "name": "Global_Asset_Tracker",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -304,12 +285,11 @@
       "name": "Multi_Account_Sync",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -319,11 +299,10 @@
       "name": "On_Chain_Balance_Monitor",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -331,12 +310,11 @@
       "name": "Profitability_Analyzer",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -346,11 +324,10 @@
       "name": "Margin_Risk_Calculator",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -358,11 +335,10 @@
       "name": "Risk_Management_Shield",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -370,12 +346,11 @@
       "name": "Volatility_Scoring_System",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -385,12 +360,11 @@
       "name": "Volatility_Surface_Analyzer",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -400,12 +374,11 @@
       "name": "Delta_Neutral_Calculator",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -415,11 +388,10 @@
       "name": "High_Precision_Backtesting",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -427,12 +399,11 @@
       "name": "Strategy_Vetting_Algorithm",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -442,12 +413,11 @@
       "name": "AI_Quant_Rating_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -457,11 +427,10 @@
       "name": "Sentiment_Analysis_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -469,11 +438,10 @@
       "name": "Social_Sentiment_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -481,11 +449,10 @@
       "name": "Social_Hype_Analyzer",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -493,11 +460,10 @@
       "name": "Narrative_Alert_System",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -505,12 +471,11 @@
       "name": "AI_Digest_Generator",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -520,11 +485,10 @@
       "name": "AI_Agent_Consultant",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -532,12 +496,11 @@
       "name": "Natural_Language_Interpreter",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -547,11 +510,10 @@
       "name": "Wallet_Shadowing",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -559,12 +521,11 @@
       "name": "Entity_Tagging_System",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -574,11 +535,10 @@
       "name": "Whale_Clustering_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -586,12 +546,11 @@
       "name": "Visual_Transaction_Graph",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -601,11 +560,10 @@
       "name": "Developer_Wallet_Tracker",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -613,12 +571,11 @@
       "name": "Miner_Flow_Monitor",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -628,11 +585,10 @@
       "name": "Token_Unlock_Forecaster",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -640,11 +596,10 @@
       "name": "Governance_Sentiment_Monitor",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -652,12 +607,11 @@
       "name": "Dev_Health_Score",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -667,12 +621,11 @@
       "name": "Financial_Health_Scoring",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -682,12 +635,11 @@
       "name": "Custom_Ratio_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -697,11 +649,10 @@
       "name": "Funding_Rate_Listener",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -709,11 +660,10 @@
       "name": "Funding_Arbitrage_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -721,11 +671,10 @@
       "name": "Funding_Rate_Heatmap_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -733,12 +682,11 @@
       "name": "Spread_Calculation_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -748,11 +696,10 @@
       "name": "Liquidation_Screener",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -760,11 +707,10 @@
       "name": "DEX_Liquidity_Listener",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -772,12 +718,11 @@
       "name": "Gas_Cost_Predictor",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -787,11 +732,10 @@
       "name": "Yield_Delta_Listener",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -799,11 +743,10 @@
       "name": "Yield_Arbitrage_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -811,11 +754,10 @@
       "name": "Yield_Optimization_Module",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -823,12 +765,11 @@
       "name": "Trend_Metric_Collector",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -838,12 +779,11 @@
       "name": "MTF_Core_Logic",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -853,12 +793,11 @@
       "name": "Pattern_Recognition_Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -868,11 +807,10 @@
       "name": "Prediction_Trend_Analyzer",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -880,12 +818,11 @@
       "name": "Execution_Latency_Monitor",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -895,12 +832,11 @@
       "name": "Low_Latency_Execution_Node",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -910,12 +846,11 @@
       "name": "Rust_Execution_Module",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -925,12 +860,11 @@
       "name": "Institutional_Dashboard",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -940,11 +874,10 @@
       "name": "Custom_Institutional_Data_Terminal",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -952,12 +885,11 @@
       "name": "Viral_Intelligence_Distribution_Loop",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -967,12 +899,11 @@
       "name": "Real_Time_Data_Freshness_Update_As",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -982,12 +913,11 @@
       "name": "surance",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -997,11 +927,10 @@
       "name": "Data_Source_Ingestion_Normalization_P rovenance_Reliability_Architecture",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1009,11 +938,10 @@
       "name": "Multi-Tier Data Storage",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1021,11 +949,10 @@
       "name": "Cross-Chain Liquidity Flow",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1033,11 +960,10 @@
       "name": "Liquidity/Full-Fill Feasibility",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1045,11 +971,10 @@
       "name": "Unified Arbitrage Opportunity Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1057,11 +982,10 @@
       "name": "Market/Data Drift Monitoring",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1069,11 +993,10 @@
       "name": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1081,11 +1004,10 @@
       "name": "Claims/Prediction Verification Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1093,12 +1015,11 @@
       "name": "Net-Edge Truth Score",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1108,12 +1029,11 @@
       "name": "Public Accuracy Ledger",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1123,11 +1043,10 @@
       "name": "Decision Certificate + Institutional DD Export",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1135,11 +1054,10 @@
       "name": "AI Output Provenance / Compliance Footer",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1147,11 +1065,10 @@
       "name": "End-to-End Decision Traceability",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1159,12 +1076,11 @@
       "name": "Capacity / Load Evidence",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1174,11 +1090,10 @@
       "name": "Security Verification Evidence",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1186,11 +1101,10 @@
       "name": "Chaos / Failure-Injection Resilience Testing",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1198,11 +1112,10 @@
       "name": "VWAP Deviation Index",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1210,12 +1123,11 @@
       "name": "Order Book Intelligence",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1225,12 +1137,11 @@
       "name": "Exchange Health & Certification Engine",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1240,11 +1151,10 @@
       "name": "Counterparty and Exchange Risk",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1252,12 +1162,11 @@
       "name": ". Personal Confidence Calibration",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1267,12 +1176,11 @@
       "name": "User Behavioral Learning —",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1282,12 +1190,11 @@
       "name": "Idempotency",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1297,12 +1204,11 @@
       "name": "Beginner / Professional Modes",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1312,11 +1218,10 @@
       "name": "Institutional SLA and Audit Exports",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1324,12 +1229,11 @@
       "name": "Feature Usage Analytics",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1339,11 +1243,10 @@
       "name": "Data Retention and Privacy Governance",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1351,12 +1254,11 @@
       "name": ") Stack",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1366,12 +1268,11 @@
       "name": "Data Flywheel",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1381,11 +1282,10 @@
       "name": "Sovereign Signal Registry",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1393,12 +1293,11 @@
       "name": "<br>",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1408,11 +1307,10 @@
       "name": "Asymmetric Slippage Cost",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1420,12 +1318,11 @@
       "name": "Maker/Taker Volume Net Delta",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1435,12 +1332,11 @@
       "name": "Sybil Attack Density Filter",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1450,11 +1346,10 @@
       "name": "Liquidation Cascade Proximity",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1462,11 +1357,10 @@
       "name": "Oracle Latency Deviation Buffer",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1474,11 +1368,10 @@
       "name": "Impermanent Loss Vulnerability Score",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1486,11 +1379,10 @@
       "name": "Max Drawdown Duration Lifecycle",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1498,11 +1390,10 @@
       "name": "Leverage Ratio Overhang Factor",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1510,11 +1401,10 @@
       "name": "De-Pegging Probability Index",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1522,11 +1412,10 @@
       "name": "Tail Risk Alpha Multiplier",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1534,11 +1423,10 @@
       "name": "Cross-Margin Contagion Risk Vector",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1546,11 +1434,10 @@
       "name": "Whale-to-Retail Volume Ratio",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1558,12 +1445,11 @@
       "name": "CEX Order Book Bid-Ask Skew Radar",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1573,11 +1459,10 @@
       "name": "Liquidation Volume Spike Anchors",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1585,11 +1470,10 @@
       "name": "Whale Wallet Age Acceleration Matrix",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1597,11 +1481,10 @@
       "name": "Smart Money Sentiment Alignment Core",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1609,11 +1492,10 @@
       "name": "Exchange Stablecoin Buying Power",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1621,11 +1503,10 @@
       "name": "Index",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1633,11 +1514,10 @@
       "name": "S&P 500 Financial Correlation",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1645,11 +1525,10 @@
       "name": "DXY Dollar Index Elasticity",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1657,11 +1536,10 @@
       "name": "Global Crypto Liquidity Index (GCLI)",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1669,11 +1547,10 @@
       "name": "Imbalance Delta Order Flow Tracker",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1681,11 +1558,10 @@
       "name": "Long/Short Ratio (Whales Filtered)",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1693,12 +1569,11 @@
       "name": "Volume-Velocity Tracker",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1708,11 +1583,10 @@
       "name": "Multi-Timeframe Decision Convergence",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1720,11 +1594,10 @@
       "name": ".Impermanent Loss Live Simulator",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1732,12 +1605,11 @@
       "name": ".Delta Hedging Flow Analysis",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1747,11 +1619,10 @@
       "name": "Liquidity Vacuum Spotter",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1759,11 +1630,10 @@
       "name": "Flash Loan Attack Proximity Alert: DeFi",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1771,11 +1641,10 @@
       "name": ".Exchange Insolvency Risk Scraper:",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1783,11 +1652,10 @@
       "name": ".Counterparty Risk Distribution:",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1795,12 +1663,11 @@
       "name": ".Gas Price Spike Hold-Mechanism:",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1810,12 +1677,11 @@
       "name": ".Leverage Optimization Engine:",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1825,12 +1691,11 @@
       "name": ".PnL Attributed Drift Analysis",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1840,11 +1705,10 @@
       "name": ".SaaS Multi-Tenant Database Isolation",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1852,12 +1716,11 @@
       "name": ".API Cryptographic Token Rotation:",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1867,11 +1730,10 @@
       "name": ".Automated Tax & PnL Report Exporter:",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1879,11 +1741,10 @@
       "name": ".Multi-Currency Subscription Billing",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1891,12 +1752,11 @@
       "name": "Gateway",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1906,12 +1766,11 @@
       "name": ".AI Trend Structural Break Analysis",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1921,12 +1780,11 @@
       "name": ").Volume Profile Point of Control",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1936,12 +1794,11 @@
       "name": "Tracking",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1951,12 +1808,11 @@
       "name": ".Fair Value Gap (FVG) Auto-Detector",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -1966,11 +1822,10 @@
       "name": ".Cross-Chain Bridge Volume Inflow",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1978,11 +1833,10 @@
       "name": ".Institutional Custody Asset Tracking",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -1990,11 +1844,10 @@
       "name": ".Imminent Liquidation Cluster Scanning",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -2002,11 +1855,10 @@
       "name": ".Decentralized Liquidity Pool Front-",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -2014,12 +1866,11 @@
       "name": "Running Shield:",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY",
-        "RUNTIME_NOT_WIRED"
+        "RUNTIME_NOT_WIRED",
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": [
         "GENERIC_HANDLER_FALSE_CAPABILITY_PATH"
       ]
@@ -2029,11 +1880,10 @@
       "name": ".Institutional Order Book Inefficiency",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     },
     {
@@ -2041,24 +1891,38 @@
       "name": "Exploiter",
       "engineering_status": "PARTIAL",
       "root_causes": [
-        "EVIDENCE_ONLY_GAP",
-        "TEST_COVERAGE_INCOMPLETE",
-        "STALE_TRACKER_ONLY"
+        "TEST_COVERAGE_INCOMPLETE"
       ],
-      "live_status": "LIVE_VALIDATION_PENDING",
+      "live_status": "NOT_CLAIMED",
+      "assurance_status": "NOT_STARTED",
       "phantom_flags": []
     }
   ],
   "root_cause_taxonomy_counts": {
     "CAPACITY_GAP": 1,
-    "EVIDENCE_ONLY_GAP": 154,
-    "TEST_COVERAGE_INCOMPLETE": 152,
-    "STALE_TRACKER_ONLY": 152,
-    "RUNTIME_NOT_WIRED": 66
+    "EXTERNAL_ONLY_GAP": 1,
+    "RUNTIME_NOT_WIRED": 66,
+    "TEST_COVERAGE_INCOMPLETE": 152
   },
   "phantom_detection": {
     "EVIDENCE_ONLY_GAP": 2,
     "GENERIC_HANDLER_FALSE_CAPABILITY_PATHS": 123,
     "AGGREGATE_PASS_HIDDEN_UNVERIFIED_IDS": 152
-  }
+  },
+  "semantic_correction": {
+    "provenance_classification": "POST_RECONCILIATION_ARTIFACT_ONLY_HEAD_ADVANCE",
+    "material_capability_changes_since_reconciliation": 0,
+    "prior_artifact_generation_sha": "36df58ed8ad3",
+    "corrected_at": "2026-09-15T03:32:17.130676+00:00"
+  },
+  "exclusive_taxonomy_counts": {
+    "EVIDENCE_ONLY_GAP": 0,
+    "STALE_TRACKER_ONLY": 0
+  },
+  "cap_0644_root_cause_set": [
+    "CAPACITY_GAP"
+  ],
+  "cap_0645_root_cause_set": [
+    "EXTERNAL_ONLY_GAP"
+  ]
 }
