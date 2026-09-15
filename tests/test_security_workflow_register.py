@@ -38,9 +38,13 @@ async def test_wf015_identity_impersonation(monkeypatch):
         captured["mfa"] = actor_email
         return {}
 
+    async def _allow_privilege(*_a, **_k):
+        return None
+
     monkeypatch.setattr("org_tenant.create_org", _create_org)
     monkeypatch.setattr("org_tenant.set_member_role", _set_role)
     monkeypatch.setattr("org_tenant.set_org_mfa_required", _set_mfa)
+    monkeypatch.setattr("api.routers.institutional.require_financial_privilege", _allow_privilege)
 
     auth = {"email": "Owner@Example.com"}
     await create_org(OrgCreate(name="X", owner_email="spoof@evil.com"), user=auth)
