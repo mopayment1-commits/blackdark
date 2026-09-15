@@ -87,6 +87,17 @@ def backup(*, out_dir: Path) -> Path:
     if latest.parent != out_dir:
         raise SystemExit("LATEST path escaped output directory")
     latest.write_text(str(gz.name) + "\n" + digest + "\n", encoding="utf-8")
+    try:
+        from fds_retention_incident.backup_lifecycle import record_backup_creation
+
+        record_backup_creation(
+            backup_path=str(gz),
+            policy_class="database_full",
+            sha256=digest,
+            legal_hold=bool(os.getenv("BACKUP_LEGAL_HOLD")),
+        )
+    except Exception:
+        pass
     print(f"OK backup={gz.name} sha256={digest[:16]}…")
     return gz
 
