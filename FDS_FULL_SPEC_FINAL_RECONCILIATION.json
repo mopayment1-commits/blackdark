@@ -1,0 +1,576 @@
+{
+  "verdict": "FDS_FULL_SPEC_ENGINEERING_CLOSED_WITH_PRODUCTION_EXTERNAL_VALIDATION_PENDING",
+  "generated_at": "2026-09-15T01:34:11.855613+00:00",
+  "governing_spec": {
+    "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md"
+  },
+  "git": {
+    "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c"
+  },
+  "source_closure_artifacts": [
+    {
+      "artifact": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSURE_EVIDENCE.json",
+      "present": true,
+      "verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "sha_matches_head": false,
+      "semantically_closed": true
+    },
+    {
+      "artifact": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSURE_EVIDENCE.json",
+      "present": true,
+      "verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+      "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "sha_matches_head": false,
+      "semantically_closed": true
+    },
+    {
+      "artifact": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSURE_EVIDENCE.json",
+      "present": true,
+      "verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
+      "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "sha_matches_head": false,
+      "semantically_closed": true
+    },
+    {
+      "artifact": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSURE_EVIDENCE.json",
+      "present": true,
+      "verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+      "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "sha_matches_head": false,
+      "semantically_closed": true
+    },
+    {
+      "artifact": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSURE_EVIDENCE.json",
+      "present": true,
+      "verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+      "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "sha_matches_head": false,
+      "semantically_closed": true
+    },
+    {
+      "artifact": "FDS_PRODUCTION_EXTERNAL_ASSURANCE_BOUNDARY.json",
+      "present": true,
+      "verdict": "FDS_EXTERNAL_ASSURANCE_BOUNDARY_CLOSED",
+      "artifact_sha": "d9688016e8e15963a181883b4a6d578515ba74dc",
+      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "sha_matches_head": false,
+      "semantically_closed": true
+    }
+  ],
+  "fds_controls": [
+    {
+      "control_id": "FDS-01",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": "FDS-C2 PAN boundary + hosted payment architecture",
+      "implementation_paths": [
+        "financial_data/boundary.py",
+        "payments_usd.py",
+        "billing_service.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-02",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": "FDS-C1 SAD never_store + scanner",
+      "implementation_paths": [
+        "financial_data/classification.py",
+        "financial_data/boundary.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-03",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": "provider-hosted Stripe/Lemon checkout",
+      "implementation_paths": [
+        "billing_service.py",
+        "docs/PAYMENTS_USD_SECURITY.md"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-04",
+      "status": "NOT_CURRENTLY_APPLICABLE_WITH_EVIDENCE",
+      "source_artifact": "production_external_assurance_boundary",
+      "source_verdict": "FDS_EXTERNAL_ASSURANCE_BOUNDARY_CLOSED",
+      "derivation": "no bank-linking feature on current HEAD",
+      "implementation_paths": [
+        "financial_data/classification.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": [
+        "NOT_CURRENTLY_APPLICABLE_WITH_EVIDENCE"
+      ]
+    },
+    {
+      "control_id": "FDS-05",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "financial_data/scanner.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-06",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "secrets_crypto_audit_identity",
+      "source_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "secrets_vault.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-07",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "secrets_crypto_audit_identity",
+      "source_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "secrets_crypto/secret_manager.py",
+        "secrets_crypto/kms.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-08",
+      "status": "FULLY_IMPLEMENTED_LOCAL_EXTERNAL_ATTESTATION_PENDING",
+      "source_artifact": "secrets_crypto_audit_identity",
+      "source_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "secrets_crypto/fips.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": [
+        "EXTERNAL_ATTESTATION_PENDING"
+      ]
+    },
+    {
+      "control_id": "FDS-09",
+      "status": "FULLY_IMPLEMENTED_LOCAL_PRODUCTION_VALIDATION_PENDING",
+      "source_artifact": "transport_webhook_environment",
+      "source_verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "transport_webhook_env/transport.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": [
+        "PRODUCTION_VALIDATION_PENDING"
+      ]
+    },
+    {
+      "control_id": "FDS-10",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "privileged_identity_authorization",
+      "source_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "privileged_access/operations.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-11",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "privileged_identity_authorization",
+      "source_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "privileged_access/policy.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-12",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "privileged_identity_authorization",
+      "source_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "privileged_access/step_up.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-13",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "secrets_crypto_audit_identity",
+      "source_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "secrets_crypto/service_identity.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-14",
+      "status": "FULLY_IMPLEMENTED_LOCAL_PRODUCTION_VALIDATION_PENDING",
+      "source_artifact": "transport_webhook_environment",
+      "source_verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "transport_webhook_env/environment.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": [
+        "PRODUCTION_VALIDATION_PENDING"
+      ]
+    },
+    {
+      "control_id": "FDS-15",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "financial_data/dlp.py",
+        "log_safety.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-16",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "secrets_crypto_audit_identity",
+      "source_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "secrets_crypto/audit_integrity.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-17",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "privileged_identity_authorization",
+      "source_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "privileged_access/detectors.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-18",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "scripts/financial_data_security_scan.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-19",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "transport_webhook_environment",
+      "source_verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "transport_webhook_env/webhook_lifecycle.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-20",
+      "status": "FULLY_IMPLEMENTED_LOCAL_PRODUCTION_VALIDATION_PENDING",
+      "source_artifact": "retention_incident_supply_chain",
+      "source_verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "fds_retention_incident/retention_policy.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": [
+        "PRODUCTION_VALIDATION_PENDING"
+      ]
+    },
+    {
+      "control_id": "FDS-21",
+      "status": "FULLY_IMPLEMENTED_LOCAL_PRODUCTION_VALIDATION_PENDING",
+      "source_artifact": "retention_incident_supply_chain",
+      "source_verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+      "derivation": null,
+      "implementation_paths": [
+        "fds_retention_incident/incident_playbook.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": [
+        "PRODUCTION_VALIDATION_PENDING"
+      ]
+    },
+    {
+      "control_id": "FDS-22",
+      "status": "FULLY_IMPLEMENTED_LOCAL_PRODUCTION_VALIDATION_PENDING",
+      "source_artifact": "privileged_identity_authorization",
+      "source_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "privileged_access/break_glass.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": [
+        "PRODUCTION_VALIDATION_PENDING"
+      ]
+    },
+    {
+      "control_id": "FDS-23",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "privileged_identity_authorization",
+      "source_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "privileged_access/access_review.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-24",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "financial_data/boundary.py",
+        "oracle_data_hub.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    },
+    {
+      "control_id": "FDS-25",
+      "status": "FULLY_IMPLEMENTED_VERIFIED_LOCAL",
+      "source_artifact": "security_governance_data_boundary",
+      "source_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+      "derivation": null,
+      "implementation_paths": [
+        "scripts/fds_security_governance_data_boundary_closure_verify.py"
+      ],
+      "implementation_present": true,
+      "missing_paths": [],
+      "production_pending_types": []
+    }
+  ],
+  "sdg_detail_accounting": {
+    "expected": [
+      "SDG-01",
+      "SDG-03",
+      "SDG-04",
+      "SDG-05",
+      "SDG-06",
+      "SDG-07",
+      "SDG-08",
+      "SDG-09",
+      "SDG-10",
+      "SDG-11",
+      "SDG-12",
+      "SDG-13",
+      "SDG-14",
+      "SDG-15",
+      "SDG-16",
+      "SDG-17",
+      "SDG-18"
+    ],
+    "accounted": {
+      "SDG-01": {
+        "source_artifact": "security_governance_data_boundary",
+        "verified": true,
+        "artifact_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED"
+      },
+      "SDG-08": {
+        "source_artifact": "security_governance_data_boundary",
+        "verified": true,
+        "artifact_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED"
+      },
+      "SDG-10": {
+        "source_artifact": "security_governance_data_boundary",
+        "verified": true,
+        "artifact_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED"
+      },
+      "SDG-12": {
+        "source_artifact": "security_governance_data_boundary",
+        "verified": true,
+        "artifact_verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED"
+      },
+      "SDG-06": {
+        "source_artifact": "privileged_identity_authorization",
+        "verified": null,
+        "artifact_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED"
+      },
+      "SDG-07": {
+        "source_artifact": "privileged_identity_authorization",
+        "verified": null,
+        "artifact_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED"
+      },
+      "SDG-09": {
+        "source_artifact": "privileged_identity_authorization",
+        "verified": null,
+        "artifact_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED"
+      },
+      "SDG-14": {
+        "source_artifact": "privileged_identity_authorization",
+        "verified": null,
+        "artifact_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED"
+      },
+      "SDG-18": {
+        "source_artifact": "privileged_identity_authorization",
+        "verified": null,
+        "artifact_verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED"
+      },
+      "SDG-03": {
+        "source_artifact": "secrets_crypto_audit_identity",
+        "verified": null,
+        "artifact_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING"
+      },
+      "SDG-04": {
+        "source_artifact": "secrets_crypto_audit_identity",
+        "verified": null,
+        "artifact_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING"
+      },
+      "SDG-05": {
+        "source_artifact": "secrets_crypto_audit_identity",
+        "verified": null,
+        "artifact_verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING"
+      },
+      "SDG-11": {
+        "source_artifact": "transport_webhook_environment",
+        "verified": null,
+        "artifact_verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING"
+      },
+      "SDG-13": {
+        "source_artifact": "transport_webhook_environment",
+        "verified": null,
+        "artifact_verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING"
+      },
+      "SDG-15": {
+        "source_artifact": "retention_incident_supply_chain",
+        "verified": null,
+        "artifact_verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING"
+      },
+      "SDG-16": {
+        "source_artifact": "retention_incident_supply_chain",
+        "verified": null,
+        "artifact_verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING"
+      },
+      "SDG-17": {
+        "source_artifact": "retention_incident_supply_chain",
+        "verified": null,
+        "artifact_verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING"
+      }
+    },
+    "unaccounted": [],
+    "local_gaps": []
+  },
+  "production_external_assurance": {
+    "artifact": "FDS_PRODUCTION_EXTERNAL_ASSURANCE_BOUNDARY.json",
+    "verdict": "FDS_EXTERNAL_ASSURANCE_BOUNDARY_CLOSED",
+    "summary": {
+      "EXTERNAL_ITEMS_REVIEWED": 18,
+      "LOCAL_ENGINEERING_COMPLETE_ITEMS": 18,
+      "GENUINE_PRODUCTION_VALIDATION_PENDING": 16,
+      "GENUINE_EXTERNAL_ATTESTATION_PENDING": 1,
+      "NOT_CURRENTLY_APPLICABLE_WITH_EVIDENCE": 1,
+      "MISCLASSIFIED_EXTERNAL_ITEMS": 0,
+      "LOCAL_GAPS_HIDDEN_AS_EXTERNAL": 0,
+      "UNSPECIFIED_EXTERNAL_EVIDENCE_REQUIREMENTS": 0,
+      "FALSE_COMPLIANCE_CLAIMS": 0,
+      "STALE_EXTERNAL_EVIDENCE": 0,
+      "PREVIOUS_FDS_PHASE_REGRESSION_FAILURES": 0,
+      "REGRESSION_FAILURES": 0
+    }
+  },
+  "consistency_checks": {
+    "STALE_EVIDENCE": 0,
+    "MISSING_IMPLEMENTATION_FROM_CURRENT_HEAD": 0,
+    "CLOSURE_ARTIFACT_HEAD_MISMATCHES": 6,
+    "EVIDENCE_CONTRADICTIONS": 0,
+    "LOCAL_GAPS_HIDDEN_AS_EXTERNAL": 0,
+    "MISCLASSIFIED_EXTERNAL_ITEMS": 0
+  },
+  "summary": {
+    "TOTAL_FDS_ACCEPTANCE_CONTROLS": 25,
+    "ACCOUNTED_FOR": 25,
+    "FULLY_IMPLEMENTED_VERIFIED_LOCAL": 18,
+    "FULLY_IMPLEMENTED_LOCAL_PRODUCTION_VALIDATION_PENDING": 5,
+    "FULLY_IMPLEMENTED_LOCAL_EXTERNAL_ATTESTATION_PENDING": 1,
+    "NOT_CURRENTLY_APPLICABLE_WITH_EVIDENCE": 1,
+    "PARTIALLY_IMPLEMENTED_LOCAL": 0,
+    "UNIMPLEMENTED_LOCAL": 0,
+    "UNVERIFIED_LOCAL": 0,
+    "LOCALLY_BUILDABLE_REMAINING": 0,
+    "SPEC_DETAIL_LOCAL_GAPS": 0,
+    "UNACCOUNTED_SPEC_DETAIL_REQUIREMENTS": 0,
+    "STALE_EVIDENCE": 0,
+    "MISSING_IMPLEMENTATION_FROM_CURRENT_HEAD": 0,
+    "CLOSURE_ARTIFACT_HEAD_MISMATCHES": 6,
+    "EVIDENCE_CONTRADICTIONS": 0,
+    "LOCAL_GAPS_HIDDEN_AS_EXTERNAL": 0,
+    "MISCLASSIFIED_EXTERNAL_ITEMS": 0,
+    "PRODUCTION_VALIDATION_PENDING": 5,
+    "EXTERNAL_ATTESTATION_PENDING": 1,
+    "SOURCE_REQUIREMENTS_ACCOUNTED_FOR_PCT": 100.0,
+    "PASS_FDS_ENGINEERING": true,
+    "READY_FOR_INTENDED_LOCAL_USE": true,
+    "PASS_PRODUCTION_NOT_CLAIMED": true
+  }
+}
