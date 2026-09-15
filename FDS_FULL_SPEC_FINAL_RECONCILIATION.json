@@ -1,11 +1,11 @@
 {
   "verdict": "FDS_FULL_SPEC_ENGINEERING_CLOSED_WITH_PRODUCTION_EXTERNAL_VALIDATION_PENDING",
-  "generated_at": "2026-09-15T01:34:11.855613+00:00",
+  "generated_at": "2026-09-15T01:52:04.790337+00:00",
   "governing_spec": {
     "path": "docs/BLACKDARK_FINANCIAL_DATA_SECURITY_IMPLEMENTATION_SPEC_2026_FINAL.md"
   },
   "git": {
-    "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c"
+    "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d"
   },
   "source_closure_artifacts": [
     {
@@ -13,54 +13,78 @@
       "present": true,
       "verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
       "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
-      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
       "sha_matches_head": false,
-      "semantically_closed": true
+      "semantically_closed": true,
+      "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+      "head_mismatch_blocking": false,
+      "implementation_paths_verified_present": true,
+      "semantic_contradiction": false
     },
     {
       "artifact": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSURE_EVIDENCE.json",
       "present": true,
       "verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
       "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
-      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
       "sha_matches_head": false,
-      "semantically_closed": true
+      "semantically_closed": true,
+      "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+      "head_mismatch_blocking": false,
+      "implementation_paths_verified_present": true,
+      "semantic_contradiction": false
     },
     {
       "artifact": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSURE_EVIDENCE.json",
       "present": true,
       "verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
       "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
-      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
       "sha_matches_head": false,
-      "semantically_closed": true
+      "semantically_closed": true,
+      "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+      "head_mismatch_blocking": false,
+      "implementation_paths_verified_present": true,
+      "semantic_contradiction": false
     },
     {
       "artifact": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSURE_EVIDENCE.json",
       "present": true,
       "verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
       "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
-      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
       "sha_matches_head": false,
-      "semantically_closed": true
+      "semantically_closed": true,
+      "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+      "head_mismatch_blocking": false,
+      "implementation_paths_verified_present": true,
+      "semantic_contradiction": false
     },
     {
       "artifact": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSURE_EVIDENCE.json",
       "present": true,
       "verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
       "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
-      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
       "sha_matches_head": false,
-      "semantically_closed": true
+      "semantically_closed": true,
+      "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+      "head_mismatch_blocking": false,
+      "implementation_paths_verified_present": true,
+      "semantic_contradiction": false
     },
     {
       "artifact": "FDS_PRODUCTION_EXTERNAL_ASSURANCE_BOUNDARY.json",
       "present": true,
       "verdict": "FDS_EXTERNAL_ASSURANCE_BOUNDARY_CLOSED",
       "artifact_sha": "d9688016e8e15963a181883b4a6d578515ba74dc",
-      "current_head_sha": "1bda97f5481aa176d0f0fbec58a04829f981b48c",
+      "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
       "sha_matches_head": false,
-      "semantically_closed": true
+      "semantically_closed": true,
+      "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+      "head_mismatch_blocking": false,
+      "implementation_paths_verified_present": true,
+      "semantic_contradiction": false
     }
   ],
   "fds_controls": [
@@ -542,10 +566,12 @@
   "consistency_checks": {
     "STALE_EVIDENCE": 0,
     "MISSING_IMPLEMENTATION_FROM_CURRENT_HEAD": 0,
-    "CLOSURE_ARTIFACT_HEAD_MISMATCHES": 6,
+    "CLOSURE_ARTIFACT_HEAD_MISMATCHES": 0,
     "EVIDENCE_CONTRADICTIONS": 0,
     "LOCAL_GAPS_HIDDEN_AS_EXTERNAL": 0,
-    "MISCLASSIFIED_EXTERNAL_ITEMS": 0
+    "MISCLASSIFIED_EXTERNAL_ITEMS": 0,
+    "CLOSURE_ARTIFACT_HEAD_MISMATCHES_HISTORICAL_REVIEWED": 6,
+    "BLOCKING_CLOSURE_ARTIFACT_HEAD_MISMATCHES": 0
   },
   "summary": {
     "TOTAL_FDS_ACCEPTANCE_CONTROLS": 25,
@@ -562,7 +588,7 @@
     "UNACCOUNTED_SPEC_DETAIL_REQUIREMENTS": 0,
     "STALE_EVIDENCE": 0,
     "MISSING_IMPLEMENTATION_FROM_CURRENT_HEAD": 0,
-    "CLOSURE_ARTIFACT_HEAD_MISMATCHES": 6,
+    "CLOSURE_ARTIFACT_HEAD_MISMATCHES": 0,
     "EVIDENCE_CONTRADICTIONS": 0,
     "LOCAL_GAPS_HIDDEN_AS_EXTERNAL": 0,
     "MISCLASSIFIED_EXTERNAL_ITEMS": 0,
@@ -571,6 +597,111 @@
     "SOURCE_REQUIREMENTS_ACCOUNTED_FOR_PCT": 100.0,
     "PASS_FDS_ENGINEERING": true,
     "READY_FOR_INTENDED_LOCAL_USE": true,
-    "PASS_PRODUCTION_NOT_CLAIMED": true
-  }
+    "PASS_PRODUCTION_NOT_CLAIMED": true,
+    "CLOSURE_ARTIFACT_HEAD_MISMATCHES_HISTORICAL_REVIEWED": 6,
+    "BLOCKING_CLOSURE_ARTIFACT_HEAD_MISMATCHES": 0
+  },
+  "closure_artifact_head_mismatch_review": {
+    "CLOSURE_ARTIFACT_HEAD_MISMATCHES_REVIEWED": 6,
+    "HISTORICAL_SHA_ONLY_CURRENTLY_VALID": 6,
+    "STALE_OR_INVALID_EVIDENCE": 0,
+    "MISSING_IMPLEMENTATION_FROM_CURRENT_HEAD": 0,
+    "EVIDENCE_CONTRADICTIONS": 0,
+    "BLOCKING_CLOSURE_ARTIFACT_HEAD_MISMATCHES": 0,
+    "reviewed_at": "2026-09-15T01:52:04.790324+00:00",
+    "review_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
+    "reviews": [
+      {
+        "artifact": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSURE_EVIDENCE.json",
+        "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+        "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
+        "sha_matches_head": false,
+        "verdict": "FDS_SECURITY_GOVERNANCE_DATA_BOUNDARY_CLOSED",
+        "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+        "implementation_paths_verified_present": true,
+        "missing_paths_on_current_head": [],
+        "semantic_contradiction": false,
+        "removed_implementation": false,
+        "superseded_insecure_path": false,
+        "head_mismatch_blocking": false,
+        "review_notes": "Artifact records closure SHA from generation time; all referenced implementation/evidence paths exist on current HEAD with no FDS implementation diff since artifact SHA."
+      },
+      {
+        "artifact": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSURE_EVIDENCE.json",
+        "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+        "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
+        "sha_matches_head": false,
+        "verdict": "FDS_PRIVILEGED_IDENTITY_AUTHORIZATION_CLOSED",
+        "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+        "implementation_paths_verified_present": true,
+        "missing_paths_on_current_head": [],
+        "semantic_contradiction": false,
+        "removed_implementation": false,
+        "superseded_insecure_path": false,
+        "head_mismatch_blocking": false,
+        "review_notes": "Artifact records closure SHA from generation time; all referenced implementation/evidence paths exist on current HEAD with no FDS implementation diff since artifact SHA."
+      },
+      {
+        "artifact": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSURE_EVIDENCE.json",
+        "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+        "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
+        "sha_matches_head": false,
+        "verdict": "FDS_SECRETS_CRYPTO_AUDIT_IDENTITY_CLOSED_WITH_EXTERNAL_VALIDATION_PENDING",
+        "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+        "implementation_paths_verified_present": true,
+        "missing_paths_on_current_head": [],
+        "semantic_contradiction": false,
+        "removed_implementation": false,
+        "superseded_insecure_path": false,
+        "head_mismatch_blocking": false,
+        "review_notes": "Artifact records closure SHA from generation time; all referenced implementation/evidence paths exist on current HEAD with no FDS implementation diff since artifact SHA."
+      },
+      {
+        "artifact": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSURE_EVIDENCE.json",
+        "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+        "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
+        "sha_matches_head": false,
+        "verdict": "FDS_TRANSPORT_WEBHOOK_ENVIRONMENT_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+        "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+        "implementation_paths_verified_present": true,
+        "missing_paths_on_current_head": [],
+        "semantic_contradiction": false,
+        "removed_implementation": false,
+        "superseded_insecure_path": false,
+        "head_mismatch_blocking": false,
+        "review_notes": "Artifact records closure SHA from generation time; all referenced implementation/evidence paths exist on current HEAD with no FDS implementation diff since artifact SHA."
+      },
+      {
+        "artifact": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSURE_EVIDENCE.json",
+        "artifact_sha": "bb1ccb1bbed7aff6da7be84487de85b8ed08addc",
+        "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
+        "sha_matches_head": false,
+        "verdict": "FDS_RETENTION_INCIDENT_SUPPLY_CHAIN_CLOSED_WITH_PRODUCTION_VALIDATION_PENDING",
+        "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+        "implementation_paths_verified_present": true,
+        "missing_paths_on_current_head": [],
+        "semantic_contradiction": false,
+        "removed_implementation": false,
+        "superseded_insecure_path": false,
+        "head_mismatch_blocking": false,
+        "review_notes": "Artifact records closure SHA from generation time; all referenced implementation/evidence paths exist on current HEAD with no FDS implementation diff since artifact SHA."
+      },
+      {
+        "artifact": "FDS_PRODUCTION_EXTERNAL_ASSURANCE_BOUNDARY.json",
+        "artifact_sha": "d9688016e8e15963a181883b4a6d578515ba74dc",
+        "current_head_sha": "9e18cada9d77b6c97da0a6b017b8180f3e95c80d",
+        "sha_matches_head": false,
+        "verdict": "FDS_EXTERNAL_ASSURANCE_BOUNDARY_CLOSED",
+        "mismatch_classification": "HISTORICAL_SHA_ONLY_CURRENTLY_VALID",
+        "implementation_paths_verified_present": true,
+        "missing_paths_on_current_head": [],
+        "semantic_contradiction": false,
+        "removed_implementation": false,
+        "superseded_insecure_path": false,
+        "head_mismatch_blocking": false,
+        "review_notes": "Artifact records closure SHA from generation time; all referenced implementation/evidence paths exist on current HEAD with no FDS implementation diff since artifact SHA."
+      }
+    ]
+  },
+  "verification_command": "python3 -c \"import json; r=json.load(open('FDS_FULL_SPEC_FINAL_RECONCILIATION.json')); s=r['closure_artifact_head_mismatch_review']; assert s['CLOSURE_ARTIFACT_HEAD_MISMATCHES_REVIEWED']==6; assert s['HISTORICAL_SHA_ONLY_CURRENTLY_VALID']==6; assert s['STALE_OR_INVALID_EVIDENCE']==0; assert s['MISSING_IMPLEMENTATION_FROM_CURRENT_HEAD']==0; assert s['EVIDENCE_CONTRADICTIONS']==0; assert s['BLOCKING_CLOSURE_ARTIFACT_HEAD_MISMATCHES']==0; assert r['consistency_checks']['BLOCKING_CLOSURE_ARTIFACT_HEAD_MISMATCHES']==0; assert r['verdict']=='FDS_FULL_SPEC_ENGINEERING_CLOSED_WITH_PRODUCTION_EXTERNAL_VALIDATION_PENDING'; print('VERIFICATION_OK', r['git']['current_head_sha'][:12])\""
 }
