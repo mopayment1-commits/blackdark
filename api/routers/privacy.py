@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Body, Depends, HTTPException
 
-from security_auth import require_authenticated
-
 from api.openapi_responses import COMMON_ERROR_RESPONSES
+from privileged_access.deps import financial_privilege_dep
+from privileged_access.operations import ProtectedOperation
 
 router = APIRouter(prefix="/api/privacy", tags=["privacy"], responses=COMMON_ERROR_RESPONSES)
 
@@ -19,7 +19,9 @@ async def privacy_status():
 
 
 @router.post("/dsr/export", responses=COMMON_ERROR_RESPONSES)
-async def dsr_export(user: dict = Depends(require_authenticated)):
+async def dsr_export(
+    user: dict = Depends(financial_privilege_dep(ProtectedOperation.PRIVACY_DSR_EXPORT)),
+):
     """Authenticated user exports their own data (GDPR Art. 15/20)."""
     from gdpr_service import export_user_data
 
@@ -31,7 +33,7 @@ async def dsr_export(user: dict = Depends(require_authenticated)):
 
 @router.post("/dsr/erase", responses=COMMON_ERROR_RESPONSES)
 async def dsr_erase(
-    user: dict = Depends(require_authenticated),
+    user: dict = Depends(financial_privilege_dep(ProtectedOperation.PRIVACY_DSR_ERASE)),
     body: dict = Body(default={}),
 ):
     """Authenticated user requests erasure (GDPR Art. 17)."""

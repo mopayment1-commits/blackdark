@@ -1,5 +1,14 @@
 # Environment / configuration matrix (authoritative excerpt)
 
+## Config precedence (authoritative order)
+
+1. **Platform secret manager / `*_FILE` pointers** (highest) — e.g. `ADMIN_API_KEY_FILE`, Railway injected secrets.
+2. **Process environment** (`os.environ`) — runtime overrides from Railway/k8s/Docker.
+3. **`.env` local file** (development only; never committed).
+4. **Documented safe defaults** in `config.py` — must not be insecure in strict production (`production_guard`).
+
+No silent fallback to dev/test values in `ENV=production`. Missing required production keys fail closed via `production_guard.enforce_production_guard`.
+
 | VARIABLE | PURPOSE | REQUIRED IN PROD? | DEFAULT | SECRET? | FAILURE BEHAVIOR |
 |---|---|---|---|---|---|
 | `ENV` / `APP_ENV` / `ENVIRONMENT` | Environment mode | Yes | unset | No | Production guards inactive if unset |

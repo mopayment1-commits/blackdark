@@ -86,6 +86,10 @@ def project_decision_product(
 
     out["todays_decision_surface"] = build_decision_surface(out, lang=lang)
     out["product_experience"] = product
+
+    from decision_truth.cross_cutting import apply_cross_cutting_delivery
+
+    out = apply_cross_cutting_delivery(out, lang=lang, user_timezone=user_timezone)
     return out
 
 

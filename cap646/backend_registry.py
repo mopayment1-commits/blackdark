@@ -541,7 +541,7 @@ def resolve_semantic_backend_binding(capability_id: int) -> BackendBinding:
         return BackendBinding(capability_id, mod, ep, surface, ps, src)
     if capability_id in _SEMANTIC_BACKEND_BINDINGS:
         return _SEMANTIC_BACKEND_BINDINGS[capability_id]
-    if 647 <= capability_id <= 826:
+    if 647 <= capability_id <= 978:
         from cap978.extension_registry import resolve_extension_binding
 
         return resolve_extension_binding(capability_id)

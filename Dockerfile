@@ -31,6 +31,8 @@ COPY rvm/ rvm/
 COPY repos/ repos/
 COPY bd_platform/ bd_platform/
 COPY billing/ billing/
+COPY transport_webhook_env/ transport_webhook_env/
+COPY ops/ ops/
 COPY ml/ ml/
 COPY microservices/ microservices/
 COPY dbt_blackdark/ dbt_blackdark/

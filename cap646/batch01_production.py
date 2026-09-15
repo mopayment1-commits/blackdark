@@ -23,25 +23,19 @@ LEGACY_BATCH01_EXTENSION_IDS: frozenset[int] = frozenset(
         214,
         245,
         584,
-        629,
-        630,
-        631,
-        642,
-        644,
-        646,
     }
 )
 
 BATCH01_IDS: frozenset[int] = OFFICIAL_BATCH01_IDS | LEGACY_BATCH01_EXTENSION_IDS
 
 _BATCH01_FREE_TIER = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45})
-_BATCH01_ALERTS = frozenset({60, 629, 245})
+_BATCH01_ALERTS = frozenset({60, 245})
 _BATCH01_MARKET = frozenset({47, 129, 214})
 _BATCH01_DERIVATIVES = frozenset({48, 49})
-_BATCH01_DATA = frozenset({630, 631})
-_BATCH01_AI = frozenset({175, 34, 59, 642})
+_BATCH01_DATA: frozenset[int] = frozenset()
+_BATCH01_AI = frozenset({175, 34, 59})
 _BATCH01_ONCHAIN = frozenset({5})
-_BATCH01_INSTITUTIONAL = frozenset({103, 644, 646})
+_BATCH01_INSTITUTIONAL = frozenset({103})
 _BATCH01_VERIFIED = frozenset({49})
 
 
