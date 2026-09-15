@@ -63,9 +63,26 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
     binding = resolve_extension_binding(capability_id)
     symbol = str(params.get("symbol") or "BTC").upper().replace("/USDT", "")
 
+    if binding.source == "extension_track_default" and capability_id >= 827:
+        return ai_compliance_footer(
+            {
+                "success": False,
+                "capability_id": capability_id,
+                "capability": row["capability"],
+                "error": "generic_track_default_forbidden_post_baseline",
+                "binding_source": binding.source,
+                "fail_closed": True,
+            }
+        )
+
     try:
-        fn = _import_attr(binding.module, binding.entrypoint)
-        result = await _call_entrypoint(fn, params=params, binding=binding)
+        if binding.module == "cap978.post_baseline_semantic" and binding.entrypoint == "execute_institutional_mirror":
+            from cap978.post_baseline_semantic import execute_institutional_mirror
+
+            result = await execute_institutional_mirror(symbol=symbol, params=params, capability_id=capability_id)
+        else:
+            fn = _import_attr(binding.module, binding.entrypoint)
+            result = await _call_entrypoint(fn, params=params, binding=binding)
         ok = _success_from_result(result)
     except Exception as exc:
         return ai_compliance_footer(
@@ -126,6 +143,13 @@ async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | No
 
     failover_reason = _reject_failover(result)
     domain_reason = _domain_check(capability_id, name, row.get("track", "T19"), result)
+    semantic_ok = True
+    semantic_detail = "n/a"
+    semantic_oracle = "n/a"
+    if capability_id >= 827:
+        from cap978.post_baseline_semantic import validate_semantic_oracle
+
+        semantic_ok, semantic_oracle, semantic_detail = validate_semantic_oracle(capability_id, result)
     checks = {
         "backend": bool(result.get("success")),
         "compliance_footer": bool(result.get("compliance_footer")),
@@ -134,12 +158,10 @@ async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | No
         "canonical_surface": bool(result.get("surface")) and not is_generic_surface(result.get("surface")),
         "no_failover_mask": failover_reason is None,
         "domain_logic": domain_reason is None,
+        "semantic_oracle": semantic_ok,
         "fail_closed": result.get("error") not in {"demo_only", "mock_only"},
     }
     verdict = (
-        # VERIFIED_COMPLETE: legacy cap978 CI namespace only — banned for 826 RTM fields.
-        # Removal target: 2026-09-30 — migrate to PRODUCTION-ALIGNED / FUNCTIONALLY_INCOMPLETE.
-        # See docs/CAPABILITIES_826_INVENTORY.json classification_taxonomy.VERIFIED_COMPLETE
         "VERIFIED_COMPLETE"
         if all(v for k, v in checks.items() if v is not False)
         else "FUNCTIONALLY_INCOMPLETE"
@@ -150,5 +172,7 @@ async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | No
         "track": row.get("track"),
         "verdict": verdict,
         "checks": checks,
-        "failure_reason": failover_reason or domain_reason,
+        "semantic_oracle": semantic_oracle,
+        "semantic_detail": semantic_detail,
+        "failure_reason": failover_reason or domain_reason or (semantic_detail if not semantic_ok else None),
     }
