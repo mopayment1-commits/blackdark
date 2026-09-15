@@ -719,6 +719,16 @@ async def _ensure_billing_subscription_tables(db: Any) -> None:
             ON subscription_accounts (current_period_end)
         """
     )
+    await _ensure_missing_columns(
+        db,
+        "subscription_accounts",
+        (
+            (
+                "last_provider_event_created",
+                "ALTER TABLE subscription_accounts ADD COLUMN last_provider_event_created INTEGER",
+            ),
+        ),
+    )
     await db.execute(
         """
         CREATE TABLE IF NOT EXISTS billing_payment_events (

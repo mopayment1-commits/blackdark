@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Body, Depends
 
+from privileged_access.deps import financial_privilege_dep
+from privileged_access.operations import ProtectedOperation
 from security_auth import require_whale
 from security_models import UserApiKeyBody
 
@@ -11,7 +13,10 @@ router = APIRouter(prefix="/api/user", tags=["user"])
 
 
 @router.post("/exchange-keys")
-async def store_exchange_keys(body: UserApiKeyBody, user: dict = Depends(require_whale)):
+async def store_exchange_keys(
+    body: UserApiKeyBody,
+    user: dict = Depends(financial_privilege_dep(ProtectedOperation.USER_EXCHANGE_KEYS_STORE)),
+):
     from user_keys_service import store_user_exchange_keys
 
     return await store_user_exchange_keys(
@@ -27,7 +32,10 @@ async def list_exchange_keys(user: dict = Depends(require_whale)):
 
 
 @router.delete("/exchange-keys/{exchange}")
-async def delete_exchange_keys(exchange: str, user: dict = Depends(require_whale)):
+async def delete_exchange_keys(
+    exchange: str,
+    user: dict = Depends(financial_privilege_dep(ProtectedOperation.USER_EXCHANGE_KEYS_DELETE)),
+):
     from user_keys_service import remove_user_exchange_keys
 
     return await remove_user_exchange_keys(int(user["id"]), exchange)

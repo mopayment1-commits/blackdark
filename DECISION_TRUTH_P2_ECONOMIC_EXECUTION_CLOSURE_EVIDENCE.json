@@ -1,10 +1,10 @@
 {
   "phase": "P2_ECONOMIC_EXECUTION_TRUTH",
-  "verified_at_utc": "2026-09-14T21:24:32Z",
+  "verified_at_utc": "2026-09-14T22:02:37Z",
   "governing_spec": "BLACKDARK_DECISION_TRUTH_SYSTEM_INSTITUTIONAL_FINAL_v1.md",
   "governing_spec_sha256": "9355e35fbd3da913d1d0db459c6a669dd91412a9c8f425c217830e1a2bc3fbd0",
-  "base_sha": "7d5088d180541e81bb1621c4d648510ceef26512",
-  "implementation_sha": "7d5088d180541e81bb1621c4d648510ceef26512",
+  "base_sha": "0fd3f3ccc3daa010f7f9a1ef59cf46f4768ad0ae",
+  "implementation_sha": "0fd3f3ccc3daa010f7f9a1ef59cf46f4768ad0ae",
   "dts_ids_covered": [
     "DTS-006",
     "DTS-009",

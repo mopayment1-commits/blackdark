@@ -19,4 +19,15 @@ def retention_for(data_class: str) -> dict[str, Any]:
 
 
 def retention_status() -> dict[str, Any]:
-    return {"policies": RETENTION_POLICY, "tiering_pass": True}
+    try:
+        from fds_retention_incident.retention_policy import financial_retention_matrix
+
+        fds_financial = financial_retention_matrix()
+    except Exception:
+        fds_financial = []
+    return {
+        "policies": RETENTION_POLICY,
+        "fds_financial_retention": fds_financial,
+        "fds_authority": "fds_retention_incident/retention_policy.py",
+        "tiering_pass": True,
+    }
