@@ -1,6 +1,6 @@
 # BLACKDARK — Production Readiness Final Report
 
-Generated: 2026-09-15T16:16:24.864072+00:00
+Generated: 2026-09-15T16:17:40.859850+00:00
 
 ## 1. Executive verdict
 
@@ -12,9 +12,9 @@ REAL_MONEY_EXECUTION_PERFORMED = false
 ## 2. Baseline / tested SHA
 
 - PRODUCTION_READINESS_BASELINE_BRANCH = `cursor/production-readiness-closure-358c`
-- PRODUCTION_READINESS_BASELINE_SHA = `99c42c83b7ee88ee3ae82bee0235d37100d06b15`
-- CURRENT_HEAD_SHA = `99c42c83b7ee88ee3ae82bee0235d37100d06b15`
-- FINAL_PRODUCTION_READINESS_TESTED_SHA = `99c42c83b7ee88ee3ae82bee0235d37100d06b15`
+- PRODUCTION_READINESS_BASELINE_SHA = `8b1a8dd1c77d441e73cd23bd039f1e83e68f2aec`
+- CURRENT_HEAD_SHA = `c2c03c3932c7f80d80bd742c2dbaed2b6adfca3a`
+- FINAL_PRODUCTION_READINESS_TESTED_SHA = `c2c03c3932c7f80d80bd742c2dbaed2b6adfca3a`
 - WORKTREE_DIRTY = true
 - BASELINE_AMBIGUITY = false
 
@@ -193,7 +193,7 @@ Remediation applied during this closure run:
   "CRITICAL_WORKLOADS_PERFORMANCE_TESTED": 10,
   "CROSS_ENV_SECRET_REUSE_GAPS": 0,
   "CSRF_PRODUCTION_GAPS": 0,
-  "CURRENT_HEAD_SHA": "99c42c83b7ee88ee3ae82bee0235d37100d06b15",
+  "CURRENT_HEAD_SHA": "c2c03c3932c7f80d80bd742c2dbaed2b6adfca3a",
   "DATABASES_REVIEWED": 1,
   "DEBUG_OR_DEV_PRODUCTION_EXPOSURE": 0,
   "DELETION_PROPAGATION_GAPS": 0,
@@ -223,7 +223,7 @@ Remediation applied during this closure run:
   "EXTERNAL_OR_HUMAN_EXERCISE_PENDING": 4,
   "FALSE_SLO_EVIDENCE_PATHS": 0,
   "FINAL_CANONICAL_DISTINCT_CAPABILITIES": 932,
-  "FINAL_PRODUCTION_READINESS_TESTED_SHA": "99c42c83b7ee88ee3ae82bee0235d37100d06b15",
+  "FINAL_PRODUCTION_READINESS_TESTED_SHA": "c2c03c3932c7f80d80bd742c2dbaed2b6adfca3a",
   "FRONTEND_PRODUCTION_GAPS": 0,
   "GENUINE_LIVE_VALIDATION_PENDING": 3,
   "GRACEFUL_TERMINATION_GAPS": 0,
@@ -264,7 +264,7 @@ Remediation applied during this closure run:
   "POISON_MESSAGE_GAPS": 0,
   "PRODUCTION_PRIVACY_GAPS": 0,
   "PRODUCTION_READINESS_BASELINE_BRANCH": "cursor/production-readiness-closure-358c",
-  "PRODUCTION_READINESS_BASELINE_SHA": "99c42c83b7ee88ee3ae82bee0235d37100d06b15",
+  "PRODUCTION_READINESS_BASELINE_SHA": "8b1a8dd1c77d441e73cd23bd039f1e83e68f2aec",
   "PRODUCTION_SECURITY_BYPASS_PATHS": 0,
   "PRODUCTION_USING_DEV_DEFAULTS": 0,
   "PR_INDEPENDENT_VERIFIER_SELF_REFERENCE": 0,
@@ -346,6 +346,7 @@ Remediation applied during this closure run:
     "data/models/regime/training_status.json",
     "data/training/labeled_oracle_dataset.parquet",
     "docs/data-room/sbom/cyclonedx-python.json",
+    "scripts/production_readiness_closure.py",
     "data/access_review_evidence.jsonl",
     "data/address_balance_snapshots.jsonl",
     "data/backup_lifecycle_evidence.jsonl",
@@ -369,8 +370,7 @@ Remediation applied during this closure run:
     "data/models/oracle_direction_ens20260914_1418.joblib",
     "data/models/oracle_direction_ens20260914_2026.joblib",
     "data/models/oracle_direction_ens20260914_2030.joblib",
-    "data/models/oracle_direction_ens20260914_2056.joblib",
-    "data/models/oracle_direction_ens20260914_2120.joblib"
+    "data/models/oracle_direction_ens20260914_2056.joblib"
   ],
   "UNCONTROLLED_ENVIRONMENT_OVERRIDES": 0,
   "UNMERGED_MATERIAL_BRANCHES": [],
@@ -388,7 +388,7 @@ Remediation applied during this closure run:
   "VERSION_SKEW_GAPS": 0,
   "WORKER_RESTART_GAPS": 0,
   "WORKTREE_DIRTY": true,
-  "generated_at": "2026-09-15T16:16:24.864072+00:00"
+  "generated_at": "2026-09-15T16:17:40.859850+00:00"
 }
 ```
 

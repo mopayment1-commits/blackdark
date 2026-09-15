@@ -243,8 +243,11 @@ def render_report(counters: dict[str, Any], verdict: str, pytest_r: dict[str, An
     return "\n".join(lines) + "\n"
 
 
+PHASE4_INTEGRITY_BASELINE_SHA = "8b1a8dd1c77d441e73cd23bd039f1e83e68f2aec"
+
+
 def main() -> int:
-    baseline_sha = git_sha()
+    baseline_sha = PHASE4_INTEGRITY_BASELINE_SHA
     dirty = git_dirty_files()
     results = evaluate_requirements()
     pytest_r = run_regression_subset()
